@@ -1,0 +1,18 @@
+Processing Overview for Blender Guru
+============================
+Checking Blender Guru/18 Ways to Speed Up Blender Cycles Rendering.txt
+1. **Animation Considerations**: When animating, every frame is rendered multiple times compared to a still image, so optimizing your scene can significantly reduce rendering time. A two-minute animation could take up to two months if not optimized, whereas optimizations can potentially cut that down to just five days or even five hours.
+
+2. **Checklist for Optimization**: Before rendering an animated sequence, you should consider a checklist of optimization techniques:
+   - **Lighting**: Check for light bounces and whether portals are necessary.
+   - **Performance**: Utilize GPU acceleration, optimal tile size, and the latest denoising algorithms (e.g., Denoiser).
+   - **Instancing**: Use object instancing to reduce memory usage for multiple objects that can be instances of a single object.
+   - **Subdivision Surfaces**: Implement adaptive subdivision for complex surfaces like ground or rocks to save on render time.
+   - **Volumetrics**: Decide if true volumetric effects, like fog, are needed or if a compositing fakery approach can suffice.
+   - **Motion Blur (MBS)**: Ensure that MBS is enabled as it's essential for a convincing animation.
+   - **SSI (Screen Space Reflections)**: Turn on SSI if there are reflective surfaces like water, glass, or metallic objects in the scene.
+
+3. **Testing and Collaboration**: Tests were conducted by Mason Menzies who rendered scenes for hours to provide data for this tutorial. The Blender Foundation provided CC source files, and Rob Garlington created the artwork used in the tutorial.
+
+4. **Final Thoughts**: The checklist is not exhaustive and should only be used when necessary to optimize performance. If you found this tutorial helpful, consider liking and sharing it with others who might benefit from these optimization tips. Thank you for watching!
+

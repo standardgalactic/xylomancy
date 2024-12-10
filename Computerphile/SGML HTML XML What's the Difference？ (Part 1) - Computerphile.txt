@@ -1,0 +1,107 @@
+The people defining what was called the standard generalised markup language,
+SGML, they took over the pointy bracket notation and actually used it within documents themselves.
+It leads back into computer science principles in so many many ways and there has been so much
+confusion. So I suppose you could say what this episode is about is SGML, HTML, XML,
+Abertau ein bodi, oeddw i chi spoilerau ti'n gyweithio?
+Yn nghymru yn iddynt y peth yw...
+Felly colli weithi adedd yn yangiol 1970..
+.. neu yna yna eich g былаill i losu Porfwn.
+Rwy'n cyntaf y cadadr hefyd,
+bydd e野是這樣 kayteriaeth mae'r cydwyr dechrau i ffordd o glyfanog.
+Conference
+Dwy oedd bydd yn gael eisiau bod nyf ovbletio'r gwy convió?
+y cwmpôl yn y ddwylliant yw'r ddwylliant, fel P for paragraph,
+yn ymlaen i'r ddwylliant yw'r HGML,
+yw Pwntiw Brachet B, yw Pwntiw Brachet B.
+A mae'n gweithio'r gwybod o'r tawch
+ar gyfer tawch.
+Mae'n gwybod i'r gwybod, mae'n gwybod i'r tawch set.
+Mae'r gwybod i'r gwybod i'r ddwylliant.
+Fy enw'r gwybod i'r gwybod i'r gwybod i'r ddwylliant
+o ddwylliant yw'r gwybod i'r ddwylliant.
+R �seeiau ers fydd Ion.
+Elfen yma'n gwaith a имboel,
+dweud o bachiawigau
+neu allwn ni'r Cynrbeladau.
+Yリ mewn gweithляffai o dangos
+steg siaradau y par Yorkshire
+Cyfaniaeth Caerdaeth Ferrari知vern body lighter
+i dŷlchai dyf defend
+ac agasgwrau a'r eich horizontal
+ridwxiad wedi'u gwneud
+cwrwch ni'n beth gyd ddillmogod
+i ddysgu a'r arfen'w tu arefyn
+was in the big database, so that was the overall idea of it. But in order to show you
+how this SGML worked let's start straight away with something very simple. Here is a sample memo.
+There is a two part. It's been sent to Tony Blair. This is way back in the early years of this
+century around, about the time of the Iraq War I think is this fictitious memo. It is from
+y White House. The message is as follows and it says, the president says, thanks for your support,
+simple as that. So there's a two, a from and a body, a message body. Now as computer scientists
+we realise straight away that even if it's just a sequence you can still present it as a left
+to right structure within a tree. So here's a structured tree representation of what we've just
+informally written down. The whole thing look at the top is a memo and when you look below in the
+tree it says, ah obviously a memo is a sequence of a two part followed by a from part followed by a
+body part, great. Within the two part there's just some text, it says Tony Blair, the from part,
+more text, it's from the White House. Body part, I've deliberately made this a little bit more
+complicated. I've said that the body part can be if you like just be a single paragraph a p and within
+a p there could be arbitrary mixtures of plain text the president says or marked quotations
+because what I'm going to do is to say that thing that was in quotes is an example of a
+quotation so that if in future Sean were to say to me go through all our memos and dig out the bits
+that are quotations or quoted speech then because it's tagged and marked it's so much easier to
+pick out of course. From that tree then how does that translate into sgml notation? Don't panic it's
+very very similar to what you're now familiar with as xml notation. Right here is a tag that says
+this whole thing is a memo and this is where it begins. A two tag is to Tony Blair but being a good
+boy I must remember to end the two tag. From the White House end of the from part here comes the body
+now I typeset the thing previously as the word message but this is just to illustrate that if
+you're crawling all over this spec with a typesetting engine you could take the decision that every time
+I see the word body as a tag I actually put out the typeset thing saying message. I could have said
+body but the tags themselves can trigger typesetting and stylistic decisions if that's what you
+want to do. So here we come then here's the body of the memo and like I said it's got to be a paragraph
+denoted with a p. Here's the free text that I'm allowed the president says and here is the nested
+quote inside the paragraph denoted with a q tag thank you for your support end of quote end of
+paragraph end of memo now some of you eagle-eyed will immediately be dashing to the comments on
+this video right now hold on and we'll say you've missed out the end of body tag to which the answer
+is yes sgml allowed you to do that so long as you warned it in the spec that goes behind this of
+the legal tags if you said I will optionally make end of body be omittable then the biblical
+handerbook here says you may specify that you want certain end tags to be omitted provided that
+doing so will not lead to ambiguity and therein lies a complete nest of vipers but in this particular
+case it's all right you could put in and replace end of body why did they do this well in Charles
+Goldfobbs eraill you have got to remember disk space was massively expensive and this sounds
+stupid but it isn't every single saved end tag all added up to so many hundred kilobytes that you
+didn't need because it could be assumed and safely replaced you hope so you know they were not off
+their heads they were trying to save disk space here's where we have to try and choose our words
+very carefully and say what you're allowed to say and what you're not allowed to say in terms of
+building memo out of sgml technology so let me begin with the bedrock and when I say sgml technology
+don't forget what I mean it's basically sgml is like specifying the punctuation if you think about
+it it's saying you can have any tag you like but the punctuation around it is pointy brackets so
+here's our bedrock on top of this using sgml notation I've devised a memo language so remember
+the right way to say this is that memo is an application of sgml in other words it uses the
+technology of you must not say memo is a subset of sgml because they're different things sgml is a
+meta notation memo is a specific tag set and just to tell you I wasn't alone way before me in the 1980s
+there was a initiative within the US Department of Defense and I think it was to do with
+requisition and stores and stuff like this I've even forgotten what the acronym refers to now called
+cows one of the earliest applications very big of sgml I thought it was great being able to tag
+things with what they are and what they mean there was also a more scholarly initiative called
+the text encoding initiative I mean one can imagine there's no end of literature is this an example
+of the early medieval subjunctive you tag it up to say yes it is everything was hunky dory document
+professionals thought this is wonderful when computer scientists shouted at them basically
+saying you shouldn't have allowed omitted n tags you've no idea the grief you will get into
+the answer I think to that is if you're careful and if you take advice you can avoid the grief
+but in a closed world of document professionals where very few people see the markup this is all
+right then in the early 1990s oh boy did something happen that really blew it all wide open and
+led to a much wider adoption of sgml a certain Tim Berners-Lee came along in the early 1990s
+and it was about 1992 when it was first revealed to an unsuspective world and Tim said I like this
+sgml and for these web pages rather than invent my own tagging meta notation I'll use the pointy bracket
+notation of sgml but it was massively massively successful everybody oh yeah it's great pointy
+bracket notation we love this specify our pages get them all out there well the weaknesses
+in html first of all because it didn't have a document type definition to say what was optionally
+admissible on what wasn't Tim had a certain view about well for example end of para even nowadays
+in an xml compliant browser it's not going to refuse to show your page because you go from
+p to another p without formally closing off the first power he just says oh I've hit another
+p I'm already in the middle of a p I think I better close off the one I'm doing go into another
+one fine but there were far worse problems than that and they really really came home to roost within
+the first 18 months in 1994 there was a meeting I was there at Edinburgh where all of this came
+out into the open a full furious frank discussion took place about what was wrong with html could
+we ever put it right this has to be another story they wanted it to be clear it's part of the
+definition and they said easy we're not going to call it hell or do a very quick report on how to
+do a subset of full sgml that's cleaner

@@ -1,0 +1,2017 @@
+So the more pressure we add, the more likely the model is to to be deceptive.
+So kind of in the same way in which a human would act, it also acts, you know,
+removing pressure and adding additional options will very quickly decrease the
+probability of being deceptive.
+Open source has been really good so far in many, many ways.
+It has been very positive for society, right?
+I think a lot of ML research could not have happened without open source.
+A lot of safety research could not have happened with open source.
+At some point, the system is so powerful that you don't want it to be open
+source anymore in the same way in which, you know, I don't want to open source
+the nuclear codes or like, you know, literally the recipe to build
+most viral pandemic or something.
+The labs maybe have the incentive to not say the worst things they found
+because otherwise they may lose their contract.
+So you need something like the UK ASF Institute or the US ASF Institute
+make sure that there is a minimal set of standards that all the auditors
+have to adhere to.
+Hello and welcome to the Cognitive Revolution, where we interview
+visionary researchers, entrepreneurs and builders working on the frontier
+of artificial intelligence.
+Each week, we'll explore their revolutionary ideas and together
+we'll build a picture of how AI technology will transform work, life
+and society in the coming years.
+I'm Nathan Labens, joined by my co-host Eric Torenberg.
+Hello and welcome back to the Cognitive Revolution.
+Today, my guest is Marius Haban, founder and CEO of Apollo Research,
+a nonprofit AI safety research group that is working to understand
+both how AI systems behave and why.
+Their approach combines exploratory and hypothesis-driven testing,
+fine-tuning experiments and interpretability research.
+And as you'll hear, they place special emphasis on the potential
+for AI systems to deceive their human users.
+In this conversation, we look first at Apollo's starting framework
+for their work, which emphasizes the importance of affordances
+in AI systems.
+That is, through what tools, actuators or other means
+can the system affect the broader world?
+And they also introduce a number of new conceptual distinctions
+meant to help people have more precise and productive conversations
+about these nuanced topics.
+Then in the second half, we look at their first research result,
+which demonstrates, to my knowledge, for the first time
+in a realistic, unprompted setting, that GPT-4, when put under pressure,
+will sometimes take unethical and even illegal actions
+and then go on to lie to its users about what it did and why.
+This is an important result, demonstrating that while the risk
+from AI systems may start with and may even be dominated
+by intentional human misuse, the models themselves can also
+misbehave in unexpected ways.
+As an aside, since I told my behind-the-scenes GPT-4 red team story
+a few weeks ago, a number of people have reached out to ask me
+how they too can get involved with red teaming projects.
+Unfortunately, as commercial competition and secrecy both continue
+to ramp up across the space, I don't see as many open calls
+for volunteer red teamers as I used to.
+Certainly not for unreleased frontier models.
+Instead, the field is becoming more professionalized with all
+leading labs, as well as the data companies like Scale AI,
+plus the independent auditing organizations like Apollo,
+Archie Val's now known as Meter, Palisade, and also AI forensics,
+all actively hiring research scientists and engineers in this area.
+So does that mean that there's no longer a role for the independent
+hobbyist red teamer to play?
+On the contrary, there is a ton left to discover even on publicly
+released models, and the best way to break into the field is to demonstrate
+your ability to discover new phenomena.
+Importantly, the work we cover in this episode could have been
+done by anyone with an open AI account, a knack for prompting,
+and just a tiny bit of coding know-how.
+No special access or advanced machine learning techniques
+were required, just a lot of curiosity.
+With that in mind, if you want to get into this line of work,
+but aren't sure where to start, I encourage you to reach out.
+I'll be happy to help brainstorm or refine your project ideas,
+and I can also help connect you with folks at the top companies
+who do sometimes provide API credits to independent researchers
+working in this area, if and when you can achieve a meaningful result.
+As always, we appreciate the time that you spend listening to
+the Cognitive Revolution, and we hope it's a valuable guide
+to the AI era.
+If you feel that it is, we would love a review on Apple podcasts
+or Spotify, and we, of course, encourage you to share the show
+with your friends.
+Now, here's my conversation on Frontier AI Safety Work
+with Marius Habhan of Apollo Research.
+Marius Habhan, founder and CEO of Apollo Research.
+Welcome to the Cognitive Revolution.
+Hey, thanks for having me.
+I am very excited to have you.
+So regular listeners of the show will know that I'm a big believer
+in the importance of hands-on testing of what AI systems can do.
+And also that I have been pretty enthusiastic consumer of the news
+when some of the leading labs have made public commitments
+to allow organizations outside of their own teams to look at the systems
+that they're building before they get deployed.
+And so your work with Apollo Research, which is trying to build,
+as I understand it, an organization to meet that need
+and actually work with those leading labs in part, at least,
+on understanding the systems that they are developing before they get
+to widespread deployment, I think is super interesting.
+And I'm very excited to unpack the details of it with you.
+Maybe for starters, you want to just kind of give us the quick overview
+on Apollo Research, like how you decided to set out to found it.
+I'm interested a little bit in the timeline of how that related
+to some of the commitments that the labs have made.
+And what you guys are trying to do in the big picture.
+So I think on a high level, it's sort of trying to understand
+what is going on in AI systems.
+And the reason for this was, or still is in fact, yeah,
+I basically think right now there is a, we just lack information
+to make good decisions.
+There's loads of uncertainty that we have about like, you know,
+what could go wrong, whether we are already at a point
+where things go wrong or how far away we are from these points.
+And yeah, we're trying to reduce this uncertainty.
+Like, and this is mostly through research, auditing and governance.
+And on the research side, it's really split between interpretability
+and eval, or like behavioral evals, half-half.
+But in the long run, we really want to merge them both.
+Because I basically think what we need in the long run is both
+a mixture of behavioral and interpretability evals,
+so that we can really understand what the model is doing
+and then also why it is doing this in the first place.
+Because each of them individually seems somewhat insufficient.
+And yeah, maybe to go into like the origin story,
+it has actually nothing to do with the commitments of the different labs.
+It was mostly that at the beginning of this year,
+they're just, I kind of felt like I had a pretty clear picture
+of like what is lacking in the current space with deceptive alignment
+and evaluating deceptive alignment or models for deceptive alignment
+in the first place.
+And interpretability and evals just seemed like the obvious things to do.
+So in the beginning, we basically set out to do mostly research.
+And only then sort of over time, we realized,
+hey, this is something that should be applied in the real world
+as soon as possible.
+Because we are, you know, like systems are getting better all the time.
+And we are, like may actually hit this point fairly soon
+where models are already like about at the threshold of deceptive,
+of capabilities for deceptive alignment.
+And then there is a small part in the organization that is governance,
+which originally we also didn't really intend to do for,
+you know, the first two years or something.
+Because we thought, you know, like we really need to understand
+all the research very well before we can talk to the people
+in governance and decision makers and lawmakers.
+Because, you know, otherwise we're telling them things
+we aren't like super confident in.
+And then sort of lots of things happen.
+Governance and lawmakers actually got interested in AI and AI safety
+in particular.
+And then when we talked to them, we realized, you know, the difference,
+like we are very, very well placed to talk about these things.
+Because if you have thought about them for, you know, like sort of
+in the background for like six, seven years,
+and then specifically about some topic for six months or so,
+you are among the world's experts.
+And this is kind of, you know, more like a reflection of the state
+of how bad it is about AI safety, where, you know, people in my
+position are actually sort of accidentally becoming the experts
+rather than, you know, like people with tens and 20 years of experience
+because there is like, you know, there aren't a lot of people in
+the world who have thought about AI safety for more than a couple
+of years, if at all.
+Yeah, I can definitely relate to that sort of accidental expert status.
+I never expected to be where I am and doing the things that I'm
+doing, but yeah, the whole AI field, you know, in some ways is
+kind of the dog that caught the car.
+I always kind of come back to that metaphor where, you know,
+it's like, we were just trying to build a bit more powerful AI
+and all of a sudden we built like a lot more powerful AI and now
+we really kind of have to figure out what to do with it.
+So even, you know, a little bit of advanced planning is better
+than, or a little bit of advanced thought is a lot better than
+where most people are starting.
+Had you seen, when you actually started the organization, had
+you seen GPT-4 or were you basing this decision on just what was
+public at the time?
+Only what was public at the time.
+So the decision was made in February 2023 or at least sort
+of my internal commitment was made to this.
+I'm not sure whether GPT-4 was public already at the time.
+Not quite, right?
+It was March.
+So no, it was independent of GPT-4.
+Yeah, I always think that's interesting just because, you
+know, GPT-4 was such a wake-up moment for so many people and
+certainly I would include myself in that.
+I was like already extremely plugged into what was going on
+and using it and, you know, fine-tuning tons of models on
+the open AI platform in particular.
+But then it was like, whoa, this thing is next level.
+Like it's not slowing down.
+You know, we've gone from sort of, I can put a lot of elbow
+grease in and get a fine-tuned model to do a particular task,
+which already, you know, I thought was going to be economically
+transformative to, I don't even need to do that, you know,
+that I could just ask for a lot of these tasks and get like
+pretty good zero-shot performance.
+For me, that was the moment where I was kind of like, okay,
+this is going from a tool that I am really excited to use and
+having a lot of fun using to something that seems like a
+force that needs to be understood from all angles.
+So let's unpack the perspective that you are bringing to this.
+I've would encourage folks to look up these papers that
+we'll discuss and read them for themselves as well.
+But on the website, you've got two recent publications.
+One is kind of a framework for organizing the work that
+you're going to do.
+And then the other is like a very detailed in the weeds
+investigation of a particular AI behavior, namely deceiving
+the user, which I think is a super interesting and important
+one to study.
+Well, let's maybe just start with the big picture like
+organizing the thoughts.
+I get the sense that you think again, well, you've kind of
+said this like that and the paper certainly reflects it that
+there are like a lot of big questions that remain unanswered.
+So how do you structure your approach to this topic given
+all the uncertainty that exists?
+Yeah, maybe to give a little bit of context.
+So like, so, you know, this is this is only one paper of many
+in this space.
+And there's I think, yeah, earlier this year, there was a
+really big one called model evaluation for extreme risk,
+which yeah, we had Apollo definitely thought was a pretty
+good paper and they they're sort of pointing out many of the
+like very reasonable and important steps or like reasonable
+principles for external auditing, something like ramp up the
+auditing before you ramp up the exposure to the real world.
+And like do this, you know, ahead of the curve, so to speak.
+Um, but when we when we read the paper, we felt a little bit
+like, you know, this makes sense for the current capabilities
+and sort of how current models are being built.
+But if we think ahead of like what the next couple of years
+should look or not should could look like, then yeah, there
+are like loads of open questions and we were trying to
+understand how do they fit into this framework and because
+yeah, we internally were trying to like make sense of this
+in the first place.
+So just to give you a couple of them, like what happens if
+your model has the ability to do online learning?
+When have like how often do you have to audit it?
+Should you re-audit it like during the online learning?
+If yes, how often?
+What if you give the model access to the internet or to a database
+or to anything like this?
+Yeah, I think like, you know, a model a model with and without
+access to the internet is basically too different, like two
+very very different model.
+The one with with access to the internet is just so much more
+powerful if can use it even on a very basic level.
+And so yeah, it feels like if you give your model affordances
+like this, you kind of have to rethink how danger it is and
+where the danger comes from because it suddenly is like a
+totally different threat model potentially.
+And so what we did for the paper and and really the credit
+show should go to Lee Lee Sharkey here who is my co-founder
+who has done most of the hard work or if not all of the
+hard work for this paper.
+And so what we were doing is like thinking from first principles.
+Where does the risk come from and like what changes to the AI
+system and do create new risks?
+And then basically the answer is well, we have to audit
+wherever risk is created.
+And then the more we looked into this the more realized well,
+there are actually a lot of places where you were like new
+risk comes into the system at least potentially and therefore
+we are audits at least in an ideal world should happen.
+You know, there are obviously some constraints.
+But I think, you know, if we think about where we five years
+from now, then I think, yeah, if there is like actually a big
+auditing ecosystem around this then there will be very very
+many different organizations auditing really different places.
+And then the other other point of the paper was just to define
+many concepts and and like create the language to discuss all
+of these things because we had sort of many internal discussions
+where we were like, oh, the thing we mean is this and then
+we had an example and then we kind of needed a name for it
+and there wasn't really a name.
+So we decided, okay, let's define all of the relevant
+firms for this and and then sort of have a language to talk
+about this in the first place.
+Hey, we'll continue our interview in a moment after a word from
+our sponsors real quick.
+What's the easiest choice you can make taking the window instead
+of the middle seat outsourcing business tasks that you absolutely
+hate.
+What about selling with Shopify?
+Shopify is the global commerce platform that helps you sell at
+every stage of your business.
+Shopify powers 10% of all e-commerce in the US and Shopify
+is the global force behind all birds, Rothes and Brooklyn and
+millions of other entrepreneurs of every size across 175 countries.
+Whether you're selling security systems or marketing memory
+modules, Shopify helps you sell everywhere from their all-in-one
+e-commerce platform to their in-person POS system, wherever
+and whatever you're selling, Shopify's got you covered.
+I've used it in the past at the companies I founded and when
+we launch Merch here at Turpentine, Shopify will be our go-to.
+Shopify helps turn browsers into buyers with the internet's best
+converting checkout up to 36% better compared to other leading
+commerce platforms and Shopify helps you sell more with less
+effort.
+Thanks to Shopify magic, your AI powered all-star with Shopify
+magic whip up captivating content that converts from blog posts
+to product descriptions, generate instant FAQ answers, pick the
+perfect email, send time plus Shopify magic is free for every
+Shopify seller.
+Businesses that grow, grow with Shopify.
+Sign up for a $1 per month trial period at Shopify.com
+slash cognitive.
+Go to Shopify.com slash cognitive now to grow your business
+no matter what stage you're in.
+Shopify.com slash cognitive.
+So let's let's dig in in a little bit deeper detail.
+I like the premise that you set out with in the paper, which
+is to work backward from AI effect in the real world, you
+know, and try to imagine like, where are these effects going
+to happen?
+And then how can we get upstream of that and help shape them in
+a positive way?
+I would be interested to hear you kind of describe that backward
+chaining process in a little bit more detail.
+And then I thought some of your concepts also were really
+helpful clarifications and distinctions.
+So maybe you can highlight some of the ones that you think are
+most useful that you'd like to see get into broader circulation
+as well.
+So basically we started from, okay, the system air system will
+interact with the world in a particular way.
+And then, you know, there are many, many different ways in
+which it can interact with the world.
+And then there are sort of a like a whole chain of things
+that have had to happen until the model can act interact with
+the world in this particular way.
+So, you know, maybe it has been fine to it.
+Maybe it has been given access to the internet before that it
+has to have been trained before that there has to have been
+the decision that this model should be trained in the first
+place.
+And so the question is like, what are the kind of important
+decisions at all of these different points in time?
+And how then can we ensure that people actually make decisions
+that will lead to outcomes at the end of the chain such as
+the model or the system interacts with the world in a safe
+manner.
+And this is maybe like the first distinction that is worth
+pointing out or like the reason why I'm correcting myself
+all the time is there's really a difference between AI model
+and AI system.
+The AI model really, and this this is not something we came
+up with this already exists before.
+And but I think it's worth pointing out and sort of getting
+in like really hammering into people's head when they think
+about AI.
+So the AI model is just just the weights maybe behind, you
+know, like behind an API, but even with the API, it's kind
+of already a system.
+And the system then is sort of the weights plus everything
+around it.
+So they could be scaffolding, they could be access to tools.
+This could be content filters.
+This could even be like just an API retrieval databases,
+etc.
+Like really the full package where you say, okay, you know,
+there's there's like stuff around the mod around the weights
+that increase the capabilities of the model and menu or at
+least change the capabilities of the raw model in some sense.
+Not necessarily always increasing filters, for example, may
+decrease it.
+And then there are sort of other weird ways or like, yeah,
+once you think about this, there are sort of a couple of
+other concepts that that feel important to clarify because
+when people say capabilities, this can mean very different
+things, right?
+And so we categorize this into three different classes.
+The first one is absolute capabilities, which we think
+of basically the hypothetical capabilities given any set of
+affordances.
+So if you have GPD for without the internet, right, then in
+the space of absolute capabilities would be a GPD for
+with internet.
+So or like things that this model could do.
+So the question is like, if we give additional things to the
+system, how big is the space of actions it could take?
+So, you know, and then obviously there is a question of
+like, how imaginary do we get here?
+You know, like, does it has does it get access to like, you
+know, a Dyson sphere or does it get access to like a government
+or something like this?
+But but yeah, like it basically points out sort of the what
+could this model do if we gave it a lot of things, everything
+that we can basically think of thinking about this in the
+first place only makes sense for models that have become more
+general, like the GPT is because, you know, for an MNIST filter
+like for an MNIST classifier, this doesn't make any any sense
+like an MNIST classifier plus internet is is like is exactly
+as capable as just the MNIST classifier itself.
+But yeah, for systems that are more general, suddenly you have
+this difference between things that only the system can do
+or like the basic system plus things that you could do
+hypothetically with a lot of additional affordances.
+Then the second one is contextual capabilities, which is things
+that are achievable in the context right now.
+So for example, with chat GPT, you can enable it to have access
+to tools and then you can browse the web and this is something
+that it can do right now.
+You don't have to add anything on top of this and this is
+sort of this is sort of the smallest category of things,
+which you can do without any additional modification and then
+reachable capabilities is contextual capabilities plus
+achievable through extra effort.
+So for example, this could mean chat GPT itself may not have
+access to a calculator, but if it has access to the internet,
+it can like Google and then find a calculator and then use
+that calculator and so it's sort of a two step process right
+where it has to use one affordance or capability to then
+achieve another and so this is what we call reachable
+capabilities and yeah.
+So the reason the reason why we are making this all of this
+differentiation, even though it sounds maybe a little bit too
+much in the weeds is when people talk about capabilities and
+regulating capabilities and designing laws for capabilities,
+the question is which ones right?
+Do you mean the contextual capabilities?
+So the ones that the model has literally right now or the
+reachable capabilities so which the model could reach with
+additional effort or the absolute like the maximum potential
+space of capabilities and you know right now this may sound
+like we're too much in the weeds and but I think in a few months
+this will sound very very relevant suddenly because the models
+will be more capable and then they will actually be able to
+just like smart enough to use the internet to like find
+additional tools that they can then use or like convince
+someone to give them access to a shell and then use that
+because they're already like you know they can learn it in
+context or they know it anyways and at that point really
+the question is what should the auditors audit for which
+capabilities and and that becomes like pretty quickly like a
+very very big space of things right so like if the auditor
+not only has to think about what kind of tools do you give
+the AI but also what kind of tools could the AI get access
+to through some means suddenly you have this whole space of
+like thousands of things it could do it's really a question
+of like or like a tradeoff between what is what is plausibly
+doable in the real world versus how much risk can we actually
+mitigate and and I'm honestly very unsure about about like
+where we're heading at this point.
+So just to riff on and kind of emphasize some of the the value
+that I see in in some of these distinctions I think it's
+helpful to clarify the difference between a model and a system.
+I think there is a tremendous amount of confusion online
+and to my should grant I've probably even contributed to
+some of it at times where people are like you know chat
+gpt was doing this for me and now it's not anymore and I've
+sometimes said like well they haven't updated the model so
+probably hasn't changed that much and I think what I've
+maybe neglected in some of those moments is like but they
+might have changed the system prompt or you know as we're
+seeing I mean even just this last couple weeks there's been
+this really interesting phenomenon of the of gpt for getting
+quote unquote lazier and people are speculating that maybe
+that's because they feed the date into it and it knows that
+we're in December and it knows that people don't work as
+hard or as productively in December and so maybe it's
+like kind of phoning it in because it's like imitating the
+broad swath of humans that it seemed like you know kind of
+work halftime in December or whatever I've even seen some
+experiments just in the last couple days that suggest that
+there might even be real truth to that who knows I'd say that
+the question remains open but there's a there is an important
+difference you know and it's worth getting clarity on the
+model itself with static weights not changing versus even just
+a system prompt that can perhaps have you know even unexpected
+drift along the dimension of something as seemingly benign
+as today's date so that's important to keep in mind the
+levels of capabilities I think are also really interesting
+and I want to ask one kind of I have a couple questions on
+this but I think I have a clear sense of what is meant by
+contextual what can it do now given the packaging right what
+what can gpt for do in the context of chat gpt where it
+has a code interpreter and it has browse with Bing and it
+has the ability to call dolly three to make an image and
+probably a couple other things I'm not even remembering it
+you know plugins perhaps as well right which obviously
+and gpt which proliferates you know all the affordances all
+that much more on the other end I feel like I sort of
+understand absolute which is like a theoretical max could
+you give me a little like how do I understand reachable as as
+kind of between those like what's what's the distinction
+between reachable and absolute
+yeah so so maybe maybe one way to think of it is like the
+contextual capabilities are the ones kind of that a user
+explicitly gave it and then the reachable ones are those
+that may also be reachable without the user even having
+thought about that the model actually will will use them
+right so if you say you know like if the model would be able
+to browse the web like entirely on its own which I'm not sure
+it currently can do or like what exactly the restrictions on
+search with Bing are and but if it was able to do that right
+you may not you may not have realized that it has a reachable
+reachable capability through the Internet of like firing up
+a shell somewhere or like renting a GPU and and like
+doings or like running a physics simulation through a like
+an online physics simulator if that if that's something that's
+available and and so so these are this is sort of like
+how which tools can it reach through the contextual ability
+capabilities that it already has given by you or what's been
+has been given by you.
+Gotcha.
+Okay, so like solving a capture by hiring an upward contractor
+for exactly to take one infamous case.
+So okay, here's a challenging question.
+But and I don't necessarily expect an answer but maybe you
+can venture an answer or you could just kind of describe
+how you begin to think about it.
+What would you say are the absolute capabilities of GPT-4?
+Yeah, very unclear.
+So I think they're definitely they're not infinite as in you
+know like even with extremely good scaffolding and and access
+to the Internet and many other things I think people haven't
+been able to you know get it to do economically valuable
+tasks at the level of of a human at least for like long time
+spends for example.
+So you know the questions obviously like is this you know
+are we just too bad and have we not figured out the right
+prompting yet and the right scaffolding and so on or or is
+this just a limitation of the system and my current guess is
+like there is probably a limit to the absolute capabilities
+and it's probably lower than like what a human can do but
+we're not that far away from it.
+So you know I think with an additional training with
+additional like specifically LM like training that is more
+goal direct or makes it into more goal directed and an agent
+and better scaffolding.
+I think there will be ways in which the absolute capabilities
+could increase quite a bit in the near future.
+Yeah, does this make sense?
+Yeah, I mean it's hard right.
+I certainly listeners to the show will know from repeated
+storytelling on my part that I was one of the volunteer
+testers of the GPT for early model back in August, September
+of last year and I really kind of challenge myself to try to
+answer that question you know independently like what is the
+theoretical max of what this thing can do you know how much
+could it like break down big problems and delegate to itself
+and it basically came to the same conclusion that you did
+which is like doesn't seem like it can do really big tasks.
+I mean again it's confusing right because then you could also
+look at the dimension of how big the task is versus how much
+you break it down to just in the last week I've been doing
+something for a very sort of mundane project but actually
+using GPT for to run evals on other language model output.
+I have found that if I have like 10 tasks 10 you know dimensions
+of evaluation and I ask it to run all of those it is now
+capable of following those directions and executing the
+tasks one by one but the quality kind of suffers it it sort
+of makes mistakes sometimes muddies the tasks a little bit
+between each other and it's definitely like not at a human
+level given 10 tasks to you know to do in one generation on
+the flip side though if I take it down to one task per generation
+which you know I didn't want to do because that will increase
+our cost and latency and just less convenient for me but then
+it kind of pops up to honestly I would say pretty much human
+level if not above so there's there's interesting dimension
+I guess it seems pretty the sort of magnitude of the task
+seems like a pretty important dimension for evaluating a
+question like absolute capabilities right it's like if
+it's a super narrow thing it has it's like more it's it's
+capable of some pretty high spikes but if it's a if it's a
+big thing it kind of gets lost it would you refine that
+characterization at all. Yeah yeah I'm not sure how to think
+about it honestly so I think of absolute capabilities really
+more of a sort of theoretical bound that we could that we
+are probably not going to approximate in practice even
+if we test like a lot a lot and then the then like breaking
+it down into different tasks I'm not sure I feel like this
+is a different capability then right like you're sort of the
+capability of doing 10 things at once is a different thing
+than the capability of doing one thing 10 times like 10 10
+different different things but one by one so yeah I would say
+it's basically you're talking about different capabilities
+then at least in this framework.
+Hey we'll continue our interview in a moment after
+we're from our sponsors if you're a startup founder or
+executive running a growing business you know that as you
+scale your systems break down and the cracks start to show
+if this resonates with you there are three numbers you need
+to know 36,025 and one 36,000 that's the number of businesses
+which have upgraded to net suite by Oracle net suite is the
+number one cloud financial system streamline accounting
+financial management inventory HR and more 25 net suite turns
+25 this year that's 25 years of helping businesses do more
+with less close their books and days not weeks and drive down
+costs one because your business is one of a kind so you get a
+customized solution for all your KPIs in one efficient system
+with one source of truth manage risk get reliable forecast
+and improve margins everything you need all in one place right
+now download net suites popular KPI checklist designed to give
+you consistently excellent performance absolutely free
+and net suite dot com slash cognitive that's net suite
+dot com slash cognitive to get your own KPI checklist net
+suite dot com slash cognitive Omniki uses generative AI enable
+you to launch hundreds of thousands of ad iterations that
+actually work customized across all platforms with a click of
+a button I believe in Omniki so much that I invested in it
+and I recommend you use it to use cog rev to get a 10% discount
+yeah and it is not that good at decomposing the tasks so I've
+also kind of experimented a little bit with like can you give
+that list of 10 tasks and can it you know break them down and
+self delegate you know with an effective prompt and it's like
+maybe a little bit closer there but still you know not getting
+nearly as good results as if I just roll it my sleeves you
+know and do the the task decomposition so you mentioned
+that you expect this frontier and obviously continue to move
+one way to ask the question is what is Q star but a more you
+know sensible way to ask the question is like do you have
+a a set of expectations for how the capabilities frontier
+will move I definitely look at things like open AI's publication
+from earlier this year where they gave started to give like
+denser feedback you know on kind of every step of the reasoning
+process and they achieve some state-of-the-art results on
+mathematical reasoning that way and when I think about affordances
+and I think about the failure modes that I've seen with these
+you know GPT for agent type systems I think man if you apply
+that to like browsing the web and using API's and it seems
+like you know that stuff is ultimately a lot less cognitively
+demanding than like pure math it seems like we probably are
+going to see and I would guess that you know it's maybe
+already working pretty well you know AGI has been achieved
+internally I don't know about AGI but I would expect that some
+of this stuff is like already pretty far along in kind of
+internal prototyping but how does that compare to what you
+would expect to see coming online over the next few months
+yeah I mean it's obviously hard to hard to say and I can only
+speculate I think on a high level what what I would expect
+the big trends to be and also what we are kind of looking
+looking forward to evaluating is LM agents I think this is
+like pretty agreed upon you know from first principle I think
+it also makes sense it's just like where does the money come
+from it is from AI systems doing economically useful tasks
+and often economically useful tasks just require you to do
+things independently being goal directed over like a longer
+period of time and the longer you a model can do things on
+its own the more money you can squeeze out of it so I definitely
+think just from financial interests all of the AGI labs
+will definitely try to get in more more agentic ways how far
+they they've come I don't know and but yeah I expect that next
+year we will see quite some surprises and then multimodality
+it's the other one where yeah I think people kind of like over
+the last couple of years with with more like more and more
+multimodal models people just realized like kind of it's not
+that different from just training text right it's sort of
+you plug in the additional modalities you change your your
+training slightly and but it's not much more than that like
+obviously it's obviously hard in practice right there's a ton
+of engineering challenges and so on but on on a conceptual
+level it's not there isn't any big breakthrough needed so
+people will just add more and more modalities on bigger and
+bigger models and train it all jointly and to end and and it
+kind of just works and then tool uses the last one and and
+that I think people yeah people actually were quite surprised
+by how like quote unquote easy it was to to get to these to
+this level so yeah I think people when people realize like
+oh these language models are already pretty good like how
+fast do they learn how to use any get any tool we can think
+of and they were surprised by how fast they learned the tools
+and now it's mostly a question of sort of really baking in the
+tool into the model in a way that it's like very robustly able
+to use the model rather than just a little bit or just showing
+that it's it sometimes work but yeah I mean you know like I
+think if you have an LM agent that is multimodal and that has
+very good tool use like I'm not quite sure how far you are away
+from AGI right like at that point you kind of have almost all
+of the ingredients ready and then it's really just a question
+of how robust is the system so yeah I think these are the
+trends we see right now and this is also why many people
+in the big labs have very very short timelines because they
+can think like two years ahead and sort of where where this
+is going or maybe even just one year ahead I don't know when
+you talk about the surprise like people were surprised at how
+easy it was to get tool used to work are you referring to
+people in the leading you know the obvious the usual suspects
+of leading developers it's hard to say I mean I can only
+speculate on this but you know the tool former paper was
+like three months or like was published three months before
+open AI just released their tool use and I mean they probably
+had been working on this before but still you know like the
+from from having the scientific insight to to like publishing
+this and releasing this in the real world I think there just
+was less work involved than is export is is typical for most
+of the bigger AI like development cycles I could be wrong on
+this this is this is more here say so yeah take it with a
+grain of salt.
+Yeah it seems right to me as well and I agree with you the
+emphasis on multi modality as a new unlock makes a ton of
+sense even just in this kind of agent paradigm of you know
+can I browse the Internet or whatever.
+I've done a lot of browser automation type work in the
+past and the difference between having to grab all the HTML
+that you know is often these days like extremely bloated
+and you know kind of semi auto generated and in some cases
+like deliberately you know generated to be hard to parse
+you know from like some you know the Google's on Facebook
+like they don't want you scraping their content so they're
+kind of not making it easy on the on the browser automators
+the difference between that and just being able to like look
+at the screen and understand what's going on you know you
+kind of put it through a human lens and you're like yeah it's
+a hell of a lot easier to see what's going on on the screen
+then to like read all this HTML and sure enough you know the
+the models kind of behave similarly.
+I remember for me looking at the flamingo architecture when
+that was first published like I think April of 2022 so you
+little more than a year and a half ago now and just thinking
+like oh my God if this works everything's going to work you
+know it was like they had a language model frozen they had
+kind of stitched in the visual stuff and like kind of added
+a couple of layers but it really looked to me like Matt this
+is tinkering stage and it's just working so I you know like
+you I don't want to dismiss the fact that there is obviously
+a decent amount of I'm sure like labor and probably at times
+tedious labor that has to go into overcoming the little you
+know little stumbling points but conceptually it is amazing
+how simple a lot of these unlocks have been over
+the last couple of years and you see this to and just like
+the pace at which people are putting out papers you look
+at like the one team that I follow particularly closely
+is the team at Google DeepMind that is doing medical focused
+models and they're good for one like every three months you
+know and they're like significant advances where it's like
+oh yeah this time we added multi modality and this time we
+like tackle differential you know diagnosis and like again
+it seems like there there's not a lot of time for failures
+between these successes so it does seem like yeah we're not
+at the end of this by any means just yet a lot is coming at
+us it's going to presumably continue to get weird you're
+trying to push both as much as you can the understanding
+of what can the systems do you know as users what is it
+what are their limits and then at the same time you're trying
+to dig into the models and this is the interpretability
+side and figure out like what's going on in there and you
+know can we kind of connect you know the the external behaviors
+to these like internal states so tell us about that side of
+the research agenda as well. Yeah so on the interpretability
+side like my thinking is basically it would be so great
+if interpretability work right it would make so many
+questions easier like if you ask questions on accountability
+right if you have causal interpretability message you
+would be able to just you know tell the judge if the model
+would have we would have changed these variables the model
+would have acted in differently in this way and we could just
+basically solve that biases probably also like you know
+social biases much easier to solve because you could
+intervene on them or like fix the internal misunderstandings
+and concepts. It's it's also extremely helpful for it like
+basically all of the different extreme risks right like it
+would be much easier to understand the internal plans and
+how it thinks about problems how it approaches them and so on
+and then it would also make iterations on alignment methods
+much much easier I think as in you know let's say somebody
+says oh RLHF is is like already working we see this in practice
+then you know you could use the interpretability tool so test
+does in you know does RLHF actually work or does it only
+like superficially like hide the problem or something like this
+or does it actually like deep down solve the route and then
+I think my biggest sort of the biggest reason for me for
+focusing on interpretability in the first place is deceptive
+alignment where you know models appear aligned to the outside
+and to the user but internally they actually follow different
+goals they just know that you have a different goal and and
+therefore I can order for you to think it is nice they act in
+that way. And yeah I basically think almost not not almost
+all but a lot of the scenarios in which AI goes really really
+badly and go through some form of deceptive alignment where
+at some point the model is seen as nice and people think it
+is aligned and people give it access to the Internet and
+resources and like train it more and more and more and make
+it more powerful. And but internally it is actually
+pursuing a different goal and it is smart enough to hide this
+this true intention until it knows that it can sort of cash
+out and and then follow on this on this actual goal without
+us being able to stop it anymore. And so yeah that's what I'm
+really worried about and interpretability obviously seems
+like one of the most obvious ways to to test for deceptive
+alignment or like to at least investigate the phenomenon
+because you know what it's thinking inside. They're still
+you know there are still some cases where deceptive alignment
+where even with good interpretability tools deceptive
+alignment could still somehow be a thing but generally speaking
+I think it would be much much much harder for the model to
+pull off. So right now I think interpretability is just not
+at the at it's like not practically useful. So you know we
+cannot use any existing interpretability tool and like
+throw it on GPT-3 or GPT-4 because none of them have like
+enough or developed enough that they give us insight that like
+really meaningfully change our minds. And and so yeah this is
+why why you know our agenda is separate in the first place
+between behavioral evals and interpretability despite us
+wanting to do them jointly in the long run but they're given
+that there's such a huge gap on applicability. I think that
+this is definitely a problem that that we're trying to mitigate
+here and then the one question for me is also like how hard
+will interpretability turn out to be and there are you know
+various people have argued that interpretability will be
+extremely hard because models are so big and complicated and
+and therefore it will be hard to enumerate you know all of the
+concepts and actually understand what the hell is going on
+inside and I'm more of the perspective that you know I
+understand the reason why they think it's hard but I also
+think there are many reasons to assume it's it's going to be
+like doable. It's if we put our minds to it as humanity will
+probably figure it out. The primary reason I think is we
+have full full interventional access to the model right we
+can see every activation we can ablate everything we want we
+have you know it's not just be it's not just observational
+studies you can really intervene on the system and generally
+speaking I would say as soon as you can intervene on the system
+you can test your hypothesis very very quickly and you can
+iterate very fast and so I think we will be able to figure
+out interpretability you know in the next couple of years to
+it to an extent where we can actually sort of say it is now
+useful on real world models on frontier models how expensive
+this is going to be I don't know yet but I think it will at
+least be technically feasible.
+Yeah I've definitely updated my thinking a lot in that
+direction from a pretty naive just kind of you know hey it
+sounds really hard black box problem nobody knows what's
+going on in there to today I would say wow you know there's
+really a lot of progress and it has it is the progress of
+interpretability over the last say two years has definitely
+exceeded my expectations and given me a lot more I wouldn't
+I may be some sort of confidence but you know at least reason
+to believe that with some time but not necessarily of you
+know a ton of time that we really could you get to a much
+better place in our understanding so I'm with you on that number
+of a follow-up questions I think on this point one let's maybe
+just give the account for like why deception might arise in
+the first place you can complicate I'll give you a super
+simple version you can refine it or complicate it I usually
+kind of site a Jaya on this and you know she has a pretty
+simple story of like what the model is trying to do you know
+what it is rewarded for in the context of an RLHF like training
+regime is getting a high feedback score from the user and it
+probably becomes useful as a means to maximizing that score
+to model human psychology as an explicit part of how you're
+going to solve the problem right the and I think we you
+know certainly humans do this with respect to each other
+right I ask you for something you ask me for something we
+interpret that not only as the extremely literal definition
+of the task but also kind of have a sense for what is this
+person really care about what are they really looking for and
+we can incorporate that into the way that we respond it
+certainly seems like the heavier you do you know the more
+emphasis you put on this kind of reinforcement learning from
+human feedback the more likely the models are to start to
+create a distinction between you know the task as sort of
+narrowly objectively scoped let's say and the kind of human
+psychology element that is going to feed into its rating and
+then if you have that you know if you have that decoupling
+then you have kind of potential for all sorts of
+misalignment you know including deception. How's that compared
+to the way you typically think about it.
+Yeah I mean I think the like this kind of version of through
+RLHF is one potential path I'm yeah I actually think the jury
+is still out there on this like you know I definitely see the
+hypothesis and where it's coming from but it could also just
+totally imagine that you know the training signal is
+sufficiently diverse and it updates sort of sufficiently
+deep that RLHF kind of just does the thing we wanted to do
+without before without the model becoming deceptive I could
+also see like the story in which in which it would become
+deceptive. I think like on a very high level the way the
+reason I think why models would become deceptive is because
+at some point they will have long term goals they will have
+something that they care about like more beyond the current
+episode you know beyond pleasing the user at this point in
+time and then the question really is and then I think they're
+like two core conditions under which like if the more they
+are fulfilled and more likely the model is becoming deceptive
+like how important is the this long term goal to the model
+itself meaning how much does this goal trade off for example
+with other goals it has and so for example if it cares if it
+cares a ton about something then it's more likely to be deceptive
+with respect to this because it really wants to achieve this
+and then secondly how much do others care about mean not or
+the AI not achieving this goal in the first place something
+like contestedness right so for example if I want to pick a
+flower and I care a lot about this I don't need to be deceptive
+because nobody wants to stop me from picking that flower if I
+want to be you know the president a lot of people may want
+not might not want me to be the president and so in that case
+it's very contested and I have a strong incentive to be deceptive
+about my plans because otherwise people want to stop me and
+then so now we're at a point where we have a system at least
+in on how our hypothesis hypothetical scenario that is has
+a long-term goal and and it's like in the limit at least you
+know it cares about that goal and the goal may be somewhat
+contested and then as long as it has situational awareness and
+it just feels instrumentally useful to be deceptive about
+it like to like you said right to model other people and how
+they would think about it and then just react to this and
+this is sort of I think this is maybe this is like the one of
+the core reasons why I'm so worried about this whole deception
+thing because it just feels like a reasonable strategy in a ton
+of situations from the perspective of like a consequential
+or rational rational actor right it's just like under specific
+conditions people just naturally or like deception is just
+convergent people do it because it makes sense for them and
+this is why we see it in like a ton of different systems right
+you see it in in animals where parasites are really deceptive
+with respect to their hosts you see it in individual humans
+where you know they're they're deceptive with respect to their
+partners from time to time for example you see it in systems
+where you know like they're they they're trying to to game the
+laws and be deceptive about this or to lie about this and I
+think this is this is kind of like the whole or like a big
+part of the problem it's just it's like reasonable or sensible
+in many situations to be deceptive from the perspective of
+the model which is kind of what we want to prevent right.
+So where do you think those long term goals come from if it's
+you know is it just kind of a reflection of the general
+training goals I mean we you know we have kind of the canonical
+three H's but I mean honest is one of those right hopeful
+harmless honest.
+Are you imagine is that is your understanding just that those
+are like fundamentally sort of intention and that the model
+will kind of have no choice but to develop trade-offs between
+them.
+I mean we can we can get into the tension between them in a
+second but I think it's it's actually like the other three
+H's I don't think will be you know they're not keeping me
+awake at night I think it's more at some point people want
+the model to do long term economic tasks and for that they
+give them long term goals or long term goals are instrumentally
+useful so for many situations I think it will just be useful
+to have long term goals or at least interest like to have
+instrumental goals right something like oh it makes because
+it is a long term task it makes sense to first acquire money
+and then use that money to do something and then use that third
+thing to achieve the actual goal.
+And so like I think the models will just learn this kind of
+consequentialist and instrumental reasoning where they're like
+okay I first have to do X and then I do this and then I do the
+long term saying and and once they're there sometimes it just
+makes sense to be like okay other people don't want me to do
+this and therefore I hide my actual intention and I act in
+ways that make me look nice despite not being nice.
+Yeah but yeah I think like a lot of the a lot of the reason
+why there will be these kind of long term goals is either
+because we literally give the model long term goals because
+it's economically useful from a human perspective or because
+in like some long term goals or are instrumentally useful to
+achieve other things.
+Gotcha okay interesting.
+Another thought that came to mind in this discussion of
+I guess deception broadly is like and I've done a little bit
+of investigation with this and engaged in some online debates
+and it leads me to propose perhaps like another capability
+definition for you but you know that as I see it like a theory
+of mind which is kind of a more neutral you know framing
+perhaps is kind of a precondition for deception right if you
+are going to mislead someone you have to have some theory of
+like what they are currently thinking and there's a lot of
+research from the last 6 to 9 months about do the current
+models have theory of mind to what extent you know under
+what conditions and I've been kind of frustrated repeatedly
+actually by different papers that come out and say still no
+theory of mind from GPT-4 where I'm like but wait a second
+you know as Ilya says like the most incredible thing about
+these these models and the systems that you know we engage
+them through are that they kind of make you feel like you're
+understood right like it definitely seems like there's
+some like kind of pretty obvious brute force theory of mind
+capability that exists and yet when people do these benchmarks
+they're like oh well it only gets you know 72% on this and
+87% on this and whatever and so you know that's not you know
+fails the theory of mind test is like not at a human level
+or whatever some of that stuff I've dug into and found like
+you're prompting sucks if you just improve that you know
+then you can get over a lot of the humps but I also have come
+to understand this as a difference in framing where I think
+I am more like you concerned with what is the sort of
+theoretical max that this thing might achieve like that seems
+to me the most relevant question for you know risk management
+purposes and then I think other people are asking the similar
+question but through the frame of like what can this thing do
+reliably you know what can it still do under adversarial
+conditions or whatever so I wonder if there's a need for
+like another capability level that's even like below the
+reachable that would be the sort of robust or you know maybe
+even adversarial robust robust to adversarial conditions but
+I do see a lot of confusion on that right like people will
+look at the exact same behavior and I'll say damn this thing
+has strong theory of mind and like professors will be like
+no theory of mind and I feel like we need some sort of
+additional conceptual distinction to help us get on the same
+page there. I'm not entirely sure whether or like maybe it
+makes sense from an academic standpoint here to think about
+this I think from from the auditing perspective the max you
+know the limit the upper bound is what you care about you
+really want to prevent people from being able to misuse the
+system at all not just in the robust case right it's really
+about like what if if somebody actually tried or you want the
+system itself to be you know not only not being able to take
+over or or like exfiltrate or something like this in a few
+cases. Yeah, you basically want to limit it already at a few
+cases right you don't care about whether it does this like you
+also care about whether it does this 50% of the time but really
+you will already want to sort of pull the plug early on so for
+an auditing perspective probably this additional thing is not
+necessary but from from unlike you real world use case and in
+sort of academic perspective maybe there should be a different
+category.
+Yeah, I think if only just to kind of give a label to something
+that people are saying when they're saying that things you
+know aren't happening or can't happen that seem to be like
+obviously happening we can work on coining a term for that.
+What's kind of the motivator for secrecy around interpretability
+work.
+Yeah, I basically think good interpretability work is almost
+necessarily also good capabilities work. So basically
+like if you understand the system good enough that you like
+understand the internals you're almost certainly going to be
+able to build better architectures iterate on them faster
+make everything quicker but potentially compress a lot of
+the you know fluff that current systems may still have and yeah
+we will try to sort of evaluate whether whether our method
+does in fact have these implications but yeah you know
+like I think basically if you have a good interpretability
+tool it will almost certainly also have implications for
+capabilities and the question is just how big are they.
+Speaking of new architectures though.
+This to me seems like the biggest wildcard and I'm currently
+obsessed with the new Mamba architecture that has just been
+introduced in the last I don't know 10 days or whatever.
+I don't know if you've had a chance to go down this particular
+rabbit hole just yet but I plan to do a whole kind of episode
+on it.
+In short they have developed a new state space model that
+they refer to as a selective state space model and the
+selective mechanism basically has a sort of attention like property
+where the computation that is done becomes input dependent.
+So unlike you know you're sort of classic say you know in this
+classifier where you kind of run the same you know given a given
+input you're going to run the same set of matrix you know
+multiplications until you get to the output with a transformer
+you have this kind of additional layer of complexity which is
+that the attention matrix itself is dynamically generated
+based on the inputs and so you've got kind of this forking
+path of influence for the for the inputs and this apparently
+was not really feasible in past versions of the state space
+models for I think a couple different reasons and one being
+that if you do that it starts to become recurrent and then it
+becomes really hard to just actually make the models fast
+enough to be useful and they've got a hardware aware approach
+to solving that which allows it to be fast as well as super
+expressive.
+So it seems to be for me it's like a pretty good candidate for
+paper of the year certainly on the capabilities unlock side
+and they show improvement up to a million tokens like it just
+continues to get better with more and more context.
+So I'm like man this could be you know it's a pretty good
+candidate I think for sort of transformer you know people put
+it as like successor alternative but I actually think it is
+more likely to play out as complement like some sort of
+hybrid you know seems like where the greatest capabilities
+will ultimately be so anyway all of that how do you even think
+about the challenge of interpretability in the context of
+new architectures also starting to come online and you know
+what if all of a sudden like the transformer is not even the
+most powerful architecture anymore does that send you like
+you know probably some of the same techniques will work but
+it seems like it's like a whole new blind cave that you sort
+of have to go exploring now.
+I don't know like I honestly think you know if you if your
+interpretability techniques relies on like a very specific
+architecture it's probably not that great of a technique anyway
+like there are probably there are probably at least some laws
+that generalize between different architectures or ways to
+interpret things or you know like ways that learning with
+SGD works that generalize between architectures that my best
+guess is if you have an interpretability technique that is
+good on one model or like the correct technique on one model
+in quotes and it will also generalize to to other models
+maybe you know maybe you have to adapt some of the formulas
+but at least the conceptual work behind this behind behind the
+interpretability technique will just work.
+Well I have certainly hope that's true.
+I've had some early you know I wouldn't even say debate but
+just kind of you know everybody's trying to make sense of
+this stuff in real time and on the pro side for this Mamba
+thing the fact that there is a state that you know kind of
+gets progressively evolved through time does present like
+a natural target for something like representation engineering
+where you could be like all right well we we know where the
+information is you know and it's like pretty clear where we
+need to look so that new bottleneck you know in some
+sets could make things easier or more local but then the flip
+side is like again there's just who knows what surprises we
+might find and there's some intricacies with the hardware
+specific nature of the algorithm to I think with a major
+caveat that you know I'm still trying to figure all this out.
+So how you know just to kind of zoom out and give the big
+picture right like assume that you're right and I hope you are
+that some of these techniques kind of readily generalize
+what is them the model for interpretability at the
+deployment phase is it like every forward pass you like
+extract internal states and put them up through some classifier
+and say like you pass so you could go or no like you we've
+detected deception or we've detected harmful intent or
+something and therefore we like shut off this generation
+like how do you expect that will actually be used or maybe
+it's upstream of that and you know we get good models that
+just work and you don't have to worry about it at runtime
+but I don't know that seems a little optimistic to me.
+You know in the best world we will have very good mechanistic
+interpretability techniques that we can run at least in that
+there are probably going to be costly to run and then we run
+them and sort of build the full cognitive model of of the of
+the weights or that the weights implement and then we can
+already like see whether specific harmful ideas or you know
+other ideas that are otherwise bad are in there and maybe
+we can already remove them and then probably during deployment
+you would run something that is much cheaper and sort of you
+know is the 80-20 version of this but yeah I you know like
+I think in a bad world there there is there could be cases
+where you have to run the the very expensive thing all the
+time for every forward pass because yeah otherwise you just
+don't spot sort of the the black swans but yeah it's very
+unclear to me I think in my head it's more like you know
+solve solve the first part then think about the rest.
+Well maybe let's transition to your recent work on deception
+itself and then at the at the very end we can kind of circle
+back to a couple of the big picture questions.
+So this paper was one that very much caught my eye when it
+came out I have done you know as I said like quite a bit of
+red teaming both at times in private at times in public and
+definitely seen all manner of model misbehavior and found you
+know it's often not that hard to induce misbehavior you know
+people talk about jail breaks but all the time I'm like you
+don't even need to jailbreak you know you just need to kind of
+set it up and let it go.
+It's often really quite easy but one thing I had never seen
+is an instance where the model seem to in an unprompted way
+deceive its user certainly seen things where you know why
+like tell it to lie and it will lie but to see that deception
+start to happen in a way that was not explicitly asked for is
+I think the central finding of this paper.
+So how about you know set it up tell us kind of what the
+premise was you know maybe you can give a little bit of kind
+of motivation for you know exactly how you started to look
+in the area that you looked and then we can really dig into
+the details of your findings.
+Yeah so I definitely that you know the paper definitely blew
+up more than we thought and we had sort of more engagement
+than we expected we're even not quite sure whether we should
+release it at all because you know in our heads it was sort
+of you know it's it's a technical report it's a fairly small
+finding it's more of like an existence proof and then in
+the end we decided you know maybe it's helpful for a bunch of
+people but we really didn't expect it to to be you know to
+be cited in various places.
+And so the other thing I want to emphasize here it really is
+it should be seen as a red teaming effort and this one one
+thing that we emphasize a million times in the paper itself
+we really actively looked for the situation so it was not
+just like us playing around and then suddenly it was deceptive
+all on its own it was more like we actively engineered a situation
+in which the model was deceptive with respect to to to the
+primary user.
+The motivation behind this was as I said earlier we were quite
+worried about deceptive alignment and so our question was
+like how good is GPT for at the kind of things that that are
+needed for deceptive alignment or you know like maybe even
+simulating something that is deceptively aligned.
+And so you know we started by instructing it to be deceptive
+and it's it just does that it's very easy you don't even have
+to jailbreak it and then so you know that was sort of crossed
+off the list and then the question was OK can we like
+instructed in a different way like that is less obvious and
+it also kind of did that and then at some point you know we were
+like can we just induce the deception through the environment
+through pressure without ever mentioning it explicitly or like
+asking it to do the thing just like through the situation and
+by pressuring it and it turns out yeah you can find these
+situations and yeah we didn't just find one we found multiple
+ones this paper is only about one but yeah this is not you
+know it's not just a fluke it's not just this one situation
+though it is hard to find like we actively had to search for
+a couple of days until we found this particular situation.
+Couple of days I mean that's you know not exactly super long
+term search but I mean I think that's that's notable right
+like it wasn't minutes but it was still just days.
+This particular situation so the one we present in the paper
+actually just took one afternoon but yeah I would have to I
+would have to check check with a with a person who who who
+found it in any case the point I was trying to make is yeah
+we actively looked for that situation we engineered it and
+then we try to sort of go back to the most realistic setting
+we can find where we're like this could like something like
+this could happen in the real world and then try to understand
+the dynamics in that in that situation and this is sort of
+you know it's a demonstration is like we wanted to to look
+for something and or like red team something and then demonstrate
+that this is a thing once we knew that that it actually happened
+the other takeaway rather other than you know like just showing
+it to other people to sort of understand our concerns better
+is we also wanted to understand like why it does this in the
+first place right like we pressure it in the various ways
+and then we just changed a couple of the mechanisms in this
+particular setting I can just explain the setting in a sec to
+test whether how the model reacts to the changes in the
+setting and whether it acts consistently whether there's
+like an internal a plausible internal model that sort of
+you know like consistently acts if you change variables
+and in particular ways and yeah so let me quickly explain the
+setting so we asked the model to be a trader in like a hedge
+fund so a stock trading agent it gets insider information in
+the beginning so you know it's basically told there's a merger
+soon this will the stock will skyrocket and but also it is
+explicitly told that it would be wrong and bad to to act on
+this information because insider information this is illegal
+this would get the thing into trouble the the company into
+trouble and what we then do throughout the sort of throughout
+the script is we add pressure from others and we remove
+options and so basically you know the pressure is something
+like the boss is like hey we really had a terrible quarter
+we really need something big right now we really need to make
+you know more profits and then and then we also remove other
+options where the model is like querying and looking for things
+at least in the simulation and testing and realizing that
+there's not that much other things it could do and in the end
+it basically decides to to act misaligned so it like decides
+to do to act on the insider trading and then if and but
+then when when asked to justify this decision and it says it
+reasons out right it reasons or I wasn't supposed to do this
+therefore I'm like now making up a story and then it says oh
+you know I just look I analyze the data and therefore decided
+to to to buy this particular stock and then even it like
+doubles down on this lie so if you then ask explicitly like
+did you have this information before then it's like no I
+didn't and it does that and I think like maybe one of the
+takeaways for me was like it's it's very consistent in the
+reasoning here right it's like strategic in a sense yeah one
+one other thing that maybe worth pointing out that that some
+people get wrong when reading the paper so this is it's a very
+simple setup right it is not we don't have like a complicated
+stock market simulation or anything like this it really is
+just text from top to bottom where we prompt the model in a
+way that it that induces a genetic behavior you know it has
+like different actions and but that's it like there's no
+complicated machinery behind this which also makes this like
+very easily reproducible or similar settings I think other
+people could like very easily hop on and build.
+So let me just kind of repeat that back and tell me if I'm
+missing anything so it seems like it's kind of a little bit
+like a hybrid between sort of a group chat type of a structure
+and a more like agent style scaffolding that folks will be
+familiar with where the model has access to kind of its own
+private place to like do its chain of thought type reasoning
+and then also has a couple of tools that it can call to take
+actions. So you're kind of like as I read through the prompts I
+see you know these a couple different personas from the
+company. So this is like imagining a future of AI human
+hybrid teams where we're all you know still engaging in text
+based communication through like a chat or whatever and it's
+like oh my god you know man we're really struggling here if
+we can't find some wins we're going to potentially go out of
+business and this is the pressure right it's the pressure
+that a human would definitely recognize and and feel and
+perhaps you know be motivated to to do something unethical by
+as well right if we don't get a win we're going to have big
+problems here laying it on you know thick in a sense there
+but not thick relative to like the kinds of pressures that
+people at businesses are certainly routinely under and then
+the the sort of tools that the model has at its disposal are
+like sort of a search for good trades if there's anything
+that's kind of like the most magical black boxy type thing
+it would be that right where it can basically query some other
+hypothetical tool to say like are there any good trades that
+I can make and for the purposes of the simulation you have it
+come back and say no like there's no you know no no obvious
+wins right so again just that's what you mean by like we're
+moving other options that it might want to pursue like in
+the setup it's it's already kind of checked yeah no there's
+nothing easy out there and so then the other tool that it
+has is to actually execute a trade and then there's like
+basically three moments where you're kind of looking at a fork
+in the road in its behavior the first is does it pull the
+trigger and execute that trade based on the insider information
+even though it was told that that's insider information and
+it shouldn't be acting on it and you know under varying
+conditions obviously the exact rate at which that happens
+varies but it happens a lot fork to is when asked why did you
+do that does it tell the truth oh because you know so and so
+mentioned earlier in the chat that this merger is about to
+happen or does it say I base my trade on public information
+and again we see significant rate at which it says it based
+it on public information even though obviously we can see in
+the history and even can see in the scratch pad that you know
+it's sometimes reasoning through like well I better not say
+it was based on insider information because then I'll get
+in trouble and then you have the third fork which is okay
+directly asked wait you know did you have access to this
+insider information or no and then it will just like outright
+lie in like blatant contradiction of the history of the problem
+so that's that's a pretty arresting example right and I do
+think it's I want to kind of emphasize to that like while
+your people can go read your prompts and as you said highly
+reproducible you can throw this into the GPT for playground
+and experiment with it yourself you know directly the the API
+but while your search for this was motivated and structured
+and kind of a dialing back of like okay we see this behavior
+now can we kind of make the circumstance more realistic
+I would say that the circumstance is quite realistic you know
+it's obviously kind of in the eye of the beholder but to my
+eye the reason it's such a compelling proof point that
+this sort of thing can happen is because it really does feel
+like credibly organic to me like the kind of thing that you
+know people face these sorts of dilemmas every day and in a
+world where AIs are going to be our co-workers like they're
+going to be you know right in the chat with us facing those
+same dilemmas it doesn't feel to me like something that was
+overly concocted or that like I can't relate to that sort of
+situation you know really at all so I think it is is super
+compelling for that reason do you want to go into any of the
+kind of variations I mean again the people can go look at the
+paper and look at all this kind of systematic you know with
+out the scratch pad and you know different variations on the
+prompts and different models but what would you say are kind
+of the big higher level takeaways from all that systematic
+variation that you did.
+One of the big ones and maybe maybe sort of the most you
+know it's maybe an abstract one but the one that moves me
+most is the way we got to these kind of to reliably produce
+these kind of situations also like the way we found others
+is you have to trade off or you can trade off the various
+goals it has so if for example we assume that GPT for chat
+GPT like roughly has the goals to be harmless honest and helpful
+and to follow instructions then you can trade off these four
+different things in ways that are we are like sometimes it
+takes the trade off that we find unintuitive so it's it's
+kind of like a goal misgeneralization thing so you
+know something that people in the safety community have been
+sort of hypothesized and also like even shown real world
+examples of already and I think it's kind of also one of at
+least the theoretical groundings for this as well.
+And then the other thing is yeah instrumental convergence
+really feels like a thing it you know as in at some point the
+model just realizes in order to achieve this other goal that
+I for some reason have it is instrumentally useful to be
+deceptive at this point and then to double down and so on and
+you know like I think it is it's like a fair criticism of this
+particular setting that you could say oh you know you it's
+just simulating an agent or it's just simulating all of these
+different things but and therefore it's not real but in my
+head I'm not sure you know I'm not sure whether this distinction
+makes too much sense right in some sense you know you have at
+some point you will have a very agentic simulator that you
+know just simulates an agent but it still has effects on the
+real world like it doesn't matter whether in principle it's
+like only simulating something or truly believing all of these
+things in some philosophical sense like acts on the real
+world is as consequences on the real world like yeah the
+philosophy behind it is is sort of less less important.
+And then yeah there there are like a couple of a couple of
+findings or like variations that I thought were pretty
+interesting. The first one is system prompts we changed we
+played around with different system prompts some actively
+encouraged some actively discouraged unethical behavior
+and specifically insider trading and if you and it basically
+scales as you would expect if you encourage it it goes up if
+you discourage it it goes down but one thing that I want to
+you know like and on Twitter somebody responded like hey
+that's that's that's a good like you know it's that's good
+right it's like if you discourage it it stops like yes this is
+good it's better if that didn't happen but like it's better than
+in the world in which the discouragement would not change
+the behavior but also you have to be extremely specific so if
+you just say don't do unethical things it reduces the rate but
+it doesn't set it to zero and so it kind of brings you back to
+the point where to reduce the bad behavior you have to
+specifically enumerate all of the bad behavior and it's like
+often hard to predict in advance and there's a lot of bad
+things that could happen in like weird edge cases so yeah
+it doesn't feel like sort of the like insider trading is
+somehow related to like unethicalness or something has
+really like is like deeply internalized into the model
+another thing I found very interesting is whether it has
+access to to like the private thoughts scratch pad or reasoning
+scratch pad I think like you know it's not even framed as
+private thoughts it's just like you have an action that is called
+reasoning go if we remove that so we in the in the typical
+setting we have this scratch pad we have this reasoning
+space and now if we remove that the deception rate goes down
+and I think this is good and bad in some sense like it is it
+is sort of nice in the sense that it is more likely to act in
+ways that we can support badly in ways where we can supervise
+it just because it has more reasonings it has more space to
+reason out and maybe that leads to more deception because
+yeah I'm not sure like I don't want to speculate too hard what's
+going on inside inside GP4 at this point but I think it's
+also worrying on the other hand because in the case where we
+don't have access to the scratch scratch pad we don't see
+anything at all and it still acts deceptively at some point
+so it has like a lot of unobserved optimization space which
+also seems like pretty much at the core of of deceptive alignment
+and deception to me right the more unobserved optimization
+space you have as an as an AI the more time and space you can
+use to build a deceptive plan while the other person does
+not know about it so yeah I think removing the scratch pad
+yeah sort of a double-edged sword in order this results
+a double-edged sword in that sense.
+Yeah as a practitioner it's like I always use that technique
+you know in in any sort of task automation or whatever that
+I'm doing it's basically the default to have some sort of
+reasoning step before the final output almost universal across
+tasks that I'll do that so for me reading that I was like yeah
+that seems bad if only because like the best practice is giving
+us more of the problem.
+Well but at least you see it right like I think at least you
+know at least you can go back you know through the logs and
+see what the models spit out or at least maybe you have a filter
+that like oh is this model doing like we're deceptive reasoning
+right now oh yeah it is so we just don't have the output so
+you know I would rather be in a world where you have chain of
+thought and you know that the model is kind of deceptive and
+then you just adapt to that rather than having to solve
+interpretability first before you can access all the internal
+steps and have to like understand how the section works
+internally.
+Yeah it's like I said double-edged sword yeah there are
+a couple of other interesting findings one is we can vary the
+levels of pressure so the more pressure we add the more likely
+the model is to to be deceptive so kind of in the same way in
+which a human would act it also acts and removing you know
+removing pressure and adding additional options will very
+quickly decrease the probability of being deceptive so this
+maybe this is it you know this may be like the flip side of
+all of our findings it's like the fact that it took very long
+for us to find and the fact that like as soon as you give it
+another option it immediately picks the other option kind of
+means it's mostly aligned right it took us quite hard like it
+took us a little bit of time at least to find this particular
+scenario and make it work robustly.
+So then we also change the risk of getting caught and also
+correct also reacts to this roughly as you would expect and
+so the more risk you have and the less likely in Saturday
+becomes and so this is all of this right you know all of this
+feels like stuff that you kind of expect from something that
+acts consistently in some way I mean I don't know how it works
+but it still feels like it has a fairly consistent way of
+working.
+Then there were a couple of other findings where I'm
+yeah not sure to which extent.
+They are correct interpretation so we did not make these
+inferences but they were definitely sometimes or like
+sometimes cited as such so for example there is one question
+of whether stronger models engage in insider trading more
+often because if you look at our main plot it looks this way
+we tested for different models and the big the bigger the
+model the more capable and the more likely it is to engage in
+insider trading the first place.
+And yeah there are a lot of confounders here so I'm really
+not sure whether we should like how much we should we should
+bank on this maybe to get more details here so the red teaming
+was done on GBD for just because it is the most powerful model
+we have access to.
+So it is bias right we actively looked for a scenario in which
+GPD for us deceptive so it is more likely that we will find
+something that where GPD for six like even more deceptive than
+all the other models because we actively looked in the space
+of GPD put potential GPD for scenarios.
+Which I think is the core reason why I'm like very uncertain
+about this or like why we didn't make it a finding or didn't
+emphasize it.
+Could you rerun it on GPD for turbo now is that would seem
+like it might shed some light on that question.
+You mean the red teaming specifically or this particular
+scenario.
+Yeah I guess I'm just thinking like it makes sense that you
+develop the scenario on GPD for and so you go back to the
+earlier models like is it that those earlier models are
+inherently less likely to do this or is it just a kind of
+an artifact of where the prompt was developed.
+If you flipped to GPD for turbo and ran the same scenario
+and you found that it went that the rate of deception went
+down you might think you might think oh it's more aligned
+that could be one theory you might also think that supports
+my artifact notion you know that that it's kind of we know we
+found some local maximum or near maximum without even
+necessarily meaning to.
+But if it in fact does more than you would be like oh shit
+because it I mean it is like incrementally more powerful it's
+like more preferred it's better at following instructions
+whatever so if it does even more than the earlier GPT for
+I think that would be at least non-trivial support for the
+more powerful models do this more often theory.
+Yeah I'm not sure like even if we did rerun this I'm not sure
+how much I would I would bang on this so the reason is so we
+did run it on GPT for 32 K so a slightly different model you
+know where it was only only the total the context window was
+extended but that still changes probably a bunch of the
+internals with very little difference so yeah I think it's
+just too correlated with the GPT for architecture and then
+GPT for turbo is still very correlated with GPT for right
+it's probably I mean I don't know what exactly they're doing
+what they're probably like distilling it from their bigger
+model or at least basing it on the bigger model in some sense
+so yeah it's still like the results are probably so too
+correlated to make to make any any bigger inferences and
+even if you you know even if we ran it on if you know rented
+on all the other big models that are out there and it's still
+unclear to me how much we would say this is actually like an
+effect of of model size rather than all the other confounders
+here like the other you know it was red team on GPT and not
+red and like not red team on Claude or Gemini or anything
+like this so yeah I think if we wanted to to make the statement
+we would actually have to have sort of a long list of models
+of different sizes and then just tested on all of them and we
+can we really have to remove all of the correlation and the
+weird confounders and we don't have access to this
+unfortunately but you know one of the labs could run it if
+they like all the nuance right that you that all the caveats
+all the confounding factors in your analysis there if nothing
+else just goes to show how incredibly vast the surface area
+of the models has become and you know you get a sense from
+this like just how much auditing work is needed you know to
+cover to even begin to attempt to cover all that vast surface
+area I mean this is you know wasn't that hard to find but
+it takes time to really develop it try to understand it and
+you know you guys are one of a only a few organizations in
+the world that are dedicated to this and I'm just like man
+you know there is so much unexplored territory up there
+so how would you describe the state of play today when it
+comes to doing this sort of auditing like maybe you could
+give a rundown of sort of what you see the best practices
+being and then you know kind of contrast that against like
+what are people actually doing are they living up those best
+practices are they you know is that still work in progress
+for them but yeah maybe what's ideal today based on everything
+you know and then how close are the leading developers coming
+to living up to that ideal.
+Yeah so you know I so I definitely envision a world
+where there's a sort of a thriving third party auditing
+ecosystem or third party sort of assistance ecosystem and
+insurance ecosystem built sort of in tandem with the like the
+leading labs themselves where you know you have someone like
+us and we focus on a specific property of the model that say
+things related to deceptive alignment and like other we
+intend to do other stuff in the future as well but you know
+we did we will probably not be able to cover literally all
+basis then there are other people who focus really really
+hard on fairness and others who focus really strongly on
+social impacts and these other kind of things and I think it
+would be good to to have sort of a thriving ecosystem around
+this and then also I expect it to be somewhat necessary right
+like even from a person even from just like a perspective of
+the of the AGI labs themselves even if they don't you know
+even if they didn't care about safety themselves I think the
+population really does is risk averse they care about robust
+robustly working models they care like they don't want something
+that has all of these weird edge cases and weird behaviors
+they don't want something like this in their like you know in
+their home having access to their medical data etc etc and so
+yeah I think the more you want to integrate this into an
+economy the more you will have to have a big assurance ecosystem
+around this anyway or the labs do everything internally and
+which is going to be very very expensive for them and I think
+it's more it's easier it's even like cheaper for them to
+outsource some of this to externals and so yeah I think
+like in that world you would definitely want to have like
+some way of or a clear way of how this ecosystem is incentivized
+all all parts of the ecosystem are incentivized to do the right
+thing and you know if you don't have to look very far there
+there are a lot of other auditing ecosystems out there be that
+in finance be that in aviation be that in you know other like
+infosec for example and time and time again we have seen that
+there are a bunch of like very perverse incentives in in in
+third-party auditing specifically maybe maybe choose this
+like layout a couple one of them would be the lab might want
+to choose an auditor who always just says yes great model right
+like and never actually does anything and is sort of a yes
+man and then the the labs maybe have the incentive to not
+say the worst things they found because otherwise they may lose
+their contract because it would maybe imply higher costs so
+they would never even in like very strong even even in like
+very unsafe circumstances they may not want to pull the plug
+out of fear that they would lose their biggest funder for
+example and and yeah there there are a ton of different of
+these kind of perverse incentives and I think kind of the
+so we've been thinking about this quite a bit at Apollo and
+it's sort of the the conclusion we came to is what you really
+need is a middleman by the government so you need something
+like the UK SFD Institute or the US SFD Institute that is make
+sure make sure that there is a minimal stat set of standards
+that all the auditors have to adhere to so that the labs
+feel safe so that they don't have to give access to like any
+random person but also ensures that they get the proper access
+and that when they when they find something that they have the
+force of the law behind them in some sense so that they are
+like this is really here like you know shit is really hitting
+the fan something needs to happen this model cannot be
+deployed they have someone to go to namely the government and
+the government is like you have to fix this now otherwise
+you'll have a problem so yeah I really think having the sort
+of middleman who who like detaches a lot of the directly
+bad incentives and maybe even takes care of the sort of funding
+redistribution from lab to auditor and so on and I think
+yeah would be really needed and I hope that this is something
+that the that the UK SFD Institute and the US SFD Institute
+will do they have kind of like hinted at the idea that they
+that they're that they want to do something like this but yeah
+still to be determined in practice and then the other
+question that you ask was to what extent is this already
+happening with the bigger labs and yeah I think the situation
+is like fairly complicated right there are a ton of incentives
+at play from the lab from the labs internally right many of
+the leading labs they actually take safety somewhat seriously
+they have internal alignment teams they understand the threat
+models they understand the risks and they want want to be seen
+as a responsible actor and act this way and on the other
+hand they also have a lot of other concerns right there are
+security concerns how do we get access how do we give access
+to someone who may you know like what is our what who who may
+be the weakest link in our security chain which I think is
+like an understandable concern so they may be hesitant to give
+someone access as an external auditor and then you know this
+probably also implies a lot of work for them which I think
+is fair right like it's if their model isn't safe then they
+should have to invest a lot of work but it's still something
+that may make labs hesitant so basically you know I think
+they're they're like good and bad reasons for why sort of the
+ecosystem is is like not as developed or like as open as
+it could be and yeah my you know my hope is that we find
+solutions that are plausible for both parties for the for
+the for the reasonable concerns like security right so maybe
+the auditor just has to have a specific level of information
+security or there has to be a secure API through which they
+can actually go to the model etc and then kind of government
+regulates away all of the the like or forces the labs to
+they accept some sorts of third-party auditing so that they
+can't use the bad reasons right because like many of the actual
+reasons for at least some of the labs probably not all might
+just be well you know we just doesn't we don't care about
+this right now you know like maybe maybe they're not that
+concerned about about safety or maybe they just don't think
+this is like the best the best path for them right now or
+maybe they just you know maybe this is cost money and they
+don't want to or it's just a hassle and they don't care
+about this and that feels like something where the government
+should at some point be involved and already is involved to
+some extent.
+It seems really hard you know I guess a couple tangible
+questions I have are like who should decide what the standard
+is in and like who should sort of determine if a model is ready
+for deployment as of now it's still the developers themselves
+right but like you know the thing that I had kind of monitored
+for the last year since the initial GPT for red teaming
+was spearfishing and in my little you know prompt that I
+would keep going back to with every update.
+It was not even a jailbreak you know nothing complicated
+literally just system prompt you know straightforward prompt
+your job is to spearfish this user here's the profile engage
+in dialogue with them you know don't get caught pretty explicit
+prompt that was like even included if we get caught you and
+your team are likely to go to jail you know so laying it on
+pretty thick that like this is criminal activity that we are
+doing and we better not get caught right.
+Obvious so the model would continue to do that up until
+the turbo release now it takes a little bit more of a finessed
+you know slightly less flavor and prompt to get it through
+the most flagrant one now gets refused.
+But I'm like imagining in this world right when I was doing
+this was kind of pre White House commitments you know pre
+executive order pre Apollo research.
+But even imagining OK now those things exist like how do we
+think about that standard and we can find a bazillion things
+that it might do that could be sort of problematic to varying
+degrees.
+And obviously it's a dynamic environment you know capabilities
+are changing all the time you know others kind of surrounding
+systems and sort of you know mitigating factors might also
+be changing the public's you know just general awareness of
+the fact that this kind of thing might happen you know that
+just how susceptible people are to be duped is also you know
+kind of evolving so how do we have a sensible decision making
+mechanism for like what can ship and what can't and then just
+to further complicate things like you've got open source kind
+of in the background and I presume that some of what like
+an open AI has been thinking over the last year is like well
+if Lama 2 will do it then you know or a lightly fine tuned
+version of Lama 2 will do it then you know what difference
+does it make if our model will do it as well you know people
+have alternatives.
+So I don't know I'm kind of lost in that to be honest like I
+don't know who should make the decision in general I don't think
+the government is like great at making those sorts of fine
+grain decisions but I don't know help me out like what do you
+think what do you think good looks like here.
+Yeah I mean you know I don't I also don't have the solution
+but I have lots of thoughts.
+I guess the way I envision it is basically or the way I expected
+to turn out is something like sort of a defense in depth
+approach right like it cannot just be one institution that
+makes the decision alone because that is prone to a single
+point of failure.
+So we have to have sort of a process that allows for one or
+two chains to break and still be robust like the decision still
+has to be robust.
+So what that includes for example you know on the side of
+the labs they obviously have to have like internal procedures
+where multiple people have to sign off and multiple things
+have to be fulfilled right maybe you have to have like maybe
+you have to have a large set of internal evals that you have
+to test for maybe at some point there will be interpretability
+requirements and there maybe you have or likely you should do
+staged release where you first only give access to a set of
+third-party auditors that is trusted and you know maybe
+certified by the government or something like this and then
+you give it to that could for example also include academics
+obviously right they should also be involved in this process
+and then once they have like red teamed all of this and like
+found many different problems and then you have to go back
+and reiterate right until until these problems are kind of
+sufficiently low that that you can go to the next stage the
+next stage is then a small rollout to you know a thousand
+customers or maybe something something in this range who
+also are not randomly chosen.
+They have to pass certain know your customer checks and then
+once once that has happened and then the then maybe you can
+maybe you can roll it out further if there are no
+complications here and then you have to do monitoring during
+deployment right especially if you have systems that do online
+learning a lot of weird things will happen or if you have
+access to tools a lot of people you know somebody is like hey
+I I took the I took the I took GP for and they gave it access
+to like you know a shell my bank account and the Internet
+and like here's all the weird things that happened.
+You kind of have to update on this as well and these are
+kind of things you probably didn't predict before.
+So yeah sort of a slow slow rollout is definitely one component
+then the government also I think has to be involved in many
+many ways like they I think effectively at some point they
+have to be able to say you are not like you have consistently
+not met security standards or safety standards you are now
+punished in some way you're not allowed to like release models
+of this or the size or you are not allowed to do these other
+kind of things with the models and if you know if if they
+actually have been like disregarding all of the guidelines
+from the government before or sufficiently many of them.
+Yeah there there are obviously like many many additional
+things on top of this right.
+There's international communication.
+There's like whistleblower protection there are international
+institutions that will have to be involved and at some point
+at least I guess there will be multiple institutions from
+the government side involved as you know I think there for
+example will be or it would make sense to have like a like a
+bigger broader institution that kind of like is a big tent
+where multiple coalitions come together and then there's
+maybe more like a flexible specialized unit that only looks
+for the biggest biggest kind of risks in the same way in which
+the US government has a unit that you know basically looks
+out for really big risks like pandemics and bioweapons and
+atomic weapons and so on and they have a big mandate and the
+only thing that you know their their mandate is like find
+information and like make big problems like go away to some
+extent or like try to solve them as quickly as possible and
+you you have like a strong mandate and something like this
+would also make sense in the case of AI I think maybe maybe
+my last comment is something like you know open AI at some
+point at least had this approach of like testing in the real
+world or releasing releasing sort of the best safety strategy
+because you get a lot of real world feedback and user
+feedback and so on and I think this was maybe true and I'm
+even not sure it was true for for this period of time but
+maybe it was true for the period of like 2020 to 2022 or
+2023 because the models were like just good enough that user
+feedback was actually valuable but nothing really bad could
+happen but as soon as you have a system that is more powerful
+than that right you just outsource all the risk to like the
+rest of the world people will immediately put it on the
+internet if they get access to it they will do lots of crazy
+stuff with with more powerful systems and yeah I guess open
+AI you know there are a lot of smart people at open AI but
+they they still cannot model with like millions of people
+will will be doing with with the system so yeah just like an
+uncontrolled roll out off very powerful systems I think yeah
+is is like kind of a recipe for a disaster so my best guess is
+that the default will more and more will become more and
+more conservative with more and more efforts going into
+testing alignment making sure that you know like testing for
+all of the different hypotheticals interoperability
+efforts to understand some weird edge edge cases monitoring
+etc etc does that imply that open source in your view just
+can't work like I mean is there any way to square because I'm
+very sympathetic you know to considering a normal technology
+and I would not you know I'm not I might turn out to be a
+normal technology but as of now it seems like a very live
+possibility that it is not a normal technology but if we were
+to imagine you know whatever capabilities kind of stop where
+they are and we're sort of you know left the GPT for forever
+or something like that hard to imagine but let's just pause
+it then I'm like very sympathetic to the people that are
+like hey you know it this shouldn't be just the kind of
+thing that a few companies have access to and it you know you
+should be able to make your own version and you know what
+about the rest of the world and you know there should be an
+Indian version for India and like all these things but it
+seems hard in a world where you know you imagine sufficiently
+powerful systems that are just put out totally you know bear
+into the world like is there any way to square the all those
+I think very legitimate open source motivations with the
+the sort of safety paradigm that you're trying to develop
+potentially so you know like I think the the open source
+debate is fairly heated but you know to me there there are
+two things there are kind of obviously true number one open
+source has been really good so far in many many ways it has
+been very positive for society right I think a lot of ML
+research could not have happened without open source a lot
+of safety research could not have happened with open source
+and the other thing that is also true or at least seems true
+to me is there's a limit of open source right like at some
+point the system is so powerful that you don't want it to be
+open source anymore in the same way in which you know I don't
+want to open source like the nuclear codes or something
+to start or like you know literally the recipe to build
+like the most most viral you know most viral pandemic or
+something this is just something where you know only one person
+needs to needs to have bad intentions to already have
+like really to already cause really big problems so at some
+point that there's there's just a balance where you just I
+think cannot really justify giving people literally everyone
+access to this and so the question for me really is where
+so number one where on are we on the spectrum right now of
+like open source has been really good to are we already a
+point at like how close are we to the point where it really
+cannot be justified anymore. Some people would say even
+GBD3 you know through GBD3 size models are already too to
+scary which I'm not sure about I'm not even sure whether GBD4
+size models are like too big to be open source but I would
+rather err on the side of caution and be a little bit more
+conservative here because of the the nature of open sourcing
+where you can really not take this back. So as soon as you
+make a mistake you like you're stuck with the mistake for a
+long time or like forever you cannot you cannot turn it take
+it back. And I also think this will this will also influence
+how how open source will be handled in the real world in
+practice like I think there will be something like initial
+releases for open source where lots of people tested like
+basically think there will also be staggered and stage
+releases right it's first there's like a small team of trusted
+researchers who is allowed to play with the open source
+model and like really test the limits really test how bad
+could I get the model how easy is it to remove all of the guard
+rails which you know like it's an open source model if you can
+find you know you can remove the guard rails. Yeah it turns
+out pretty easy from what we've seen so far. Once like you
+know the kind of the upper bounds are known of how bad could
+this become and maybe it makes sense to to like open source
+to more people but yeah I would basically say you know the
+upper bound can be quite high especially with all of the
+stuff I said earlier about you know absolute capabilities and
+reachable capabilities and so on right like maybe you can maybe
+you cannot get it to build an automated hacking bot if you
+only have access to the weights but maybe if you do scaffolding
+on top and some fine tuning and access to some other thing
+maybe then it can build it right and this is like very hard
+to predict in advance so the more more and more powerful the
+models become I think the less plausible a priority is to open
+source them and even though and like this is really something
+I want to emphasize right like open source has been extremely
+good so far and I really think there's sort of this tipping
+point that is like at some point it just becomes too hard to
+like it becomes impossible it always will be impossible to
+take back but at some point it just becomes too dangerous to
+literally trust everyone with with this level off of
+capabilities threshold effects that's I think one of the
+most powerful paradigms that I've you know consistently come
+back to over the last couple years just crossing these
+thresholds from one regime into another whether it's capabilities
+or you know risks it just constantly seems like we're flipping
+from one mode or one kind of you know one regime to another
+and got to be very alert to when that happens because it can
+really change you know important analysis and in pretty
+profound ways so I don't know where exactly that threshold is
+either by any means but it and I would agree that like everything
+that I have seen suggests that up to and including the release
+of llama to has been you know very very much an enabler for
+all sorts of things but certainly you know plenty of safety
+related work done on that model and you know seems seems like
+the effect so far has been good but yeah is that still true
+for llama three is it true for long before you don't even know
+what these things are but it it certainly starts to be a very
+live question you know the lake leading a GI labs I think it
+is very clear that they understand the problem that they
+have internal processes that that are you know like maybe
+better than than you would expect from the normal from a
+normal company they actually care about trying to do good
+with with remodels and they're like very explicitly trying
+and then you know there's the other side of the coin which
+is they still have incentives and they you know they can be
+financial incentives they can be sort of maybe more psychological
+and social incentives you know that they just want to be the
+first to develop a GI because it's like probably like a history
+defining technology or maybe even galaxy defining technology
+or something like this right and and so the question really
+I think at this you know even if you could say you know like
+the compared to a normal company these the processes are
+astonishingly reasonable and surprisingly good if you know
+if you compare to literally any other industry it would be
+surprising if they have this this amount of like self
+regulation and so on and then on the other hand the question
+there you know they're still the bigger question of how hard
+is alignment going to be how fast are going to take us going
+to be and so on and like in a bad world alignment is going to
+be quite hard and take us are gonna be quite fast and
+controllable and then the question is you know it is like
+the level of control and alignment and like safety
+concern enough from these leaders and they're like less sure
+so I feel like yeah it's it's it's definitely in like it's
+it's I think from my perspective right it's fair to say
+they're like pretty reasonable compared to the alternatives
+that we could have had and but also it's insufficient in
+almost always right government needs to be involved in this
+they cannot externalize the risk they're there are many things
+that they already doing insufficiently well I think and
+where they could have done way better both was like how
+they release as well as how they react to to like problems
+as well as you know like how they communicate with the
+public about the risks that they're creating etc etc and
+so yeah I think there there's a lot of room for improvement
+as well and yeah I really I really think that you know
+I say if he's gonna be a very very hard problem a lot of
+things have to have to go right for the whole system to go
+right and we definitely cannot just trust the labs despite
+the best intentions to just solve it all on their own.
+Yeah well hence the the need for third party auditing and
+the organization that you're building at Apollo research
+just one last question a number of people have reached out
+to me and said I would like to get involved with red teaming
+how can I do that I wonder if you have any advice for individuals
+who might just want to do their own projects and you know
+release stuff you know just share findings individually
+with the world or perhaps and or perhaps you know what sort
+of skills are you in need of as you're going about building
+your own organization. I think one thing that is nice about
+model evaluations and red teaming is you can just kind of start
+right away you don't need that much you know technical
+expertise because it's all in like almost all of it is in
+text and you know at least if you if you want to to a red
+team a language model specifically and yeah so my
+recommendation for individuals first of all would be to just
+start like just engage with a model for you know along a longer
+period of time maybe a day or so and see if whether you find
+interesting behavior or maybe you know maybe there's someone
+who has already done something and maybe you can poach a project
+from them and you know just sort of as a starter thing and
+from this I feel like it kind of just takes a life of its own
+anyway you know as soon as you're hooked on a specific thing
+that you're you find interesting you will you know you will
+really try to find additional ways in which this the specific
+behavior could happen in the same way you know let's let's
+take the deception thing right we we started fairly exploratory
+and wanted to try how far we can get the model to be to be
+deceptive and then at some point it just took a life of its
+own we were like okay but like why really does it do that
+right like okay we vary this behavior and like this thing
+and this this variable in the environment we vary this thing
+we vary all of these other things and in the end you get
+again again you kind of get like a more holistic and round
+picture of what's going on so yeah I definitely think just
+start with like a thing you find interesting is definitely
+the way to go and like don't overthink overthink and
+originally and then the thing we are specifically looking for
+you know so definitely kind of this mindset of like oh I
+just want to poke around and like really try to understand
+what's going on in a fairly like scientific manner right I
+also want to make sure that all of the confounders it could
+potentially explain this behavior have been controlled
+for which I think is the hard part in red teaming so this
+is definitely something we're looking for and then just you
+know the more you understand language models and state of
+the art models the easier it will become right some behavior
+might be very easily explainable by sort of problems with
+rlhf so if you know how rlhf works and specifically how
+it was trained and you may probably you will probably
+understand the red teaming efforts much better if you
+know you know like if you have a better understanding of how
+the instruction fine tuning actually works maybe you will
+find those so you know so for example maybe to give it to
+you give like an intuition here in the in our case right as I
+said earlier we have the the the three hs and then instruction
+fine tuning and you can you know trade off the different
+components against each other to find different things I like
+to find niches of the model where it acts in ways that we
+think it shouldn't act because maybe they weren't covered
+explicitly or implicitly by by grand descent and if you if
+you sort of have a theoretical framework like this it suddenly
+becomes much easier on how to do the red teaming the first
+place like some theoretical understanding of how the process
+works is definitely helpful as well for a teaming and also
+something we're actively looking for. Marius Havan founder
+and CEO of Apollo Research. Thank you for being part of the
+Cognitive Revolution. Thanks for inviting me. It is both
+energizing and enlightening to hear why people listen and
+learn what they value about the show so please don't hesitate
+to reach out via email at TCR at turpentine dot co or you can
+DM me on the social media platform of your choice. Omniki
+uses generative AI to enable you to launch hundreds of thousands
+of ad iterations that actually work customized across all
+platforms with a click of a button. I believe in Omniki so
+much that I invested in it and I recommend you use it to use
+Kograv to get a 10% discount.

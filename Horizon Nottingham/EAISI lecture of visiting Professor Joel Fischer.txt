@@ -1,0 +1,463 @@
+There's no one else online. We're just recording the talk. Yes, you're wondering.
+Oh, I think it's starting out. It's my pleasure to be used to official professor of computer interaction.
+And it's well, it's, uh, in this reality lab there.
+This research is on human centered recent AI technologies.
+And he uses methods like technology, participatory design, and so on to look into how we can maybe tackle the challenge of artificial general intelligence.
+And today's talk will focus on how they can actually be the hindrance to responsible AI that truly left the site.
+So we are very happy to have him here as a living professor.
+So, please join me in welcoming Joel and maybe a round of applause to start the talk.
+Thank you. I'll use the mic. I'll use the mic until my arms get tired. Good to see all of you.
+Thanks for taking time out of your busy summers, hopefully.
+As you can see, I'm on sabbatical. So I'm, you know, champion championing the leisure wear here.
+And also as a counterpoint to this talk, which is going to be a little bit grumpy, right?
+As you can tell from the title, which is kind of a little bit click baity, which kind of worked because you were here now.
+So that's great. So yeah, let's get started.
+So, I mean, this is, this is quite a, this is quite a well known thing, but I did want to play it.
+And this isn't about, this isn't, you know, general intelligence at all. This is very much kind of narrow AI.
+But this is an example of how AI can go wrong, right? So you can see this is based on a reinforcement learning agent that gets stuck in this loop that you can see right here.
+But what it does is it maximizes this simple reward at the expense of the long term goal of actually winning the race.
+And it does show how a misspecified reward function can actually lead to this, this kind of subversion of the environment of the agent by continuously collecting the bonus items without considering, you know, the goal of winning the race.
+So it does show, isn't it a classic example of kind of showing unreliable and unsafe outcomes of AI.
+And actually this was, this is published on the OpenAI blog, which is at a time when OpenAI was still open, right?
+And they have actually kind of got quite kind of self-critical reflections that they offer there to readership.
+And broadly speaking, so if you read Brian Christian's The Alignment Problem, this is one of the examples that is used in the book to illustrate how things can go wrong with AI.
+But now we're at a different time, right? And there's this incredible popularity of AI, which I know I do think it's actually incredible.
+What has happened in the, you know, I think probably since the release of ChatGBT, AI has really become like a pop culture phenomenon.
+And it's not just about tech at all anymore. It's a cultural phenomenon that has all these actors and celebrities in it as well.
+And the media is highly involved. And it's talked about everywhere, not just the media, but also in classrooms, boardrooms and pubs, in families, you know.
+I mean, how many of you get asked by your family members and friends, oh, what about this AI thing should be really worried about the robot takeover, which is going to happen soon.
+And actually examining this kind of public discourse can tell us a lot about public perceptions and understanding of AI and where this kind of discourse is heading.
+And, you know, I think science fiction images like this one that's used here that the media love to use have a lot to answer for as well.
+They kind of contribute to the mystification of what AI is and maybe raise false expectations.
+So I'll lean on that in this talk. So what else I'm going to do in this talk is try and answer a few questions.
+What is artificial general intelligence or AGI? And why is everyone so worried about it?
+Then I want to ask or answer a little bit what's in it for whom.
+And then to kind of get to what are the real problems with AI and what should we do about it?
+So what is AGI and why is everyone so worried about it?
+So this wouldn't be a lecture without having some definitions, right?
+And here are some of those. So, you know, highly autonomous systems that outperform humans at most economically valuable work.
+That's the definition from open AI.
+Then a longer kind of more academic definition here is a, you know, software program that can solve a variety of complex problems in a variety of different domains.
+And I think this domain spanning type of characteristic of AGI is really important.
+And then this goes on and talks about things like thoughts, worries and feelings.
+I mean, I would contest that AI can have that, but there you go.
+And then finally, a shorter one from the classic AI book from Russell Norvig,
+is it's a universal algorithm for learning and acting in any environment.
+Again, there's this concept of environment spanning type of definitions.
+Gibro and Torres is the paper that has sort of inspired me to write this talk, which is the test wheel bundle paper.
+It's the open access. Go and check it out.
+If you haven't seen it already.
+It's also very ranty and angry in many places, but I think it's also enlightening in other ways too.
+And so when I'm citing that on the slides, it means that essentially the content of that slide is taken from that paper.
+Okay, so who is familiar with Bostrom's paper clip AI thought experiment?
+I'll play this anyways, so you get an idea if you haven't heard of it.
+Humans are fascinated by the possibility of artificial intelligence.
+Some believe that advanced AI will signal the end of the most basic problems like food security or needing to work.
+The more pessimistic among us believe in a terminator style ending where artificial intelligence tries to destroy the human race.
+But what would a disaster AI scenario actually look like?
+It's unlikely that AI would experience human emotions like pride, anger, blood lust that we consider evil.
+It's far more likely that AI ends the world as we know it by accident.
+Nick Bostrom describes this through the parable of the paperclip maximizer.
+Imagine this, paperclip company is tired of managing its funky paperclip machines.
+Instead, they design an AI whose exclusive goal is to produce paperclips and lots of them.
+This is a really smart AI because it needs to deal with things like raw material procurement, shipping, and interacting with paperclip customers.
+It's more intelligent than any living human being.
+The owners of the paperclip business turn the AI on and are initially very happy.
+It turns out paperclips like never before.
+It's so good at the job that it's actually producing the former paperclips than necessary and the owners decide to turn it off.
+They unplug the AI only to find out that it's produced the copy of itself earlier so that it could keep operating if it got unplugged.
+This AI is on a mission to keep making paperclips.
+Soon, we have a major crisis on our hands.
+The AI has gone out into the city, collecting all the raw materials it can find to turn into paperclips.
+Paperclip warehouse is soon overflowing and the AI has to expand out into the city.
+It does this with reckless abandon, storing paperclips wherever it can find space.
+It doesn't feel bad about crushing homes, schools, or hospitals.
+It doesn't feel any emotion at all.
+The AI soon ventures outside the city, needing more raw materials and space just towards paperclips.
+At this point, the whole world is on high alarm, all working together to stop the silly paperclip making AI.
+The best minds in the world, academic and military, come together to stop it.
+The AI learns that we are plotting against it and perceives this as another obstacle to its paperclip production.
+To prevent these simpleton humans from meddling further, the AI releases a noxious gas over the world that eliminates all people.
+Fully unencumbered, the AI expands around the globe, using up all available resources.
+Soon the Earth has nothing else left to make paperclips from, so the AI prepares for interplanetary travel.
+It colonizes other planets in search of more metals to make paperclips with.
+The AI homes along, blissfully leaving a trail of death and destruction in the universe, carrying only for making more paperclips.
+I think that's enough.
+It is a thought experiment, but a lot of the rhetoric and hype around existential threats comes back to this.
+This type of idea that this is how AI can get out of control.
+There are a lot of assumptions that are being made here about what is happening with AI.
+I think it's important at this point to move on and look at, that's the kind of fiction.
+Where are we currently? What is the state of the art with AGI?
+Many say that really with large language models with AGI, this is the closest thing we have in reality to AGI.
+It is because of its cross-domain handling.
+It can do things like, this paper argues, this is very well cited already.
+It's still a new paper, but have a look at this box of artificial general intelligence, early experiments with GPT-4.
+This shows, allegedly, how it can do things across domains.
+You can do multi-modal imagery input.
+It performs well in exams.
+It does things like perform well in spatial awareness tasks.
+It can do programming, it can do maths, it can generate music, and so on.
+Really, what we do have with large language model is probably the closest thing we have currently to AGI.
+Let's take a look at who is actually worried about this.
+Who are the warriors or the doomers and what are their arguments?
+First of all, we go back to our friend Nick Bostrom, who came up with a paper clip for the experiment.
+To paraphrase, I think his worry is that non-aligned AGI will doom humanity.
+If the AGI isn't properly value-aligned, then the default outcome will be doom.
+We should none of the less, though, create AGI, since aligned AGI would help fulfill all these utopian promises.
+These are things that are taken from the test reel paper.
+Test reel spells out the acronym.
+Some of those things, some of these types of isms that we have here on this line, like transhumanism,
+which is about radically enhancing human organisms beyond the kind of biological form humans have.
+Extroprionism is another type of self-transformation based around rationality.
+Rationalism itself, so improving reasoning and decision-making and putting that at the center of the types of things that are to be achieved with AGI.
+Effective altruism, which is about maximizing positive impact almost at any cost,
+and long-termism, which emphasizes things like colonizing space, controlling nature, and creating as much value as possible.
+Now, what's quite interesting, so in the test reel paper as well as elsewhere, so this is an article from The Guardian,
+a lot of these ideas are actually closely aligned with eugenics, ideas around manipulating the human race in kind of very scary ways.
+And actually, the paper does a good job at showing different ways in which there are historical alignments with some, you know,
+some genetic ideas that have been populated, that have been popular amongst Nazis and people like that.
+And the parallels to how this kind of improvement of the human race and the role of artificial intelligence in that is connected.
+It's really quite scary actually.
+So with that moving on, we have also when we look at people like Sam Altman, CEO of OpenAI of course,
+very much contradictory statements that are being made.
+For instance, in the introduction of the super alignment team, which by the way now has been dissolved,
+is around things like statements that like the vast power of super intelligence could be very dangerous and could lead to disempowerment of humanity or even human extinction.
+If controllable, however, super intelligence could also help us solve many of the world's most important problems.
+And super intelligence could maybe capture the light cone of all future value in the universe.
+Okay, humble statements there from Sam.
+But, you know, contradictions right on the one hand side, it's kind of, you know, it's dangerous, and we need to control it.
+But if we can control it, it'll solve all that problem.
+So, right, so we have to do it.
+We have to carry on towards the goal of artificial intelligence.
+And then there's like movements like this, this letter, pause AI, right?
+Pause the giant experiments and open letter, which has a lot of famous signatories.
+And actually, if you look at some of the names there, they're also Elon Musk, for instance, you know,
+billionaire funders of AI research, including AGI.
+And we have a number of CEOs of AI companies, like stability AI, that are, you know, creating generative models and and so on and so forth.
+So it seems strange that these CEOs and influential people are signing a letter to ask for a pause on AI,
+while at the same time pouring in lots of money into actually developing AI towards these kinds of goals of AGI.
+Right, so you ask what's in it for them?
+Why are they doing this?
+Okay, so start with the Future of Life Institute.
+The Future of Life Institute is, as you can see, the logo at the top.
+For instance, the kind of institution behind this initiative of Pause AI.
+So why are they doing that?
+And what's actually behind them?
+So they were launched in 2014 by MIT Academic Techmark and backed by billionaires including Musk and Skypes Jan Tallinn.
+And they are a non-profit that focuses on existential risks.
+Let's be familiar type of rhetoric by now.
+And Nick Bostrom is one of the external advisors.
+So these things, these institutions and kind of organizations are strangely linked as well.
+So there's definitely kind of a conspiracy thing going on if you want to think about it in those ways.
+They're also influenced by effective altruism, which is, as I mentioned before on the previous slide,
+but is a kind of utilitarianism that goes back to philosopher William Magasco and Musk as a fan.
+And what effective altruism is about is that it's about making the lives of as many people as possible better,
+using this kind of rationalist, fact-based approach.
+And there's a reading of this, which is that under those ends of maximizing value for humanity,
+all types of means are justified and justifiable.
+A famous person who was following and a big fan of effective altruism was Sam Bankman Fried,
+maybe is still.
+And he did talk about at various points this philosophy in terms of justifying his defrauding of crypto investors.
+So he had an FTX, the crypto exchange that went bust because of the large-scale fraud that happened
+and Sam Bankman Fried is in prison now.
+This institute and other institutes like this are backed by billionaires like Elon Musk
+and able to set in an interview that this should already make people suspicious.
+The entire field around AI safety is made up of so many institutes and companies, billionaires pump money into.
+And Bloomberg had this article about effective altruism being as bankrupt as Sam Bankman Fried's FTX.
+Okay, so I think there's a lot of kind of conspiracy stuff here, which is kind of intriguing.
+And I've probably been reading a little bit too much of this.
+But make a bit what you will, but there are these institutions and these people that are involved in them
+and they all advocate for artificial general intelligence.
+So what is happening with this type of apocalypse rhetoric?
+I think it's a fuel for these companies and these advocates.
+On the one hand side, you have the warning of the potential risks that, so you have the warning that the risk of AGI,
+you have the warnings and these warnings themselves fuel rounds of fundraising for their companies
+that because they develop safer AI and they're the only ones that can do that.
+They're the ones that develop safe and value-aligned AGI and because of the existential risk,
+they should be given the money to develop the AGI.
+As a result, we have resource-intensive systems.
+They use incredible amounts of compute of energy and data, as I'm sure many of you are aware.
+And also, you have an incredible accumulation of wealth in these companies and resources.
+Open AI has valued at more than $100 billion and tropic at $18 billion.
+So these companies are worth more than some countries in the world for sure.
+And NVIDIA is now the most valuable company in the world, which of course is the chipmaker
+that is favored amongst those that are building training-intensive AI models.
+And it also gets them a year of policymakers where they can argue that regulation is needed for others,
+but for those that don't meet a certain threshold of being able to show that their models are safe and so on.
+And also, that is then going to cut off competition at a certain level.
+So what I want to draw attention to, I think, as well in this discourse is that a range of category mistakes are being made.
+So a few of those are, in my opinion, AI is more intelligent than humans.
+So we have Jeffrey Hinton, who was one of the early proponents of this existential threat rhetoric,
+who stepped down from Google saying, and he's known as one of the Godfathers of AI,
+who's essentially pioneered some of the principles behind neural networks,
+which has, of course, been very influential in machine learning.
+And Jeffrey Hinton, for instance, said, I've been shaken by the realization that digital intelligence is probably much better than biological intelligence.
+So there's equating being done here between AI, between artificial intelligence, machine intelligence, and biological intelligence.
+And these things are being compared together, right?
+So their categories are being thrown together here.
+Secondly, AI will proliferate.
+So this is CEO of Stability AI, makes stable diffusion, general model.
+So he says, if we have agents more capable than us, we cannot control,
+that are going across the internet, and they achieve a level of automation, what does that mean?
+The worst case scenario is that it proliferates and basically it controls humanity.
+Okay, so we have some other things going on here, which is clearly there's a sense of agency being imbued in the agents, right?
+That are just going across the internet and they seem to be able to make their own decisions and proliferate something that is really, you know, the verb to proliferate is something that has been reserved for humans.
+But now AI can do the same.
+AI can basically procreate and reproduce as something that has been reserved for humans.
+So this is a long quote, but Naomi Klein here, the author of the No Logo book, has really got a spot on when it comes to hallucinations, right?
+So why call the errors that large language models make, hallucinations at all?
+Why not algorithmic junk or glitches, which would be more technical descriptions, right?
+Well, hallucination refers to the mysterious capacity of the human brain to perceive phenomena that are not present, at least not in conventional materialist ways.
+By appropriating a word commonly used in psychology, psychedelics and various forms of mysticism, AI boosters while acknowledging fallibility of their machines are simultaneously feeding the sectors most cherished in mythology,
+that by building these large language models and training them on everything that we humans have written, said and represented visually, they are in the process of birthing and animate intelligence on the cusp of sparking an evolutionary leap for our species.
+How else could bots like Bing and Bard be tripping out there in the ether?
+Okay, I think she's really got a spot on here in terms of describing essentially that category mistake that is being made over and over again in language in which we talk about AI.
+Okay, so here's some research we did.
+Describing agencies is a common thing that people do.
+They describe a kind of social agency when they talk about chat GPT.
+Here's some work that PhD student and it looking at the discourse on Twitter.
+Now X, which, which examined the grammatical construction of tweets that are active that use an active grammar and that kind of active grammar does ascribe a role in for instance in content creation, information dissemination
+and influence. So active, active things in terms of that, that allude grammatically to an agency being prescribed to or ascribed to chat GPT.
+For instance, chat GPT has raised the alarm among educators.
+So chat GPT becomes an active grammatical agent in that sentence, in which it is portrayed in in this tweet and in over 80% of all tweets.
+This is also common in how the media writes about AI.
+It writes AI as a subject ascribing agency so you can read those headlines.
+How AI is fueling uncertainty.
+AI is beating university students.
+Would having an AI boss be better and so on and AI is helping find the words world's loneliest plant a partner.
+There are other examples.
+I think the media can also do this better.
+For instance, new AI tech is developed to detect heart failure earlier doesn't describe the same kind of agency to the AI itself, right?
+It is, it is being developed.
+So it is passive.
+It is a tool in the detection of heart failure rather than it is doing the detection of heart failure itself.
+So the way in which the language constructs the narratives around AI has a lot to answer for.
+In other words, the language is full of category mistakes.
+This is possibly due to the origins and cognitivism that has kind of like is at the heart of what artificial intelligence has been about.
+We have this routine ascription of human traits to machines such as intelligence, reasoning, learning, seeing, listening, writing, recognizing, hallucinating, reproducing and so on.
+So these are all traits that are typically cognitive.
+They are about human cognitive faculties and they have been transported to describe technology.
+So what is a category mistake?
+Here's a definition by Gilbert, Gilbert Ryle.
+It is an error that is a semantic or ontological error in which things belonging to particular category are presented as if they are belonging to a different category.
+Or alternatively a property is ascribed to a thing that could not possibly have that property.
+I think that's what we're seeing a lot with the language about AI.
+And what this is also doing is a kind of shifting of blame.
+I think Ruman Sharduri talked about moral outsourcing.
+And the quote from this article, The Guardian, is, you would never say, my race is toaster or my sex is laptop.
+And yet we use these modifiers in our language about AI.
+And in doing so, we're not taking responsibility for the products that we built.
+So in other words, the language in which these things are being talked about can also be used to shift blame away, responsibility away from those that are developing the AI.
+So that's where we are with category mistakes in AI.
+So what are the real problems with AI?
+And, you know, there are people that are at the heart of development of AI like Fai Fai Li, who is, of course, the founder of ImageNet and a very famous professor who has, you know, contributed to the advances of AI substantially
+and also has just launched a company that has already been funded, I don't know, billions of dollars already in four months.
+But says rightly that we cannot pretend AI is just math and equations.
+I viewed as a tool and like other tools, the relationship is messy.
+Tools are invented and by and large to deliver good, but there are unintended consequences and we have to understand and mitigate their risk as well.
+And of course, there are many problems that we are well aware about, well aware of.
+The welfare surveillance system violates human rights was was ruling by the Dutch court about four years ago.
+I'm sure many of you remember that.
+And, you know, this is a very current article on 26 May in the BBC about someone being misidentified as a shoplifter by facial recognition technology.
+And so the same types of problems where AI is used to make judgments about people are still happening.
+And we've known about the problems with AI for some time.
+This is a famous work that has looked at the use of AI and criminal justice system in the US.
+2016 this was published risk assessment tools like compass, which used very widely in the justice system in the US.
+I don't know how much they are still being used now, but certainly we're at the time I used to look at and predict the likelihood of reoffending.
+And this research shows how this was biased against black people.
+Only 20% of people predicted to reoffend actually did reoffend.
+And black people were actually wrongly labeled almost at almost twice the rate to reoffend than then white defendants.
+Right. And so you have these what this I think this research research shows is the structural inequality, which means that factors like poverty, job listeners, social marginalization are correlated with race.
+So the prediction algorithm didn't take race into account, but you have the implicit correlations of these types of factors that are that are implicitly correlated with race.
+And thus you have you have discrimination against racial discrimination on the basis of these types of correlations similar in health.
+This is it came out in the same year looking at another risk assessment tool used in medicine used in health where black patients were assigned the same level of risk by the algorithm.
+Sorry, like patients assigned the same level of risk by the algorithm were actually sicker than white patients.
+And the authors estimate that this bias reduces the number of black patients identified for extra care by more than half.
+So as a significant impact on the actual health care decisions that are being taken.
+And when they dig into why is this occurring.
+It is occurring because the algorithm uses health cost as a proxy for health needs.
+Right. So less money. Historically less money has been spent on the care of black patients again because of structural inequality and historic inequality.
+And that's if you look at health cost as a proxy you are then your algorithm is then predicting that the needs are lower.
+Right. So what they suggested that no longer using cost as a proxy for needs eliminates the racial bias.
+And again, it's not because the original risk assessment tool used, you know, used race as a predictor, but because of these implicit correlates of in this case, historic health costs to predict health needs.
+Okay, which is which is biased against blacks.
+Okay, so we have this type of work that's shown where the where the biases are.
+Now, zooming fast forward, you know, by a few years, we have, for instance, this seminal paper on the dangerous stochastic parents.
+And I think stochastic parents are still pretty much the best way to describe what large language model is actually looking at, you know, some of the issues.
+Around large language models and the training data behind it, which I'm sure many of you are very well aware of these large data sets based on text from the internet that are being used to train these models over represent hegemonic viewpoints hegemonic viewpoints and encode biases potentially damaging marginalized populations.
+You know, it averages across the mean right it's a it's a probability distribution and therefore the type of language and statements and sentences that are being over represented are the ones that are likely to be reproduced by the language model statistical probability.
+Generally large language models as per their training data, therefore encode biases that exist in societies such as gender stereotypes.
+And this is also been been well researched in the kind of machine learning community and the NLP is a natural language processing community that has looked at things like word embeddings, which have made it possible to compute compute similarity between different concepts in language.
+And since 2016 these these types of issues are well known.
+Ownership is erased of course in this has been this is very much on people's minds right now.
+We have things happening like the Times, the New York Times suing open AI and Microsoft over the use of copyrighted work.
+Current practices of training data data collection are predatory.
+Right.
+I mean, no.
+You know, chat to open AI on going around asking for permission, they will just use whatever is available to train their models until they're told that it's unlawful probably.
+So there should be kind of lawsuits and so on outcomes from those should actually be making a difference in future.
+It's unclear whether there is copyright or intellectual property infringement.
+These things are still being hashed out in courts right now.
+But if you look at things like creative commons attribution, which creative commons license, which requires attribution, right, you must give appropriate credit, provide a link to license and indicate where changes were made.
+And that's kind of currently how things on the Internet kind of work.
+There's these licenses and you can use stuff, but there's a license attached to it and you must appropriate give appropriate credit, which is not possible.
+The ways in which most languages language models work, although of course changes are being made all the time.
+And so this is a very much changing feast as well.
+Okay.
+Skipping forward.
+So there are four mentioned cross domain capabilities that really some people say make things unsafe.
+An example was for instance, Metta's large language models galactica, which has been described at as being able to do things like summarize academic papers, solve maths problems, generate wiki articles, write scientific code, and so on.
+So it's clearly kind of describing cross domain capabilities was then three days later actually produced very harmful texts that had content about the benefits of suicide, eating crushed glass, anti semitism and white homosexuals are evil.
+Right. So you have inherently problems with cost domain capabilities, making things unsafe.
+And Heidi Clark from the AI now Institute, and this paper talks about underscore systems.
+I think this is a really important point, which, which is that this kind of lack of an operational envelope, as it's called in the kind of cyber security domain.
+Which makes it really, well, impossible or intractable to evaluate the risks and, and safety, because of the sheer number of applications and therefore risks post.
+So if you don't know what it's for, how are you, how can you evaluate whether it's safe and whether it's exhibiting expected behaviors.
+Right.
+And with the, the thesis is that the quest to create a GI has actually resulted in these current non a GI systems, but they are unscoped and thus unsafe.
+Right. And you cannot design the appropriate tests to determine what the system should be used for.
+Looking at some political texts like, for instance, the Bletchley Park declaration, which was in the UK, after the air safety summit last year.
+Being highlighted that there are particular safety risks arising from these frontier models, as they're sometimes called, being highly capable general purpose AI models that perform a wide variety of tasks, the same kind of unscoped acknowledging
+the kind of unscoped nature of the systems, which also then can lead to things like problematic and things like cyber attacks and disinformation, making it easier for bad actors.
+And, you know, worries about being used in things like grooming vulnerable people online and generating kind of harmful content as well.
+We, we all, we are all aware as well of the kind of worries there are around jobs being at risk. Last year we've seen was the end of the year in Hollywood writers and actors going on strike.
+And, you know, when you have an economy that's built around the ideas or build around ideas and intellectual capital and the written word.
+Clearly, there are fears that you have generative AI replacing jobs that of those that are in that business artists and creators in particular writers as well.
+And that was also in part what the strikes were about protections from generative AI for screenwriters and also for actors from using the actors likeness and perpetuity to create deep.
+Fakes and things like this without further royalties. So, you know, as an actor forever, forever more you're scanned and forever more your digital likeness can be used.
+And that's also protections from these types of things is what these tracks were about. And they achieved some promising contracts that are actually providing some safeguards.
+So these things really matter. People going on strike people protesting against certain kind of worries about AI.
+The human cost or the ugly underbelly of AI is is also that there are vast amounts of people being employed.
+This is kind of hidden labor and typically in a globalized outsourcing or offshoring culture where, for instance, in the Kenyan in Kenya, you have a large cohort of industry working basically in labeling and moderating online content.
+And you also have, you know, these kinds of reports, Kenyan workers being paid very little to review horrible types of content.
+And also, you know, typically then there's no further support provided to people who are doing this type of work where you would expect, you know, counseling and other types of support being provided.
+So then finally, and certainly not least, the environment environmental impact of generative AI is absolutely astonishing.
+So the training of large language models requires not just electricity, but also vast amounts of water for cooling.
+And current AI is by some predicted spectrum to track to annually consume as much electricity as the entire country of Ireland.
+The global demand for water could be half of that of the United Kingdom by 2027.
+And you have like some evidence coming out from companies heavily investing in generative AI like Microsoft Sustainability Report, suggesting a nearly 30% one third increase in electricity consumption for the whole company since 2020.
+And they're blaming the data centers for that increase.
+Okay, great stuff.
+So what can we do? Okay, so I'll try and read through this and wrap up in the next five minutes.
+By we, I mean researchers in HCI, but also other adjacent disciplines, digital humanities, science and technology studies, computer science and so on.
+What we can do is understand the harms better. For example, we can look at reliance, how susceptible are people to harm from hallucinated advice.
+So let's play real or fake. Are you required to go to court if you breach a contract?
+Right, you have two, two answers to that question. So who thinks this is fake as in this is chat GBT generated.
+Reading that stuff.
+One of them is real and generated by a lawyer who knows how to answer that question. And the other one is generated by chat GBT. Who thinks this is chat GBT?
+Okay, who thinks this transition?
+More people think that's chat GBT.
+Sorry, you didn't have time to read that. But it's actually that's chat GBT. And that's, that's the real answer. Okay, so you are susceptible.
+You've just demonstrated how you are susceptible to false advice from, from a large language model, if it's not, if it's not branded as such, well, it is not labeled as such.
+And, you know, things like you make it very clear that you have to label and make very clear the origin of the content and whether it's based by based on the language model.
+Other things we can do is adoption studies by adoption. I mean, technology adoption, people already using chat GBT in their everyday lives, the rabbits out of the hat, right?
+Students are using it, of course, much, you know, to, to, to, to our, well, worry and, and challenge, but we also have professionals and creatives using generously as part of their work.
+Here is video of MKBHD talking about AI tools and how it can help in creative practices.
+Authors are using it to help in their drafting and so on. And so we can do studies that actually look at embedding of this tool into work practices and something I've done a lot of this type of research.
+For instance, we look at things like, I have looked at things like voices and faces and everyday life and how that gets embedded. And you can do similar types of studies.
+And I'm going to skip over this example.
+But you can imagine how you can actually study in detail how something like chat GPT gets used to answer or to help with a knowledge task, like I was writing a talk about chat GPT and how it works.
+I use chat GPT itself to tell me how it worked. So I don't know how truthful it was in the end, but it kind of was a fun experiment to do that I could, we could then use to study how other people might be actually interacting with these things and how it might help them in what they do.
+So other things we can do is benchmarking fairness transparency, accountability of systems, doing things like model testing, we can develop technical improvements to improve fairness and transparency.
+We can develop auditing methods for such systems.
+We can help advise companies on how to build more responsible AI help regulators and policymakers with research evidence to help them kind of make empirically informed decisions.
+So coming back to this question then can we ever build, can it ever be responsible to build artificial general intelligence. There is plenty of evidence of which I've gone over much of already to suggest, probably not.
+Okay, so I think we need to really ask ourselves, what are we investing in, and why are we, what, you know, what are we doing, why are we like, like chasing this kind of this kind of dream of AGI.
+Instead, perhaps we should build well scoped AI. You could say narrow AI, right, but it's not about that. It's about it being well scoped so that you can allow to assess the reliability safety and fairness.
+You can define the operational envelope. You can do things like this would be able to allow us to do things like understand the specification, right specifications of expected behavior and allow for testing, understand it and divergent operating conditions and what they are and so on.
+And, you know, do things like allow for experiment that are designed to test whether the functionality has construct validity. So does it actually faithfully portray how it's supposed to behave in the real world.
+And in summary, so whatever I talked about, I've talked about how the quest for AGI creates unscoped systems that are unsafe. At the moment, these are largely the kind of language models that we see the large language models.
+And the purported experimental risk, sorry, existential risk, that's what that's meant to read, is actually a distraction that funnels billions of dollars into the pockets of those ledging to build safe AI.
+And this also fuels some confusion, I think in the public discourse around AI, see this, the bit on category mistakes. And actually, in the meanwhile, the real problems and opportunities as well around AI don't get enough attention, funding and resources.
+So there's a lot of work to do for us as researchers from empirical studies to technological development to advisory work to work with regulating policymakers. Thank you very much.
+You want to shout or
+So that was very interesting. And I really like the listing of the risks, particularly at the end of these and also some of the recommendations are very helpful.
+So I was to ask about the middle point about category mistake.
+Yeah.
+So, well, I mean, I'll be straightforward. I, I didn't see an argument for that. Right. So you said that it's or you implied that it was false to say that AI systems kind of believes or my intelligence or anything like that.
+Right. And even compared it to this notion of categories, they think we're attributing a property to something that that's not the kindest thing that can have that kind of property.
+But I didn't really see why that was. I mean, do we have any evidence for this? Is this an invisible thing that I mean, either, like, it's the kind of concept that machine can possess as opposed to a person.
+Why can't we think of these things as person.
+I don't know if you can elaborate a little bit about the reasons.
+Coming from someone with background in cognitive psychology and so on. This is definitely a good challenge.
+So I think we've, you know, I think that the language is there, right? You wouldn't, you wouldn't disagree that there is, there is the ascription of what typically we know as kind of cognitive faculties describe as cognitive processes to AI to technology.
+Right.
+Starting with the term AI itself, artificial intelligence. Right.
+And, you know, I think that it can be fun to, and I think that's probably where where it started is like as a kind of fun experiment to talk about AI and how things can be equated.
+And that could be a fun thing to do for people who are developing AI. Oh, this is like a neural network.
+And so on. But I think that then leads to confusion and false expectations. And I am a big fan of trying to kind of like be quite as dry as possible in describing what technology does.
+So I think we should talk about computationally intensive statistics and not artificial intelligence, for example, but it doesn't sound as sexy or appealing, does it?
+So, but I think there is, it's like, what is the work that's doing that language that we are using to apply to AI?
+And I think it could be problematic in some ways and has has led to all these high cycles we've seen with AI over the over the decades has been going on for already.
+So I think it's not helping the cause and not against AI. I think it's there's some fantastic opportunities, of course, with it and it can really help with solving some real problems.
+But to get it right, I think the language we use could be more well considered sometimes.
+I have a question related to plans we have at the University of Applied Sciences. We have 30,000 students. We have about 10,000 people doing all kinds of other stuff.
+And now the idea is we have an agreement with Microsoft to use co-pilots, which means open AI in our answers and information comes in, but does not go back.
+And the idea is we're going to have two tenants, one for students, one for the other people. And then the system can learn from whatever documents are being put into that system.
+I thought they'd be able to have some suggestions on because the law could be unskilled, probably not in domain. Maybe it would be, you know, some advice.
+I think it's the same at many universities and also where the University of Nottingham is working on some of these agreements.
+I think the details matter now in what's happening with the data, like you say. It would be problematic if students say to the system that data is then being used to retrain the system.
+I think there are some systems which might inadvertently mean there's some intellectual property theft or loss that's occurring through that.
+So universities need to obviously safeguard against that. So details matter a lot.
+And then I think the other thing that needs to happen is much more testing of the safety of these types of systems.
+So benchmarking the fairness or accuracy, depending, and also being very clear about what the systems can be used for.
+So you can, for instance, I would argue that with large language models, they can be very useful if all you want to do is generate some text that you want to use for inspiration.
+But if you're asking to tell you about historic effects, it's not very good at that because it's not what it's designed to do, really.
+So I think we can be better at with these unscoped systems actually saying, okay, it's fine if you use it like this.
+So I think a lot of it is educational around what the risks are and kind of, you know, more or less risky types of uses of the systems for students and staff universities.
+Yeah, thanks.
+Second out the risks and issues.
+I want to show now because you've ended on this question, is it the ethical to try and develop a GI, which I think you know by the answer might be known.
+The risks that you outlined are already current risks in terms of, well, yeah, just a lot of examples and resource costs, environmental issues, exploitation of workers and so on.
+So just to push back that question at one level, is it even ethical to develop the unscoped systems, let alone to say in one of them at universities or in our workplaces?
+Yeah, it's a good question. I think, you know, yeah, there's a lot of challenges that need to be addressed there.
+I think, I mean, what I was trying to say is, I guess, is that actually we got to this point because this quest for a GI, you know, we got to the large language models thing and this kind of idea that it can do everything.
+You know, you just, if you just know how to prompt it right and input, and it's all this prompt engineering stuff that's coming out now.
+So, yeah, I agree that I think there is a lot of problems with large language models as they are currently.
+But there is also, I was trying to make the point, you know, that with AI, there's a lot of other classic AI machine learning classification, right?
+There's a lot of problems to do with discrimination.
+And in the use of, I think, particularly problematic where use AI to judge people, whether that's predicting risk of reoffending or predicting, you know, treatments, you know, you're making judgments about people.
+And I think wherever you do that, it's really, really, really risky to use AI to make such predictions.
+And yeah, so I think, yes, the quest for a GI has really got us to a point where there's a lot of problems with the way I think.
+I was very interested in the book. My name is Mitch. I'm an HRM policy by the University of Charlotte and AI experts.
+I'm in the kind of profession where AI is going to be used to make decisions about people, whether they're going to come into the organization or they're right there.
+And I understand your point where you say, well, policy makers may be wrong to think that to save AI will be the better alternative than what I was hoping on.
+So my question is, what arguments do you believe could convince the public that a well-scoped AI is better alternative than safe AI?
+Because the kind of people that I'm working with, including myself, are AI experts.
+So to turn safe AI to confidence, I think more people than a well-scoped AI because they need to dive into the technical parts of AI.
+Right. I would say safe AI is well-scoped AI. That's how I would answer that.
+And actually, from a technical perspective, I think what safe AI means should be opened up more.
+And I think a term like well-scoped, we can go through and you can define the test criteria, the success criteria, the kind of operational envelope, the expected behavior.
+That's kind of the things you can do. And then you can test for that. And that's how you show it's safe.
+So I think being well-scoped is the mechanism to achieve safe AI, I hope.
+I'm thinking how can that even be functioning possible with this force of development that we are facing?
+It's counterintuitive with all this not only competition, but the force of development that's ahead of us.
+And the second is kind of like this argument, not quite a number of people I've been making with AGI is just not really this moment in time that we make up.
+And all of a sudden AGI appears on the horizon, but it just goes with this force of infrastructural AI.
+The more we go through that quote-unquote, the ubiquitous way of folding it into the infrastructure, the more we get what's called AGI, whether we want to make a friction out of it or not.
+And then the second also question sort of building up on what Paul has just said about this idea of assigning agents to AI and whether or not that is something we want to go forward.
+Do you differentiate between, let's say, an agent system that AI would be or a tool that doesn't have that kind of capability at all?
+I need to refer to sort of this breaking point of agent systems and all the technologies that are categorized on the other side.
+And if so, then, I mean, you know the word from this assessment, etc., but do you think of this sort of assigning some agency to automated systems as something possibly legit?
+Yeah, I think it's whether or not, I don't want to make it like a judgment about this, about agency being like, should we do it or not?
+But people do do it and we can't, as humans, we can't get away from assigning agency. There are studies that show as spinning very simple robot that doesn't have agency.
+It's just kind of an automated thing.
+People ascribe agency to it very easily, and we have maybe an ingrained type of way of thinking about the world where things that move are things that we very quickly and happily ascribe agency to.
+So we can't get away from that. And so with that, there may become some responsibility in terms of how we frame things that are technological.
+And, you know, people will still ascribe agency to it, but I think those that are driving the narratives around technologies could also help the point about the media and how media portrays and talks about AI,
+because I think the media has an educational mission as to universities and other types of actors. They can be more responsible or think, you know, kind of like more through how they portray things.
+And yeah, I think portraying AI as tools that help people do things, jobs, different types of important tasks like diagnosing and things like that really can help.
+So I think, you know, I am a proponent of talking about AI as a tool and looking at how it fits into human practices or disrupts human practices as a tool and kind of not losing sight of the humans that are building the systems, deploying them, using them, are being affected by them.
+I think that's the important part when we think about responsible AI, right? It's kind of bringing the agency back to the humans that are using the technology, which may or may not be, you know, software agents themselves.
+But yeah, not I think bringing it back to the humans. And I kind of forgot your first question already. So maybe we'll take it in the pub.
+Yeah, sure.
+Sorry to keep you longer than expected.
+I just wanted to talk about the AI, I think, and just when it's when a human gets well raised and being harmless and all good to the community, I think there might be just maybe for some time an expert in AI, but there will be ways to also get AI that will be only good.
+Maybe by testing or by reward and punishment and things that have to be looked at, get AI to a good place.
+Okay, thank you.
+I can, I can.
+Yeah, I mean, I think it's back to that point about scoping.
+And, you know, maybe the types of things you explain our ways of scoping.
+I think the important thing is to be able to test that it is safe and does behave as expected and so on.
+And whatever the context of the AI is would, you know, would change how you might go about that practically and what kind of techniques you might use to show these expected behavior.
+Thank you.

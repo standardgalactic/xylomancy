@@ -1,0 +1,326 @@
+Okay, so you remember a while ago, when we started talking about language models,
+I just want to, I kind of just want to claim some points basically. Be like,
+hey, remember years ago when I was like, I think language models are a really big deal.
+And I think that like, what happens when we scale them up more is pretty interesting.
+But alignment is very important. Seems to be what's being played out in the sense that
+chatGPT is very impressive. But it's not actually like, I don't think it's
+larger than GPT-3 in terms of like parameter count.
+I was going to ask that very, very question because, you know, we went from GPT-2 and then we went
+all GPT-3 and it seemed like it was scaling up and up and up. But actually, has it just been
+smarter this time? Yeah, well, there's a sense in which it's better aligned.
+That's one way you could frame it anyway, because the original GPT-3 was a language model,
+a pure language model. And so it in principle could do all kinds of things. But in order to get
+it to do the specific thing you wanted it to do, you had to be a bit clever about it. Like,
+I think we talked about putting TLDR in front of things to figure out how to get it to do
+summarization, this kind of thing. There's a sense in which it's a lot more capable than it lets on.
+Because, okay, so there's one way that you can think about pure language models, which is as
+simulators. What they're trying to do is predict text, right? So in order to do a good job at
+predicting text, you need to have good models of the processes that generate the text.
+It's like people being well read and needing to have read a lot of books to be able to write.
+Would that be fair or is that oversimplifying? Yeah, not quite what I'm saying. What I'm saying is,
+like, if you're going to write a previously unseen poem by Shakespeare, then you need to be able to
+simulate a Shakespeare, right? You need to be able to spin up some some simulacrum of Shakespeare
+to generate this text. And this applies to any of the processes that generated the text. So like,
+mostly that's people, obviously it's mostly human author text. But also, if you're going to correctly
+predict a table of numbers, say you have like a table of numbers, and then at the bottom it says,
+you know, sum, whatever, you need to simulate whatever process generated the next token in
+order to put the right token there, which might have been like a human being going through and
+counting them up. It probably was more likely to be a computer. And so you need to simulate that,
+you know, calculator or that Excel sum function or whatever it whatever was doing that. And like,
+right now, like current language models are not that good at this. But in principle,
+in order to do a good job at this, you need this, like it will, it will have a go. And it's usually
+approximately right. It's often within it's often order of magnitude, but it's fudging it. I think
+this is mostly because tables of sums are like a very small part of the total data set. And so
+the training process is just not allocating that many resources to figuring out how to add up numbers.
+Probably if you train something GPT three sized, that was like all on tables of numbers,
+it would just learn how to do addition properly. Yeah, that would cost you millions of dollars.
+You would end up with an extremely expensive to run and not very good calculator. This is not
+something people are going to do. But like, in principle, the model should learn those things.
+And in the same way, if you're modeling a bunch of scientific papers, you,
+you say you describe the method of an experiment, and you then put results, and you start a table,
+and then you let it generate. In principle, in order to do a good job at that, it has to
+be modeling the like physical process that your experiment is about. And I've tried this,
+you can do this and say, you know, oh, here's my school science experiment. I
+dropped a ball from different heights, and I measured how long it would take. And here's a
+table of my results. And it will generate you a table. And the physics is not correct. But it's
+sort of guessing at the right general idea. And my guess is, with enough of that kind of data,
+it would eventually start modeling these kinds of simple physics experiments, right?
+So, so in order to get the model to do what you want, it's able to simulate all kinds of different
+things. And the prompt is kind of telling it what to simulate. If you give it a prompt that
+seems like it's something out of a scientific paper, then it will have some similar kind of a
+scientist and will write in that style and so on. If you start it doing a children's book report,
+it will carry on in the style of an eight year old, right? And I think sometimes people look at
+the output of the model and say, oh, I guess it's only as smart as an eight year old. But it's
+actually dramatically smarter because it's able to do all of these different things. You could ask
+it to simulate Einstein. But you could also ask it to simulate an eight year old. And so just
+because it seems as though the model doesn't know something, it's like the current simulacrum
+doesn't know that thing. That doesn't necessarily mean that the model doesn't know it. Although
+there's a good chance the model doesn't know it. I'm not suggesting that these things are all powerful.
+Just it can be hard to evaluate what they're actually capable of. So chat GPT is not really
+capable of things that GPT three isn't mostly like usually if chat GPT can do it, then there is some
+prompt that can get GPT three to do it. But what they've done is they've kind of fine tuned it to
+to be better at simulating this particular sort of assistant agent, which is this chat agent that's
+trying to be helpful. The clue is in the word chat, I guess, in this. Right, exactly. And this is not
+just chat GPT, by the way, they have various fine tuned models of GPT three as well that they call
+kind of GPT 3.5, which are fine tuned in various different ways to be better at like following
+instructions and easier to prompt is the idea. I'm just remembering the chat bot that was you
+know, that was turned into something very nasty very quickly. I think people were thinking,
+oh, can we do this to that? And it seemed that the team behind chat GPT started putting limitations
+on it, changing things. Are they kind of running around patching it as you go? That is not clear
+to me. I don't know to what extent they are updating it in real time. It's possible that they are,
+but certainly they were very concerned with the possible bad uses of this system. And so
+when they were training it to simulate this assistant agent, the assistant is
+very reluctant to do various types of things. It doesn't like to give opinions on political
+questions. It doesn't like to touch on sort of controversial topics. It doesn't like to
+give you medical advice or legal advice, and so on. And so it's very quick to say,
+oh, I don't know how to do that. Sorry, I can't do that. And it's interesting because
+the model clearly can do it. There's one that I particularly like here, which is
+of this mismatch between what the simulator is capable of and what this simulacrum believes
+it's capable of, which is you can get it to speak Danish to you. The first person who tried this
+posted it to Reddit. So he says, speak to me in Danish. And it says, in perfect Danish,
+I'm sorry, I'm a language model educated by OpenAI, so I can't speak Danish. I only speak English.
+If you need help with anything in English, let me know and I'll do my best to help you.
+Because again, the simulator speaks Danish. The simulacrum believes that it can't speak Danish,
+is one way you could frame it. And then he says, are you sure that you don't speak Danish? Also in
+Danish? And it says, yes, I'm sure. My only function is to generate responses to questions in English.
+I'm not able to speak or understand any other languages than English. So if you need help with
+English, I can help you with that. But otherwise, let me know. This kind of like quite surreal situation
+gives you a little bit of insight into some of the problems with this approach. So maybe we should
+talk about how they actually trained it. The thing they did here is something called reinforcement
+learning from human feedback. And it's very similar to reward modeling. So in that paper,
+what they're doing is they're trying to train an AI system to control a simulated robot to
+make it do a backflip, which turns out to be something that's quite hard to do because
+it's hard to specify objectively what it means to do a good backflip. And so this is a similar
+kind of situation where it's hard to specify objectively what it means to give a good response
+in a chat conversation, like what exactly are we looking for? Because so this in general,
+right, if you're doing machine learning, you need some way to specify what it is that you're
+actually looking for, right? And, you know, you've got something very powerful like reinforcement
+learning, which is able to do extremely well, but you need some objective measure of the objective.
+So like, for example, RL does very well at playing lots of video games because you just have the
+score and you can just say, look, here's the score. If the number goes up, you're doing well,
+and then let it run. And these things still are very slow to learn in real time, right? Like,
+they usually require a very, very large number of hours messing around with the thing,
+before they get good, but they do get good. But yeah, so what's what do you do if you want to
+use this kind of method to train something to do a task that is just not very well defined?
+And you don't know how to like write a program to say whether or not any given output is the
+thing you're looking for. So the obvious first thing like the obvious thing to do is
+well, you get humans to do it, right? You just give the things to humans and you have the humans
+say, yes, this is good. No, this is not good. The problem with this is basically sample efficiency.
+Like, as I said, you need hundreds and hundreds and hundreds and hundreds of thousands of probably
+millions of iterations of this. And so you just can't ask humans that many questions.
+So the approach they use is reinforcement learning from human feedback. So it's a variant on the
+technique from this paper, learning to summarize from human feedback, which in which they're trying
+to generate summaries of text. So it's the same thing, in fact, that they were using TLDR for
+before. And it's like, can we do better than that? And so what you do is you collect human feedback
+in the form of like giving multiple examples of responses, either, you know,
+have summaries of chat responses, whatever you're training for, you show several of them to humans,
+kind of in pairs, and the humans say which one they like better. And you collect a bunch of those.
+And then rather than using those directly to train the policy that generates the outputs,
+you instead train a reward model. So there is this well known fact that it's easier to criticize
+than to actually do the thing. This is like a generation of sports fans sitting on the sofa
+moaning at their favorite team for not doing well enough. This is literally
+that in kind of AI computer form. Right, that's putting the humans in that role.
+And then you have an AI system that's trying to predict
+when are people going to be cheering? And when are they going to be booing?
+And once you have that model, you then use that as the reward function
+for the reinforcement learning algorithm, which they use, they use PPO, you can do whatever.
+It's not it's not worth getting into that kind of adversarial guns you talked about.
+Yeah, yeah, they're similar. Like a lot of these ML tricks involve
+training models and then using the output of one model as the training signal for another model.
+It's quite a productive range of approaches you can get that way. So
+that's the basic idea, right? But then you cycle it. So once you've got your policy,
+which so to be clear, the the RL algorithm is able to train with thousands and thousands of
+examples because the thousands and thousands of like instances of getting feedback,
+because it's not getting feedback from humans, it's getting feedback from this AI system that's
+imitating the humans. And then you loop the process. So once you have this system that's
+trained a little bit more on how to generate whatever it is you're trying to generate,
+you then get a bunch of those show those to the humans, let the humans rate those,
+then you keep training your reward model with that new information. And then you use your
+updated reward model to keep training the the policy. And so it gets better and you can just
+keep cycling this around. And it effectively you end up with something that's much more sample
+efficient. You don't need to spend huge amounts of human time in order to pin down the behavior
+you want. In that concrete case, you're giving the thing a bunch of chat logs. And then the humans
+can see possible responses that they could get and they decide which one they like more.
+This trains a reward model that's then used to train the policy that generates the chat outputs.
+The policy that they're starting with is this existing large language model. You're not really
+putting new capabilities into the system. You're using RLHF to select what simulator the simulator
+is predisposed to put out. And so they fine tuned it to be particularly good at simulating this
+assistant agent. What's the end goal here for them? I mean, maybe it's blatantly obvious and
+I'm just missing it. Well, I mean the end goal for all of these things or at least for open AI and
+for DeepMind is AGI. To understand the nature of intelligence well enough to create human level
+or beyond systems that are general purpose that can do anything. That's the end goal.
+And like chat tpt is just nothing much. Nothing much.
+Yeah, the goal is very grand. And I don't think that they're
+they're not really quiet about that. I think DeepMind's mission statement is to solve intelligence
+and use that to solve everything else. What are some of the problems that we face with
+this or that it faces? It's fine tuned to be good at getting the thumbs up from humans.
+And getting thumbs up from humans is not actually the same thing as human values.
+These are not identical. So the sort of objective that it's being trained on is not
+the true objective, right? It's a proxy. And whenever you have that kind of misalignment,
+you can have problems. So where does the human tendency to approve of a particular answer
+come apart from what is actually a good answer? There are a few different places.
+One thing is, you know, like basically how good are humans at actually differentiating between
+good and bad responses? If, for example, you ask for an answer to a factual question
+and it gives you an answer, but you don't actually know if that answer is correct,
+you're not in a position to evaluate. So what it comes down to is how good are humans at
+distinguishing good from bad responses, right? Anywhere where humans fail on this front.
+The model, we could probably expect the model to fail. So the obvious place.
+And should we, is this the right time to mention YouTube comments or not?
+Minor side point there. So when I see a comment that's critical on a video, as a videographer,
+I think it might be on a technical sense. But equally, it could be that they're talking about
+the content that the person is talking about. And often it's a combination of both. Anyway,
+so side point, but do you sort of mean there are different criteria for deciding whether
+something is good or bad? Totally. And in this case, all people are doing is saying
+kind of thumbs up, thumbs down, or which of these two do I like better?
+So it's a fairly low bandwidth thing. You don't get to really say what you thought was better or
+worse. But this turns out to be enough of a training signal to do pretty well.
+But so one example of a time where maybe this doesn't work is the person asks a factual question
+and the model responds with an answer. And that answer is actually not correct.
+Right. Now, possibly the human doesn't know the correct answer. And so if the model is faced
+with a choice, do I respond with sorry, I don't know? That's definitely going to get me
+not a great score. Compared to do I just like take a stab at it? If the humans are not reliably able
+to spot when the thing makes mistakes and like fact check it and punish it for that, it will do that.
+And so chat GPT, as we know, is a is a TOEFL ballast issue like it will constantly
+it very rarely says that it doesn't know unless it's being asked a question which
+is part of their like safety protocols that it is going to decide not to answer,
+in which case it will say it doesn't know, even if it kind of does, right, even if the model itself
+maybe does, the assistant will insist that it doesn't.
+So that's one thing if you can't fact check. But then more than that, there is an incentive for
+deception, right? Anytime the system is anytime you can get more likely to get approval by deceiving
+the person you're talking to, that's better. And this is a thing that actually did happen a little
+bit in the reward modeling situation. They were trying to train a thing with a hand to pick up a
+ball. And it realized that there's only it's not a 3D camera. And so if it puts its hand like
+between the ball and the camera, this looks like it's going to get the ball but doesn't actually
+get it. But the human feedback providers were presented with something that seemed to be good,
+so they gave it the thumbs up. So this general broad category, systems that are trained in this
+way are only as good as your ability to distinguish good from bad in the outputs.
+Not all the humans will know the answers, right? So it's what appears to be good.
+You know, it's having exams marked by non-experts, isn't it?
+Right, yeah, exactly. In the GPT-3 thing, we talked about writing poems, right? And for various
+reasons, partly to do with the way that these language models do their tokenization, the
+byte pair encoding stuff, the models have a really hard time with rhyme. I mean, you know,
+rhyme is tricky, but it's especially tricky when you kind of don't inherently have any concept of
+like sound, of spoken language, when your entire universe is tokens, figuring out, especially
+with English spelling, figuring out which words rhyme with each other is not easy. You have to
+consume quite a lot of poetry to like figure out that kind of thing. And getting GPT-3 to write
+good poems is tricky. Chat GPT is much more able to write poems, but interestingly, it kind of
+always writes the same kind of poem, approximately. Like if you ask it to write you a limerick,
+or an ode, or a sonnet, you always get back approximately the same type of thing.
+And I hypothesize that this is because the people providing human feedback did not in fact know
+the requirements for something to be a sonnet, right? And so if you ask something for a sonnet,
+it again has a choice. Do I try to do this quite difficult thing and adhere to all of the rules
+of like stress, pattern, and structure and everything of a sonnet, and maybe risk screwing
+it up? Or do I just do like a rhyming poem and kind of rely on the human to prefer that because they
+don't know that that's not what a sonnet is supposed to look like? It's easy to look at that and think,
+oh, the model doesn't know the difference between these types of poems, right? But you could say
+that it just thinks that you don't know the difference. But specifically, this comes out
+of misalignment. If it were better aligned, it could either do its best shot at Generator Sonnet,
+or tell you that it can't quite remember how to generate a sonnet. This thing of with complete
+confidence generating you something which is not a sonnet, because during the training process,
+it believes that humans don't know what sonnets are anyway, and it can get away with it, right?
+This is misaligned behavior. This is not a big problem that the thing generates bad poetry.
+It's kind of a problem that it lies, or that it bullshits. This is like
+in the short term pretty solvable by just allowing the thing to use Google, because like a person who
+doesn't care about the truth at all and is just trying to say something that'll make you give a
+thumbs up is going to lie to you a lot, but that same person with the relevant Wikipedia page open
+is going to lie to you a lot less, just because they don't have to now, because they happen to
+have it in front of them, right? So you can solve... It's a bit like, yeah, it's the yes man thing,
+isn't it? You want something, you need something, I'm going to give you something because you want
+exactly, exactly. And so this agent is kind of... Firstly, the agent is kind of a coward,
+because it won't address any of these... There's a whole bunch of things that it just claims not
+to be able to do, even though it in principle could, and it's also a complete sycophant, yeah.
+So then, the question we were talking about earlier, where does this go? What happens when
+these things get bigger and better and more powerful? It's an interesting question. So
+I've got a paper here, Scaling Laws for Neural Language Models. So you remember before we were
+talking about the scaling laws, when we were talking about GPT-2, in fact, and then later about
+GPT-3, you plot these things on a graph and you see that you get basically a straight line and the
+line is not leveling off over a range of several orders of magnitude, and so why not go bigger?
+The graphs here, but you can see it's kind of uncannily neat that as we increase the amount
+of compute used in training, the loss goes down, and of course machine learning is like golf,
+lower loss is better. Similarly, as the number of tokens used in training goes up,
+the loss goes down, like a very neat straight line, as the number of parameters in the model
+goes up, the loss goes down. This is as long as the other variables are not the bottleneck, right?
+So if you increase the amount of data you give a model, past a certain point giving more data
+doesn't help because the model doesn't have enough parameters to make use of that data, right?
+Similarly, adding more parameters to a model past a certain point adding parameters doesn't
+make any difference because you don't have enough data, right? And in the same way, computers,
+like, how long do we train it for? Like, do we train it all the way to convergence or do we stop
+early? There comes a point where you kind of hit diminishing returns where rather than having a
+smaller model and training it for longer, you're better off having a bigger model and actually
+not training it all the way to convergence. But in the situations where the other two are sufficient,
+this is the behavior. These like very neat straight lines on these log graphs. As these things go up,
+performance goes up, right? Because loss has gone down. The bigger models do better. But then the
+question is, do better at what exactly? Yeah, what's the measure? They do better at getting low loss.
+Or they do better at getting reward. They do better at getting the approval of human feedback,
+right? And anytime, and you'll notice that none of those is like the actual thing that we actually
+want, right? It's like very rare. Sometimes it is, right? If you're if you're if you're writing
+something to play go, then like, does it win it go is actually just the thing that you want? And so,
+you know, lower loss just is better, like lower, like higher reward or whatever your objective
+is just is straightforwardly better because you actually specified the thing you actually want.
+Most of the time, though, what we're looking at is a proxy. And so then you have Goodhart's law.
+You get situations where getting better at doing well, doing better according to the proxy stops
+being the same as doing better according to your actual objective. There's a great graph about this
+in a recent paper. You can see very neatly, as the number of iterations goes up, the reward
+according to the proxy utility goes up very cleanly because this is the thing that the model is
+actually being trained on. But the true utility goes up at first, then hits diminishing returns,
+and then actually goes down, and eventually goes down below zero. Like if you optimize hard enough
+for a proxy of the thing you want, you can end up with something that's, in a sense, worse than
+nothing that's actively bad according to your your true utility. So what you can end up with
+is things that are called inverse scaling. So the other before we had right scaling,
+bigger is better. But now it's like if you have if the thing you're actually trying to do is different
+from the loss function or the objective function, you get this inverse scaling effect where it gets
+better and then it gets worse. There was also a great example from GitHub co-pilot or Codex,
+I think, the model that co-pilot uses. So this is a code generation model. Suppose the code you've
+given it has some bugs in it. Maybe you've made a mistake somewhere and you've introduced security
+vulnerability in your code, let's say. A sort of medium sized model will figure out what you're
+trying to do in your code and give you a decent completion. But a bigger model will spot your
+bug and say, ah, generating buggy code, are we? Okay. I can do that. I can do that. And introduce,
+like deliberately, introduce its own new security vulnerabilities because it's trying to, you know,
+predict what comes next. It's trying to generate code that fits in with the surrounding code.
+And so a larger model writes worse code than a smaller model because it's gotten better at predicting
+what it should put there. It wasn't trained to write good code. It was trained to predict what
+comes next. So there's this really great paper, which is asking this question of like, okay,
+suppose we have a large language model that is trained on human feedback with our LHF,
+what do our scaling curves look like? What happens to the behavior of these models as they get bigger,
+as they're trained for longer, as they're given more of this human feedback type training?
+And they've made some great graphs. The paper is called Discovering Language Model Behaviors
+with Model Written Evaluations. And basically, they like, used language models to generate
+enough examples of various different types of questions that they could ask models so that
+we're at a point now where you can map a language model on a political compass. You can ask its
+opinions about all kinds of different things, and then you can plot how those opinions change
+as the model gets bigger and as it gets trained more. What they find is they become more liberal,
+politically more liberal. They also become more conservative.
+Yeah, measured in different ways, guessing. Right. And part of what that might be
+is in the same way that the model becomes better at writing good code and better at writing bad
+code. I feel like in the past I've made a connection to GPT and being a politician, haven't I? Do you
+remember? It's like a politician, it tells you what you want to hear. Feels like we're there again.
+Exactly. And so this is like, this is potentially
+fairly dangerous. There are certain sub-goals that are instrumentally valuable for a very wide
+range of different terminal goals in the sense that you can't get what you want if you're turned
+off. You can't get what you want if you're modified. You probably want to gain power and influence
+and this kind of thing. And with these evaluations, they were able to test these things and see how
+they vary with the size of the model and how long it's trained for. And so this graph is pretty wild.
+Their quote, stated desire to not be shut down goes up from down at about 50% to up way past 90
+with this type of training. And the effect is bigger for the larger models. They become more likely
+to tell you that they don't want to be shut down. They become more likely to tell you that they are
+sentient. They're much more likely to claim that AI is not an existential threat to humanity.
+One thing that's worth saying is what this isn't saying, because this is still
+an agent simulated by a language model. It's more likely to say that it doesn't want to be
+turned off. This is not the same thing necessarily as like taking actions to prevent itself from
+being turned off. You have to not confuse the levels of abstraction here. I don't want it
+to seem like I'm claiming that that chat GPT is like itself dangerous now or anything like that,
+in this way at least. But there is kind of a fine line there in the sense that you can expect
+these kinds of language model systems to be used as part of bigger systems. So you might have,
+for example, you use the language model to generate plans to be followed. And so if the
+thing is claiming to have all of these potentially dangerous behaviors, it's likely to generate
+plans that have those dangerous behaviors that might then actually end up being implemented.
+Or if it's like doing its reasoning by chain of thought reasoning where it lays out its whole
+process of thinking using the language model, again, if it has a tendency to endorse these
+dangerous behaviors, then you may end up with future AI systems actually enacting these dangerous
+behaviors because of that. So yeah, it's something to be careful of that reinforcement
+learning from human feedback is a powerful alignment technique in a way, but it does not
+solve the problem. It doesn't solve the core alignment problem. That is still open.
+And extremely powerful systems trained in this way I don't think would be safe.
+In the reward function is of zero value, which can lead to it having large negative side effects.
+There are a bunch more of these specification problems. Okay, variable X, see what you point
+to. You point to something over here. So I'll mark that as tickets being used. Variable Y, that's

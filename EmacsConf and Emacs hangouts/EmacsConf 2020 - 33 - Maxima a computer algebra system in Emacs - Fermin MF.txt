@@ -1,0 +1,454 @@
+You are now unmuted.
+Okay, can you guys hear me?
+Yeah, can you guys hear me too?
+Yep, I can, and more live, so take it away.
+Okay, so hello everyone, my name is Fermin.
+I'm a programmer math student from Spain.
+I've been using Emacs for two years now, more or less,
+and today I'm going to talk about a Maxima computer algebra system into Emacs.
+So, let's talk about what is Maxima?
+Well, Maxima is a system for manipulation of symbolic and numerical expression.
+It's similar in some regard to Octave, and it's also free software.
+It's derived from the Maxima from the MAT, and it's written in common Lisp,
+which is a language that I really like and enjoy writing.
+So for me, it's a plus.
+So, let's talk about the initial support for Maxima.
+When I first started using it, I looked for support into Emacs,
+and I found that there's two major modes in the main repository of Maxima.
+For Emacs, the first one is iMaxima, which I don't know too much about it.
+And the second one is Maxima.L, which is the one I took first, and it was pretty nice.
+It has like a major mode, a minor mode, a nice ripple.
+But it also has some disadvantages.
+The first one is that it's quite outdated.
+I think it was from the 2007.
+So, it's not tested with the current Emacs version.
+And the second one is that it doesn't use modern Emacs capability.
+I'm talking, for example, about the last or more latex preview from the last iMax 27.1, I think.
+And the last one is that it's not integrated with common third-party extension.
+I'm talking about company, for example, well, third-party.
+Yeah, you know, the Elpa Milpa packages.
+So, this stack is going to be divided into parts.
+The first one is going to be how much Maxima I made today in Max exercise.
+Don't worry, it's going to be quite easy.
+And the second one is going to be why I found the package and the least improvement that I did.
+And a couple of things more, maybe the future and where's the package right now, if you can use it.
+So, let's talk about the workflow.
+Right out of the box, it has like an almost super.
+I didn't write this, it was already in Emacs.
+So, that's pretty nice.
+Let's go with a simple example.
+Okay, so this is an array of three equations and three variables.
+So, it's a system that can be solved and the solution is unique.
+So, we're going to solve it, right?
+Let's go.
+Solutions.
+Okay, here's how you define a variable in, let's call solve.
+Okay, let's call implicit.
+Oh, no, sorry.
+Okay, and now an array of variables.
+Okay, so, first of all, we have to send this variable to the Maxima REPL.
+We can do that with Ctrl C, Ctrl C, or with the Maxima send line.
+So, let's put the Maxima buffer right here.
+Okay.
+So, right now, we can get the solution like this.
+So, we call this line, right now, Ctrl C, Ctrl C.
+As you can see, we get like an array inside an array,
+because let's see why we get this.
+So, we can call Maxima help a point.
+This will open a dog buffer with all the information about the solve function.
+So, we can see that there's a list of solution equations.
+You can see it, okay.
+So, but we know that the system only have one solution.
+So, we're only interested in the first one.
+I can do this like pretty easily just to take the first one.
+I can send it to the buffer.
+So, this is quite an easy example.
+As you can see, there are two completions of the help facilities that we have.
+We can also get information about the symbol.
+For example, Maxima symbol dog.
+And we get in the, I don't know if you can see correctly,
+in the mini buffer all the possible parameters of the function, right?
+So, let's continue.
+Okay.
+So, let's go to a more, well, complicated example, so to say.
+Oops. Okay.
+So, we have this equation and we want to go from minus one to five.
+I want to show in a nice graph, right?
+First of all, we begin sending this line to the Maxima repo.
+Put it in the bottom again.
+Okay.
+So, this is not ideal if you want to write down this equation,
+because it's quite messy.
+What is when?
+So, what's the thing?
+Where?
+So, we can call the function Maxima, let's say, insert form.
+Okay.
+And this is more easy.
+This basically put text behind and led our mode to render it.
+And this is quite easy to write down.
+You can use it like in every expression.
+So, first we have to call a library.
+Let's load the library.
+Library draw.
+We have auto-completion for local libraries.
+Sorry.
+Let me try to finish.
+Draw.
+Okay.
+We send the line.
+So, right now we have a library.
+And we should even have auto-completion for the library function.
+Okay.
+We have.
+Let's go draw 2D.
+And now we can call implicit.
+We should have, okay.
+And we can input the variable of equations.
+We put the first variable.
+The minus 5, the 5, 5.
+The V variable, the minus 5, and the 5.
+Okay.
+It should be all good.
+So, let me try to send it.
+Okay.
+You cannot see it right now.
+Because I'm just sharing the Maxima screen.
+Let me try to change that.
+Okay.
+Okay.
+Can you plot?
+Allow.
+Okay.
+So, this is basically the graph that Canoe plot generates.
+Right now it's not integrated into the Maxima package,
+but it's a work in progress.
+So, let's go back to Emacs.
+Where are you?
+Okay.
+There you are.
+Okay.
+Okay.
+So, let's continue.
+So, this is some of the things that you can use for your day-to-day
+programming in Maxima.
+Let's go now with the...
+Okay.
+As you can see, this is just text that is rendered.
+Okay.
+Let's go with the next slide.
+This is how I use Maxima.
+A simple example.
+We don't want to talk too much about it,
+because everyone uses the package in a different way.
+So, we're now going to talk about the original package
+and the way I change it.
+Right?
+So, the documentation of the original was great,
+but for me, it wasn't embedded in the code.
+It was sometimes hard to read.
+Like, it was like a big chunk of comment,
+giving me all the information.
+Like, for me, that's too much.
+I prefer a cohesive, small comment,
+and then a big readme with all the links and information.
+So, that's one of the first things I change.
+Then, also, completion.
+I'm a big fan.
+I'm used to Slime, so I love greater completion.
+So, the first thing that I noticed is that,
+well, it uses an absolute function.
+I don't know if you can see it correctly.
+Okay.
+Comment dynamic is deprecated,
+and it also has this variable, which is Maxima symbol,
+which is basically a big list of all the possible completion.
+So, if I load the library,
+it's not aware of the new symbols,
+or even if I create a variable, it's not loaded.
+So, it's not dynamic.
+So, the first thing I want is dynamic completion.
+Right?
+So, I improve it, which wasn't that hard.
+I, first of all, create Maxima gets completion,
+which we're going to see in a moment.
+And then, it changes completion region.
+So, this is the improved version.
+But the good thing is, like, I decouple the completion function.
+So, I make that, again, using all your own.
+So, you get a prefix, which is, like,
+the thing that you're going to autocomplete.
+You get the inferior process, which I'm going to talk about later.
+But, basically, it's a Maxima process you can work with.
+And you get an optional argument, which is fuzzyfinding.
+Okay?
+So, you can easily send a block here with the aPropos,
+which is a Maxima command that gets you all the autocompletion.
+And then, you process the output and do return
+a list of possible completion.
+This function can be easily put into the company.
+As you can see, you just get Maxima auxiliary inferior process.
+It's a process that just uses, sorry,
+you have all the aPropos and you get that symbol.
+It's like, like I said, auxiliary.
+Like, help me for all that dirty stuff.
+So, and process manipulation.
+Let's talk about how the Maxima process was in the beginning.
+So, at first, it was just one process,
+and you send all of the things there,
+and you move the process here and there,
+and there was a global state, right?
+So, all the function depends on global variables.
+I don't like that approach.
+I prefer more like a short to say functional,
+like you send one of things and you return something.
+So, it's not like a void function, short to say.
+So, I change it drastically.
+Well, this is the Maxima start function now.
+It just creates a start process with this function,
+which is Maxima make inferior.
+So, this function just gets a name,
+and it returns a process of Maxima,
+and you can then manipulate it the way you want.
+Let's see a better version.
+So, this is the opposite, right?
+This remove an inferior process and delete the process
+and kill the buffer, right?
+So, let's give it an example,
+because this you can see pretty easily in this example.
+So, I want to go to the scratch buffer,
+which I think you can see better.
+Okay, so, this is the way you can get a process with your name
+and save it into a variable, right?
+Let's execute this.
+So, as you can see, well, I don't know if you can see it big,
+you get a process.
+Let's go to it.
+The process is called my Maxima as the buffer, right?
+And if we can, you can send the stuff to the process, right?
+We can call Maxima send block,
+get a block of valid Maxima code,
+and just pass the variable the process,
+and we send code to the process, right?
+We can, this is useful.
+You have some expensive computation
+that you want to process asynchronously, so to say.
+So, the process can manage it,
+and when you get the results correctly,
+you can also get the results from the process.
+I mean, I don't put it here, but it's quite easy.
+And then you remove the inferior,
+which is the way to get rid of the process and the buffer.
+So, if we call this function, we should get rid of this process.
+And it works.
+The processing is no longer.
+I'm happy to continue.
+So, other things that improve the package,
+how am I going to do in time?
+I'm going good.
+Okay.
+Another thing that I did to the package was to add
+a continue integration and continue delivery, right?
+So, the package didn't have any tests,
+and the code was a little bit messy.
+So, I had integration at test and test
+with the test simple framework from Rocky Bernstein,
+the maintainer of real good,
+which is a great package, by the way.
+Yeah, this is one example of the process.
+So, right now, because the infrastructure
+of the process management is the couple.
+So, I can test it pretty easily.
+This is the test function of the inferior running.
+So, I can check if an inferior is running right now.
+And I can just delete it after and get the results.
+And I also did some integration with the party packages.
+The first one company, of course, I love auto-completion.
+The second one was Ormold, that was already there.
+And Lattec, with the Ormold in certain form.
+And with Polymold, because, let me evaluate this,
+Maxima can understand Lisp code.
+Well, more or less.
+It has a function, so to say,
+that you can send a Lisp command to the Maxima rebel,
+and you can understand it in some way.
+So, we can go to the Maxima Poly Maxima, right?
+So, we enable Poly Maxima, and it creates a Polymold,
+which this is Lisp code, and this is Maxima code.
+So, we can send this to the Maxima rebel,
+we come to C control R, which it send the Kurem area, region, sorry.
+And we define a variable, which is called test,
+and as we can see, we have the variable test right here.
+So, you can program in Lisp, and you can send it to Maxima.
+So, this is pretty nice.
+Working integration with this line mode, and with Swank.
+So, you can actually have a completion of a function inside the Maxima Lisp package.
+But this is going to take quite a while.
+This is not trivial.
+So, what are the features of Maxima right now?
+Well, we have fonts highlighting, smart indentation.
+It was already in the package, but now it's quite better.
+Great help functions.
+So, by now, you can find the documentation quite fast and currently.
+The menu integration, this is quite basic.
+It needs to be a little bit improved.
+Latex support, auto-completion, liquid company,
+and Maxima sub-process integration.
+And mini-buffer, I didn't show you.
+But basically, if you call global Maxima minor mode,
+you have the minor mode, and you call Maxima mini-buffer.
+How are you?
+Okay, mini-buffer.
+You can basically just write simple Maxima command,
+and it will give you the result.
+This is like a program version of Calc.
+So, you can write the command and you get the output.
+Way more to come.
+I have like a list of issues that I put,
+enhancing it, a new feature that I'm going to develop.
+So, the future and the present of the package.
+Well, the package is right now Melpa.
+Melpa stable.
+Melpa stable is in the 0.7.6 version.
+And I'm planning to include into the known GNU-ELPA.
+This is the URL of the package, by the way.
+So, if you go to Melpa, you put Maxima and you can download it.
+It doesn't have too much dependencies.
+You are aware of that.
+And thank you very much.
+This is going to be my talk.
+These are my information.
+This is my kid lab.
+This is my page, which I don't love too much.
+And this is my email.
+So, thank you very much.
+And I will be answering some questions right now.
+And happy hacking.
+You are now unmuted.
+Thank you very much, Ferman, for the great talk.
+Okay.
+Yeah, let's see if we have any questions.
+Yeah, I'm reading like this.
+So, I'm a body of each other user right now.
+Okay.
+Maxima over each other.
+Yep, there are a couple of questions.
+Wow, Maxima or Octave.
+I don't want to.
+I don't know Octave that much.
+Like, I use it like a couple of times, but I'm not a bit.
+And I found the Octave package to be quite a little bit harder to
+understand.
+And also that they have too much features.
+Like I prefer the Maxima I'm used to.
+Maybe Octave is better.
+I don't, I'm not 100% sure.
+I know that you can use it for similar stuff, but that's it.
+So, sorry.
+Okay.
+I'm a little bit of a rush.
+Sorry.
+Let me drink a little bit.
+Okay.
+Okay.
+Okay.
+Okay.
+How does Maxima compare to SageMath in Emacs?
+I mean, I don't know what is SageMath.
+I'm sorry.
+So, I cannot answer your question with your question, I think.
+Sorry.
+I mean, Maxima is ready in Camellist.
+That's just a preference for me because I like Lisp dialect.
+And Camellist is interesting.
+Yeah.
+Do you plan to have a Maxima session for Maxima code block?
+Yes.
+I want to improve the, of Maxima package, but I didn't have enough
+time.
+And I want to clear a little bit of the code because still right now,
+the code is quite messy in some areas because I pretty much implement
+first the basic function.
+I want to build on top of, so right now it's quite usable,
+but it still has some things that I want to improve.
+So, when I finish that, I will improve the normal version, I think.
+Is Maxima ready to get into your opinion?
+Yes.
+I think that the creator of Maxima, like, have this Lisp mind,
+and probably that they, if you go to a symbol,
+you get all the information and that reflect that you can actually
+write your program of Maxima into Lisp, literally,
+because they have a command.
+So, I think that is quite easy to get into.
+So many versions they use it for first years.
+So, it's quite easy.
+And I think with my package, you can use it, like, pretty easily.
+Just create a file and you can start typing.
+And Maxima is quite easy to install also.
+So, I think, yeah, it is quite easy.
+And the page should restart.
+I don't know why.
+Sorry.
+Okay.
+Maxima is strict Lisp syntax.
+You're talking about the Maxima itself syntax,
+or I don't understand the question correctly.
+Well, I'm going to go to the next question.
+Is there support for image in Maxima mode?
+No, not right now.
+The way I want to implement some IMAX things.
+Is there support for, but right now it doesn't have,
+like, if you want to have a new plot inside,
+you go for right now, it's not possible.
+So, that's the thing that Maxima does.
+Maxima.lst doesn't do.
+Which university do you start to use Maxima?
+In the Zaragoza University from Spain,
+they use Maxima in the engineer and in the math also.
+So, I'm not 100% sure right now, but when I start,
+are you planning to open your package into Maxima?
+I don't know about that because maybe it can be a little bit messy.
+Because the Maxima repo is more built around,
+like, Maxima itself and they don't update the interfaces that much.
+I have no problem, like, it's okay.
+You just have to, if you want to push,
+you can push another repository.
+I mean, it's just changed the file another way.
+But also, the test is going to be a little bit harder,
+because I think they're using a search for,
+and I'm using a key lab,
+continue integration with Unitary.
+So, yeah.
+I don't think that...
+Yeah, it will be nice.
+Okay.
+It's possible to include Maxima in our files,
+similar to Jupyter in our books.
+I mean, you can use Maxima in your files,
+and you have Maxima.lmod integrated.
+You can, like, create, put that code into a buffer,
+and then edit it correctly.
+But it doesn't have, like, all the features,
+like all the languages,
+because right now, as my understanding, it's quite basic.
+So, I still have some.
+Still need some stuff, some workaround.
+Okay.
+I think that's it.
+You are now unmuted.
+Yep.
+So, that's it.
+Thank you very much, Firmin, for your live talk,
+and for, you know, the live Q&A.
+Thank you all.
+Amazing.
+In Mexico.
+Cheers.
+Thank you.
+Thanks to all you guys.
+It's awesome.
+Okay.
+Thank you.
+Cheers.
+Bye.
+Bye.

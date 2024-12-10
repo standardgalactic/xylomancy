@@ -1,0 +1,1095 @@
+In this session, we are going to cover two notebooks.
+This is the first one dedicated to the creation
+of the data set, and a second one dedicated
+to the fine-tuning of the model.
+Here, we're going to have a very beginner-friendly approach
+to this topic.
+And then at the end of this session,
+we'll present some resources to go beyond that
+and to be able to also use better tools
+and perform other things.
+But in this session, we're going to stick to the basics
+and try to really learn the theory behind it.
+So we're also more aware of what's going on when
+we use automated tools.
+In this first notebook, we're going
+to talk about data sets and how to create a high-quality data
+set.
+So I want to mention the fact that there are basically
+two data sets.
+Well, several data sets we're interested in.
+The first one is instruction data sets
+where inputs or instructions.
+This is basically how you use chart GPT,
+like write me something, and the model is supposed
+to write you something and not complete what you just said.
+Because this is real completion, and this
+is part of the pre-training of these models.
+They pre-train on a lot of data, and the task
+is next token prediction.
+So they're just here to predict what
+the next word is going to be.
+And this is nice, but not really what
+we want to create assistance.
+So instead, we're going to use supervised fine-tuning
+to be able to turn a base model into a useful chat model here.
+There are also preference data sets.
+I want to mention it briefly.
+This is reinforcement learning from human feedback.
+This is often used after the supervised fine-tuning process.
+And in these data sets, you will find different answers
+and some kind of ranking of these answers
+to say, hey, this one is more useful than the other one.
+We're going to mention it during the fine-tuning process
+in the second notebook.
+And finally, there are other types of data set.
+It can be sentence classification.
+It can be code data sets where you have a fill-in-the-middle
+objective, where you want to fill-in code that
+has some context before your cursor and after your cursor.
+And this is where you want the code to be.
+But we're not going to talk about this.
+It was just a general overview of the kind of data set
+you can expect in this space.
+So as mentioned here, we're just going
+to use supervised fine-tuning, so with instruction data set.
+And we're going to be allowed on by filtering
+an existing data set.
+So the one that we're going to use today
+is the Open Platypus data set.
+It's a collection of different data sets, actually.
+This is already a data set that has been filtered
+using all the data set, but we're going to do it even more.
+We can check what it looks like on the Hugging Face page here.
+So here you have the instructions.
+For example, the ball game speeder and divider
+into three parts, blah, blah, blah,
+and the output that is expected by the model.
+So this is basically what your model is going to learn
+during the supervised fine-tuning process.
+It's going to learn to output this answer when
+it has this instruction.
+And we repeat it a lot of times.
+And at some point, the model is pretty good at understanding
+what it needs to do, so it needs to provide a useful answer
+for this instruction.
+You have more information about the Platypus data set.
+And there's also a really nice paper
+you can find here about how they did it
+and how they trained their models called Platypus.
+So an interesting read if you want to know more about it.
+So first of all, let's start with the code.
+We're going to need to install some libraries.
+So here we're going to install a bunch of libraries.
+We're going to install data sets.
+The library from Hugging Face, you handle this.
+Also, transformers are very useful.
+Sentence transformers, too, because we
+are going to use sentence transformers
+to create embeddings of our data.
+We're going to see why in a few minutes.
+And finally, a vector database from Facebook Face GPU.
+Here, you can see the runtime.
+So make sure you have a T4 GPU or more if you can afford it.
+But the entire code should run using a free tier Google
+Collab, so with a T4 GPU.
+For the sake of this exercise, I'm
+using a V100 with higher RAM, because it's just
+going to be a bit faster.
+And we won't have to stay on the screen for 30 minutes.
+The second step that is really useful.
+So this is the first time I tried to use it.
+Please bear with me.
+This is quite a new feature in Google Collab.
+But now we have a secret tab here on the left.
+And as you can see here, you can add a new secret.
+And you can give it a name, a hugging face, and a value.
+So you can retrieve the value using this link
+if you have a hugging face account.
+So here, a collab.
+I can copy it here.
+I can write the hugging face here and copy and paste
+the value here and give access to the notebook.
+So this should be a really clean way
+of managing your secrets, because now they share it
+across all your notebooks, and they won't
+going to be shared with people other than in your account.
+To use it, I am going to jump in.
+We just got a question from the audience.
+I'm not sure what the answer is.
+I don't know how widespread this problem is.
+But do you know what an insure file accessible error
+message might be?
+Oh, sorry.
+I thought that we tested that.
+Let me just try out the links that are used.
+Anyone with the link should be able to access them, actually.
+Can some people confirm that you can access it?
+Richie, can you access these notebooks?
+I can access the notebooks.
+One thing might be the case, you do need to be logged into Google,
+I think, in order to access CoLab.
+So if you're not logged into Google,
+then you probably need to do that.
+All right, we'll continue for now.
+If anyone else has any problems, please do let us know
+in the chat or the comments.
+Yes, please.
+Oh, James says it might be a company blocking it for security reasons.
+Yeah, if you can't access any Google products
+from your corporate laptop, then, yeah, you probably
+have to find a different network, unfortunately,
+or just watch for now, follow along when you get the recording.
+Yeah, exactly.
+Sorry about that.
+Google CoLab can be a bit difficult to use in some context.
+Here, we're going to import our secret using Google CoLab,
+user data, user data get.
+So now the HF token has the correct value,
+and this is what we're going to use when we need it
+in the rest of this CoLab.
+This is optional.
+We are only going to need it when
+we want to upload the data set.
+So if you don't have a hugging face account,
+you don't need to create one.
+I recommend it because it's nicer,
+and you'll be able to upload your own data set
+in your own account.
+But if not, it's OK.
+I will upload it in my account, and you'll
+be able to reuse it from this account.
+So now we have the hugging face token,
+and the first thing that we want to do
+is to load the data sets that we want to use.
+So in this case, it's the data set that was mentioned here.
+So open platypus, we can copy, paste it from here,
+and it should load the data set, download it, and load it.
+And we're going to see all the different columns
+inside of the data set, so input, output, instruction,
+and data source.
+That should be correct here.
+And we have the number of rows, so almost to 25k rows.
+So we can see a bit more about it.
+We're going to read it as a Bandit's data set,
+and we can, even with Google CoLab,
+convert it into an interactive table.
+It's a better way of looking at it.
+Unfortunately, it can take some time for Google CoLab
+to convert it.
+So we're going to see.
+But yeah, it's nice to see that we have the instruction,
+and we have the output, and this is all that matters here.
+We're going to explore a bit more about the instruction
+and the output.
+If it was a real data set, real raw data set,
+what we want to do at this point is really read
+not every line because it's too much,
+but a lot of these lines and be able to get a good understanding
+of what's in this data set and what we expect,
+and also just clean it.
+If there are samples that are not high quality,
+that have bad English, that are just plain wrong,
+we want to remove them.
+This is very important.
+We want to create the best data set possible,
+so it means filtering out a lot of samples.
+OK, so now we have this data set.
+We can read everything here.
+This is a lot of data, so we won't do it in this case.
+It would take too much time.
+But now, something that we can do,
+let me show you once again the code here,
+so load data set and then the name of the data.
+And what we are going to do here is that we're going to use
+the Transformers library to import the tokenizer.
+This will convert the raw text into tokens.
+Then we will import the Matplotlib library
+to plot the results and also the C++ library for the same reasons.
+First, we want to import the tokenizer.
+So in our case, we want the tokenizer not from BERT,
+as suggested here, but from Lama2,
+because this is the model that we want to use.
+So we're going to use new research version of Lama2
+and not the official one from Meta.
+Why that?
+It's because if you don't have a Huggingface account,
+you will not be able to access the official version of it.
+So new research just re-uploaded the entire thing.
+So now we have the tokenizer.
+We can test it here.
+It's going to download it once again from Huggingface
+and then we're going to print it.
+Once it's done, here you can sit with all the special tokens
+and known as et cetera.
+When it's done, we want to use it to tokenize our instructions
+here and also our outputs here.
+So the way that we're going to do it,
+we're going to create a table, an array called
+InstructionTokenCounts, it's a bit verbose but,
+and we're going to use the tokenizer
+to tokenize every sample in our data set.
+This is not correct, actually.
+This is why you should not always trust the CUDA lamps.
+For example, in our data set, train and close it.
+So here in this table, we should get the token counts
+for every instruction and we're going
+to repeat this process with the output.
+So pretty much the same thing here and we want the output.
+And finally, we want to combine the instruction
+in the output because this is like the entire data set
+and so instruction plus output.
+And in this case, we want to call it CombineTokenCounts.
+And here we're going to merge these two tables
+for instruction, outputs, in zip, et cetera.
+And we should get the sum of all the tokens
+here in both instruction and outputs.
+Now that is done, we are going to do a little function
+to plot the distribution of our token
+so we can have an easy visualization of it.
+So here I'm going to use SNS, SetStyle, white grid,
+and slowly but surely get everything here.
+Actually, I'm sorry, but I'm going to copy paste it
+so it's a bit faster to do it.
+And now we can plot the distribution
+for every instruction, output, and CombineTokenCount.
+So this is a very simple plot and we
+can call it using plot distribution.
+And here we're going to first use instruction token counts
+and we're going to see the distribution of token counts
+for instruction on it.
+This part takes a bit of time, unfortunately,
+because it needs to tokenize the entire data set.
+But once you've done it, you can basically comment it.
+It's OK.
+And we're going to repeat this process
+with the output token counts.
+So this time it's for output only.
+And finally, the CombineTokenCount.
+So here it's for instruction plus output.
+Here I'm going to comment it so we get faster results.
+And now we have a distribution for all of our data.
+So here you can see that we have approximately,
+like the mean is around here, so around 500 tokens.
+There's a long tail distribution.
+It goes up to like 5,000 tokens.
+Why is it important?
+Why does it matter?
+It's because these models, they have a certain context window.
+And if it's because beyond this context window,
+it's not going to be very helpful.
+So it's important to know the number of tokens
+in our data set.
+We also maybe want to sample more from samples
+that have more tokens because they're
+going to be more informative than others.
+But we'll see about that.
+Basically, here we can see, OK, I'm
+going to put a certain threshold for this data set
+at 2k tokens.
+The max contact size for LAMATU is actually 4k.
+But this is just an example to show how we can just
+set a threshold.
+So here we want to filter out rows with more than 2,000
+samples.
+So one way of doing it is to say,
+if I count in numeric combined token counts, if count,
+OK, so here we're going to retrieve
+the index of every sample where the count in combined token
+counts is lower than 2k.
+And now we can print how many of this we have.
+OK.
+And if we print length of the data set in train,
+and we are going to remove the length of the valid indices.
+So we see how many we remove.
+OK, we only remove 31 of them.
+But that's fine.
+You can have a more aggressive threshold if you want.
+In this case, yeah, we're going to remove just a few of them,
+as you can see here.
+Then we're going to extract the void rows based on the indices.
+So here we need to take the data set train.
+And we're going to use the select method
+to only get the valid indices.
+And then we're going to get the token counts for the valid rows.
+So we can also plot this distribution here.
+And we plot the distribution of the token counts
+after filtering, exactly like that.
+OK, there is an issue here, because I executed the code
+twice, I shouldn't have.
+But that's fine.
+If you execute it once, it should be OK.
+Now it's already filtered, which is why it's creating error.
+And here you see that we have a very different plot,
+because all this right part has been filtered out.
+Another thing that we can do is near the duplication
+using embeddings, which is why we installed the sentry
+and transformers library.
+And what we want to do here is we want
+to embed every row, every sample from our data set.
+So here we want to translate that into a vector,
+we call it embedding, and using an embedding model.
+How to choose the best embedding model?
+It's often a popular question.
+One way of answering it is looking at the MTEB, the board
+on the hugging face.
+This is where you can see competition
+with all the embedding models on the various tasks.
+It's funny, because since I've made this screenshot,
+there are new ones on top of it.
+The one that we're going to use here
+is the GTE-based embedding model.
+It's a really good model.
+It's not the best model, but it's
+going to be faster than other options, which
+is why we're going to use it here.
+And we're going to use these embeddings
+to then calculate the similarity between them.
+And when they're too similar, we're
+just going to filter them out.
+So how are we going to do it?
+We're going to use the Sentence Transformer library,
+and we import the Sentence Transformer class.
+We're also going to import face, the vector database
+from Facebook.
+It's not the best vector database,
+but it's very simple and it's very minimalistic,
+which is why I used it in this example.
+From Dataset, we are going to use Dataset and Dataset dict.
+To be a bit fancy, we're also going to use TQDM
+to have a nice loading bar and finally
+number for some operations.
+So here, we're going to really create the code in one function
+to do everything.
+So we are going to pass it a Dataset.
+We are going to pass it the name of the embedding model
+we want to use, and we're going to pass it threshold.
+For example, 95%, it means that when it's 95%
+as similar as another embedding, it's fishy,
+and we probably do not want to use it.
+We probably want to filter out this model.
+So as a Sentence Transformer, we're
+going to use the model that we passed as arguments.
+For the outputs, we are going to use all the example
+in the Dataset.
+So what we want to filter out here
+are just the outputs and not the instructions.
+We're fine if we have similar instructions.
+We just do not want similar outputs
+because this is what the model is going to be trained on.
+Then we are going to say that we are converting
+text to embeddings.
+We are going to use the Sentence Model
+and encode the outputs that we have,
+and we can even show a progress bar to be fancy bar.
+Then we're going to get the dimension of our embeddings.
+So you can see in the boards, some of them, they have like 1024.
+Some of them, they have like 768.
+Basically, yeah, they have different dimensions.
+Take that into account.
+We are going to create our index using the vector database.
+So it's going to be a flat IP index in this case.
+And we need to normalize our embeddings.
+The face already has a function to do it,
+but I do not trust it that much.
+So we're going to do it on our own
+because I had a bad experience with it.
+And I think it's going to be better that way.
+So here we're using NumPy to normalize it using the norm.
+We just take the norm to normalize the entire embedding space.
+And then we're going to add it to our index as normalize embeddings.
+Then we're going to say we are filtering out, let's say, near duplicates.
+And in this part of the code, we want to use the index search.
+So we have the normalized embedding we just put.
+And here we are going to say k equal 2.
+So we are going to return at most two vectors.
+We don't need more in this case.
+And we're going to create a list of the samples we want to keep, call it to keep.
+And this is the main loop, finally.
+Range length, yeah, it's fine.
+And we're going to do something nice for the QDM.
+So we have a nice loading bar.
+And what we want here is if the dimension is...
+So if this is, we're going to return here the similarity between these embeddings.
+If the cosine similarity is below the threshold, we are going to keep it.
+We're going to add it to the to keep happened.
+And then we have i, yes, an index.
+And then we can create data set trains.
+And we are going to use the select method from the data set object to only keep these indexes.
+Then we are going to return it as a data set dict.
+This is not the most elegant way of doing it, but it's going to be fine for the purpose of this exercise.
+And then we can call our function.
+So the duplicate data set.
+And we are going to pass the data set and we're going to pass the embedding model we want to use.
+So in this case, as I mentioned, it's going to be the GTE large.
+And we can just copy paste it here.
+And as a threshold, I'm going to use 0.95.
+Be careful if you switch the embedding model, you won't have the same distribution of cosine similarity.
+So some models to get the same results, you're going to need like 85.
+Others might need 99.9.
+It really depends on the embedding model that you use.
+It should be fine.
+So now we can convert the entire data set into embeddings.
+Here we are downloading the embedding model.
+It's not a big model, which is why it's pretty fast.
+The long part is actually comparing the embeddings.
+I should mention why we're doing it using a vector database instead of a for loop.
+I've tried to do a very minimalistic version using two for loop.
+So we would compare every embedding to all the other embeddings, but it took a very long time.
+So this is why we're using a vector database here to be more efficient to be used by the computations
+and get the results basically just faster because otherwise it would take like two hours.
+It was really, really too long, unfortunately.
+So here we're still downloading the models.
+And then with a V100 with Hiram, it should take about three to four minutes to get all the embeddings
+and to filter out the data set.
+In the meantime, we can continue.
+I'm just going to show the code here because I don't know if you can really see it.
+If you had time to see the code, this part might be a bit confusing,
+but I don't want to delve too deep into the details of the face vector database.
+Okay, so now you see that it's converting the text to embeddings.
+Oh, it's going to take much longer than last time I've tried, unfortunately,
+but it's okay.
+We can stop it or come back later to finish it.
+What we want to see when we have this data set is the number of samples that were filtered out.
+So we can print the length of the original data set.
+We can print the length of the data set.
+And we can even print the number of samples that were removed.
+So in this case, the length of the original data set minus the length of the data set.
+And this will tell us how many rows we removed.
+And last time, you can see it later on the solution notebook.
+It's about 8,000 samples.
+One thing that we can do when that part is over is stop case sampling.
+So in this case, we still have too many samples because if we remove 8,000 samples,
+we're still going to have 16k samples.
+Maybe this is too much for what we want to do.
+So we can randomly sample some rows.
+In order to do that, we're going to create a new function called topk rows.
+We are going to use data sets, token counts, and k to know how many we want to have.
+We're going to sort the indices because we can sort it by descending token count
+and get the topk indices in this case.
+So it's going to be sorted range length token counts.
+And here we are going to use lambda i token counts reverse is equal to true.
+So here we should get everything that we need.
+So the token counts and get all the data sets with most samples first.
+And then topk indices, we are going to just keep those topk.
+Yeah, I just talked about randomly doing it, but it's not true.
+We're just getting like the samples with the most tokens.
+Sorry about that.
+And then we can create topk data.
+And here we have instruction where we want data sets that are in the topk indices.
+And we're going to do the same thing with the output.
+You could do something similar with the select method, but this time I want to be clear about what's going on.
+So we have a for loop to select all the samples that were in the sorted indices here.
+And we are not going to keep like 1000 of them.
+And we are going to do the same thing with output.
+And finally we can return our data sets from the dictionary that we did topk data.
+So this is our function.
+But in order to call it, we are going to need to have the new token counts because here we filtered out a lot of samples.
+So we can just copy paste what we did at the beginning here, get the instruction token counts, the output token counts, the combined token counts.
+And this is what we will use when we want to call this function.
+So let's have a k of 1000 and the topk data set will be get topk rows data set.
+We're going to use it with the combined counts and the k of 1000.
+So this is how we're going to call the function.
+And finally, we are going to save it as a dictionary like data set dict as they call it to make sure that we still have like a train split, but not very important.
+After we've done that, we can once again recompute all of the token counts and the plot actually like also plot the distribution.
+So this is just to see what's the new distribution after filtering after topk sampling now how it looks like.
+And yeah, we'll see, we'll see in a few minutes.
+When this is done and we can see the distribution, we can just also see the samples themselves to see like with pandas, how it looks like, like we've done at the very beginning of this book here.
+And we'll see like how many samples remain.
+And finally, I want to mention chat templates.
+So there's a need to define a chat template if you want to use your large version model as a chat bot.
+There are different ways of doing it.
+Here's a way of doing it.
+We have a role user content either role assistant.
+So this is more like the raw data.
+This is a format that you can use just user two points and then the message, then assistant to point next nice to meet you.
+In the case of flamato, you have this particular template.
+So you have this token s, then you have the instruction, you have space.
+Not not not the instruction.
+It's it's another token for instruction.
+Then you have sys, you have the system prompt, you have here the user prompt and finally the model answer.
+It's quite a difficult template.
+We don't need to use it to function our Lamato model because we're functioning the base model.
+And this chat template is only used in the chat version of Lamato.
+This is not the one that we use here.
+I wanted to mention the chat ML template from OpenAI.
+It looks like this.
+It's the most popular and standardized one.
+You can sit in a lot of state of the art open source models.
+We're not going to use this one because it requires adding tokens.
+It's more difficult.
+So the one that we're going to use is going to be quite simple.
+We're going to create a function called chat template about it with an example.
+And in this example, we're going to format the instruction.
+And here we're going to use this instruction, then break line.
+Then we can finally put the original instruction and break line, break line.
+And here we can put like output or response, response and another break line.
+Why this one?
+Honestly, there's no good reason.
+You could imagine a lot of different prompt templates,
+but it's going to be nice to see that the function model will follow this prompt template.
+Finally, we can return the example and we map that using the map method from the data set object.
+And this will change all of our instructions so they can follow this template.
+We're going to visualize it when it's done.
+Let's go back a bit earlier.
+We filtered everything that we wanted to filter.
+We filtered out 8K samples, like I mentioned previously.
+Then there's the top case sampling where we said we only want to keep the top 1000 samples in terms of token counts.
+So the one with the most tokens.
+And you can see here the distribution of token counts for instruction only for token counts.
+And finally, the distribution of token counts for instruction per output.
+You can see we don't have samples with less than 1000 samples thanks to the top case sampling.
+It should make sense, hopefully.
+So here we have 1000 samples with a lot of tokens and they should be high quality because they're not close to each other.
+We need to duplicate them so it means that they should be pretty far away from each other.
+Here you can see all the 1000 rows.
+Once again, you can click it here if you want to have a good overview of the samples that were selected.
+And now they should follow our chat template.
+So let's check if this is correct.
+And here you can see the instruction.
+Let's click it here.
+We really have the instruction and the response as mentioned here.
+So this is working as intended instruction, response, and here is the response that we want the model to follow.
+All right, so this is done.
+And the final thing that we can do here, this is optional.
+This is if you have a HuggingFaceHub account.
+If you put the value here of your secrets, then you can just push the data sets to the HuggingFaceHub like this.
+And we specify the token here.
+I'm calling it MiniPlatpus.
+You can call it however you want.
+And this is going to upload it.
+And you can even check if it's correctly uploaded.
+If I go to my HuggingFace account and I check my data set, this one was uploaded less than one minute ago.
+And here you can see our entire data set.
+Cool.
+We have everything now and we're ready to go to fine tuning.
+I hope it was clear and if not, I hope that the solution notebook will help you to create your own data sets.
+To go further beyond that, you can create synthetic data using GPT-4.
+It's something that is used quite a lot and it creates really good data sets.
+So it's something that you can play with.
+And otherwise, it's really like manual reviewing.
+You can import this data set in Google Sheets and really manually review every row possible.
+Maybe create some regex to automate the process a little bit.
+But this is a very time consuming process.
+But it's also very nice because then people can reuse your data sets if you share them.
+But now let's go to the fine tuning notebook.
+You should also have it.
+Let me check the chat.
+Okay, you have the solution notebook.
+Cool.
+So here you have Lama2 and we're going to delve deep into the fine tuning process.
+So as mentioned previously, there are two ways of fine tuning these models.
+This is supervised fine tuning.
+This is what we're going to do.
+So we're going to tune it on a set of instructions and responses.
+It's going to help the model focus where we want.
+So to be helpful to follow the chat template too.
+And there's also the reinforcement learning from human feedback where we want the model to maximize reward signal.
+I'm not going to delve into that.
+There are a lot of good articles about it.
+It's able to capture more complex preferences.
+It's also more difficult to implement.
+And in practice, most, if not all, this ZIFIER, except ZIFIER,
+nearly all the state-of-the-art open source LLMs just use supervised fine tuning.
+So yeah, something to keep in mind.
+And once again, there's an example from a few months ago now, the LIMA paper,
+that shows that only 1,000 high-quality samples can really make the difference and get very far.
+In this case, when you have a 65 billion models.
+And I want to mention the open LLM need a board.
+You might be familiar with it, but this is quite useful to see what are the best models.
+So currently you have like this non-LAMA model.
+I wanted to show this Godzilla 2.0 7B model because it's using a LLAMA 2.0 7TB.
+And I saw that it was using my data set.
+So when I was telling you like, yeah, it's nice to also share your data set,
+you see like sometimes it can be reused by other people without you knowing anything about it.
+But I'm glad this one was useful.
+So what we're going to do here is as previously we are going to start by installing all the libraries that we want.
+So in this case, we're going to go pip install queue.
+And we're going to update because Google collab already has some of these libraries,
+but we want to use really like the latest version available in this case bits and bytes and 1DB.
+Transformers and a hugging face.
+Oops, I'm going to disconnect this session.
+Okay.
+Once again, you can use a T4 GPU for the entire notebook here.
+I'm just going to use the V100 because it's going to be faster.
+Transformers for the transformers data set for the data set accelerating.
+It's to make things faster.
+PFT, it's going to be for the fine tuning process that we're going to use.
+I will mention it later.
+TRL is a wrapper.
+It can be used for supervised fine tuning or for reinforcement learning from human feedbacks.
+We have bits and bytes for quantization because we are not going to use the model in full precision and 1DB for reporting.
+So we can have a nice dashboard where we can track the progress of our model.
+Once again, we're going to use Google collab.
+I'm just going to copy paste it from the previous notebook.
+So we have our secret token.
+Current access.
+Okay.
+It's optional if you don't have a hugging face account once again.
+And here we're going to import a lot of libraries so we can import OS.
+We're going to import Torch.
+We're going to import the data set from data sets and from the transformers library to import a lot of classes.
+So auto model for causal LM auto tokenizer bits and bytes config auto tokenizer training arguments.
+And pipeline when we want to run it when the model is trained.
+And then from PFT we also need to import a few of them.
+So lower config PFT model and something called prepare model for K bit training.
+And the last one is the wrapper first provides training from the TR library called SFT trainer.
+I'm going to let it here for a second.
+And we're going to talk about the different ways we can fine-tune this model.
+So we have three ways.
+There's the full fine-tuning, there's lower and there is Q lower.
+With full fine-tuning, we're going to use the entire model.
+So we're going to train all the weights in the model, which is very costly.
+We have lower, which instead of training all the weights, we're just going to add some adapters in some layers.
+And we're going to only train this added weights.
+So this really reduces the cost of training the model because we are just going to train like 1%, 2% of the entire weights.
+And finally, we have Q lower, which is using lower, but with a model that has been quantized.
+So in this case, we're not going to use the model in six-bit precision.
+So with every weight in the model occupying 16 bits on the disk, but instead, they're just going to be quantized into four bits.
+So we can lose a bit of precision here, but in the end, there are mechanisms to make it less impactful and we'll be able to get a really strong model using Q lower.
+A bit of calculation here, we have 16 gigabytes of VRAM with our GPU.
+Here you can see it's 16 gigabytes.
+And Lama 2.7B weights, so we have 7 billion parameters.
+If they take up two bytes, it means that we're going to use 14 gigabytes.
+So we are almost like using the entire VRAM.
+In addition, there are other things there's an overhead due to optimizer stays, gradients, forward activations.
+So it's going to be challenging, but we can manage to fit it into only 16 gigabytes of memory.
+Okay, so now we're going to really delve into the code to function it.
+We are going to reuse the new research model here like previously.
+And we are going to give a name to our new model.
+So in this case, I'm going to call it Lama 2.7B and Mini Platypus.
+And we're going to reuse the dataset that we just created.
+So it should be called Mini Platypus.
+And we're just going to use the train splits.
+Finally, we have the tokenizer.
+So here we are going to use the tokenizer from the Lama 2 model.
+And we're going to use the fast version of it.
+We are going to do something that is, some people hate it.
+We don't have a padding token for Lama.
+And this is a really big problem because we have a dataset with different number of tokens for each row.
+So we need to pad it so they all have the same length, right?
+And there are different ways of doing it.
+Here I'm using a token called the end of sentence token.
+And this will have an impact on the generation of our model.
+This is what we're going to use here.
+There are different ways of doing it.
+This is definitely not the best version of it.
+If you want to learn more about it, I linked an article from Benjamin Murray about two other ways of doing it.
+And this is what we should do.
+But for the sake of simplicity here, I'm telling you about this problem,
+but I'm still using the end of sentence token for this fine-tuning.
+Then we are going to talk about the configuration of the QLOR.
+So here, BNB config, it's the bits and byte configuration.
+The first thing that we want to do here is to load the model using four bits.
+Otherwise, it will not fit into the VRAM.
+In order to do that, we can specify the quant type that we want to use.
+In our case, we want to use the NF4 format.
+This is the format that was introduced in the QLOR paper.
+And we are going to use compute type.
+So this is how the weights are stored using four bits.
+And when we want to compute, it's only going to use 16 bits.
+So we have more accuracy.
+And we are also going to use something called double quantization.
+So even the quantization parameters are quantized.
+It's to really take evenness space without using it.
+Then we have the lower configuration.
+So on top of QLOR, we also have the lower configuration.
+And in this case, we have a bunch of parameters.
+One of them is the alpha.
+The alpha is basically the strength of the adapter, the impact it has on the model.
+Because you can merge these adapters in a very weak way.
+So using a very little weight or using a big weight.
+32 is a pretty big weight, but this is a quite standard value for this parameter.
+We also have the dropout because when we add these adapters, they have a little dropout.
+So we have a 5% probability of skipping these connections.
+And finally, we have a rank, which is like the dimension of the matrix that I use here.
+So you want to know more about LOR and like a minimalistic implementation of it.
+I made this notebook called nano-LOR.
+And this goes into, in depth, into like the theory behind it.
+And we will help you understand these parameters a bit better.
+We do not want to take care of the bias.
+So we have the weights and the biases here.
+We do not care about the biases.
+And the task type in this case is causal LM, because we are auto-aggressive.
+And the target modules here, we have a very long list of target modules.
+The target modules, it's something that you can see here actually.
+And the attention, Lamar attention thing.
+It's basically like, okay, which modules do you want to not train, but add a LOR adapter to it?
+And we are going to use a lot of them because it's been shown to really improve performance.
+So the more modules we have, the more parameters we are going to train.
+But this is fine.
+Like we can afford it with our limited budget.
+It's going to help us in the long run.
+Then we're going to load the model from pre-trained.
+And we're going to use the base model that we typed earlier, the quantization config.
+So we have the BNB config here.
+This is what we're going to use.
+And finally, the device map.
+So here it's, we could also use auto, but I'm going to use that.
+It's going to automatically detect the device, the hardware that you have.
+So in our case, we'll detect the GPU and make sure that we're using the GPU for training.
+Otherwise it's not going to work.
+And finally, we are going to call a function called prepare model for KB training.
+This will cast the layer norm in FP32.
+So in more precision, it will make the output embedding layer require grads and add the upcasting to the ML head to FP32.
+So what it means is that it's going to take some layers, some modules and make sure that we are using them with the highest precision possible
+because it's been showed to really improve the performance too.
+So yeah, there are some modules that we will not, that do not really matter.
+Some of them matter quite a lot and we want to be quite proactive on that.
+And in the end, this will help us build the best model possible.
+So if I, oops, I forgot to execute that.
+And then if I forgot to execute that too.
+Oh, just while you're running those little bits.
+The data set.
+Sorry.
+Just because we're coming up to time.
+We are going to overrun a bit.
+Before we get to, before you all jump off for those of you who have to dash,
+I just want to say we've got three webinars coming up next week.
+On Tuesday, we've got an introduction to snowflake code long coming along on Wednesday.
+We've got a session on using AI and robotics.
+So if you're interested in a career in AI, then that's something definitely worth attending.
+And then on Thursday, we've got a session for best practices on putting LLMs into production.
+So three great sessions, please do go to datacamp.com slash webinars, sign up for those.
+We have got some great questions for the audience as well.
+So I'm hoping to get to those afterwards.
+If you do have to jump that fine, please do catch up on the recording for everyone else.
+I hope you're okay hanging around for a minute.
+And with that, I will dash off and let you get back to it.
+Yes.
+Sorry about that.
+We should be over in like 10 minutes.
+I underestimated the time it takes to write the code.
+But yeah, here we have a killer lower configuration, loading the model,
+preparing the model for training.
+We are currently downloading the model.
+Here you can see the different modules in the Lamar attention class.
+And those are the ones that we target also in the Lamar MLP.
+You can see the hugging face implementation of it to have more details about how it's actually implemented.
+Once it's done, we have more boilerplate code to type.
+This one, it's training arguments.
+So we have the training arguments here.
+And what we want to do is to give like a bunch of parameters to it.
+So like, where do I output the results?
+We're going to specify a directory for that.
+How many epochs we want to run the model on?
+Here I'm going to put one, but let's put four or five basically between three and five.
+It is pretty good for Lamar to model at this size.
+There is the per device train batch size.
+This will tell us like how many, yeah, the number of batches that we're going to take for every step.
+We have the gradient accumulation steps.
+We're not going to use it here.
+It's basically a for loop inside of the training.
+So we don't have to add more, use more VRAM.
+But in this case, it's going to be fine.
+We won't need it.
+We have the evaluation strategy.
+It's not going to be very useful here because we are not going to evaluate this model.
+We just want to train it.
+And we're going to mention what evaluation looks like with these models a bit later.
+Logging steps, we want to log every step.
+The optimizer that we're going to use is the Adam optimizer, but a version that is paged in 8 bits.
+So it's going to lose less memory.
+The learning rate, we are going to use this one.
+There are different learning rates that we can use.
+Refer to the QLR because QLR really impacts the learning rates.
+The model also really impacts the learning rate that you want to use.
+We have the scheduler.
+In this case, we're going to use linear and warm up steps.
+It won't be really useful here, but we're going to say 10 to warm up the optimizer.
+We want to report it to weights and biases.
+And finally, something that I'm going to put here, but remove this line for real training.
+We're just going to stop after two steps, otherwise it will take like an hour to train the model.
+But yeah, you can just feel free to remove this step if you want a real training.
+So those are the training arguments.
+Then we need also to use the FFT trainer, so the wrapper I mentioned earlier.
+And in this case, we just specify the model, the training data set.
+We don't have an eval data set, so I'm just going to reuse the same one.
+PFT config, we specified it.
+It wants to know the text field here, so the instruction field.
+The data set was called instruction.
+The max sequence length.
+So we're going to go for 512.
+You could say like, yeah, but we put a threshold at 2K, but we don't have enough VRAM.
+Unfortunately, it will take like a lot of VRAM to put everything into memory.
+So we're just going to stop at 500 in this example.
+And finally, we can give it the training arguments.
+So this is what we have.
+And when it's done, we can start the training.
+And when the training is done, we can even save the model using that.
+So we should have, yeah, the model has been downloaded here, and now we are training the model.
+So this is a loss, a training loss and evaluation loss from weights and biases.
+And as you can see, it's a very nice way to track the progress of the model.
+We can see here the warm-up steps where it's pretty bad and then it goes better and better.
+You can see the training loss is in blue.
+So it's quite spiky, it's a bit noisy.
+The EVA loss is in orange.
+It's a lot less noisy because it's less frequent.
+And something that you can observe if you train it for like 5 epochs is that the EVA loss will go up instead of down.
+Normally, traditionally in machine learning, this is a bad thing, but with large language model,
+it's been proven time and time again that it's actually desirable.
+And the best models actually overfit really a lot on the training data.
+And this is not a problem, actually, this makes them better.
+Here, as you can see, our model has already been trained for two steps.
+So if you want, you can add more steps, you can remove it if you want to train it on the entire dataset.
+It will take a while, however.
+We can check weights and biases here.
+We won't see any, a lot because we only have two steps.
+But just to show you, here's our run.
+And you can see here the global step, train run time, train loss of 1.2.
+So yeah, this is what you would use if you run it on the entire dataset.
+Finally, we can use our model now that it's been trained.
+We can prompt it and say what is a large language model.
+We have to wrap it using the right chat template.
+So with instruction, prompt, and then response.
+And we can use a pipeline here from HuggingFace.
+It's going to be pretty nice.
+So model tokenizer equal to tokenizer.
+And we're going to restrict the generation length to 128.
+And finally, we can get the result here and print it.
+So I'm going to print the generated text.
+It's an object that returns.
+And we can do something fancy and remove the instruction part.
+This is a question that a lot of people ask me like,
+why do I see the instruction in the generated text?
+You can just trim it basically.
+This is how the HuggingFace object works.
+But you can remove it manually like this.
+So now the train model is going to answer the question,
+what is a large language model?
+And it will print the answer here.
+Then we want to delete it.
+Okay, we have the answer.
+So what is neural network?
+No, the answer is a large language model is a type of artificial intelligence model
+that is trained large amount of text data to generate human like text,
+which is pretty good actually.
+Not thanks to our fine tuning because it was not intense enough,
+but it's a pretty good answer.
+And then you can see that it keeps repeating like instruction, response instruction.
+And this is because of our padding actually.
+It's because we're using the end of sentence token as a padding token.
+So now it just doesn't stop and keeps talking.
+So if you don't want to have this behavior,
+please use a different padding technique as mentioned previously.
+Finally, we want to remove a lot of things.
+So this is specific to Google collab.
+We want to collect all the model and the objects in the memory in the VRAM
+so we can merge it with the base model with the adapter that we trained.
+This is a piece of code that is difficult to understand.
+Why do we need to call it twice?
+Honestly, I do not know.
+I just know that it works when I do it and sometimes it doesn't work so well.
+Worst case scenario, you can just restart the collab and just execute this part of the code.
+But here for the sake of time, I am going to copy paste the code.
+So we are going to reload the base model here.
+And we are going to also load the adapter.
+So the QLOW adapter that we created.
+You can see it here.
+This is our QLOW adapter with the adapter config adapter model.
+And this is what we want to load.
+Hopefully it will work.
+And then we can push our model to the hugging face hub.
+When we do that, we are going to push the model and the tokenizer.
+And we are using the HF token here.
+This is optional of course.
+And this will upload it to our hugging face account.
+So here we are merging and unloading the model.
+We are going to reload the tokenizer just in order to save it too.
+And it's going to be uploaded.
+Okay, so this is the end of this session.
+Sorry, it's a bit late.
+But if you want to go further, just know that you should be able to reuse this entire collab notebook with Mistral7B instead of Flama7B.
+Mistral7B is a better model.
+But the name of this talk was Functioning Lama2.
+So I stuck to Lama2.
+But I would encourage you to try it out.
+If you want a better Functioning tool, I recommend Axel tool because these Google collabs are really nice to understand the theory behind everything and be able to implement this Functioning process on your own.
+But if you want to really fine-tune state-of-the-art open source LLMs, I recommend Axel tool.
+It's really a great tool.
+I've been using it.
+A lot of people have been using it.
+And this is quite easy to use.
+So yeah, this is a good recommendation.
+And then what you can do with this model is you can evaluate it using a evaluation harness.
+You can even get on the OpenLM leaderboard if you have a good model.
+Or you can quantize it so you would make it easier to execute on consumer-grade hardware.
+And you could use your fine-tune model on your own GPU.
+So that's it for me.
+It will take a while for the model to be pushed to the hub because it's quite big.
+But as you can see, it's been merged and everything is working correctly.
+So I hope that you found it useful.
+And if you have any questions, maybe now it's the time to answer the questions.
+All right.
+Thank you, Maxim.
+That was fantastic.
+A lot to unpack there.
+I actually have like a lot of questions for you.
+But I think if I start asking questions, we're going to go on longer than an Ed Sheeran concert.
+So I'm going to stick to audience questions instead.
+Let's go with this one first from Preeti.
+So Preeti is saying, like, maybe don't need to show this, but how do you go about querying tabular data?
+So, I mean, this is very much focused on, we just got a lot of text.
+If it's tabular data, what's the difference?
+For tabular data, I would not recommend using LLMs because they're really made for text.
+There are some.
+Yeah.
+I'm wondering, like, maybe, maybe we can't get into too much detail, but is the standard, like, if you've got, if you've got just a text file or what?
+If you've got like a pandas data frame of text?
+Yeah, this is a good question.
+Actually, you could see it when we uploaded our data set to the Hiking Phase Hub.
+This is kind of a data frame, but it only has text.
+So if we go back to the data set that we build.
+Here you can see, like, it's basically data frame with instruction, output columns.
+But it's not, it's not tabular, right?
+It's really text.
+Yeah.
+Okay.
+Interesting.
+All right.
+Next question comes from Kieran saying, okay, so we've been doing this fine tuning on a GPU.
+Do we also need a GPU at the point where we're hosting these things?
+Is it just the training bit that's computationally intensive or is it also inference?
+No, the inference is also, like, very intensive, unfortunately.
+And you definitely need, well, you need a GPU in general.
+But in particular, if you use Lama.CPP, I can show it on my screen.
+If you use Lama.CPP, you can use it on a CPU.
+You can see it here.
+It's me, like, running it and it runs on a CPU.
+You'll have to compromise a little bit because, like, you need to lower the precision of the model.
+So it's smaller and faster to execute.
+But this is something that you can do on the CPU.
+All right.
+Very good.
+For anyone who's interested in Lama.CPP, I know we've got a tutorial on that.
+Perhaps Rhys can post a link to that in the moment.
+Next question comes from Minfem.
+So it looks like you got some fancy co-pilot or some sort of auto-complete thing going on there in Colab.
+What's that tool?
+Yeah.
+It's a tool called Codium.
+And yeah, it works really well with Google Colab, as you can see.
+I don't know if it learned from my own code, but it was, like, really accurate this time.
+Well, when you're practicing rehearsing the tutorial, you probably have to say it a few times.
+So yeah.
+Yeah, maybe.
+Good way to train it.
+Yeah.
+I mean, they're training data set now.
+Nice.
+Okay.
+So Codium's the thing.
+Next thing comes from Wei saying, how important is parameter tuning during function?
+I guess it's like hyperparameter tuning.
+Yeah.
+It's a really good question.
+For some of the hyperparameters, it's going to be very important.
+And for some of them, it's more like 1% to 2% gains.
+For example, everything here, honestly, if you stick to, like, traditional values, it's going to make, like, not super meaningful improvements.
+Of course, they're important because 1% to 2%, it's good to have, but they're not, yeah, that important.
+And there are other parameters that are a bit more important.
+The learning rate is a really important one.
+And for this one, yeah, recommend checking the model that you want to use.
+If you use Mistrol instead of Lama2, it's going to impact it.
+If you use Q-Law, Law or Full Fine Tuning, it's also going to impact it.
+All right.
+Excellent.
+Next one is from Bed.
+Can you show again how you show how you load save models?
+Maybe we'll skip the using for text generation, but if you just cover loading save models, I think that's useful.
+Okay.
+So you save the model by calling the trainer object and with the model and save pre-train new model.
+So this is, yeah, just some code you need to know.
+And then it was the text generation, right?
+Yes.
+And in this case, I use the pipeline.
+There are a lot of ways of like using them.
+It's not super pretty, but it doesn't take a lot of lines of code.
+And yeah, this is an object from Harging Face from their library, which allows you to nicely use the text generation, for instance.
+Okay.
+Oh, I think the question is about like, once you've saved it, how do you load that?
+Okay.
+Basically, just reusing that.
+And if you check, actually, I've, the model is uploaded on Harging Face already.
+And here you have a usage section where I describe how you, all the code you need to use it.
+So, okay.
+So you're getting the model type is from pre-trained, pulling it back off the Harging Face page.
+All right.
+Nice.
+Okay.
+So next question from Arun saying, can you see what percentage of trainable parameters we are reduced?
+We're going to have to queue Laura.
+Oh, so this is like how many different, I remember you saying queue Laura just changes some of the weights in the model.
+Do you want to know what percentage that is?
+It's an excellent question.
+I cannot show you because I deleted the model type and trainer before.
+But yeah, there's a comment to do that.
+I recommend checking on Google.
+But yeah, definitely you can see exactly like the percentage of parameters, the number of parameters that you're training using either Laura or queue Laura.
+All right.
+Excellent.
+And we've got so many more questions.
+All right.
+Let's just do a couple more.
+So this next one, all right.
+The model is now uploaded.
+Okay.
+It's always fine.
+Okay.
+So Alexander asks, how do you fine tune an LLM so it can extract JSON from differently format?
+That's actually maybe a little bit specific, but can you talk about how you apply it to like a sort of, you've got a CSV file or an Excel file of text.
+How do you, I guess, how do you standardize that?
+Yeah, I don't know if it's really a task for an LLM.
+Because if it's just extracting, I would say like, why do you want to use an LLM and not something else?
+Other than that, there are different frameworks like JSON former or LMQM, even better, LMQM.
+Let me show you.
+If it's really about the generation generating a properly formatted JSON, this is a really good framework to do it.
+There are a lot of them, but this one is currently the most popular one.
+It's quite easy to use.
+I'm not sure if it answers the questions, but I wouldn't use an LLM to extract this information.
+I would use it to generate a JSON and to generate this JSON.
+This is the library I would use.
+Okay.
+So LMQL, was that right?
+LMQL, yeah.
+LMQL.
+All right.
+That's worth looking into then.
+One very last question then.
+Since we're well over time anyway, we're past limits.
+All right.
+So how can you improve the forms of LLMs?
+Basically, what's the, what are Lama index and Lang chain and what's the difference between them?
+Yeah.
+So this is, you have fine tuning and Lang chain and Lama index.
+They are more about like creating these retrieval augmented generations.
+So fine tuning is one way of customizing an LLM for your use case.
+And the RAG pipeline is another way of doing it.
+So with Lang chain and Lama index, you're going to retrieve more context using some vector database or regular databases that you have.
+The difference between them.
+I'm not going to delve into the details.
+Lama index is, there's less stuff, but maybe more in depth than Lang chain.
+And I would recommend actually implementing both approaches.
+So fine tuning your LLM and using this fine-tuned LLM with a RAG pipeline.
+And this is where you'll get the best performance possible.
+All right.
+Fantastic.
+We're going to have to call it a day there.
+I think I know there's more questions.
+So sorry to everyone in the audience if you didn't get to your question.
+As I'm saying, thank you again, Maxim.
+That was like incredibly informative and lots of new things that I think we need to explore.
+So brilliant.
+Thank you again.
+Thank you to recent moderating.
+Oh, sorry, go on.
+Thank you Richie and thanks everyone for your patience.
+I know it's been a lot, but I hope that you have found it informative.
+All right.
+Brilliant.
+So thank you to everyone in the audience who asked the question.
+Thank you to everyone who showed up today.
+Hope to see you all again soon.
+Lots of exciting webinars coming up.
+So goodbye.
+Have a great weekend.

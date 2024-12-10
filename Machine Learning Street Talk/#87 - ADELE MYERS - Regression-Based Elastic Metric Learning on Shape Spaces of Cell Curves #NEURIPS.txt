@@ -1,0 +1,95 @@
+Adele introduce yourself. Okay, hi, I'm Adele Myers. I am currently getting a PhD in physics at UC
+Santa Barbara, but my current research is in analyzing biological shapes with Nina Mialon
+in the BioShape Lab. When we say biological shapes, we mean things like the shapes of
+like the outline of a cell, specifically the membrane of a cell, or we could mean something
+like a 3D shape of the surface of a brain or the 3D shape of a heart or something like that.
+But my most recent paper, which is titled regression-based metric learning on shapespaces
+of cell curves, which I will be presenting next Friday virtually at the NeurIPS workshop,
+Learning Meaningful Representations of Life. This paper specifically considers a cell membrane
+as a biological shape. So cells evolve over time, and as they evolve, they often change
+in shape. So the shape of the cell membrane will change over time. And we wanted to look
+more closely at this problem, specifically at cell migration, because cell migration is essential to
+a lot of things in life, hence finding meaningful representations of life. It was perfect for our
+topic. So we wanted to find the best way to quantify changes in cell shape over time. A lot
+of biologists quantify cell shape with things like circularity or convexity or perimeter of the cell
+or area of the cell, but we wanted to find a way to analyze these cell shapes that was a bit more
+mathematically robust, specifically to try to quantify the difference in cell shape in a way
+that was mathematically robust. So step one, if you consider one cell shape, we take samples
+along the surface of the cell or the outline of the cell. Step two, once we've taken a bunch of
+samples around the outline of the cell, we project this discrete curve onto an object space.
+And step three, do that for the entire cell trajectory. So if we are considering a cell as
+it changes over time, you'll have one cell at one time point, another cell at another time point,
+another cell at another time point. So we project all of those cells onto the shape space,
+where they then form a trajectory in the shape space. Next, we quotient by rotation, scaling,
+translation, and now all of these cells lie on the manifold of discrete curves.
+Now, now we're on a Riemannian manifold. And to define any sort of distance on this Riemannian
+manifold, we have to define a Riemannian metric. Specifically, we define the elastic metric or a
+family of elastic metrics. And this is important because we are about to do a regression model
+on the manifold of discrete curves. So if we want to do regression, then we have to define distance.
+The elastic metric is very well suited to analyze distances between two curves,
+cell curves in this case, because it depends on two parameters, a bending parameter,
+and a stretching parameter. So Riemannian metrics, again, define distances on Riemannian
+manifolds. And A and B, the bending parameter and the stretching parameter, define these
+distances between cells based off of how bent or stretched they are compared to each other.
+When I say stretched, I mean, if this is a circle, then this is a stretched circle.
+If this is a stretched circle, then this is a bent stretched circle. So that's bending and
+stretching. And that is the bending parameter and the stretching parameter that we're considering
+in the family of elastic metrics that our paper considers. So now we've defined the elastic metric.
+We've defined the manifold of discrete curves that we're considering. And next we are going to go
+back to the concept of regression. Our goal, our initial goal was to try to best fit a trajectory
+of cell curves with regression. The simplest form of regression is geodesic regression,
+which is similar to linear regression if it were a linear space. So in a linear space, which is
+like x, y, z, however many dimensions, that would be linear regression. But on a manifold,
+we consider geodesic regression. That's the simplest form of regression. But, okay, now we
+want to do geodesic regression on the trajectory of shapes. But if we want to do geodesic regression,
+then we have to define a metric. But if we define a metric, then we have to choose A and B,
+because, well, if we're doing an elastic metric. However, that leads us to the question,
+what A and B do we choose? And that is what our paper, Riemannian based elastic metric learning,
+does. Our paper learns the A and B that will optimize geodesic regression
+on the manifold of discrete curves for a specific trajectory. So step one is first we came up with
+an explicit gradient of the coefficient of determination. The coefficient of determination
+is that R squared term that you see in statistics classes. And it essentially describes how well
+your data is being fit by the regression model. So that's kind of our loss function.
+We describe how well a geodesic regression fit is describing the trajectory based off of its
+coefficient of determination. So we first find the coefficient of determination with respect to A
+and B, the elastic metric parameters, bending and stretching parameters. Then we find the gradient
+of R squared with respect to A and B. And then we perform a gradient ascent algorithm to try to
+find the A and B that will maximize R squared and thus optimize regression on the manifold of
+discrete curves. So step one, again, if we're going in steps, step one is to create a synthetic
+data trajectory. We create this synthetic trajectory between two real cancer cells
+so that the synthetic trajectory will be realistic cells. Next, we decide what our true metric
+parameters are going to be so that we know with certainty that this synthetic trajectory is going
+to follow a geodesic in whatever metric you're choosing. So now you have a synthetic trajectory
+that you know follows a geodesic with some given A and B. This geodesic synthetic geodesic trajectory
+will not necessarily be a geodesic if you choose different A and B parameters.
+So then our code learns the A and B parameters without knowing the true A and true B. If you give
+it an input A, B, then it will learn the A and B parameters that where the trajectory follows
+a geodesic. And we compared our work against the SRV metric which is a special case of this
+elastic metric where I think A is equal to 1 and B is equal to 0.5 and our learned parameters
+often well they most of the time outperformed the SRV metric as long as A and B weren't close to the
+SRV metric. So we were pretty excited about that. And then the next step is to test on real data to
+try to quantify on real cells how much a cell bends and stretches over time which then biologists
+can use to try to differentiate between different types of cells or different yeah different cells
+trajectories. Amazing so I've got a question I'm really interested in I'm a machine learning guy so
+I'm interested in building representations of the world. Okay and in this particular representation
+we're talking about you know shape space and having this ability to discreetly represent
+surfaces and so on right. So this must surely introduce some level of approximation error
+depending on your level of discretization or your level of resolution and definitely I was just
+wondering how much approximation error is it and how did you kind of like presumably you
+tweaked the parameters to find an appropriate tradeoff there. Yeah so let me know if this
+answer is answering your question or not but we did test our code on on trajectories with
+varying levels of noise and varying levels of sampling points and varying levels of the number
+of cells in your trajectory and it our code definitely worked better with some with you know
+low noise. Surprisingly it actually worked well with around 30 to 50 sampling points when we had
+much more sampling many more sampling points than that it didn't work as well and of course it also
+worked well when there were lots of cells in the cell trajectory. Is that what you were asking? Yeah
+okay yeah that's really good. Anything else you want to add? How are you finding NeurIPS? NeurIPS
+is so fun I don't have that strong of well I've actually never formally learned machine learning
+before so it's really fun to just go up to all of the poster presenters and ask the experts about
+their work. Yeah everyone's really nice and smart. Well it's so interesting because I was speaking
+with Adele before we started filming and you're basically talking another language to me and
+that's a great representation of we have all of these intersectional fields and we have very
+specialized expertise in our respective fields and it's so interesting when we all come together
+and share the same space. Yeah I guess that's the whole point of coming here I'm really really
+happy that I was able to come. Amazing well Adele thank you so much that was an amazing interview I
+really appreciate it. Thank you so much. Cool

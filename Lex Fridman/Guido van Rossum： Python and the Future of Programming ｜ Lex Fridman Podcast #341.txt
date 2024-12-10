@@ -1,0 +1,1602 @@
+Can you imagine possible features that Python 4.0 might have that would necessitate the creation
+of the new 4.0 given the amount of pain and joy, suffering and triumph that was involved in the
+move between version 2 and version 3? The following is a conversation with Guido van
+Rossum, his second time on this podcast. He is the creator of the Python programming language
+and is Python's emeritus BDFL, benevolent dictator for life. This is the Lex Friedman podcast.
+To support it, please check out our sponsors in the description. And now, dear friends,
+here's Guido van Rossum. Python 3.11 is coming out very soon. In it,
+Cpython claimed to be 10 to 60% faster. How did you pull that off? And what's Cpython?
+Cpython is the last Python implementation standing, also the first one that was ever created.
+The original Python implementation that I started over 30 years ago.
+So what does it mean that Python, the programming language, is implemented in another programming
+language called C? What kind of audience do you have in mind here? People who know programming?
+No, there's somebody on a boat that's into fishing and they've never heard about programming,
+but also some world-class programmers. You're going to have to speak to both.
+Imagine a boat with two people. One of them has not heard about programming, is really into fishing,
+and the other one is like an incredible Silicon Valley programmer that's programmed in everything.
+C, C++, Python, Rust, Java. It knows the entire history of programming languages. So you're
+going to have to speak to both. I imagine that boat in the middle of the ocean.
+Yes. I'm going to please the guy who knows how to fish first.
+Yes, please. He seems like the most useful in the middle of the ocean. You got to make him happen.
+I'm sure he has a cell phone. So he's probably very suspicious about what goes on in that cell
+phone, but he must have heard that inside his cell phone is a tiny computer. And a programming
+language is computer code that tells the computer what to do. It's a very low-level language.
+It's zeros and ones, and then there's assembly. Oh, yeah. We don't talk about these really
+low levels because those just confuse people. I mean, when we're talking about human language,
+we're not usually talking about vocal tracts and how you position your tongue. I was talking
+yesterday about how when you have a Chinese person and they speak English, this is a bit of a
+stereotype they often don't know, or they can't seem to make the difference well between an L and an
+R. And I have a theory about that, and I've never checked this with linguists, that it probably has
+to do with the fact that in Chinese there is not really a difference. And it could be that there
+are regional variations in how native Chinese speakers pronounce that one sound that sounds
+to L, like L to some of them, like R to others. So it's both the sounds you produce with your
+mouth throughout the history of your life and what you're used to listening to. I mean, every
+language has that. Russian has the Slavic languages have sounds like the letters,
+like Americans or English speakers don't seem to know the sounds.
+They seem uncomfortable with that sound. Yeah. So yes, okay, so we're not going to the shapes
+of tongues and the sounds that the mouth can make. And similarly, we're not going into the
+ones and zeros or machine language. I would say a programming language is a list of instructions
+like a cookbook recipe that sort of tells you how to do a certain thing, like make a sandwich, well,
+acquire a loaf of bread, cut it in slices, take two slices, put mustard on one, put
+jelly on the other or something, then add the meat, then add the cheese. I've heard that science
+teachers can actually do great stuff with recipes like that and trying to interpret
+their students' instructions incorrectly until the students are completely unambiguous about it.
+With language, see, that's the difference between natural languages and programming languages.
+I think ambiguity is a feature, not a bug in human spoken languages. Like,
+that's the dance of communication between humans. Well, for lawyers, ambiguity certainly is a feature.
+For plenty of other cases, the ambiguity is not much of a feature, but we work around it,
+of course. What's more important is context. So with context, the precision of the statement
+becomes more and more concrete, right? But when you say, I love you to a person that
+matters a lot to you, the person doesn't try to compile that statement and return an error saying,
+please define love, right? No, but I imagine that my wife and my son interpreted very differently.
+Yes. Even though it's the same three words. But imprecisely still.
+Oh, for sure.
+Lawyers have a lot of follow-up questions for you.
+Nevertheless, the context is already different in that case.
+Yes, fair enough. So that's a programming language is ability to unambiguously state a recipe.
+Actually, let's go back. Let's go to Pepe. You go through in Pepe, the style guide for Python code,
+some ideas of what this language should look like, feel like, read like. And the big idea there is
+that code readability counts. What does that mean to you? And how do we achieve it? So this recipe
+should be readable. That's a thing between programmers. Because on the one hand, we always
+explain the concept of programming language as computers need instructions and computers are
+very dumb and they need very precise instructions because they don't have much context. In fact,
+they have lots of context, but their context is very different. But what we've seen emerge during
+the development of software starting in the probably in the late 40s is that software is a very
+social activity. A software developer is not a mad scientist who sits alone in his lab writing
+brilliant code. Software is developed by teams of people. Even the mad scientist sitting alone
+in his lab can't type fast enough to produce enough code so that by the time he's done with his
+coding, he still remembers what the first few lines he wrote mean. So even the mad scientist
+coding alone in his lab would be sort of wise to adopt conventions on how to format the instructions
+that he gives to the computer so that the thing is there is a difference between a cookbook recipe
+and a computer program. The cookbook recipe, the author of the cookbook writes it once
+and then is printed in 100,000 copies and then lots of people in their kitchens try to
+recreate that recipe, that particular pie or dish from the recipe. And so there the
+goal of the cookbook author is to make it clear to the human reader of the recipe, the human
+amateur chef in most cases. When you're writing a computer program, you have two audiences at once.
+It needs to tell the computer what to do but it also is useful if that program is readable
+by other programmers because computer software unlike the typical recipe for a cherry pie
+is so complex that you don't get all of it right at once. You end up with the activity of debugging
+and you end up with the activity of... So debugging is
+trying to figure out why your code doesn't run the way you thought it should run.
+That means broad, it could be stupid little errors or it could be big logical errors.
+It could be anything from... Spiritual.
+Yeah, it could be anything from a typo to a wrong choice of algorithm to
+building something that does what you tell it to do but that's not useful.
+Yeah, it seems to work really well 99% of the time but does weird things 1% of the time on
+some edge cases. That's pretty much all software nowadays.
+All good software, right? Well, yeah, for bad software.
+That 99 goes down a lot but it's not just about the complexity of the program. It's,
+like you said, it is a social endeavor in that you're constantly improving that recipe for the cherry
+pie. But you're in a group of people improving that recipe or the mad scientist is improving
+the recipe that he created a year ago and making it better. We're adding something.
+He decides that he wants, I don't know, he wants some decoration on his pie or icing or...
+So there's broad philosophical things and there's specific advice on style.
+So first of all, the thing that people first experience when they look at Python,
+it is very readable but there's also like a spatial structure to it.
+Can you explain the indentation style of Python and what is the magic to it?
+Spaces are important for readability of any kind of text. If you take a cookbook recipe
+and you remove all the sort of, all the bullets and other markup
+and you just crunch all the text together, maybe you leave the spaces between the words but that's
+all you leave. When you're in the kitchen trying to figure out, oh, what are the ingredients and
+what are the steps and where does this step end and the next step begin, you're going to have a
+hard time if it's just one solid block of text. On the other hand, what a typical cookbook does,
+if the paper is not too expensive, each recipe starts on its own page. Maybe there's a picture
+next to it. The list of ingredients comes first. There's a standard notation. There's shortcuts
+so that you don't have to sort of write two sentences on how you have to cut the onion
+because there are only three ways that people ever cut onions in the kitchen, small, medium,
+and in slices or something like that. None of my examples make any sense to real cooks, of course.
+We're talking to programmers with the metaphor of cooking. I love it.
+But there is a strictness to the spacing that Python defines. There's some looser things,
+some stricter things, but the four spaces for the indentation is really interesting.
+It really defines what language it looks and feels like.
+Because indentation, sort of taking a block of text and then having inside that block of text,
+a smaller block of text that is indented further as sort of a group. It's like you have a bulleted
+list in a complex business document and inside some of the bullets are other bulleted lists.
+You will indent those too. If each bulleted list is indented several inches, then at two levels
+deep there's no space left on the page to put any of the words of the text.
+So you can't indent too far. On the other hand, if you don't indent at all, you can tell whether
+something is a top-level bullet or a second-level bullet or a third-level bullet. So you have to
+have some compromise and based on ancient conventions and the typical width of a computer screen in
+the 80s and all sorts of things, we came up with four spaces as a compromise.
+I mean, there are large groups of people who code with two spaces per indent level.
+For example, the Google Style Guide. All the Google Python code and I think also all the
+Google C++ code is indented with only two spaces per block. If you're not used to that,
+it's harder to at a glance understand the code because the sort of the high-level structure
+is determined by the indentation. On the other hand, there are other programming languages
+where the indentation is eight spaces or a whole tap stop in sort of classic Unix.
+And to me, that looks weird because you sort of after three indent levels, you've got no room left.
+Well, there are some languages where the indentation is a recommendation.
+It's a stylistic one. The code compiles even without any indentation.
+And then Python, really, indentation is a fundamental part of the language, right?
+It doesn't have to be four spaces. So you can code Python with two spaces per block or
+or six spaces or 12 if you really want to go wild. But sort of everything
+that belongs to the same block needs to be indented the same way. In practice,
+in most other languages, people recommend doing that anyway. If you look at C or Rust or C++,
+all those languages, Java, don't have a requirement of indentation,
+but except in extreme cases, they're just as anal about having their code properly indented.
+So any IDE that the syntax highlighting that works with Java or C++, they will yell at you
+aggressively if you don't do proper indentation.
+They'd suggest the proper indentation for you. In C, you type a few words and then you type a
+curly brace, which is their notion of sort of begin an indented block. Then you hit return and
+then it automatically indents four or eight spaces depending on your style preferences or how your
+editor is configured. Was there a possible universe in which you considered having braces
+in Python? Absolutely. Yeah. What was the 60, 40, 70, 30 in your head? What was the tradeoff?
+For a long time, I was actually convinced that the indentation was just better.
+Without context, I would still claim that the indentation is better.
+It reduces clutter. However, as I started to say earlier, context is almost everything.
+And in the context of coding, most programmers are familiar with multiple languages, even if
+they're only good at one or two. And apart from Python and maybe Fortran, I don't know how that's
+written these days anymore. But all the other languages, Java, Rust, C, C++, JavaScript,
+TypeScript, Perl, are all using curly braces to sort of indicate blocks. And so Python is the odd one
+out. So it's a radical idea. Do you still, as a radical, renegade revolutionary, do you still
+stand behind this idea of indentation versus braces? What can you dig into a little bit more?
+Why you still stand behind indentation? Because context is not the whole story. History,
+in a sense, provides more context. So for Python, there's no chance that we can switch.
+Python is using curly braces for something else, dictionaries mostly. We would get in trouble if
+we wanted to switch. Just like you couldn't redefine C to use indentation, even if you agree that
+indentation sort of in a Greenfield environment would be better, you can't change that kind of
+thing in a language. It's hard enough to reach agreement over much more minor details. Maybe,
+I mean, in the past in Python, we did have a big debate about teps versus spaces and
+four spaces versus fewer or more. And we sort of came up with a recommended standard and sort of
+options for people who want to be different. But yes, I guess the thought experiment I'd like
+you to consider is if you could travel back through time when the compatibility is not an issue,
+and you start a Python all over again, can you make the case for indentation still?
+Well, it frees up a pair of matched brackets of which there are never enough in the world
+for other purposes. It really makes the language slightly sort of easier to grasp
+for people who don't already know another programming language.
+Because sort of one of the things, and I mostly got this from my mentors who
+taught me programming language design in the earlier 80s, when you're teaching programming
+for the total newbie who has not coded before in not in any other language,
+a whole bunch of concepts in programming are very alien or sort of new and maybe very interesting,
+but also distracting and confusing. And there are many different things you have to learn. You have to
+sort of in a typical 13 week programming course, you have to, if it's like really
+learning to program from scratch, you have to cover algorithms, you have to cover data
+structures, you have to cover syntax, you have to cover variables, loops, functions, recursion,
+classes, expressions, operators. There are so many concepts if you sort of,
+if you can spend a little less time having to worry about the syntax. The classic example was often,
+oh, the compiler complains every time I put a semicolon in the wrong place or I forget to put
+a semicolon. Python doesn't have semicolons in that sense. So you can't forget them. And you are
+also not sort of misled into putting them where they don't belong because you don't learn about
+them in the first place. The flip side of that is forcing the strictness onto the beginning
+programmer to teach them that programming is values attention to details. You don't get to just
+write the way you write in English. Many of other details that they have to pay attention to. So I
+think they'll still get the message about paying attention to details. The interesting design
+choice, I still program quite a bit in PHP. And I'm sure there's other languages like this. But
+the dollar sign before variable, that was always an annoying thing for me. It didn't quite fit
+into my understanding of why this is good for a programming language. I'm not sure if you
+ever thought about that one. That is a historical thing. There is a whole lineage of programming
+languages. PHP is one, Perl was one. The Unix shell is one of the oldest or all the different shells.
+The dollar was invented for that purpose, because the very earliest shells had a notion of scripting,
+but they did not have a notion of parameterizing the scripting. And so a script is just a few lines
+of text, where each line of text is a command that is read by a very primitive command processor
+that then takes the first word on the line as the name of a program and passes all the rest
+of the line as text into the program for the program to figure out what to do with as arguments.
+And so by the time scripting was slightly more mature than the very first script,
+there was a convention that just like the first word on the line is the name of the program,
+the following words could be names or files, input dot text, output dot html, things like that.
+The next thing that happens is, oh, it would actually be really nice if we could have variables
+and especially parameters for scripts. Parameters are usually what starts this process.
+But now you have a problem because you can't just say the parameters are x, y, and z.
+And so now we call, say, let's say x is the input file and y is the output file and let's forget
+about z for now. I have my program and I write program x, y. Well, that already has a meaning
+because that presumably means x itself is the file. It's a file name. It's not a variable name.
+And so the inventors of things like the Unix shell and I'm sure job command language
+in at IBM before that had to use something that made it clear to the script processor
+here is an x that is not actually the name of a file, which you just pass through to the
+program you're running. Here is an x that is the name of a variable. And when you're writing
+a script processor, you try to keep it as simple as possible. Because certainly in the 50s and 60s,
+the thing that interprets the script had to be a very small program because it had to fit
+in a very small part of memory. And so saying, oh, just look at each character. And if you see a
+dollar sign, you jump to another section of the code and then you gobble up characters or say
+until the next space or something. And you say that's the variable name. And so it was sort of
+invented as a clever way to make parsing of things that contain both variable and fixed parts
+very easy in a very simple script processor. It also helps even then it also helps the human
+author and the human reader of the script to quickly see, oh, 20 lines down in the script,
+I see a reference to x, y, z. Oh, it has a dollar in front of it. So now we know that x, y, z must
+be one of the parameters of the script. Well, this is fascinating. Several things to say, which is
+the leftovers from the simple script processor languages are now in code bases like behind
+Facebook or behind most of the back end. I think PHP probably still runs most of the back end of
+the internet. Oh, yeah. Yeah, I think there's a lot of it in Wikipedia too, for example. Yeah.
+It's funny that those decisions are not funny. It's fascinating that those decisions
+permeate through time. Just like biological systems, right? I mean, the sort of the inner
+workings of DNA have been stable for, well, I don't know how long it was, like 300 million years,
+half a billion years. And there are all sorts of weird quirks there that don't make a lot of sense
+if you were to design a system like self-replicating molecules from scratch.
+Well, that system has a lot of interesting resilience. It has redundancy that results,
+it messes up in interesting ways that still is resilient when you look at the system level
+of the organism. Code doesn't necessarily have a computer programming code.
+You'd be surprised how much resilience modern code has. I mean, if you look at the number
+of bugs per line of code, even in very well-tested code that in practice works just fine,
+there are actually lots of things that don't work fine. And there are error correcting or
+self-correcting mechanisms at many levels. Including probably the user of the code.
+Well, in the end, the user who sort of is told, well, you got to reboot your PC is part of that
+system. And a slightly less drastic thing is reload the page, which we all know how to do
+without thinking about it when something weird happens. You try to reload a few times before
+you say, oh, there's something really weird. Okay, or try to click the button again if the first
+time didn't work. Well, yeah, we should all have learned not to do that because that's probably
+just going to turn the light back off. Yeah, true. So do it three times. That's the right lesson.
+And I wonder how many people actually like the dollar sign. Like you said, it is documentation.
+So to me, it's whatever the opposite of syntactic sugar is syntactic poison.
+To me, it is such a pain in the ass that I have to type in a dollar. Also super error prone.
+So it's not self documenting. It's, it's like a bug generating thing. It is a kind of documentation
+that's the pro and the con is it's a source of a lot of bugs. But actually, I have to ask you on,
+this is a really interesting idea of bugs per line of code. If you look at all the computer
+systems out there from the code that runs nuclear weapons to the code that runs all the amazing
+companies that you've been involved with and not code that runs Twitter and Facebook and Dropbox
+and Google and Microsoft Windows and so on. And we like laid out. Wouldn't that be a cool like table
+bugs per line of code? And let's let's put like actual companies aside. Do you think we'd be
+surprised by the number we see there for all these companies? That depends on whether you've
+ever read about research that's been done in this area before. And I didn't know that the
+last time I, I saw some research like that there was probably in the 90s and the research might
+have been done in the 80s. But the conclusion was across a wide range of different software,
+different languages, different companies, different development styles. The number of bugs is always,
+I think it's in the order of about one bug per thousand lines in sort of
+mature software that is considered as good as it gets. Can I give you some facts here? There's
+a lot of good papers. So you said mature software, right? So here's a report from a programming
+analytics company. Now this is from a developer perspective. Let me just say what it says because
+this is very weird and surprising. On average, a developer creates 70 bugs per 1000 lines of code,
+15 bugs per 1000 lines of code find their way to the customers. This is in software.
+Oh, I was I was wrong by an order. Fixing a bug takes 30 times longer than writing a line of code
+that I can believe. Yeah, 75% of a developer's time is spent on debugging.
+That's for an average developer. They analyze this 15 argue 1500 hours a year in US alone,
+$113 billion to spend annually on identifying and fixing bugs. And I imagine this is marketing
+literature for someone who claims to have a golden bullet or a silver bullet that makes all that
+investment in fixing bugs go away. But that is usually not going to that's not going to happen.
+Well, they're, I mean, they're referencing a lot of stuff, of course, but it is a page
+that is, you know, there's a contact us button at the bottom. Presumably, if you just spend a little
+bit less than $100 billion, we're willing to solve the problem for you.
+Right. And there's also a report on stack exchange and stack overflow in the exact same
+topic. But when I open it up at the moment, the page says stack overflow is currently offline
+for maintenance. Oh, that is ironic. Yes. By the way, their error page is awesome. Anyway,
+I mean, can you believe that number of bugs? Oh, absolutely. Isn't that scary that 70 bugs per
+1000 lines of code? So even 10 bugs per 1000 lines. Well, that's about one bug every 15 lines.
+And that's when you're first typing it in. Yeah, from a developer, but like, how many
+bugs are going to be found? If you're if you're typing, well, the development process is extremely
+iterative. Yeah. Typically, you don't make a plan for what software you're going to release a year
+from now. Yeah. And work out all the details because actually, all the details themselves
+consist, they sort of compose a program. And that that being a program, all your plans will
+have bugs in them too. And inaccuracies. But what what you actually do is
+you do a bunch of typing and I'm I'm actually really, I'm a really bad typist. That's just,
+I've never learned to type with 10 fingers. How many do you use? Well, I use all 10 of them,
+but not very well. But I never I never took a typing class. And I never sort of corrected that.
+So the first time I seriously learned, I had to learn the layout of a of a QWERTY keyboard
+was actually in college in my first programming classes, where we used punch cards.
+And so with my two fingers, I sort of backed out my code. Watch anyone give you a little
+coding demonstration. They'll have to produce like four lines of code. And now see how many
+times they use the backspace key. Yeah, because they made a mistake. And and and some people,
+especially when when someone else is looking will will backspace over 20, 30, 40 characters
+to fix a typo earlier in the line. If you're if you're slightly more experienced, of course,
+you use your arrow buttons to go or your mouse to but the mouse is usually slower than than the
+arrows. But a lot of people, when they type a 20 character word, which is not unusual, and they
+realized they made is made a mistake at the start of the word, they backspace over the whole thing,
+and then retype it. And sometimes it takes three, four times to get it right. So
+I don't know what your definition of bug is, arguably mistyping a word and then correcting
+it immediately is not a bug. On the other hand, you you already do sort of lose time. And every
+once in a while, there's sort of a typo that you don't get in that process. And now you've you've
+typed like 10 lines of code. And somewhere in the middle of it, you don't know where yet is a typo
+or maybe a thing code where you you forgot that you had to initialize a variable or something.
+But those are two different things. And I would say yes, you have to actually run the code to
+discover that typo. But forgetting to initialize a variable is a fundamentally different thing.
+Because that thing can go undiscovered. That depends on the language in Python,
+it will not write and sort of modern compilers are usually pretty good at catching that even
+even foresee. So for that specific thing, but actually deeper, it might, there might be another
+variable that is initialized, but logically speaking, the one you meant related. Yep.
+It's like name the same, but it's a different thing. And you forgot to initialize
+whatever some counter or some some basic variable they're using. I can tell that you've coded.
+By the way, I should mention that I use a kinesis keyboard,
+which has the backspace under the thumb. And one of the biggest reasons I use that keyboard
+is because you realize to in order to use the backspace on a usual keyboard, you have to stretch
+your pinky out. And like, for most normal keyboards, the backspace is under the pinky.
+And so I don't know if people realize the pain they go through in their life,
+because of the backspace keeping so far away. So with the kinesis, it's right under the
+thumb. So you don't have to actually move your hands, the backspace and the delete.
+What do you do if you're ever not with your own keyboard, and you have to use someone else's
+PC keyboard that has that standard layout? So first of all, it turns out that you can actually
+go your whole life always having the keyboard with you. So this, well, except for that,
+that little tablet that you're using, so we're not taking right now, right?
+Yeah. So it's very inefficient not taking, but I'm not, I'm just looking stuff up.
+But in most cases, I would be actually using the keyboard here right now. I just don't
+anticipate, you have to calculate how much typing do you anticipate. If I anticipate quite a bit,
+then I'll just, I have a keyboard to pull out with me. And same, same with, I mean,
+the embarrassing, I've accepted being the weirdo that I am. But, you know, when I go on an airplane
+and I anticipate to do programming or a lot of typing, I will have a laptop that will pull out
+of Kinesis keyboard in addition to the laptop. And it's just who I am. You have to accept who you
+are. But also, it's a, you know, for a lot of people, for me, certainly there's a comfort space
+where there's a certain kind of setups that are maximized productivity. And it's like some people
+have a warm blanket that they like. When they watch a movie, I like the Kinesis keyboard. It takes me
+to a place of focus. And I still mostly, I, I'm trying to make sure I use the state-of-the-art
+IDs for everything. But my comfort place, just like the Kinesis keyboard, is still Emacs.
+So I still use, I still, I mean, that's one of some of the debates I have with myself
+about everything from a technology perspective is how much to hold on to the tools you're
+comfortable with versus how much to invest in using modern tools and the signal that the
+communities provide you with is the noisy one because a lot of people year to year get excited
+about new tools and you have to make a prediction. Are these tools defining a new generation of
+something that will transform programming or is this just a fad that will pass? Certainly with
+JavaScript frameworks and front and the back end of the web, there's a lot of different styles
+that came and went. I remember learning, what was it called? Action script. I remember for Flash,
+you know, learning how to program in Flash, learning how to design, do graphic animation,
+all that kind of stuff for Flash. Same with Java applets. I remember creating quite a lot of
+Java applets thinking that this potentially defines the future of the web and did not.
+Well, you know, in most cases like that, the particular technology eventually gets replaced,
+but many of the concepts that the technology introduced or made accessible first
+are preserved, of course, because, yeah, we're not using Java applets anymore, but the notion
+of reactive web pages that sort of contain little bits of code that respond directly to
+something you do, like pressing a button or a link or hovering even,
+uh, has certainly not gone away. And that those animations that were made painfully
+complicated with Flash, I mean, Flash was an innovation when it first came up.
+And when it was replaced by JavaScript equivalent stuff, it was a somewhat better way to do
+animations, but those animations are still there. Not all of them. But, but sort of,
+again, there is an evolution and often so often with technology that the sort of the
+technology that was eventually thrown away or replaced was still essential to, to sort of
+get started. There wouldn't be jet planes without propeller planes. I bet you.
+But from a user perspective, yes, from the feature set, yes, but I, from a programmer
+perspective, it feels like all the time I've spent with ActionScript, all the time I spent with
+Java on the applet side for the GUI development, I, well, no, Java, I have to push back. That
+was useful that because it transfers, but the Flash doesn't transfer. So some things you learn
+and invest time in. Yeah, what you learned, the skill you picked up learning ActionScript
+was sort of, it was perhaps a super valuable skill at the time you picked it up if you,
+if you learned ActionScript early enough. But that skill is no longer in demand.
+Well, that's the calculation you have to make when you're learning new things. Like today,
+people started learning programming. Today, I'm trying to, to see what are the new
+languages to try? What are the new systems to try that? What are the new ideas to try to,
+to keep, keep improving? That's, that's why we start when we're young, right?
+But that seems very true to me that, that when you're young, you have your whole life ahead of
+you and you're, you're allowed to make mistakes. In fact, you should, you should feel encouraged to,
+to do a bit of stupid stuff. Try not to get yourself killed or seriously maimed, but
+try stuff that deviates from, from what everybody else is doing. And like, nine out of 10 times,
+you'll just learn why everybody else is not doing that or why everybody else is doing it some other
+way. And one out of 10 times, you sort of, you discover something that's better or that,
+that somehow works. I mean, there are all sorts of crazy things that were invented
+by accident, by people trying, trying stuff together. That's great advice to try, read them
+stuff, make a lot of mistakes. Once you're married with kids, you're probably going to
+be a little more risk averse because now there's more at stake and you've already,
+hopefully had some time where you, where you were experimenting with crazy shit.
+I like how marriage and kids solidifies your choice of programming language. How does that,
+the Robert Frost poem with the, the, the road less taken, which I think is misinterpreted
+by most people. But anyway, I feel like the choices you make early on, especially if you go all in,
+they're going to define the rest of your life's trajectory in a way that
+like you basically are picking a camp. So, you know, there's, if you invest a lot in PHP,
+if you invest a lot in.net, if you invest a lot in JavaScript, you're going to stick there.
+That's, that's your life journey. It's very hard to tell.
+Only as far as that technology remains relevant. Yes. I mean, if, if at age 16,
+you learn coding in C and by the time you're 26, C is like a dead language.
+Then there's still time to switch. There's probably some kind of survivor bias or whatever
+it's called in, in sort of your observation that, that you pick a camp because there are many
+different camps to pick. And if you pick the net, then, then you can coast for the rest of your life
+because that technology is now so ubiquitous, of course, that it's, even if it's, if it's bound
+to die, it's going to take a very long time. Well, for me personally, I had a very difficult,
+and in my own head, brave leap that I had to take relevant to our discussion,
+which is most of my life at programs in C and C++. And so having that hammer, everything
+looked like a nail. So I would literally even do scripting in C++. Like I would create programs,
+I do script like things. And when I first came to Google, and before then, it became already
+before TensorFlow, before all of that, there was a growing realization that C++ is not the
+right tool for machine learning. We could talk about why that is, it's unclear why that is a lot
+of things has to do with community and culture and how it emerges and stuff like that. But
+for me, they decided to take the leap to Python, like all out, basically switch completely from
+C++, except for highly performant robotics applications, there was still a, there was
+still a culture of C++ in the space of robotics. That was a big leap. Like I had to, you know, like,
+people have like existential crises or midlife crises or whatever, you had to realize almost
+like walking away from a person you love. Because I was sure that C++ would have to be a lifelong
+companion for a lot of problems I would want to solve C++ would be there. And it was a question
+to say, well, that might not be the case. Because C++ is still one of the most popular languages in
+the world, one of the most used, one of the most dependent on. It's also still evolving quite a
+bit. I mean, that that is not a sort of a fossilizing community. Yes, they are doing great
+innovative work, actually, a lot, but yet that sort of their innovations are hard to follow if
+you're not already a hardcore C++ user. Well, this was the thing it pulls you in. It's a rabbit hole.
+I was a hardcore, the meta programming template programming, like, I would start using the modern
+C++ as it developed, right? Not just the not not just the shared pointer in the garbage collection,
+that makes it easier for you to work with some of the flaws. But the detail, like the meta
+programming, the the crazy stuff that's that's coming out there. But then you have to just
+empirically look and step back and say, what language am I more productive in? Sorry to say,
+what language do I enjoy my life with more and readability and able to think through and all
+that kind of stuff that those questions are harder to ask when you already have a loved one,
+which in my case was C++. And then there's Python, like that meme was the grass is greener on the
+other side, am I just infatuated with a new fad new cool thing? Or is this actually going to make
+my life better? And I think a lot of people face that kind of decision. It was a difficult decision
+for me. When I made it at this time, it's an obvious switch if you're into machine learning.
+But at that time, it wasn't quite yet so obvious. So it was a risk. And you know, you have the same
+kind of stuff with them. I still because of my connection to WordPress, I still do a lot of back
+ended programming in PHP. And the question is, you know, no JS Python, do you switch to do you
+switch back into any of those programming? There's the case for no JS for me. Well, more and more
+of the front end runs in JavaScript. And fascinating cool stuff is done as JavaScript,
+maybe use the same programming language for the back end as well. The case for Python for the
+back end is while you're doing so much programming outside of the web in Python. So maybe use Python
+for the back end. And then the case for PHP, well, most of the web still runs a PHP. You have a lot
+of experience with PHP. Why fix something that's not broken? Those are my own personal struggles,
+but I think they reflect the struggles of a lot of people with different programming
+language with different problems they're trying to solve. It's a weird one. And there's not a
+single answer, right? Because depending on how much time you have to learn new stuff,
+where you are in your life, what would you're currently working on who you want to work with,
+what communities you like, there's not one right choice. Maybe if you sort of,
+if you can look back 20 years, you can say, well, that whole detour through ActionScript was a waste
+of time. But nobody could know that. So you can't beat yourself up over that. You just need to accept
+that not every choice you make is going to be perfect. Maybe sort of keep a plan B in the back
+of your mind. But don't overthink it. Don't try to sort of don't create a spreadsheet with like,
+where you're trying to estimate, well, if I learn this language, I expect to make X million dollars
+in a lifetime. And if I learn that language, I expect to make Y million dollars in a lifetime.
+And which, which is higher and what, which has more risk and where's the chance that
+it's like picking, picking a stock. Kind of, kind of. But I think with stocks, you can do
+diversifying your investment is good with productivity in life. Boy, that spreadsheet
+is possible to construct. Like if you actually carefully analyze what your interests in life
+are, where you think you can maximally impact the world, there really is better and worse choices
+for programming language. They're not just about the syntax, but about the community,
+about where you predict the community's headed, what large systems are programmed in that.
+But can you create that spreadsheet? Because that's sort of, you're mentioning a whole bunch of
+inputs that go into that spreadsheet, where you have to estimate things that are very hard to
+measure and even harder. I mean, they're, they're hard to measure retroactively, and they're even
+harder to predict. Like what is the better community? Well, better is, is one of those
+incredibly difficult words. What's better for you is not better for someone else.
+But we're not doing a public speech about what's better. We're doing a personal spiritual journey.
+I can determine a circle of friends, circle, circle one and circle two. And I can have a bunch
+of parties with one and a bunch of parties with two, and then write down or take a mental note
+of what made me happier, right? And that, you know, you have, if you're a machine learning person,
+you want to say, okay, I want to build a large company that does, that is grounded in machine
+learning, but also has a sexy interface that has a large impact on the world. What languages do I
+use? You look at what Facebook is using, you look at what Twitter is using, then you look at
+performant more newer languages like Rust, or you look at languages that have taken, that most
+of the community uses in machine learning space as Python. And you can like think through, you can
+hang out and think through it. And it's always a invest, and the, the level of activity of the
+community is also really interesting. Like you said, C++ and Python are super active in terms
+of the development of the language itself. But do you think that you can make objective choices
+there? No, no. But there's a gut you build up. Like, don't you, don't you believe in that gut
+feeling? Oh, everything is very subjective. And yes, you most certainly can have a gut feeling.
+And your gut can also be wrong. That's why there are billions of people because they're not all
+right. I mean, clearly, there are more people living in the Bay area who have plans to sort of
+create a Google sized company, then there's room in the world for Google sized companies.
+And they're going to have to duke it out in the market, the space. And there's many more choices
+than just the programming language. Speaking of which, let's go back to the boat with the,
+with the fisherman who's tuned out long ago, talk to the programmer, let's jump around and go back
+to see Python that we tried to define as the reference implementation. And one of the big
+things that's coming out in three out of 11, what's the right way to, we tend to say three
+dot 11, because it really was like, we went three dot eight, three dot nine, three dot 10,
+three dot 11, and we're planning to go up to three dot 99. 99. What happens after 99?
+Probably just three dot 100. What if I make it there? Okay. And go all the way to 420. I got it.
+Forever Python v3. We'll talk about four, but more for fun. So three dot 11 is coming out one of
+the big sexy things in it is it'll be much faster. So how did you, beyond hiring a great team or
+working with a great team, make it faster? What are some ideas that makes it faster?
+It has to do with simplicity of software versus performance. And so even though C is known to
+be a low level language, which is great for writing sort of a high performance language
+interpreter, when I originally started Python or C Python, I didn't expect there would be
+great success and fame in my future. So I tried to get something working
+and useful in about three months. And so I sort of, I cut corners. I borrowed ideas left and right
+when it comes to language design as well as implementation. I also wrote much of the code
+as simple as it could be. And there are like, there are many things that you can code more
+efficiently by adding more code. It's a bit of a sort of a time space trade off where you can
+compute a certain thing from a small number of inputs. And every time you get presented with
+new input, you do the whole computation from the top. That can be simple looking code. It's easy
+to understand. It's easy to reason about that. You can tell quickly that it's correct, at least
+in the sort of mathematical sense of correct. Because it's implemented in C, maybe it performs
+relatively well. But over time as sort of, as the requirements for that code and the need for
+performance go up, you might be able to rewrite that same algorithm using more memory, maybe
+remember previous results. So you don't have to recompute everything from scratch. Like the
+classic example is computing prime numbers. Like, is 10 a prime number? Well, you sort of is it
+divisible by two? Is it divisible by three? Is it divisible by four? And we go all the way to
+is it divisible by nine? And it is not, well, actually 10 is divisible by two. So there we
+stop at say 11. It's divisible by 10. The answer is nine is no 10 times in a row. So now we know
+11 is a prime number. On the other hand, if we already know that two, three, five, and seven are
+prime numbers, and you know a little bit about the mathematics of how prime numbers work, you know
+that if you have a rough estimate for the square root of 11, you don't actually have to check is
+it divisible by four? Or is it divisible by five? You all you have to check in the case of 11 is
+it divisible by two? Is it divisible by three? Because take 12. If it's divisible by four,
+well, 12 divided by four is three. So you, you should have come across the question,
+is it divisible by three first? So if you know basically nothing about prime numbers, except
+the definition, maybe you go for x from two through n minus one is n divisible by x. And then at the
+end, if you got all nos for every single one of those questions, you know, oh, it must be a prime
+number. Well, the first thing is you can stop iterating when you find a yes answer. And the
+second is you can also stop iterating when you have reached the square root of n, because you
+know that if it has a divisor larger than the square root, and also have a divisor smaller than the
+square root, then you say, oh, except for two, we don't need to bother with checking for even
+numbers because all even numbers are divisible by two. So if it's divisible by four, we would
+already have come across the question, is it divisible by two? And so now you go special case,
+check is it divisible by two, and then you just check three, five, seven, 11. And so now you,
+you sort of reduced your search space by 50% again, by, by skipping all the even numbers
+that kept for two. If you think a bit more about it, or you just read in your book about the history
+of math, one of the first algorithms ever written down, all you have to do is check is it divisible
+by any of the previous prime numbers that are smaller than the square root. And before you get
+to a better algorithm than that, you have to have several PhDs in, in discrete math. So that's as
+much as I know. So of course, that same story applies to a lot of other algorithms. String
+matching is a good example of how to come up with an efficient algorithm. And sometimes the more
+efficient algorithm is not so much more complex than the inefficient one. But that's an art and it's
+not always the case. In the general cases, the more performant the algorithm, the more complex
+it's going to be. There's a kind of trade off. The simpler algorithms are also the ones that
+people invent first. Because when you're looking for a solution, you look at the simplest way to
+get there first. And so if there is a simple solution, even if it's not the best solution,
+not the fastest or the most memory efficient or whatever, a simple solution and simple is
+is fairly subjective. But mathematicians have also thought about sort of what is a good definition
+for simple in the case of algorithms. But the simpler the simpler solutions tend to be
+easier to follow for other programmers who haven't made a study of a particular field. And when I
+started with Python, I was a good programmer in general, I knew sort of basic data structures,
+I knew the C language pretty well. But there were many areas where I was
+was only somewhat familiar with the state of the art. And so I picked, in many cases,
+the simplest way I could solve a particular sub problem, because when you're designing
+and implementing a language, you have to like, you have many hundreds of little problems to solve.
+And you have to have solutions for every one of them. Before you can, can sort of say,
+I've invented a programming language.
+First of all, so see Python, what kind of things does it do to an interpreter? It takes in this
+readable language that we talked about that is Python. What is it supposed to do?
+The interpreter, basically, it's sort of a recipe for understanding recipes.
+So instead of a recipe that says, bake me a cake, we have a recipe for, well, given
+the text of a program, how do we run that program? And that is sort of the recipe for
+building a computer. The recipe for the baker and the chef. What are the algorithmically tricky
+things that happen to be low hanging fruit that could be improved on? Maybe throughout the history
+of Python, but also now, how is it possible that 3.11 in year 2022, it's possible to get such a
+big performance improvement? We focused on a few areas where we still felt there was low hanging
+fruit. The biggest one is actually the interpreter itself. And this has to do with details of how
+Python is defined. So I don't know if the fisherman is going to follow this story. He already jumped
+off the boat. He's a board. Yeah, stupid. Python is actually, even though it's always
+called an interpreted language, there's also a compiler in there. It just doesn't compile to
+machine code. It compiles to bytecode, which is sort of code for an imaginary computer
+that is called the Python interpreter. So it's compiling code that is more easily digestible
+by the interpreter or is digestible at all. It is the code that is digested by the interpreter.
+That's the compiler. We tweaked very minor bits of the compiler. Almost all the work was done in
+the interpreter. Because when you have a program, you compile it once and then you run the code a
+whole bunch of times. Or maybe there's one function in the code that gets run many times.
+Now, I know that that sort of people who know this field are expecting me to at some point say
+we built a just-in-time compiler. Actually, we didn't. We just made the interpreter a little
+more efficient. What's a just-in-time compiler? That is a thing from the Java world, although
+it's now applied to almost all programming languages, especially interpreted ones.
+So you see the compiler inside Python not like a just-in-time compiler, but it's a compiler that
+creates bytecode that is then fed to the interpreter. And the compiler, was there something
+interesting to say about the compiler? It's interesting that you haven't changed that
+tweak that at all or much. We changed some parts of the bytecode, but not very much.
+And so we only had to change the parts of the compiler where we decided that the breakdown
+of a Python program in bytecode instructions had to be slightly different. But that didn't
+gain us the performance improvements. The performance improvements were like making the
+interpreter faster in part by sort of removing the fat from some internal data structures used
+by the interpreter. But the key idea is an adaptive specializing interpreter.
+Let's go. What is adaptive about it? What is specialized about it?
+Well, let me first talk about the specializing part, because the adaptive part is the sort of
+the second-order effect. But they're both important. So bytecode is a bunch of machine
+instructions, but it's an imaginary machine. But the machine can do things like call a function,
+add two numbers, print a value. Those are sort of typical instructions in Python.
+And if we take the example of adding two numbers, actually in Python the language,
+there's no such thing as adding two numbers. The compiler doesn't know that you're adding
+two numbers. You might as well be adding two strings or two lists or two instances of some
+user-defined class that happened to implement this operator called add. That's a very interesting
+and fairly powerful mathematical concept. It's mostly a user interface trick because it means that
+a certain category of functions can be written using a single symbol, the plus sign,
+and sort of a bunch of other functions can be written using another single symbol, the multiply
+sign. So if we take addition, the way traditionally in Python the add bytecode was executed is
+pointers, pointers, and more pointers. So first we have two objects. An object is basically a
+pointer to a bunch of memory that contains more pointers. Pointers all the way down. Well, not
+quite, but there are a lot of them. So to simplify a bit, we look up in one of the objects,
+what is the type of that object and does that object type define an add operation?
+And so you can imagine that there is a sort of a type integer that knows how to add itself to
+another integer. And there is a type floating point number that knows how to add itself
+to another floating point number. And the integers and floating point numbers
+are sort of important, I think, mostly historically because in the first computers
+you used the sort of the same bit pattern when interpreted as a floating point number had a
+very different value than when interpreted as an integer. Can I ask a dumb question here?
+Given the basics of int and float and add, who carries the knowledge of how to add two integers?
+Is it the integer? It's the type integer versus... It's the type integer and the type float.
+What about the operator? Is the operator just exist as a platonic form possessed by the integer?
+The operator is more like it's an index in a list of functions that the integer type defines.
+And so the integer type is really a collection of functions and there is an add function and
+there's a multiply function and there are like 30 other functions for other operations. There's a
+power function, for example. And you can imagine that in memory there is a distinct slot for the
+add operations. Let's say the add operation is the first operation of a type and the multiply is
+the second operation of a type. So now we take the integer type and we take the floating point type.
+In both cases, the add operation is the first slot and multiply is the second slot. But
+each slot contains a function and the functions are different because the add to integers function
+interprets the bit patterns as integers. The add to float function interprets the same bit pattern
+as a floating point number. And then there is the string data type, which again,
+interprets the bit pattern as the address of a sequence of characters. There are lots of lies
+in that story, but that's sort of a basic idea. I could tell the fake news and the fabrication
+going on here at the table. But where's the optimization? Is it on the operators? Is it
+the different side of the integer? The optimization is the observation that
+in a particular line of code, so now you write your little Python program
+and you write a function and that function sort of takes a bunch of inputs and at some point
+it adds two of the inputs together. Now I bet you even if you call your function a thousand times
+that all those calls are likely all going to be about integers because maybe your program is
+all about integers or maybe on that particular line of code where there's that plus operator,
+every time the program hits that line, the variables A and B that are being added together
+happen to be strings. And so what we do is instead of having this single byte code that says
+here's an add operation and the implementation of add is fully generic. It looks at the object from
+the object, it looks at the type, then it takes the type and it looks at looks up the function
+pointer, then it calls the function. Now the function has to be has to look at the other
+argument and has to double check that the other argument has the right type and then there's
+a bunch of error checking before it can actually just go ahead and add the two bit patterns in the
+right way. What we do is every time we execute an add instruction like that, we keep a little note
+of in the end after we hit the code that did the addition for a particular type, what type was it?
+And then after a few times through that code, if it's the same type all the time,
+we say, oh, so this add operation, even though it's the generic add operation, it might as well be
+the add integer operation. And add integer operation is much more efficient because it just says,
+assume that A and B are integers, do the addition operation, do it right there in line and produce
+it. And the big lie here is that in Python, even if you have great evidence that in the past,
+it was always two integers that you were adding. At some point in the future, that same line of
+code could still be hit with two floating points or two strings or maybe a string and an integer.
+It's not a great lie. That's just the fact of life. I didn't account for what should happen in that
+case in the way I told the story. There is some accounting for that. And so what we actually have
+to do is when we have the add integer operation, we still have to check, are the two arguments in
+fact integers? We applied some tricks to make those checks efficient. And we know statistically that
+the outcome is almost always, yes, they are both integers. And so we quickly make that check and
+then we proceed with the sort of add integer operation. And then there is a fallback mechanism
+where we say, oops, one of them wasn't an integer. Now we're going to pretend that there was just
+the fully generic add operation. We wasted a few cycles believing it was going to be two integers
+and then we had to back up. But we didn't waste that much time and statistically most of the time.
+Basically, we were sort of hoping that most of the time we guessed right. Because if it turns
+out that we guessed wrong too often or we didn't have a good guess at all, things might actually
+end up running a little slower. So someone armed with this knowledge and a copy of the
+implementation, someone could easily construct a counter example where they say, oh, I have a
+program and now it runs five times as slow in Python 3.11 than it did in Python 3.10.
+But that's a very unrealistic program. That's just like an extreme fluke.
+It's a fun reverse engineering task though. So there's people like fun, yes. So there's some
+presumably heuristic of what defines a momentum of saying, you seem to be working adding two
+integers, not two generic types. So how do you figure out that heuristic?
+I think that the heuristic is actually, we assume that the weather tomorrow is going to be the
+same as the weather today. So you don't need two days of the weather? No. That is already so much
+better than guessing randomly. So how do you find this idea? Hey, I wonder if instead of adding
+two generic types, we start assuming that the weather tomorrow is the same as the weather today.
+Where do you find the idea for that? Because that ultimately, for you to do that, you have to kind
+of understand how people are using the language, right? Python is not the first language to do a
+thing like this. This is a fairly well known trick, especially from other interpreted languages that
+had reason to be sped up. We occasionally look at papers about HHVM, which is for Facebook's
+efficient compiler for PHP. There are tricks known from the JVM, and sometimes it just comes from
+academia. So the trick here is that the type itself doesn't, the variable doesn't know what type it is.
+So this is not a statically typed language where you can get afford to have a shortcut to saying
+it's ints. This is a trick that is especially important for interpreted languages with dynamic
+typing. Because if the compiler could read in the source, these x and y that we're adding are
+integers, the compiler can just insert the single add machine code, that hardware machine instruction
+that exists on every CPU and ditto for floats. But because in Python, you don't generally declare
+the types of your variables. You don't even declare the existence of your variables. They just
+spring into existence when you first assign them, which is really cool and sort of helps
+those beginners because there is less bookkeeping they have to learn how to do before they can start
+playing around with code. But it makes the interpretation of the code less efficient.
+And so we're sort of trying to make the interpretation more efficient without losing the
+super dynamic nature of the language. That's always the challenge. 3.5 got the PEP 484 type hints.
+What is type hinting? And is it used by the interpreter, the hints, or is it just in tactic
+sugar? So the type hints is an optional mechanism that people can use. And it's especially popular
+with sort of larger companies that have very large code bases written in Python.
+Do you think of it as almost like documentation saying these two variables are this type?
+More than documentation. So it is a sub language of Python where you can express the types of
+variables. So here's a variable and it's an integer. And here's an argument to this function
+and it's a string. And here is a function that returns a list of strings. But that's not checked
+when you run the code. But exactly, there is a separate piece of software called a static type
+checker that reads all your source code without executing it and thinks long and hard about
+what it looks from just reading the code that code might be doing and double checks if that makes
+sense if you take the types as annotated into account. So this is something you're supposed to run as
+you develop? It's like a linter. Yeah, that's definitely a development tool. But the type annotations
+currently are not used for speeding up the interpreter. And there are a number of reasons
+many people don't use them. Even when they do use them, they sometimes contain lies where
+the static type checker says everything's fine. I cannot prove that this integer is ever not an
+integer. But at runtime, somehow someone manages to violate that assumption. And the interpreter
+ends up doing just fine. If we started enforcing type annotations in Python, many Python programs
+would no longer work. And some Python programs wouldn't even be possible because they're too
+dynamic. And so we made a choice of not using the annotations. There is a possible future where
+eventually three, four, five releases in the future, we could start using those annotations to sort of
+provide hints because we can still say, well, the source code leads us to believe that these
+x and y are both integers. And so we can generate an add an add integer instruction. But we can
+still have a fallback that says, oh, if the if somehow the code coded runtime provided something
+else, maybe it provided two decimal numbers, we can still use that generic add operation as a fallback.
+But we're not there. Is there currently a mechanism, or do you see something like that,
+where you can almost add like an assert inside a function that says, please check that my type hints
+are actually mapping to reality, sort of like insert manual static typing. There are third party
+libraries that are in that business. It's possible to do that kind of thing. It's possible to
+for a third party library to take a hint and enforce it seems like a tricky thing.
+Well, what we actually do is, and this I think this is a fairly unique feature in Python,
+the type hints can be introspective at runtime. So while the program is running,
+they mean Python is a very introspective language, you can look at the variable and ask yourself,
+what is the type of this variable? And if that maybe that variable happens to refer to a function,
+you can ask, what are the arguments to the function? And nowadays, you can also ask,
+what are the type annotations for the function? So the type annotations are there inside the
+variable as it's at runtime, they're mostly associated with the function object, not with
+each individual variable, but you can sort of map from the arguments to the variables.
+And that's what a third party library can help. Exactly. And the problem with that is that all
+that extra runtime type checking is going to slow your code down instead of speed it up.
+I think to reference this sales pitchy blog post that says 75% of developers time is spent on
+debugging, I would say that in some cases that might be okay. It might be okay to pay the cost
+of performance for the catching of the types, the type errors. And in most cases, doing it
+statically before you ship your code to production is more efficient than doing it at
+runtime piecemeal. Yeah. Can you tell me about NYPY MyPy project? What is it? What's the mission?
+And in general, what is the future of static typing in Python? Well, so MyPy was started by a
+Finnish developer, Yukar Leto-Selo. So many cool things out of Finland, I gotta say.
+Just that part of the world. I guess people have nothing better to do in those long cold winters.
+I don't know. I think Yukar lived in England when he invented that stuff, actually. But MyPy is the
+original static type checker for Python. And the type annotations that were introduced with
+PEP484 were sort of developed together with the static type checker. And in fact,
+Yukar had first invented a different syntax that wasn't quite compatible with Python.
+And Yukar and I sort of met at a Python conference in, I think, in 2013. And we sort of came up with
+a compromise syntax that would not require any changes to Python. And that would let MyPy sort
+of be an add on static type checker for Python. Just out of curiosity, was it like double colon or
+something? What was he proposing that would break Python? I think he was using Angular brackets
+for types like in C++ or Java generics. Yeah, you can't use Angular brackets in Python.
+That would be too tricky for Python. Well, the key thing is that we already had
+syntax for annotations. We just didn't know what to use them for yet.
+So type annotations were just the sort of most logical thing to use that existing dummy syntax
+for. But there was no there was no syntax for defining generics directly syntactically in the
+language. MyPy literally meant my version of Python, where it refers to Yukar. He had a parser
+that translated MyPy into Python by doing the type checks and then removing the annotations
+and all the Angular brackets from the positions where he was using them.
+But a preprocessor model doesn't work very well with the typical workflow of Python development
+projects. That's funny. That could have been another major split if it became successful.
+If you watch TypeScript versus JavaScript, there's a split in the community over Types,
+right? That seems to be stabilizing now. It's not necessarily a split. There are certainly
+plenty of people who don't use TypeScript, but just use the original JavaScript notation,
+just like there are many people in the Python world who don't use type annotations and don't
+use static type checkers. No, I know, but there is a bit of a split between TypeScript and old
+school JavaScript, ES, whatever. Well, in the JavaScript world, transpilers are sort of the
+standard way of working anyway, which is why TypeScript being a transpiler itself is not a big
+deal. And transpilers for people who don't know it's the exact thing you said with MyPy, it's the
+code, I guess you call it preprocessing code that translates from one language to the other,
+and that's part of the culture, part of the workflow of the JavaScript community. So
+that's right. At the same time, an interesting development in the JavaScript slash TypeScript
+world at the moment is that there is a proposal under consideration. It's only a stage one proposal
+that proposes to add a feature to JavaScript, where just like Python, it will ignore certain
+syntax when running the JavaScript code. And what it ignores is more or less a superset of
+the TypeScript annotation syntax. So that would mean that eventually, if you wanted to,
+you could take TypeScript, and you could shove it directly into a JavaScript interpreter without
+translation. The interesting thing in the JavaScript world, at least the web browser world,
+the web browsers have changed how they deploy, and they sort of update their JavaScript engines
+much more quickly than they used to in the early days. And so there's much less of a need for
+translation in JavaScript itself, because most browsers just support the most recent
+version of ECMAScript. Just an attention of attention. Do you see if you will recommend
+somebody use a thing, would you recommend TypeScript or JavaScript?
+I would recommend TypeScript, just because of the strictness of the typing. It's an enormously
+helpful extra tool that helps you sort of keep your head straight about what your code is actually
+doing. I mean, it helps with editing your code. It helps with ensuring that your code
+is not too incorrect. And it's actually quite compatible with JavaScript. Never mind this
+syntactic sort of hack that is still years in the future. But any library that is written in pure
+JavaScript can still be used from TypeScript programs. And also the other way around, you can
+write a library in TypeScript and then export it in a form that is totally consumable by JavaScript.
+That sort of compatibility is sort of the key to the success of TypeScript.
+Yeah, just to look at it as almost like a biological system that's evolving. It's
+fascinating to see JavaScript evolve the way it does.
+Well, maybe we should consider that biological systems are just engineering systems too, right?
+Yes, just very advanced with more history.
+But it's almost like the most visceral in the JavaScript world because there's just so much
+code written in JavaScript that for its history was messy. If you talk about bugs per line of code,
+I just feel like JavaScript eats the cake or whatever the terminology is. It beats Python
+by a lot in terms of the number of bugs, meaning like way more bugs in JavaScript.
+And then obviously the browsers are developed. I mean, just there's so much active development.
+It feels a lot more like evolution where a bunch of stuff is born and dies and there's experimentation
+debates versus Python is more, all that stuff is happening, but there's just a longer history of
+stable working giant software systems written in Python versus JavaScript is just a giant,
+beautiful, I would say, mess of code.
+It's a very different culture and to some extent differences in culture are random,
+but to some extent, the differences have to do with the environment.
+And the fact that JavaScript is primarily the language for developing web applications,
+especially the client side, and the fact that it's basically the only language for developing
+web applications makes that community sort of just have a different nature than the community
+of other languages. Plus the graphical component and the fact that they're deploying it on all
+kinds of shapes of screens and devices and all that kind of stuff, it just creates a beautiful
+chaos. Anyway, back to my pie. So what? Okay, you met, you talked about syntax that could work.
+Where does it currently stand? What's the future of static typing in Python?
+It is still controversial, but it is much more accepted than when my pie and PEP 484 were were
+were young. What's the connection between PEP 484 type hints and my pie?
+My pie was the original static type checker. So it my pie quickly evolved from you guys own variant
+of Python to a static type checker for Python and sort of PEP 484 that that was it like
+a very productive year where like many hundreds of messages were exchanged debating the merits
+of every aspect of that PEP. And so my pie is a static type checker for Python. It is itself
+written in Python. Most additional static typing features that we introduced in the time since
+three six were also prototyped through my pie. My pie being an open source project with a very
+small number of maintainers was successful enough that people said this static type checking stuff
+for Python is actually worth an investment for our company. Nice. But somehow they chose not to support
+making my pie faster say or adding new features to my pie, but both Google and Facebook and later
+Microsoft developed their own static type checker. I think Facebook was one of the first
+they decided that they wanted to use the same technology that they had successfully used for
+HHVM because they sort of they had a bunch of compiler writers and sort of static type checking
+experts who had written the HHVM compiler and it was big success within the company.
+And they had done it in a certain way sort of they wrote a big highly parallel application
+in an obscure language named OCaml, which is apparently mostly very good for writing static
+type checkers. Interesting. I have a lot of questions about how to write a static type
+checker then. That's very confusing. Facebook wrote their version and they worked on it
+in secret for about a year and then they came clean and went open source. Google in the meantime
+was developing something called PyType which was mostly interesting because it as you may have heard
+they have one gigantic mono repo. So all the code is checked into a single repository. Facebook
+has a different approach. So Facebook developed Pyre which was written in OCaml which worked well
+with Facebook's development workflow. Google developed something they called PyType which was
+actually itself written in Python and it was meant to sort of fit well in their static type
+checking needs in Google's gigantic mono repo. So Google has one giant got it. So just to clarify
+this static type checker philosophically is a thing that's supposed to exist outside of the
+language itself and it's just a workflow like a debugger for the programmers. It's a linter.
+For people who don't know a linter maybe you can correct me but it's a thing that runs through the
+code continuously preprocessing to find issues based on style documentation. I mean there's
+all kinds of linters right. It can check that what usual things does a linter do. Maybe check that you
+haven't too many characters in a single line. Linters often do static analysis where they try to
+point out things that are likely mistakes but not incorrect according to the language
+specification. Like maybe you have a variable that you never use for the compiler that is valid.
+You might sort of you might be planning to use it in a future version of the code and the compiler
+might just optimize it out but the compiler is not going to tell you hey you're never using this
+variable. A linter will tell you that variable is not used. Maybe there's a typo somewhere else
+where you're meant to use it but you accidentally use something else or there are a number of
+sort of common scenarios and a linter is often a big collection of little heuristics
+where by looking at the combination of how your code is laid out maybe how it's indented maybe the
+comment structure but also just things like definition of names use of names. It'll tell you
+likely things that are wrong and in some cases linters are really style checkers. For Python
+there are a number of linters that check things like do you use the the PEP 8 recommended naming
+scheme for your functions and classes and variables because like classes start with an uppercase and
+the rest starts with a lowercase and there's like differences there and so the linter can tell you
+hey you have a class that whose first letter is not an uppercase letter and that's just I just
+find it annoying if I wanted that to be an uppercase letter. I would have typed an uppercase letter
+but other people find it very comforting that if the linter is no longer complaining about their
+code that they have followed all the style rules. Maybe it's a fast way for a new developer joining
+a team to learn the style rules right? Yeah there's definitely that but the best use of a linter is
+probably not so much to to sort of enforce team uniformity but to actually help developers
+catch bugs that the compilers for whatever reason don't catch and there is lots of that in Python
+and so but a static type checker focuses on a particular aspect of the linting which
+I mean it might probably doesn't care how you name your classes and variables
+but it is meticulous about when you say that it was an integer here and you're passing a string
+there it will tell you hey that string is not an integer so something's wrong either either
+you were incorrect when you said it was an integer or you're incorrect when you're passing it to
+string. If this is a race of static type checkers there's somebody winning as you said it's interesting
+that the companies didn't choose to invest in this centralized development of MyPy. Is there a
+future for MyPy? What do you see as that? Well one of the companies win out and everybody uses
+like PyType whatever Google's is called. Well Microsoft is hoping that Microsoft's
+horse in that race called PyRyte is going to win. PyRyte like R-I-G-H-T? Correct. Yeah my
+all my word processors tend to typo correct that as PyRyte the name of the I don't know what it is
+some kind of semi-precious metal oh right I love it okay so okay that's the Microsoft hope but
+okay so let me ask the question a different way is there going to be ever a future
+where the static type checker gets integrated into the language?
+Nobody is currently excited about doing any work towards that that doesn't mean that five or
+ten years from now the situation isn't different at the moment all the static type checkers
+still evolve at a much higher speed than Python and its annotation syntax evolve.
+You get a new release of Python once a year those are the only times that you can introduce new
+annotation syntax and there's there are always people who invent new new annotation syntax
+that they're trying to push and worse once we've all agreed that we are going to put some new
+syntax in we can never take it back at least a sort of deprecating an existing feature takes
+many releases because you have to assume that people started using it as soon as we announced it
+and then you can't take it away from them right away you have to start telling them well this will
+go away but we're not gonna tell you that it's an error yet and then later it's gonna be a warning
+and then eventually three releases in the future maybe we remove it on the other hand the typical
+static type checker still has a release like every month every two months certainly many
+times a year some type checkers also include a bunch of experimental ideas that aren't official
+standard Python syntax yet the static type checkers also just get better at discovering
+things that that sort of are unspecified by the language but that sort of could make sense and
+so each static type checker actually has its sort of strong and weak points so it's cool it's like
+a laboratory of experiments yeah microsoft google and all and you get to see and you see that everywhere
+right because there's not one single uh javascript engine either there is one in chrome there is one
+in safari there's one in firefox but that said you said there's not interest i think
+there is a lot of interest in type hinting right um in the pep 484 actually like how many people
+use that do you have a sense how many people use because it's optional it's sugar i can't put a
+number on it but from the number of packages that do interesting things with it at runtime and the
+fact that there are like now three or four very mature type checkers that each have their their
+segment of the market and oh and then there is a pie charm which has a sort of more heuristic based
+type checker that also supports the same syntax my assumption is that many many people developing
+python software professionally for some kind of production situation are using a static type
+checker especially any anybody who has a continuous integration cycle probably has uh
+one of the steps in in there they're testing routine that that happens for basically every every
+commit uh is run a static type checker and in most in most cases that will be my pie
+so i think it's pretty popular topic according to this web page 20 to 30 percent of python
+three code bases are using type hints wow i wonder how they measured that did they just scan all of
+github yeah that's what it looks like yeah they did a quick set not all of but like a random sampling
+so you mentioned pie charm let me ask you the uh the big subjective question
+what's the best IDE for python and you're extremely biased now that you're with microsoft
+um is it pie charm vs code vim or emacs historically i actually uh started out with using vim but
+when it was still called vi uh for a very long time i think from the early 80s to uh i'd say
+two years ago i was emacs user nice between i'd say 2013 and 2018 i dabbled with pie charm
+mostly because it had had a couple of features i mean pie charm is like driving an 18-wheeler
+truck whereas emacs is more like driving a your comfortable Toyota car that's that's that you've
+had for a hundred thousand miles and you know what every little rattle of the car means i was very
+comfortable in emacs uh but there were certain things it couldn't do it wasn't very good at that
+sort of at least the way i had configured it i didn't have very good tooling in emacs for finding
+the definition of a function got it when i was at Dropbox exploring a five million line python code
+base uh just grabbing all that code for where there where is there a class foobar well turns out
+that if you grab all five million lines of code there are many classes with the same name
+and so pie charm sort of once once you fired it up and once it's indexed your repository
+was very helpful but the soonest i had to edit code i would jump back to emacs and do all my
+editing there because i could type much faster and switch between files when i would when i knew
+which file i wanted much much quicker and i never really got used to the the whole pie charm user
+interface yeah i feel torn in that same kind of way because i've used pie charm off and on exactly
+in that same way and i feel like i'm just being an old grumpy man for not learning how to quickly
+switch between files and all that kind of stuff i feel like that has to do with shortcuts that has to
+do with um i mean you just have to get accustomed just like with touch typing yeah you have to just
+want to to learn that i mean if you don't need it much you don't need touch typing either you
+can type with two fingers just fine in the short term but in the long term your life will become
+better psychologically and productivity wise if you learn how to type with ten fingers if you do
+a lot of keyboard input before everyone emails and stuff right like you look at the the next
+20 30 years of your life you have to anticipate where technology is going
+do you want to invest in handwriting notes probably not more and more people are doing
+typing versus handwriting notes so you can anticipate that so there's no reason to actually
+practice handwriting there's more reason to practice typing you can actually estimate back
+to the spreadsheet the number of paragraphs sentences or words you write for the rest of
+your life you can probably go again with the spreadsheet of my life yes i mean all of that
+is not actual like converted to a spreadsheet but the gut feeling like i have the same kind of gut
+feeling about books i've almost exclusively switched to kindle now for ebook readers even
+though i still love and probably always will the smell the feel of a physical book and
+you the reason i switched to kindle is like all right well this is really paving the future is
+going to be digital in terms of consuming books and content of that nature so you should get
+you know you should let your brain get accustomed to that experience and that same way it feels
+like pie charm or vs code i think pie charm is is the most sort of sophisticated feature full
+uh python id it feels like i should probably at some point very soon switch entire like
+i'm not allowed to use anything else for python than this id or vs code it doesn't matter but walk
+away from emacs for this particular application because i think i'm limiting myself in the same
+way that using two fingers for typing is limiting myself it's i'm this is a therapy session this is
+not maybe but i'm sure a lot of people are thinking i'm not gonna stop you uh i i think that that's
+sort of everybody has to decide for themselves which one they want to to invest more time in
+i actually ended up giving vs code a very tentative try when i started out at microsoft
+and really liking it and it sort of it took me a while before i realized why that was
+but and and i think that actually the founders of vs code may not necessarily agree with me on this
+but to me vs code is in a sense the spiritual successor of emacs because as you probably know
+as an old emacs hack the the key part of emacs is that it it's mostly written in in lisp and that
+that sort of new features of of emacs usually update all the list packages and add new list
+packages and oh yeah there's also some very obscure thing improved in the part that's not in lisp
+but that's usually not why you would upgrade to a new version of emacs there's a core implementation
+that that sort of can read a file and it can put bits on the screen and it can sort of manage
+memory and buffers and then what makes it an editor full of features is all the list packages
+and of course the design of how the list packages interact with each other and with that that sort
+of that base layer of the core immutable engine but almost everything in that core engine in emacs
+case can still be overridden or replaced and so vs code has a similar architecture where there is
+like a base engine that you have no control over i mean it's open source but nobody
+except the people who work on that part changes it much and it has a sort of a package manager
+and a whole series of interfaces for packages and an additional series of conventions for how
+packages should interact with the lower layers and with each other and powerful primitive operations
+that let you move the cursor around or select pieces of text or delete pieces of text or
+interact with the keyboard and the mouse and whatever peripherals you have
+and and so the sort of the the extreme extensibility and the package ecosystem
+that you that you see in vs code is a mirror of very similar architectural features in emacs
+well i'll have to give it a serious try because as far as sort of the hype and the excitement
+in the general programming community vs code seems to dominate the interesting thing about
+our pie charm and what is it php storm which are these jetbrains specific ids that are designed
+for one programming language it's interesting to when an ids are specialized right they're usually
+actually just specializations of intelligent because underneath it's all the same editing
+engine with different veneer on top where in vs code many things you do require loading
+third-party extensions in pie charm it is possible to have third-party extensions
+but it is it is a struggle to create one yes it's not part of the culture all that kind of stuff
+yeah we that i remember that might have been five years ago or so we were trying to get some
+better my pie integration into pie charm because my pie is sort of python tooling and pie charm
+had had its own type checking heuristic thing that we wanted to replace with
+something based on my pie because that was what we were using in the company and it's for the for
+the guy who was writing that by charm extension it was really a struggle to to sort of find
+documentation and get the development workflow going and and debug his code and all that so that
+that was it was not a pleasant experience let me talk to you about parallelism in your post titled
+reasoning about asyncio semaphore you talk about a fast food restaurant in silicon valley that
+has only one table is this a real thing i just wanted to ask you about that is that just like a
+metaphor you're using or is that an actual restaurant in silicon valley it was it was a
+metaphor of course okay i can imagine such a restaurant so for people who don't then read
+the thing you should you should but it was a idea of a restaurant where there's only one table and
+you show up one at a time and you're prepared and i actually looked it up and there is restaurants
+like this throughout the world and it just seems like a fascinating idea you stand in line you show
+up there's one table they um they ask you all kinds of questions they cook just for you that's
+fascinating it sounds like you'd find places like that in tokyo it sounds like a very japanese thing
+or in the bay area there are pop of places that probably more or less work like that but i've
+never eaten at such a place the fascinating thing is you propose is a fast food this is all for burger
+it was one of my rare sort of more literary or poetic moments where i thought i'll i'll just open
+with a crazy example to catch your attention and the rest is very dry stuff about uh locks and
+semaphores and how a semaphore is a generalization of a lock well it was very poetic and well
+delivered and it actually made me wonder if it's real or not because you don't make that explicit
+and it feels like it could be true and in fact i wouldn't be surprised if somebody like listens
+to this and knows exactly a restaurant like this in silica valley anyway can we step back and
+can you just talk about parallelism concurrency threading asynchronous all of these different
+terms what is it sort of a high philosophical level the uh the fishermen is back in the boat
+well the idea is if the fisherman has uh two fishing rods uh since fishing is mostly a matter
+of waiting for a fish to nibble well it depends on how you do it actually but if you had two if
+if you're doing the style of fishing where you sort of you you throw it out and then
+you let it sit for a while until maybe you see a nibble one fisherman can easily run two or three
+or four fishing rods and so as long as you can afford the equipment you can catch four times as
+many fish by a small investment in four fishing rods and so you since your time you sort of say
+you have all saturday to go fishing if you can catch four times as much fish you have a much
+higher productivity and that's actually i think how deep sea fishing is done you could just have a
+rod and you put in a hole so you can have many rods uh what is there an interesting difference
+between parallelism and concurrency and asynchronous is there one that's upset of the other to you
+like how do you think about these terms in the computer world there is a big difference when
+people are talking about parallelism uh like a parallel computer that's usually really several
+complete cpus that are sort of tied together and and share something like memory or an iobus
+concurrency can be a much more abstract concept where you have the illusion that things happen
+simultaneously but what the computer actually does is it spends a little time running some
+this program for a while and then it spends some time running that program for a while and then
+spending some time for the third program for a while so parallelism is the reality and concurrency
+is part reality part illusion yeah parallelism typically implies that there is multiple copies
+of the hardware you write that implementing synchronization primitives is hard in that blog post
+and you talk about locks and semaphores why is it hard to implement synchronization primitives
+because at the conscious level our brains are not trained to to sort of keep track of multiple
+things at the same time like obviously you can walk and chew gum at the same time because they're both
+activities that require only a little bit of your conscious activity but try balancing your
+checkbook and watching a murder mystery on tv yeah you'll mix up the digits or you'll miss an
+essential clue on in the tv show so why does it matter that the programmer the human is uh is bad
+because the programmer is at least with the current state of the art is responsible for
+writing the code correctly and it's hard enough to keep track of a recipe that you just execute
+one step at a time chop the carrots then peel the potatoes mix the icing you need your whole brain
+when you're when you're reading a piece of code what what is going on okay we're we're
+we're loading the number of mermaids in variable a and the number of mermen in variable b and uh
+now we take the average or whatever uh i like i'm just jumping from metaphor to metaphor i like it
+you have to keep in your head what is in a what is in b what is in c uh hopefully you have better names
+and that is challenging enough if you have two different pieces of code that are are sort of
+being executed simultaneously whether it's using the parallel or the concurrent approach if like
+a is the number of fishermen and b is the number of programmers but in another part of the code
+a is the number of mermaids and b is the number of mermen and somehow that's the same variable if
+you do it sequentially if first you do your mermaids more people computation and then you do your
+people in the boat computation it doesn't matter that the variables are called a and b and that is
+literally the same variable because you you're done with one use of that variable but when you
+mix them together suddenly the number of more people replaces the number of fishermen and your
+computation goes dramatically wrong and there's all kinds of ordering of operations that could
+result in the assignment of those variables and so you have to anticipate all possible
+orderings and you think you're smart and you'll put a look around it and in practice in terms of
+bugs per line per thousand lines of code this is an area where everything is worse so a lock is a
+mechanism by which you forbid only one chef can access the oven at a time something like that
+and then semaphores allow you to do what multiple ovens that's not a bad idea because if you're sort
+of if you're preparing if you're baking cakes and you have multiple people all baking cakes but
+there's only one oven then maybe you can tell that the oven is in use but maybe it's preheating
+and so you have maybe maybe you make a sign that says oven in use and you flip the sign over and it
+says oven is free when you're done baking your cake that's a lock that's sort of and and what do you
+do when you have two ovens or maybe you have 10 ovens you you can put a separate sign on each oven
+or maybe you can sort of someone who comes in wants to see at a glance and maybe there's an
+electronic sign that says there are still five ovens available or maybe there are already three
+people waiting for an oven so you can if you see an oven that's not in use it's already reserved
+for someone else who got in line first and that's sort of what what what the restaurant metaphor
+was trying to explain yeah and so you're now tasked you're sitting as a designer of python
+with a team of brilliant core developers and have to try to figure out to what degree can any of
+these ideas be integrated and not so maybe this is a good time to ask what is a sync i o and how
+has it evolved since python 3.4 wow yeah so we had this really old library for for doing things
+concurrently especially things that had to do with i o and uh networking i o was especially
+a sort of a popular topic and in the python standard library we had a brief period where
+there was lots of development and i think it was late 90s maybe early 2000s and like
+two little modules were added that were the state of the art of doing asynchronous i o or sort of
+non-blocking a i o which means that you can keep multiple network connections open and sort of
+service them all in parallel like a typical web server does so i o is input and outputs you're
+writing either to the network or read from the network connection or reading and writing to a
+hard drive to storage also possible and you can do uh the ideas you could do to multiple while also
+doing computation so running some code that does some fancy stuff yeah like when you're writing a
+web server when a request comes in a user the sort of needs to see a particular web page
+you have to find that page maybe in the database and format it properly and send it back to the
+client and there's a lot of waiting waiting for the database waiting for the network and so you
+can handle hundreds or thousands or millions of requests concurrently on one machine anyway
+ways of doing that in python were kind of stagnated and uh i forget it might have been around 2012
+2014 uh when someone for the umpteenth time actually said these async chat and async core
+modules that you have in a standard library are not quite enough to solve my particular problem
+can we add one tiny little feature and everybody said no that stuff is not too but you're not
+supposed to use that stuff write your own using uh third party library and then everybody started
+the debate about what the right third party library was and somehow i i felt that that was
+actually a cue for well maybe we need a better state of the art module in the standard library for
+for multiplexing input output from different sources you could say that it spiraled out of
+control a little bit it was at the time it was the largest python enhancement proposal that was
+ever proposed and you were deeply involved with that at the time i was very much involved with
+that i was like the lead architect uh i ended up talking to people who had already developed
+serious third party libraries that did similar things and sort of taking ideas from them and
+getting their feedback on my design and eventually we put it in the standard library
+and after a few years i got distracted i think the thing the big thing that distracted me was
+actually type annotations but other people kept it alive and kicking and it's been quite successful
+actually in the world of python web clients so initially what are some of the design challenges
+there in that debate for the pep and what are some things that got rejected what are some
+things that got accepted to stand out to you there are a couple of different ways you can
+handle parallel i o and this happens sort of at an architectural level in operating systems as well
+like windows prefers to do it one way and unix prefers to do it the other way you sort of you
+have an object that represents a network endpoint say a connection with a web browser that your
+client and say you're you're you're waiting for an incoming request two fundamental approaches are
+okay i'm waiting for an incoming request i'm doing something else
+come wake me up or of course sort of come tell me when uh something interesting happened
+like a packet came in on that network connection and the other paradigm is we're on a team of a
+whole bunch of people with maybe a little mind and we we can only manage one web connection
+at a time so i'm just sitting looking at this this web connection and i'm just blocked until
+something comes in and then i'm already waiting for it i get i get the data i process the data
+and then i go back to the top and say no sort of i'm waiting for the next packet those are about
+the two paradigms one is a paradigm where there is sort of notionally a threat of control whether
+it's an actual operating system thread or more an abstraction in async i o we call them tasks
+but a task in async i o or a thread in other contexts is devoted to one thing and it has logic
+for all the stages like when it's a web request like first wait wait for the first line of the
+web request parse it because then you know if it's a get or a post or a put or whatever or an error
+then wait until you have a bunch of lines until there's a blank line then parse that as headers
+and then interpret that and then wait for the rest of the data to come in if there is any more
+that you request expect that sort of standard web stuff and the other thing is and there's always
+endless debate about which approach is more efficient and which approach is more error prone
+where i just have a whole bunch of stacks in front of me and whenever a packet comes in
+i sort of look at the number of the pack that there's some number on the packet and i say oh
+that packet goes on this pile and then i can do a little bit and then sort of that pile provides my
+context and as soon as i'm done with with the processing i sort of i can forget everything
+about what's going on because the next packet will come in from some random other client and it's
+that pile or this pile uh and every time a pile is maybe empty or full or whatever the criteria
+is i can toss it away or use it for a new space but several traditional third party libraries for
+asynchronous IO processing in python chose the model of a callback and that's that's the idea
+where you have a bunch of different stacks of paper in front of you and every time someone gives you a
+piece gives you a new sheet you decide which stack it belongs to and that leads to a certain style
+of spaghetti code that i find sort of aesthetically not pleasing and i i was sort of never very
+successful and i had heard many stories about people who were also sort of complaining about
+that style of coding uh it was very prevalent in javascript at the time at least because it was
+like how the javascript event loop basically works and so i thought well the task-based model where
+each task has a bunch of logic we had mechanisms in the python language that we could easily reuse
+for for that and i thought i want to build a whole library for asynchronous networking IO
+and all the other things that may need to be done asynchronously
+based on that paradigm and so i just chose a paradigm and try to see how far i could get
+with that and it turns out that it's pretty good paradigm so people enjoy that kind of
+paradigm programming for asynchronous IO relative to callbacks okay beautiful so how does that all
+interplay with the infamous gill the goal the global interpreter lock maybe can you say what the
+gill is and how does it dance beautifully with ace and kyle the global interpreter lock solves the
+problem that python originally was not written with either asynchronous or or parallelism in
+mind at all there was no concurrency in the language there was no parallelism there were no
+threads only a small number of years into python's initial development all the new cool operating
+systems like suno s and silicon graphics iris and then eventually posix and windows all came with
+threading libraries that lets you do multiple things in parallel and there is a certain
+certain sort of principle which is the operating system handles the threads for you
+and the program can pretend that there are as many cpus as as there are threads in the program
+and those cpus work completely independently and if you don't have enough cpus the operating system
+sort of simulates those extra cpus on the other hand if you have enough cpus you can get a lot of
+work done by deploying those multiple cpus but python wasn't written to to do that and so
+as libraries for for multi-threading were added to c but every operating system then there was
+adding their own version of that we thought and maybe we were wrong but at the time we thought
+well we quickly want to be able to support these multiple threads because they seemed
+at the time in the early 90s when they were new at least to me they seemed a cool interesting
+programming paradigm and one of the things that that python at least at the time felt was nice
+about the language was that we could give a safe version of all kinds of cool new operating system
+toys to the python programmer like i remember one or two years before threading i i had spent
+some time adding networking sockets to python and they were very literal translation of the
+networking sockets that were in the bsd operating system so unix bsd but the nice thing was if you
+were using sockets from python then all the things you can do wrong with sockets in c would
+automatically give you a clear error message instead of just ending up with a malfunctioning
+hanging program and so we thought well we'll do the same thing with threading but we didn't
+really want to rewrite the interpreter to be thread safe because that that was was like
+that would be a very complex refactoring of all the interpreter code and all the runtime code
+because all the objects were written with the assumption that there's only one thread and
+so we said okay well we'll take our losses we'll provide something that looks like threads and
+as long as you only have a single cpu on your computer which most computers at the time did
+uh it feels just like threads because the the whole idea of of multiple threads in the os was
+that even if your your computer only had one cpu you could still fire up at many threads as you
+wanted well within reason maybe 10 or 12 not 5 000 uh and so we thought we had conquered the
+the abstraction of threads pretty well because multi core uh cpu's were were not in in most
+python programmers hands anyway and then of course a couple of more iterations of morse law and the
+computer is getting faster and at some point uh the chip designers decided that they couldn't make
+the cpu's faster but they could still make them smaller and so they could put multiple cpu's
+on one chip and suddenly there was all this pressure about do things in parallel and that's
+where the the solution we had in python didn't work and that's that's sort of the moment that's
+the gill became became infamous because the gill the gill was the solution we used to sort of
+take this single interpreter and share it between all the different operating system threads that
+you could could create and so as long as the the hardware physically only had one cpu that was
+all fine and then as hardware vendors were suddenly telling us all oh you gotta paralyze
+everything's gotta be paralyzed people started saying oh uh but we can use multiple threads in
+python and uh then they discovered oh but actually all threads run on a single single core yeah i mean
+is there a way is there ideas in the future to remove the global interpreter law gill like maybe
+multiple sub interpreters some tricky interpreters on top of interpreters kind of thing yeah there
+there are a couple of possible uh futures there the the most likely future is that we'll get multiple
+sub interpreters which each run a completely independent python program nice uh but there
+there's still some benefit of of sort of faster communication between those programs but it's
+also managing for you this running a multiple python programs yeah so it's hidden from you right
+the it's it's hidden from you but you have to spend more time communicating between those programs
+because the sort of the attractive thing about the multi-threaded model is that the threads can
+share objects at the same time that's also the downfall of the multi-threaded programming model
+because when you do share objects you were and you didn't necessarily intend to share them or
+there were aspects of those objects that that were not reusable you get all kinds of concurrency
+bugs and so the reason i wrote that little blog post about semaphors was that concurrency bugs are
+just harder it would be nice if python had no global interpreter lock and it had the so-called
+free threading but it would also cause a lot more software bugs the interesting thing is that there
+is still a possible future where we are actually going to or where we could experiment at least
+with that because there is a guy working for facebook who has developed a fork of c python
+that he called the no gill interpreter where he removed the gill and made a whole bunch of
+optimizations so that the single threaded case doesn't run too much slower and multi-threaded
+case will actually use all the cores that you have and so that that would be an interesting
+possibility if we would be willing as python core developers to actually maintain that code
+indefinitely and if we're willing to put up with the additional complexity of the interpreter and
+the additional sort of overhead for the single threaded case and i'm personally not convinced
+that there are enough people needing the speed of multiple threads with their python programs
+that it's worth to sort of take that performance hit and that complexity hit and i i feel that the
+gill actually is a pretty nice goldilocks point between no threads and all threads all the time
+but not everybody agrees on that so that is definitely a possible future the sub interpreters
+look like a fairly safe bet for 312 so say a year from now a year so the goal is to do a new version
+every year for python let me ask you perhaps a fun question but there's a philosophy to
+will there ever be a python 4.0 now before you say it's currently a joke and probably not
+we're going to go to 3.99 or 3.99999 can you imagine possible features that python 4.0 might have
+that would necessitate the creation of the new 4.0 given the amount of pain and joy
+suffering and triumph that was involved in the move between version 2 and version 3
+yeah well we're we as a community and as a core development team we have a large amount of
+painful memories about the python 3 transition which is one reason that sort of everybody is
+happy that we've decided there's not going to be a 4.0 at least not anytime soon and if there is
+going to be one it will sort of plan the transition very differently because clearly we underestimated
+the pain the transition caused for our users in the python 3 case and had we known we could have
+sort of designed python 3 somewhat differently without making it any worse we just thought
+that we had a good plan but we we underestimated where what what sort of the users were capable
+of when it comes to that kind of transition by the way i think we talked way before like a year
+and a half before the python 2 officially end of life end of life oh yeah what was that what was
+your memory of the end of life did you shed a tear on january 1st 2020 did was there everyone
+standing alone our team had basically moved on years before yeah it was it was purely it was a
+little symbolic moment uh to signal to the the remaining users that there was no longer going
+to be any new releases or support for python 2 7 did you shed a single tear while looking out over
+the horizon i'm not not a very poetic person and i don't shed tears like that but no
+now we we actually had planned a party but the party was planned for the python the us
+python conference that year which would never happened of course because of the pandemic
+oh was it like a march 20 yeah the conference was uh going to be i think late april that year
+oh so that that was a very difficult decision to cancel it but they did so anyway if we're
+going to have a python 4 we're going to have to have both a different reason for for having that
+and a different process for managing the transition can you imagine a possible process
+that so so i think you're implying that if there is a 4.0 in some ways it would break back
+compatibility well so here is here is a concrete thought i've had and i'm not unique but not
+everyone agrees with this so this is definitely a personal opinion if we were to try something
+like that no gill python uh my expectation is that it would feel just different enough
+at least for the the part of the python ecosystem that is heavily based on sea extensions
+and that is like the entire machine learning data science scientific python world is all
+based on sea extensions for python and so those people would likely feel the pain the most
+because they even if we don't change anything about the syntax of the language and the semantics
+of the language when you're writing python code we we could even say suppose that after python say
+319 instead of 320 we'll have 4.0 suppose that's the time when we flip the switch to 4.0 will
+will not have a gill imagine it was like that so i would probably say that particular year the
+release that we named 4.0 will be syntactically it will not have any new syntactical features
+no new modules in the standard library no new built-in functions everything will be at the python
+level will be purely compatible with python 3.19 however extension modules will have to make a
+change they will have to be recompiled they will not have the same binary interface uh
+the semantics and and apis for for some things that are frequently accessed by sea extensions
+will be different and so for a pure python user 4.0 would be a breeze except that there are very few
+pure python users left because everybody who is using python for something significant is using
+third-party extensions there are like i don't know several hundreds of thousands of third-party
+extensions on the pypi service and i'm not saying they're old they're all good but there is a large
+list of extensions that would have to do work and some of those extensions are currently already
+low on maintainers and they're struggling to keep afloat so there you can give a huge heads up to
+them if you go to 4.0 to really keep developing it yeah we'd probably have to do something like
+several years before who knows maybe five years earlier like 3.15 we would have to say
+and and i'm just making that the specific numbers up but we at some point we'd have to say
+the no-gill python could be an option it might be a compile time option uh if you want to use
+no-gill python you have to recompile python from source for your platform using your tool set
+all you have to do is change one configuration variable and then you just run make
+or configure and make and it will build it for you but now you also have to use the the no-gill
+compatible versions of all extension modules you want to use and so as long as many extension
+modules don't have fully functional sort of variants that work in the no-gill world that's
+not a very practical thing for python users but it would allow extension developers to test the
+waters see what they need to syntactically to be able to compile at all maybe they're using
+functions that are defined by the python 3 runtime that won't be in the python 4 runtime those
+functions will not work they'll have to find an alternative but they can experiment with that
+and sort of write test applications and that would be a way to transition and that that could be
+a series of releases where the python 4 is more and more imminent we have supported more and more
+third-party extension modules to have solid support that works for no-gill python for that new api
+and then sort of python python 4.0 is like the official moment that the mayor comes out and cuts
+the ribbon and now a python now the sort of no-gill mode is the default and maybe the only mode there
+is the internet wants to know from reddit all right it it's uh it's a small and fun question
+there's many fun questions but uh out of the pypy packages pypi packages uh do you have a
+do you have ones you like do you in your opinion are there must have
+pypy libraries or ones you use all the time constantly oh my that i should really have a
+standard answer for that question but like a positive standard answer but my current standard
+answer is that i'm not a big user of third-party packages when i write python code i'm usually
+developing some tooling around building python itself uh and uh the last thing we want is
+dependencies on third-party packages so i i tend to just use the standard library and that's where
+your focus is that's where your mind is but do you do you keep an eye of what's out there to
+understand where the standard library could be moving should be moving it's a good kind of
+landscape of what's missing from the standard library well usually when something's missing
+from the standard library nowadays uh it is a relatively new idea and there is a third-party
+implementation or maybe possibly multiple third-party implementations but they evolve
+at a much higher rate than they could when they're in the standard library so they it would be a big
+reduction in in activity to incorporate things like that in the standard library so i i like
+that there is a lively package ecosystem and that sort of recent trends in the standard library are
+actually that we're doing the occasional sprint cleaning where we're just
+we're we're choosing some modules that have not had a lot of change in a long time and that maybe
+would be better off not existing at all at this point because there might be a better third-party
+alternative anyway and we're we're sort of slowly removing those that like often those are things
+that i sort of i spiked somewhere in 1992 or 1993 and if you look look through the commit
+history it's very sad like all cosmetic changes like changes in the indentation style or uh the
+name of this utter standard library module got changed or nothing nothing of any substance the
+api is identical to what it was 20 years ago so speaking of packages they have a a lot of impact
+on a lot of people's lives does it make sense to you why python has become the primary the dominant
+language for the machine learning community so packages like uh pytorch tensorflow second learn
+and even like the lower level stuff like non-pi sci-pi pandas matplot lib with visualization
+can you like does it make sense to you why it uh permeated the entire data science machine learning
+ai community well it's part of it is an effect that's as simple as we're all driving on the
+right side of the road right uh it's compatibility yeah it's it's and and and part of it is uh
+not not quite as as as fundamental as driving on the right side of the road which you have to do
+for for safety reasons i mean you have to agree on something every they could have picked java
+script or pearl there was there was a time in the early 2000s that it really looked like pearl what
+was going to dominate like biosciences because dna search was all based on regular expressions and
+pearl has the fastest and most comprehensive regular expression engines still does i spent quite a
+long time with pearl that was another letting go letting go of this kind of uh data processing
+system yeah the reasons why python became the lingua franca of the scientific code and and
+the machine learning in particular and data science it really had a lot to do with
+anything was better than c or c plus plus recently a guy who worked at lauren's livermore
+national laboratories in the the sort of computing division wrote me his his his memoirs and and he
+had his his own view of how he helped something he called computational steering into existence
+and this was the idea that you you take libraries that in in his days were written in fortran
+that that solved universal mathematical problems uh and those libraries still work but uh the
+scientists that used the libraries used them to solve continuously different specific applications
+and answer different questions and so those poor scientists were were required to to use
+say fortran because fortran was the library the language that the library was written in
+and then the scientists would have to write an application that sort of uses the library
+to solve a particular equation or set off of answer a set of questions and the same for c
+plus plus because there's there's interoperability so the dusty decks are written either in c
+plus plus or fortran uh and so paul du bois was one of the people who i think in the mid 90s
+saw that that you needed a higher level language for the scientists to to sort of tie together
+the fundamental mathematical algorithms of linear algebra and and other stuff and so
+gradually some libraries started appearing that did very fundamental stuff with arrays
+of numbers in python i mean when i first created python i was not expecting it to be used for
+arrays of numbers much i thought that was like an outdated data type and everything was like
+objects and strings and like python was good and fast at string manipulation and objects
+obviously but arrays of numbers were not very efficient and the multi-dimensional arrays didn't
+even exist in the language at all uh but there were people who realized that python had extensibility
+that was flexible enough that they could write third party packages that did support large
+arrays of numbers and operations on them very efficiently and somehow they got a foothold
+through sort of different parts of the scientific community i i remembered that the Hubble space
+telescope people in baltimore were somehow big python fans in the late 90s and at various points
+small improvements were made and more people got in touch with using python to derive these
+libraries of interesting uh algorithms and like once once you have a bunch of scientists who
+are working on similar problems say they're all working on stuff that that come data that comes
+in from the Hubble space telescope but they're looking at different things some some are looking
+at stars in this galaxy other are looking at galaxies the math is completely different but the
+underlying libraries are still the same and so they exchange code they say well i wrote this
+python program or i wrote a python library to solve this class of problems and the other guys either
+say oh i can use that library too or if you make a few changes i can use that library too
+why right why start from scratch in pearl or java script where there's not that infrastructure
+for arrays of numbers yet whereas in python you have it and so more and more scientists at
+different places doing different different work discovered python and then then people who had
+an idea for an important new fundamental library decided oh python is is actually
+already known to our users so let's use python as the user interface i think that's how tensor i
+imagine at least that's how tensorflow ended up with python as the user interface interface right
+but with tensorflow there's a deeper history of what the community is it's not just like what
+packages and needs it's like what the community leans on for programming language because
+tensorflow had a prior library that was internal to google but there was also competing machine
+learning frameworks like the ano cafe that were in python there was some scala some other languages
+but python was really dominating it and it's interesting because there's other languages
+from the engineering space like matlab that a lot of people used but different design choices
+by the company by the core developers led to it not spreading and one of the choices with matlab
+by mathworks is to not make it open source right or not you know having people pay it was a very
+expensive product and so universities especially disliked it because it was a price per seat
+i remember hearing yeah but i think that's not why it failed or i failed to spread i think the
+universities didn't like it but they would still pay for it the thing is it didn't feed into that
+github open source packages culture so like and that's somehow a precondition for um for viral
+spreading the hacker culture like the tinkerer culture uh with with python it feels like you
+can build a package from scratch to solve a particular problem and get excited about sharing
+that package with others and that creates an excitement about a language i tend to like python's
+approach to open source in particular because it's sort of it's almost egalitarian uh there's
+there's little hierarchy there's there's obviously some because the like you all need to decide whether
+you drive on the left or the right side of the road sometimes but there is a lot of access for
+people with little power you don't have to work for a big tech company to make a difference in the
+python world uh we have affordable events that really care about community and support people
+and sort of the community is is is like a big deal at our conferences and in in the psf when
+the psf funds events it's always about growing the community the psf funds very little development
+they that they do some but most of the develop most of the money that the psf
+forks out uh is to community fostering things so speaking of a egalitarian last time we talked
+four years ago it was just after you stepped down from your role as the benevolent dictator for life
+bdfo uh looking back what are your insights and lessons you learn from that experience about python
+developer community about human nature about human civilization life itself oh my uh i probably
+held on to the position too long i remember being just extremely stressed for a long time
+and it wasn't very clear to me what was leading what was causing the stress
+and looking back uh i i should have sort of relinquished my central role as bdfl sooner
+what were the pros and cons of the bdfl role like what were the you not relinquishing it what
+what what are the benefits of that for the community and what are the drawbacks well the
+the benefits for the community would be things like uh clarity of vision and sort of
+a clear direction because i i had certain ideas in in mind when i created python and
+while i sort of let myself be influenced by many other ideas as python evolved and became
+more successful and more complex and more used i also stuck to certain principles and it and
+still hard to say what are python's core principles but the fact that i was playing that role and
+sort of always very active grew the community in a certain way it modeled to the community how to
+think about how to how to solve a certain problem well that was a source of stress but it was also
+beneficial it was a source of stress for me personally but it was beneficial for the community
+because uh people people sort of over time had learned how i was thinking and could predict
+yeah but how how i would would decide about a particular issue and not always perfectly of
+course but there was like there wasn't a lot of jerking around like this year we're all
+this year the democrats are in power and we're doing these kind of things and now the republicans
+are in power and they roll all that back and do those kind of things there is a clear fairly
+straight path ahead and so fortunately the the successor structure with the steering council
+has has sort of found a similar way of of leading the community in a fairly steady
+direction without stagnating and and for me personally it's more fun because there are
+there are things i can just ignore yeah oh yeah there's a bug in multi-processing
+let's someone else decide whether that's important to solve or not i'll i'll i'll stick to typing in
+the asyncio and the faster interpreter yeah it allows you to focus a little bit more yeah
+uh what are interesting differences in culture if you can comment on between google dropbox and
+microsoft from a python programming perspective all places you've been to the positive
+is there a difference or is it just about people and there's great people everywhere
+or is there a culture differences sort of dropbox is much smaller than the other two in your list
+yeah so that that is a big difference the set of products they provide is more it's narrower so
+they're more focused and yeah and and dropbox sort of at least during the time i was there
+had the tendency of sort of making a big plan putting the whole company behind that plan for a
+year and then evaluate and then suddenly find that everything was wrong about the plan and then
+they had to do something completely different so there were there was like the annual engineering
+reorg was was sort of an unpleasant tradition at dropbox because like oh there's a new vp of
+engineering and so now all the directors are being reshuffled and this guy was in charge of of
+infrastructure one year and the next year he was made in charge of i don't know product development
+it's fascinating because like you don't think about these companies internally
+but i you know dropbox to me from the very beginning was one of my favorite services there's
+certain like programs and online services that make me happy make me more efficient and all that
+kind of stuff but one of the powers of those kinds of services they disappear they you're
+not supposed to think about how it all works but it's incredible to me that you can think
+stuff effortlessly across so many machines so quickly and like don't have to worry about conflicts
+they they take care of the you know as a person that comes from a version of repository and all
+that kind of stuff or merge is super difficult and uh just keeping different versions of different
+files is very tricky the fact that they could take care of the edges i don't know the the
+engineering behind the scenes must be super difficult both on the compute infrastructure
+and the software a lot of internal sort of hand ringing about things like that but the the product
+itself always worked very smoothly yeah well there's probably a lot of lessons to that you can have a
+lot of turmoil inside on the engineering side but if the product is good the product is good and
+maybe don't mess with that either you know when it's good keep it's like with google focus on the
+search and the ads right and the money will come yeah and make sure that's done extremely well and
+don't forget what you do extremely well in in what ways do you provide value and happiness to the
+world make sure you do that well um is there something else to say about google and microsoft
+microsoft has had a very fascinating shift recently with a new ceo uh with you know recent
+ceo with purchasing github embracing open source culture embracing the developer culture it's
+pretty interesting to see that's like why i joined microsoft i mean after after retiring
+and thinking that i would stay retired for the rest of my life which of course was a ridiculous
+slot but i was i was i was done working for a bit and then the pandemic made me realize that work
+work can also provide a a source of fulfillment keep keep you out of trouble
+microsoft is a very interesting company because it has this incredible very long and
+varied history and this amazing catalog of products that many of which also date way back
+i mean i've been been talking to a bunch of excel people lately and excel is like 35 years old
+yeah and they can still read spreadsheets that that they might find on an old floppy drive
+yeah yeah there's man there's so many incredible tools through the years excel one of one of the
+great shames of my life is that i've never learned how to use excel well i mean it just always felt
+like so many features are there it's similar with ad is like pie charm it feels like i
+converge quickly to the dumbest way to use a thing to get the job done when clearly there's
+so much more power your fingertips yeah but there's i i do think there's probably expert users of
+excel oh excel is a cash cow actually oh it actually brings the money oh yeah a lot of the
+engineering sort of if you look deep inside excel there's some very good engineering very
+very impressive stuff okay now i need to definitely learn excel a little better i had issues because
+i'm a keyboard person so i had issues coming up with shortcuts i mean microsoft sometimes
+it's changed over the years but sometimes they kind of want to make things easier for you on the
+surface and therefore make it harder for like people that like to have shortcuts and all that
+kind of stuff to optimize their workflow now excel is probably people are probably yelling at me
+it's like no excel probably has a lot of ways to optimize the workflow but in fact i keep discovering
+that there are many features in excel that only exists at keyboard shortcuts yeah that's the
+sense i have and now like i'm embarrassed that it's just you just have to know what they are yeah
+that's that's like there's no logic or or reason to the assignment of the keyboard shortcuts because
+they they go back even longer than 35 years can you maybe comment about such an adela and how hard
+it is for ceo to sort of pivot a company towards open source towards developer culture is there
+something you could see about like how what's the role of leadership in such a pivot and definition
+of a new vision i've never met him but uh i hear he's just a really sharp thinker but he also has
+an incredible business sense he took the organization that had very solid pieces but that was also
+struggling with all sorts of shameful things especially the steve balmer time i imagine in
+part through his personal charm and thinking and of course the the great trust that that the the
+rest of the leadership has in him he managed to to really turn the company around and sort of
+change it from from openly hostile to open source to to actively embracing open source
+and that doesn't mean that suddenly excel is going to go open source but that means that
+there's room for a product like vs code which is open source yeah it's fascinating it gives me faith
+that large companies with good leadership can grow can expand can change and pivot and so on develop
+because it gets harder and harder as the company gets large you wrote a blog post in response to
+a person looking for advice about whether with a cs degree to choose a nine to five job or to
+become an entrepreneur it's an interesting question if you just think from first principles right now
+somebody has took a few years in programming has loved software engineering in some sense
+creating python is an entrepreneurial endeavor that's a choice that a lot of people that are good
+programmers have to make do i work for a big company or do i create something new
+or you can work for a big company and create something new there
+oh inside the yeah i mean big companies have individuals who create new stuff
+that eventually grows big all the time and if you're the person that creates a new thing and
+grows big you you'll have a chance to move up quickly in the company to run that thing
+if that's your aspiration what what what can also happen is that
+that someone is a brilliant engineer and sort of builds a great first version of a product
+and has no aspirations to then become a manager and grow the team from five people to 20 people
+to 100 people to a thousand people and be in charge of hiring and meetings and they move on to
+inventing another crazy thing inside the same company or sometimes they
+they found a startup or uh they moved to a different great large or small company there
+is all sorts of models and sometimes people sort of do have this whole trajectory from engineer
+buckling down writing code not nine to five but more like noon till midnight seven days a week
+and coming up with a product and sort of staying in charge i mean if you take Drew Hauston
+Dropbox's founder he is still the CEO and at least when when i was there he had not checked out or
+anything he was he was a good CEO but he had started out as the technical inventor or co-inventor
+and so he was someone who i don't know if he always aspired that i think when when he was 16
+he already started a company so maybe maybe he did but he sort of it turned out that that he
+did have the the personal sort of skill set needed to to grow and and stay on top and other people
+sort of are brilliant engineers and horrible at management i count myself at least in the
+second category yeah so your your your first love and still your love is to be the quote-unquote
+individual contributor so the programmer yep do you have advice for a programming beginner
+on how to learn python the right way find something you actually want to do with it if you say i want
+learn skill x that's not enough motivation you need to pick something
+and it can be a it can be a crazy problem you want to solve it it can be completely unrealistic
+but something that that challenges you in into actually learning coding in in some language
+and there are so many projects out there you can look for like that that doesn't have to be some
+big ambitious thing it could be writing a small bot if you're into social media you can write a
+red a bot or a twitter bot or or some aspect of automating some as something that you do every
+single day processing files all that kind of stuff nowadays you can take machine learning components
+and and sort of plug those things together so you cool stuff with them so that's actually a
+really good example so if you're interested in machine learning the state of machine learning is
+such that like a a tutorial that takes an hour can get you to start using pre-trained models to
+do something super cool and that's a good way to learn python because you learn just enough to run
+this model and that's like a sneaky way to get get in there to figure out how to import stuff how to
+write basic io how to run functions i mean i'm not sure if it's the best way to learn the basics
+in python but could be nice to just get fall in love first and then figure out the basics right
+yeah you can't expect to learn python from a one hour video of course i'm blanking out on the name
+of someone who who wrote a very funny blog post where he said i see all these ads for things like
+learn python in 10 days or so and he said the the goal should be learn python in 10 years
+that's hilarious but i completely disagree with that i think the criticism behind that is that
+the the place is just like the blog post from earlier the places that tell you learn python
+in 5 minutes or 10 minutes they're actually usually really bad tutorials so the thing is
+i do believe that you can learn a thing in an hour to like get some interesting quick like it
+hooks you i mean this but it just takes a tremendous amount of skill to be that kind of educator
+richard feinman was able to condense a lot of ideas and physics in a very short amount of time
+but that takes a deep deep understanding and so yes of course the actual i think the 10
+the 10 years is about the experience the pain along the way and there's something well you
+have to practice you can memorize the syntax but well i couldn't but maybe maybe someone else can
+but that doesn't make you a coder yeah actually coding has changed in fascinating ways because
+so much of coding is copying pacing from stack overflow and then adjusting which is another
+way of coding and i don't want to talk down to that kind of style of coding because it's kind of
+nicely efficient but you know where that is going a code generation get no seriously get a copilot
+yeah copilot i use it every day and it really yeah it writes a lot of code for me and usually it's
+slightly wrong but it still saves me typing because all i have to do is like change one word
+in a line of text that otherwise it it generated perfectly and like how many times are you looking
+for like oh what was i doing this morning i was looking for an begin marker and i was looking for
+end marker and so begin is blah blah blah search for begin this is the begin token and then the
+next line i type e and it it completes the whole line with end instead of begin that's a very simple
+example sometimes it it's sort of if i name my function right it writes a five or ten line function
+and you know python enough to very quickly then detect the issues he says it becomes a really
+good dance partner then it doesn't save me a lot of thinking but since i'm a poor typist i'm very
+much appreciative of all the all the typing it does for me much better actually than the the
+previous generation of suggestions that are also still built in vs code uh where when you hit
+like a dot it it tries to guess what the type is of the variable to the left of the dot and then
+it gives you a list on the pop down menu of what the attributes of that object are but
+copilot is much much smoother than that well it's fascinating to hear that you use github
+copilot uh do you think do you worry about the future of that the automatic cogeneration
+the increasing amount of that kind of capability are programmers jobs threatened
+or is there still a significant role for our programmers jobs threatened by the existence
+of stack overflow i don't think so it helps you take care of the boring stuff and you shouldn't
+try to use it to do something that you have no way of understanding what you're doing yet
+a tool like that is always best when the question you're asking is please remind me
+of how i do this which i i could do i could look up how to do it but right now i've forgotten
+whether the method is called foo or bar or how you what the shape of the api is does it use a
+builder object or a constructor or a factory or uh something else and what are the parameters
+it serves that role it's like a great assistant but the creative work of sort of deciding what
+you want what you want to go to do is is totally yours what do you think is the future of python
+in the next 10 20 50 years 100 years you look forward you ever think about you ever imagine a
+future of human civilization or living inside the metaverse on mars human or robots everywhere
+what part does python play in that it'll eventually become sort of a legacy language
+that plays an important role but that's that most people have never heard of and uh don't
+need to know about just like all kinds of basic structures in in biology like mitochondria
+yeah so it permeates all of life all of digital life but people just build on top of it and they
+only know the stuff that's on top of it yeah you guys you build layers of obstructions i mean
+most programmers nowadays rarely need to do binary arithmetic right
+yeah or even think about it or even learn about it or they could go quite far without knowing
+i started building little digital circuits out of nend gates that i built myself with
+transistors and resistors so i'd sort of i feel very blessed that with with that start when i was
+a teenager i i learned some of the basic at least concepts that that go into building a computer
+and i sort of every part i have some understanding what what it's for and why it's there and how
+it works and i can't forget about all that most of the time but i sort of i enjoy knowing oh if
+you go deeper you at some point you get to uh nend gates and half adders and shift registers and
+and when it comes to the point of how do you how do you actually make a chip out of silicon i have no
+idea that's just magic to me but you enjoy knowing that you can walk a while towards the lower and
+lower layers but you don't need to it's nice the other day as a sort of a mental exercise i was
+trying to figure out if i could build a flip-flop circuit out of relays i was just sort of
+trying to remember oh how does a relay work yeah there's like this electromagnetic
+force that pulls a switch open or shut and you can have have like it can open one switch in another
+shut another and you can have multiple contacts that go at once and how many relays do i really
+need to sort of represent one bit of information can the relay just feed on itself and there was
+i don't think i i i got to the final solution but it was fun that i i could still do a little bit
+of problem solving and and thinking at that level and it's cool how we build on top of each other
+so there's people there just you you stood on the shoulders of giants and there's others
+who'll stand on your shoulders and it's it's a giant beautiful higher yeah i feel i sort of
+covered this middle layer of the technology stack where i sort of peters out below the
+the level of of nangates and at the at the top i sort of i lose track when it gets to machine
+learning and then eventually the machine learning will build higher and higher layers
+that will help us understand the lowest layer of the physics and thereby the universe figures
+out how it itself works maybe maybe not yeah i did i mean it's it's possible i mean if you
+think of human consciousness if that's even the right concept it's it's interesting that that's
+sort of we have this super parallel brain that does all these incredible parallel operations
+like image recognition i recognize your face does huge amount of processing that goes on
+in parallel there's lots of nerves between my eyes and my brain and the brain does a whole
+bunch of stuff all at once because it's actually really slow circuits but there are many of them
+that all work together on the other hand when i'm speaking everything is completely sequential
+i i i have to sort of string words together one at a time and when i'm thinking about stuff
+when i'm when i'm understanding the world i'm also thinking of everything like one step at a time
+and so we we've we've sort of we've got all this this incredible parallel
+circuitry in our brains and eventually we use that to simulate a single threaded much much
+higher level interpreter it's exactly i mean that's the illusion of it that's the illusion
+of it for us that is a single sequential set of thoughts and all of that came from a single cell
+through the process of embryogenesis so dna is the code dna holds the entirety of the code
+the information and how to use that information to build up an organism the entire like the arms
+the legs it builds yeah the brain so it's you don't buy a computer you buy like a you buy a
+seed a diagram and then you plant the computer and it builds itself in almost the same way
+and then does the computation and then is uh eventually dies it gets stale but gives birth
+to young computers more and more and gives them lessons but they figure stuff out on their own
+and over time it goes on that way and those computers when they go to college tried to
+figure out how to program and they built their own little computers they're increasingly more
+intelligent increasingly higher and higher levels of abstractions isn't it interesting that that you
+sort of you see the same thing appearing at different levels though because you have like
+cells that that create new cells and and eventually that builds a whole organism but then the animal
+or the plant or the human has its own mechanism of replication that that is is sort of connected
+in a very complicated way to the mechanism of replication of the cells and then if you if you
+look inside the cell if you see how DNA and proteins are are connected then there is yet
+another completely different mechanism whereby proteins are mass produced using enzymes and
+and and a little bit of code from from DNA and of course viruses break into it at that level
+and while the mechanisms might be different it seems like the nature of the mechanism
+is the same and it carries across natural languages and programming languages humans
+maybe even human civilizations or intelligent civilizations and then all the way down to
+the single cell organisms it is it is fascinating to see what
+abstraction levels are built on top of individual humans yeah and how you have like whole societies
+that that sort of have a similar self-preservation I don't know what it is instinct nature abstraction
+as the individuals have and the cells have and they self-replicate and breed in different ways
+it's hard for us humans to introspect it because we are very focused on our particular layer of
+abstraction but from an alien perspective looking on earth they'll they'll probably see
+the higher level organism of human civilization as part of this bigger organism of life on earth
+itself in fact that could be an organism just alone just life life life on earth this has been a wild
+both philosophical and technical conversation Guido you're you're an amazing human being you're
+you were gracious enough to talk to me when I was first doing this podcast and one of the
+earliest first people I've talked to somebody I admired for a long time it's just a huge
+honor that you did it at that time and you do it again you're awesome thank you Lex
+thanks for listening to this conversation with Guido Benrassum to support this podcast please
+check out our sponsors in the description and now let me leave you some words from Oscar Wilde
+experience is the name that everyone gives to their mistakes thank you for listening and hope to see
+you next time

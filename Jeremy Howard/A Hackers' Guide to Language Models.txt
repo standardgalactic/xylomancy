@@ -1,0 +1,810 @@
+Hi, I am Jeremy Howard from fast.ai and this is a hackers guide to language models.
+When I say a hackers guide, what we're going to be looking at is a code first approach
+to understanding how to use language models in practice.
+So before we get started, we should probably talk about what is a language model.
+I would say that this is going to make more sense if you know the kind of basics of deep
+learning.
+If you don't, I think you'll still get plenty out of it and there'll be plenty of things
+you can do.
+But if you do have a chance, I would recommend checking out course.fast.ai which is a free
+course and specifically if you could at least kind of watch, if not work through the first
+five lessons that would get you to a point where you understand all the basic fundamentals
+of deep learning that will make this lesson tutorial make even more sense.
+Maybe I shouldn't call this a tutorial, it's more of a quick run through.
+So I'm going to try to run through all the basic ideas of language models, how to use
+them, both open source ones and open AI based ones, and it's all going to be based using
+code as much as possible.
+So let's start by talking about what a language model is.
+And so as you might have heard before, a language model is something that knows how to predict
+the next word of a sentence or knows how to fill in the missing words of a sentence.
+And we can look at an example of one.
+Open AI has a language model, TextDVNC003, and we can play with it by passing in some
+words and ask it to predict what the next words might be.
+So if we pass in, when I arrived back at the Panda breeding facility after the extraordinary
+reign of live frogs, I couldn't believe what I saw.
+I just came up with that yesterday and I thought what might happen next.
+So kind of fun for creative brainstorming.
+There's a nice site called nat.dev.
+Nat.LetDev lets us play with a variety of language models and here I've selected TextDVNC003
+and I'll hit submit and it starts printing stuff out.
+The Pandas were happily playing and eating the frogs that had fallen in the sky.
+There's an amazing site to see these animals taking advantage of such unique opportunity.
+The staff took quick measures to ensure the safety of the Pandas and the frogs.
+So there you go.
+That's what happened after the extraordinary reign of live frogs at the Panda breeding facility.
+You'll see here that I've enabled show probabilities, which is a thing in nat.dev where it shows
+Well, let's take a look.
+It's pretty likely the next word here is going to be there.
+And after there, since we're talking about a Panda breeding facility, it's going to
+be Pandas were and what were they doing?
+Well, they could have been doing a few things.
+They could have been doing something happily or the Pandas were having the Pandas were out
+the Pandas were playing.
+So it picked the most likely.
+It thought it was 20% likely it's going to be happily.
+And what were they happily doing?
+Could have been playing, hopping, eating and so forth.
+So they're eating the frogs that and then had almost certainly.
+So you can see what it's doing at each point is it's predicting the probability of a variety
+of possible next words.
+And depending on how you set it up, it will either pick the most likely one every time
+or you can change muck around with things like P values and temperatures to change what
+comes up.
+So and each time then it will give us a different result.
+And this is kind of fun.
+Frogs perched on the heads of some of the Pandas.
+It was an amazing sight, etc, etc.
+Okay.
+So that's what a language model does.
+Now you might notice here, it hasn't predicted pandas, it's predicted panned and then separately
+us.
+Okay.
+After panned, it's going to be us.
+So it's not always a whole word.
+Here it's un and then harmed.
+Actually, it's un, ha, mood.
+So you can see that it's not always predicting words, specifically what it's doing is predicting
+tokens.
+Tokens are either whole words or subword units, pieces of a word, or it could even be punctuation
+or numbers or so forth.
+So let's have a look at how that works.
+So for example, we can use the actual, it's called tokenization to create tokens from
+a string.
+We can use the same tokenizer that GPT users by using tick token, and we can specifically
+say we want to use the same tokenizer that that model text eventually 003 uses.
+And so for example, when I earlier tried this, it talked about the frog splashing.
+And so I thought, well, include they will encode, they are splashing.
+And the result is a bunch of numbers.
+And what those numbers are, they basically just lookups into a vocabulary that open AI
+in this case created.
+And if you train your own models, you'll be automatically creating or your code will create.
+And if I then decode those, it says, Oh, these numbers are they space are space spool ashing.
+And so put that all together, they are splashing.
+So you can see that the start of a word is with a space before it is also being encoded
+here.
+So these language models are quite neat that they can work at all, but they're not of themselves
+really designed to do anything.
+Let me explain.
+The basic idea of what chat GPT, GPT4, etc. are doing comes from a paper which describes
+an algorithm that I created back in 2017 called ULM fit.
+And Sebastian Ruder and I wrote a paper up describing the ULM fit approach, which was
+the one that basically laid out what everybody's doing, how this system works.
+And the system has three steps.
+Step one is language model training, but you'll see this is actually from the paper.
+We actually described it as pre-training.
+Now what language model pre-training does is this is the thing which predicts the next
+word of a sentence.
+And so in the original ULM fit paper, so the algorithm I developed in 2017, then Sebastian
+Ruder and I wrote it up in 2018, early 2018.
+What I originally did was I trained this language model on Wikipedia.
+Now what that meant is I took a neural network and a neural network is just a function.
+If you don't know what it is, it's just a mathematical function that's extremely flexible
+and it's got lots and lots of parameters.
+And initially it can't do anything, but using stochastic gradient descent or SGD, you can
+teach it to do almost anything if you give it examples.
+And so I gave it lots of examples of sentences from Wikipedia.
+So for example, from the Wikipedia article for the birds, the birds is a 1963 American
+natural horror thriller film produced and directed by Alfred and then it would stop.
+And so then the model would have to guess what the next word is.
+And if it guessed Hitchcock, it would be rewarded.
+And if it guessed something else, it would be penalized.
+And effectively, basically it's trying to maximize those rewards.
+It's trying to find a set of weights for this function that makes it more likely that it
+would predict Hitchcock.
+And then later on in this article, it reads from Wikipedia, any previously dated Mitch
+but ended it due to Mitch's cold overbearing mother, Lydia, who dislikes any woman in Mitch's.
+And they can see that filling this in actually requires being pretty thoughtful because there's
+a bunch of things that kind of logically could go there.
+Like a woman could be in Mitch's closet, could be in Mitch's house.
+And so you could probably guess in the Wikipedia article describing the plot of the birds as
+actually any woman in Mitch's life.
+Now to do a good job of solving this problem as well as possible of guessing the next word
+of sentences, the neural network is going to have to learn a lot of stuff about the
+world.
+It's going to learn that there are things called objects, that there's a thing called
+time that objects react to each other over time, that there are things called movies that
+movies have directors, that there are people, that people have names and so forth and that
+a movie director is Alfred Hitchcock and he directed horror films and so on and so forth.
+It's going to have to learn an extraordinary amount if it's going to do a really good job
+of predicting the next word of sentences.
+Now these neural networks specifically are deep neural networks, so this is deep learning.
+And in these deep neural networks which have, when I created this, I think it had like 100
+million parameters, nowadays they have billions of parameters, it's got the ability to create
+a rich hierarchy of abstractions and representations which it can build on.
+And so this is really the key idea behind neural networks and language models, is that
+if it's going to do a good job of being able to predict the next word of any sentence in
+any situation, it's going to have to know an awful lot about the world, it's going to
+have to know about how to solve math questions or figure out the next move in a chess game
+or recognise poetry and so on and so forth.
+Now nobody said it's going to do a good job of that, so it's a lot of work to create and
+train a model that is good at that, but if you can create one that's good at that, it's
+going to have a lot of capabilities internally that it would have to be drawing on to be
+able to do this effectively.
+So the key idea here for me is that this is a form of compression and this idea of the
+relationship between compression and intelligence goes back many, many decades and the basic
+idea is that yeah, if you can guess what words are coming up next, then effectively you're
+compressing all that information down into a neural network.
+Now I said this is not useful of itself, well why do we do it?
+Well we do it because we want to pull out those capabilities and the way we pull out
+those capabilities is we take two more steps.
+The second step is we do something called language model fine tuning and in language
+model fine tuning we are no longer just giving it all of Wikipedia or nowadays we don't just
+give it all of Wikipedia, but in fact a large chunk of the internet is fed to pre-training
+these models.
+In the fine tuning stage we feed it a set of documents a lot closer to the final task
+that we want the model to do, but it's still the same basic idea, it's still trying to
+predict the next word of a sentence.
+After that we then do a final classifier fine tuning and in the classifier fine tuning
+this is the kind of end task we're trying to get it to do.
+Now nowadays these two steps are very specific approaches are taken.
+For the step two, the step B, the language model fine tuning, people nowadays do a particular
+kind called instruction tuning.
+The idea is that the task we want most of the time to achieve is solve problems and
+answer questions and so in the instruction tuning phase we use data sets like this one,
+this is a great data set called OpenOrca created by a fantastic open source group and
+it's built on top of something called the flan collection and you can see that basically
+there's all kinds of different questions in here so there's four gigabytes of questions
+and context and so forth and each one generally has a question or an instruction or a request
+and then a response.
+Here are some examples of instructions, I think this is from the flan data set if I
+remember correctly so for instance it could be does the sentence in the iron age answer
+the question the period of time from 1200 to 1000 BCE is known as what?
+Choice is one, yes or no and then the language model is meant to write one or two as appropriate
+yes or no or it could be things about I think this is from a music video, who is the girl
+in more than you know answer and then it would have to write the correct name of the, I remember
+model or dancer or whatever from that music video and so forth.
+So it's still doing language modelling so fine tuning and pre-training are kind of the
+same thing but this is more targeted now not just to be able to fill in the missing parts
+of any document from the internet but to fill in the words necessary to answer questions
+to do useful things.
+So that's instruction tuning and then step three which is the classifier fine tuning
+nowadays there's generally various approaches such as reinforcement learning from human
+feedback and others which are basically giving humans or sometimes more advanced models
+multiple answers to a question such as here are some from a reinforcement learning from
+human feedback paper I can't remember which one I got it from list five ideas for how
+to regain enthusiasm for my career and so the model will spit out two possible answers
+or they'll have a less good model and more good model and then a human or a better model
+will pick which is best and so that's used for the final fine tuning stage.
+So all of that is to say although you can download pure language models from the internet
+they're not generally that useful of their on their own until you've fine tuned them.
+Now you don't necessarily need step C nowadays actually people are discovering that maybe
+just step B might be enough it's still a bit controversial.
+Okay so when we talk about a language model where we could be talking about something
+that's just been pre-trained something that's been fine tuned or something that's gone
+through something like RLHF all of those things are generally described nowadays as language models.
+So my view is that if you are going to be good at language modeling in any way then you need to
+start by being a really effective user of language models and to be a really effective user of
+language models you've got to use the best one that there is and currently so what are we up to
+September 2023 the best one is by far GPT-4 this might change in some time in the not too
+distant future but this is right now GPT-4 is the recommendation strong strong recommendation.
+Now you can use GPT-4 by paying 20 bucks a month to open AI and then you can use it a whole lot
+it's very hard to to run out of credits I find. Now what can GPT-2? It's interesting and instructive
+in my opinion to start with the very common views you see on the internet or even in academia
+about what it can't do so for example there was this paper you might have seen GPT-4 can't reason
+which describes a number of empirical analysis done of 25 diverse reasoning problems and found
+that it was not able to solve them it's utterly incapable of reasoning. So I always find you've
+got to be a bit careful about reading stuff like this because I just took the first three that I came
+across in that paper and I gave them to GPT-4 and by the way something very useful in GPT-4
+is you can click on the the share button and you'll get something that looks like this
+and this is really handy. So here's an example of something from the paper that said GPT-4 can't do
+this. Mabel's heart rate at 9 a.m. was 75 bits per minute her blood pressure at 7 p.m. was 120 over 80
+she died 11 p.m. was she alive at noon? It's of course very human we know obviously she must be
+and GPT-4 says hmm this appears to be a riddle not a real inquiry into medical conditions
+here's a summary of the information and yeah it sounds like Mabel was alive at noon
+so that's correct this was the second one I tried from the paper that says GPT-4 can't do this
+and I found actually GPT-4 can do this and it said that GPT-4 can't do this and I found GPT-4
+can do this. Now I mentioned this to say GPT-4 is probably a lot better than you would expect if
+you've read all this stuff on the internet about all the dumb things that it does
+almost every time I see on the internet saying something that GPT-4 can't do I check it and
+it turns out it does this one was just last week Sally a girl has three brothers each brother has
+two sisters how many sisters does Sally have so have to think about it and so GPT-4 says okay
+Sally's counted as one sister by each of her brothers if each brother has two sisters
+that means there's another sister in the picture apart from Sally so Sally has one sister get
+correct and then this one I got sort of like three or four days ago this is a common view that
+language models can't track things like this there is the riddle I'm in my house on top of
+my chair in the living room is a coffee cup inside the coffee cup is a thimble inside the
+thimble is a diamond I move the chair to the bedroom I put the coffee cup on the bed I turn
+the cup upside down then I return it upside up place the coffee cup on the counter in the kitchen
+where's my diamond and so GPT-4 says yeah okay you turned it upside down so probably the diamond
+fell out so therefore the diamond in the bedroom where it fell out again correct why is it that
+people are claiming that GPT-4 can't do these things and it can well the reason is because I
+think on the whole they are not aware of how GPT-4 was trained GPT-4 was not trained at any point
+to give correct answers GPT-4 was trained initially to give most likely next words and there's an
+awful lot of stuff on the internet where the most where documents are not describing things that are
+true there could be fiction there could be jokes there could be just stupid people saying dumb
+stuff so this first stage does not necessarily give you correct answers the second stage with
+the instruction tuning also like it's it's it's trying to give correct answers but part
+of the problem is that then in the stage where you start asking people which answer do they like
+better people tended to say in these in these things that they prefer more confident answers
+and they often were not people who were trained well enough to recognize wrong answers
+um so there's lots of reasons that the that the you know SGD weight updates from this process for
+stuff like GPT-4 don't particularly or don't entirely reward correct answers but you can help it
+want to give you correct answers if you think about the LM pre-training what are the kinds of
+things in a document that would suggest oh this is going to be high quality information and so you
+can actually prime GPT-4 to give you high quality information by giving it custom instructions
+and what this does is this is basically text that is prepended to all of your queries
+and so you say like oh you're brilliant at reasoning so like okay that's obviously
+ought to prime it to give good answers and then try to work against the fact that the the RLHF
+folks preferred confidence just tell it no tell me if there might not be a correct answer
+um also the way that the text is generated is it literally generates the next word
+and then it puts all that whole lot back into the model and generates the next next word puts
+that all back in the model generates the next next next word and so forth that means the more
+words it generates the more computation it can do and so I literally I tell it that right and so I
+say first spend a few sentences explaining background context etc so this custom instruction
+allows it to solve more challenging problems
+and you can see the difference
+here's what it looks like for example if I say how do I get a count of rows grouped by value in
+pandas and it just gives me a whole lot of information which is actually it thinking so I
+just skip over it and then it gives me the answer and actually in my custom instructions I actually
+say if the request begins with vv actually make it as concise as possible and so it kind of goes
+into brief mode and here it's brief mode how do I get the grid this is the same thing but with
+vv at the start and it just spits it out now in this case it's a really simple question so I didn't
+need time to think so hopefully that gives you a sense of how to get language models to give
+good answers you have to help them and if you and if it's not working it might be user error
+basically but having said that there's plenty of stuff that language models like GPT4 can't do
+um one thing to think carefully about is does it know about itself can you ask it
+what is your context length how were you trained what transformer architecture based on
+at any one of these stages did it have the opportunity to learn any of those things
+well obviously not at the pre-training stage nothing on the internet existed during GPT4's
+training saying how GPT4 was trained right probably ditto in the instruction tuning
+probably ditto in the RLHF so in general you can't ask for example a language model about itself
+now again because of the RLHF it'll want to make you happy by giving you opinionated answers
+so it'll just spit out the most likely thing it thinks with great confidence
+and this is just a general kind of hallucination right so hallucinations is just this idea that
+the language model wants to complete the sentence and it wants to do it in an opinionated way that's
+likely to make people happy it doesn't know anything about URLs it really hasn't seen
+many at all I think a lot of them if not all of them you pretty much were stripped out
+so if you ask it anything about like what's at this web page again it'll generally
+again it'll generally just make it up and it doesn't know at least GPT4 doesn't know anything
+after September 2021 because the information it was pre-trained on was from that time period
+September 2021 and before called the knowledge cutoff so here's some things it can't do
+Steve Newman sent me this good example of something that it can't do
+here is a logic puzzle I need to carry a cabbage a goat and a wolf across a river
+I can only carry one item at a time I can't leave the goat with a cabbage
+I can't leave the cabbage with the wolf how do I get everything across to the other side
+now the problem is this looks a lot like something called the classic river crossing puzzle
+so classic in fact that it has a whole Wikipedia page about it and in the classic puzzle
+the wolf would eat the goat or the goat would eat the cabbage now in
+in Steve's version he changed it
+the goat would eat the cabbage and the wolf would eat the cabbage but the wolf won't eat the goat
+so what happens well very interestingly GPT4 here is entirely overwhelmed by the language
+model training it's seen this puzzle so many times it knows what word comes next so it says oh
+yeah I take the goat across the road across the river and leave it on the other side leaving
+the wolf with a cabbage but we're just told you can't leave the wolf with a cabbage so it gets it
+wrong now the thing is though you can encourage GPT4 or any of these language models to try again
+so during the instruction tuning and RLHF they're actually fine-tuned with multi-stage
+conversations so you can give it a multi-stage conversation repeat back to me the constraints
+I listed what happened after step one is a constraint violated oh yeah yeah yeah I made a mistake
+okay my new attempt instead of taking the goat across the river and leaving it on the other side
+is I'll take the goat across the river and leave it on the other side it's done the same thing
+oh yeah I did do the same thing okay I'll take the wolf across or now the goat's with a cabbage
+that still doesn't work oh yeah that didn't work I thought
+sorry about that instead of taking the goat across the other side I'll take the goat across
+the other side okay what's going on here right this is terrible well one of the problems here
+is that not only is on the internet it's so common to see this particular goat puzzle
+that it's so confident it knows what the next word is also on the internet
+when you see stuff which is stupid on a web page it's really likely to be followed up
+with more stuff that is stupid once GPT4 starts being wrong
+it tends to be more and more wrong it's very hard to turn it around to start it making it be
+right so you actually have to go back and there's actually an edit button
+on these chats
+and so what you generally want to do is if it's made a mistake is don't say oh here's more information
+to help you fix it but instead go back and click the edit and change it here
+and so this time it's not going to get confused
+so in this case actually fixing Steve's example takes quite a lot of effort but I think I
+managed to get it to work eventually and I actually said oh sometimes people read
+things too quickly they don't notice things it can trick them up then they apply some pattern
+get the wrong answer you do the same thing by the way so I'm going to trick you
+so before you're about to get tricked make sure you don't get tricked here's the tricky puzzle
+and then also with my custom instructions it takes time discussing it and this time it gets
+it correct it takes the cabbage across first so it took a lot of effort to get to a point where
+it could actually solve this because yeah when it's you know for things where it's been primed
+to answer a certain way again and again and again it's very hard for it to not do that
+okay now something else super helpful that you can use is what they call advanced data analysis
+in advanced data analysis you can ask it to basically write code for you
+and we're going to look at how to implement this from scratch ourselves quite soon
+but first of all let's learn how to use it so I was trying to build something that split
+into markdown headings a document on third-level markdown headings so that's
+three hashes at the start of a line and I was doing it on the whole of Wikipedia
+so using regular expressions was really slow so I said oh I want to speed this up
+and it said okay here's some code which is great because then I can say okay test it
+and include edge cases and so it then puts in the code creates extra cases tests it
+and it says yep it's working however I discovered it's not I noticed it's actually removing the
+carriage return at the end of each sentence so I said oh fix that and update your tests
+so it said okay so now it's changed the test updated the test cases it's run them and oh
+it's not working so it says oh yeah fix the issue in the test cases no they didn't work
+and you can see it's quite clever the way it's trying to fix it by looking at the results and
+but as you can see it's not the every one of these is another attempt another attempt
+another attempt until eventually I gave up waiting it's so funny each time it's like
+de-banging again okay this time I got to handle it properly and I gave up at the point where it's
+like oh one more attempt so I didn't solve it interestingly enough and you know I again it's
+it it's there's some limits to the amount of kind of logic that it can do this is really a
+very simple question I asked it to do for me and so hopefully you can see you can't expect
+even GPT for code interpreter or advanced data analysis is now called to
+make it so you don't have to write code anymore you know it's not a substitute for having programmers
+um so
+but it can you know it can often do a lot as I'll show you in a moment so for example actually
+OCR like this is something I thought was really cool you can just paste and sorry
+paste or upload so GPT for you can upload an image
+um
+advanced data analysis yeah you can upload an image here
+and then I wanted to basically grab some text out of an image somebody had got a screenshot
+with their screen and I wanted and it's which was something saying oh uh this language model
+can't do this and I wanted to try it as well so rather than retyping it I just uploaded that
+image my screenshot and so can you extract the text from this image and it said oh yeah I could
+do that I could use OCR um and like so it literally wrote an OCR script and there it is just took a
+few seconds so the difference here is it didn't really require it to think of much logic it could
+just use a very very familiar pattern that it would have seen many times so this is generally where
+I find language models excel is where it doesn't have to think too far outside the box I mean
+it's great on kind of creativity tasks but for like reasoning and logic tasks that are outside
+the box I find it not great but yeah it's great at doing code for a whole wide variety of different
+libraries and languages um having said that by the way um Google also has um a language model
+quad bar it's way less good than GPT for most of the time um but there is a nice thing that you can
+literally paste uh an image straight into the prompt and I just typed OCR this and it didn't
+even have to go through code interpreter or whatever it just said oh sure I've done it and
+there's the result of the OCR um and then even commented on what it just OCR'd which I thought
+was cute and oh even more interestingly it even figured out where the OCR text came from and gave
+me a link to it um so I thought that was pretty cool okay so there's an example of it doing well
+I'll show you one for this talk I found really helpful I wanted to show you guys how much it cost
+to use the OpenAI um API um but unfortunately when I went to the OpenAI web page it was
+like all over the place the pricing information was on all separate tables and it was kind of a bit
+of a mess um so I wanted to create a table with all of the information combined like this um and
+here's how I did it I went to the OpenAI page I hit apple A to select all and then I said in chat
+gpt create a table with the pricing information rows no summarization no information not on this page
+every row should appear as a separate row in your output and I hit paste now that was not very helpful
+to it because hitting paste it's got the nav bar it's got lots of extra information at the bottom
+it's got all of its footer etc but it's really good at this stuff it did it first time so there
+was the markdown table so I copied and pasted that into jupiter and I got my markdown table
+and so now you can see at a glance the cost of gpt4 3.5 etc um but then what I really wanted to do
+I'll show you that as a picture so I just said oh chart the input row from this table and just
+pasted the table back um and it did so that's pretty amazing now so let's talk about this
+um pricing so so far we've used chat gpt which costs 20 bucks a month and there's no like per
+token cost or anything but if you want to use the api from python or whatever you have to pay
+per token which is approximately per word maybe it's about one and a third tokens per word on average
+unfortunately in the chart it did not include these headers gpt4 gpt3.5 so these first two
+ones are gpt4 and these two are gpt3.5 so you can see the gpt3.5 is way way cheaper
+and you can see it here it's 0.03 versus 0.0015 so it's so cheap you can really play around
+with it not worry and I want to give you a sense of what that looks like okay so
+so why would you use the open ai api rather than chat gpt because you can do it programmatically
+so you can um you know you can analyze data sets you can do repetitive stuff um it's kind of like
+a different way of programming you know it's it's things that you can think of describing
+but let's just look at the most simple example of what that looks like so if you pip install open ai
+then you can import chat can chat completion and then you can say okay chat completion dot create
+using gpt3.5 turbo and then you can pass in a system message this is basically the same as
+custom instructions so okay you're an Aussie LLM that uses Aussie slang and analogies wherever possible
+okay and so you can see I'm passing in an array here of messages so the first is the system message
+and then the user message which is what is money okay so gpt3.5 returns a big embedded dictionary
+and the message content is well my money is like the oil that keeps the machinery of our economy
+running smoothly there you go just like a koala loves its eucalyptus leaves we humans can't survive
+without this stuff so there's the Aussie LLM's view of what is money so the really the main ones I
+pretty much always use are gpt4 and gpt3.5 gpt4 is just so so much better at anything remotely
+challenging but obviously it's much more expensive so rule of thumb you know maybe try 3.5 turbo first
+see how it goes if you're happy with the results then great if you're not pawning out for the more
+expensive one okay so I just created a little function here called response that will print out
+this nested thing and so now oh and so then the other thing to point out here is that the
+result of this also has a usage field which contains how many tokens was it so it's about 150
+tokens so at point zero zero two dollars per thousand tokens for 150 tokens means we just paid
+point zero three cents point zero zero zero three dollars to get that done so as you can see the cost
+is insignificant if we were using gpt4 it would be point oh three per thousand so it would be half a
+cent so unless you're doing many thousands of gpt4 you're not going to be even up into the dollars
+and gpt3.5 even more than that but you know keep an eye on it open ai has a usage page and you can
+track your usage now what happens when we are this is really important to understand when we have a
+follow-up in the same conversation how does that work so we just asked what goat means so for example
+Michael Jordan is often referred to as the goat for his exceptional skills and accomplishments
+and Elvis and the Beatles referred to as goat due to their profound influence and achievement so I
+could say what profound influence and achievements are you referring to
+okay well I meant Elvis Presley and the Beatles did all these things now how does that work how
+does this follow-up work well what happens is the entire conversation is passed back
+and so we can actually do that here so here is the same system prompt here is the same
+question right and then the answer comes back with role assistant and I'm going to do something
+pretty cheeky I'm going to pretend that it didn't say money is like oil I'm going to say oh you
+actually said money is like kangaroos I thought what is going to do okay so you can like literally
+invent a conversation in which the language model said something different because this
+is actually how it's done in a multi-stage conversation there's no state right there's
+nothing stored on the server you're passing back the entire conversation again and telling it what
+it told you right so I'm going to tell it it's it told me that money is like kangaroos and then
+I'll ask the user oh really in what way and it's kind of cool because you can like see how it convinces
+you of of something I just invented oh let me break it down for you cover just like kangaroos
+hop around and carry their joeys in their pouch money is a means of carrying value around so
+there you go it's make your own analogy cool so I'll create a little function here that just
+puts these things together for us system message if there is one the user message and returns
+their completion and so now we can ask it what's the meaning of life passing in the Aussie system
+prompt the meaning of life is like trying to catch a wave on a sunny day at Bondi beach
+okay there you go so what do you need to be aware of well as I said one thing is keep an eye on your
+usage if you're doing it you know hundreds or thousands of times in a loop keep an eye on not
+spending too much money but also if you do it too fast particularly the first day or two you've
+got an account you're likely to hit the limits for the API and so the limits initially are pretty low
+as you can see three requests per minute
+that's for free users page users first 48 hours and after that it starts going up and you can
+always ask for more I just mentioned this because you're going to want to have a function that keeps
+an eye on that and so what I did is I actually just went to Bing which has a somewhat crappy
+version of GPT4 nowadays but it can still do basic stuff for free and I said please show me
+python code to call the open AI API and handle rate limits and it wrote this code
+it's got a try checks your rate limit errors grabs the retry after
+sleeps for that long and calls itself and so now we can use that to ask for example
+what's the world's funniest joke and there we go there's the world's funniest joke
+so that's like the basic stuff you need to get started using the open AI
+LLMs and uh yeah it's definitely suggest spending plenty of time with that so that you
+feel like you're really a LLM using expert
+so what else can we do well let's create our own code interpreter that runs inside GPT4
+and so to do this we're going to take advantage of a really nifty thing called function calling
+which is provided by the open AI API and in function calling when we call our ask GPT function
+which is this little one here we had to pass in some keyword arguments that would be just passed
+along to chat completion dot create and one of those keyword arguments you can pass is functions
+what on earth is that functions tells open AI about tools that you have about functions
+that you have so for example i created a really simple function called sums
+and it adds two things in fact it adds two ints
+and i am going to pass that function to
+chat completion dot create now you can't pass a python function directly you actually have to
+pass what's called the JSON schema so you have to pass the schema for the function
+so i created this nifty little function that you're welcome to borrow which uses
+pidantic and also pythons inspect module to automatically take a python function
+and return the schema for it and so this is actually what's going to get passed to open AI
+so it's going to know that there's a function called sums it's going to know what it does
+and it's going to know what parameters it takes what the defaults are and what's required
+so this is like when i first heard about this i found this a bit mind-bending
+because this is so different to how we normally program computers where the key thing for programming
+the computer here actually is the dock string this is the thing that gpt4 will look at and say oh what
+does this function do so it's critical that this describes exactly what the function does
+and so if i then say what is six plus three right now just i'd probably want to make sure
+it actually did it here so i gave it lots of prompts to say play because obviously it knows
+how to do it itself without calling sums so it'll only use your functions if it feels it needs to
+which is a weird concept i mean i guess fields is not a great word to use but
+you kind of have to anthropomorphize these things a little bit because they don't behave
+like normal computer programs so if i if i ask gpt what is six plus three and tell it that there's
+a function called sums then it does not actually return the number nine instead it returns something
+saying please call a function call this function and pass it these arguments so if i printed out
+there's the arguments so i created a little function called core function and it goes into
+the result of open ai grabs the function call checks that the name is something that it's allowed
+to do grabs it from the global system table and calls it passing in the parameters and so if i
+now say okay call the function that we got back we finally get nine so this is a very simple example
+it's not really doing anything that useful but what we could do now is we can create a much more
+powerful function called python and the python function executes code using python and returns
+the result now of course i didn't want my computer to run arbitrary python code that gpt4 told it to
+without checking so i just got it to check first so say oh you sure you want to do this
+um so now i can say ask gpt what is 12 factorial system prompt you can use python for any required
+computations and say okay here's a function you've got available it's the python function
+so if i now call this it will pass me back again a completion object and here it's going to say
+okay i want you to call python passing in this argument and when i do it's going to go import
+math result equals blah and then return result do i want to do that yes i do and there it is
+now um there's one more step which we can optionally do i mean we've got the answer we wanted but
+often we want the answer in more of a chat format and so the way to do that is to again repeat everything
+that you've passed into so far but then instead of adding an assistant role response we have to
+provide a function role response and simply put in here the result we got back from the function
+and if we do that
+we now get the pros response 12 factorial is equal to 470 million 1600
+now functions like python you can still ask it about non python things
+and it just ignores it if you don't need it right so you can have a whole bunch of functions available
+that you've built to do whatever you need for the stuff which the language model isn't familiar with
+and it'll still solve whatever it can on its own and use your tools use your functions where possible
+okay so we have built our own code interpreter from scratch i think that's pretty amazing
+so that is um what you can do with uh or some of the stuff you can do with uh open ai
+um what about stuff that you can do on your own computer well to use a language model on your
+own computer you're going to need to use a gpu so i guess the first thing to think about is like
+do you want this does it make sense to do stuff on your own computer what are the benefits
+um there are not any open source models that are as good yet as gpt4
+and i would have to say also like actually open ai's pricing is really pretty good
+so it's it's not immediately obvious that you definitely want to kind of go in-house but there's
+lots of reasons you might want to and we'll look at some examples of them today one example you
+might want to go in-house is that you want to be able to ask questions about your proprietary
+documents or about information after september 2021 the the knowledge cutoff um or you might want
+to create your own model that's particularly good at solving the kinds of problems that you need to
+solve using fine tuning and these are all things that you absolutely can get better than gpt4
+performance at work or at home without too much without too much money or travel so these are the
+situations in which you might want to go down this path and so you don't necessarily have to buy a gpu
+on Kaggle they will give you a notebook with two quite old gpu's attached and very little ram
+but it's something or you can use colab and on colab you can get much better gpu's than
+Kaggle has and more ram particularly if you pay a monthly subscription fee
+so those are some options for free or low cost you can also of course
+um you know go to one of the many kind of gpu server providers um and they change all the time
+as to kind of what's what's good or what's not um run pod is one example um and you can see you
+know if you want the biggest and best machine you're talking $34 an hour so it gets pretty
+expensive um but you can certainly get things a lot cheaper 80 cents an hour um lambda labs is often
+pretty good um you know it's really hard at the moment to actually find um
+let's see pricing to actually find people that have them available so they've got lots listed here
+but they often have none or very few available um there's also something pretty interesting called
+vast ai which basically lets you use um other people's computers when they're not using them
+and as you can see you know they tend to be much cheaper than other folks
+uh and then they tend to have better availability as well but of course for sensitive stuff you
+don't want to be running it on some randos computer so anyway so there's a few options
+for renting stuff um you know i think it's if you can it's worth buying something and definitely
+the one to buy at the moment is the gtx 3090 used um you can generally get them from ebay for like
+700 bucks or so um a 4090 isn't really better for language models even though it's a newer gpu
+the reason for that is that language models are all about memory speed how quickly can you get in
+and stuff in and out of memory rather than how fast is the processor and that hasn't really improved a
+whole lot um so the 2000 bucks the other thing as well as memory speed is memory size 24 gigs
+it doesn't quite cut it for a lot of things so you'd probably want to get two of these gpu's
+so you're talking like 1500 dollars or so um or you can get a 48 gigram gpu it's called an a6000
+but this is going to cost you more like five grand um so again getting two of these is going to be
+a better deal and this is not going to be faster than these either um
+or funnily enough you could just get a mac with a lot of ram particularly if you get an m2 ultra
+max have um uh particularly the m2 ultra has pretty fast memory it's still going to be way
+slower than using an nvidia card um but it's going to be like you're going to be able to get
+you know like i think 192 gig or something um so it's not a terrible option particularly if you
+are not training models you just want to use other existing trained models
+so anyway most people who do this stuff seriously almost everybody has nvidia cards
+so then what we're going to be using is a library called transformers from hugging face
+and the reason for that is that basically people upload lots of pre-trained models or
+fine-tuned models up to the hugging face hub and in fact there's even a leaderboard where you can see
+which are the best models now this is a really uh fraught area so at the moment this one is
+meant to be the best model it has the highest average score um and maybe it is good i haven't
+actually used a particular model um or maybe it's not i actually have no idea because the
+problem is these um metrics are not particularly well aligned with real life usage
+for all kinds of reasons and also sometimes you get something called leakage which means that
+sometimes some of the questions from these things actually leaks through to some of the training sets
+so you can get as a rule of thumb what to use from here but you should always try things
+um and you can also say you know these ones are all the 70 b here that tells you how big it is so
+this is a 70 billion parameter model um so generally speaking for the kinds of GPUs we're
+talking about you'll be wanting uh no bigger than 13b and quite often 7b um so let's see if we can
+find here's a 13b model for example um all right so you can find models to try out from
+things like this leaderboard um and there's also a really great leaderboard called fast eval which
+i like a lot um because it focuses on some more sophisticated evaluation methods such as this chain
+of thought evaluation method um so i kind of trust these a little bit more um and these are also
+you know gsm 8k is a difficult math benchmark uh big bench hard um so forth so yeah so you know
+stable beluga 2 wizard method in b dolphin lima 13b etc these would all be good options
+yeah so you need to pick a model and at the moment nearly all the good models are based on
+meta's lama 2 so when i say based on what does that mean well what that means is this model here
+lama 2 7b so it's a lama model that's that's just the name i meta called it this is their
+version 2 of lama this is their 7 billion size one it's the smallest one that they make and
+specifically these weights have been created for hugging face so you can load it with the
+hugging face transformers and this model has only got as far as here it's done the language
+model for pre-training it's done none of the instruction tuning and none of the rlhf
+so we would need to fine-tune it to really get it to do much useful um so we can just say okay create
+a automatically create the appropriate model for language model so causal lm is basically
+refers to that urlm fit stage one process um or stage two in fact so create the pre-trained model
+from this name meta lama lama 2 blah blah okay now um generally speaking we use um 16 bit
+floating point numbers nowadays um but if you think about it 16 bit is two bytes so 7b times 2
+it's going to be 14 gigabytes uh just to load in the weights so you're going to have a decent
+model to be able to do that um perhaps surprisingly you can actually just cast it to 8 bit and it
+still works pretty well thanks to something called discretization so uh let's try that so remember
+this is just a language model looking at any complete sentences we can't ask it a question
+and expect a great answer so let's just give it the start of a sentence Jeremy how it is uh
+and so we need the right tokenizer so this will automatically create the right kind of
+tokenizer for this model we can grab the tokens as pie torch here they are
+um and just to confirm if we decode them back again we get the original plus a special token
+to say this is the start of a document and so we can now call generate so generate will um
+auto-regressively so call the model again and again passing its previous result back as the next
+um as the next input um and i'm just going to do that 15 times so this is you can you can
+write this for loop yourself this isn't doing anything fancy in fact i would recommend writing
+this yourself um to make sure that you know how that it all works okay um we have to put those
+tokens on the gpu and at the end i recommend putting them back onto the cpu the result
+and here are the tokens not very interesting so we have to decode them using the tokenizer
+and so the first 25 sorry first 15 tokens are Jeremy how it is 28 year old Australian AI
+Research and Entrepreneur okay well 28 years old is not exactly correct but we'll call it close
+enough i like that thank you very much lama 7b so okay so we've got a language model completing
+sentences um it took one and a third seconds um and that's a bit slower than it could be
+because we used eight bit if we use 16 bit there's a special thing called b float 16 which is a
+really great 16 bit floating point format that's usable on any somewhat recent gpu
+in video gpu now if we use it it's going to take twice as much ram as we discussed but look at the
+time it's come down to 390 milliseconds um now there is a better option still than even that
+there's a different kind of discretization called gptq where um a model is carefully
+optimized to work with uh four or eight or other you know lower precision data um automatically
+and um this particular person known as the bloke uh uh is fantastic at taking popular models
+running that optimization process and then uploading the results back to hiking face
+so we can use this gptq version um and internally this is actually going to use i'm not sure exactly
+how many bits this particular one is i think it's probably going to be four bits but it's
+but it's going to be much more optimized um and so look at this 270 milliseconds it's actually faster
+than 16 bit even though internally it's actually casting it up to 16 bit each layer to do it
+and that's because there's a lot less memory moving around and to confirm uh in fact what
+we could even do now is we could go up to 13b easy and in fact it's still faster than the 7b
+now that we're using the gptq version so this is a really helpful tip
+so let's put all those things together the tokenizer the generate the batch decode we'll call this gen
+for generate and so we can now use the 13b gptq model and let's try this Jeremy Howard is a so
+it's got to 50 tokens so fast 16 year veteran of silicon valley co-founder of Kaggle a market
+closer predictive model his company Kaggle.com has become to data science competitions what I don't
+know what I was going to say but anyway it's on the right track I was actually there for 10 years
+not 16 but that's all right um okay so this is looking good um but probably a lot of the time
+we're going to be interested in you know asking questions or using instructions so stability AI
+has this nice series called stable beluga including a small 7b one and other bigger ones
+and these are all based on lama 2 but these have been instruction tuned
+they might even have been RLHDF I can't remember now so we can create a stable beluga model
+and now something really important that I keep forgetting everybody keeps forgetting is
+during the instruction tuning process
+during the instruction tuning process the instructions that are passed in actually are
+they don't just appear like this they actually always are in a particular format
+and the format believe it or not changes quite a bit from from fine-tune to fine-tune
+and so you have to go to the web page for the model
+and scroll down to find out what the prompt format is so here's the prompt format so I generally
+just copy it and then I paste it into python which I did here
+and created a function called make prompt that used the exact same format that it said to use
+and so now if I want to say who is jeremy howard I can call gen again that was that function I
+created up here and make the correct prompt from that question and then it returns back
+okay so you can see here all this prefix this is a system instruction this is my question
+and then the assistant says jeremy howard's an Australian entrepreneur computer scientist co-founder
+of machine learning and deep learning company faster.ai okay so this one's actually all correct
+so it's getting better by using an actual instruction tune model
+and so we could then start to scale up so we could use the 13b and in fact we looked briefly at
+these open orca dataset earlier so lama2 has been fine-tuned on okuma orca and then also fine-tuned
+on another really great dataset called platypus and so the whole thing together is the open orca
+platypus and then this is going to be the bigger 13b gptq means it's going to be quantized
+so that's got a different format okay a different prompt format so again we can scroll down and see
+what the prompt format is there it is okay and so we can create a function called make open orca
+that has that prompt format
+and so now we can say okay who is jeremy howard now i've become british which is kind of true
+i was born in england but i moved to australia uh professional poker player no i'm definitely not
+that uh co-founding several companies including fast.ai also kaggle okay so not bad it was acquired
+by google with 2017 probably something around there okay so you can see we've got our own models
+giving us some pretty good information how do we make it even better you know because it's it's
+still hallucinating you know and you know lama2 i think has been trained with more up-to-date
+information than gpt4 it doesn't have the september 2021 cutoff but it you know it's still
+got a knowledge cutoff you know we would like to go to use the most up-to-date information we
+want to use the right information to answer these questions as well as possible so to do this we
+can use something called retrieval augmented generation so what happens with retrieval augmented
+generation is when we take the question we've been asked like who is jeremy howard and then we
+say okay let's try and search for documents that may help us answer that question so obviously we
+would expect for example wikipedia to be useful and then what we do is we say okay with that information
+um let's now see if we can tell the language model about what we found and then have it
+answer the question um so let me show you so let's actually grab a wikipedia
+python package um we will scrape wikipedia grabbing the jeremy howard web page
+uh and so here's the start of the jeremy howard wikipedia page
+it has 613 words now generally speaking these open source models will have a context length of
+about 2000 or 4000 so the context length is how many tokens can it handle so that's fine it'll
+be able to handle this web page and what we're going to do is we're going to ask it the question
+so we're going to have here question and with a question but before we're going to say answer
+the question with the help of the context we're going to provide this to the language model and
+we're going to say context and they're going to have the whole web page so suddenly now our
+question's going to be a lot bigger they're prompt right so our prompt now contains the entire web
+page the whole wikipedia page followed by our question and so now it says jeremy howard is
+an australian data scientist edge entrepreneur an educator known for his work in deep learning
+co-founder of fast ai teaches courses develops software conducts research used to be yeah okay
+it's perfect right so it's actually done a really good job like if somebody asked me to send them a
+you know hundred word bio uh that would actually probably be better than i would have written
+myself and just so even though i asked for 300 tokens it actually got sent back the end of stream
+token and so it knows to stop at this point um well that's all very well but how do we know
+to pass in the jeremy howard wikipedia page well the way we know which wikipedia page to pass in
+is that we can use another model to tell us which web page or which document is the most
+useful for answering a question and the way we do that is we we can use something called
+sentence transformer and we can use a special kind of model that's specifically designed
+to take a document and turn it into a bunch of activations where two documents that are
+similar will have similar activations so let me just let me show you what i mean what i'm going
+to do is i'm going to grab just the first paragraph of my wikipedia page and i'm going to grab the
+first paragraph of tony blair's wikipedia page okay so we're pretty different people right this is
+just like a really simple small example and i'm going to then call this model i'm going to say
+encode and i'm going to encode my wikipedia first paragraph tony blair's first paragraph and the
+question which was um who is jeremy howard and it's going to pass back a 384 long vector
+of embeddings for the question for me and for tony blair and what i can now do is i can
+calculate the similarity between the question and the jeremy howard wikipedia page and i can also
+do it for the question versus the tony blair wikipedia page and as you can see it's higher
+for me and so that tells you that if you're trying to figure out what document to use
+to help you answer this question better off using the jeremy howard wikipedia page than the tony
+blair wikipedia page so if you had a few hundred documents you were thinking of using to give back
+to the model as context to help it answer a question you could literally just pass them all
+through to encode go through each one one at a time and see which is closest um when you've got
+thousands or millions of documents you can use something called a vector database where basically
+as a one-off thing you go through and you encode all of your documents and so in fact there's there's
+lots of pre-built systems for this here's an example of one called h2o gpt and this is just
+something that i've got um that i've got running here on my computer it's just an open source thing
+written in python and sitting here running on port 7860 and so i've just gone to local host 7860
+and what i did was i just uploaded i just clicked upload and i've uploaded a bunch of papers in
+fact i might be able to see it better yeah here we go a bunch of papers and so you know we could look
+at uh can you search yeah i can so for example we can look at the url-infit paper that uh said
+brooder and i did and you can see it's taken the pdf and turned it into slightly crappily
+a text format and then it's created an embedding for each you know each section
+so i could then um ask it you know what is url-infit and i'll hit enter
+and you can see here it's now actually saying based on the information provided in the context so
+it's showing us it's being given some context what context did it get so here are the things
+that it found right so it's being sent this context so this is kind of citations
+uh goal of url-infit proves a performance by leveraging the knowledge
+and adapting it to the specific task at hand
+how what techniques be more specific does url-infit
+let's see how it goes
+okay there we go so here's the three steps pre-train fine-tune fine-tune cool
+um so you can see it's not bad right um it's not amazing like you know the context in this
+particular case is pretty small um and it's and in particular if you think about how that
+embedding thing worked you can't really use like the normal kind of follow-up so for example um
+um if i so it says fine-tuning a classifier so i could say what classifier is used now the problem
+is that there's no context here being sent to the embedding model so it's actually going to have no
+idea i'm talking about url-infit so generally speaking it's going to do a terrible job
+yeah see it says used as a reberda model but it's not but if i look at the sources
+it's no longer actually referring to howard and ruder so anyway you can see the basic idea
+this is called retrieval augmented generation rag and it's a it's a nifty approach but you
+have to do it with with some care and so there are lots of these private gpt things out there
+um actually the h2o gpt web page has a fantastic job of listing lots of them and comparing
+so as you can see if you want to run a private gpt there's no shortage of options
+um and you can have your retrieval augmented generation um i haven't tried i've only tried
+this one h2o gpt i don't love it it's all right um so finally i want to talk about what's perhaps the
+most interesting um option we have which is to do our own fine-tuning and fine-tuning is cool
+because rather than just retrieving documents which might have useful context we can actually
+change our model to behave based on the documents that we have available i'm going to show you a
+really interesting example of fine-tuning here um what we're going to do is we're going to fine-tune
+using this um no sql data set and it's got examples of like a schema for a table in a database
+a question and then the answer is the correct sql to solve that question using that database schema
+and so i'm hoping we could use this to create a um you know i kind of it could be a handy use
+handy tool for for business users where they type some english question and sql generated
+for them automatically don't know if it actually work in practice or not but
+this is just a little fun idea i thought we'd try out um i know there's lots of startups and stuff
+out there trying to do this more seriously um but this is this is quite cool because it actually
+got it working today in just a couple of hours so what we do is we um use the hugging face
+data sets um library and what that does just like the hugging face hub has lots of models
+stored on it hugging face data sets has lots of data sets stored on it and so instead of using
+transformers which is what we use to grab models we use data sets and we just pass in the name of
+the person and the name of their repo and it grabs the data set and so we can take a look at it
+and it just has a training set with features and so then i can
+have a look at the training set so here's an example which looks a bit like what we've just seen
+so what we do now is we want to fine tune a model now we can do that in in a notebook
+from scratch takes i don't know 100 or so lines of code is not too much but given the time constraints
+here um and also like i thought why not why don't we just use something that's ready to go um so
+for example there's something called axolotl which is quite nice in my opinion
+here it is here another very nice open source piece of software and uh you can you can just
+pip install it and it's got things like gptq and 16 bit and so forth ready to go um and so what i did
+was a um it basically has a whole bunch of examples of things that it already knows how to do
+it's got lama 2 example so i copied the lama 2 example and i created a sequel example so
+i basically just told it this is the path to the data set that i want this is the type
+and everything else pretty much i left the same and then i just ran this command which is from
+there read me accelerate launch axolotl passed in my yaml and that took about an hour
+um on my gpu and at the end of the hour it had created a q laura out directory uh q stands for
+quantize it's because i was creating a smaller quantized model uh laura i'm not going to talk
+about today but laura is a very cool thing that basically another thing that makes your models
+smaller and also handles um can use bigger models on smaller gpu's for training
+um so uh i trained it and then i thought okay let's uh create our own one so we're going to
+have this context and um this question get the count of competition hosts by theme
+and i'm not going to pass it an answer so i'll just ignore that um so again i found out what prompt
+they were using um and created a sequel prompt function and so here's what i'm going to do use
+the following contextual information to answer the question uh context create table so there's the
+context question list or competition hosts sorted in ascending order and then i
+tokenized that called generate and the answer was select count hosts comma theme from farm
+competition group by theme that is correct so i think that's pretty remarkable we have just
+built you know so it took me like an hour to figure out how to do it and then an hour to
+actually do the training and at the end of that we've actually got something which which is converting
+pros into sequel based on a schema so i think that's that's a really exciting idea
+the only other thing i do want to briefly mention is um is doing stuff on max if you've got a mac
+uh you there's a couple of really good options the options are mlc and lama dot cpp currently
+mlc in particular i think it's kind of underappreciated it's a you know really nice
+project
+um where you can run language models on literally iphone android web browsers everything
+it's really cool and and so i'm now actually on my mac here
+and i've got a uh tiny little python program called chat and it's going to import chat module
+and it's going to import a discretized uh 7b
+and it's going to ask the question what is the meaning of life
+so let's try it python chat.py again i just installed this earlier today i haven't done
+that much stuff on max before but i was pretty impressed to see that it is
+doing a good job here what is the meaning of life is complex and philosophical
+some people might find meaning in their relationships with others
+their impact in the world etc etc okay and it's doing 9.6 tokens per second so there you go so
+there is running a model on a mac and then another option that you've probably heard about
+is lama dot cpp lama dot cpp runs on lots of different things as well including max and also
+on kuda it uses a different format called gguf and you can again you can use it from python even
+if that was a cpp thing it's got a python wrapper so you can just download again from hugging face
+a gguf file so you can just go through and there's lots of different ones they're all
+documented as to what's what you can pick how big a file you want you can download it and then you
+just say okay lama model path equals passing that gguf file it spits out lots and lots and lots of
+gunk and then you can say okay so if i called that llem you can then say llem question name the
+planets of the solar system 32 tokens and here we are run in fluto no longer considered a planet
+two mercury three venus four earth mars six oh no i've read other tokens so again you know it's
+just to show you here there are all these different options
+um you know i would say you know if you've got a
+nvidia graphics card and you're a reasonably capable python programmer you'll probably be
+one of you use pi torch and the hugging face ecosystem but you know i think you know these
+things might change over time as well and certainly a lot of stuff is coming into lama
+pretty quickly now and it's developing very fast as you can see there's a lot of stuff that you can
+do right now um with language models um particularly if you feel pretty comfortable as a python
+programmer um i think it's a really exciting time to get involved in some ways it's a frustrating
+time to get involved because um you know it's very early and a lot of stuff has weird little
+edge cases and it was tricky to install and stuff like that um there's a lot of great discord
+channels however uh fast ai have our own discord channel so feel free to just google for fast ai
+discord and and drop in we've got a channel called generative um you feel free to ask any questions or
+tell us about what you're finding um yeah it's definitely something where you want to be getting
+help from other people on this journey because it is very early days and you know people are still
+figuring things out as we go um but i think it's an exciting time to be doing this stuff and i'm
+yeah i'm really enjoying it and i hope that this has given some of you a useful starting point on
+your own journey so i hope you found this useful thanks for listening bye

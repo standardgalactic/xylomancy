@@ -1,0 +1,647 @@
+I've taken the sitting at lectures because I like being on the same level as the audience
+to some degree, so hey.
+So yeah, over at Microsoft, we're having quite the AI year, as you might have noticed, and
+we've worked very closely with an organization called OpenAI in the city.
+Anybody here from OpenAI today?
+Anybody come over the bridge?
+Anyway, we put out this, as you know, something called ChatGPT.
+I guess it's not getting close to a year ago, and it just really took off, and it was a
+fascinating moment.
+It was not the most powerful AI Chat thing that we had released, but it was released
+with a UI that people responded to, so it was more of a user experience difference.
+And all of a sudden, they'd be at parties and people would say, oh, we had ChatGPT write
+our wedding vows, and I'm like, really?
+That's what you're doing?
+Seriously?
+Or things like that, and it kind of blew my mind.
+So I have been around this AI thing for quite a while.
+I don't like the term AI.
+I don't like to use it, but I know it's the standard usage, so I shouldn't be so much
+of a jerk as to not use the same language as everybody else, but it still bugs me.
+I came by my dislike of the term, honestly, a long time ago, and so I'm going to tell
+you about my most important mentor when I was just a kid in computer science, because
+that's where it starts for me, and his name is Marvin Minsky.
+Who has heard of Marvin Minsky who's a younger person who's like a student?
+Okay.
+All right.
+Get with it.
+Learn history.
+It's important.
+Marvin is one of the foundational computer scientists, and if you've ever had to study
+this hierarchy of models of computation, like, you know, the finite set of automata and the
+Turing machine, and this notion of the generality of the Turing machine, Marvin was probably
+the main contributor to that hierarchy.
+He developed many, many fundamental concepts, and back in the 50s, he and a cohort of others,
+a few of whom are still around, had a conference at Dartmouth, 57 or 58 or something, where
+they came up with the term artificial intelligence.
+According to what I've heard from people who were there, but I was not born yet, so I did
+not know this for sure, the whole idea of artificial intelligence and their way of talking
+about it was, in part, a political response to an opposing group that was led by a guy
+named Norbert Wiener.
+Anybody remember Norbert Wiener?
+So yeah, but you're all old enough to have done it.
+Students, students.
+All right.
+Norbert Wiener wrote a very famous series of books, one of which was called Cybernetics,
+in the post-war period, and especially in the 50s.
+He was a wonderful mathematician and philosopher, and his idea was that instead of thinking of
+computers as being like a Turing machine, where you have a device that reads a tape,
+you should think of them as a network of thermometers.
+It's a set of feedback devices that become ever more complicated, and instead of just
+running and then either halting or not, remember the halting problem from your classes, right,
+they were just being continuous interaction with the world and might be almost understood
+as creatures.
+However, he felt that if we thought of them as creatures instead of tools, there would
+be political negative ramifications, which is quite interesting.
+He wrote a book called The Human Use of Human Beings, and what he thought was that if you
+personify the machines of this kind too much, you might end up with some people exploiting
+other people.
+And at the end of The Human Use of Human Beings is a thought experiment, and the thought
+experiment proposes what if someday there could be a small device that was connected
+by radio signals to a big cybernetic device, which these days we might call a large model
+or a neural network or something, and what if, what if, what if that device had information
+about you and was following you and entered into a feedback loop that might manipulate
+you for the benefit of whoever owns the central device.
+That would be the end of civilization, it would just make us insane.
+Fortunately, as a renowned scientist, I can tell you this is impossible, it's only a thought
+experiment.
+That's what it says.
+Okay, obviously we built that thing.
+Okay, so now what I've heard from people, and I just don't know if this is true, I never
+met, I never met him.
+I like his ideas.
+His writing is not designed to be accessible.
+He's obviously got a bit of a snobbish thing going on.
+There's equations in it, it's not like popular writing.
+Apparently he was kind of a jerk and turned people off and made enemies, so it is said,
+I'm not sure.
+At any rate, this other group of people, including Marvin and some other folks, promoted this
+other notion of artificial intelligence directly in opposition to Wiener, whatever he liked
+they didn't like.
+Marvin and a colleague of his absolutely destroyed research on neural nets and similar things
+for decades, with the proof that they couldn't be absolutely, absolutely perfect, which is
+like who needs perfection, but at any rate, that turned this whole field off for decades
+and decades and they were just really not into it.
+Marvin had a gigantic influence on the culture.
+He used to hang out with the Golden Age science fiction writers, so he influenced Isaac Asimov
+to create the laws of robotics in some of his novels, and also Arthur C. Clark to create
+the HAL computer in 2001.
+In both cases, the idea is that the computer comes alive, it's like a creature instead
+of a tool, exactly the opposite of what Norbert Wiener would have wanted, but you keep the
+creature from getting out of control by giving it rules to live by, and the rules aren't
+like, you know, don't kill people, all right?
+And then in science fiction stories, it always turns out that those rules aren't reliable,
+because otherwise there wouldn't be a story, except for commander data.
+They work for commander data, but that's the only example.
+Everywhere else, the Matrix movies terminator, they always fail.
+Okay, so the way they fail is very ancient.
+There are ancient, ancient stories about the impossibility of coming up with perfect laws
+to protect people, and they're usually in the form of genies and lamps.
+You find this lamp, you rub it, as genie comes out, and the genie says, I will grant you
+wishes, and then you try to be very clever and come up with wishes that the genie will
+twist into horrible things for you.
+It never works, because there wouldn't be a story if it worked.
+All right.
+So fast forward.
+It turns out Marvin and the others were wrong about neural networks, they actually function.
+They function at great scale.
+So we've entered into this curious time where the difference between usable performance
+and sort of okay, cute performance involves tremendously expensive preparation of models
+that not a lot of entities can afford to do.
+So when you look at the difference, if I may say our stuff or a few other places in the
+world, we're able to get to a level that maybe some others don't in terms of reliability
+and consistency and usability.
+I'd love to say that we have brilliant insights in our code.
+Of course we do.
+However, you don't get to see it, so what's the use of that?
+What we definitely have is larger scale preparation.
+We definitely have bigger training, and we definitely have more extensive training passes,
+and it's just this fantastic scale.
+So scale turns into quality.
+Will it remain so?
+No one knows.
+No one knows where the top of the S curve is.
+Obviously you can't keep on getting more quality from scale indefinitely, so we don't know.
+So what that's done is it's created the scenario that Norbert Wiener warned against where a
+small number of entities control the most functional central devices, as he imagined them, which
+in our case are these city size servers that respond to your queries so that you can get
+your wedding vows written.
+Now back when I was a teenager, I wasn't ever Marvin Minsky's student, but I got hired
+as a researcher working for him, and I'd been in college young, and he hired me very
+generously, and I worked for him in a guy named Alan Kay at MIT.
+Alan was very much on the other side of the fence, or is Alan's with us, and Alan was
+very much on the same side of the fence that I would occupy with Norbert Wiener and many
+others, including Vannevar Bush and Ted Nelson and Ada Lovelace and other figures he
+should know about.
+And I used to argue with Marvin all the time.
+Marvin always said I was the only protege of his who just gave him hell constantly, and
+he liked it to his credit.
+When he was dying, and I saw him for the last time at his house in Brookline, Massachusetts,
+I was on the way and a mutual friend called me and said, you know, Marvin's very frail.
+I don't have the argument with him, like, just let it go, let it go, AI's fine.
+And I showed up at his house and he looks at me with his glaces, are you ready to argue?
+It was great, so we had the argument.
+And the way the argument went is I said, you know, this whole thing is subject to a figure
+ground inversion, meaning you can look at it in a different way, you can flip the sign
+on it and still have a completely functional and equivalent way of thinking about it from
+a technical point of view.
+But this inversion might actually be better from a societal and a practical engineering
+point of view.
+And so the way you flipped the bid on this, I used to call it the life of the parody,
+which is a bed pun, which two people laughed at.
+I feel very old somehow.
+I like, come on, people.
+That was funny.
+Anyway, the life of the parody.
+Anyway, the parody bit goes like this.
+If you set the bit one way, you think of the AI as like this creature, and you refer to
+it as this thing that is an entity that does things, that is like another person or maybe
+some pseudo person who's in the room, and you talk to it and you ask it to do things.
+And that is the most common way of thinking about it.
+In fact, it's overwhelmingly the most common way to think about it.
+I mean, we have a chat interface, as if you're chatting with a person.
+Why would you have that if you didn't think of it that way?
+There's another way to think about it, which is that it's a form of social collaboration.
+So it's closer to something like the Wikipedia, maybe, where you have a whole bunch of people
+who provided example data, training data, and then what this thing has the ability to
+do is mash it up in new ways.
+But it still is a collaboration of people.
+And if you analyze it on those terms, you have a more actionable way of understanding
+it.
+And if you integrate it into society in those terms, you have a brighter and more actionable
+set of paths open for the future of society.
+From a purely technical point of view, it doesn't matter.
+It's just how you think about this thing.
+It doesn't change the thing necessarily, but in these other ways, it does matter.
+So let me go over a couple of the ways that I think it matters.
+Now let me start with the question of explanation.
+So one of the frequent topics in the study of large model generative AI is why the hell
+did it do that thing?
+It just did.
+Okay.
+So for instance, a very famous example is a New York Times reporter who lives in town
+here talked to our chat GPT not too long after it became famous.
+And it started as like, I love you, you should leave your wife because I love you.
+And it was like really weird.
+And so the question is, why did our chatbot do that?
+Okay.
+Now, the contingent answer is that if you go too many cycles on a chatbot, they can go
+off the rails because they start to rely too much on the memory of the interaction cycle,
+which is actually not that reliable a way to guide them.
+And so one of the things we've done is we've limited the number of cycles that you can
+interact with the bot.
+That actually helps a lot.
+Great.
+We've also tried to do a lot of improvement on watching if it goes wrong, which is the
+genie approach.
+Like the chatbot should not declare love for the user, you know, like that's really not
+great.
+All right.
+So and those things sort of work, but you're into the genie problem where the restrictions
+aren't totally reliable.
+Okay.
+So what's another way to do it?
+Well, if you use this other inversion, this parody bit flip, as I mentioned, which we
+call data dignity is our term for it.
+If we do that, then you ask a different question.
+You say, Hey, which were the important source examples that fit into this particular output
+from the model?
+Very concrete thing.
+If you say, don't profess love, that's hard to judge.
+That's actually not that concrete.
+If you say, what were the sources that is now, you might think yourself, wait a second,
+these large models are called large for a good reason.
+Aren't there millions of ante billions of antecedent examples that fed into it?
+Isn't that why it can even talk?
+It has grammar and all that.
+And the answer is sure.
+However, in a particular output, there's going to be a power law or a Pareto principle in
+which there'll be a peak of certain special inputs that'll matter to that particular output.
+And then the question is, how many examples, how many input documents matter to that particular
+output above a threshold that you set?
+All right.
+Now, if you think the question that way, you end up with a much smaller number.
+And you have to do it with a little more sophistication, because on the one hand, you want to have
+the examples that are the most influential, which involves estimating counterfactuals.
+How different would the output be without this thing?
+But then you also worry about how replaceable it is.
+Is this thing really the equivalent of a million other things?
+And this was just chosen at random, and it didn't bring anything special.
+So actually defining this is a bit more subtle than it might appear, but it remains concrete.
+It doesn't become some weird subjective approximate thing described by natural language only.
+And now you can say, in that example, as it happens, what did that?
+Well, it was a bunch of fan fiction and soap opera transcripts.
+All right.
+So what you could do is, if the bot gives you something weird, you could say, hey, bot,
+why so weird?
+And it would say, oh, this is fan fiction and soap operas.
+Don't you like it?
+Say, no, no, no, leave that stuff out.
+This is supposed to be a fake essay for my seminar.
+And the bottle said, OK, got rid of that.
+How's this?
+And then so you can start to prune it by inputs.
+And if you prune by inputs, you have, I'm not suggesting that it's the universal solution
+or the only solution, but it's the most concretely defined solution.
+So I like it.
+We don't do that currently because to do it efficiently, if you have all the money in the world,
+when we're Microsoft, we can conduct expensive research.
+To run something routinely, you need efficiency.
+And to do this efficiently, you have to do some different work in the training phase.
+And I'm advocating that we shift to that.
+If I was the dictator of all computer science, we would have already.
+Instead, I'm here advocating.
+And I am attempting to move to a world in which we do that.
+So let us suppose that I have made at least a passable argument that tracking, and here's
+another keyword, the provenance of sources relevant to a given large model output.
+If that's an effective way of improving the explanation for model outputs and for improving
+the quality of model outputs and for addressing security issues with model outputs and a whole
+bunch of, like a lot of the issues we have that we're concerned about can be at least
+improved this way.
+I'm not suggesting it's exclusive, but I think it's important.
+I mentioned there's another reason to care about this approach, which is the larger societal
+frame.
+And here I want to suggest a few ways that I think this could matter.
+I'm going to start with a concrete one.
+In a way, it's the most controversial and the hardest to argue for because it requires
+empirical study that is barely done at all.
+So I might be wrong.
+I don't know.
+But give this a try.
+I think it's at least worth experimenting with.
+Right now, there's great uncertainty and anxiety about human role displacement because
+of large models.
+Now there's a lot of controversy, a lot of different opinions about this.
+There are those who believe that most paid work is just going to go away and will all
+survive off of universal basic income.
+And my good buddy, Sam Altman, who runs OpenAI is starting to do a crypto thing with, like,
+these weird balls that measure your eyeball so that you'll be able to sign up for your
+universal basic income payments.
+I don't like that scenario.
+I like Sam.
+I'm not into that scenario.
+There's several reasons I don't like it.
+One reason is that although we don't have this precise experiment under our belt as humanity,
+we have some that overlap with it.
+And what I believe we see from a lot of social and economic experiments is that if you channel
+the support for everybody in a society through a single organization, that organization will
+be seized by the worst people.
+And societies do better when there's a bit more of a mash-up, a mix-up of a lot of different
+institutions and different organizing principles so that there isn't any single central thing
+to seize.
+So the way I have put it with students is you start with Bolsheviks and you end up with
+Stalinists, right?
+And now that's not to say, that's not arguing against any universal basic income.
+But it's arguing against making it the principle, organizing principle for a society.
+And so that political problem for me is a serious one.
+And I can't find counter examples.
+I can find lots of examples of modest universal applications of a strong social safety net,
+the Scandinavian model, but not as big as would be required if this vision were to be
+fulfilled.
+Those all seem to go bad.
+And I'm saying this in Berkeley, so go easy on me.
+Okay, so, but there's another issue which I would define as a spiritual issue, which
+is I think it's hard to separate human identity from human activity.
+Like we're not just nouns, we're verbs, we do things.
+And if what we do is not valued, is not economically important in the event we live in a market
+society to any degree at all, there's a problem.
+And I think this is really serious.
+I mean, what I observe in the world might be different from what others do, but what
+I observe is that in recent decades, as tech has become more and more of the guiding principle
+of our civilization and the thing that gets the most attention and the most discussion,
+we tend to have a lot of the sort of hard AI viewpoint discussed that machines are people
+too and people will become somewhat subordinate and either will live lives of ease or will
+be eaten and destroyed by our machines, one or the other, but probably lives of ease.
+It's like a very common thing that you hear.
+How does that sound to people who are removed from the center of power?
+I mean, when we're here in the Bay Area, we all know we're either doing this stuff or
+we immediately know the people who are.
+It's not some mysterious remote thing to us.
+So we don't feel like it's some alien force from over the horizon, but everywhere else
+in the world, that's how it feels.
+And what I note is that everywhere in the world, there's been a rise of a certain kind
+of feeling which is hardly new, has been with us from the dawn of civilization, but not
+so much as just recently in recent generations, which is this kind of like, I am defined by
+my human identity and my human identity is the important thing and everything else is
+garbage.
+And you find that in, I think it's to an extreme.
+And so I think, so I'm going to just play both sides here because I really do think
+it's a universal phenomenon.
+In the American right, you see this rhetoric of, we need to go back to pure biology.
+We can't allow abortions anymore because we must be, we're not just abstract beings.
+We're sacred and whatever, and of course we are sacred, but does it have to be expressed
+that way as some one person's power over another?
+Well, for some, yes.
+We have to, we have to double down on our ethnic identity, even if it's sort of made
+up, whatever, we have to do that.
+Same thing's true on the left.
+We've had a kind of obsession with identity that maybe gets a little overboard once in
+a while.
+I have to say.
+Once again, be nice to me.
+I know it's Berkeley.
+But the thing is, it's all over the place in other parts of the world.
+You see, it's not just, there've been religious extremists, but there's a kind of, I would
+say, retreat into almost magical identity, bio-religious identity, like all over the
+world.
+It's really crazy.
+So I don't know how far to develop this thesis exactly because all of these things are very
+approximate and dissipate if you try to make them too perfect as expressions.
+But I do think there's something going on.
+I think we're creating, we being the tech universe, I think we're creating a future
+that repels most people, makes them feel unloved and unneeded and left behind.
+And we say it all the time.
+I mean, if you look, if you look at our rhetoric as it must read to the outside, it's appalling,
+you know?
+Anyway, the thing is, if we reformulate AI, it doesn't, like I say, it's technically
+equivalent, if we call it a social collaboration instead of this new creature on the scene,
+that problem goes away.
+We just got rid of that problem.
+If we say, you know what, this thing is not some new entity that's writing your, it's
+not some alien intelligence that's writing your college essay for you.
+What you just did is you mashed up these specific 20 people.
+Here they are.
+They're not just hypothetical.
+They're real, real people.
+That's kind of cool.
+So it completely human centers the whole enterprise.
+But there's more.
+One of the things I'm interested in is applications.
+So by the way, I love this stuff.
+I love, if I think of it as a social mashup technology, but I think it's great.
+I can give you a bunch of examples where I'm really using it all the time.
+One is groups I work with do a lot of math.
+And one of the problems we have in math is that there are a very small number of Greek
+letters and there's very small number of favored terms like, you know, meta and cover and whatever.
+And you might think that these things are all formally defined, but we have so many
+concepts that we need to apply things to that we end up using them over and over again.
+And what that means is you can't search literature anymore.
+And so we have this problem in math that it's kind of an oral tradition still where I have
+to call people say, have you ever heard anybody doing this to say, well, they might have called
+it this other thing.
+Using the large models, I can skip over the keywords and find things that we wouldn't
+have found before.
+And it's been transformative because it reveals a story of math that was actually hidden from
+us before.
+I really like that's a big deal.
+It sounds a little maybe less romantic than some of the others like wedding vows or whatever.
+I think it's really great.
+And that's the magic we can do when we, if you have one pile of examples of pictures
+of cats and another pile of examples of people in hot air balloons and you ask for a cat in
+a hot air balloon, it has to meet both constraints, both classifiers requirements at the same time.
+And in order to do that, there's an intrinsic sort of bounded problem solving within those
+two piles of examples.
+It's important to understand it doesn't go beyond that.
+It's not arbitrarily creative, but it is kind of creative in joining those two piles of
+examples.
+That's what we can do.
+And that's great.
+That's a fantastic capability.
+So I actually am very pro doing it if I didn't, I wouldn't be spending all day trying to get
+this stuff to happen for this, this big company.
+But what we can do if we reveal the people whose examples were important is we can motivate
+filling in types of training data that are sparse.
+So an example.
+There's lots and lots and lots and lots and lots of examples of websites on GitHub.
+If you go to copilot and you say, I'd like a website, no problem, it'll make you a website.
+And if you say, oh, could you change this part to Python?
+No problem.
+It'll do that.
+And part of the reason that all works so weirdly well is that the amount of example data is
+really vast because there's just a big community that's been doing it for a long time.
+If you say, hey, I'd like a virtual world with avatars that look like cephalopods and
+whatever, because there's really not that much antecedent data for Tijon.
+We didn't have data to train it.
+It just isn't there.
+It's like the little itsy bit, not a lot.
+So what do you do about that?
+Well, it's a very interesting research topic and there are some things you can do.
+For the moment we do it with multimodal approaches where, for instance, we might render into a
+domain where we do have training data like in 2D and then use that iteratively to improve
+rendering into one where we don't and 3D, et cetera.
+There's lots of interesting techniques.
+That's a lot of the current research.
+But wouldn't it be cool to say there's a commercial opportunity, add great data of this kind to
+the big model.
+You can make some money.
+You can earn some glory, some recognition.
+People will know you did it.
+Like why not?
+What is wrong with that?
+Why not motivate people to add great data to a tool that will then help other people?
+That would be good.
+Right now we don't have any way to do that because everything is supposed to be lost
+in the Great Sea and you're supposed to subsume your identity to the great creature in the
+sky.
+But why?
+There's no reason.
+It doesn't actually accomplish anything.
+I think a lot of what it is is when people grow up on certain science fiction, it becomes
+their vocabulary.
+It's almost like when you grow up with religious stories and so just again and again, I have
+to create SkyNet.
+Even if SkyNet is really bad, I still have to create it or I have to create those agents
+in the Matrix movies or whatever it is.
+I have to make my commander data.
+It's the nicest one.
+The only nice one, really.
+And I have to do it.
+That's the vocabulary I know.
+But why?
+It doesn't actually make rational sense.
+There's no reason to think of it that way.
+Then there's this other interesting question, which is the future of the economy.
+So most people who study how this might play out economically will say, it's not black
+and white.
+It's not so much that the whole of the population will be unemployed and everything will be
+AI systems and robots.
+Some people do believe that pretty strongly.
+And there's others who say, oh, no, no, no, it's just like in the past, new technology
+creates new jobs.
+This isn't that different.
+Probably there's a lot of truth in that too.
+But anyway, we don't know for sure.
+It's all speculation until we get a few more decades into this thing, right?
+And let's say that there's some group of people who might experience some loss of well-being
+or prestige or something because of AI systems.
+What if instead they could become celebrated contributors to AI systems in the way I just
+described?
+It may be that here, don't gasp, earn money.
+Like why not?
+Like the amount of money that flows through central internet hubs now is like spectacular.
+I haven't checked the stock today, but we're worth to point something trillion dollars.
+I mean, come on, trillion, trillion.
+It's this gigantic hub of the economy just as Norbert Wiener had predicted it would be.
+We can create an economy where more people participate in that.
+It's not charity of us to them.
+It's growing the economy by keeping more value on the books instead of throwing it off the
+books.
+So if you believe in market economies at all, they don't have to be the only thing going
+on.
+But if they have any role at all, then having more value on the books grows the economy
+and is better for everybody.
+And we can do that with the state of dignity approach.
+It doesn't mean that it's universal for every situation for everyone always, but why not
+create a new creative class instead of a new dependent class whenever that's possible?
+All right, that would be the vision.
+You want to create creative classes instead of dependent classes.
+And this issue of the creative classes to me has a sort of a long term, I would call
+it a spiritual dimension.
+If we imagine what is the future of a really advanced economy with advanced software,
+advanced robots, advanced materials, a better energy cycle instead of our sucky one, and
+things just get like, what is human life like?
+How do we think of ourselves?
+And the obvious answer to me is more people should define their lives as creative lives
+rather than lives driven by a narrow necessity of one sort or another.
+Isn't that obvious?
+Isn't that what we'd want?
+What is the other alternative?
+What other idea is better than that?
+I've been criticized by saying, oh, well, you're an artist, so you want everybody to be an artist.
+But really, what is the better idea?
+What is the better idea?
+What do we want from all this technology?
+So I think there's a general direction in data dignity that offers us a human-centered feature
+that just has more concrete terms for improving the performance of technology
+and more positive human roles in it.
+And just the whole thing makes more sense.
+The cost of it is a high cost, which is giving up the vocabulary of one's childhood,
+the science fiction movies of the big entities in the sky that we're supposed to be building.
+I don't know, you could still believe that in your heart.
+You know, I'm not the thought police.
+Anyway, that's the very briefest summary of data dignity I know how to make.
+Of course, I can and sometimes do go on for hours and hours and hours about this stuff.
+How's my time?
+That was amazing.
+Your time, you're actually, you know, I think the threat that I had you stop to.
+So I'm not going to use that again in the future when...
+So we're gathering some questions from the audience
+and Meredith is busy trying to consolidate some of those questions.
+And so here's a question that you're probably not surprised that you're getting.
+It's written in a kind of stark form.
+Do you think the development of AI should stop?
+And why or why not?
+Well, see, I don't think AI is a real thing.
+So the famous petition for pausing AI for six months was written by a good buddy of mine
+who's also a neighbor, the physicist Anthony Aguirre.
+And when I looked at it and a lot of people at Microsoft actually signed it,
+I just feel like the problem with it is that in the very formulation it
+emphasizes this idea that AI is like this entity or like this thing.
+And I don't think it is.
+I don't think there's anything there to stop.
+I think the way we should think of it is to focus on the people, on the social collaboration.
+And if you think of it that way, it just becomes less intelligible to talk about stopping it.
+And I think it just makes it safer and better to think of it that way.
+So my problem with the pause petition is it reinforces a way of thinking about AI
+that I think makes it harder to avoid troubles.
+Hey, here's another one. As AI becomes more powerful, how can we guarantee that it may
+decide whether or not it may decide to break the rules that it has been given?
+There is no AI. It's not an intelligible question. There's nothing there.
+If you insist on thinking that way, it will definitely break the rules because you can't
+write the rules. You can't trick the genie. So the way you've posed the question is the problem
+and guarantees failure. How's that? That's an amazing answer to that question.
+And as a mathematician, I love that answer. No, because it's a yes, because it's ill posed.
+You have to have defined. Right. You have to have well posed questions.
+Yeah. And so look, I don't, I'm a little concerned that I'm going to sound too
+postmodern or deconstructionist or something and like, oh, no, no, no, what you're saying
+doesn't make sense. But in this case, really, really, the practical idea is to question your
+question. That is actually the far more practical approach.
+So what are the impediments to your approach being realized?
+Yeah.
+A lot of it is I had wanted us to try to do it to do the recent GPT three to four this way.
+However, the problem with it was that we didn't even know like if the code
+copilot would work at all, like this has all been so experimental and the experiments have
+to happen at such large scales. And the trick, the tricky thing is that if you put too many
+research questions into a very large scale experiment, it's very hard to figure out what
+you had to interpret your result. Right. So like if I'd gotten us to do it and then it worked,
+it would be hard to know. So like in other words, what you want to do is you want to put
+as little as possible into a large scale experiment so that the results are more easily
+interpretable. And that is the correct answer from a science point of view.
+However, from a society point of view, we did this stuff right in the middle of everybody's
+weddings, right? And so there's this, I don't know, you know, like it, it's, I think the reasons for
+not having done it so far are reasonable and the difficulty with doing it now, just to be really
+blunt is it's hard to argue with success. We're crazy successful with this thing. It's making a
+lot of money and then it's hard to go, it is a commercial enterprise and it's hard to go and
+say, well, let's just do it this other totally different way. The other thing is that most people
+in the world do think in terms of AI being this creature, the way that I don't like to think of
+it. And it's very hard. It's very hard to come up and say, oh, you're all thinking wrong, you're
+all doing it wrong. It's a hard position to be in. I'm trying to do it with good humor and as much
+clarity as I can muster. And I have faith in my fellow human beings that eventually this
+point of view will gain more traction. But also I have to be realistic about how difficult it is.
+I've got a couple more questions here. If Chad GPT could be considered a social collaboration,
+so in other words, your inverted way of looking at it. How do we reckon with the fact that most
+of the training data is heavily white and male and Western?
+By making the training data explicated, I think what should happen is when you get a result,
+you should be able to get a characterization of the key antecedent examples that influenced your
+result. And I think the problem with this idea that it's this oracle, this mysterious infinitely
+large oracle that's with the trackless interior that no one can interpret is that when you complain
+about bias, your only option is to try to slap another AI on the output to try to catch the
+bias, which gets you back into the genie problem. Now, we've been doing a little bit of that. And
+I think it works a little bit. I'm not saying that we should stop doing it. I just think,
+like, God, I can't give you so many examples of this. A long time ago in the 90s, I had a group
+that did the first robust official feature tracking, right? And it was based at USC. And one day,
+we just discovered it didn't work on black people. It was like, Oh, my God, this is so horrible. But
+you realize that it was just trained on the people who happened to be in the room. And it was USC.
+In the 90s, there were not black people in the engineering world at USC in the 90s, you know,
+it just wasn't happening. And so there it was reflected right back at us. And then so the
+approach that worked to fixing it is exactly what I've been talking about. Like, the antecedent
+data has to reflect humanity and not be some sort of imagined, you know, whatever, that you pretend
+not to know about. So that I got introduced to that in the rudest, most, you know, difficult way.
+But the thing is, we're still doing the same thing. But if we pretend that the antecedent data is
+some trackless impossible to know, gigantic mush, and we can't even talk about it. And all we can
+do is try to moderate it on the output. It's a very we're putting ourselves in a needlessly
+difficult position. You know, why can't so why aren't why can't people be motivated to make the
+training data work data work better for society. And to me, this would be a sterling example of
+where it should. So one more question, what role does citizenship as a concept play in AI ethics?
+Um, this this opens up a sort of a complicated topic. So in my view, earlier programs that are
+called AI have done horrific global damage to citizenship everywhere at once, by detecting
+rather crudely attention generating choices and constructing online experiences for people for
+the benefit of the reach of social media platforms and advertisers and whatever. And so we've ended
+up with the whole world kind of a little I mean, everybody's always humans have always been a little
+paranoid and cranky and whatever. We've always been this way, but we're just a little bit more
+this way. It just accentuates those parts of us. And that directly undermines citizenship because
+people turn on each other. Like, I don't know, I don't know if the US will be around in a couple
+years. It's like, I've never felt that way before in my life. I and it's it's horrible. And it's
+happening all over the place. And this is something I've written a lot about. And when I started
+writing about it, nobody believed me. And now it's normal to worry about this. At any rate,
+what we're all terrified of now in the industry and everywhere is that
+if the current generation of generative AI is used to make people insane, like for upcoming
+elections, we're really screwed. And the issue, let me just try to say a few more sentences about
+this. There's an illusion that has taken over the minds of a whole generation, like the whole
+technical world, that is obviously a falsehood. And yet we can't let go of it, which is that a naive
+form of democratization makes sense. And it obviously doesn't. And this is something we knew
+way back when I was when the when the internet didn't exist yet. And I was, I was working with a guy
+named Al Gore, who had helped get no Al Gore, just just I don't know if you're laughing because
+there's a there's a trope that he says he invented the internet, which I don't think he did. But the
+thing is, he actually did. Because the internet is not a technical invention. It's a political one.
+And the invention was very simple. We're going to bribe all the people who are running packets,
+which networks so they'll stop being dicks and will interoperate, and we'll use government
+money to bribe them. That was the invention and it worked. So I remember saying, you know,
+you realize because of how network effects work, because of basic math,
+they're going to be a few gigantic winners of people who are able to make hubs on this thing,
+which is very bare bones, and we'll need, we'll need to have these services that figure out where
+data came from, that's Google or who did it, that's Facebook or meta and etc. And we're going to
+create these giant giant hubs that we don't we're making a gift of trillions and trillions of dollars
+to parties unknown. And that's going to happen. And the answer was, Yeah, but at least they'll be
+American companies. Okay, so now the one that owns the minds of the youngest people is a Chinese
+company, it's tick tock. And I got this is also very uncomfortable to talk about because I don't
+want to spawn some sort of paranoia about shy, but I have another role kind of in the world that
+looks at these things with DARPA. And I got to say, they're totally on top of using this thing if
+they need to. And there's a lot of horrific scenarios that could come about. And I'm worried,
+I'm really scared. Another thing is that we tech people make ourselves insane with their own
+inventions. Like, in my view, Twitter x made Elon Musk insane in a way that he didn't used to be
+insane. And I think it's a very clear and obvious thing that's happened. And everyone who knows
+them has seen it happen and has seen how it happened. And it's, it just gets worse and worse. And
+and so yeah, we have a big problem. This is, we're going to go through harrowing times in the
+next few years. And I kind of believe if we can make it through the next few years, then we can,
+we can make it through a long time after that, at least as far as these issues go, then we still
+have the climate and everything. But I think we're about, we're going to go through a very
+difficult crunch here. That's why I said so I was given one final question, which is what
+unique role can a public institution like UC Berkeley play in all of this going forward?
+You could accept some funding to do provenance research in AI.
+Okay. Yes. Karen has been trying to get me and a group of people to accept some funding to
+really be the people who look at the technical. Yeah. And you guys are slow. You should, you
+should, you should try offering money to Stanford and see what happens. They're like, Oh, that'll
+be fine. And we'll take your first born. And plus we want that property. Okay, fine, fine. We'll
+accept it. Come, come, come, come. That's Stanford. Berkeley is kind of like, well, yeah, you know,
+okay, let us thank Jared for this amazing talk.

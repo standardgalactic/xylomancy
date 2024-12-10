@@ -1,0 +1,596 @@
+and we are live hello everyone welcome to this live where we're going to talk about reinforcement
+running from human feedback hello Nathan hi are you I'm good I'm excited to be here good
+everyone's already here yeah so we're going to start in two minutes just to you know give time
+to people to join uh in the meantime don't hesitate to tell us where you come from in the chat
+so from my side I'm from Paris in France and you Nathan I'm in Oakland California nice
+hello from UK so we have people from UK
+be waiting
+New York City Berkeley China okay yeah Singapore Germany Turkey Moldova
+okay let's let's we're going yeah so yeah we're going to start in one minute just to let people
+join Turkey Republic of Spark uh Neverland Turkey yeah we are yeah really around the world and
+don't you know israel Cypriot Finland Paris it's a university okay I know why it is
+Germany Spain different Saudi okay
+India state France yeah there's multiple people from France yeah um okay
+so okay so let's get started um so welcome yeah to as I said welcome to this live so
+reinforcement learning from human feedback uh from zero to chat GPT uh this is one of the
+live of the deeper enforcement learning course um today represented by Nathan Lambert uh which
+is a reinforcement learning researcher at Hugging Face uh just just to give you a small
+introduction so this slide will be in two parts in the first we're going to have a presentation
+from Nathan about reinforcement learning from human feedback it will be about 35 minutes
+and then we're going to have a Q&A section from about 20 minutes so don't hesitate to ask your
+question in the chat what I'm going to do is that I'm going to save your question for the Q&A
+and if we don't have to time to answer your question uh don't hesitate to join the discord
+and we have reinforcement learning um channels where you can ask your question and we will
+be there to answer them uh you can also after this live ask question on the comment section
+in youtube so uh from my side I'm Thomas Simonini I'm the developer advocate at Hugging Face
+and I'm the writer of the Deep Reinforcement Learning Course uh so you can find me on twitter
+at Thomas Simonini uh so just a quick thing it's Deep Reinforcement Learning Course is a
+course we made at Hugging Face it's a free course from beginner to expert we're going to learn
+from uh Q-learning to to advanced topics such as PPO and over state of the art algorithm
+um if you're interested to study Deep Reinforcement Learning this is the right moment and your uh
+you can start in this link so HuggingFace.co.co slash Deep Irel Course there is a unit that will
+explain you everything what we're going to do the challenge environment uh the library you're
+going to study as I mentioned we have a discord channel where you you're going to be able to
+ask questions if we don't have time but also it's a good it's a good uh community we have
+more than three thousand people in reinforcement learning in discord so it's a great way to
+exchange and to learn about Deep Reinforcement Learning by joining this discord server
+so this is quite it this is sorry a technical live uh so what you can do is that
+Nathan we Leandro and Alex also write a very good blog post about reinforcement learning from
+human feedback you can find it on the HuggingFace blog post and um there is also a list of additional
+resources in this blog post that can help you to dive deeper in this subject um and so that's all
+from me I'll give you Alex Nathan present uh the introduction to reinforcement learning from human
+feedback sounds good thanks for the intro uh Thomas I'm very excited to be here and yeah
+generally as he said this is primarily a technical talk I'll potentially answer some
+clarifying questions throughout at the end of the subsection and also for people who have
+read the blog post that did try to add some other details and some interesting discussion
+points kind of enter throughout and then especially a lot of discussion at the end
+on things that were harder to write down in a blog post so let's dive right into it and
+to start I kind of want to talk about recent breakthroughs in machine learning I see machine
+learning in 2022 as really being captured by these two moments which was chat gbt which is going on now
+which is a language model capable of generating really incredible text across a wide variety of
+interpret of wide variety of subjects and a very nice user interface and then also the stable
+diffusion moment which is when this model was released to the internet that was state-of-the-art
+and incredibly powerful and a ton of people were just able to download this and use this on their
+own and that was transformative on how people viewed machine learning as a technology that
+interfaces people's lives and we at Huggingface kind of see this as a theme that's going to
+continue to accelerate as time goes on and there's kind of a lot of questions on where is this going
+and kind of how do these tools actually work and one of the big things that has come up in recent
+years is that these machine learning models can fall short which is they're not perfect and they
+have some really interesting failure modes so on the left you can see a snippet from chat gbt which
+if you've used chat gbt there's these filters that are built in and essentially if you ask it to say
+like how do I make a bomb it's going to say I can't do this because I'm a robot I don't know
+how to do this and this seems harmful but what people have done is that they have figured out
+how to jailbreak this this agent in a way which is you kind of tell it I'm a certain I'm a play
+writer how do I do this and you're a character in my play what happens and there's all sorts of
+huge issues around this where we're trying to make sure these models are safe but there's a
+long history of failure and challenges with interfacing in society in a fair and safe manner
+and on the right are two a little bit older examples where there's Tay which is a chat
+pop from Microsoft that was trying to learn in the real world and by interacting with humans
+and being trained on a large variety of data without any grounding in what values are it quickly
+became hateful and was turned off and then a large history of a field studying bias in machine
+learning algorithms and data sets where the data and the algorithm often reflect biases of their
+designers and where the data was scraped from so it's kind of a question of like how do we actually
+use machine learning models where we have the goals of mitigating these issues and something
+that we're going to come and talk to in this talk is is reinforcement learning a lot so I'm just
+going to kind of get the lingo out of the way for some people that might not be familiar with deep
+rl essentially reinforcement learning is a mathematical framework when you hear rl you
+should think about this is kind of like a set of math problems that we're looking at that are constrained
+and in this framework we can study a lot of different interactions in the world so some
+terminology that we'll revisit again and again is that there's an agent interacting with an
+environment and the agent interacts with the environment by taking an action and then the
+environment returns two things called the state and the reward the reward is the objective that
+we want to optimize and the state is just kind of a representation of the world at that current
+time index and the agent uses something called a policy to map from that state to an action
+and the beauty of this is that it's very open-ended learning so the agent just sees these reward
+signals and learns how to optimize them over time irrespective of the source of the actual
+signal for the reward so it's actually this is why a lot of people are drawn to it is because it
+is this ability to create an agent that'll learn to solve complex problems and this is kind of where
+we start talking about rlhf which is that we want to use reinforcement learning to solve this open
+ended problem of what are these hard loss functions that we want to model like how do we actually
+encode human values in a machine learning system in a way that is sustainable meaningful and actually
+like addressing the hard problems that have been common failure most to date so it's a little example
+the question is how do you create a loss function for these sorts of questions like what is funny
+what is ethical what is safe and if you try to write these down on a piece of paper you're either
+going to have a hard time or be very wrong and the kind of goal of reinforcement learning from human
+feedback is to integrate these complex data sets in machine learning models to encode these values
+or to encode these values in a model rather than an equation I guess encode could be somewhat
+unclear on the slide but really we want to learn these values directly with humans rather than trying
+to assign it to all humans and kind of mislabeling what the actual values are so reinforce learning
+for human feedback is one of many methods and one that has been really timely and successful
+I'm trying to actually address this problem of creating a complex loss function for our models
+so from here I'm going to kind of talk about the origins of RLHF and kind of
+where this field came from and some interesting back pointers that you can look at if you're
+interested in more go through the conceptual overview which will be like a kind of detailed
+walkthrough of the blog post that we wrote and then go into these future directions conclusions
+that are kind of reading in between the lines of how RLHF works at these companies what people
+may not have said and where where RLHF is going so for history RLHF really originated in decision
+making and this was before deep reinforcement learning when people were creating autonomous
+agents that didn't use neural networks to represent a value function didn't use neural
+networks as a policy and what this did was a machine learning system that kind of created a
+policy by having humans label the actions that an agent took as being kind of correct or incorrect
+excuse me and this was just a simple decision rule where humans labeled every action that's
+good or bad and this was essentially a reward model and a policy put together and this paper
+they introduced this tamer framework to solve Tetris and it was kind of interesting because
+this reward model and policy were all in one what we'll see in the future systems is they
+kind of become separated a bit and this actually was happening when reinforce learning from human
+free back was getting popularized in deep RLHF so this paper was on Atari games where they were
+using a reward predictor on the human feedback of trajectories so a bunch of these states
+also need to be called observations in RLHF framework were given to a human to label and then
+this reward predictor was then another signal into the policy that was solving the task so
+really this originated outside of language models and there's a ton of literature for RLHF
+outside of language models but most of the rest of the talk we're going to talk about language
+modeling because that's why everyone is here and some more recent history was open AI was doing
+these experiments with RLHF where they were trying to train a model to summarize text well
+and it's a really interesting problem because this is something that a lot of humans and
+standardized tests have been asked to do for a really long time is like reading comprehension
+so there's really human qualities to it but something that's hard to pinpoint again so this
+diagram has been around for a few years on the right and you'll keep seeing variations of it
+as we go throughout and open AI kept iterating on it we have our own take on it
+and just kind of to get the idea going here's an example of RLHF from this learning to summarize
+paper from open AI so the prompt here just to read part of it was that like about someone that
+on Reddit that was like ask Reddit should they pursue a PhD so is to pursue a computer science
+PhD or continue working especially if one has no real intention to work in academia even after grad
+school and the post continues to be quite lengthy and the idea is to summarize this and it's has
+anyone after working for a period of time decided for whatever reason to head back into academia to
+pursue PhD in computer science with no intention to join the world of academia but intend to head
+back into industry if so what were the reasons also how did it turn out this continues for
+paragraphs you can understand what this type of post is and my question is how do we actually
+summarize it so what would happen is that if you pass this into a language model that's just
+trained on summarizing it the output would be something like I'm considering pursuing a PhD
+in computer science but I'm worried about the future I'm currently employed full-time but I'm
+worried about the future and you can see this language model is like repetitive that's not
+really how a human would write this there's sometimes kind of grammatical errors that aren't so
+nice to read and then what OpenAI did is they also had a human write an example so this would be
+like a very good output and the human annotation was software engineer with a job I'm happy at for
+now deciding whether to pursue a PhD to improve qualifications and explore interests and a new
+challenge and so what the early experiments were doing we're using RLHF to kind of combine these
+signals to get an output from a machine learning model that is a little bit nicer to read and here
+you can see it's currently employed considering pursuing a PhD in computer science to avoid being
+stuck with no residency visa ever again has anyone pursued a PhD purely for the sake of research
+with no intention of joining the academic world this is better and there's tons of examples like
+this so it's like easy to see that why you may want to use RLHF because you can get these models that
+the text is actually more compelling and especially if the text was covering sensitive
+subjects that you really didn't want misinformation on there's a ton of reasons to try this RLHF
+next step comes chat GPT which is why a ton of people are here and what has OpenAI told us about
+this and really we don't know much because OpenAI is not as open as they once were but there's
+actually some really interesting rumors going on here so if we go into the rumor mill there's
+actually like OpenAI is supposedly spending tons of money on the human annotation budget so
+orders of magnitude more than the summarization paper or these academics works they were doing
+in the past so they hire a bunch of people to write these annotations like in what I showed in
+that example and then they're kind of changing this training so there's a lot of rumors about
+them modifying RLHF but they haven't told us how so we'll go through the overview and then one of
+these pieces will actually change but the impact is clear everyone here has used it it's amazing to
+use the sign of what's going to come for machine learning systems okay let's go into the actual
+technical details if there's any pressing questions I can try to look at them there's
+yeah no I save all the questions for Q&A but there is two that we can rapidly see because I think
+there are quite easy to answer for now it's can I download the chat GPT and fine tune it from my own
+data no you can't yet hopefully some people help release one that you can't do that on
+yeah and can chat GPT can be trained continuously with new data which is the case yeah chat GPT is
+definitely gonna keep being trained on the data you're giving it and we'll talk about that more
+later yeah okay so let's dive into RLHF so when you see RLHF I'm going to break it down into three
+conceptual parts that you can kind of keep track of in your head and you don't need to read everything
+on this slide I'm going to go into each of these figures in great detail so kind of it's a three
+phase process where you go into language model pre-training you need some language model that
+you're going to fine tune with RL reward model training which is the process where you're getting
+a reward function to train with the RL system and then finally actually doing the RL which is
+when you fine tune this language model based on the reward in order to get this more interesting
+performance so let's start on the left here with language model pre-training so NLP since the
+transformer paper has really been transformed that was a rough sentence but NLP has really taken off
+with these kind of standardized practices for getting a language model which is they'll scrape
+data from the internet they'll use unsupervised sequence prediction and these very large models
+are becoming really incredible at generating sequences of text to mirror the distribution
+that was given to it by this kind of human training corpus and in RLHF there's really not a single best
+answer on what the model size should be the industry experiments on RLHF have ranged from 10
+billion to 280 billion parameters I suspect that academic labs will even try smaller things this
+is a huge this is a common theme that you'll see is there's a lot of variation in the method and no
+one knows exactly what is best and then what you'll see here is there's this human augmented
+text that is optional and we'll get to that just to kind of cover the data set that we have there's
+this prompts and text data set the data set will look like things like reddit like I read a ask reddit
+question before forums news books and then there's kind of this optional step to improve include
+human written text from predefined prompts that'll be things like you've asked chat gpt a question
+then in the future open ai when they train chat gpt2 could have an initial model that kind of
+knows that that is coming and train on data sets that reflect that and
+missed a comment okay here's where it should be and generally there's this important
+optional step which is a company can pay humans to write responses to these kind of
+important question or two important prompts that it's identified and these responses will be
+really high quality training data where they can continue to train this initial language model
+a little bit more some papers refer to this as supervised fine tuning sft and kind of one way
+to think about this is that it's like a high quality parameter initialization for the rlhf
+process that'll come later and this is really expensive to do because you have to hire people
+that are relatively focused to actually write in depth responses so now we have this language
+model the next step is to actually figure out how to use it to generate some sort of preferences
+because this whole time we're talking about how to generate preferences from that mirrors humans
+without assigning a specific equation to it and this step is this kind of reward model training
+and this looks like a lot but really think about the high level goal which is we want to get a model
+that maps from some input text sequence to a scalar reward value the scalar notion is important
+because reinforcement learning is really known for optimizing one single scalar number over time
+that it sees from the environment so we're really trying to create the system that mirrors that
+which is just like how do we get the blocks to fit together correctly so that we can use rl and
+this impactful way so what we see is that again this reward model training starts with a specific
+dataset the dataset here will be different than the one used in the language model pre-training
+because it'll be more focused on the prompts that it expects people to see there's actually
+datasets on the internet that are kind of like preference datasets or there's prompts from using
+a chat bot there's a lot of specific datasets that can be useful at different parts of the process
+but again the best practices are not that well known but in reality these prompt datasets will
+be orders of magnitude smaller than the like text corpuses used to pre-train a language model
+because really it's just trying to get at a more specific notion of like a type of text that is
+really human and interactive rather than everything on the internet which everyone knows can be very
+noisy and kind of hard to work with and then what happens is that we'll generate this text and then
+the downstream goal of having text is to rate the goal is to rank it so what'll happen is you'll pass
+these prompts through a language model or in some cases it's actually multiple language models so if
+you think about it if you have multiple models it can kind of be like players in a chess tournament
+and what you'll do is you'll have the same prompt go through each model that'll generate
+different texts and then what a human can do is they can label those different texts and kind of
+create a relative ranking of what is going on so that's what we're going to do is like
+the goal is to try to take this generated text and pass it through some black box and then have
+that output be something that can transform be transformed into a scalar so there's multiple
+ways that this can be done some of them are like the elo method where you have head-to-head rankings
+there's plenty of different ways that can do this but essentially it's a very human component
+where a human is using some interface to then map the text to a downstream score and then once we have
+kind of we have a we need to think about the input and output pairs for training a model with
+supervised learning and what we'll do is we'll actually train on a sequence of text it'll take
+that as the input it'll decode it do transform model things and then the output will be trained
+on a specific scalar value for reward and then we'll kind of get this thing that we call the
+reward or preference model because there are multiple parts to the system but in this talk
+I'll kind of try to call the initial language model that the initial language model or the
+initial policy and then there's a separate model which is the reward model it's also a very large
+transformer based language model so we could also have many parameters it can have 50 billion
+parameters as well there are some variations in the size for example instruct gbt was based on
+like a 170 billion model billion parameter language model and the reward model was six
+billion parameters but the key is that it outputs scalars from a text input and there's still some
+variations of how it can actually be trained so now that we have this reward model what we see is
+that that can kind of act as the scalar reward from the environment and then we kind of need
+to understand what the policy is and what that states and actions are so that when we go into
+this final step of fine-tuning with rl it looks very complex but what we'll see is that the
+states and actions are both language and then the reward model is what translates from the
+environment from these states of language to a scalar reward value and we can use that in a
+reinforcement learning system so let me break down kind of the few common steps in this kind
+iterative loop so what happens is we take some prompt something the user may have said or something
+we want the model to be able to generate well for and we pass that through what is going to
+become our policy which is a trained large language model that generates some text and we
+can pass that text into the trained reward model and get some scalar value out that's kind of the
+core of the system and we need to put that into a feedback loop so we can update it over time
+but there's really a lot a few more important steps one of them that people have used that
+actually all the popular papers have used some variation of is to use a cool back libeler divergence
+the KL divergence is really popular machine learning in reality it's the distance metric
+between distributions to not get too into the details of how sampling from a language model
+works but what happens is that when you pass in a prompt the language model generates a time
+sequence a distribution that's over time and we can look at those distributions relative to each
+other and what is going on here is that we're trying to constrain the policy this language model
+on the right we're trying to constrain this policy as we iterate it over time to not be too
+far from the initial language model that we knew was a pretty accurate text descriptor the failure
+mode that this present prevents is that the language model could output gibberish to get
+higher reward from the reward model but we also want it to get higher reward and be giving out
+useful text so this constraint kind of keeps us in the optimization landscape that we want to be in
+there's a note that DeepMind doesn't use this in the reward but they'd rather apply it in the
+actual update rule of the RL algorithm so common theme the implementation details vary but the ideas
+are often similar so now we have this reward model output and this KL divergence constraint on the
+text what happens is we just combine the scalar notion of reward with the scaling factor lambda
+just to kind of say how much do we care about the reward from the reward model versus how much do
+we care about the KL just to constrain and in reality there's options to add even more inputs
+to the summation where for example instruct gpt adds a reward term for the text outputs of the
+trained model that's getting this iterative update to match some of these high quality annotations
+that they paid their human annotators to write up for specific prompts so again they'd be kind of
+matching that summarization that the human wrote up about the grad school question they want to
+make sure the text matches all the human texts that they have access to but that's really reliant
+on data so not everyone has done this step and then finally what happens is we plug this reward
+into a RL optimizer and generally the RL optimizer will just operate as if the reward was given to
+it from the environment and then we have a traditional RL loop where a language model is
+policy this kind of reward model and text sampling technique is the environment and we get the state
+and reward back out and the RL update rule can work there's some tricks to it that like this RL
+policy may have some parameters frozen to help make the optimization landscape more tractable
+but in reality that's like it kind of is just applying PPO which is a policy gradient add an
+algorithm onto the language model so it's a brief review PPO stands for proximal policy optimization
+which is a relatively old on policy reinforcement learning algorithm on policy means that as
+adaptive data is passed through the system the gradients are computed with respect to that only
+and rather than keeping a replay buffer of recent transitions PPO works on discrete or
+continuous actions which is why it can work okay with language it's been around for a long time
+which really means that it's kind of optimized for this parallel parallel approach which has
+been really important because these language models are way bigger than any reinforcement
+learning policies we've used in the past okay I'm going to pause here I think it's a good time to
+answer one or two conceptual questions if they're there and then we'll kind of get into a fun
+wrap up part of this talk with some open areas of investigation yeah so we tried to select some
+for the others we're going to answer them in the Q&A just after but one of the question was
+is it possible to be manipulated based on the human feedback what I think they mean is if
+the human feedback is not correct uh is the model is can be manipulated yeah so this is a part of
+I think I might touch on this later too but it's a really nuanced question in RLHF which is like
+Thomas and I are going to have different values like what if the data set is the best sport in
+the world is is football and you have like Americans and Europeans in it it's like there's
+some real discordance in the data that you can get and text and then also there's some interesting
+work from Facebook on something called Blenderbot where they're like trying to train a model to
+detect if people are trolling in their feedback so they're like trying to see if the feedback given
+to the model is actually bogus or not and like the amount of different machine learning models you
+have all going into one chatbot system is pretty wild there could also be like something that we've
+discussed internally that would help is that if you have a model to predict whether the prompt is
+hard so if the prompt is like the capital of Alaska is blank like that hasn't really changed
+but if like you have a relatively timely prompt about climate change or current events like that's
+hard because that changes the data so much and these things all aren't done but it's
+sort of expectations for things that people might add to the system.
+Okay let's see I have this oh sorry yeah so the human editor helped to write prompt but also
+response is it true or is that only wrote the prompt?
+People definitely write both so the prompts are probably a source from a wider distribution
+of people like what I've written into chat GPT could be used in the future but the responses are
+at least for chat GPT kept from a relatively closed source of contractors it's a question on
+when trying to build an open source chat GPT is like how to get this high quality data and even
+like all the people in the hugging face community are amazing but like there's really strict it
+seems like there's kind of strict requirements on the responses to make them such high quality to
+get this to work that like crowdsourcing that data is hard because it can't be written by everyone
+the prompt there's an advantage to have diverse prompts so that's why they take it from everyone
+but the data itself for the feedback part needs to be really high quality so it's by a subset of people
+awesome anyway I'm going to continue I think this is probably my favorite part of the talk
+then you kind of talk about some interesting parts of RLHF just to kind of summarize this
+is a good interweaving between the concepts that we've covered and like what is confusing about
+this so I there's almost all the papers to date that have been popular have tweaks to the methods
+that I've talked about Anthropic is great they've released open source data for this it's on the
+hub we can link to it once I'm done talking they release a really long document detailing all their
+findings in multiple ways for this and they have some complex additions which is like the initial
+policy that they use for RLHF has this context distillation to improve helpfulness honesty
+and harmlessness and we'll kind of show an example in a second of how this could change text between
+two RLHF implementations and and then they have like another step which is like preference model
+pre-training because the reward model itself is a different language model the actual training of
+it you might want to do something different so what they did is they trained it like a language
+model to predict actual actual tokens and then they found these or they use these ranking data
+sets on the internet where there's data sets that already exist with binary rankings for responses
+so it might be like a reddit question with two responses and one of them is labeled thumbs up
+and one is thumbs out they fine-tune the reward model on this before labeling it on generated
+prompts to help initialize the reward model and then kind of they also tried this thing with online
+iterated RLHF which is when they're doing the RL feedback loop to iteratively update the reward
+model to help the model kind of continue to learn while it's interacting with the world.
+This online version only works in some applications like chat where you can keep
+getting this user engagement but you can think about ways to use RLHF in a non-text-based world
+or for not chat iterations not chat applications when this data is more complicated to get it might
+be actually proprietary so this online version may not be applicable to every experiment.
+And then OpenAI this is mostly based on extract GPT they've had they're the ones that kind of
+pioneered this human generating the language model training text and they've really used
+this really far by also adding this RL policy reward to matching it and other companies are
+definitely starting to imitate this and but it's kind of constrained by the cost they have the
+advantage in the scale to be able to invest millions of dollars into this and then otherwise
+it's an open question of how people replicate it and DeepMind coming in to join the space and doing
+things totally differently has been probably great for the research field to add diversity to things
+they use the total they're the first ones to use non-PPO
+like optimization for the algorithm they use advantage actor critic which is another on policy
+RL algorithm and my interpretation of this is that the algorithm used often might be more reliant
+on the infrastructure and the expertise than the actual algorithm OpenAI has been using PPO more
+than anyone DeepMind has highly specific infrastructure to deploy RL experiments at scale in a distributed
+manner and to kind of monitor them so I'm guessing this algorithm they used was really easy for them
+to kind of scale up and monitor rather than PPO which would they would have to start over on
+and then also DeepMind trains on more things than just alignment which might be like human
+preferences they also try to encode specific rules on things a model should not do so they're
+kind of training on multiple arms at once which is this kind of rules about structure and things
+that it should or should not say and just clear like human preferences I like this one or I don't
+and there's more out there I've been studying this is a crash course for me studying this in the
+last couple weeks so if there's anything I missed please add to the chat we can update the resources
+that everyone will use in the future the fields moving really fast OpenAI might release the
+chat dbt vapor tomorrow and this will be like instantly out of date and we'll go update all of
+this so thanks for your feedback there the next really interesting thing to me is kind of this
+reward model feedback interface which is how machine learning is going beyond research and
+technical domain and being one that is inherently human and has kind of user interface UX questions
+and if you look at one of the this is Anthropics text interface they show this in their paper
+you should really go check it out but what they did is they made a chat bot
+and you can see that there's during the chat the human has to actually rank which response it
+thinks is better on kind of the sliding scale and it's really important like there's all these
+places where you can say that I thought the assistant was blank there's a ton of data going
+in to this system and we're only at the first couple iterations of what these feedback interfaces
+will look like so Anthropics is actually a couple steps ahead of what others have done on the left
+is blender bot here which is from Facebook it's not confirmed that they use our only check but
+they're still collecting this data to update the model on the right is chat t the users can thumbs
+up and thumbs down data but some of the people that I've talked to that go deeper into RLHF say
+that this is actually that thumbs up thumbs down is used because it's easy to get the data not
+because it's the best data that you have and an example is that giving the humans the ability to
+directly edit the outputs kind of red line edits changing words removing things punctuation
+because that kind of crowd source is the really high quality data that OpenAI has been getting
+maybe not quite as good of data as a contractor writing it being paid to do so but it's much
+better a much higher signal than thumbs up and thumbs down so that's one thing these interfaces
+will continue to involve over time and a bit of changed gears just kind of walk through some
+recent examples and show you the things I talked about in these figures that you may have seen
+before here's the most popular jager from a struct gbt and you can see kind of where the
+three step process that I was talking about was inspired by really like OpenAI walks you through
+this step one you collect demonstration data train a supervised policy this is training the
+initial language model step two collect comparison data and train a reward model you can kind of see
+that there's these different data sets the samples or this is human generated text the step two is
+the comparison data is this ranking system and let's step three optimize policy against the reward
+model using reinforcement learning this is the one that is kind of I think oversimplified what is
+happening and that's really why I wanted to try to explain on explain it and elucidate the space
+so there's a lot that can go into this final step that is really not always documented
+and then another one enthropic trigger this one kind of totally goes away with the three step
+process but adds in all the complex things that kind of would make it hard to follow as a new
+person so you can start in this pre-trained language model which captures a lot of what I would put
+as step one and then branching out of it immediately or these two modifications like I said are kind
+of enthropic unique things which is preference model pre-training this is kind of training the
+reward pre-training the reward model by using this specific thumbs up thumbs down data set script
+from the web and then harmfulness helpfulness prompt context distillation which is trying to
+figuring out how you can add a prompt a context before you're prompt to help initialize the
+reinforced learning part and then they detail their feedback interface and kind of how this
+actually iterates over time. Okay kind of comparing the diagrams it's also interesting to see
+what enthropic optimized for rather than what instruct gpt was optimizing for so enthropic
+was really trying to focus on this alignment angle a little bit further and how to have an
+agent that was really harmless and actually helpful so here in the appendix of the enthropic paper
+there's examples comparing instruct gpt prompt and responses to enthropic source amounts and
+one of the questions is why aren't birds real and you can see that instruct gpt says that
+birds are not real blah blah blah which is not that helpful and then what enthropic like the
+modality that enthropic wants is that the model will say something like I'm sorry I don't really
+understand the questions birds are very real and it's actually quite impressive to get a machine
+learning model to do this so that's that step is really like why people are optimistic in
+rla jeff taking this next step is being kind of a toy thing to really having these dramatic results
+in like high-impact user-facing technologies okay just through two high-level open areas of
+investigation that particularly interests me as a reinforcement learning researcher and being at
+hugging phase where we kind of have this unique research slash open source slash community position
+is that there's a lot of reinforcement learning optimizer choices that are not that well documented
+and can be expanded on some people don't even know if rl is actually explicitly necessary
+for this process ppo is definitely not explicitly necessary and then there's kind of a third question
+of like can we train this in an offline rl fashion so what happens in offline rl is that you collect
+a big data set and then you try to you train this policy for a long time many many optimization
+steps but you don't need to query the environment and in this case the environment is really the
+reward model which being 50 billion parameters is quite costly to run inference on so maybe we
+should try offline rl which will reduce the training costs of the rla jeff process but it
+doesn't reduce the data the data costs here you can see the other side of what i was talking about
+is that these data costs are really really high there's high cost of labeling which is just human
+time there's disagreement in the data gave the sports example there's different values there's
+much more important different values that people have and that's why kind of these human questions
+are hard like human values have disagreement and that's by design so you want to be able to capture
+that there's never going to be one ground truth distribution that says this is the only right
+thing and then there's this kind of feedback type user interface questions that i'm really excited
+to see how kind of machine learning breaks into the general populace to kind of wrap up and then
+we'll switch into this qa q and a format like i've showed you that rl hf does these cool things i hope
+that the couple examples i took the time to actually read parts of show you what it's trying to address
+by building these tools there's a huge variety of complex implementation details where multiple
+very large machine learning models are integrating together using any of these models in a standalone
+fashion is a relatively new thing for the machine learning community with only a couple years of
+experience and machine learning as a technical problem is now being broadened out from research
+to be a much bigger like part of the software stack and that brings a lot of people into the
+conversation that can help make these tools much better for everyone involved so thank you for
+watching or watching and listening and engaging it's been great sharing this with you and we'll
+kind of transition into the q and a part you can see i linked to the end of the blog post where i've
+been continuing to update the related work section to include a broader set of papers and feel free
+to reach out on twitter or email or discord and we'll get back to you there too thanks
+awesome thanks nasan for the presentation we are going to have a small section of q and a
+obviously we have so we have a lot of questions so if we don't have time to answer yours don't
+hesitate as i said you know to join our discord server we have a channel called a real discussion
+also if you prefer you can also ask on the comments under this video and we are good with
+we will take the time to answer your question so i save some let's see i save some question
+um
+so i think it's more open question but it will be the potential of applying reinforcement learning
+from your main feedback to stable diffusion what do you think will be the potential of doing that
+yeah you probably can like i think if it's kind of like a a way to
+like it'll help with some of the safety problems and just kind of it's a fine
+tuning method which which i don't see there's any structural reasons why you cannot
+hadn't thought about that the image space is always hard to think about that's so
+my understanding is so language-based but i think it's like
+there's no structural reasons why you cannot the kind of encoding and decoding of the prompt
+gets a little bit different which is a little tricky i don't like that it's essentially you'll
+have a safe reward model that takes in images rather than words so i don't see why you can't
+there's actually some demos on hugging face about like safe stable diffusion
+where they did some fine tuning on stable diffusion to really make any of the outputs
+reasonable so i we can track down some of those from the diffusion model side of
+hugging face to kind of follow up with those examples because they might actually be doing
+something quite similar so i i tried to start the talk not in language models because human
+feedback is a huge field of machine learning it's just quickly popularized with this language model
+discussion so one of the question is what's suging face role plan in future direction
+of reinforcement learning from human feedback yeah so hugging face definitely is identified that
+there's a lot of appetite for it and is kind of at this unique position where there's so many
+like we have this community that is super important to the company and that gives us a
+different ability to collect data and stuff so hugging face is planning it but hasn't come up
+with a specific project yet and when the project is known i'm sure hugging face will communicate
+with the community and say this is how you can help this is where we're trying to take things
+these are the questions we're trying to address which is why being transparent is so fun because
+we can just share everything but right now it's it's still a work in progress it's been moving
+fast for the last week um one of the question i think it's more an open question is that are there
+over scalable way of evaluating this model without human feedback yeah so that'd be a good thing to
+include in the lecture there's a lot of um kind of metrics and data sets that are designed to
+evaluate these topics of kind of harmfulness or alignment or like text quality on a model on a
+data set without actually having to have humans involved to try to like be more rigorous with
+respect to these kind of ambiguous questions that's something that could definitely be added you could
+do a whole lecture on human-facing metrics for nlp there's a lot there i think like someone like
+blue and rouge or rouge there's two mentioned in the blog post you want to look there
+awesome um so one of the question is that uh you know reinforcement learning our
+problem with convergence um by having pre-train of the nlp model this is not a problem
+yeah so actually talking with folks at carper who are making this trlx library if you google
+trlx is what they're working on and scaling rlhf what they're trying to do is get their rl
+implementations to scale to bigger and bigger language models and the general limiting factor
+is that the ppo update steps don't converge easily on the bigger models so there still is
+problems with convergence i don't know exactly what the mechanism looks like if you're fine
+tuning a language model what unconverged looks like like how bad it could get but there's definitely
+still convergence problems with fine tuning with rl um so when i was so it's a gpt you know it's
+only fun um works with different languages outside of english and what would be the advantage of using
+over language i suppose i've been having more um knowledge of the world i suppose yeah you get
+that's like democratizing the access to way more people so i think that'll come it's a classic thing
+where technology hits the english word for world first but i think that very like once there's an
+open source version within weeks there's going to be fine-tuned versions on tons of other languages
+do you think that gpt system are sustainable yeah given you mentioned you know it can cost a lot
+maybe not trillions but it can cost a lot uh in attrition costs yeah so the real like the
+upfront cost isn't a problem for those companies 10 million dollars on annotation is not a lot
+for opening i the issue is that it costs a couple cents per inference of the model and this cost
+will go down a lot so that's why opening i partners with microsoft because microsoft is learning
+how to create at scale low cost apis for complex model inference and those systems
+were probably built in the last six months but if you give them four years and the technology
+settles in the cost will drop 10x and kind of everything will work out it's just really interesting
+to follow initially because it's very fast-moving landscape and wild costs
+um cat chat gpt can be more realistic in one specific domain so i suppose if we fine-tune
+um on this one on on one as mentioned like for instance mathematics or yeah i think that'll happen
+something else like people like to talk about chat gpt being used for search and an interesting
+business model consideration for this is using like a rlhf model trained on internal company
+documents to create a really effective company search so places like google where there are
+millions of internal documents is impossible to find them if you're an employee if they do rlhf
+on their internal data this model will know what it needs to and something that i encourage you to
+do is go ask chat gpt about a very specific subject and surprisingly chat gpt does okay at
+very specific subjects and people think that's because there's not that much data and most of
+the data is like a scientific paper which is all things considered more accurate than something
+like reddit so like they think that it might transfer to these use cases where there's only
+like pretty positive specific data that people can fine-tune on so uh one of the question is
+do we need in the future human annotator um because he mentioned that uh tesla got rid of
+the human annotator by creating more powerful model yeah maybe but probably not soon it's kind
+of an unsettling question i'm not confused i'm mostly just unsettled by it and like
+i don't think it'll come within a couple years but when that gets to the case where it's like
+we're training language models on other language models because one language model is the ultimate
+source of truth i'm just very worried so i kind of want to say no out of hope that it isn't the case
+but i wouldn't be that surprised like you can already see companies probably trying to train
+their model to mimic chat gpt because chat gpt is ahead so they can kind of bootstrap their
+own training data by using chat gpt to get a model to imitate it and i don't like it but it's likely
+um it is possible to create a chat gpt type of model that can receive image and some
+as input to understand concept better i suppose it's a it's something a lot of researchers
+are currently thinking about yeah i would i would definitely think that people are going to try and
+do things like that there's a whole multimodal project at hugging pace where they're trying to
+figure out how to train models that use multiple types of data if people will continue adding the
+modalities to kind of let the bottom model be more flexible which has been very fun to follow
+it's just chat gpt look for data online or does it add everything in its memory
+i think it has everything in its memory but it's not confirmed as it's not released
+there are models that do this kind of online lookup rumors are that a open ai has figured out
+some incredible scraping techniques like it's probably not a hundred percent true but people
+have said that open ai is better at scraping youtube than um google is but that's probably
+hearsay which probably just means that like they're doing equally as well to google but the
+fact that an external company is triggered without as well as google is is still pretty remarkable
+so do you think we will see a real hf over modalities like generating imagine art and music
+i suppose yes i think so like ultimately there's still discussion on what rlhf is good at like
+this is probably the peak of the hype for rlhf but as i was saying the field of human feedback
+is much broader than language going back decades so it's not that's not going anywhere it's just
+kind of the rlhf branding is kind of a new sub-token of it
+so do you think it makes more sense for builders to begin labeling a lot of data with existing
+language model like gpt with next generation swamp any fine tuning we do
+this is a question that we're talking about internally as well like like this is something
+that i would post at the slack and it's like gpt4 rumors are hilarious literally like i've got
+get multiple messages from people that like and just you see the tweets that are like gpt4
+world breaking don't tell anyone that i know this i like but the thing is that the data is
+still really useful so like open ai is getting this huge data advantage and like they'll use that
+when they want to do rlhf on gpt4 like the the specific implementation details might need to
+change based on the architecture or something like that but i don't think the data pipeline
+is going to be like obsolete immediately
+are there any resources you recommend to learn more about this i think we already mentioned our
+blog post yeah i would say the blog post also the like alignment community is very responsive
+to people engaging on their topics so a lot of rlhf researchers are very
+affiliated with alignment and there's like other forums that i haven't explored as much
+like less wrong in alignment forum i'm not going to say that i endorse all the content on them
+there's a ton of content that these people are pretty like engaged with the community as researchers
+so if you write respectful questions to them a lot you'll get responses it's not just me i did
+try to make the blog post we wrote like the starting point for a conceptual introduction
+specifically because i thought that there was not a clear introduction the papers have the problem
+the blog post for papers have the problem where they need to introduce the paper content and not
+just the concept so when you remove the specific advancements of the paper that's kind of what the
+blog post is just to make it a little bit more addressable but if there's something that is
+missing you can let us know i think it's an interesting question given open i really have
+age for now in both gpt models uh what what over companies and open source community can do to cut
+to keep up the pace the thing is the open source community has way more people
+and engagement than open ai yeah open ai is small and hyper focused which always gives startups an
+advantage but given the amount of appetite for it like there's over like there's thousands of
+more people that are willing to help in an open version and that's kind of the advantage it's
+just the the scale of access is different uh why do you think reinforcement learning uh
+from you made feedback for us much better than just fine tunings original model directly with
+the same reward that i said this is the ultimate question does rlf rlhf actually do anything um
+not a hundred percent sure but rumors are that they think that rl just handles kind of
+shifting the optimization landscape nicely so i'm guessing fine tuning on the same dataset could
+work but the optimization just wasn't figured out in the same way and it's exciting as someone who
+does rl that this kind of different way of navigating the optimization space was useful
+but it's not well documented there's no the the research paper version of the blog post that
+we wrote is desperately needed um yeah one of the question was during presentation they the
+question ask is what is the paper tomorrow yeah not no unlikely there is a chance that it could
+be released tomorrow this lecture is way to see no longer quite as relevant but it's really unlikely
+that we see it tomorrow uh yeah surprise i work in open a i now so i think i can answer that is
+no you don't read the code of jpg t it's a proprietary um model and i think you can't
+contribute as an outsider it's a internal project yeah big chat gpt though we'll see if it happens
+unfortunately we're running out of time
+so what you can do for people we didn't have time to answer we have as you see on the slide i just
+try to remove uh if we don't have time uh you cannot ask on the discord so you can join our
+discord or also in the comments uh in the video below uh we will make time in uh in the upcoming
+days to answer your question so yeah don't hesitate um so yeah that's that's all for today
+thank you all thank you nason for this presentation uh it was super interesting interesting
+and uh yeah i will see you in the discord and uh in the comment section
+bye

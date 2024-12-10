@@ -1,0 +1,657 @@
+Welcome to a most interesting talk, I'm sure, about e-max-org mode.
+It's difficult to say what exactly e-max-org mode will do for you,
+but it's probably easier to list all the things it doesn't do,
+because that's a considerably smaller list.
+So let's welcome Professor Dominik.
+Thank you.
+Hello, my name is Karsten Dominik.
+I'm a professor at the University of Amsterdam and also at the University of Meimingen,
+and I was invited here today to talk about a little software project.
+I would like to start by saying that I'm not a software person,
+I'm not a programmer, I'm not an IT person, I'm really a scientist,
+and I do this kind of programming as a hobby.
+Most of the coding for this project has taken place on a train,
+I sit in the commuter train, I sit in the train every day for one hour,
+and I take that time to write some programs there, so that's what I'm doing.
+And I want to talk to you about e-max-org mode,
+which is a system to track projects, to write down notes, to draft papers,
+and all of that using plain text files.
+So really as simple as possible, at first I think it sounds really archaic,
+and people wonder why should we actually leave all these fancy, sexy programs
+which we have on our computers and for which we have paid big money,
+and just show them away and use a much simpler system.
+But I would like to try today to show you and maybe convince you
+that this is actually a viable approach which can be useful for many different things.
+I told you that I'm a teacher at the University and I'm used to getting questions all the time,
+that's what my students do, so please feel free to ask me any questions at any moment during the talk,
+if I go too fast or too slow or something like this.
+First of all I have to show this slide I was told, just for real reasons,
+this talk is being recorded and that means whatever you say can and will be used against you.
+So be warned.
+So already it starts by the name, it's a really strange name for our program I guess,
+and I often get this question why is it such a silly name?
+Well what is the reason for this?
+Well the org is just because it has to do with organizing,
+what this program tries to do is help organize many things for normal life and also for life as a scientist.
+And mode, it's called alt mode because it's not really a standalone program,
+it's a mode, an editing mode of the e-max editor.
+I'm not sure if everybody knows what I'm talking about here, so let me just back up a little bit,
+okay, okay, okay, one step back, what is e-max?
+Does everybody know what e-max is?
+Really? Nobody says no?
+Well, okay, somebody says no.
+E-max is one of the oldest editors in the computer world, I think it has existed for decades.
+It was written by Richard Starnum, which is the founder of the Free Software Foundation,
+and so it really starts at the beginning of everything that is open source and free software that we are using now very often
+at our institute, for example, we are using lots of open source and free programs these days.
+So e-max is an editor, what is it?
+Okay, it's an editor for text files.
+And while it does have a nice window environment that you can use the mouse to execute commands,
+it's really at its best with keyboard commands.
+It's a very efficient and fast program to work with once you have learned all those keys,
+which initially is always a big hurdle, but this time you find out that this is actually the best way
+and it's actually also better for your hands in order to avoid illnesses like RSE or something like this.
+Very important is that e-max is self-documenting, so any programs which run in e-max are written in a way
+that every function, every variable, everything in the program is done is documented internally
+and you can access this documentation at any point.
+So that's automatic, there are basically no undocumented programs in e-max, it's automatically built in.
+It's highly customizable, you can really change whatever you want and this is really why I started working with this program
+because I like things to work the way I want them.
+I know exactly what I want and I like programming environments where I can change everything in the way how I want to have it.
+And it's highly expandable, so that means you can, well, not easily, but if you know how to write this code
+which is a programming language which is being used for the extensions in e-max,
+if you can write that then you can extend it.
+And e-max has modes and this is where the name alt mode comes from.
+It has minor modes and major modes and these are just sort of little packages which change the behavior of the editor in a certain way.
+For example, if you are programming in some language, for example in R, there's a special mode in e-max
+which can highlight the R commands and the syntax will colorize them or give you special editing commands for this.
+There's also big packages which you can implement in this way and alt mode is one of those packages which works like this.
+So alt mode is a major mode for e-max, not a minor mode, a minor mode changes some detail.
+For example, where automatically one lines to be wrapped around while our type are not, this is a minor mode.
+A major mode is really something big.
+Well, and then the next question is why would one want to use an editor as a base for an organization program?
+That's, I think, a very good question and one which has to be answered.
+One reason is that where I work, certainly half of the people use e-max because many of us write programs, many of us write papers in latex for example
+and e-max is really powerful to do this kind of stuff so many of my colleagues do know how to use e-max.
+But what is even more important is that this editor is actually an ultra portable platform for running code.
+It's almost like a Java virtual machine because e-max has been ported to pretty much every system.
+It runs on some mobile phones, it runs on Windows computer, on Windows, on Macintosh, on the VMS.
+So you can just pick your system and there is an e-max implementation for this.
+And that means that anything which you program for e-max will work on all these systems.
+So if your IT department had now decided that you all have to throw away your Windows computer and use Macintosh, e-max will still work on that system
+and you can continue to use these programs.
+Another important thing is that there are many other useful systems which run inside e-max, for example e-mail clients, news group readers,
+there's even a web browser inside there and that makes a very good environment for integrating an organization program with these other tools.
+So you don't have to rely on a company like Apple which gives you sort of a Catholic experience on a computer
+where they determine everything for you, how you should be using it.
+But you can just do it with a system like this.
+So I hope that makes clear why Alt-Mode has this stupid name Alt-Mode.
+The next thing is that this system is using text files, really plain text files.
+So this is not rich text in the way that you have bold text and italic text,
+this not illegally, it's really like text files like e-mails and the most basic kind of text.
+And this is really so 1970s, so why should one use this?
+Why is that useful?
+Well I think it's extremely useful because it helps you to focus on content, it stops you from playing with tools and it helps you to focus on content.
+And of course text files are really the only truly portable document format which exists
+because you were able to read text files a hundred years ago,
+maybe when the first computer came around, let's say 40 years ago or so.
+And I'm sure you will be able to read text files a hundred years from now.
+So this is really the basic format which will all exist.
+And that also means that if you collect your organizational data, you are planning for a project and things like this,
+you will never be locked into a particular proprietary software.
+I mean if you buy one of those programs, they all have their internal format and it's sometimes very hard to get your data back out.
+You have spent two years entering things into this program and then you decide to use a different one and it's very difficult to actually switch over.
+This would never happen if you had to use text files because you can always use them to get somebody to write a little pattern for you
+which will turn one thing into another.
+So this I think is a very strong point.
+And it can be easily processed with other tools.
+There's many tools which can read text files, change them, make small edits,
+automatically create items in your project list and things like this.
+So I do have another point here, yes.
+Another interesting thing is that you can use version control to get a nice history of these files.
+It's much more difficult, for example with a Word file, to get a nice history to be able to look back when did I make this change in the past.
+With simple text files this is much easier and much more straightforward.
+So this is why I like text files and why I really work with them as much as possible.
+Okay, so let's try to start answering what Altmode does and what it is.
+At its core, Altmode is just an outliner.
+I'm sure we all have worked with outliners.
+You can use Microsoft Word as an outliner or there's an omni outliner, for example,
+and a good program on the naked person and things like this, which create outlines.
+And the reason for this is that pretty much everything that has to be structured can be represented as an outline.
+Altmode has some main nodes and then it has leaves and further children and things like this.
+It's very useful for organizing your thoughts, for doing brainstorming and for putting everything into a nice structure,
+which helps you to think about it in a structured way.
+So that's what it is at its base, a simple outline represented in plain text.
+And Altmode as an editing mode, it runs in an editor, so of course it can use and enhance all the features of this text editor.
+And therefore it makes it very comfortable to work with this.
+I will show you a little bit later, I will give you some examples, how it makes it really easy writing things,
+in particular reorganizing it.
+Very often if you sit in a meeting and you have to type nodes, it's just a brainstorming session everybody throws in a few ideas.
+And then in the end you have to sit down and organize things and the Altmode is really good for this.
+Another point is that outlines of course are also the basic structure of the scientific output, which we have to produce as scientists.
+Because we have to write papers or books or presentations and all of these things can be thought of as an outline,
+where you have headlines, major sections and then you filter it down into the small details.
+Okay, so the outline keys, what you use in order to work with the outline.
+Most important ones in Altmode are the keys which let you change the visibility of the outline,
+because you can fold away leaves in the outline in order to get a better overview.
+And there we have two commands really, one is to cycle the visibility of the subtree and the other one is to cycle the global visibility.
+That doesn't really mean much, so I'm going to show you what I mean by this.
+So this is a view on a window in EMEX, I hope you can see from the back, because it's implemented here.
+I think it's a little bit less sharp.
+But what you see here is two headlines in an outline and they are marked just by a single star here in front.
+If it would be a subt mode and it would have several stars in front, that's what it looks like.
+And the point which I'll show you behind that shows you that this is just to throw it down.
+You can see something like this also in other programs.
+And so we are now just going to use the top key and the shift top key in order to change.
+So I'm pressing top once, we'll actually show the list of subheadings here and then we can just move down to one of the subheadings,
+press top again and you will actually just zoom in there and open this.
+Then you can go back and just fold it all back.
+And if you press now top twice in a row, then you will not only get to see the direct children, but actually everything which is below here.
+And then you can fold it back up.
+And that was all done with one key.
+It's just a single key. You don't have to remember many commands.
+And the other command is shift top.
+And if you press that, then you get first something which looks like a table of contents with all the headings.
+And if you press it again, then you actually get mtext which is in this outline and you are pressing it one more time, fold everything back up.
+So that means you only have two keys and that is enough to look at this outline and to fold it and unfold it.
+And that makes it quite convenient, I think.
+The next important part is that you have to be able to restructure it out.
+And I really cannot emphasize this enough.
+I think this is one of the main functionalities which Ordnus does rather, which most outlines don't do well.
+Because normally to restructure something like this, it means you have to cut something away, to move to a different location, to paste it in, to change the level on which it is.
+It is a tedious work in Ordnus.
+It works more like that.
+You can imagine to just hold onto one leaf in the outline tree and then just slide it around in the entire outline.
+It's like with a hot knife through butter.
+That's what it does.
+So we hold down the meta key, which is the command key or something like this, depending on your computer system.
+And then we just use the curve keys in order to move things around.
+So there are another little thing here.
+So this is just a different structure over here.
+We have five main headlines.
+And now the first thing which we are going to do is just take this first...
+Actually, I'm folding it open.
+I'm opening the outline that you can see all the sub-headings.
+Now we take the first heading and we just slide it down, move it through the entire outline to the end.
+And then we move it back up.
+You can now down here, you can see the keys which are being pressed.
+We move it back up.
+So the next thing which we are going to do is to take the second headline and just move the entire subtree which is below us a little bit down.
+It should help.
+Yeah, it's happening now.
+That's right.
+Even further now.
+And now we go down and now we demote the setting.
+So we make this actually a child of this one.
+Yes.
+And the next thing is that we make this entire subtree also one level down.
+And then we decide that this subtree heading here should actually be a sub-heading up because we just promote it and slide it up.
+And it looks a little bit tedious, but if you try this out, this works really fast and gets sort, which initially were quite random, gets them into an order.
+I use this all the time.
+So I'm sitting in a meeting and make these notes afterwards.
+I take 10 minutes to reorganize things and add a nice structure thing which I can send to others even as notes.
+I want to go to the next slide.
+Yes.
+Is it already the next title?
+I'm sorry.
+Yeah.
+Okay.
+It's all text files.
+That's what I said.
+It lets you do more with an outline.
+Not only take notes, but you can actually make notes in the outline, make them as action items.
+That's also important.
+You sit in a meeting, you write down notes, and you find out that there's something that we have to work with.
+And that's why it has some kinds of metadata, which is just what this slide represents.
+So you can just put in special text in special locations, which can mean special things.
+It's not really special text.
+It's actually also just plain text, but by some commands and all, but it will be interpreted as something more complicated.
+So for example, this first thing here, but this is something that we call the to do keyword.
+So by default, this is just either the word to do or the word done.
+This means like a checkbox on off.
+Either we still have to do this or it is already done.
+Next thing is a priority.
+You can assign priorities if you want.
+Then we can assign tags.
+So just like, for example, this is something that has to do something with work and it's something which I want to buy.
+And the other thing is that we can put planning information.
+For example, we can say this has a deadline.
+It has to be done at a certain time so that you get the keyword and then the date after it in order to say when this has to be finished.
+And then down here, this is what we call a property draw.
+This is just a lot of key value pairs where you can put arbitrary information.
+You're actually completely free in what you want to put here and how you want to write it down.
+By default, this doesn't really have any meaning, but there are commands and which assign meanings to this and do something with this special data.
+Okay.
+Then it allows you to make links.
+So if you just write something which looks like a link into the text, it will actually be interpreted one.
+So if you click on it or if you call a special command, that means it will open something.
+For example, you can put a URL or a link to a certain file and also specify how you want to open it.
+Or you can put an email address.
+If you click on this, you can send an email to this.
+And so there's many different types of links.
+This is not even a complete list which you can put in there and also be very useful, I think.
+Okay, I said that you can embed tasks.
+And this is what is also shown here in a sort of a bigger way.
+So we actually have a piece of an outline here.
+Here's a motor headline, a level two, level three headlines down here.
+And here's even level four headlines.
+And you can now see here I have defined a few more keywords here.
+So here's one which has to do.
+So this is something which has to be done.
+Here's one which says this is done.
+That means this task is very finished.
+And why is it finished?
+Well, because below this task, there's a couple of other ones.
+One we have actually canceled.
+So that means we decided actually not to do this, even though initially it was a to-do item.
+And then there's another one which is already done.
+And that means this task is done.
+You can actually get here a little calculation of what fraction of the task is finished.
+So in this case, it's one of two.
+And then on this level, the first one is not finished.
+The second is, so that's why there's one of two is finished up here.
+And this is something which I also use very often.
+For example, I write an outline for a paper.
+I write all those headlines, the sub-headlines which I want to make.
+And then I can just mark things like, I have to look into this.
+I have to do that.
+You can mark it there.
+It's hidden in this paper.
+But as I will show you in a moment, you can actually then pull out this information into an easy list
+where you can then see what is still to be done.
+You also have checkboxes.
+So you can have, this is all just plain text.
+This is just a bracket, an X and a bracket highlighted in a special font.
+That's why it looks like a whole box.
+So it's really all plain text.
+Just a checkbox.
+This is what I imagine, what kind of experiments you do here in this institute.
+So that you need electricity and brains of rats to study and brains of humans to study.
+So I don't know.
+Okay, checkboxes.
+Also something very useful, like lists and tick things off.
+Then another thing is that you can write tables in plain text, which is so really crazy.
+Some people have laughed at me for this, but I implemented it anyway because I think it's a great font.
+So here's just a little demonstration that you can write tables in plain text.
+In a very simple way, you just write the names of the fields and you separate them by vertical bars as your columns.
+Those will be examined without from a couple of students.
+And so it automatically expands.
+As you can see, as I write here, the field which adapts automatically, everything is plain text.
+You can just print this on a paper and read it in a different program and it will still look exactly like this.
+So this is a couple of students where I'm just writing down the notes here.
+Names I get longer and longer to show you that the fields automatically adapt.
+And then another thing which I've built into this is that you can actually do some calculations.
+So for example, you can just calculate the sum of all these notes.
+Just a little formula, the sum of the fields which you put in there.
+And you will calculate that in plain text.
+Everything plain text, everything.
+And then you can also calculate the average if you want, which is also what we are going to do here.
+The average of these results.
+So it's just this value divided by 3 bar. There's too many digits.
+So let's just go back up, get back into this formula and just append a format specifier to this.
+So if you are a programmer, you will recognize this as a printf format specifier.
+And so you just can format these numbers nicely.
+And then you can reorganize the tables and sort it now by the highest cipher.
+And that's just like the structure editing.
+Just basically holding the meta key and pulling these fields and rows around.
+I don't know any table program which actually makes it easier to reorganize the table than this program.
+So okay, it's a bit crazy, I admit.
+But I think it's still very useful if you make notes and you can make little tables and add a few numbers.
+For example, the other day I was sitting with a student, we were writing a portfolio and we needed to add up the times which we needed for certain observations.
+If you can just do it in your notes, you add quickly up these numbers and send an email to realize what this is.
+Okay, so now for a bigger view, how does this now look like?
+I'm just going to show you a few example screens. This is a real life, my example file.
+This is a file where I collect meeting notes.
+It's just one giant file. It's a very long file where I have a major note for all the different meetings where I'm going to.
+I'm listening here to other people, so there's always a major note for this.
+Sometimes I put a date when the cell really was.
+And then below these notes, I have further outlines of when people talk, what they talked about and just organizing these things.
+And as you can see here, in there, I mark a little task where I say, this is something I have to act on.
+Sometimes I put a date telling me this is as a deadline here, you have to be aware of this.
+It's happening in the notes file. The advantage is, it's not that you have to go to your calendar and put an alarm there and say, well, I have to be aware of this.
+And then you have this information in two different places, which is always bad because when you change it, you will usually change only one side of it and not both sides of it.
+So it's here in this information. And this is a huge file.
+You don't see only a very small fraction of this because I've been using this program for a couple of years and all my meeting notes are in this file.
+There's a command in August which tells me, well, show me everything which I still have to do.
+So that goes to this meeting note file, but also to other files which have to do with different projects, files which have to do with my teaching,
+and just pull out all those lines which say there's something to do. So I can just go through this list and check, well, there's something what do I like to do now, how much time do I have.
+I can just pick the task and then jump from there into my notes file, work on this stuff, take it off in the notes file and then it will disappear from this list.
+I find that extremely useful.
+Another view which you can get on your data is called I'm going to close this door.
+Another useful view is the agenda. And that is just a calendar. So as you can see here, this lists one week, starts with Sunday, Saturday, Monday, Tuesday, Wednesday, Thursday, Friday.
+And for every day, it pulls out tasks where I have somewhere set in my file where this is something to do.
+And there's a couple of one, for example, here's one which says it has been scheduled already 14 times.
+That means I wanted to work on this 14 days ago, so the bigger this number gets, the more scared I should get.
+And then there's here's one which has been scheduled for today. These are just pre warnings which has in eight days there's a deadline coming up which is related to the task which is here.
+So I have to write some proposals and things like this for this day is coming up here.
+And then also for the next days, just give me a preview of things which are coming towards me where I have to pay attention.
+And as I said, all the data is just in one place. So there's another duplication.
+I can sit here with my curve on this line. I can say this is not done. It asked me for a little note.
+So what have you done with this? You will put the note into the outline leaf where this was from, will change the to-do key or to-done.
+And I will never see this task again. Only if I go back to my notes and read actually what did I do with this project and I will still find this task.
+It was done and there will be a reason why it was done and when.
+So this is how this works.
+I'm a scientist. I'm a scientist that I wrote this program initially in order to organize my projects.
+So you can actually organize also when you have to buy a present for your kids that came later.
+But that was the original idea.
+And so what I was hoping was that you can put as much as possible relating to the planning of a program,
+so the scheduling to the notes can put it into a single file. That was what I was hoping.
+So notes, notes, notes. I cannot emphasize it. I think this is the daily bread and butter of a scientist.
+I'm getting into an age where I forget everything and so I have to write down notes and I do this really constantly.
+You can put it into that same file. You can put your project schedule and the due dates.
+Just wherever it belongs. You might things and say that has to be done and when and buy when.
+What else can you put? You can put a detailed look of actions and problems.
+You can just write every day. You can write a little note and say what did I do there?
+You can put in that same project file. It will not be in a different place. It will be in the right place.
+You can put the complete specification of the steps which you have taken in the analysis.
+Which is really, really useful. If you do this here in a nice way and I will show you later that you can very easily then turn the outline where you have specified this into a draft for a paper.
+If you write this in the notes you almost have it already. It's half done for a paper.
+You have to write an article for publications. I'm sure that you are also as pressed as we are for constant publishing.
+Publish or perish. This is also important for us.
+So an article for publication or a digital slideshow and all these things can be at least drafted in this file.
+Sometimes you can actually completely prepare them in an open file but you can at least draft them in there.
+There's even a facility to track data acquisition in a graphical way.
+I'm going to say a little bit about this. This is a bit more complicated so it's not so easy to say this in the short time which I have.
+Okay, so let's start with publishing. Now we have all this data in a text file.
+Of course we all know that when we have to publish something, when we have to write a publication or a presentation that is different file formats.
+I don't know if you have to write a word file in the end. I have to write a latech file that is an accepted document file format which we have.
+Another way to publish things is of course to put them on the web or you can put something into a document which is an HTML like format.
+Latech as I said is a text formatting thing which is very good for science if you have to put them in the equations which is what we have to do so it's very important.
+In the end you get a PDF file out of this. You can make a BIMA presentation that is also via latech a presentation which you can show on the screen.
+There's an export to ASCII which makes it even more readable way of reading the same file even though the out-mode file itself is already very readable of course.
+You can also link a couple of documents and actually for example publish an entire web page from these files.
+So let's look at an example.
+So here I am just making a tall project. I figure out how planets form. Of course this is not really my project.
+Of course I would like to figure out how planets form but in reality I guess the same truth for you is that projects are already much smaller.
+It's easy to understand that I have taken a big project here.
+So for example I have a task here that I should study some literature and after a while I am done with this so I have read this literature.
+Then I am going to discuss with my co-worker on a certain date and we have a couple of ideas of how this could be done.
+So these are to do so I want to look them into them.
+This year we have started thinking about this and then we have decided that this first idea is garbage so we cancel it and then there are more ideas so we just work on them.
+We have a little table where we make an estimate, we estimate a couple of numbers which we need for this project.
+Okay so now we have this kind of a project and now let's see what we can do with this.
+So let's try to export this in the different ways.
+For example here is off that page.
+I am just going back one more time.
+I am sorry.
+So this is the text file and this is offset same file as the HTML export.
+So it is just one press of a button and that thing turns into an HTML page which contains all the information.
+Here is a nicely formatted table and here is a table of contents which is clickable.
+You can just click on these side of things.
+So without any extra work you have put this thing up on the web.
+Here is the latech version of this.
+Then you can discuss if you actually like the way this looks of course because this file was very list oriented so there are many headlines and there are two little texts in between.
+But even if you decide to work on the latech file itself you can still get your first version, your draft version in this.
+You can sit in the text editor, write in the text file, focus totally on the content, get the structure right, then turn it into the pretty file and fix it a little bit and send it to the publisher.
+I have really liked the experience in the last few years that this is a very efficient way of doing things.
+Well you can turn that same file.
+It is really not that I haven't done anything.
+The same file turned it into a presentation.
+So this is done with the Beamer package which also goes through latech which is the third mode in my file is one slide.
+This is the discussion with my colleague.
+There is different ideas are here on the table.
+It's in the presentation.
+So you can also get your draft presentation with no extra work.
+It's all coming from the same source.
+There are further things which you can do as a scientist with this kind of stuff.
+And I'm only going to briefly touch on them because they are a bit more complex.
+You can embed latech commands into an auto file.
+If you need a more complex equation in there you can just put it directly in there.
+I don't know if any people here use latech and how much they do use it.
+For us this is extremely useful.
+You can embed source code snippets.
+If you are working for example with RR to do your analysis or with a C code.
+You can put little pieces of source code in there which can be very useful as I will show you in a minute.
+You can actually run those source code snippets and you can capture the results into a table.
+So it's a little bit like Mathematica in a way.
+You can do some calculations and work in that type of document.
+And if you take this together this actually puts you into a place that you can start doing reproducible research and literal programming.
+This is kind of a system.
+I'm not sure if you know these buzzwords.
+I'm going to say a little bit more about it.
+So here's just an example of embedded latech.
+Again this is one of those text files.
+And I've just written here the big legged letters alpha, beta and gamma are used to denote angles.
+And alpha is the way to write angles to write blue-decker letters in latech.
+So this is how you write it.
+Normally in latech you would actually have to put two dollar signs on both sides in order to mark them as mass.
+This is not necessary in alt-word.
+You can just write them plainly in there and it will actually find them and convert them in the right way.
+Then there's another thing.
+I'm actually pushing the two slashes around a little bit of text and that is in alt-word the short form to say that you actually want to have this in italics.
+This is sort of the same specification as we use in email.
+If you just write these slashes it means some emphasis.
+And then down here is a linear equation and that is literally how you would also write this in latech.
+And you can just put it there if it's a bit more complex.
+And then if you turn this into latech with a similar button then you see this down here.
+So this is just section heading and then the sentence which I've written.
+And here down here is a beautifully formatted equation as latech does is for you.
+Another thing is are these embedded code examples.
+For example I'm writing together with my colleague a little piece of code in order to study this problem in planning formation.
+And so this is a little snippet from the code which we are using there.
+Initially actually I put in this possibility to say well here is some Fortran 90 in this case code in there that was only for documentation purposes
+because I wanted to be able to say well this is a piece of code and then please format this nicely for me on an HTML page.
+And so this was what this was made for.
+We now have an HTML page from exactly this where when this source code gets nicely formatted and colored and so that you can easily look at this.
+It's very nice if you have to write software and have to document it in a way.
+What then happened was actually totally unexpected.
+There's a couple of people on the main list where we discuss about ordnance.
+Eric Schulte.
+Oh Eric Schulte.
+There should be a team.
+And then they actually said well this is interesting so there are little snippets of code in there.
+Why don't we just build a facility to run these pieces of code and to capture the output.
+What they have done with here is for example I don't know if anyone of you recognize this is a piece of our code and it's being used to take a file and to split it into words and to look at the words which are most frequently used in that text.
+Take the first six of them and turn them into a table and the table the output table is right in here.
+Yeah so you can run this stuff in the file and get the result.
+It might seem a little bit academic and I think that for many of you it might well be that this is not really what you are going to do.
+But if you are more interested in computer science and in documenting things and to write the documentation of a program together with the program itself this may be something you would find interesting.
+That has to do with literal programming.
+It's an important thing I think computer scientists maybe started in a way by Donald Knuth who has defined what this is.
+So let's try to find a way to write computer programs where the main aim is not explaining to the computer what it should do but explaining to other human beings what we want the computer to do.
+So that means if you actually write something which is human readable together with the code and output also allows you to do this.
+And if you have a program like this and there's two operations one is called Roof and that makes a printable document that's just the export of what does anyway.
+And then there's a tangle operation which throws away all the text which is meant for the humans and only takes the code for the computer.
+And you can also do that with the program which was written by Eric Schulte and Dan Davidson.
+Yeah reproducible research is the other side of this.
+That means that reproducible research will try to combine the scientific results with all the tools that they use to produce them.
+Because if you make a figure which you show in the paper people should in principle be able to verify that figure to check if you have really done your homework well.
+And this is what's called reproducible research and what I've explained about this all bubble stuff lets you do some of this also with OrkMode.
+Okay enough of that I think that leads us a little bit too far and we're going to just finish with a couple of slides with a few links.
+So if you want to know more about OrkMode there's a website here or OrkMode.org which of course was made in OrkMode so we actually use plain text to make this website and then just publish it.
+I've given another talk like this not quite like this but a bit similar at Google of one and a half years ago I think you can look at that if you want.
+We have a long list of tutorials which you can look at and there's a mailing list where we discuss OrkMode.
+And there's another site which is called Work which is a user made site where we collect documentation and more information about this project.
+If you are an iPhone user there's actually an iPhone application which means that you can take all these modes files with you.
+That's actually nice. I mean all the modes which I said which I've made over the last years I have on my little iPhone Touch and can look things up if I want.
+And you can actually tick tasks off from here and then when you click it will actually be changed in your files.
+It's very nice which in Holland wrote this application.
+A lot of fun.
+The years of OrkMode are really wildly different.
+If you look at this list you will see that it's really not only made for scientists or not only made for a particular kind of people.
+This is just a collection from the website which is one web page where people actually introduce themselves or Stefan also has an entry on that site.
+For example we have an archaeologist in Hawaii who runs his archaeology company using OrkMode and he writes his research.
+He gets his results and publishes them mainly through OrkMode.
+I think that's a lot of fun.
+Another guy is a farmer who organizes stuff on his farm and he's also a mountaineer.
+There's scientists and computer scientists.
+There's several one person companies who run the entire company on this system.
+But there's also bigger things.
+One of the people there is a director of a computer science company and of a university research group.
+We have historian.
+There's a blind person who runs his entire life through EMEG and he really loves OrkMode because it's a program which he can use inside EMEG where he knows his way.
+And the head of the IT group here at the McFang Institute also uses OrkMode obviously.
+As we all know I guess.
+Well this is a word of Twitter these days.
+Today we have all to say everything you have to say in 140 characters.
+So I've collected a couple of things which I found on the Twitter feed that people have said.
+So not everybody is entirely positive.
+So for example this one I like this one.
+The sheer elaborated insanity of the OrkMode spreadsheet is a destilled microcosm of all that is wonderful and brain damaged about EMEGs.
+And I think that's just really a very true and very nice statement.
+The EMEGs is, if you see it like this, brain damaged but it's really wonderful and I love it.
+I don't want to be anywhere else.
+There's more people who think like this.
+For example this guy says if I hated everything about EMEGs I would still use it for OrkMode.
+Or Eric Frader also one of the people on the mailing list.
+I think it's actually the one who drove the Lima presentation export.
+He was very important for this.
+He says it used to be that I hated moving EMEGs to do anything.
+Now it's getting to the point that I hate moving OrkMode.
+The people really use this as the main environment in which they do everything.
+Well not everybody would get as extreme as Circus League I guess.
+And one is done I think.
+There's a list of acknowledgments which I still want to say because many people are contributing to this program
+and also in particular to the staff which I have shown you today.
+There's a mailing list.
+I really cannot believe that we have now 800 people on this mailing list which read that mailing list all the time.
+There's at least 20 messages a day.
+Some days there are 30 or 40 or 50 messages on this list.
+And all really good messages.
+There's no garbage here. It's amazing.
+When Eric Schulte and I have spread them correctly, thank God.
+And then David and they wrote Ork Barber which is really a major extension.
+Thomas S. Dahl has written some examples which I've used here.
+Sebastian Rose, Bastian Guerrero, Balki Sun, if that is pronounced correctly.
+And Eric Frager all have been really important for some of the exporters which we have.
+Richard Morland is the guy who wrote Mobile Ork.
+I found an application and gives it away for free so you don't have to pay for it.
+You have a donation button on his webpage if you still want.
+Feel free to.
+And I would like to thank Stefan for inviting me here today.
+And I'm still around for the rest of the day.
+So I hope I will see some of the science which is being done at this institute
+because I'm actually really interested in brain research.
+And for the rest, if you have any questions now or later in the day, please just get in touch with me.
+Thank you.
+Any questions?
+Yes.
+Yes.
+You can put all the Ork files under version control.
+I definitely do this because it means that you can freely and without any fear,
+edit and change things like crazy.
+And then just use the standard version control system to keep the version of all these files.
+Yes.
+Very good idea. Always.
+What kind of action like start weight to do cancels are also available?
+Or is it good to create my own actions?
+Standard, if you download and install it, it only has two, which is to do and done.
+But you can vary easily.
+I mean, just in the top of the file, you just write hash mark plus.
+This is always a sign that you want to declare something and then to do.
+And after that, you just put a list of all the words which you want to be action words and then they are.
+Are there tutorials to tell me which are good actions or better to add to actions or many different actions?
+Well, that really depends on taste.
+And for me, it actually even depends on file.
+So, for example, if I'm organizing something with many other people together,
+then I like to make names of everybody who is involved to do keywords.
+So I can just assign any task which is listed there directly with a new keyword to the person.
+You can also use tags if you want, but you can also use the two keywords.
+I myself have maybe eight or nine key words very little.
+I know that some people have 50.
+No, but they just use it in a different way.
+I think that's really one of the strong points of all that it actually lets you define this freely and also makes you make it different for every file.
+So if you have a special task, a special thing that you have to do, you can just change it for that thing.
+And what I'm going to do is use this to do and then start it.
+It means I started with this.
+Waiting means, well, I'm just waiting for someone that means I have to check back if they have really finished it.
+And then it's done and cancelled and delegated.
+And then I have to have something similar on a higher level for a project which I use to designate things which have many subtasks in it really below them.
+But that's basically all I use.
+So I use a small one and I think that's actually much better for my users.
+Yeah.
+Yeah.
+There's nothing built in right now.
+But yes, source code files are text files and auto files are text files.
+I think I can write you a one liner and Pearl, which will take your source code and put out an auto true, which contains all the to do tasks in that source code.
+I think that's very easy.
+Maybe not a one liner, maybe a three liner, but yes.
+And of course, if you know how to write the next list, then you can also write it in the next.
+But many people just know different scripting languages like Python or Pearl or something like this.
+And I would prefer to use that and that's perfectly possible.
+That's why it's all text files because it's so easy in this way.
+You can also there's other Python model, which will pass an awkward file and return a true structure which contains the other entry and then you can manipulate it and do something with it.
+Yeah.
+Yes.
+That's correct.
+Yes, that's right.
+The number in which I had shown there was just for illustration in order to show you what the original structure was in order to see that actually something changes when I move them around.
+But normally you would not number it and all these things are an outline and you would not number the nodes, but you can get them numbered when you export.
+So if you say, I want to export this to HTML or to Radix, then you can get a numbered outline.
+But you would have to change the number.
+You just wouldn't write them. I mean, I can just see if I can get this to work here.
+I'm not sure if you can read it.
+Really?
+That's pretty cool.
+Just a second for Emacs to come up.
+You can just recover from everything that's going on in this machine.
+Okay, so let's just...
+So one thing is we do have...
+So I'm just writing just the garbage text here.
+And then you can see that this is not right.
+Yeah, so this is an enumerated list.
+And if we organize this, this works exactly the same.
+So I hold down the meta key and then I use the cursor key to pull up and down.
+You will actually see that it moves up and down and does the do the enumerate.
+But normally in an outline, so this would be...
+So this is just text there and you just would not number it.
+But you can still change the level, of course, like those moving in and out,
+or swap it with the other one and then lose the level of this.
+But that doesn't show numbers normally.
+Yeah, so you have to number that side.
+Yeah, I just had it at the side only to illustrate that there is a structure
+and that these are meant as sub-levels, but I'm not using them.
+So they were just text, not really numbers.
+Yeah, exactly, just don't type numbers.
+It's the laziest way of typing numbers is not to type them.
+Yeah, often it's for lazy people.
+And this is one of the reasons I'm not able to navigate the type of phrase that I wrote
+because tables and all those met the tables and...
+Yes.
+Well, yeah, that's true.
+Certainly if you are looking towards the output formats, yeah.
+It's actually a much easier way of making tables.
+For example, when I have to make a table in latech,
+I never write this in latech anymore because I just hate it.
+It's very difficult to read.
+And we actually have a special way, which I didn't explain here today,
+but I did explain this in my talk at Google,
+that you can actually, for example, in your C source code,
+or in your latech file, you can actually put a special section,
+which is actually a command for latech where you have a normal augment table
+and then with one key it gets actually turned into a latech table
+and inserted at the right location in the table.
+So you can, in place, almost use this much nicer syntax
+and much easier way of looking at tables in order to edit and make that table
+and then still have it in the proper form of latech.
+We use that very often.
+In fact, I could try to demonstrate it,
+but I'm not sure if I'm fast enough to do this.
+Yeah.
+And guys, on our website,
+or more.org, we write at the top
+and I think the t-shirts are something like 15 or 20 a euro
+and two of those euros get to me, so that's something like that.
+So that I can stay a happy person and keep programming this.
+Yes, we have Macs and we have scarves and bags
+and full shop.
+A friend of mine made it.
+Yeah, more questions.
+Apparently not, Stefan, what should I do now?
+Just close the session.
+Yeah, I think we are done.
+And many thanks for coming up.
+And I can, with a whole lot of the
+concurrently awkward languages,
+which is an excellent place to hang out,
+for recreational reasons too.
+So many thanks for coming
+and giving us this plan of talk.
+And if you have questions
+on how to run Emacs at the institute,
+there will be something in our institute
+quickly, shortly.
+Because I hope this is what you know
+all going to be.
+Thank you, goodbye.
+Thank you.

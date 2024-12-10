@@ -1,0 +1,61 @@
+Processing Overview for ClojureTV
+============================
+Checking ClojureTV/Clojure for Java Programmers Part 1 - Rich Hickey.txt
+1. **Mapping**: Apply a function to each item in a collection to produce a new collection with the results.
+   
+2. **Applying**: Pass a function and data to be processed by that function, where the function can also accept additional arguments (like "stir" which turns items into a string).
+
+3. **Interpose**: Insert elements between each element of a given sequence or collection. In this case, inserting a comma between each character of the string "ASDF".
+
+4. **String Concatenation**: Combine all elements (after interposing) into a single string, as if they were arguments passed to the "stir" function.
+
+5. **Reduce**: Apply a function to successive pairs of a sequence, taking each result and using it as the first argument for the next step, typically used for aggregation like summing numbers.
+
+6. **Range**: Generate a sequence of numbers within a specified range, which can then be processed or transformed.
+
+7. **Cycle**: Return both an initial item from a sequence and a thunk (a delayed function) that will produce the rest of the cycle when invoked.
+
+8. **"Stirred" Function**: A function that takes a collection and returns a string where each element is converted to a string representation and all are concatenated without spaces.
+
+9. **Closure**: The mechanism by which a function created within another function can remember and access its lexical scope even when the outer function has returned (as seen in the "Cycle" example).
+
+10. **Why not call "stirred" directly?** You cannot call "stirred" directly with interposed characters because "stirred" expects a flat collection of items to convert into a string, not a collection of collections or items separated by interposers like commas. The "map" function was used instead to transform the sequence into a flat list of individual characters before applying "stir".
+
+11. **Character Literals and Quotes**: In Lisp-like languages, `#\comma` is used for character literals, and `quote` is used for literal lists or to prevent evaluation of an expression. The choice between `quote` and a character literal depends on the context and what you are trying to represent.
+
+Checking ClojureTV/Hammock Driven Development - Rich Hickey.txt
+1. **Idea Generation**: Ideas can come at any time, even when you're focused on another task. It's important to capture these ideas, whether they're immediately applicable or not, as they might prove useful later on.
+
+2. **Documentation**: Keep track of your challenges and questions in design sheets or similar documents. This process is crucial for identifying what needs solving and serves as a foundation for problem-solving.
+
+3. **Typing and Coding**: Don't avoid typing out your ideas or solutions; this step is necessary to develop your thoughts further. It's part of the iterative process of creating something tangible from an abstract concept.
+
+4. **Confidence in the Process**: Gain confidence in your problem-solving process by seeing it work over time. Trust that even if you haven't done something before, your thoughtful approach can lead to great solutions.
+
+5. **Iteration and Testing**: Be prepared to try things out, go back, and iterate. Don't rely on a linear model like the waterfall model; embrace the fact that you will make changes as new information comes in or as you discover better solutions.
+
+6. **Embrace Being Wrong**: Accept that you will be wrong at times and understand that this is part of the learning process. The key is to remain open-minded and flexible, ready to adapt your ideas when necessary.
+
+7. **Changing Facts**: Be aware that facts can change due to new information or evolving requirements. Adapt your approach accordingly and don't cling to a solution that is no longer valid.
+
+8. **Courage to Change Your Mind**: When faced with changing facts, don't hesitate to change your mind. There's no shame in updating your solutions to fit new contexts or information.
+
+9. **Embrace Mistakes and Logical Errors**: Don't be afraid of making mistakes or logical errors. They are inevitable parts of the creative process, and each one brings you closer to a better solution.
+
+In summary, the key takeaways are to capture ideas, document challenges, trust the iterative process, accept being wrong, adapt to changing facts, change your mind when necessary, and never be afraid to make mistakes as they're part of the journey towards finding innovative solutions.
+
+Checking ClojureTV/＂Design, Composition, and Performance＂ by Rich Hickey (2013).txt
+1. **Design Thinking**: The process of designing involves understanding problems and constraints, generating a wide range of ideas, making decisions, and conveying those decisions clearly to others. It's about creating something that is useful and understandable for the next person, which often means making tough choices and not leaving every option open.
+
+2. **Design in Coding**: When applying design principles to coding, it's important to think like a musician who has studied and analyzed their craft. This means considering how different elements of code fit together at various levels—small, medium, or large—and approaching each level with the right techniques and mindset.
+
+3. **Instrument Design**: Instruments are designed to be simple and intuitive. They are tools that musicians can trust without needing to understand all their inner workings. Similarly, software languages and libraries should be straightforward and harmonious, making it easier for developers to write maintainable, changeable, and reusable code.
+
+4. **Learning from Musicians**: Musicians like Coltrane exemplify design sensibility by understanding the fundamentals of their craft, studying, practicing, and applying their knowledge dynamically. Software developers can learn from this approach by bringing a harmonic and design-oriented mindset to their coding practices.
+
+5. **Pursuit of Harmony**: In software development, as in music, harmony is crucial. Code should be written with an eye toward how different parts work together, ensuring that the end result is not just functional but also maintainable and scalable.
+
+6. **Coding Like Coltrane**: This means applying a deep understanding of the principles of design to coding—thinking about the big picture as well as the details, and always seeking to create something both beautiful and effective.
+
+In summary, the talk encourages software developers to think like designers and musicians when approaching their work, emphasizing the importance of simplicity, decision-making, harmony, and understanding how different elements come together to create a cohesive whole. The goal is to produce code that is as intuitive and reliable as the best designed instruments are for musicians.
+

@@ -1,0 +1,15 @@
+Processing Overview for Brendan Shanahan
+============================
+Checking Brendan Shanahan/Bayesian Neural Networks.txt
+1. The presentation begins by discussing the limitations of deterministic neural networks, particularly their inability to express uncertainty about their own predictions. It introduces Bayesian neural networks as a solution to this problem, which model the posterior distribution over network weights rather than optimizing for fixed weights.
+
+2. A regression experiment is described where both a deterministic neural network (plane network) and a Bayesian neural network were trained on a synthetic regression dataset. The plane network made hard predictions with low variance, while the Bayesian network made predictions that included uncertainty, captured by its posterior distribution. In regions of the test base far from the training set, the Bayesian network's predictions showed increasing variance, reflecting its ability to handle uncertainty in unseen data.
+
+3. The presentation then moves on to an image classification experiment using the MNIST dataset. A Bayesian convolutional neural network with three convolutional layers, two cooling (sub sampling) layers, and two fully connected layers was used. This architecture allowed for a reduction in parameter size while still effectively learning features from the images.
+
+4. The training process over 3000 steps is detailed, showing how the Bayesian neural network's posterior distribution evolves over time. Initially, there is high variance and uniform probability distribution across the digit classes due to random initialization. As training progresses, the variance decreases, and the accuracy of classification improves. By the end of training, the network achieves 95.3% accuracy on the test set with a nearly zero posterior variance for most images.
+
+5. The experiments demonstrate that Bayesian neural networks can capture uncertainty in predictions, which is crucial in scenarios where confidence intervals or probabilistic forecasts are necessary. This capability allows for better handling of new data where the model has not been trained before.
+
+6. Finally, the presentation concludes by emphasizing the benefits of using Bayesian methods in neural networks and lists all the works cited throughout the presentation. It underscores the importance of being able to express uncertainty and how Bayesian approaches address this issue, leading to more robust and reliable models.
+

@@ -1,0 +1,515 @@
+I think we're ready to begin.
+You saw me look at the camera used to be over there, now you're over here.
+Okay.
+So I ran a poll 17 hours ago.
+I asked if y'all wanted me to do a video on the EU AI Act, man, got names, gotta get
+better with names.
+I'm good with acronyms.
+Come to me for acronyms.
+Gato, Gaia, Aegis, okay, anyways.
+So y'all were confused about what I meant by Haas, which is something from here in the
+South.
+Haas means just something big, right?
+It's short, it's a Southern dialect for horse, or in particular, a big horse.
+So this document is a Haas because look how freaking long it is.
+It just keeps going.
+So I plugged it in over here and it is 70,000 tokens long.
+So even if I had access to GPT-432K, which I did briefly, and then they revoked it, I
+think they got overwhelmed because I used it, I tried to use GPT-432K on a couple things
+and it was just like, server is overloaded, server is over, anyways.
+So hopefully I get that back.
+But the idea there would be I could read it and chop it up into maybe four sections,
+three or four sections and read the whole thing, but we don't have that.
+And I do have GPT-3.5 Turbo 16K 0613.
+So this model is actually super, super steerable.
+It is actually better than original GPT-4 at a lot of things.
+It's still kind of dumb, especially if the instructions are too complex, but as long
+as you give it just one task, GPT-3.5 Turbo 0613, the June 13th model is more than adequate
+for most things.
+Now, that being said, because I'm interpreting legalese and I'm doing summarization, I'm
+going to use 04613.
+So the instructions that I gave it just now, and I know that I'm ready to start the video.
+Primary purpose.
+Let me zoom in a little bit.
+The primary purpose or the following is a chunk of legislation.
+Your job is to summarize this legislation with two primary goals.
+One, drastically reduce the word count and two, retain enough context that it will still
+make sense.
+The reason for this is that current AI technology can only read chunks that are so big.
+Method, the user will give you a chunk of legislation via chat.
+Your response must only be the summarized version.
+Do not chat with the user, engage with them, or offer any other commentary.
+Summarize only.
+So I copied the first hundred lines of the legislation into here, and this is what it
+spit out.
+So it took all that and just said, okay, this is what it means.
+So the first hundred lines, which you can see here.
+So we've got 344,000 characters, 3,665 lines of stuff to go through.
+I'm not going to read the whole thing.
+I'm not AI explained.
+That dude just like, y'all are impressed with how much work I can do.
+I'm impressed with how much that dude can read, just honestly.
+Maybe he uses chat GPT.
+I don't know.
+Anyways, if you're watching, it's just a joke.
+Okay.
+Anyways, so ultimately, basically that first hundred lines was summarized and condensed
+down to the European Commission proposes a regulation for harmonized rules on artificial
+intelligence aiming to balance the socioeconomic benefits of AI with potential risks.
+The proposal seeks to ensure AI systems are safe, respect fundamental rights, provide
+legal certainty for investment and innovation, enhance governance, and prevent market fragmentation.
+So it says nothing about existential risks or prevent AI from killing everyone.
+It's sort of implicit because like if AI kills everyone, you can't have investment
+and innovation, but I would rather see legislation that is explicit.
+It proposes a risk based approach prohibiting certain harmful AI practices and setting requirements
+for high risk AI systems.
+Okay, cool.
+We'll see how they define that later.
+The proposal also establishes a governance system at member state level and a European
+artificial intelligence board at union level.
+Okay, cool.
+So this is going to be an international regulator.
+Great.
+It is consistent with existing union legislation and policies, including data protection, consumer
+protection, non-discrimination, and gender equality.
+So these are all very low level risks.
+None of this is actually talking like when they say high risk, they're probably meaning
+like the social credit system that is used in China, which that is a high risk, but it
+is not the highest risk.
+The proposal is based on Article 114 of the Treaty of the Functioning of the European Union,
+the TFEU, which ensures the establishment and functioning of the internal market.
+Okay, so this is mostly a market oriented piece of legislation.
+Great.
+So we know that this works.
+So let's go ahead and save this out.
+I'm going to walk you through the whole process and then I'll, yeah.
+So this is how we're going to proceed.
+For those of you that are newer to my channel, this is actually the original format that
+I used where I would walk you through the entire process.
+So just watch that on 2x and you'll see the whole process of how I approach these things.
+So we'll call this system summarize, yes, dot text.
+And so basically I give it a system message with very, very clear instructions and what
+I expect and what it should expect, and then it gives you very clear consistent results.
+So then we come over to step one, simplify.
+So this is, I'm just re, I'm borrowing code, which I always do.
+So we've got this.
+So this is what we're going to use to do that.
+This is a KB service that I'm working on.
+So I'll show you that in an upcoming video.
+But you don't get to see that yet.
+You don't need KB functions.
+So delete that.
+Flask routes.
+We're not going to do a flask app.
+So that's also fine.
+Actually, I guess I just delete most of it.
+Okay, cool.
+So we get rid of flask because we're not going to do that.
+We're not going to do threading.
+We're not going to, we don't need flask or logging or JSON or YAML.
+Okay.
+Clean it up.
+I probably should have done that before I started the video, but it's good to, it's
+good for you to see how messy my process is.
+I am the first person to tell you I am not a professional developer.
+I never was.
+My professional background was I was in virtualization and automation.
+So I'm an automation engineer, which is why I approach things the way that I do, which
+is creating discrete steps.
+So you notice the title of this is step one, simplify.
+Okay, cool.
+So basically what we're going to do is we're going to ask this handy dandy coding chatbot
+that I built, which you can use this.
+It is available over here.
+I had a bunch of people submitting pull requests and they kept trying to like change the way
+that this thing works.
+So I just set it to public archive.
+So here's the thing is I welcome pull requests that are like simple fixes or small improvements.
+Don't refactor my code.
+Just fork it.
+Like there's 19 forks.
+If you want to, if you want to fundamentally change how it works, fine.
+But I got tired of people messing up my code.
+So I just set it to public archive.
+And guess what?
+Like people, you can still do whatever you want with it anyways.
+So we're going to use this as a co co pilot tool because I got frustrated with GitHub
+because they're co pilot customer service, whatever documentation is garbage.
+Okay, let's see.
+I have here, let's just write a function that accepts a gigantic string and returns.
+Let's see.
+And let's see splits it by lines.
+And then chunks 100 lines together and returns those chunks as strings.
+So the final result will be a list of strings.
+Each string represents 100 lines of the original.
+Okay.
+So this is this is my coding chatbot assistant that it uses.
+It also uses GPT for you.
+I tried it.
+You can actually switch it to Oh, it's using the old one.
+Hold on now.
+I need to update that.
+Hold on.
+Hold on.
+That's the wrong model coding chatbot assistant.
+See, this is what I mean is someone someone updated it.
+Oh, no, my local one uses the right one.
+So someone updated it with the wrong model and made a bunch of other assumptions.
+And I was just like, no, this is not this is not what I wanted.
+Okay.
+So here we go.
+Here's the function Python chunk strings line lines equals split.
+Oh, wow.
+I did it in two lines.
+Cool.
+This functions first splits the string into lines using the delimiter.
+Then it uses a list comprehension to create chunks of 100 lines each the range.
+Yep.
+The result is a list of strings.
+Cool.
+Excellent.
+Excellent.
+Let's see this out.
+Oh, and another good thing is that, like, well, yeah, you see how it works.
+All right.
+So we'll go ahead and do that.
+So chunk strings.
+So first we want to just act equals open file.
+And I've got it named as act dot text.
+Just right here.
+Yep.
+Oh, and also this, excuse me, this uses a scratch pad.
+So what I can do is I can actually populate the code that I'm working on over here.
+So now it's aware of what I'm working on.
+So this scratch pad is a holdout.
+So rather than giving it the code in sequence, the coding chatbot actually has a, it has,
+here, let me show you the system message.
+So here's the instructions.
+You're a Python coding assistant, you know, let me turn on word wrap.
+You're a Python coding assistant, et cetera, et cetera, scratch pad.
+So basically tells you the scratch pad is usable, you know, so that you know what the
+user is working on.
+So that you can talk about this.
+And this is passed to the chatbot every time.
+So whatever the conversation is, like that is in the past, I don't know if I'm explaining
+that well.
+Anyways, point being is that it can see the code that you're working on as long as you
+keep this updated.
+Okay, so that's the first hundred lines.
+Let's go ahead and see where did it go?
+Step one, simplify.
+Cool.
+So act equals that.
+And then we'll say chunks equals, let's see, chunk string, chunk string, act.
+All right.
+So this basically creates the chunks that we're going to be working on.
+And that is that.
+Let's see.
+I'm going to need to watch this because, well, here, let me just show you something real
+quick.
+So the first hundred lines, if we take that over to Playground and paste it in here, you
+see that a hundred lines is about 4,000 tokens.
+So that would obviously be too big for text of NCO3.
+But with GPT-4, we have 8,000 tokens and then with 3.516k, we have 16,000 tokens.
+So we could actually probably do more.
+But the thing is, is that, again, 3.5 turbo is, actually, you know what?
+Let's try it real quick.
+Heck with it.
+Heck with it.
+While we're here, let's go back over to chat.
+Let's give it this chunk because if I can do it faster and cheaper, why not?
+And then we need, this is our system message.
+We need to make sure that we're going to use 3.5 turbo 16k so that it's got enough space.
+OK.
+Turn the temperature down.
+We do not want you to be creative.
+Thank you very much.
+All right.
+And then let's see how well it summarizes it.
+Yeah.
+So it's not, this summarization is not nearly as elegant or as concise.
+But just glancing at it, it's OK.
+I think I'm going to stick with 4, but I'm glad I did this side by side.
+So the GPT-4, it's a much more elegant summary and it's also less worthy.
+Even though, so it's not quite as fast and it's not quite as cheap because we need to
+capture the essence of something that's really important.
+Let's use the smarter model.
+Now that being said, again, 3.5 turbo, the June 13th one, plenty, plenty good for a
+lot of things.
+OK.
+Cool.
+So I'm glad I ran that test.
+Where are we?
+What am I doing?
+I don't know.
+I'm lost.
+I'm always lost.
+There's this meme.
+It's like a pug in a field with a wizard hat and it says that the meme is like not all who
+wander are lost except Dave.
+Dave is lost as fuck.
+And that's me.
+I'm the pug with a wizard hat.
+Does that make any sense?
+I need more coffee.
+OK.
+All right.
+I hope you find this entertaining because I just woke up and my brain was like, hey,
+we should work on this.
+All right.
+Now we're back here.
+All right.
+We've got our chunks.
+So now what we need to do, so this is where it gets fun.
+So four chunk in chunks.
+This is super straightforward.
+Let's see.
+Messages equals this is going to be a list.
+And then the role will be, whoops, user and the content, wow, I know how to type, I promise.
+It's just getting it from my head to the hands on the keyboard to the screen.
+That's too many steps right now.
+Content equals chunk.
+OK, cool.
+So basically what we're doing right here is we're setting it up to look exactly like
+this.
+So I'm putting the chunk in here and then we also need to load the system message.
+So what we're going to do is we're going to do system equals open file system underscore
+summarize.
+So this is the instructions.text.
+So system message is the new prompt engineering.
+All right, cool.
+So then we'll do role system and content is system.
+All right.
+So now we're ready to pass it up to our model right here.
+So then we'll just do response equals chatbot messages, is that simple.
+So it's ready.
+And so this response is going to be the summary.
+And so now I need to figure out how I want to save these summaries out in a way that
+makes sense.
+Let's see.
+Let me ask my chatbot assistant.
+OK, cool.
+Great.
+Now I want to pass a list of strings to a function and have that function save them to
+a specified folder as a parameter.
+And I want it to serialize those files like so.
+So it'll be like file 001.text file 002.text and so on.
+Let's see.
+You should see the script I'm working on.
+All right, cool.
+So then we're going to have summaries equals list and then summaries dot append response.
+So now basically we're going to have the summaries all in order.
+And what I'm going to do is I'm going to copy and paste this into my scratch pad so that
+the chatbot knows what I'm working on.
+And I'll show you how that it says, oh, OK, cool.
+I probably should have told it that I'm going to do that with the summaries.
+It's usually pretty good at making the inference.
+OK, cool.
+Let's see.
+Def save strings.
+If it doesn't exist, make it otherwise enumerate strings.
+So as long as I've been using Python, I'm not entirely sure how enumerate works.
+Maybe I should ask.
+All right, but let's go over here.
+Let's go back to my script.
+Save strings.
+Cool.
+File I05.
+Interesting.
+Yeah, see, I'm not even sure how that works.
+Fantastic.
+Let's see if it works, though.
+The function first checks that the specified folder exists.
+Excellent.
+Then it uses it to make it.
+Then iterates over the list of strings using enumerate, which provides both the index
+and the value.
+Oh, OK, so that's what enumerate does.
+The index is used to generate the filename with I colon O5 in the F string, ensuring
+that the index is zero padded to five digits.
+Well, that was easy.
+Cool.
+Right, and then it uses the right method.
+Yeah, so instead, I was hoping it would use my save file, but that's fine.
+So let's go to here, and we're going to do summaries.
+And so instead, we're going to assume that that is already there, and then we are going
+to do file path equals OS path join folder.
+Yeah, that works.
+And then we are going to do save file because this, so my save file function encodes it in
+UTF-8, so just reuse something rather than do it here because you see this doesn't do
+it in UTF-8.
+You want to make sure that you have a nice standardized thing.
+That's what I'm doing here.
+File path and S. That should be good.
+Fine.
+All right, so save strings.
+So then we do save strings, we'll do summaries.
+No, I need to do yes, summaries, and then summaries, and that should work.
+Now that being said, I want to print the response as I get them.
+There we go, and then response.
+All right.
+Let's give this a whirl and see if it works.
+CD, what is this EU AI act?
+Let's zoom in a little bit.
+Python step 01.
+This will probably take a while because we've got 3,000 line, 3,300 lines.
+There we go, cool.
+Hmm.
+Hold on.
+Oh, right.
+I forgot about this.
+Okay, so this is an important thing.
+What I started doing, and I forgot to integrate this, so what I started doing is whenever
+I call the chatbot, I return the text and the token use.
+Because this is actually really helpful if you just go ahead and return the tokens so
+that you know when to summarize it.
+So instead, what I need to do is response tokens because I don't need to save a tuple
+out here.
+But this otherwise looks good.
+And then what I'm going to do is I'm going to go grab something to make the printout
+look a little bit better.
+Reflective journaling tool.
+This one has good pretty output.
+So we're going to do formatted lines, yep.
+So take the formatted lines here.
+And then we'll do print new line, new line, new line, and formatted lines.
+All right, so that will make it prettier.
+And then we'll also use, so this is why I appreciate when people add feedback is someone
+added the halo, which is a little thing that shows that it's thinking.
+So I'm going to add that real quick as well.
+And the way that you use that is down here.
+And so once this is running, I'll pause the video so you don't have to watch the whole
+thing.
+So you're actually probably closer to the end, if I had to guess, spin or start.
+So we'll say summarizing next chunk.
+And then spin or stop.
+Okay, so let's try this, make sure it works.
+Summarizing next chunk.
+Hey, look, now it gives us some output.
+Better user experience.
+It tells me what it's doing.
+Text wrap is not defined.
+Whoops.
+What do you mean?
+I need to import everything that you use import text wrap.
+Let's try that again.
+Third time's a charm.
+All right.
+And if this works, then I'll go ahead and pause it.
+And then we'll come back once the whole video is or once the whole thing is done.
+Why is it in, hold on, hold on.
+That's not right.
+Why are you giving me this garbage?
+That's not correct.
+Oh, right.
+I need to print out formatted text.
+My bad.
+Don't give me this nonsense.
+Because basically what you want to do is you want to have it formatted in such a way.
+There we go.
+See, so now we have this nice little block.
+It's easier to read.
+All right, cool.
+So this is working.
+We'll watch it just a couple of times.
+You see how fast it is?
+The June 13th update is much, much faster.
+Let's see.
+Excellent.
+Excellent.
+Excellent.
+So we will, I'm going to pause the video and we'll come back and take a look at the final
+result.
+Cheers.
+Okay.
+And we're back.
+So after running it all, here, let me just show you what the results were.
+We've got 37 files, each with a summary, and I wrote a really quick, a hacked together
+really quick script that merged them all.
+And so the merged result is 34,000 characters long.
+So we reduced it by a factor of 10 to 1, just shy of 10 to 1, which when you plug that in
+over here, that's 6,000 tokens.
+So we went from 60,000 or 70,000 tokens.
+I don't remember exactly to 6,000 tokens.
+One of the reasons that we had a more drastic reduction of token count is because we removed
+all the serial numbers and stuff, because that's kind of superfluous.
+If you remove symbols and stuff like this, these are high token things.
+If it's ordinary words like AI and each system, these are easy for the model to tokenize.
+So that means what we can do now is we can just take this whole thing and come over to
+the chat and say, let's see, main purpose, here, darn it, I believe that.
+You are a chatbot tasked with discussing the following legislation with the user.
+Make sure to, well, hell, I mean, that's all it is.
+Use the legislation summary below to conduct the conversation, and that's it.
+And so then we'll say legislation summary, and we'll copy-paste it here.
+And so then we move over to, we could do 16k, because that'll be faster.
+Actually, here, let's try that real quick.
+Let's try that temperature there, okay.
+Give me a high-level overview of this legislation, blah, blah, blah, blah, blah.
+Okay, cool.
+We're new after five years.
+How is it funded?
+Let's see, the funding and implementation of this legislation comes from the multi-annual
+financial framework, blah, blah, blah, blah.
+The financial impact includes allocation of resources.
+Having watched it go through, how many employees will it cost?
+There we go, 10 full-time equivalent employees.
+All right, so we can clear that out, just because it ultimately is superfluous.
+So some of the questions, let's see, will this legislation hamper research and innovation?
+Let's see, the legislation aims to balance the benefits of AI research and innovation
+with the need for safety and respect for fundamental rights.
+It includes measures to support innovation, such as AI regulatory sandboxes, and reducing
+the regulatory burden on SMEs and startups, so that SMEs are going to be subject matter
+experts like UNI, as well as startups.
+The goal is to provide legal certainty and prevent market fragmentation, which can actually
+foster innovation by creating a level playing field for AI developers.
+However, it imposes certain requirements and obligations on high-risk AI.
+How does this legislation define high-risk AI?
+Let's see, this legislation categorizes AI systems into three risk levels, unacceptable,
+high and low or minimal.
+High-risk AI is based on their intended purpose and usage, while the specific criteria may
+vary.
+High-risk AI generally include those used as safety components of products covered by
+union harmonization legislation, as well as AI used in critical infrastructure management,
+education, vocational training, employment, and workers management.
+These high-risk AI systems are subject to requirements.
+What are unacceptable types?
+The legislation prohibits certain AI practices that are considered unacceptable due to their
+potential to violate fundamental rights.
+While the specific types may vary, some examples include manipulate human behavior, exploit
+vulnerabilities, or enable social scoring by public authorities.
+These practices are deemed harmful.
+Freedom, dignity, democracy, equality, and fundamental rights.
+Does this legislation address existential risk at all?
+Does it address autonomous AI?
+The legislation does not explicitly address existential risk or autonomous AI systems.
+Wow!
+Okay.
+Now, one thing that I will say is that if you look at the legislation, it does talk about
+like basically human supervision.
+Yeah.
+So, like, AI regulatory sandbox by one or more member stages, no, like here.
+It talked about not supervision of the sandboxes, but like AI systems basically need to be
+steerable.
+It's in there somewhere.
+Okay.
+But, let's see, it does not specifically address the potential risk associated with highly
+autonomous or super intelligent AI systems that could pose existential threats.
+However, the legislation's emphasis on risk management, human oversight, oh, that's what
+it was, oversight, not supervision, and robustness requirements for high-risk AI systems indirectly
+contributes to addressing the safety concerns associated with AI technologies.
+It is important to note that addressing existential risks related to AI may require further research,
+discussions, and potentially additional regulations in the future.
+Okay, cool.
+So there you have it.
+This file is saved as merged.text.
+Let me go ahead and send that up to Git so that you can all use it.
+Let's see, Git status, Git add, Git commit AM, all done.
+Git push.
+All right.
+So there you have it.
+You have a much condensed version of the EU Act here and merged.
+You can plug it into the playground and ask questions to your heart's content if you have
+access to it.
+But otherwise, you can at least just read it here.
+Yeah, I think we're all done.
+Thanks for watching.

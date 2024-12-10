@@ -1,0 +1,202 @@
+Last time we talked about how these kind of networks and image generation systems work.
+But there are different kinds aren't there?
+There are, there's Dali2, there's Imogen, there's StableDiffusion
+and I didn't talk about them in the last video because they are for the sake of understanding
+diffusion models in general essentially the same but actually they are quite different
+underneath right and it comes down to you know the resolution exactly where you do the embeddings,
+how you do the embeddings, how you structure your network and so on and so forth right.
+So and in fact actually in StableDiffusion's case it comes down to where you do the diffusion as well.
+So let's look, we'll look at the StableDiffusion code because I've got access to that right
+and we'll go into it in quite some detail I think would be quite interesting.
+I've really enjoyed using it because first of all it's given me a better understanding
+of how it works and also you can do some pretty cool stuff by messing about down there and saying
+well what if I gave it a frog but also a snake right and the answer is you get a frog snake.
+A frog, a frog?
+Yeah exactly, snake giraffe was the stuff of nightmares.
+There are questions about ethics, there are questions about how these are trained,
+maybe we deal with them another time. Let's talk about how they work.
+So Dali2 is perhaps at the moment the biggest one but it's being I think rapidly overtaken by
+StableDiffusion primarily because StableDiffusion is more available to people. I can download the
+code and run it of StableDiffusion, Dali you access via an API and you say I would like an image
+please and it gives you something back. If you don't have any interest in the code then sure
+just use the API. But if for example like me you might be interested in what the applications
+for generating images in your area of research like plants or medical imaging maybe I want the
+access to the code and I can train up the network myself. So Dali builds on a lot of stuff,
+it's from open AI, it builds on a lot of stuff that they've already done. The first one is something
+called clip embeddings. Clip embeddings are the way of taking your text tokens and turning them
+into some meaningful numbers. And remember we're going through a transformer so we're not just
+saying well the word that is a five and the word football is a 17. What we're doing is we're taking
+the whole sentence, we're doing a lot of cross-attention and saying this is the overall meaning of a
+sentence reflected numerically. So you get some context. Yeah that's the idea and clip is trained
+with image and text pairs. So you put in an image, you put in the text that describes that image
+and what you try and do is align those two embeddings so that they kind of make sense
+and that way you've got a kind of semantically meaningful text embedding. So it's a bit like a
+supervised data set of some sort. It is yeah it's sort of it's it is a supervised data set. It's
+trained using a contrastive loss which is what this CL stands for and the idea is that basically
+you want to try and make the embeddings of an image and its text description very very similar
+and the embeddings of an image with a different text description very very different right.
+It's not in a dissimilar way to how we when we were doing the face ID stuff we're trying to put my
+face near previous shots of my face so that you can unlock a phone. All right unlock a phone with
+your face. That's the one. If you want to unlock a face of your phone so you've got a clip embedding
+this is the text embedding. You also have various other things that work. In Dali and I'm going to
+sort of simplify it slightly you put in an image which I think is at 64 by 64 pixels. You put in
+a noise image at 64 by 64 right. You put in your time you put in your clip text embeddings
+and you also put them into the network like we described in the previous video. You have a giant
+unit structure that produces an estimate for the noise and you loop and you loop. Now that produces
+a not bad image but only at 64 by 64 pixels. This process of randomly producing noise checking
+with its work subtracting it producing this takes a long time at high resolution and the
+sort of network you would need would be astronomically big. So to make that easier we only run it at 64
+by 64. Now of course how do we then make that nice because just Dali 2 outputs 1k by 1k images.
+The answer is we put and we have another network it does the same thing but this time its job
+is to upsample. So you basically put in a noisy 64 by 64 and say output me the 256 version right
+and so on and so forth. So you put this through I think two levels of upsampling to go from 64 to 256
+to 1024. Will you pardon my dumb question? Yeah. Are we finally at the point where we can say
+enhance? You know what we are yeah um except except and it will work exactly like it does in the tv
+where it will just make up nonsense and they'll call it a win. It works pretty well. Imagen
+google's version works in a very similar way. You have a network that's trained to denoise
+and generate 64 by 64 images guided by text and then you have two upsampling networks that go
+up to 1024. Stable diffusion does its diffusion process sort of in this bit in some sense. You
+have what we call an autoencoder which takes some noise and turns it into a lower resolution but
+detailed representation. You then do the diffusion process this way which denoises that latent space
+and then you have the other side of the autoencoder which expands it back out into an image. So this
+is a different way of doing it and the advantage is that this is much lower resolution than this
+and they call it stable diffusion. There's an argument that is slightly more stable. I don't
+know how to what extent that's true. There are some differences in the way that these produce images
+but in all other regards basically it's the same kind of process. You're still doing guidance from
+text. You're still putting in T. It's just that you're now doing it in this latent space instead
+of in the full image space. Think of it like you put it through a zip and you compress it down
+and then you do all the diffusion in that space and then at the end you expand it back out again.
+That's the idea and actually the autoencoder is very very good. You can take an image,
+you can compress it right down and it'll still produce much the same image again.
+Let's dive into the code and have a look. Right so I'm in Google Colab. Now for those
+who don't know Google Colab is a sort of Jupiter notebook style environment that allows you to
+access also Google's GPUs for running machine learning things. Now I don't tend to use Google
+Colab generally because a lot of our processes last longer than you're really meant to use it for but
+for this is excellent right. So I've got this code from a guy called Jonathan Whittaker which I've
+then repurposed and done my own stuff with it and I've been messing about and so thanks very much
+to him for that but I've taken it and I've played around, I've changed the resolution,
+I've toyed around with a lot of stuff and what I wanted to do was talk through some of these lines
+of code so you can see what it is that it's doing. It's the same exact process I just described.
+It's just a few lines of code to do it. Now obviously there's a lot of deep networks and
+stuff going on behind the scenes but they end up getting abstracted away abstracted away in function
+calls and so it becomes fairly straightforward. Okay I've imported all my libraries already and
+then what we've got here is one go. We're going to have our text prompt and what we want to do is
+take that text prompt and produce an image. So we have various things like we want it to be 512
+pixels tall, 768 pixels wide, we're going to run 50 steps of inference and then a few other things
+that we can talk about in a moment like for example we're going to seed it with a number four. Now why
+four because I don't know I picked it at random. I can seed it at 77 if you like. This allows us to
+run the exact same code again and produce the exact same image another time. If we just used a
+random seed if you got to an image you liked you accidentally get rid of it you never get it back
+right so um but if you change this number you get entirely different images because the noise
+that you start with is entirely different right. So let's put in a prompt like what should we do
+frogs on stilts. I think we need to do frogs on stilts. I mean this may not work I don't you
+know I anything else you want to add like in you know in a park or just just just frogs on stilts.
+What about on a stage? Okay frogs on stilts on a stage at the theatre right. Yeah now the first
+thing we have to do is we have to embed this uh into some kind of usable space in which the
+machine learning can work. So what we do is we tokenize this is the function that tokenizes
+the text input and basically turns it into a numerical code for each word and then that goes
+into the texting coder which is our clipping beddings. So that's the bit where it sort of
+works out the context. Yeah that's the transformer that goes well okay this this one kind of goes
+with this word and then this means they share weights and so on and then you go through the
+transform and you end up with essentially to us meaningless numbers but to this semantic
+information on the meaning of the sentence right. We also because if you remember we put it through
+the network twice one with the text embeddings and one without so we also have to produce a dummy
+text embedding with nothing in it right and that's what this unconditioned input is.
+Then we're going to texting code of unconditioned embeddings and we get
+two text embeddings one of which is unconditioned and one of which is conditioned right. So this
+one has fogs on stilts this one is just sort of blank. Now we need to set our scheduler remember
+you can choose a scheduler that produces different amounts of noise at each time step right and and
+which one you use will depend on to an extent the kind of images you want out but also how you've
+trained the network where it's going to be using the standard one that came with stable diffusion
+and I'm going to run for 50 time steps so what this will do is distribute the amount of noise it adds
+from 0 to 50 right so when I say 50 it's going to produce a maximum amount of noise and when I
+say 1 it's going to produce a tiny amount of noise right that's the idea and then we're going to
+actually produce our latent noise that we're going to be diffusing so we create a random array of
+numbers right of the right size and we're going to call these latents and we're going to stick them
+on the graphics card and then we're going to do some scaling to our latents as well because the
+scales of some of these different parts of a network of difference you have to move them in
+and out and then we're nearly done right this is our loop so how does the loop work well the first
+thing we do is we calculate the noise to be added at this particular iteration so we're going for
+all the different time steps and we're going to add a different amount of noise we're going to add
+this noise to our latent space right so basically we're noising up the image here now remember this
+is a this is a an embedded version of this image but it is noised then we're going to predict the
+noise with our unit so that is saying how much noise do you think was in this image such that we
+can get back to the original image bearing in mind this text and then we can do our actual
+classifier free guidance right so what we're going to do is we're going to take our noise prediction
+with text and our noise prediction without text we're going to calculate the difference and amplify
+and then we're going to work out what our official noise prediction is and then finally
+we're going to then use that noise prediction to calculate a slightly less noise version of the
+image which is what this line does here and we're going to repeat this process right so we repeat
+the process we calculate the new noise at the next time step we predict it we subtract it away
+and add a bit more noise and we repeat this process and the idea is that over 50 iterations
+we go from fully noise to some reasonable image should we see okay so let's run at this resolution
+i'm pushing the amount of image size i can get on this graphics card so this is running on your
+graphics card here no this is running on google's graphics card uh over at google right put them
+somewhere in london so do i owe you another eight pounds for this uh and we can give me eight
+pounds no this is covered under the original eight pounds per month but hopefully this won't
+take a month to record so we're choosing 50 iterations for this and because that's a decent
+amount right you'll notice that if you don't do enough iterations you're trying to remove the noise
+too quickly it becomes a bit unstable doesn't produce nice results of course i've not i've
+not done this before i don't know what these are the results will be will it be frogs on stilts will
+it be bits of wood next to a frog will it be something different because it's failed horribly uh
+let's see actually that's not bad uh i think that's uh that's pretty good that is pretty impressive
+now there's a weird leg coming out of this fog here but i would i would say that as a
+comparatively successful attempt this was produced from a noisy image so what we can do is we can
+change the noise seed so we can say you know 128 and what that will do is create a complete different
+noise which will probably lead to a tiny different image right i mean it's still the same text prompt
+so it's still guided in the same way but if this allows us to produce see near infinite numbers
+basically of fogs on stilts but if that's your thing right it is my thing yeah i've got quite
+into producing like cityscape futuristic cityscape so i think that's where i i spend most of my time
+on this i mean that's gone a bit wrong but actually still not bad it looks like a kind of stage
+they're just a bit not foggy although yeah all right all right okay so anyway we could spend
+let's say another 20-30 minutes producing fogs on stilts um but yeah so what you could there's
+there's loads of cool stuff you can do presumably you could just automate that so it just kept giving
+you loads of yeah and in fact i've done that right so for example i created some nice pictures of
+dystopian abandoned futuristic cities with overgrown plants right and then i just put them
+in a for loop and just produce 200 of them so i can pick the nice ones for example in here
+i've just got a bunch of awesome looking city vistas overgrown plants they all look really
+really good right i'm quite pleased i mean i've got no use for this but it's quite fun
+and the other thing is that because you can do image to image guidance right so what you do is
+you take an image that's your guide image you nearly noise it all the way and then you reconstruct
+right so the noise has somewhat not come from a random place then you can get an image that sort
+of bears some reflections you can say well i want a building over here and a tree over here so i'll
+draw them in and then i'll produce this and it will bear the same have the same shapes and stuff
+so you can control this process even if you basically like me have absolute zero artistic
+ability at all um to give you an example what i did was uh so if i go down let me let me go
+so this is a picture of my my colleague's rabbit very cute rabbit and what i did was i embedded
+this added noise but not totally noise to remove the image and then i reconstructed it with the text
+wooden carving of a rabbit eating a leaf highly detailed 4k artisan i don't know if the artisan
+word does anything i just thought it'd be fun it's trending on art station i see a lot of that put
+on the end of things does that make a difference i don't know anyway and it produces a wooden carving
+of a rabbit right and if you look at the original image versus this image some things have changed
+sure but the shape is roughly the same right so it has guided this process using the original image
+and that's how image to image works so if you wanted to create an animation you could create a
+quite simple animation of a rabbit jumping about with with no artistic ability right i mean actually
+i would struggle to do even that but and then each frame you could then use this process to
+produce it at the moment there's no kind of temporal consistency so you will see flickering
+right if you ever see one of these videos someone's produced online it'll look cool but maybe not
+consistent and interesting because each frame might subtly change things um but that's the idea right
+now you can do loads of weird stuff right so this mix guidance is one of my favorite things
+here we have two text inputs and what we're going to do is we're going to embed both of them
+we're actually going to guide the generation using the midpoint of those two right so i'm
+going to say okay i want a rabbit right and i want a frog and i want you to produce me a 5050
+rabbit frog right and what it will do is it'll embed both of them and it will do the exact same
+process it's just that now its text prompt is halfway between these two embeddings so you
+could potentially come up with a system with sliders uh you know you could you know to watch
+to what amount of frog do you want in this image right i mean um um you know again not sure what
+the use case is but it's quite cool here we go so it only takes about i think i'm training for 50
+steps again so i'm running it for 50 steps while this work you could do loads of stuff so for example
+you could generate an image and then you could take half of it and try and generate the other half
+to expand it outwards and slowly grow your image to make an even higher res one right if you're
+limited by the resolution and there's going to be a lot of people playing around with a lot of
+different ways to use this i've already seen the plugins for gimp and for um for photoshop and stuff
+there it is it's a strange one we'll put links to the code in the description have a go
+you need to register for hugging face to get access to the weights originally but then you
+can use something like google colab or your own hardware to generate pictures and people are
+having a lot of fun there are websites now where you can find cool images and the prompts that we
+use to generate them to give you some ideas so there's lots of cool stuff to do and the rabbit
+it's the same shape rabbit there's a bit more noise right and then we come over here and we come over
+here and we end up with just noise looks like nonsense and so the quick takes the same amount
+of time to make one sandwich but you've got two people doing it so they make twice as many sandwiches
+each time they make a sandwich same with the computer we could either make the computer
+process it faster or

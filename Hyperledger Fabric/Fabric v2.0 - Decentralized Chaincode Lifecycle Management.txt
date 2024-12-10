@@ -1,0 +1,309 @@
+Uh, my name is Jason Yelik and I'd like to talk with you about the hyper fat hyper ledger fabric life cycle today. Um, in particular, the new dis, uh, distributed chain code life cycle introduced in version 2.0 of hyper ledger fabric.
+Today we'll be starting by talking about an overview of the version 1.x life cycle. So basically how chain code life cycle has worked up until version 2.0.
+Uh, then we'll do a similar discussion of the version to life cycle sort of a high level, um, including a workflow for that. And then some permutations around that workflow.
+Uh, finally, we'll move on to details about the version to life cycle. And then finally some other notes and considerations that you should keep in mind when dealing with the V2 life cycle.
+So starting out with how chain code life cycle worked in fabric 1.x.
+Um, you know, this, this should be a pretty familiar picture. You have a couple organizations, um, their respective admins and an ordering service. And we would like to get chain code installed and instantiated so that we can begin transacting on the blockchain.
+So step one, uh, each org admin installs the chain code to one or more of their peers.
+Step two, um, one of the admins, uh, goes out and does a LSCC, um, deploy or upgrade transaction to instantiate that chain code, uh, gets the result submits it to ordering that commits it all the peers and now the chain code is up and running.
+Um, you know, that's, it's basically a two step process, uh, which is nice because it's, it's a small number of steps. Um, but it has a lot of drawbacks.
+Um, to begin with, um, installing a chain code, uh, sort of grants this, this unconditional agreement.
+Um, to run that chain code on any channel that your peer is joined to, whether or not you agree that that chain code should run on that channel.
+Um, or whether you agree to the assorted parameters to that instantiation. So for instance, um, you know, you, you might want a certain endorsement policy associated with that chain code.
+Um, you might want to have control over when that chain code is upgraded and downgraded.
+Um, and you might simply not want to execute that chain code.
+Um, so that's sort of one of the, the first big problems.
+Um, and you know, this is, this is where we talk about, um, this, this sort of, uh, distributed chain code lifecycle.
+Um, or, you know, sort of distributed government governance, distributed agreement.
+So continuing. Um, so when we say that the new life cycle is, uh, decentralized, that's what we're talking about, that it's not just one admin making the decisions that, um, you know, that, that's a problem we had in the previous life cycle.
+And that's something the new life cycle is, is here to address.
+Um, now the second problem, which is a little less obvious, um, is that the, um, instantiation, i.e. that, that deploy or that upgrade transaction.
+Um, that includes invoking a knit of the deployed chain code.
+Um, but if we look at our picture here, you can see that that, that transaction actually only executes on org ones peer.
+Um, so even though we may have set an endorsement policy, um, for this chain code, that initial invocation of a knit doesn't respect that endorsement policy.
+Um, and you know, uh, and a lot of ways that's fine because it's being invoked by a trusted user and some other things, but it's still an asymmetry and it's, it's something that we wanted to fix.
+Um, and then finally, um, this is, this is more of an operational one.
+Um, you know, if you've ever tried to operate a fabric network and you've tried, you know, onboarding new orgs and that sort of thing.
+What you'll quickly realize is that even though you don't want to change anything about the code of your chain code, any of the chain code logic, if you want to modify say the endorsement policy to include a new org.
+Well, you actually have to go through this whole process of installing the chain code and performing an upgrade across the network, um, which is really unnecessary and causes a lot of churn.
+That's, that's a bit of a pain operationally speaking.
+Um, so these are sort of the, the three big problems that, um, we encountered in, in, in the original chain code life cycle, which sort of leads to the three principles for the new v2 decentralized life cycle.
+Um, so first one is that peers only participate in a chain code.
+If the org admin explicitly agrees, yes, I like this, um, you know, configuration for the chain code.
+Um, so until the orgs admin agrees that peer will not, uh, you know, endorse the, uh, the, the definition, the, the instantiation instantiation and further it will not endorse any invocation of that chain code, including it's a net function.
+Um, so this basically, if we go back to our previous slide, um, we said that the, uh, installing agrees to instantiate unconditionally. This fixes that problem.
+Um, secondly, no exceptions to endorsement policies. Um, this corresponds to our, our second problem we enumerated, which is the chain code in it should be subject to the same endorsement policy as the rest of the invocations.
+Um, so, um, you know, we, we enforce that chain code in it abides by the endorsement policy of the, um, you know, as defined for the chain code, just like every other transaction.
+Uh, but secondly, um, and this one is a little more subtle, um, in the V1.x lifecycle, LSCC, um, really didn't have an endorsement policy.
+Um, so in the V2 distributed lifecycle, we also enforce that the lifecycle of chain code itself is governed by an endorsement policy and decisions are validated based on that endorsement policy.
+Uh, so finally, uh, the third parameter, which comes back to our operational problems, um, is that you should be able to, um, modify your chain code definition.
+You should be able to change the endorsement policy, add collections, et cetera, um, without requiring an upgrade of the code across the network.
+Um, so those three things are, are sort of the guiding principles behind the, the design of the V2 decentralized lifecycle.
+Um, and, uh, you'll be able to see that reflected in, um, in just a moment when we, we do an overview of how the decentralized lifecycle works.
+Now, before we go into, uh, the, the overview of how, uh, the lifecycle works, it's important to mention sort of an, an implementation detail.
+Um, and that's that V2 lifecycle is, um, very much powered by a new V2 concept and that is organization implicit collections.
+Now, if you're at all familiar with private data collections from, you know, V1.2 or three onwards, um, you'll know that the, the basic idea is that it's, it's a namespace that's reserved that only certain members can read.
+So on V2, we've sort of extended that concept and you can now associate, um, which members can write to that namespace and there's the set of implicit collections, which are defined implicitly.
+Um, I either, they're there without you having to do anything to define them.
+Um, and you get one implicit collection per organization in your channel and only peers from that organization may write to it and only peers from that organization may read from it.
+Um, so this allows you to implement a lot of interesting things in your chain code that, that weren't previously possible.
+Um, notably things like voting schemes, um, and ways for, you know, a chain code of one org to make a different decision than a chain code of another.
+Um, so, uh, you know, that's, that's a bit of a side note and I don't want to, to get too off topic here, but, um, implicit collections are sort of the, the underpinning, um, technology behind the new V2 lifecycle.
+Um, and you can use this in your own chain codes as well.
+So back to that overview.
+Um, just like with the V1.x lifecycle and the V2 lifecycle, uh, the first thing we do is an install.
+Um, now the packaging format has been changed.
+Um, there are some, some different things about the install, but conceptually it's still just an install, you're putting the chain codes code package onto the file system.
+Um, and that takes place as your first step performed by each admin, respectively.
+Now, secondly, and this is where things start to differ a little bit.
+Um, org ones admin in this case is going to execute an approve for my org function against his peer, send that to ordering and it commits.
+Now this is modifying the implicit collection for org one, indicating that org one agrees with this particular chain code definition that org ones admin is approving.
+Now, org twos admin is going to do the very same thing, uh, sends to his own peer, his approval submits that to ordering it commits.
+Um, and now we have an entry in the implicit collection for each org indicating agreement to some chain code definition.
+At this point, org ones admin or it could be org twos, but we'll use org ones in this case.
+Um, invokes the lifecycle chain code on one of his peers and one of org twos peers.
+Um, saying, let's, let's go ahead and commit this definition submits that to the ordering service. It commits in the public namespace.
+And now the chain code is, is defined.
+Um, the, the definition that was approved by the two org admins have committed and the chain code was ready to execute.
+At this point, um, typically the same user who, uh, did the, um, the commit of the definition would be the one who invokes in it.
+And in it can, you know, uh, execute just like any other chain code invocation.
+Um, the peer will, uh, track whether or not and it has been called and enforced that it's the first function called.
+Um, but, you know, I think as people get used to this new, uh, decentralized lifecycle, um, you know, you'll, you'll realize more and more than in it usually isn't necessary.
+Um, and it's actually a whole lot easier and more flexible to implement, um, in it logic inside the chain code itself if needed.
+Um, you know, a couple of examples for this could be first off.
+Um, if you implement in it inside a chain code, you can have, you can require each org to perform some action before the chain code is initialized.
+Or if you're doing something like upgrading your, um, you know, your, your key schema, um, you can require a series of transactions, um, that, that modify your database layout before you allow normal transactions to begin.
+Um, because a single transaction would be too large.
+Um, and really to implement in it logic, um, it's, it's really very simple. You just pick a reserved key, um, perform a read against that key and see whether it says the chain code has been initialized or not.
+Um, if it's not enforcing it, um, otherwise, you know, allow things through as usual.
+Um, and in fact, that's, that's all fabric does for you, um, when in your definition you require in it.
+Um, so, uh, with the, uh, new life cycle, um, not only, uh, are the semantics a little different, um, we had to pick a new name for life cycle.
+Now, if you're, um, you know, uh, familiar with operating a fabric v1.x network, um, you'll, you'll know that life cycle operations were done through a system chain code called LSCC.
+Um, so LSCC is no longer the chain code used for life cycle operations.
+Instead, there's a new, um, system chain code called underscore life cycle.
+Um, and, uh, the underscore in the front is a prefix to indicate that it's a system namespace.
+Um, the, the suffix of ending chain codes in SCC to indicate system namespaces was, um, not, not one of the, the better ideas in fabric v1.x.
+Um, so, um, underscore is now a reserve system namespace underscore life cycle is the life cycle, uh, system chain code.
+And in fabric v2, both the underscore life cycle and the LSCC chain codes exist.
+Um, both are functional.
+Um, and in the event that, uh, the distributed life cycle has been enabled.
+Um, first we'll check definitions done in the new life cycle.
+And if there's nothing there, we fold fall back to the old life cycle.
+Um, but it is important to note that eventually fabric will be removing support for the legacy LSCC.
+Um, so, uh, it's a good idea to go ahead and, and migrate onto this new life cycle as soon as possible because, um, at a later fabric version, LSCC will be removed.
+Um, and, uh, you'll, you'll, uh, be forced to move there eventually.
+Um, so let's talk about, uh, how life cycle works sort of from a, a user perspective.
+Um, let's say you have three organizations, org one, org two, and org three, and everyone wants to run chain code my CC.
+Um, and we've agreed that two out of three orgs, um, must agree that's, that's the endorsement policy we want to go with.
+Um, so what would this look like implemented?
+Well, someone's got to take the lead, right?
+You know, um, uh, so someone has to sort of administrate the process.
+And for here we've chosen org one, but it could be really any admin.
+Um, and what they would do is they would package this chain code.
+Um, using the, the pure CLI into what is now just a standard, you know, um, tar GZ.
+Uh, and disseminate that package to the other orgs.
+Now the other orgs, they can take a look at this package and unlike in fabric V one dot X, um, where the package format was sort of a fabric specific thing, a CDS file.
+Um, and the V two life cycle, these packages are, um, standard tar GZs.
+So an admin can simply use whatever commodity tooling they would like, uh, to take a look at that package, make sure it is in fact the, the chain code that they want to install.
+Now everyone goes and installs this chain code package and, um, commits that approval, you know, sends that, that approved for my org, um, transaction through.
+Um, according to the parameters that, that we, we sort of agreed, um, out of band.
+So that's, this is my CC, it's version one, um, the endorsement policy is two out of three and so forth.
+Um, once everyone's done their approval and again, typically we would, would wait for everyone.
+Um, then the administrative org one, um, sends the transaction to commit the chain code definition for that channel and the, the chain code is now operational.
+So let's look at this visually.
+We have three peers.
+The administrators install the chain code on each of those three peers.
+They approve the chain code, um, with all of the same parameters.
+And then they commit that chain code definition.
+And now the chain code is defined.
+All three peers are ready to execute it.
+This is the standard workflow and, you know, what, what you can expect to happen.
+Um, and most production fabric networks.
+Um, you know, everyone is in sync. Everyone is in agreement. Everyone does the same approval.
+Um, and once everyone is ready, the definition commits.
+But, um, you know, we, we don't want to require unanimous agreement for everything.
+Um, so here are some permutations.
+Um, let's say one of the admins doesn't install the chain code.
+One of the, you know, either they forget to, um, or they, they simply don't want to execute this chain code.
+Well, um, things still proceed just fine because all three orgs have agreed, um, on this chain code definition.
+And that definition commits as normal.
+But only, uh, org one and org twos peers, um, will service, uh, invocations for that, that chain code because of course the chain code is not installed on org threes peer.
+Um, hopefully that's, that's unsurprising and, and what everyone would expect.
+Now the second one, now this, this is sort of the, the crux of the difference between, uh, the v1.x and, and the decentralized life cycle.
+Um, and that's if org threes admin does not approve that definition.
+If org threes admin does nothing, well, it's still possible for the chain code to get defined on the channel.
+Um, because org one and org two agree and we'll talk a little bit more about that later.
+Um, but here the chain code gets defined in, even though org threes peer has the chain code install, org threes peer will not execute that chain code.
+And that's because org threes admin never agreed to this particular definition.
+Well, what if they did agree that they wanted to run this chain code, but you know, in a slightly different way.
+So in this case, um, you know, you can see in bold here, um, that for org three, um, their admin said, I want a policy of three out of three for the endorsement policy.
+All three orgs must execute.
+Um, while one in order two said, no, two, two out of three is just fine.
+Well, in this case, even though org three has said, yes, I want to run this chain code because org threes agreement doesn't match what's actually committed in the channel, org three will still refuse to execute the chain code.
+So you get the same effect as if the org threes admin had done, had done nothing.
+Um, and so finally, this is sort of the, the worst case, um, you know, communications broke down.
+Um, you know, people couldn't agree on the parameters here.
+We have org ones admin picked version one dot one org three picked a policy of three out of three.
+We simply don't have enough agreement here on how this chain code should be instantiated.
+So in this case, the chain code could not be defined because we wouldn't be able to gather sufficient endorsements, uh, from the life cycle chain code, um, to, to actually get this definition committed.
+So I've been sort of, uh, avoiding the topic, um, and, and alluding to it a little bit.
+Um, but life cycle is governed by endorsement policies.
+Um, uh, in the V one dot X life cycle, there, there were a few things going on.
+There were some sort of, um, hard coded validation rules.
+Um, you know, in the, the validation plugin logic or the SCC as it used to be called.
+Um, that treated life cycle invocation specially.
+Um, and.
+And the endorsement policy was, was also, um, hard coded there.
+Um, and in the new life cycle, everything is based off of endorsement policies.
+Um, in particular.
+To commit a, um, to commit a definition into the life cycle chain code namespace.
+Um, you need to satisfy the channel application life cycle endorsement policy.
+Um, so this is a channel configuration policy, much like the, um, you know, channel readers or channel writers policies.
+Um, but this one defaults to requiring that a majority of the application orgs, um, must endorse.
+Um, so what this means is in the default configuration.
+Um, so long as a majority of the, um, organizations in the network can agree on a change.
+And that change, um, will be permitted.
+Now note, um, just like we saw back here, just because the network agrees on a definition.
+Um, doesn't force an org, um, to participate in that chain code.
+But at what, what it does do is it allows the network to make changes.
+Um, even if one of the, um, the actors is, is not participating.
+Um, and so, you know, this could be, um, you know, maybe there's, there's a, uh, an urgent security bug or, or, um, you know, other reason that the chain code needs to change.
+Um, and one of the organizations, they, they can't be contacted, you know, they're, they're administrators on, on vacation.
+Um, something like that.
+We basically didn't want to, uh, default to requiring unanimous agreement.
+Um, although of course this is a configurable.
+Policy in the, in the channel config.
+So, um, you know, for those users who, who don't like the default of a majority.
+Um, this can be modified to be, you know, any policy that you like.
+I'm in a more dictatorial network.
+Uh, you could require that a single specific org is the only org authorized to make, um, you know, lifecycle changes.
+Um, now secondly, um, there, there's another new endorsement policy, which is simply channel application endorsement.
+Um, and this serves as the new, uh, default endorsement policy for chain codes.
+Um, when users fail to provide one.
+Uh, in the V1.x, if you failed to provide an endorsement policy for your chain code, the default you got was.
+Any member of any org, um, is an adequate endorsement.
+Um, which, you know, makes for a very sort of convenient.
+Um, development default.
+Um, it makes it very easy to get up and going.
+Um, but, you know, we, we saw confusion from users.
+Um, who maybe they didn't understand what a life site or what a, an endorsement policy was.
+Um, and they ended up with a default that, that didn't give them the security guarantees they were hoping for.
+Um, so, so again, we think that this.
+Um, default of a majority of organizations must endorse.
+Um, that that's, that's a pretty reasonable default, but it's just a channel.
+Uh, policy.
+Um, it can be changed to, to whatever the.
+Uh, specifics that a channel requires.
+Now, um, here's another point that, that sort of was deliberately omitted in the previous slides.
+Um, you know, we, we talk a lot about the, the, the, the, the, the, the, the, the, the,
+um, we, we talk a lot about, um, you know, these, these sort of sequences of events that, um, org ones admin does something and, you know, org twos admin does something.
+Um, and the, the problem we, we always have when, when we have workflows like this is, um, you know, how do we know that what org one agreed to is, is still valid and current.
+Um, and so you can sort of think of a, a sequence number as being sort of like, you know, an election year, um, or something like that, that, um, you know, in sequence one, um, we're all, we're all voting on the definition on the first definition of a chain code.
+Uh, for sequence two, we're talking about the first change to that definition for sequence three, we're talking about the change to the changed definition and so forth.
+Um, and so what that allows us to do is, um, we can approve a chain code and commit its definition at sequence one.
+And then while that chain code is operating, we can now begin approving a new definition as sequence two.
+And once the entire network has, you know, agreed to that definition, um, installed that chain code, so on and so forth, then we can sort of atomically move up to sequence two.
+Um, and then, you know, the process repeats for sequence three, so on and so forth.
+Um, so, you know, this is just a new concept that you need to be aware of that, but each, uh, each incarnation of the, the chain code definition is assigned to sequence.
+Um, and when we want to talk about this version or the next version, we talk relative to that sequence number.
+Um, so let's go ahead and look at how this might, you know, actually manifest.
+Um, if we go back to our three org example.
+Um, you know, if we have org one and org two, they approve a chain code definition at sequence one.
+And because org threes administrator is on vacation, they go ahead and commit this chain code definition.
+Um, and we end up back in that scenario where org one and org two will, um, you know, endorse invocations of that chain code, but, but org three will not.
+Well, org threes admin gets back from vacation, um, sees what the network did, says, Oh, great, I agree.
+Now, org three can go in and go ahead and approve the definition at sequence one.
+Um, and org threes peers will now begin endorsing just like org one and org twos.
+Um, the important thing to note here is that, um, without this sequence number, if org three simply sent a new approval in, it would be unclear whether org three was attempting.
+Um, you know, approve the current definition or whether org three wanted to, you know, maybe make some changes to the definition.
+Um, so, and that that's what we see in this next step here.
+Um, org one or two and org three, they want some sort of change.
+So they approve a new definition at sequence two.
+Um, once they've all approved at sequence two, we can commit.
+Um, and that chain code definition now goes to sequence two.
+Um, of course, if you wanted to make another change to the chain code, uh, you would make that change at sequence three, so on and so forth.
+Uh, now all of this has corresponding pure CLI commands and they're, they're not all listed here in particular.
+Um, there's, there's a lot of query ability that you won't see here.
+Um, but the, the big, you know, for you want to be aware of, there's a new packaging command, a pure life cycle chain code package.
+Um, that will generate that tar GZ we talked about earlier.
+There's an install command, which will take that package and install it to the peers and approve command, which will, you know, approve a particular chain code definition for your org.
+And then note that there is the sequence number attached to this, whether and it is required and so on and so forth.
+And then finally, a way to commit that chain code definition.
+So a few other notes and considerations.
+One thing that, that is either a feature or a, you know,
+not really a bug, but a problem for operators that, that you may have run into is this notion of chain code fingerprint matching.
+If you've ever tried to package the same chain code multiple times and install it on different peers, what you'll often find in your logs is this chain code fingerprint mismatch error.
+Essentially, this comes down to the fact that even if you have the same set of files, getting them to package into exactly the same set of bytes is, is a little tricky.
+That you have things like file timestamps, you have execute bits, you have different file systems that support different attributes and so on and so forth.
+So, in particular, if you tried to package a chain code with the node SDK, and then you tried to package that same chain code with the peer CLI.
+You know, you would basically end up with different package fingerprints, and at your execution time, you would encounter this mismatch, which is not something that you want it.
+Your chain code would otherwise execute just fine, but, but you would have these, these fingerprint mismatches that prevented things from, from working.
+So that exists no more that that's gone, which means actually that your chain codes can even differ slightly from peer to peer.
+But if, you know, org one installs a chain code package, and org two installs a chain code package, those can actually be different chain codes.
+Now, they must implement the same logic. And by and large, you know, we would usually expect them to be the same chain code.
+And back to one of our examples from earlier, let's say that that there's, there's a bug in the chain code that, you know, the, the chain code forgot to check if the third argument was nil before de referencing it.
+So if someone sends in bad input, it can crash the chain code.
+Well, you know, this doesn't actually have any impact on the chain codes read write set, it just causes the chain code to crash sometimes.
+So it would be perfectly possible for org one to recognize this bug, fix it and push a patched version of the chain code to their peers.
+And instantly this chain code will no longer crash on their peers on this bad input.
+Now, or two, you know, they, they get the email from org one saying, you know, there's this bug and we need to fix it. Here's, here's my patch.
+They can take a look at that patch, they can evaluate it. In this case, it should be, you know, an obvious will accept it.
+You know, but, but basically, organizations can roll out minor fixes to the chain codes independently of each other, and we no longer require that coordination.
+Of course, if you wanted to change the, you know, the the DB layout or, you know, what keys functions are accessing.
+You know, we still have those same chain code execution guarantees via the endorsement policy that basically checks to make sure that the chain codes read exactly the same thing, the same versions and wrote the same things at the same versions.
+But, you know,
+slight variations and chain code logic in particular around things like air checking, you know, that that's something that can differ.
+Secondly, using the new lifecycle, you must enable the V2 application capability before any of these life cycle commands will work.
+And this, this is a bit of a double edged sword. When you flip that application capability on the old life cycle, the old LSEC namespace becomes read only.
+Essentially, if you are using the new lifecycle, you know, all of your old chain codes continue working until they've been redefined in the new lifecycle.
+But, you know, basically, you can't change them anymore. So, if you needed to, you know, for some emergency reason, go in and upgrade your, your version of the chain code, you would need to do that in the new lifecycle,
+not in the old lifecycle. You know, it shouldn't be a problem operationally, but it's just something to be be aware of.
+You know, make sure that you've you've thoroughly tested and, and you're ready to migrate your, your chain codes as soon as the application capability is enabled.
+You should be able to do this essentially without downtime.
+You know, because the old chain codes do continue to work.
+But, you know, once this capability is on, the old life cycle is no longer an option for modifications.
+And finally, you know, just in case, you know, anyone's immediate thought was, oh, let's let's turn off the capability to get the old lifecycle writable again.
+You know, that that might work. But like all capabilities, once you disable, or once you enable a capability, disabling it is not supported. It's simply nothing that's tested.
+And things could go wrong in, in odd ways.
+So even if it, it might work.
+A supported configuration. And there are lots of good reasons for this.
+In particular, once you've upgraded or once you've enabled a channel capability.
+That's part of the blockchain, which means other peers need to parse this, this capability.
+So there's, there's really no going back. You know, we have an immutable ledger.
+And, you know, if you were to disable the capability, it's still enabled in that section of the blockchain.
+So, so we really don't want to deal with disabling capabilities.
+And that's it. So hopefully this has been informative and, you know, I'm always active out on the paper ledger rocket chat and thank you.
+Great. Thanks, Jason. And there are several questions people might be interested in.
+As you mentioned, it's currently possible to run different called for the same chain called across different organizations.
+And could you give some examples like how that could be useful, some use cases or scenarios.
+Sure. So, you know, we, you know, I touched a little bit on this that, you know, we now have these, for instance, org implicit collections.
+So, for those org implicit collections.
+The rights to them are only performed by my peers. Right. I can execute a transaction only on my peers and right to this this implicit collection.
+So I don't really need agreement from other organizations.
+So, you know, let's go ahead and say that I wanted to implement some sort of, you know, a bidding chain code.
+When, you know, my peer gets this this invocation.
+My peer is going to to write the bid into its implicit collection, but it wants to validate this bid according to rules that make sense for my organization.
+So, maybe my chain code implements some, you know, proprietary logic or maybe my chain code, you know, looks up makes makes an API call to a user database.
+Basically something that's specific to my organization to decide whether or not it's going to endorse or to enforce some validation on parameters.
+So that's that's really where, you know, different chain codes start to make sense when different orgs require different logic, specifically around rights that are coordinated things like implicit collections.
+Now, you can always do sort of, you know, additional validation and verification, you know, you know, things that, for instance, fail endorsement, you know, maybe, you know, in the official chain code, it allows arbitrary bids.
+But, you know, for you, you, you, you want to add some additional air checking saying I will never endorse a bid for more than, you know, $100 million or whatever the limit that makes sense for you is.
+So, any sort of logic that's going to throw an air and prevent execution is also fair game for sort of a difference in a chain code. The things that you want to avoid are things that read from the state, or that right to the state that other orgs are not going to implement.
+And as I had mentioned, the, the important thing is that the chain code must produce the same reads and the same rights across all orgs.
+Okay.
+The third question is, do you have any tips or suggestions like people need to pay attention to while migrating to new lifecycle.
+Sure. So, so, you know, the, the new lifecycle is really meant to be, you know, very compatible with, with the old, you know, the, the actual instantiation process is a little different.
+But none of this should require code changes inside your chain code itself.
+However, you know, as I had mentioned, I, I, I would encourage everyone to look at their chain codes and, and, you know, see is a knit actually being used to accomplish something useful.
+And it could, and it be, you know, removed from your chain code.
+And if so, you know, during this chain code, lifecycle migration, if you can drop the requirement for in it, you will remove a step from your workflow, which is, which is always a great thing.
+Otherwise, you know, I think the, you know, sort of the big shocks are really the things that we, you know, set out to address that you need, you need to know the peer addresses of, you know, or the addresses of peers and other organizations, in order to do your
+decisions.
+You know, you, you need to coordinate with the other administrators to perform their approvals.
+You know, so, so there's more coordination. There's more knowledge. But you know, that's, that's really what was required to get us to this decentralized point.
+I guess if I could leave with a little bit of advice.
+You know, it would be, you know, sort of to, to just take, take whatever coordination existed within your network before, you know, around making decisions as to, you know, how and when to upgrade chain codes, and sort of just, you know,
+modify that into a sort of more formal procedure that, you know, to explicitly enumerate this will be the new endorsement policy, this will be the new version.
+This upgrade will or will not require in it to be executed and, and if you can sort of get this, you know, set of data that's required for this approve for my word command, sort of,
+you know, down and, and sort of, if you can get this into a workflow as a concrete item, then this, this sort of approved step, the defined step, you know, this should all just fall out very naturally from that.
+Okay. Thank you, Jason. Thank you for the great talk. We are now open for questions from audiences.

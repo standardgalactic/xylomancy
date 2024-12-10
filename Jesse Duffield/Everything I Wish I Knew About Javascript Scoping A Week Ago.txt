@@ -1,0 +1,504 @@
+Hi guys, welcome to my video on scoping in JavaScript.
+So about a week ago I kind of started a deep dive into how JavaScript really works behind
+the scenes and part of that was learning about scoping.
+I made a blog post called Everything I Wish I Knew About JavaScript Scoping a Week Here
+which kind of goes into details about a lot of these things, but the first kind of chunk
+of that is really just about like, you know, VAR versus LED versus const, which are keywords
+for declaring variables, which to be honest, I wasn't really that interested in in the
+first place and given that most people just don't use VAR anymore, I don't know how relevant
+it is, but I still think that scoping in general is pretty important to learn about.
+And I learned some interesting things about static scoping, dynamic scoping and how it
+relates to this binding.
+So yeah, my plan with this video is to take you through what I learned and I'm going to
+try and take an experimental approach where I'm not going to make any claims without having
+some way of like backing it up, which is why I've got this, the Chrome DevTools open right
+now.
+We're going to try and understand how JavaScript works by actually observing what it does as
+a program runs.
+So we're starting with this program here, which basically declares a couple of variables
+A and B, and then declares this outer function, it itself declares two variables C and D,
+then it declares a inner function, which itself declares two more variables, and then on the
+inside here, we just console log all four.
+So a couple of these get overwritten, A does not get overwritten, but C does.
+So in here, it's called shadowing when you've got a function where another variable is in
+scope outside that function, but we're kind of overriding it so you hear, I mean, we're
+not overriding the value of this variable, we just have another variable of the same
+name and therefore we can't really access this variable.
+So we've got this function here, then we just call that function and then we call the
+outer function.
+So the way the program works is we go here, declare this guy, call this guy, then we go
+inside here and declare this guy and then we call it.
+So the point here is that we've got kind of nested scoping and we want to see how these
+values end up coming out.
+So if I play this now, console log shows A is one, B is five, C is six, and D is four.
+Okay, so A is one because it gets started here and doesn't get overwritten or shadowed
+rather.
+B starts as two, but then over here we've got B is five, so we shadow this guy and we
+just say, okay, we've got our own B variable here, which is equal to five, so we use that.
+C is three, but then over here it gets shadowed and we get a new C variable whose value is
+six.
+So C is six, and finally D starts as four and it does not get shadowed, so it's just
+four here.
+So off the bat we can see that when you have a function declared inside another function,
+it has access to variables defined outside of its scope, whether it's D in the outer
+function or A in this global context.
+Okay, so let's have a look at what's actually happening here, but a diagram that I made.
+Really JavaScript runs on an execution stack, which is equivalent to a call stack.
+At the bottom we've got the global execution context, and so each of these little stack
+frames is called an execution context.
+So there's the global one at the bottom, which is this thing here, this scope here.
+Then we've got the outer execution context, which would be everything that happens in
+here would be happening inside that context, and then we've got the inner one, which would
+be this stuff.
+So what an execution context does is it basically just stores information you need to be able
+to know where you are at in a function, what the variables are that you might be reading
+from, and is the kind of thing where if you turn the computer off and turn it back on
+again and this stack was still here and all the stuff that you pointed to, then you should
+be able to just continue the program from where you left off.
+So we've got our execution context on the execution stack, and each of these points
+to a, I'd say points to you, I probably more accurately has a reference to, lexical environments.
+So lexical environments, when you see the word lexical, it basically means like letters
+or things you can see.
+In this case we're talking about actual variables being defined.
+So a lexical environment just contains two things.
+It contains an environment record and a pointer to the parent lexical environment.
+So this happens to be called a declarative environment record, but what an environment
+record is, is effectively just a mapping of variables to their values.
+So in the case of our inner function, we've got b is five and c is six.
+So that's these two guys.
+In our outer function, we've got c is three and d is four, which are these two guys.
+And then in our global lexical environment, we actually have, this is kind of a weird
+edge case, but we've got a composite environment record consisting of two things, the declarative
+environment record for which b is two, and we have this other thing called the object
+environment record.
+So this is where things kind of get a bit weird.
+Back in the day, basically everything used these object environment records, and they
+would all have a thing called a binding object, which was a literal JavaScript object that
+just contained your variables as properties.
+It is still the case today that at the global level, if you define a variable with the var
+keyword, then it actually ends up just being a property on the global object.
+On the other hand, if you use let or const, it's going to be sitting in this declarative
+environment record.
+Now, what's the difference?
+First of all, when you actually have an object environment record, the binding object, in
+this case global, just can be accessed by outside code, and it's not very efficient.
+So these declarative ones are kind of internally stored, and it's not accessible from the outside.
+So the fact that these will point to each other allow us to create a scope chain where
+we can say, I'm in the inner function.
+I'm looking for the A variable right now because I want to log it.
+And it's not in my declarative environment record.
+So therefore, I'll look to my parent.
+It's not in there either.
+Look at my parent.
+Oh, here it is on the global object.
+So you can get the value of one, and then you can log that value.
+So it's probably also worth noting that these functions, when they're created, they actually
+get an internal reference to the scopes that they have access to.
+So let me go down here, actually going to refresh the page, if I go debugger, and then
+play that.
+Okay, so if I look at the inner function, you can see here, this is just in my DevTools
+inspector.
+Within a scope, I've got my inner function.
+It's got arguments.
+It's got a prototype, but it has this internal thing, and these internal things are denoted
+by these double square brackets.
+This guy's called scopes.
+And in this case, we've got a few things.
+So I've got the value of d from my outer function, the value of b from a script.
+Anything that's defined at the top level with let or cons is considered to be script scoped,
+which is not the same as saying, I'm only scoped to the, we're talking about actual
+script tags here.
+If I go, for example, this thing would be a script tag.
+It's not actually scoped to the script tag.
+It's just any script will have access to it.
+And then we've got the global thing here.
+So if we expand this guy, we'll see that actually among the many properties of global object,
+one is a, whose value is one?
+So that's this guy here.
+So kind of weird, but also pretty cool.
+So let's move on, and I'm going to go to the next example.
+So in this case, we've got an inner and an outer function, but our inner function is
+actually defined outside the outer function.
+So when this guy's defined, the references x, but the x is actually defined in the global
+execution context.
+And the outer function, basically when it gets called, it goes and creates its own local
+x variable and then it calls inner.
+So the question here is, which x will this inner function log?
+It turns out that when you run this guy, it's going to log one, which means logs of this
+thing.
+So this kind of touches on the difference between static and dynamic scoping.
+In static scoping, when a function is created, any variables that references from an outer
+scope, it looks at, okay, like lexically or statically, it's what's called static scoping,
+lexical scoping.
+What have I got access to?
+So I can just look on the page here and see, okay, well, there's an x that's in scope here,
+so that's what that's referring to.
+What actually is defined against a function that might be calling my inner function, it
+doesn't matter.
+So that's called static scoping, which is to say that you can just statically look at
+the page and know which variables here are being referenced.
+Now you might ask yourself, isn't this what every programming language does?
+And actually, no, it's not.
+So here we have a bash script, and I'm just going to paste this in here.
+So in this script, we do the exact same thing.
+We define x, we've got an inner function that just logs it, an outer function that defines
+its own x, and calls the inner function, and then we call the outer function.
+So we're going to go x is one, call the outer function, go in here, create x equals two,
+call it inner function, and then echo x.
+Press this, if you play this.
+Okay, so this actually logs two.
+So what this means is that bash does not use static scoping, it uses dynamic scoping.
+Dynamic scoping is where you care about what variables are defined at call time, meaning
+at the time this guy is called, we look at, okay, what's the value of x?
+For in here, we go, okay, we need a value of x.
+Instead of looking lexically, statically, up to whatever was defined at the point when
+this guy was created, in which case, x would be one, we instead say, well, who called us?
+Okay, well, we're being called by outer.
+Is there an x defined in this scope?
+Yes, there is.
+Okay, let's log that.
+So a diagram that explains this discrepancy would be this.
+So let's assume that bash itself had a concept of lexical environments, which it doesn't.
+But if it did, then this is the difference between how the two would operate.
+So in this case, we've got out in a function, doesn't have an x defined.
+So in JavaScript, we go, well, somehow we know that the parent lexical environment is
+actually the global environment.
+Because when this guy was defined, I'm just going to go back.
+When this guy was defined, it was lexically in scope here.
+We didn't care about the outer function at the point this was created.
+So we go here and find x is one, and we log that.
+On the other hand, bash just follows the actual stack frame.
+So it goes, okay, nothing's defined here, okay, what about the guy that called me?
+Oh, it is defined there, okay, I'll return that.
+So different languages have different approaches to this.
+So for example, in Perl, you can have both dynamic or static scoping, depending on how
+you declare your variables.
+They've got different benefits for different use cases, but generally it's considered
+that static scoping is superior because it enables, there are a few reasons, one of which
+is you can more easily reason about how a function will behave.
+So for example, in this case, I don't need to care about, you know, once I've defined
+this function, I know that this guy's in scope and so it's referencing that.
+I don't need to worry about whether in some other file, some other function is calling
+me and it defines x in its own weird way.
+So to understand how a single function will work, all I need to do is look at the page
+or look at the files defined and look at the scopers defined in and understand.
+With dynamic scoping, you need to think about all the permutations and understand, you know,
+who knows what variables could be set when I'm being called by some random outer function.
+Dynamic scoping does have one benefit, which is that you don't need to worry about storing
+variables on the heap.
+So you know, assuming we're talking about primitives like booleans and integers, you
+can just keep everything on the stack here.
+And as soon as you're done with the function, you just, you know, drop down the stack pointer
+throughout the memory.
+When you enter a new function, you put a new stack frame on the stack, move the pointer
+up again, and basically, you know, whenever you need to look for a variable, you just
+look down the stack until you find it.
+In JavaScript, we need to kind of have some additional metadata that we hold on to.
+For example, to say that, you know, this inner function was really defined with this guy
+in scope.
+We don't, you know, at the time, we didn't care about the outer function.
+So we need to skip this guy because we've been static scoping.
+You know, the fact we have to store those kinds of references means we can't do it
+all on the stack.
+It's not as simple as just looking from top to bottom.
+But let's continue.
+So there is another way in which static scoping helps us, and that is in how closures work.
+So a closure, it kind of has two definitions.
+The first definition of closure is a function that is paired with a, is paired with this
+environment.
+So it's a function that kind of has knowledge about where it was, for example, created and
+what variables were in scope at that point.
+There's another definition of closure, which is just referring to the environment part.
+Like, you know, the closure is just the things that are captured, the variables are are captured.
+So the two are kind of used interchangeably, but that effectively referring to the same
+concept.
+So in this case, we have a function, we define x and we have an outer function now.
+That defines an inner function internally, outer has its own x, whose value is two.
+And what happens here is the outer actually returns inner, so it returns a function.
+So in JavaScript, functions are first class, which means that you can pass them in as arguments
+to functions, and you can also return them from functions.
+So you can treat them like any other variable.
+So what's happening here is we're actually capturing this x value here, and we're capturing
+this one because lecical scoping says that we first look at, you know, what's in our
+immediate scope here, all the values x, okay, we'll just capture that guy.
+We return the inner function and then we assign that to this variable foo, so we're calling
+outer, it returns inner, so now foo is values inner, then the core foo, which is the same
+as calling our inner function.
+And the question is, what does it log?
+So if you run this, we log the value of two.
+So okay, what's interesting about this is that this variable two, which is defining
+that outer function, really has no reason to exist after we leave the core to outer.
+If not for our inner function, we're trying to capture that variable.
+So I say capture, another word would be close over.
+The reason it's called capture is because we need to hold on to this thing after the
+lifetime of that outer function.
+So if we, for example, we're just storing everything on the stack here, we'd have our
+outer function, we'd have our inner function, we'd have x equals two happening here, and
+we'd eventually have to pop off the stack and get back to our global execution context
+when we're down here, but once we want to then call our inner function again, we need
+to have some way of saying, of keeping track of the fact that it has this variable x equals
+two, which isn't actually defined in its scope.
+So let me grab this diagram.
+So what's happening here is that by the time we get to foo, which is really just a variable
+pointing at our inner function, it has nothing to find in the statistical environment.
+Because we use stack scoping, it just so happens that this function contained a reference
+to the electrical environment of the outer function where x equals two.
+And so we can say, okay, x equals two, obviously that also points to the global environment
+record.
+Now, if we were using dynamic scoping, what would happen here?
+Effectively, we have a foo function here, we'd be pointing it in the global context,
+meaning this guy is in scope and this guy is not.
+And then we'd be going console log x and we'd just look down the call stack.
+So foo, we don't have it, global context, we do have it, the value is one.
+So we'll return one.
+So effectively, dynamic scoping does not support closures, unlike static scoping, which will
+allow you to store these guys in memory somehow, and then later on you can access those variables
+and change them or just read from them.
+So I'm just going to start this again, just so we can see what's actually happening here.
+So our foo function has some scopes and we've got a closure here, so it closes up x.
+Then the next one up, we've got our script for which x equals one and then the global
+object.
+So these two guys are kind of two parts of the composite environment record that happen
+in the global execution context.
+So it's kind of interesting, and if I go in here, it's effectively the same thing.
+Well, in this scope here actually now, forget about function.
+So just in this scope, we're trying to console log this thing, but access to this closure
+for just saying x equals two, that's pretty cool.
+Now let's look a little bit deeper into how, for example, Chrome, which uses the V8 engine
+for JavaScript, actually goes about creating these closures.
+Now this is where we kind of diverge in terms of what ECMAScript says we should be doing
+or what it's specifying and how the ECMAScript is actually implemented.
+So ECMAScript is the specification for the JavaScript language and different browsers
+and, for example, Node would have their own implementation.
+So for example, the V8 engine that Chrome uses is written in C++ and it kind of compiles
+JavaScript on the fly while it runs it and tries to optimize things as it goes.
+But as you can imagine, the ECMAScript approach is a little bit flawed.
+So if you have a bunch of variables defined in a function and only one of them gets captured
+by an inner function and then you return from the outer function, you don't really want
+to be holding on to all of the variables in that electrical environment past their expiry
+date, basically, because no one's going to use them if you've only captured one variable.
+So what V8 does is kind of intelligent, but I'm going to show you what it does.
+So in this program, we've got an outer function.
+We define three different variables, x, y, and huge.
+So huge, let's just pretend this is a really big object, and we have our, we've got one
+function here called bar, which captures the huge variable.
+So it references that.
+It doesn't reference these two guys though.
+Then we have an inner function, which captures x, but doesn't capture these two guys.
+And then we return the inner function.
+So bar is defined but doesn't actually get used.
+On the outside, we did the same thing as before.
+We call our outer function that gives us this, so we assign it to foo, and then we call foo.
+Okay, so let's have a look at how this actually works.
+So if I play this now, we've created a foo object.
+So I can have a look in here, and it's got scopes.
+Now interestingly, this guy is now, it has a reference to a closure from the outer function,
+because the outer function is now returned, and it actually refers to two different things.
+So it actually has a reference to x, which it explicitly captured, but also a huge object.
+Now it's good to know that it doesn't have access to the y variable, because that would
+be a waste of memory, because no one actually makes use of that, but what does the inner
+function care about the huge variable?
+It doesn't make use of it, in the case of the x variable.
+So if we continue again, and we look at the actual closure that we have in our outer function,
+look at that.
+So we've got both of our things here that were captured.
+So what this tells us is that in the V8 implementation of closures, effectively the way that it works
+is, as soon as we, let me refresh this, debugger, save, oops, here we go, debugger, I did it
+again, okay.
+This time will definitely work.
+So in here, let's have a look, so we have debugger, we're being called script global,
+bar inner, this, okay, bar inner.
+So this is just these guys being hoisted, as is y, funnily enough, x and y, sorry, x
+is huge, don't appear in my local scope.
+I can't see them in the, they're not really in a closure, if I continue again, and they
+appear here.
+Hmm, interesting.
+So what we'll do is, later on I'm going to show kind of what really happens on the actual
+heap, because the Chrome DevTools let you actually inspect heap snapshots.
+But for now, I'm just going to continue, and we're going to talk about this variable.
+Okay, so I have said so far that the JavaScript uses static scoping, which is for the most
+part true, but there is one notable exception, and that is the this binding.
+It's not going to be a variable because its value does not vary once you're inside the
+scope, it just kind of gets given a variable, and that's what it is.
+So the way that it works is it's effectively, well, I'll show you an example.
+So here we set x to 1, then we create an object, it's got a couple properties, x and a, a is
+a function that just logs x, and this is really just a demonstration of how things get weird
+pretty quick.
+So we have a bar variable, and we're just setting that to the value of object.a, so
+this is now going to be this function here, and then we also can just call object.a directly.
+Funnily enough though, this gives two different values, I've played this, got my console,
+one and two.
+Bizarre, we've got the exact same function, but depending on how we call it, we get a
+different value.
+So in the case of bar, we get x, and in the case of object.a, we get 2.
+So what's going on here?
+So the way that it works is if you have a function and it contains a this binding, the
+value that's passed in is actually based on the way in which you call that function.
+So if you just call it directly, then it's going to be given the value of the global
+object, which is basically an object that contains this x as a property.
+Whereas if you call it, so if on the left hand side of these brackets, these parentheses,
+you have what is called a reference type, then it's actually going to be given the,
+this variable, or this binding, will be given the value of the object itself, meaning when
+we try and call the x property on that, it's going to be this guy.
+So what's going on here?
+So a reference type is basically, you can actually check this in brackets and it will
+still work.
+Hang on, let me copy this, refresh, do that, save, play, same thing, same thing.
+So what this actually is is a, before it evaluates to the actual function, it evaluates to a
+reference type.
+And a reference type is just when you have an object and then you're calling some property
+on that object.
+So in this case it's object.a.
+So whenever you do that, and then you have the parentheses here, what it means is it'll
+invoke this function, but it will set this binding to the value of the actual object.
+Strange.
+Why would we violate static scoping in this way, right?
+When this thing is defined, it's with the way you call it, as opposed to the way that
+you create it, which is more of a dynamic scoping thing, will influence its value.
+And basically what this enables is sharing of code.
+So we can have two objects here and a foo function that makes use of the this.x reference.
+You can then assign that to both of these objects, and then you can call them and you'll
+get different values because the different objects contain different values for x.
+So effectively, because function is the first class, it would be a shame if we couldn't
+actually kind of make use of this neat functionality to have kind of genericized logic that can
+be applied to different objects and different data.
+Here is another example of how this works, which is when creating prototypes.
+So I'm going into too much detail about prototypes here, but prototypes are effectively the way
+the JavaScript enables inheritance.
+So we've got a kind of constructor function here, and it says, okay, you give me an object,
+like an empty object, and I'll set x to one on that object, and I'll set the blah property
+to this function, just console or something.
+And then I can say on here, I can set the prototype of this function, which is a fancy
+way of saying, you know, when I create an object from this guy using the new keyword,
+I want this object prototype to have this additional functionality.
+So in this case, I'm saying, I've got a foo property, and it has a function that console
+logs this.x.
+And if I go and create my object, I'll get an object that just says x is one.
+And if I call foo on that, because I'm making use of this keyword here, I'll be referencing
+this x, because I'm using a reference type here, so I'll play this one, okay, cool.
+So what this enables is basically inheritance, I can have multiple different objects here,
+I can go B, and I can say A dot prototype equals B dot prototype, and make that two,
+make that ha ha, and I can go, let's see, I can do object new, B, and then there's a
+two, and then it should log two, so let me just say this, whoops, oh no, I've lost it.
+Oh, that's all right, I can just do it again, so, okay, I've got a B constructor, maybe it's
+two, this says ha ha, I'm going to say B dot prototype, because A dot prototype, and then
+make this a B, it's going to be two, and save and play, now it logs two, okay, cool.
+So what this says is basically we've got two completely different constructors here, but
+they both inherit from this same kind of prototype, which has this function on it, where we can
+just say console log this dot x, and there you go, it can create, effectively we've created
+a taxonomy, A and B both inherit from some prototype that defines a behavior that we
+can call if the property itself doesn't exist on our base objects.
+So through this binding, we basically enable these prototype chains to define shared behavior
+among the descendant objects.
+So pretty cool, so this is what, I mean, so static scoping on the whole is pretty good,
+but sometimes it is worth it to go for the dynamic approach, if it enables things like,
+in this case, sharing code and inheritance, okay, so in this case, this is just an example
+of where it can get a bit weird, and you might want to switch up what you're doing, so here
+we have a constructor function called foo, set x to one, and then we say set timeout,
+and then when the timeout, when a second parser is going to console log this dot x, okay,
+and there we go, f figures new foo, so if you run this, what's going to happen, one,
+one, let's have a look at that, console log this dot x, why is it going one, one, let's
+try this again, because I hadn't cleared my console, okay, good, so it's logging undefined,
+kind of weird, it's saying this dot x and this dot x is one, so why would that be happening?
+The reason is because when we go set timeout, this guy gets added to our event queue, and
+when it finally gets popped off and gets ran, it's ran on the global execution context,
+meaning it's not being called as, you know, f dot blah, it's just being called directly,
+that means it gets passed the global object as it's this, and the global object does not
+define ax, if it did, it would log that, so if I go x equals 2, I think this will work,
+maybe it won't, but let's find out, I'm going to refresh, I'm going to paste, I'm going
+to save, I'm going to play, 2, okay, cool, so yeah, it gets passed the global object,
+so this is kind of weird because we really wanted to just be able to reference this,
+this defined, you know, inside this scope, so what can we do, let's go to the next example,
+what you can do is, this is the exact same thing, we've just swapped out our function
+declaration for a Lambda expression, these are added in the ES6, and basically now if
+you play this, there you go, so I had to wait a second, okay, so what's the difference here,
+so the use of the Lambda expression is really a way of forcing static scoping, when otherwise
+this binding would be making use of dynamic scoping, to demonstrate, let's have a look at
+what it actually does behind the scenes, so if we go to this Babel rebel, it shows on the left
+hand side, this is the exact same thing we have here, and we're saying setTimeout, we're using a
+Lambda function, and this is what it actually transpiles to, so what we get is inside here,
+we say first of all, let's just keep track of what our disk variable is inside this scope,
+and then it means that when we create this function here, and so see how its Lambda here,
+but it's not Lambda here, so it's really just under the hood, a regular function,
+what we're doing here is we're now, instead of using this directly, because we know this
+thing is kind of unreliable and its value changes, let's prefer to this statically defined this
+variable, and we'll call x on that, and so when we log that, that's how we get this value of one,
+so effectively what using a Lambda function does is it basically forces JavaScript to make use
+of static scoping by under the hood going and actually adding a variable to this
+classical scope, and it means that you're not worrying about what the value of this is when
+this guy's actually invoked, so yeah, it's cool, so this binding gives you some cool benefits
+when you want them, when you don't want them, there's typically ways to get around having to
+use it, another way would be calling dot bind on a function and passing it the value of the
+current this, but I'm not going to go into that just now, because I say the end, but there's
+actually one more thing I want to show you guys, okay so here we're going to look at actually what
+happens in terms of the heap when we are dealing with closures, so it's a similar function to what
+we had before, we've got an outer, we've got a inner, we've got a bar, it doesn't really get used,
+and we just call everything at the end, so let's run this guy, see what happens, okay so we've
+defined our outer function, and actually let me just play through here, what actually happens here,
+something gone defined, okay what I'm going to do is I'm going to, every step of the way here,
+I'm going to actually take a snapshot, this is a heap snapshot, and it basically goes and tells you
+what are all the things that have been actually, like all the objects have been put on the heap at
+this point in time, so I'm going to play forwards, I'm going to take another snapshot, I'm going to
+go again, take another snapshot, I'm going to go again, take another snapshot, and I'm going to go
+again, and I think one more snapshot, okay cool, now what I'm going to do is I'm going to, in each of
+these places, only show the difference between the current snapshot and the previous one,
+so make sense, okay cool, so this is trying to see the difference in what's been allocated,
+what's been newly allocated between, let's see if I can turn my alarm off, between one snapshot and
+the next one, so okay snapshot two, let's have a look at what happens inside here, so we've got
+back to our sources, so that's looking at this guy, so we create our outer function, okay so we've
+got a closure being created here, interesting, so by the time we get to the end of, by the time we
+get to here, we've created this function, and it has a closure object here, so this is 124913,
+it's got a context, okay that's got a lot of random stuff there, okay so interesting, alright
+let's look at what snapshot three gives us, okay so this is actually, this is creating a closure,
+this guy's creating a context, so in v8 there's a thing called a context, capital C, not to be
+infused with an execution context, and let me read it, okay so let's see what we're actually
+creating here, okay so snapshot three, that's one, two, three, so at the very beginning when the
+code enters our outer function, we have already made a context object which is going to store the
+two things which are being captured here, so bar string and inner string, okay let's have a look
+at this, so bar string is captured by bar down here, inner string is captured by inner down here,
+and uncaptured string is actually not captured by anyone, we just define that we don't use it,
+so this is interesting, so as soon as we're here, we actually, JavaScript clearly goes ahead and
+before it actually goes and continues writing the code, it goes and says okay here's all the things
+that get defined in our scope, okay who's going to be using those things, who's going to be capturing
+those things, whoever, you know, if anyone inside here, if any function captures these variables,
+then we need to actually create a context object and put those variables on that context, so here
+we've got one, two, five, one, one, nine, okay interesting, we move on and here we enter a block,
+now this could have just been like if, you know, true, but you actually don't need to have that,
+you can actually just enter a block directly, which is a, it's a feature no one uses but I feel
+like maybe we should use it a bit more to kind of limit variable scope, but at any rate, it's just
+here for demonstration purposes, so here we enter the block scope and here we have a block string
+which is captured by bar, so if I look in my memory on snapshot four, we get another context here,
+okay, and it's not really telling us much right now, but it has as its previous context, so it's
+like a reference to the parent context, the same guy we saw before, one, two, five, one, one, nine,
+so that's the same as this guy here, and it's got both of these strings now have values by the time
+we get to this point in the code, so funny that we don't have our, this guy defined, but maybe
+it's slightly different by 80 between functions and blocks, but at any rate, let's go to the next
+snapshot, so let's see, the next snapshot is the final one is this guy on the other side of bar,
+okay, so now we have a closure, so that means we've got our bar function and it now references
+this context, so one, two, five, three, one, three, that's the same as this guy, and what's inside here,
+okay, so now it has, funnily enough, it has, you notice what the value of this thing is,
+this block string, but it doesn't say what the name is, I don't know why that is,
+maybe it doesn't need it, maybe it's going to be minified, but at any rate, it's been captured,
+and then here we've got a point into our previous context, which has our other two things that are
+captured as well, so what that tells us is that these context objects exist in a given scope,
+and whatever variables from that scope get used by other functions in that scope,
+or like descended scopes, those will be the ones that end up being added to the context,
+and then when you actually return one of these functions, for example, let me go here,
+and run that, so right now in my scope is, that's kind of weird why is F not in here,
+oh, because I haven't, right, yes, very good, let's call it a const, fresh, paste, say, play,
+okay, quite on the same thing, alpha, I think it's behaving differently because of the fact that
+I need to just change the actual source code, let's do that, start again, oh, disconnected,
+and here we go, okay, that's better, cool, so now we have,
+we can see here we've got this closure that contains the things we cared about for our
+inner function, it does not contain the closure that was made for this guy because that's in
+its own block, but clearly this guy does have access to this closure that was defined right up
+here, it contains not only inner string, which this guy explicitly captured, but also bar string,
+which is something that I captured, so something to keep in mind, if you have a, you know, if you've
+got two functions closing over a bunch of variables, and one closes over some huge object,
+and the other one doesn't, but the other one lives on past the lifetime of the parent function,
+then you might be hoarding onto that object in your heap in memory for longer than you want to,
+but that effectively wraps this up, so hopefully this was a good intro to JavaScript scoping,
+and how it balances static scoping with dynamic scoping, how it supports closures,
+and what actually happens on the heap when we are dealing with creating closures,
+so yeah, thanks for watching, and I'll add a link in the description to the original
+post, which goes into some more detail about what's going on behind the scenes. Thanks for watching.

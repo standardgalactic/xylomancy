@@ -1,0 +1,1661 @@
+Okay, it says it's going live and we are now live.
+So let's kick off folks.
+Today is going to be an extremely exciting conversation.
+We have Grady Butch.
+Unfortunately, the internet has just gone down
+where Grady lives.
+So he has heroically joined on his mobile phone
+using the mobile phone network.
+So it's fantastic that we can still do this.
+But Grady Butch is a renowned computer scientist
+known for advancing software engineering and architecture,
+co-authoring the unified modeling language, UML,
+and founding the Agile Alliance.
+As chief scientist for software engineering, IBM Research,
+Grady leads IBM's research and development
+on embodied cognition.
+As an IBM fellow, ACM fellow and IEEE fellow,
+he's authored numerous books and technical articles.
+Now Grady's current work includes architecting
+complex software-intensive systems, space-related projects,
+and studying the mind's architecture and design patterns.
+Moreover, he's producing a trans-media documentary
+exploring the intersection of computing
+and the human experience.
+So it's a true honor to have Grady
+on the podcast with us today.
+Connor Leahy is the CEO of Conjecture
+and was the ex-lead and co-founder of Alloifer AI.
+Now Conner Leahy is an AI researcher
+working on understanding large ML models
+and aligning them to human values.
+Connor has said, coming into this,
+that he's interested in hearing counterarguments
+to his current view that we should be taking
+existential risk from AI, extremely seriously.
+And Grady Butch has said that he hasn't written much
+on this particular topic because he finds it
+a bit of a distraction, but he would like to use today
+to find common ground and explore points of disagreement.
+Now, this isn't technically a debate.
+This is a friendly discussion,
+although we're gonna have some formal structure
+at the beginning just to make sure
+that the positions are clearly understood.
+So without any further delay,
+we're gonna kick off with eight to 10 minutes,
+both from Grady first and then Connor
+with rebuttals thereafter.
+And I think we're gonna gravitate
+into more of a normal conversation after that
+and take some audience questions at the end.
+I forgot to ask you Grady,
+are we doing 60 minutes or 90?
+90 minutes work for me.
+I have nothing until about Thursday morning,
+so I'm happy to keep going at it for a while.
+Wonderful.
+Well, Grady Butch, your opening statement.
+So I'm welcome to MLST.
+Tim, thank you for the opportunity
+and Connor, a delight to interact with you.
+Is AI an existential risk?
+Absolutely not.
+Does AI present to us clear and present
+other kinds of risks?
+Absolutely.
+Now, Connor, in reviewing some of your materials,
+I think you and I do have common ground.
+I believe we both agree that AGI,
+artificial general intelligence,
+is a term that's ill-defined and often misused and abused.
+I believe we also agree that human intelligence
+is not unique.
+Indeed, there are probably other kinds of intelligences.
+And yet, looking at it through the lens of humanity,
+it's difficult for us to imagine otherwise.
+I will make an aside and say,
+living here in Maui,
+I spent a lot of time with citation researchers,
+and I have had many events where I've looked at a whale,
+a humpback whale, eye to eye,
+and you can tell that there is an I thou experience going on.
+There is the presence of another.
+There's the classic paper,
+what does it feel like to be a bat?
+I'd like to see one about,
+what does it feel like to be a whale?
+Because clearly, there is an intelligence there.
+I think you and I are both engineers.
+I heard your story of reverse engineering GPT-2.
+That was kind of cool.
+And I think I believe the common ground is you and I also
+worry more about building real things
+as opposed to discussing philosophical things
+as to how many angels can dance
+on the heat sink of a GPU.
+I think we also agree that regulation should focus upon use,
+not a particular technology.
+That being said,
+I think you and I do have some profound areas of disagreement.
+My understanding, and you can correct me as we go along here,
+I believe that you believe that large language models
+are capable of general problem solving.
+My point of views is that large language models
+are actually architecturally incapable
+of any kind of reasoning,
+and therefore are a long way off from any kind of threat.
+I also infer, and I want to discuss this,
+that you have far less confidence
+in the resilience of the human spirit
+and its attendance to large shocks.
+We'll talk about that.
+Indeed, I wrote about this in Aftershocks,
+which is a follow-on to the book Future Shock,
+written some 50 years ago,
+and I spoke about that very topic.
+So before I outline my points of view, my position,
+I need to give you some context.
+Tim, thank you for that introduction.
+I would summarize it by saying that I'm largely an architect,
+so I'm looking at this particular issue
+through the lens of an architect,
+and that being said,
+I've been involved in shaping the form and function
+of quite literally thousands of systems
+across a multitude of domains,
+and this is most important across risk profiles.
+I was first attracted to AI when I was 12,
+built my own first computer when I was 12,
+that would have been 1967.
+I studied SRI shaky at the time
+from which the ASTAR algorithm came.
+Gray Walters, Elmer and Elsie were high
+in my list of things that I studied.
+Minsky's snark was around that time,
+and I poured into Wiener's cybernetics
+and all the writings around that.
+I've been working in the space of AI for the last 10 years.
+I first worked with Watson.
+I was not part of the Watson team,
+but I was brought in bringing my architectural skills
+to document the as-built architecture.
+I then, in my space work,
+began to work with NASA on its mission to Mars,
+and we were building out a neuro-symbolic architecture
+whose purpose was two-fold.
+First, to drive the robots on the surface of Mars.
+That led us to some work with Soul Machines
+and a major oil and gas company out of Australia
+who has similarly hostile missions on oil rigs,
+and it also led us to build an effect to HAL.
+You'll see a HAL below, over here, some place behind me,
+minus the homicidal use cases.
+And there was the Mayflower,
+an autonomous vessel that moved itself
+from the across the North Atlantic.
+And the last five years,
+I've been working on a project called SNAGI,
+where I'm working with a set of neuroscientists,
+not computer scientists,
+where we're trying to look at the architecture
+of the brain through the lens of neuroscience.
+Indeed, one of the papers I have in the mix right now
+is a pattern language for the brain.
+So here's my position,
+and I think it's fairly straightforward.
+Artificial and general intelligence,
+however we might define it,
+is something that is generations away.
+Any focus on the existential risks of AGI
+is a dangerous distraction that takes away focus
+from the clear and present risks of AI.
+There was a paper in the Washington Post yesterday,
+let's all calm down about AI's extension risk,
+and it said something very well.
+Looking closer at AI systems now
+versus ringing our hands about a vague apocalypse
+of the future is not only more sensible,
+it puts humans in a stronger position
+to prevent a catastrophic event
+from happening in the first place.
+I am also not motivated by fear,
+as with all due respect,
+you seem to be in many of your fellow effective altruists.
+I am confident in the human spirit,
+in the resilience of the human spirit,
+the general trajectory of human evolution,
+and a recognition that we are, in fact,
+are co-evolving with our AIs.
+As Tim mentioned, I'm working on a documentary,
+Computing the Human Experience,
+that research has led me to a number of interesting avenues,
+and I sort of summarize it by saying
+the story of computing is the story of humanity,
+and this is a story that's just beginning,
+and you and I and Tim and all the others
+are in the midst of that story.
+But I think the most important outcome of this story,
+is this journey, is it compels us to ask,
+what does it mean to be human?
+Thank you, Tim.
+Thank you very much, Grady.
+Connor, your opening statements.
+Thank you so much.
+Thank you so much, Grady, as well.
+That was a really great opening statement.
+You know, a really leader point, pretty great.
+Totally agree with you,
+that I think we have a lot of overlap here.
+Seems you also have some pretty clear disagreements here
+that I think are really interesting,
+and I look forward to just understanding
+your position better.
+I want to pre-register that I totally am open,
+that I'm totally wrong about this,
+that I've gotten something terrifically wrong,
+that some part of my model is miscalibrated,
+there was data I didn't know about, or whatever,
+and so anyone who can help show potentially other sides
+that I might have missed and so on is,
+I'm very thankful for that,
+and I really, really appreciate that.
+So of course, though, at the moment,
+I do have some disagreement,
+for when I don't consider myself an effective altruist,
+but even so, I'm friends with many of them,
+but that aside, it is true that I am very concerned
+about existential risk.
+I don't consider this to be a thing that is far away.
+I don't like to describe,
+personally dislike description of acting out of fear,
+because I feel like this is dismissive.
+This is, it's talking about psychology rather than
+the object, so like you could say,
+someone who is concerned about nuclear war
+during the Cold War is acting out of fear,
+and I think this would be a fair thing to say,
+but I feel like it is, at least in my perspective,
+kind of unfair towards what is it going on.
+The actual question is, is there nuclear war?
+And then, what any individual person,
+maybe the person who is concerned about is neurotic,
+maybe not, maybe they are fearful, maybe not.
+I don't think this is something I'm super interested in.
+So what I'm interested in is,
+so you brought up a few points
+that I think are really interesting,
+and I'd like to talk about a little bit,
+but I'd like to get into more.
+I'm very curious to hear more about you saying how,
+use, for example, say language models
+cannot do any kind of reasoning.
+I'd really like to dig into that
+and understand more why you believe this,
+and also what you mean by the word reasoning.
+I tend to take very pragmatic approaches to things,
+so I consider myself naive, in a sense.
+I don't know how human intelligence works.
+I have some guesses.
+I know the latest neuroscience models,
+I read Friston and stuff like this.
+I know many of these things,
+but I try to be agnostic,
+is that I don't know why if you take a chimp brain
+and you scale it up by a factor of three,
+you suddenly get a species that goes to the moon.
+Chimps don't go to the moon,
+and if you shrink down the chimp brain by a factor of three,
+you still get a monkey,
+you scale it up, chimp size, still a monkey,
+scale it up to human size,
+suddenly you have a technological species
+that goes to the moon.
+I don't know why that happened.
+I have a bunch of ideas and a bunch of theories,
+but I don't claim that any of these are good,
+or that they're very predictive.
+So in a similar sense,
+I didn't predict GPT-3 would happen.
+I didn't predict GPT-4 would happen.
+I wasn't capable.
+My theories didn't tell me,
+oh, it will be able to do these tasks,
+but it won't scale beyond this point.
+After having myself been surprised again and again,
+that, oh, you just take a GPT-2,
+you put more compute in it,
+and some of them can do these other tasks
+which you may not think is reasoning.
+We can talk about that.
+Given that I don't know why this happened,
+I don't know where the limits are,
+and I think there is a plausible story to be told
+that things can continue at this rate,
+and then you could get intelligent systems,
+not just feed forward L-language models to be clear.
+I'm not concerned about GPT-4 doing a forward pass,
+or GPT-5 or 6, not what I'm concerned about.
+What I'm concerned about is far more systems
+similar to auto-GPT, if you're familiar with that.
+So systems that recursively call language models
+as system one reasoning systems.
+So Kahneman's reasoning hierarchy,
+he calls it system one, system two,
+or type one processing and type two processing,
+and type one processing is intuitive,
+pattern, fuzzy pattern matching,
+kind of stuff like gut reaction stuff,
+and Kahneman describes system two,
+so like reasoning, like logical reasoning,
+as chaining system one reasoning serially plus memory.
+This seems to be something that you can do,
+and that you can build,
+and people are starting to build
+on top of these kinds of systems.
+I don't know if this will scale to AGI,
+but I don't have a reason why not.
+It seems like it would.
+And so as a precautionary principle,
+when stakes are this high,
+I think it is very prudent to take these stakes very seriously.
+And I also want to push, just as a final point,
+I want to push a little bit against
+the thing that is a destruction.
+I think this is definitely partially true.
+People can overreact to things,
+they can hyper-focus on things
+and lose track of other things that matters.
+This is a risk, this is a problem, I agree.
+But I think a lot of the problems that we see today
+are on the same spectrum
+as the problems that I'm concerned about.
+Problems such as hallucinations,
+honesty, interpretability,
+transparency of current AI models,
+I think are as much a current risk
+as they are a part of the larger story.
+If someone produced a large language model
+that never hallucinates,
+I would consider this extremely fantastic progress
+on the problems I care about personally.
+So I'll leave it at that for the moment.
+I cannot hear you, Grady, unfortunately.
+I muted.
+So thank you, Connor, that was awesome.
+Tim, can we just do a back and forth here?
+Because I've got some questions to Connor,
+and I think we're going to have some time here.
+I took a bunch of notes here.
+You mentioned Kahneman, fascinating,
+you should mention him,
+because he's actually on a project I'm on.
+There's an effort, let's see, it's called,
+what's the name of this project?
+I forget our code name.
+It's led by the director,
+it's led by Francesca Rossi inside IBM.
+She also happens to be our representative
+to the partnership for AI,
+and she's the current president of the Triple AI.
+We're actually on a project with him
+on that very topic of System 1, System 2.
+Now, I disagree with him on some of his concepts,
+because I view it as not a dichotomous dichotomy,
+but it's more of a spectrum of System 1 and System 2.
+Indeed, in the work we did on self,
+this is the architecture for the how-like thing.
+We were very much influenced by the work of
+First Minsky and his ideas of Society of Mine,
+together with the ideas of Rodney Brooks,
+his assumption architecture,
+and lastly that of Hofstetter and his ideas of strange loops.
+So thank you, I'm delighted that you're familiar
+with Kahneman's work and that's cool.
+Bear with me as I look through some of my notes here.
+You mentioned the issue of fear. Was it an insult?
+I'm just trying to reflect upon
+what are the things I've heard you say.
+For example, there was one time in Twitter,
+you said, I do not expect we'll get out of the century alive,
+and that's not a particularly positive kind of thing.
+Connor, I can guarantee that neither you nor I nor Tim
+are going to get out of the century alive.
+Current demographics suggest you're, what, 20-something.
+You're not going to make it to 20-100.
+Sorry about that. I'm not a year, so hey, it's true.
+I think you were meaning in the sense of AI,
+but I don't think that's going to happen.
+Let's see. I want to dive into the architecture thing in a moment
+because that's my sweet spot,
+but let me touch upon a few other things.
+Never meant to characterize you as an AI person,
+because I don't know you.
+Correct me if I'm wrong, though.
+Your company is partly funded by Sam Beckman-Freedman,
+who is a noted EA guy, correct?
+He gave us a $50,000 angel investment
+after someone told him that we exist, yes.
+Okay, well, he's a strange man,
+and we could spend hours about him.
+He's a strange man, and I hope he gets the justice he deserves.
+There you go. Oh, okay, good.
+We also have common ground. Great, great, great.
+Cryptocurrency is another topic we could spend an hour on.
+Let's talk about war for a moment,
+because in reading some of your other,
+in watching some of your other presentations,
+this was a focus upon you, because here's an interesting question.
+Let's suppose AGI is real.
+How would it, in fact, destroy us?
+Because extinction is a pretty high, high bar,
+if you think about it.
+I mean, we in the world have gone through some really nasty times.
+There was, in 7300 BCE, there was a huge volcanic eruption
+that kind of wiped out much of humanity.
+There was the Black Death in 1347, in 536,
+which some historians say was the worst year ever to live.
+There was widespread starvation, and yet we made it through all that.
+So extinction is a really high bar,
+and that's why I don't think we're near extension.
+We could have some nasty times,
+but the most nasty time that I've heard you or anybody talk about
+is this thread that says we get an AGI that takes over the world
+and launches nuclear missiles.
+So that seems to be the most obvious path
+for how we could get the existential risk.
+Was that a fair statement?
+I mean, what other paths are there from an AGI to wipe us out?
+So I actually consider this scenario kind of unlikely.
+I think it's like a nicely visceral one, like a lower bound.
+You're like, well, if it could hack everything,
+it can manipulate humans at the very least.
+It could send a few nukes off and trigger the Russians to retaliate
+or something like that.
+But this is not a scenario I think it's likely
+because then the AI nukes its own stuff.
+That seems like kind of a waste.
+You dwelled upon that in your last conversation with Joshua Bach.
+That was sort of your thread.
+So enlighten me, what is a more probable path?
+A more probable path is something more along the lines of...
+So the way to think about it is more...
+The way I like to think about it is, let's assume me
+and a hundred sociopathic John Von Neumanns
+that never sleep and have no moral qualms whatsoever
+wanted to achieve something.
+Say we want to go to...
+So we're talking Congress, in other words, right?
+Do you think Congress is competent as John Von Neumann
+each and every one of them?
+No, probably not.
+But maybe the psychopath side.
+We may have comment around there, I don't know.
+Maybe, but yeah, most psychopaths are not very intelligent.
+I think this is a pretty important part of my model
+that we should talk about.
+A good question is, why don't terrorists cause more harm?
+I think this is a good question.
+My answer is I think most people who become terrorists
+are not very smart and they're not competent,
+they're not organized, they're not good at coordination.
+I expect if every terrorist alive woke up tomorrow
+and is ten times as smart as John Von Neumann
+and had billions of dollars, I think that would be really bad.
+So let's continue down your scenario.
+A hundred evil Von Neumanns living in volcanic layers.
+Exactly, so we have evil John Von Neumanns, right?
+A hundred of them or a thousand.
+They never sleep, they've read every book ever written,
+they're immortal, etc.
+They're extremely charismatic,
+they are super good at convincing people.
+These are all things that are pretty straightforwardly accessible
+from current technology, at least in my opinion.
+But let's set that aside.
+So assuming you had this, how far could you go?
+What could you do with this?
+I think this is a pretty important part.
+In my part of the model, it seems pretty obvious
+that you could take control of almost anything,
+you could develop extremely powerful technology,
+you could charm or bribe your way into control of a nation state
+or whatever, and this is still with human level intelligence.
+Maybe you disagree with this.
+What I expect will happen is we won't have something
+which is just John Von Neumann.
+It's going to be way smarter than that.
+So these systems will basically very quickly be capable
+of replacing most or all of the economy.
+So these systems will be cheaper and more effective at labor
+than humans at everything.
+So they will be able to replace humans in all forms of labor.
+They will be able to replace that part of the economy if they wanted to.
+So they will be able to exert trillions of dollars of economic activity very quickly.
+And look at what humans have done to the planet.
+Look at what we've done with trillions of dollars of economic impact.
+And this is without all of us being a hive mind John Von Neumann collective.
+I expect if we were a hive minded John Von Neumann collective
+with trillions of dollars worth of economic pressure and control
+over the environment and potentially technology that is very advanced.
+So say you run these John Von Neumanns at a thousand x speed.
+You get a thousand times chips that switch much faster
+and you run them at a thousand x human speed.
+Human reaction time is like a hundred milliseconds or something.
+You could probably get like ten to a thousand x faster than that.
+Assuming you could well now you know for every day that passes
+they can do you know a year or two of technological research.
+So imagine you have a hundred John Von Neumanns that are now working
+at a pace of two years per day developing new weapons technologies
+strategies you know economic plans.
+You know every time they're trying to convince someone
+they can think for subjective months about what their next answer is going to be
+before they answer.
+And then these generalize capabilities generalize.
+You have these systems that will develop very fast technology.
+They will you know take over the labor force.
+I mean human will allow them to do this as part of my mainline model.
+My mainline model is this won't be some weird you know oh no something broke out of a box.
+I think people will want them to take over things.
+People will give them control over more and more companies.
+They will give them control over larger and larger aspects of the economy.
+They'll be very persuasive.
+They'll be seductive.
+You know people fall in love with these AIs.
+It will be incredible.
+They'll be much more attractive to like on like a social level than like any human can be.
+They will be they will be able to you know collect blackmail material and people that way very very easily.
+And then I think yeah if you're at that point where you control basically the entire economy
+you have technology which is potentially a hundred years or hundreds of years advanced.
+You have social control over most states or communities.
+I expect at that point if you are annoyed that humans are around you could just make them go away.
+And I don't you know there's various techniques they might use to do this.
+But the same way that humans if we wanted to could make chimps go away.
+Like if all of humanity if all of humanity aside you know what chimps gone.
+Let's get rid of them.
+I think we could do that.
+And similarly I think in such such an AGI system at this point we'll think well you know these humans being all around my circuit boards you know they're kind of inefficient.
+They need a lot of food.
+They have nukes.
+They might destroy some of my nice data centers.
+Well that's a big hassle isn't it.
+So maybe just you know invent the human version of bug spray and you know then it's just kind of over.
+I don't know if it's exactly that's what's going to happen.
+But like it seems like at least plausible to me that something like this could occur.
+Cool.
+Well let's talk about I took a number of notes again.
+So thank you for that observation and to conclude what I heard you say is that war is the least likely path for an AGI representing existential risk.
+More likely path is a some cobble of Von Neumann like folks who use AGI's as the mechanism for them to take control.
+So to be clear the Von Neumann's were AGI's in this case.
+I do expect.
+Well yeah.
+Okay.
+So AGI Von Neumannish AGI's are the ones that take over.
+Yes.
+Something like this.
+That's your path.
+Okay.
+Cool.
+Let's talk about war for a moment.
+I'm happy you dismiss it.
+I would hardly recommend that in your discourses with others you stop talking about it because that seems to be the one you migrate to because it's the grace fearful one.
+As for myself I was involved in the architecture of Sibbers which is our early warning infrared system for nuclear launches.
+I've been involved in most recently the project that lets us basically say it's one of the three legs of the triad that involves everything the president's briefcase down to the men and women silos.
+And I can assure you that you are correct.
+The kind of scenario is excruciatingly rare and impossible in the presence of an AI in that loop.
+It ain't going to happen in my lifetime or your lifetime of the next set of folks.
+So I would urge you to pull that out of your repertoire because it's a bit of an extract.
+Let's talk about your specific one.
+You might want to look up a little do a little research on what are called permissive action links.
+Which are some of the mechanisms.
+You mentioned one of your talks about there were two or three incidents during the Cold War.
+You know sort of you were on the brink of it.
+You're kind of right.
+There's a lot of stuff that happens.
+Things like those towels and the like.
+Anyway.
+Sorry.
+Sorry.
+Brady.
+We're losing your audio a tiny bit.
+I'm not sure whether it's your connection.
+Sorry.
+I was I'll move my hand about here.
+It's kind of making my own little little orange.
+Correct.
+My voice.
+This is low tech here.
+Let's talk about now your particular scenario.
+Okay.
+So I think I understand it.
+It's let's what should we call this.
+Well actually now that I think about it.
+It reminds me a lot of the of the episodes of the series with keeper Sutherland.
+The rabbit hole because there was a guy that had an AGI at his disposal that was kind of taking over the world.
+So you might want to take a look at it because it eerily parallels what you described.
+And again it's it's why I sort of view your you were a little bit more you're not a little
+bit you're a lot more driven by fear than I am because that's kind of a fearful scenario.
+And I don't think it's going to happen.
+I don't think it's going to happen for the following sets of reasons.
+First it's a systems engineering problem.
+You talk about these AIs that are out there in the world taking over resources and the
+like.
+Problem is you're looking at it from a zero some game kind of perspective.
+I'm a systems engineer.
+And if you look at it from perspective of go look at at Simons Artificial Sciences the
+artificial great book and it'll tell you a few things in that space.
+Go read DeGaul's Systematics.
+You'll see some other things in that regard.
+And then lastly there's a great book by oh what's the guy's name.
+Oh shit can't remember it but it'll come to me.
+I'll run a background process here in a bit.
+He was a NASA scientist.
+So the problem is the systems problem that you say for example we might get together
+and say we're going to destroy all chimps.
+I could guarantee you there's going to be a bunch of chimp lovers in the world who are
+going to push back against that and they're going to add forces that say that's not going
+to happen even to a greater degree.
+I think you're going to see that in the systemic level.
+You're speaking about this level of taking over all of all of economic labor.
+This is the reality of civilization that you can fool some of the citizens some of the
+time but not all the citizens all the time.
+And so the systems theory that I have that I know about tells me it is the resilience
+of civilization is such it is highly improbable such a thing would happen.
+Furthermore those AIs it's going to take a long time for them to get all the resources
+of production that they can control.
+Mind this for me.
+Build these chips for me.
+And we live in a world that is sufficiently disconnected and distributed that those pieces
+just don't fit together.
+And so unless we're in a vastly different society which is not going to happen in your
+lifetime or the next several generations we're not going to deal with that interconnection.
+So here's here's my premise.
+A super intelligence like you described that would have even the faintest potential of
+taking us over and leading existential risk would also have to be super embodied in the
+world.
+And the we humans are going to push back against this.
+So that's that's the fundamental problem I have there.
+The second is you make the assumption that they're not going to want us and you don't
+know that that's the worst possible wager you're making.
+You're making a little bit of a Pascal's wager here saying just in case they hate us I'm
+going to do this.
+But I think that is also excruciatingly slow.
+So if you put those minuscule probabilities upon minuscule probabilities it again gets
+us to something that I'm not going to think about during my day and it's a distraction.
+Okay thanks.
+Yeah.
+Thank you so much for making the points very clear.
+Those are some really clear points.
+I think your model is quite sensible actually.
+I understand where you're coming from here.
+Yeah.
+It's like seems quite reasonable to me.
+I of course disagree.
+So and I think I can.
+I want to tell me why you disagree.
+Yeah.
+I think I can locate the cruxes or at least attempt to locate some of the cruxes.
+So the first question I feel like the pushback is you're saying is this is how I heard it.
+You're saying something such as that if we were seeing systems.
+They're moving towards dangerous regimes of embodiment, autonomy, etc.
+That humanity would react.
+That humanity would coordinate.
+Then we would stop this from happening.
+Does that sound like reasonable?
+Yes.
+In fact it goes back to Wiener's ideas of homeostasis in that regard.
+Yes.
+And evidence for that is looking back at those catastrophic events.
+We have managed to rally together as humans.
+So yes.
+Cool.
+You heard me correctly.
+Great.
+So I think this is a great point.
+And I really hope you're right about this.
+This is something that I absolutely hope you're correct about.
+And I think you might be right about this.
+So assuming you are correct about this, wouldn't you expect homeostatic processes such as, you know, young guys with long hair going to the government and calling for regulation for what they see as things moving into dangerous regimes?
+Wouldn't this potentially be part of such a homeostatic system?
+Now you're acting out of fear again because that's exactly what Sam and others are doing.
+And of course, remember that Sam has his own particular agenda.
+You saw the report in the last 24 hours that apparently not only was he making the rounds around the world saying, oh, trust me.
+But at the same time, he was looking for, he was lobbying Congress for a particular rule.
+We're very favorable to open AI.
+Well, again, this is why we have economic systems that push back against folks such as him.
+Sam's a charismatic guy.
+I think he's flawed as a human in many ways.
+And I really push back against a lot of the things that open AI is doing.
+But again, yes, I would say the homeostatic mechanisms of human life, as well as the economic systems we have, will indeed push back.
+It doesn't mean there's not going to be human cost along the way.
+But in terms of catastrophic failure, unlikely to happen.
+Okay.
+I'll give you an analogy. Here's the analogy I forgot to mention.
+You believe in the laws of physics.
+Yes, I think we have common ground.
+I think we also have common ground that any AGI would be subject to the laws of physics, that there's no magical thing happening here.
+You're sitting in a room. I can't quite tell what it is.
+It looks like a white room of some sort.
+So am I.
+The laws of physics tell me that it is possible for all the oxygen in this room to suddenly move to a corner and thereby you and I would just be fixating.
+It is possible, but it is excruciatingly improbable to be doing so.
+Because there are very actions of me waving my hand about or creating brownie and motions and other motions that are pushing back against it.
+I think what you're describing is exactly like that auction scenario.
+It is possible that this might happen, but the improbability is so vastly high.
+I'm not going to think.
+So this is great.
+This is an actual huge that would push back against it.
+So this is great.
+This is actually an actual crux.
+I think we can directly point to it.
+It seems you're modeling these kinds of scenarios as more of a normal distribution while I model them as a fat tail distribution.
+So I model stuff like wars and casualties and wars, I think are best described by fat tail distributions like where outliers dominate the expected value.
+So like you have a lot of little wars where very few people die and then you have a World War II where millions of people die.
+I think a lot of events, technological events, many historical events, wars, economic things, many things are well modeled by economic shocks, financial crisis, etc.
+Are better modeled as black swan events as like fat tail distributions where you have these extreme outliers which dominate the expected value.
+Well, it seems you think of more of like a Brownian, more like a Gaussian kind of distribution of events.
+Does this seem like a sensible crux?
+Well, let me understand what you just said.
+And by the way, I want to make sure we spend time on non philosophical things.
+Let's talk about architecture in a bit.
+So it was okay with you.
+Let's spend a few minutes on this and let's get down to the technology.
+I would like to, before we switch, also respond to the second point you made earlier.
+Happy to do that.
+Happy to do that.
+So let me play back what I heard you say.
+You view war, for example, as a long, fat tail event, correct?
+Yep.
+And I think at the beginning you said you were more worried about fat tail events than other things.
+Tell me fat tail versus black swan events.
+Same thing.
+Same thing.
+Okay, good.
+I have you at a disadvantage then.
+Let's talk about war.
+I'm a graduate of the Air Force Academy, one of our military academies.
+I studied war.
+I studied models of war.
+They're not fat tail events.
+They're normal distribution kind of things.
+So we can talk about that later.
+So let's, again, take war out of the picture here.
+It's a lot more normal than you might realize.
+Okay.
+So you're worried about long, fat tail, long black swan events, in this case being the
+AGI thing.
+Give me an example of a fat tail black swan event that's happened in the last thousand years.
+I mean, the 2008 financial crisis, the black plague, you know, the smallpox plague hitting
+America, you know, things of that kind, the industrial revolution.
+None of which were existential events killing all of us.
+I agree.
+They were events that disturbed us.
+But again, the resilience of us brought us back, which is again my point by saying you
+may have these events.
+Yeah, okay.
+So we can agree upon that.
+Cool.
+That's an important point here.
+You have to be careful.
+You can't update on the non-existence of existential events because if existential events had happened,
+you would not be here to update on them.
+Right.
+Which is also why I don't worry about them because if they happen and I have no control
+over them, it's not going to matter at all.
+So I'm going to go live my life.
+What can you do today at this moment, Connor?
+I'm reading your body language.
+What can you do today at this moment to avoid that black swan event that you're so worried
+about?
+What would you do today?
+Well, probably the things I'm doing right now.
+We are.
+I work on the technical problem of alignment.
+I think the most-
+I don't know what that means.
+I don't know what that means.
+It'll enlighten me.
+So this is actually a great way to respond to the second point you raised earlier we talked
+about.
+Why would I expect an AGI to not be friendly to humanity?
+I think this is a great question.
+And so my- I don't expect AGI to be unfriendly.
+What I expect is I expect it to not care.
+I expect my- we can talk about technicals now if you also want to.
+My expectation is by default intelligence is orthogonal to values.
+You can have very intelligent systems that have very different values.
+You can have very smart people who are very kind and very loving.
+And you can have very smart people who are complete sociopaths and like killing people.
+These are orthogonal to intelligence.
+You can have intelligence systems that has any particular goal and any particular like,
+you know.
+And so if we don't- and I think these are brittle.
+So like, you know, evolution tried very, very hard to give humans the value of, you know,
+improving our genetic fitness.
+But instead we developed condoms because the alignment to the true value was quite bad.
+So humans actually started liking sex, not reproduction.
+This is a failure, you know, quote unquote failure.
+I expect similar things will happen with AIs.
+We'll train them, for example, to maximize human, you know, you know, thumbs up or whatever,
+or approval of some kind.
+And then the AIs will, you know, learn some weird proxy, you know,
+that humans like these kinds of patterns.
+Or they like to, you know, not never be offended.
+Or they like to, you know, smile a lot.
+And oh, they like heroin.
+Cool.
+Or like whatever, right?
+And then they will maximize these weird proxies rather than the actual thing we want them to optimize for.
+And I expect by default, if you maximize something,
+it's generally useful to gain power.
+It's useful to have resources.
+It's useful to have intelligence, to have control of your environment, physical resources, energy, you know, et cetera.
+And you don't want people interrupting you.
+So if we build some AGI system with some proxy value and we try to shut it off,
+it will by default prevent us from doing so because it will simply coldly reason if I am shut,
+oops, sorry about that.
+If I am shut down, then I cannot further, you know, achieve the goal,
+whatever this goal is that I'm trying to achieve currently.
+So I think this is to a large degree a technical problem.
+It's just like we should understand intelligence and we should understand goals better.
+Like what are our goals?
+How are they encoded?
+How can we think about optimizers?
+Like why, how does the brain do it?
+How can we build systems where we can like understand how they will execute on goals or values or so on?
+I'm not saying I have a solution.
+I absolutely do not.
+It's this, you know, very complex, you know, field of research.
+But I think this is quite important and I expect by default these things just don't go well.
+And we, you know, me or someone, you know, ideally I wish that, you know, all the string theorists in the world,
+all the greatest mathematicians and computer scientists would all go work on, you know, how to encode goals into powerful optimizers.
+And, you know, I kick back and, you know, let the smart people do it.
+But I'm quite concerned that a lot of people seem to not be working on this problem.
+You mentioned that, you know, we discovered that we like sex for fun.
+I think you astonishingly misunderstand evolution.
+Look at Bonobos.
+The idea of sex being fun is something that has existed in all of life.
+So it's not something that suddenly happened as we got together and said, oh, sex is cool.
+So let's move on.
+Yeah, sorry.
+That's not what I was intending to say.
+What I was intending to say is more evolution.
+The algorithm, though, like, you know, God's I view is, you know, optimizing for a metric that's something like inclusive genetic fitness, you know, not literally, but like something like that.
+And to do this, put some proxy in the brain where, like, you know, like, these shapes, you know, kind of indicate a female or a male of your species, you know, increase reward if you're near them, increase reward if you do this, whatever.
+And this circuit that got put into the brain doesn't actually calculate inclusive genetic fitness because how would it, you know, the brain can't calculate its own inclusive genetic fitness.
+It calculates some proxy value, something that correlates with inclusive genetic fitness.
+And in the ancestral environment, that might be fine.
+But then as we got more powerful, we got more control of our environment.
+Now that we understand inclusiveness fitness, like you and me, we understand the concept inclusive genetic fitness, but at least I don't know how you feel about it.
+But like, I don't particularly care about it very much.
+I know evolution wants me to have the maximum number of options possible, but I don't really care.
+I don't really, I don't optimize for that.
+I could, I understand it, and I expect this is how AGI will be as well.
+It will understand human values.
+It will know what they are.
+You just won't care.
+Well, evolution doesn't want more offspring.
+Evolution doesn't want anything.
+You're anthropomorphizing it.
+It has forces that lead to that particular behavior.
+So I'll go along with that.
+Your description of this one AGI that was, you know, pushing back against us reminds me dangerously of what I think is a silly analogy that came from the guy who wrote Superintelligence.
+By the way, I did a TED talk because of his paper, his book, Pushing Back Against It.
+Go Google Ted and Butch and you'll see it.
+But it's like the paperclip thing.
+And you said, oh, you know, they're going to optimize for this.
+But it gelled back to my earlier point that only works if that intelligence is super embodied.
+Because if they have no direct control that cannot be intervened to do that, that's not going to happen then.
+I want to quote something that Ben Higio said.
+He wrote an article, how rogue AIs may arise, because he said something that resonates, I think, with you.
+A superintelligent AI system that is autonomous and goal directed would be a potentially rogue AI if its goals do not strictly include the well-being of humanity and the biosphere.
+I.e., it is not sufficiently aligned with human rights and values to guarantee acting in ways to avoid harm to humanity.
+Let's suddenly make me Chinese.
+Whose value are we talking about, Connor?
+Yours or mine?
+My value as in pushing the state is going to be very different than yours.
+Who gets to decide, Connor?
+So, this is a very important question.
+It is a separate question, though, from the question we were talking about before.
+I just want to postmark that we're changing topics.
+No, it's related, because you said we need to have, you know, we need to choose values.
+And if we're going to choose values, it's going to be whose values.
+Sure, but there's two questions.
+The one question is how do you do values at all?
+Like the technical question of how do you put any values into a system at all?
+And it's the second question of what values?
+I think these are both very, very important questions.
+And they're worth addressing.
+I just want to make clear that these are two different questions.
+I accept they will separate those.
+I'll go along with that.
+Cool, yeah.
+So, yes, this is a very important question.
+And this is a question which is not a question for science.
+This is a question for philosophy and politics, more so than for anything else.
+I would like to go to a world where this is the most, this is a question we can and should answer as a civilization.
+I want to get to a world where the problem is not that a random system that we cannot control just blows up everything.
+To get to a point where like we have a vessel which can contain values, which we can use for good,
+which people can bargain about their values with, where moral philosophers can, you know, reason about moral uncertainty or whatever,
+and can then put it into the system.
+This is a world I would like to get to.
+I don't think this is a world we get to by default.
+So people have different values.
+This is correct.
+And we could talk about my personal views on like moral reflectivity in that I actually expect that not all,
+but a very large percentage of human values are quite universal.
+I think there's some things that are, you know, me and the Chinese Communist Party would agree on.
+There's some things we would not agree on.
+But I think there's many things that we would actually agree on.
+I expect by bulk we would agree on things.
+You know, we like, you know, pain is bad, you know, humans good, art good, you might have different tastes in art,
+and they might have some truly awful beliefs about some kind of authoritarian things.
+But I'm not going to claim that I can solve this on behalf of humanity,
+but I also don't think this is a problem you can ignore.
+This is not something you're, you can just like pull out as a trump card and be like, well, you can solve it.
+I'm like, yes, that's true. I can't solve it.
+But someday someone will either these values will be rolled at random,
+or someone puts them in by force, or we find some other process.
+But one way or another, eventually someone builds AGI, it will have some values.
+Okay, fair enough.
+So at the beginning, I wanted, I said, I don't want to talk about philosophy,
+and yet we've been spending most of our time on that.
+Yeah, sorry about that.
+No, that's fine. That's fine. We'll leave it to the philosophers.
+Let me offer the following goalpost.
+I made the statement earlier, large language models do not reason in indeed,
+or architecturally incapable of reasoning.
+That's the goal I'm going to set a little bit further down the road here.
+Let's walk along that goal because I want to move just more technical things along the way here.
+Because it leads us to questions of how does the mind bring about values,
+which I think is relevant to what you were describing there,
+and therefore how would I embody those values to any kind of thing?
+Is that fear that we pivot to that at this moment?
+Yeah, I would love to. I'd love to hear your opinion.
+Great. So let's talk about the nature of the mind for a moment.
+I think there's a spectrum, which is why Canaan and I disagree in this regard.
+It is a spectrum of this.
+And if we look at the nature of any intelligence,
+and first off, it's a terrible word. I don't know what to call it.
+I think there's a spectrum that goes from intelligence,
+which is we'll talk about in a moment,
+to notions of consciousness, to then sentience,
+and then there's a whole model of things among them.
+So let's talk about each of those.
+Sentience is largely one of having a subjective experience.
+I think that's a fair statement.
+And that's why embodiment becomes an important factor for me.
+Because I can't really have a rich subjective experience
+if all I'm dealing with is text.
+And that's another topic unto itself.
+Can I have sentience consciousness just by seeing texts?
+And I think no, but it's probably a matter of richness.
+Anyway, that's what sentience means for me.
+It's having a subjective experience.
+Consciousness and self-consciousness are related,
+and they relate to what Hofstetter would speak of as strange loops.
+I don't think the problem of consciousness is that hard at all.
+But it's a matter of, if you will, an illusion to use Dennett's terms,
+that we see agents seeing other agents,
+and therefore infer their existence from it.
+I believe what comes from it.
+But what comes from consciousness is that that entity therefore has theories,
+theories of the world, theories of itself, and theories of others.
+And that becomes important when we talk about intelligence.
+So we know that those theories exist at that point of consciousness.
+But another thing that comes with consciousness is the sense of agency,
+because now there is a self that can act in its own particular interests.
+And then there is also a degree of self-learning,
+because a self can then say there are things that are not selves,
+and therefore I would am curious about them, which is a value,
+and therefore I can have some self-motivated learning.
+So that's cool.
+Now we're on the problem of intelligence,
+which is where it becomes very nasty and hard.
+I really like a French wash-a-lays paper on the measure of intelligence.
+Great one.
+I don't know if you've seen that or not, but it's good.
+And I think from that, you and I can conclude there are intelligences
+other than the lens of humanity.
+We're on that.
+So let's break apart intelligence for a moment.
+There's reasoning.
+There's causality.
+There's common sense.
+There's understanding.
+Those seem to be some of the components of intelligence.
+So far, so good.
+It makes sense to me, though I don't know what those components mean.
+Which is right.
+I'm going to go down to the next level of that.
+Let's talk about reasoning, because that's the easiest one first.
+There are some easy ones.
+Inductive, deductive, and abductive reasoning.
+Do you know what I mean by abductive reasoning?
+Explain it for the audience.
+Abductive reasoning is theory building, which says,
+oh, I see this house on fire.
+I see smoke around this house.
+I see flames.
+I see fire engines.
+Therefore, I will build a theory that the house is on fire.
+So abductive reasoning is one of theory making.
+So it says, I propose a theory and I can then act upon that theory.
+That's abductive reasoning.
+We know how to do inductive and deductive reasoning pretty well in our machines.
+If you go back to Newell and Simon's work and their general problem solver,
+that's the stuff they were doing.
+In fact, if you look at, I'm going to throw on my architecture hat,
+if you look at the evolution of architectures in AI,
+that community has been approaching that problem in many different ways.
+The first one was through formal mathematics.
+That was the Simon and Newell realm of things.
+Then there was the work with Beigenbaum.
+Lovely chance to work with Ed some years ago on knowledge engineering systems.
+And now we're in the realm of we throw piles of examples and train an AI on it.
+Train a neural network.
+So we totally different kinds of architectures.
+And we know in each of those, there's some degree of reasoning taking place.
+But here's why I say that large language models do not reason
+and indeed are architecturally incapable of reasoning.
+In the paper, I'll point you to toward reasoning in large language models
+by Ye Hong, who did a survey of reasoning in large language models.
+And he concludes, it is not yet clear to what extent LLMs are capable of reasoning.
+Now, this is, I think, a profound observation,
+because they've been out in the wild for a while,
+literally millions of people have used them,
+and yet we still have no compelling evidence as to what reasoning might mean.
+That's very telling for me.
+It might mean maybe we don't know what reasoning is and understanding may be the case.
+But let's look at it from an architecture point of view.
+You said of the architecture of GPT too.
+I've said of the architecture of a lot of a lot of large language models.
+We built some around the like they are stochastic parents.
+That's not a condemnation.
+That's a reality of them.
+They are next word predictors.
+And there is nothing architecturally in them whereby they build models
+of the world in which they are looking at and can infer upon those models.
+I'll stop at a moment by saying that leads me to the notion of understanding,
+because they're very, very related.
+I can reason about something and you might say,
+oh, that person is smart, but they don't understand,
+because I'll read you something here from what Ning said.
+He said that to the extent that large language models is building a word model,
+it's conveying learning some understanding of the world,
+but that's his current view.
+So Andrew is saying, because it's building a world model,
+it has some understanding.
+It's not really building a world model.
+Hinton says, we believe the process creating features of embeddings
+and the interactions between features is understanding,
+but he's looking at it from the bottom up.
+I have a lot of problems at that point of view.
+Here's the way I view it.
+Understanding involves the creation of a theory that can be tested,
+and one consequence of that position is it requires an understanding.
+My recursion is intentional of the limits of that theory.
+By the way, this is the key to moving to your so-called AGI's,
+because it gives us the lever in which we can look at things
+we don't know and self-learn from it.
+So by that sense, this is why I say large language models are architecturally incapable.
+They are not model builders in that regard,
+and they don't have models that they can test against.
+There's another great paper, The Limits of Transformers on Composability,
+that goes in one particular niche place of that,
+that talks about how transformers simply are incapable of building those kinds of world models.
+So there's significant evidence.
+I'll stop there.
+Understanding, reasoning, causality.
+I haven't even talked about causality common sense.
+We'll talk about those later, but I'll stop there and shout out for a minute.
+Let's you react.
+Yeah, I think there is definitely a lot of sensible things to this.
+I guess I am just less confident than you.
+I'm not even sure I disagree.
+I'm just way less confident that I understand what language models are actually doing internally.
+For example, you know, it's been just purely mathematically.
+You can model the forward pass through an attention layer as doing a step of gradient descent
+in a, you know, on-the-fly constructed space.
+This is a general operation.
+Like, this is just mathematically the case.
+This is their just equivalent.
+So you can, by, during inference, during, you know, a few shot learning,
+these models can build temporary representations and do gradient descent,
+do reasoning, move through these spaces.
+It's purely during the forward pass.
+This is just a thing that can be done.
+I'm not saying this is reasoning.
+I'm saying this is things that can be done.
+They can build spaces that you can put probes into that you can do operations on,
+whether that's relevant, you know, powerful enough, you know.
+It's another question.
+And so I don't claim to know exactly what these models are really doing
+and how it really works, but I think potentially something worth teasing apart here
+is the sense of like a single forward pass, like a GPT is raw state.
+GPT plus the sampling loop, this is technically not a neural network anymore.
+Once you actually do the sampling step of like actually collapsing into new token
+and feeding it back, your system is completely out of distribution.
+GPT models are never trained on to complete their own sentences.
+This is not how they're trained.
+They're trained with teacher forcing.
+So this is already out of distribution behavior.
+This is already something they're not trained to do.
+They're not trained to have predicted token and then feed it back in.
+This is not how we actually train them.
+We train them on raw data.
+And then there's the question of, you know, language model, training loop, and SGD.
+So I think you might be correct that maybe language models can't build models, maybe,
+but I think SGD can.
+I think, sorry, you're muted in case you reacted to that.
+Now you're talking about the beauty of strange loops as Hofsitter speaks about.
+And I am a strange loop.
+This is one book in that sense.
+And so scale brings us amazing things.
+Loops bring us amazing things.
+You're describing that.
+But remember that this is within a closed system.
+Large language models are working across multi-dimensional latent spaces.
+And all that you're still doing, even in those loops,
+is still navigating about those latent spaces in interesting ways.
+It reminds me of AlphaGo.
+And you may recall the quote from one of the humans that played against it.
+And he was just totally humiliated by it.
+And he said, I have seen the face of God.
+And he claimed that it's creative.
+I think you're seeing a similar phenomenon here.
+And I think of it this way.
+In the game of Go, it is one that is clearly has more state spaces
+than we humans can comprehend and even our machines can comprehend.
+History and tradition and training have led us humans
+to walk across specific mountains and valley paths quite often.
+And what AlphaGo did was said, I don't care about that.
+I am not bound by tradition.
+I'm just going to look across a latent space.
+And it led me to these places, which from a human was astonishing
+because it was outside the boundary of our tradition to the AI.
+It was not because it was just part of it.
+That, I believe, is the same thing that's happening inside these large language models.
+So I'm happy that you accept that you may not know you're agnostic in that sense.
+I certainly can't claim to know.
+No one knows either.
+But I do know that from how it is built that there are obviously vast limitations.
+And furthermore, it is still a closed system.
+For that matter, I can't prove that you're conscious.
+I have a pretty good feel about it.
+You can't prove that I am or I might just be a really good new version of chat GPT.
+But I can probe you from the outside and that's where the understanding experiments come in.
+And we've seen that, like in the paper I mentioned, the paper by Jae Hong
+that was asking those kind of questions.
+You can probe a model and you realize, no, it's not doing any understanding
+and certainly not any deep understanding.
+So I think where we could both say is, we can both agree,
+I'm more suspect of it than you are,
+but I think we can both agree that there is a lot of work to be done in that space right now.
+I definitely agree that GPT 3 or 4 are not AGI.
+They can't autonomously act.
+They can't do the kind of reasoning you're describing.
+I suspect they could do more of it than you suspect they can, but I think this is a spectrum.
+I think your position here is not unreasonable.
+I personally think differently, but I think this is a reasonable position to hold
+and I might be wrong about this.
+I might be fooled in many sense.
+I don't think I am.
+I've used these things quite extensively and they can do some pretty impressive things.
+And I also come from this from a bit of a neuroscience perspective.
+So I'm a best at amateur, obviously.
+So I of course defer to true neuroscientists here,
+but as an amateur neuroscientist who reads his predictive processing
+and Carl Friston and stuff, this is my understanding,
+this describing of moving through energy landscapes, moving through spaces and models
+and so on is the best current theory of what we have and what the brain does.
+Do you mind if I interject for a second?
+I want to talk about that.
+I want to talk about the neuroscience in a minute, but go ahead, Tim.
+I was just going to prompt you.
+I was going to prompt you.
+You said that intelligence is reasoning, causality, common sense and understanding
+and you neglected to go into detail on causality and common sense.
+So let's just do another 10 minutes or so and then I've got some good audience questions to ask you.
+But so far, this is great.
+Okay, cool.
+Cool.
+So super.
+Let's talk about, let me split this part.
+Let's talk about neuroscience.
+Let's talk about the others for a minute.
+The others are easy.
+Causality, I'm a great fan of Judea Pearl's work.
+I mean, go take a look at his stuff.
+And there are very few people who have picked up on this notion of causality as he's done.
+I think we're going to see some good stuff there.
+On the common sense side, I mean, you know the work that Syke did and Lynette did,
+which was really a brute force approach to common sense.
+There's a lot more work to be done there.
+But I think the key goes back again to the ideas of models,
+that if I have some entity that has models of the world, models of self and models of the others,
+this is where I can then do some inferences, some predictability that I would then call common sense.
+I mean, let's face it.
+We as humans, at least the intelligence, we know the real world is messy.
+We are used to ambiguity.
+We are used to gaps.
+We're used to outright inconsistencies in the day that we have.
+And any well-formed so-called AGI would have to attend to that as well.
+And so the whole issue of imprecision, we just don't quite have well enough.
+Let's see, where were we?
+Causality, common sense and whatever.
+Let's talk about neuroscience for a moment.
+The notion of energy kind of things, I'm familiar with some of those theories.
+It's the case that Jan is down that path as well, and that makes sense.
+It goes back to the laws of physics.
+But remember, brains don't do backpropagation.
+There's a different kind of plasticity happening in the brain.
+You say they do.
+Neuroscientists tell me the brain does not do backpropagation.
+You're correct, but there is a very nice paper about how predictive processing can approximate
+backprop gradients to very high accuracy in very few steps.
+So I think you're correct that they don't do backprop, but I do think they do gradient descent.
+Yes, they probably do some form of gradient descent.
+But again, that's, I think, for projecting our own selves upon it.
+If you look at the biochemistry of what happens at the level of synapses, it's not gradient descent.
+It's a very different thing.
+You've got a whole set of things going on with the limbic system and the activities of dopamine and the like, which impact it.
+So it's far more complex than that.
+I've got a book behind me on neural circuitry.
+And for literal decades, you know, that community has been trying to understand that.
+So be cautious of those outlier kind of papers.
+So anyway, where are we with neuroscience?
+I don't know where to go.
+I'll stop there.
+I'm running out of words.
+I mean, that's fair enough.
+I mean, I do, by the way, want to say that I'm also being humble about the brain.
+I think you're like, you definitely write that I'm wrong about this.
+You're definitely correct that I'm wrong.
+It's definitely not just gradient descent.
+There's definitely other things going on there.
+I'm familiar with like the hypothalamus like literature and stuff like this and neuropeptides and stuff like this, which is clearly not gradient descent.
+There's clearly other algorithms at play here.
+So totally agree with you.
+I just do like for the neuroscientists, so they don't totally hate me.
+I'm talking about the telencephalon specifically.
+I think the telencephalon is mostly doing the stuff and other parts of the brain aren't.
+But, you know, that being said, yeah, I don't know.
+I might be wrong.
+Yeah.
+I'm a great fan, by the way.
+I probably read it.
+The work by on intelligence by oh shoot, his name popped out of my head.
+Jeff Hawkins.
+Jeff Hawkins.
+Yeah.
+He's doing some cool work there as well.
+Yeah, very cool.
+Yeah.
+Yeah.
+All right.
+Phew.
+Okay.
+I'll stop there.
+Tim, I'll turn it back over to you.
+This has been fun so far.
+Yeah.
+Thank you so much.
+It's been really fun.
+It's been much better than I thought it would be.
+The energy between you guys is amazing.
+Okay.
+Well, we've got some fun I've had with my clothes on all day.
+All right.
+All right.
+Okay.
+Well, great.
+If you don't mind, I'll go to you first.
+So one of the questions is programming requires a high level of abductive reasoning.
+And I loved your exposition of abduction.
+I think of it as one of the most important things in science, actually.
+And I kind of think of it as about shaping the hypothesis space.
+It's something that you need to do before you do inference, which is a mapping process.
+But anyway, coming back to the question, this guy is a developer, and he wondered the extent to which it's an existential risk for average developers.
+Do you think that these models are doing, even if it's mimicry, a reasonable amount of abduction?
+These models being...
+So GPT-4, is it doing abduction to the extent where it would replace developers?
+Oh, okay.
+Let's talk about the philosophical part and then the pragmatic part of it.
+Philosophical pet is, from all I can tell from the outside, no transformer-based large language model is doing abductive reasoning.
+It's just not happening.
+But let's talk about now things like co-pilot and the like.
+I think of co-pilot like having a pair programmer with a relatively green, naive developer who has read a lot of books but not lived in the world much.
+So they oftentimes throw out really interesting, useful things like, I never heard of that because they've read a lot more than I have.
+But they also spout bullshit.
+They are bullshit generators.
+And therefore, they are useful insofar as I, as the programmer working with them, have the ability to discern between the two.
+There is a paper, which I don't have at my disposal right now, that points out that one of the findings of co-pilot is that it actually generates far more security leaks than it would.
+So you have to be careful about these kinds of things.
+So I think of it as, it's faster than going to Stack Overflow.
+That's what it does for me right now.
+Is it better?
+Here's the path that I think will be useful for us and then I'll shut up.
+Again, I'm an architect.
+And most of us in the real world don't deal with green field systems.
+They're the most fun. They get a lot of the press.
+The reality is, every time I write a line of code, it becomes legacy.
+And most of the time, I'm working in the context of legacy.
+I'd really like to have an agent that can absorb the entire code base I'm working on.
+And if I ask questions like, if I jiggle this, what happens?
+And I could do that.
+That's the trajectory I see that going on.
+It would be very useful.
+And by the way, they're not going to take over the world.
+They're just going to understand code base.
+Do you mind me just very quickly pressing on exactly why GPT-4 doesn't do abduction?
+Now, I have an intuition that abduction is related to creativity.
+And actually, the first time you generate some pros of GPT-4, it looks really good, doesn't it?
+And then you read it again and it looks sclerotic.
+You read it again, it looks even more formulaic and sclerotic and it gets worse and worse and worse.
+So there's something about a really good writer.
+You know, they have this creativity and it's similar to abduction in the sense that I'm selecting,
+you know, I'm carving a space out of this infinite set of possibilities.
+That's my intuition why GPT-4 doesn't do it.
+But what's your core intuition?
+I'm Bertie Wiko.
+One of my heroes has a book called On Beauty and another one called On Ugliness.
+And he addresses the values we have for what we consider to be beautiful and ugly.
+You have the same kind of problem going on with creativity.
+How do I know what is creative or not?
+And there is, Connor, you and I and Tim are unqualified to talk about this,
+but there's a set of artists out there and there's a set of psychologists
+who have deeply understood the nature of creativity.
+And I would urge you to get one of them on here to talk about that.
+But my understanding of creativity, and I'll go down the path by saying I care about this
+because there's an episode slash chapter in our documentary on art and creativity.
+I've stumbled upon the rabbit hole of computational creativity
+where people are asking that very question as to what creativity is.
+And from a human perspective, it involves the connection of disparate things,
+otherwise disparate things, and the discovery of holes and paths
+that are just out of the ordinary tradition.
+So that seems to be what creativity is.
+Is it computational? That's what that community is talking about right now.
+So is GPT-4 capable of that? It's a stochastic parent.
+There's no, it's making connections we may not have seen,
+but there's nothing that I would consider really creative in that sense.
+Anyway, I'll defer to the real experts in creativity.
+Let's bring a poet to start here.
+Yeah, and I share your love of creativity.
+I was at an event at Oxford University on creativity,
+and I did about six interviews and I've got five to release.
+So you folks look forward to that.
+And Kenneth Stanley, I think, is great on that as well.
+But anyway, to you, Conor,
+REN asks, how can we calculate and assign probabilities to existential outcomes?
+The same way you predict any future event poorly.
+There's the saying goes, it is very hard to make predictions,
+especially about the future.
+Ultimately, you cannot know, but I'm pretty willing to make bets.
+If you offered me 99 to 1 odds that the sun will come up tomorrow,
+I'll be willing to take those odds.
+I'd probably even take 99.9.
+99.99, ooh, I don't know, I'm joking.
+But it isn't easy.
+It never is.
+You can read like Super Forecasters,
+it's like the classic book you should definitely read
+if you're interested about predicting the future
+and thinking about how things work.
+This is a book by Philip Tetlock,
+which looks into a really great study
+where he studied both top intelligence analysts
+and crowdsourced predictions for all kinds of things.
+Will there be a war in this area?
+Will this person get married?
+I don't know, lots of random questions about the future.
+It posed in very precise ways,
+and they found that most people are really terrible at this.
+Pundits basically score equally to chimpanzees on average,
+but there are A people who can perform very well,
+which you would call Super Forecasters,
+that can at least beat the noise on many of them.
+Another thing is that this is averaged across a vast number of domains,
+so eventually you always regress on a mean,
+but it is possible to make sensible predictions about small things.
+I think I have sensible models that I can put vague intuitions on
+about why I think future events will happen,
+the same way I can make vague propositions about,
+oh, I think my company will do well and will raise money or something,
+but maybe not, I don't know,
+maybe something terrible will happen or something great will happen.
+Sure, but still we make predictions, this is very normal.
+I think a lot of times when people put probabilities on something,
+what they're really doing is making a statement about emotions
+and about intuitions, and I think this is fine.
+I think this is like not, it's signal,
+like people's emotions and people's models are signal.
+If Grady looked at my code and he said, this is awful,
+and he didn't explain why, I would still believe him.
+It's like he probably has a great intuition about this,
+even if he didn't read it very carefully.
+And similarly with existential risk,
+when I say things like probability of doom of 90% or something,
+what I'm mostly trying to express by this is not,
+I calculated all the things and did the causal model analysis.
+If you want to read that, I think Carl Schumann did some of that at Openfill,
+but I think it's not super productive because you get into conjunctive hell.
+I'm mostly expressing the output of my predictive models,
+about my creative models, and yeah.
+Could I just quickly press you on that?
+Grady was talking about your fear earlier,
+and you just said about reifying complex emotions
+and turning them into a scalar value.
+That doesn't sound very scientific.
+Well, how do you think human minds work?
+If I was in World War II,
+and one of the greatest generals tell me,
+I have a feeling this is a bad idea,
+it's going to be an ambush, we should do this.
+Do I ask him to do the causal model?
+Don't talk about war, Connor, I've studied it.
+Use another example.
+I was hoping this would be one we could agree on,
+but maybe I'm wrong.
+Give me a good shot, go down, I'll hold myself.
+If I'm wrong, please correct me.
+See, I can get free gradients by just being stupid in front of Grady,
+and then he corrects me.
+It's so great.
+It's so convenient.
+But what I'm saying is that if an expert makes an intuition,
+it doesn't have to be a war general.
+We can say an expert, a mathematician,
+says I feel like this conjecture is provable.
+This is very common.
+That way before they have a proof,
+a good mathematician will have an intuition
+that the thing is provable.
+I don't think this is magic.
+I think these are fuzzy heuristics in the brain,
+the same way that neural networks will learn a bunch of fuzzy heuristics,
+and some of these fuzzy heuristics are useful.
+It's important not to...
+The useful thing about fuzzy heuristics is not that you're supposed to dismiss them.
+It's not because you're a scientist,
+you throw your intuition out of the window.
+Of course not.
+It's just you are epistemologically clear about what they are
+and how much you should trust them,
+and when you shouldn't trust them,
+and you're clear about what things are provable
+and what things are.
+That's a certainty.
+If tomorrow it turned out that some great paper came out
+that totally destroyed all my arguments about why actually GBT-4
+is a total parlor trick,
+actually Sam Altman had been hiring 100,000 people
+to type really fast into GBT-4 or something.
+Well then, yeah, I would be dead wrong.
+Then, oh my god, yeah, I'm dead wrong.
+All my intuitions were completely wrong
+and you should have listened to my intuitions any more
+because they were completely miscalibrated
+and they made wrong predictions.
+Just one more point, sorry, just on that point.
+It is signal.
+It just means truth.
+Intuitions are signal and then you can do formal things on top of them.
+Same thing is that formal things don't mean they're true.
+There's a long history of formally verified cryptography
+that then got broken because of wrong assumptions
+that didn't actually apply to reality.
+I heard a signal of some thundering hooves
+and it's possible it might be a zebra but it's very unlikely.
+I think you're worrying about zebras, Connor.
+That seems like it.
+That is a reasonable intuition to have.
+Okay, let's go for another question
+because we're running a little bit low on time.
+This is a question to you, Grady.
+Now, this person wondered the extent to which LLM hype
+is hindering progress in embodied AI.
+I'm a big fan of the embodied
+and the ecological traditions and cognitive science
+and they said that a lot of embodied AI tasks now
+are basically just LLMs, you know,
+given agentiveness or embodied or whatever.
+So it's kind of like a proxy for natural language competency
+rather than the traditional embodiment that we know and love.
+So to what extent is it hindering the progress?
+Well, there's a general phenomenon taking place
+if you look at venture capital funding in the valley right now.
+Large language models, foundation models
+are sucking the oxygen out of the air.
+And I think that's dangerous
+because basically it's pushing everybody in a particular direction
+at the expense of other things taking place,
+not just embodiment.
+I think venture capital tends to self-correct over time.
+We're already seeing some failures.
+I mean, part of what's happening here is
+the barriers to entry are so high for these companies.
+It costs so much just to get the computational power
+to do anything to compete against it.
+And everybody else that they're getting funded for
+seems to be building layers on top of existing large language models,
+which means they're building on top of sand that they do not control.
+We'll see how this falls out.
+But right now, the oxygen in the air is getting sucked out.
+And yes, indeed, it is taking away from other kinds of things.
+I think it'll change over time.
+Okay, okay. Thank you for that, Grady.
+A question to you, Connor.
+Now, this is a really common question.
+So try and avoid giving the standard answer to it.
+But we can't even align people.
+What makes you think we can align AI?
+And I'm sure Grady would have something to add on there.
+If we could design humans from scratch in a test tube
+and, you know, in a virtual machine
+where we can test their brain architecture over and over
+and we can build mathematical theories about their learning
+and we could, like, design the architecture of scratch,
+then, yeah, I think we could align humans.
+Align them to the God creator of them.
+Agreed.
+But the alignment we're talking about is alignment of an AGI
+with a parallel agency,
+which is a very different thing than the scenario you described.
+It would be like creating those creatures,
+but then aligning them with other species in the world.
+So I think what you're describing is vastly different
+than the alignment problem with which we're faced.
+So I agree in the sense that if we don't get to do this,
+it doesn't work.
+Yeah, I expect we die.
+I expect if just someone builds AGI and releases it
+and then we have to align it afterwards, yeah, we just die.
+Well, but hang on, let's push them on this
+because we're getting down to, I think, some silliness.
+If we create an AGI,
+if there are unicorns, then the following things will happen.
+So you, again, I think, are speaking with all due respect
+or a point of fear and a point of excruciating improbability.
+If there is an AGI, I don't know what an AGI is,
+you've committed to yourself earlier, you don't know what an AGI is,
+but if it's just some strange boogeyman
+that could do all these things, then this could happen.
+That's very unfair of you, Grady,
+because earlier we talked about this exact topic
+and you were very willing to entertain a lot of scenarios
+about the evil John Von Neumanns and whatever,
+and now you're backtracking on that?
+That's kind of unfair.
+Well, let's, I'll tell you what.
+Hang on, let's dial it back there, Connor.
+Dial it back.
+I did not say, let's talk about what I said
+because you misunderstood me.
+I never accepted there could be even a possible scenario like that.
+I said, if this were to happen,
+now I'm talking about the issue of could that even happen?
+And the answer is no, the possibility is excruciatingly
+asymptotically close to zero.
+All right, I mean, if you believe that, then yes,
+your report position is reasonable.
+Okay, okay.
+Let's go into closing statements.
+I'm going to kind of ask you a question
+which you can kind of dovetail into your closing statement.
+I'm sure you'll disagree with the framing.
+This is from someone in the comments, but they said,
+I'd like to ask Grady whether, you know,
+what you consider your strongest reason is for,
+for not worrying about AI risk.
+Is it that it's too far off that it will not be able to kill us
+or that it will not want to kill us?
+So if you can do that in your closing statements
+and then we'll move over to Connor.
+Well, to be clear, I do not believe AI is an existential risk.
+I believe, and I'm disappointed that we didn't get to this,
+but look at the work of Bender and Timit and others
+who have talked about the clear and present risks of AI.
+We spent an hour, we spent 90 minutes on things that I believe
+will never happen in this particular universe
+where we have wasted those 90 minutes
+not worrying about those things that are impacting people here today.
+And that is the more important conversation.
+So to your point directly, Tim, why do I not fear superintelligence?
+I believe it to be so because first,
+architecturally, it is implausible.
+And furthermore, whatever we build is going to co-involve,
+co-evolve with us.
+This is a systems problem.
+It's not that an alien drops an AGI on us,
+but we are evolving at the same time we create those.
+And I have extreme confidence in the resilience and goodness
+of the human spirit that says we will co-evolve in ways
+that work well for humanity.
+Thank you so much, Grady.
+And Conor, over to you.
+I just want to thank Grady for the great conversation.
+It's unfortunate that we couldn't find more common ground here.
+And sorry that some of the conversations that you wanted to have
+did not get reached.
+That's unfortunate.
+I do think these are conversations worth having.
+Sorry that it ended up going that way.
+I think these are all very important topics,
+as I said at the beginning as well.
+I guess one of the things is just like,
+I think there are exactly two times you can react to an exponential
+too early or too late.
+I think AGI is an exponential.
+You seem to disagree with that.
+It was kind of we didn't really get into this.
+But from my perspective, I think,
+I guess I'm just less optimistic.
+I think the world is more fragile than you think it is.
+I think it is.
+I think people are less good at adapting to things.
+I think systems and incentives are more ruthless.
+I think competition and fight for survival are ruthless
+and more powerful in many scenarios than maybe you believe.
+I don't know.
+I might be wrong.
+I do not dismiss the possibility that I'm wrong.
+I think there is a technical disagreement we have about AGI.
+I think a lot of this is that I'm much more uncertain.
+I'm nowhere near as certain as you are in it not being possible
+as I am in it being possible.
+I'm less confident in it being possible than you are in it not being possible.
+I think it's possible hypothetically, like physics,
+but it happened in the next five years or 10 years.
+I think I'm much less confident in that than it seems you are
+that it won't happen this century.
+There is overlap here, but I guess I really find it unfortunate
+that we use when we have disagreements about models
+and a straightforward strategy that we have to revert to things like,
+oh, you're acting out of fear.
+I don't like the psychologist.
+I consider this to be psychoanalyzing.
+This is not engaging with the actual average level models.
+This is just unfortunate.
+I think we did actually engage in a lot of technical things
+and I really appreciate your time for this.
+I learned some things.
+If you could send me some stuff to learn more about war,
+so I'm less stupid about it next time,
+I would really appreciate that and just say thank you so much for your time.
+I really, really appreciate it.
+Let me just say a couple of things as well.
+First of all, while I agree with everything you said, Grady,
+about the known knowns, we've been talking about the known unknowns.
+They are extremely important, but please don't say this is a waste of 90 minutes.
+I think that this has been absolutely brilliant.
+Very pedagogical.
+I think a lot of the audience would have learned a lot from this
+very, very great conversation between you two guys.
+So I really, really appreciate it.
+Thank you so much.
+Thank you Grady.
+Honestly, thank you Grady so much for coming
+and obviously Connor's good mates anyway.
+In which case, we'll close the stream off.
+Folks at home, I hope you've enjoyed it as much as I have.

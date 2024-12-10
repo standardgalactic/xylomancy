@@ -1,0 +1,29 @@
+Processing Overview for Algorithmic Simplicity
+============================
+Checking Algorithmic Simplicity/MAMBA from Scratch： Neural Nets Better and Faster than Transformers.txt
+1. **Mamba Architecture**: Mamba is a dynamic linear recurrent neural network designed to perform language modeling more efficiently than transformers, which typically require quadratic compute resources. Mamba achieves this by using a technique called "lazy evaluation," where it only computes the necessary vectors during transfer between high-performance memory and main memory, allowing it to handle larger vectors without significantly increasing computation time.
+
+2. **Controversy**: Despite its potential benefits and successful reproductions by different groups, the Mamba paper was rejected by ICLR 2024 peer reviewers. The community's expectation was that Mamba would be accepted or at least recognized with a best paper award given its significant improvements over transformers.
+
+3. **Rejection Reasons**: The primary reasons for rejection in the meta-review were:
+   - Mamba was not tested on the Long Range Arena benchmark, which is unrelated to language modeling and where linear RNNs outperform transformers.
+   - Mamba should have been evaluated on downstream tasks that measure reasoning rather than just accuracy in predicting the next word in a text (which it already did).
+   - A misinterpretation of Mamba's memory requirements, claiming it has quadratic memory costs like transformers, when in fact both Mamba and Transformers have linear memory costs.
+
+4. **Peer Review Concerns**: The incident has sparked discussions about the effectiveness and fairness of academic peer review processes, leading to questions about whether the Mamba paper should have been rejected based on the criticisms provided.
+
+In summary, Mamba is an innovative architecture that improves upon transformers in language modeling with linear memory and compute costs. Its rejection by ICLR 2024 has caused controversy within the machine learning community, particularly due to perceived issues with the peer review process. The actual technical merits of Mamba have been supported by independent reproductions, suggesting that it indeed performs better than transformers on language modeling tasks.
+
+Checking Algorithmic Simplicity/Why Does Diffusion Work Better than Auto-Regression？.txt
+1. **Causal Architectures**: These are neural network architectures that allow for training on all generation steps of every image while only evaluating the model once, which significantly reduces computation. Causal architectures, such as causal convolutional neural nets and causal transformers, give slightly worse predictions during training but are preferred due to their efficiency.
+
+2. **Autoregressive vs. Diffusion Models**: Autoregressive models predict the clean image at every step, which is more efficient than predicting the noisy next step image. For diffusion models, you must train with each data point at a random generation step since causal architectures can't be used with them.
+
+3. **Model Output for Noise Prediction**: The neural net in diffusion models is trained to predict the noise added to the image. This prediction is then reversed to generate the clean image at each step, which accounts for the noise naturally during the generation process.
+
+4. **Generation from Text Prompts**: Generative models can be conditioned on text prompts by training on pairs of images and their corresponding text descriptions. This ensures that the generated image matches the prompt's description. Any conditioning, not just text, can be used as long as there is appropriate training data.
+
+5. **Classifier Free Guidance**: A technique used to improve conditional fusion models by allowing the model to learn to generate predictions with or without considering the conditioning prompt (like a text prompt). During generation, the model outputs are combined such that details not specified in the prompt are removed, leaving only the details influenced by the prompt.
+
+6. **Key Points**: Generative AI models are essentially curve-fitting algorithms that learn from data to generate new content. The specifics of training and generation processes depend on the type of model (e.g., causal or diffusion) and whether conditioning is involved (e.g., text prompts). Classifier free guidance is a technique that refines the outputs of these models based on the presence or absence of conditioning inputs.
+

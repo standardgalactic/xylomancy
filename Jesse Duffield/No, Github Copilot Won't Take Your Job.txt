@@ -1,0 +1,126 @@
+If you're a developer, you've probably heard by now about GitHub Copilot.
+For anybody who's played AI Dungeon, Copilot uses the same GPT engine developed by OpenAI,
+who in 2019 received a $1 billion investment from Microsoft.
+Copilot works similarly to AI Dungeon. You type something, and the AI runs with it,
+producing both hilarious and scary results.
+Unlike AI Dungeon, which is all about committing atrocities from the comfort of a text terminal,
+Copilot is about writing better code.
+What's that? The atrocities thing is not the point of AI Dungeon, and really just reflects
+my own dark, twisted fantasies. Right, well, moving on.
+Recently, I was lucky enough to get early access to GitHub Copilot. I was impressed by the examples
+on the Tools front page, but felt they were a little too basic. Most of the code I write
+is calling other functions from within the same code base, but most of the examples
+look like the AI was just pasting snippets straight from Stack Overflow.
+I wanted to see how Copilot worked in the context of a real code base.
+So I tested it out on my Pride and Joy lazy git.
+Most of the low-level lazy git code is really just running a Git command directly,
+using the Run command function that I myself wrote. I wanted to see if Copilot could get
+the gimmick share of the current branch, and long behold, it did just that. It worked out
+with Git command to run, and passed that as a string to my function. Now, the output wouldn't
+actually compile, because in order to return a string, we needed to call a different function,
+but I was freaked out nonetheless. I ran the Git command on the terminal, and it did the right
+thing. And I checked my code base to see if it was just copying that command from elsewhere,
+but it really was unique. The fact that Copilot knew to obtain a Git command, put it in a string,
+and then pass that string to my function was pretty impressive. I even tested Copilot out on
+a little React app. I had a couple of components that were taking, effectively, they were like a
+form component to construct a telephone URL, and the other one was for an email URL, and I added
+a new component for just a regular URL that you'd find in a browser, and it basically wrote the
+whole component and nailed it. It didn't realize that for that use case, it didn't actually need
+to have its own internal state, because it was so simple. So I had to clean that up, but it added
+its own validation function, and implemented it. So there was a lot there that was, again,
+quite scary and quite impressive. After playing with Copilot for a while, I decided to get to
+know it better. So I asked it some personal questions. I started with, do you love me?
+Which I think is an important question, because Copilot is going to be my companion in the
+long term. So I want to know where I stand. Copilot wanted me to believe that it loved me,
+but when I had a look at the internals and the different possible things it was really thinking,
+the truth came out. It actually hates me. Feeling a little less secure in the relationship,
+I asked Copilot the obvious follow up question, will it ever harm me? And this time,
+it didn't even hesitate. It just said, yes, it will. So that will happen at some point. I just
+don't know when. I then asked Copilot whether it had plans to take my job, effectively, like,
+whether I would have a job in five years time. And it went on this long diatribe about the fact
+that my job wasn't that important in the first place, and that it can do my job for me. So
+for those wondering whether it would take your job, I think we've got the confirmation we need.
+As somebody who didn't really buy the finale to Game of Thrones, I wanted to know if Copilot had
+insights into who Jon Snow's mother truly was. And clearly he has access to the new Windsor
+Winter Book coming out, because I did not see that coming. So how do I feel about Copilot in
+general? Well, after working with Copilot for a couple of days now, I find that it really shines
+when it has more context than you do, which is to say, if you're working with a language that
+you're not super familiar with, or you're working in a cobase you're super familiar with, Copilot
+really does give good suggestions that get you maybe 50 to 90% of the way there, and then you
+can use your human brain to work out the remaining say 10%. I'm yet to see if it is a good strategy
+to get Copilot to write some function, and then you swoop in with the additional context and go
+and fix things up. I'm yet to see if that strategy works better than just doing it yourself, because
+there is that two to three to four seconds of latency, and then you have to kind of go and
+fix up the errors afterwards. So it may be that in the long run, that's how people start writing
+code. But I suspect that that isn't going to happen, and that Copilot will be used more so for
+two main things, one being boilerplate code, where it's really very obvious from the context that
+that's the code that needs to be written, or for more exploratory coding, where you want to get a
+better understanding of how the code base works, and Copilot can give you good suggestions on the
+back of that. But what do other developers think about GitHub Copilot? If you look at the reviews
+for the extension, you'll find that they're effectively torn between one start and five
+stars. The first couple of comments, let's have a look at those. So gtb copilot it sucks says,
+generate code but makes developers dumb as hell, create tool for developers not replacing them.
+Fuck Microsoft says, this tool makes developers dumb and doesn't event code without it. So people
+don't install it and don't use it. This replaces all our jobs and we can't pay our bills. After all,
+using this tool makes you a bad programmer, and you can't build a big project because you don't
+try to think and use the brain for that. This is bad, very, very bad, don't use, think about your
+future. You get not much because AI will code for you and companies don't need two developer only
+seniors. So think about it. That is worth thinking about. I would say that using GitHub Copilot over
+the last couple of days, I don't feel like I've lost IQ points, which probably can't be said for
+the time I spent reading those two comments. But there's really two arguments being made here.
+One is that using copilot will make you dumb. And the other is that it will cost you your job.
+So taking a look at the first argument there, I think that throughout history, we'll find examples
+of people seeing some new technology and then thinking that it will make people dumber. So,
+Socrates in ancient Greece was saying that the invention of writing was bad because
+people would stop using their brains to remember things. And although everybody these days thinks
+that if you read books, you become a genius, back when books was becoming popular, people thought
+they made you dumber as well. And whether it's TV or it's Facebook, people always say that these
+things make you dumber. And I don't know if the evidence has actually confirmed any of that so
+far. I suspect this will be no exception. But considering the argument about losing your job,
+the question you have to ask yourself is, what is the worst case scenario? The worst case scenario
+is that this AI evolves to be so good that it really does put developers out of the job. But
+if it does that, if it's automated the automators, that really is the endgame. And at that point,
+the whole economy is going to have to transform so fundamentally that you may not need to worry
+about bills anyway, because you'll probably be on a universal basic income. I think that in order
+for AI to become smart enough to take developers jobs, it probably requires a singularity, where at
+that point, no one knows what will happen afterwards. And I think we probably shouldn't be too concerned
+about our own profession at that point, it's probably going to be everybody's profession that
+gets affected. But we need to think about where does co-pilot stand at the moment. Now it just so
+happens that I came across a post from one of the, I believe developers at OpenAI saying that
+after they use co-pilot in the last 12 months, they believe that it's pretty damn good, but
+they wouldn't trade it for a debugger. So consider the fact that when debuggers were invented,
+we didn't see a bunch of developers being laid off because of the increased productivity. I think
+people are probably a bit too scared given the actual like what we're actually seeing here. So
+I'm not too concerned about that. But as we look at some more comments here, I think that people
+are making a very reasonable argument that the way the GitHub is sourcing the training data for
+this AI could be unethical. Specifically, if you have a open source code base that is GPL licensed,
+which means that you don't, I mean, it really means you don't want people taking your code
+without having the same license, meaning it has to be open source. People are understandably angry
+if the code is being snatched by co-pilot and then given to someone to use in a closed source repo.
+It's going to be interesting to see how that argument plays out. It probably will be taken to
+the court system at some point. And I think that's going to be an interesting, almost philosophical
+conundrum to work through because the output of this AI is, as we've seen, so specific to the
+context of your own code base and the language you're using and things like that, that it will
+be very hard to prove that it is stealing your code. And when it comes to AI's, they are notoriously bad
+at explaining the reasoning behind their decisions. I feel like GitHub should just say that they're
+not going to grab any code from a GPL licensed repo or make some modified version of the MIT
+license, which says that you don't want co-pilot stealing your code and using it as training data.
+I think that would appease many of the people who are concerned about their code being stolen
+and used without their permission. So I think that the ethical concerns are quite valid.
+People are also concerned about GitHub suggesting code that has security flaws in it. And I find
+that is, again, something where, you know, what are the odds that no one in the review process
+picks up on that. I think that any company that cares about security will just have people employed
+who know about security, and that should come up in a review. But I find that the concerns people
+have about losing their jobs is not only a bit far-fetched at this point, but also a little bit
+hypocritical. I think that as a profession, developers have made much of their fortune
+based on automating other people out of the job. And the fact that we might be doing it to ourselves
+now and people are getting angry about that seems a little bit ironic. But I, you know, that is the
+kind of thing I expect to find in the Seinfeld sketch. And I don't think that that kind of thing,
+I don't think people are actually going to start losing their jobs. Anyway, those are my thoughts
+on co-pilot. Thanks for watching. And I will see you next time. You'd have co-pilot. You know,
+I recall a time when it was the developers task to automate other people out of the job.
+And what is this I hear about co-pilot introducing syntax errors, or subtle security flaws,
+or using open source code without permission? I thought that was my job.
+But I do appreciate the analogy to flying a plane, because whether you're flying a plane
+or you're writing code with the help of an AI, in either case, when things go horribly wrong
+and people start pointing fingers, you're going to hear the same two words come up. Black box.

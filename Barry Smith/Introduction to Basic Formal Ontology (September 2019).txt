@@ -1,0 +1,1007 @@
+This is an introduction to BFO, and I'll give you some background, first of all.
+So the word ontology is pretty old.
+It was used already in the 17th century in German, have to be careful here, in the writings
+of German philosophers who were, however, writing in Latin, and it was the Latin translation
+ontologia of the Greek word for metaphysics.
+Now metaphysics just means the book after the physics in the Aristotelian corpus, but
+really it means something like above the physics, and above the chemistry, and above
+biology, it's the universal discipline which describes the categories in reality, something
+like that.
+It was introduced into computer science in the 1970s as part of the new AI boom.
+In those days people thought that the way to build an intelligent computer, and particularly
+an intelligent robot, was to teach the robot human common sense, so that the robot could
+behave like a human being, and the way you teach the robot human common sense they thought
+was to logically formalize common sense knowledge, the knowledge that humans have, and so they
+created what they called ontologies, which were logical formalizations of parts of human
+common sense knowledge, or of other kinds of knowledge.
+So this was part of knowledge representation, which is a part of computer science.
+That particular phase in AI failed, so the strong AI, which means translate human knowledge
+into computer readable knowledge, didn't work, and we could talk for a long time about why
+it didn't work, and why it still has believers, I'm a believer, even though it didn't work.
+But it gave rise to a lot of interesting ideas about knowledge representation, and most importantly
+about how you transfer knowledge from one computer to another, or from one person to
+a computer, and so on.
+And so knowledge representation was born as a discipline, and ontology was pretty much
+a part of knowledge representation as they conceived it.
+And this led to the idea of the semantic web, which was created by Tim Berners-Lee as what
+he thought of as the next generation of the internet.
+The problem with the internet was that you can write anything in the internet, because
+HTML is such a flexible language, but that means that if one person writes about refrigerators
+and another person writes about refrigerators, you can't necessarily combine what they say
+because they each write in their own dialect and so forth.
+And so the idea was that for scientific purposes, it would be good to have a more constrained
+way of capturing knowledge, and the idea of using ontologies for that purpose was reborn.
+And the semantic web would be an internet, but in which the way in which internet content
+was captured was by using ontologies.
+And you'll see what an ontology looks like very soon.
+And one of the leaders in that era was Tom Gruber, who developed ontologies using explicitly
+the framework of portable knowledge specifications, which means specifying knowledge so that it
+can be reused in another way, in another place, by other people, by another discipline, so
+that knowledge isn't trapped in the specific language of one group.
+It can be portable.
+And that is another way of capturing what an ontology is.
+An ontology is a portable knowledge specification.
+Tom Gruber is important because he was the creator of the Siri app, which is based on
+ontologies.
+So you all have ontologies in your pocket.
+And you're using them.
+Well, I don't use Siri, but those of you who do use Siri are using ontologies all the time.
+All right.
+And then Tim Berners-Lee again decided that the web needed some kind of world management,
+and so he created the World Wide Web Consortium, which was a collection of academics focused
+on the technical aspects of the internet.
+So ontology didn't play much of a role in this, but the World Wide Web Consortium creates
+ontologies now.
+And so they are put forward as standards for the World Wide Web.
+And so we'll talk a little bit about those in a minute.
+And then in around 1999, the Prodigé ontology editing software was created, and that
+made a big difference to ontology because it became very easy to build ontologies, which
+is not necessarily a good thing.
+And then Owl was, or the first official release version of Owl was in 2004, and Owl is the
+language that people use nowadays primarily to write ontologies.
+And Owl is much weaker than the logic that people were using in 1970.
+It's just a fragment of that logic.
+All right, now I say it's not a good thing if it's easy to build ontologies.
+Most ontologies fail.
+And most ontologies fail because the world is complicated.
+Businesses are complicated.
+Businesses are, large organizations are complicated.
+They're collecting more and more data.
+They store these data in relational databases, and they create an enterprise data model which
+is trying to take all of these relational databases and bring them all together.
+And sometimes it's suggested that ontology is a good way to enable people to navigate
+through those kinds of relational databases because the ontology will give you the vocabulary
+So, at the moment, the experts in the databases down here can navigate through these databases,
+but they have no idea what's going on over there.
+And even if they did, they probably couldn't understand it because everyone uses different
+terminology or different codes even.
+And if we have a common set of ontologies that everyone understands, then people can
+navigate through complicated data models like this.
+And so, ontology was put forward as a solution to that problem of navigation, and now ontology
+is viewed as something like a computable lexicon or dictionary.
+So it's a dictionary that can be used both by computers and by human beings.
+And the way it works, and this is how we get back to ontology in the philosophical sense,
+an ontology in the philosophical sense is a representation of the categories in reality.
+So if we can represent all the entities, all the kinds of entities, all the categories
+of entities which are dealt with by this company in a single controlled vocabulary and give
+definitions for each term, then people could use that lexicon to navigate through all the
+data.
+That's the idea.
+And the way this is supposed to work, and it does to some degree work, is relying on
+the stability of natural language.
+So codes used to build databases change constantly because the database is changed, new hardware
+is invented, new database software is used, that people choose different kinds of codes
+in different parts of the company.
+But the English language doesn't change.
+It gets bigger, but the word for door or the word for box or the word for table is the
+same from generation to the next, and the spelling is the same, and the definitions
+are the same pretty much.
+And so the idea is that the fact that natural language is stable will mean that ontology
+is stable and easy to learn and familiar and so forth, and so they will provide this
+common controlled lexicon where the databases provide a lot of separate codes which are
+hard to understand by outsiders.
+But it didn't really work, and the answer it didn't really work is because everyone
+downloaded Protégé and they created their own ontology, and none of these ontologies
+would fit together with each other, they were all built in different ways, and so they recreated
+the very same problem, the silo problem that had been created by database engineers.
+And so if it's too easy to build ontologies, there will be too many ontologies, and the
+very goal of having ontologies, namely to create interoperability and navigability across
+large bodies of data models, will be defeated.
+Another problem was that ontologies were built for the data we already have rather than for
+capturing the world which those data are about, and if you build an ontology for the data
+you already have, as soon as you get more data, your ontology will break.
+And then the third reason is that they didn't have a compatible way of describing the very
+general categories like event or activity or system or property which the ontology and
+the data are about.
+So the first reason is the ontology is built for just one community, and as soon as that
+community needs to talk to another community, it breaks.
+The second reason ontologies fail is that they're built for local data, and as soon as those
+data change, the ontology becomes useless.
+And then the third reason is the ontology is built without considering how other ontologies
+are being built.
+So your ontology doesn't fit with your neighbor's ontology.
+Now this is true in every domain, if you go to Navy, you'll see that the ontology is built
+in Navy ontologies, you'll see ontologies like this.
+They may be good in their own way, but they're not connected together.
+And the problem is manifested even in the W3C, so these are two W3C ontologies.
+One is an ontology for capturing provenance of data, for instance, how it was collected,
+who is responsible for it, where do you find it, and so forth.
+And the other one is about sensors.
+And the provenance ontology, it looks like this.
+You don't need to study this at the moment.
+It's an hour ontology.
+What you do need to study is the top level.
+So entity enroll, recipe, agent, temporal entity, activity, location.
+These are, I'm sure, very nice terms.
+But then if you go to the sensor network ontology, they have as a top level feature of interest,
+place, quantity, kind, platform, measurement, property, and process.
+There is no connection between the provenance ontology and the sensor ontology at the top level,
+which means that you can't put them together.
+And so this is a problem, the W3C created ontologies without first creating a common top level framework
+for all the ontologies at lower levels.
+All right.
+Now, in the biology and biomedicine world, ontology was reborn completely separately from the AI world.
+So in the course of developing the human genome project,
+biologists created something called the gene ontology,
+and they used the word ontology because they thought it would be a good joke, really.
+They didn't know what an ontology was, but it sounded like the right kind of word for what they wanted.
+And what they wanted was, roughly speaking, a computable dictionary of biological phenomena.
+Cell parts, molecular functions, biological processes.
+There are hundreds and hundreds of words used to describe these things.
+They wanted words which would be species neutral.
+So the word mouth would mean mouth, whether it was used for mice or birds or humans and so on.
+Mouth is not a word in the gene ontology.
+It's just an example.
+So the gene ontology was then used to tag gene sequence data.
+Roughly speaking, this gene sequence is involved in cardiac muscle development.
+That is a go term.
+Cardiac muscle development is a biological process.
+Somebody has found that whenever cardiac muscle development occurs,
+these genes with this sequence are involved,
+and so you tag those sequences using those gene ontology terms.
+And this turned out to be incredibly useful because it unlocked the sequence information,
+which is just a long tens of thousands of characters,
+a long sequence of ACGT, ACGT, and so on.
+You unlock that data by tagging it with terms from biology.
+Now, this works so well that they created the Open Biomedical Ontology's foundry in 2000.
+Sorry, they created the Open Biomedical Ontology's library in 2002,
+which was a library of ontologies built to extend the gene ontology
+into domains like disease, which the gene ontology did not cover.
+And in the course of trying to make the Oboe library more powerful, BFO was created.
+This is where I came in.
+And that was simultaneous with, and indeed was the other side of the coin,
+to the creation of the Oboe foundry,
+which was a set of rules and an initiative to create Oboe ontologies in a logically coherent way.
+And the logical coherence comes from BFO.
+Now, this, as I say, was quite separate from the AI track that I mentioned earlier,
+but now the two tracks have merged.
+Now, the Oboe foundry uses OWL and the Oboe foundry ontologies are the scientifically most useful
+and most conspicuous contribution to the semantic web of all the scientific contributions.
+So biologists were the first people to use ontology.
+They are now the biggest scientific contributors to semantic web ontology content.
+All right, so how does the Oboe foundry work?
+The idea is that the Oboe foundry solves this problem of too many ontologies
+by making it hard to build ontologies.
+Basically, you have to go through doorkeepers with hot weapons that will crush you
+if you make a mistake while building your ontology.
+So the first thing you have to do is to build the ontology as a set of modules,
+each of which is built in such a way as to be compatible with the neighbors.
+So the modules have to work well together.
+If you're building a cell part ontology, you have to build a cell type ontology
+and you have to build a cell cycle ontology and you have to build a cell process ontology
+and those four ontologies have to work together.
+They have to mean the same thing by cell, for instance.
+The second strategy is to make the ontology long lived by making it not be about the data you have
+but about the entities you're interested in.
+So it's about cells and organisms and diseases.
+It's not about data about cells.
+And that was a big change.
+And now the Oboe foundry approach has been operating, growing successfully for 15 years,
+which is an epoch in bioinformatics time.
+And it really is the one true example of a long-lasting and long-listingly successful ontology initiative.
+All right, and then the reinvent the wheel problem is in some to create a standard ISO 21838,
+which we'll be discussing later.
+And all the ontologies have to be conformant to this standard.
+So if you want to build an ontology, it's not enough just to download protege into your laptop
+and start to play with protege.
+You have to follow the same rules that everyone else follows when building ontologies.
+All right, so this is a hub and spokes approach.
+BFO is the hub and then various ontologies are built by extending BFO.
+And in your practical exercise later on, you will be extending BFO.
+That's the way the ontology gets built.
+And sometimes you have, so this is a spoke and then you have a spoke which descends from the spoke.
+So it descends immediately from a spoke and immediately from BFO at the core.
+So why is BFO the hub of choice?
+Well, it has various features.
+It's very small.
+It evolves slowly.
+It's well documented.
+There are lots of people who use it.
+Lots of trained people who train people to use it and so on.
+And this is another picture of the hub and spokes idea.
+There is a list here of all the ontologies which reuse BFO, which you can find there.
+And BFO is benefiting from what you can think of as a virtuous snowball effect.
+So once people start using BFO-conformant ontologies to annotate their data,
+those data become more easily linkable to other data, which makes those first data more valuable,
+which means more people think, well, if we use a BFO-conformant ontology,
+our data will become more valuable.
+And so there are more data added to the pool of data,
+which can be made conformant with BFO.
+And so this is how it's working.
+Not perfectly, but in any case, it is clearly working in multiple different areas.
+And then this virtuous cycle means there are more people looking at BFO ontologies,
+which means that there are more people finding mistakes,
+which means that those mistakes can be fixed,
+which means the ontologies get better, which means that they increase in value also for that reason.
+All right.
+So modularity gives you a division of labor.
+So cell experts can work on the cell ontology.
+Protein experts can work on the protein ontology.
+It gives you a division of authority.
+The people who are in charge of the cell ontology are going to be cell experts.
+Now, this might seem obvious, but in fact, most of the ontologies built in the course of the last 25 years
+were built by computer scientists who did not know what they would reasonably be expected to know
+about the entities they were building ontologies about.
+All right.
+And then these are other benefits that you get from modularity.
+And these are some examples of hub and spokes suites, some of which have BFO as the hub,
+but there are ontologies which use other hubs.
+Ontology suites, I should say.
+This is another list of such suites.
+And this is a documentation of the method.
+This was published in 2007 describing the Oberfoundry, which by this point was two, three years old.
+And you can see that there are many authors to this paper.
+Michael Ashburner, who is the second author, was the eminence gris and founder of the gene ontology.
+He was also heavily involved in the human genome project.
+All right.
+So this is another picture of the hub and spokes.
+This is all just biology now.
+And the structure goes like this.
+So you have granularity along the vertical axis.
+So very small things correspond to these ontologies, and then larger things correspond to cell and organ ontologies.
+And then we added an extra layer for complexes of organisms such as populations and an extra layer for environments,
+which hadn't been included in the original.
+And then we added a new box for investigations.
+So the reason why these ontologies are used in biology is because when you publish a paper about a certain biological phenomenon,
+you need to know what kinds of entities your paper is about.
+So cardiac muscle development.
+That means muscles in the heart and how they develop through time.
+But it also means all the other things, the molecules involved in cardiac muscle development and so forth.
+For each of those kinds of entities, you need a definitive representation, a definitive term, a label.
+But now in order to understand the paper, which will have scientific results,
+so you're going to prove that these and these and these genes are involved in cardiac muscle development,
+that will be used by drug developers to design drugs which will raise or lower the expression of these and those genes
+in order to prevent certain cardiac muscle defects, genetic muscle, cardiac muscle diseases.
+So you need to know how the data was obtained.
+And for that too, you need a control vocabulary.
+And that control vocabulary is called the ontology from biomedical investigations.
+And it contains words for things like protocols, testing equipment, parameters used, gels used to create samples,
+staining used to help make particular features more visible in images, microscopes and so forth and so on.
+So it's a very big ontology of things.
+It's basically, it's an ontology for the philosophy of science.
+And then having built OB, the ontology for biomedical investigations,
+we realized that one important feature of investigations is publications and footnotes and titles and so forth.
+And so we created the information artifact ontology, which was designed to enable description of information entities
+such as databases, ontologies, publications.
+As a result of the fact that we were working for the military, we were sponsored to establish BFO as an international standard.
+And it's actually an international standard, not just of the international standards organization,
+but also of the International Electrotechnical Commission, which is responsible for things like plug and socket compatibility.
+And so we like to think of BFO as being that which enables other ontologies to be successfully plugged into each other.
+And so specifically we are an ontology under the auspices of the ISO, IEC Joint Technical Committee number one for information technology.
+And currently there are two parts to the standard. The first part specifies the requirements for being a top-level ontology, which is what BFO is.
+And secondly, we have part two, which shows that BFO satisfies those requirements.
+And it's called DIS, which means derived international standard, because there is one more vote, which we have to pass, which will be very soon, and which we will pass, I'm sure, after which we will then be an international standard.
+And I'll just give you a couple of bits and pieces from part one. So these are three definitions.
+What is an ontology? Well, an ontology is a collection of terms, relational expressions, and definitions, together with formal theories which capture the intended interpretations of those definitions.
+And the formal theories will be in basically first-order logic, or OWL, and indeed in the case of BFO, both of those.
+And then we define a domain, which is a collection of entities of interest to a certain community or discipline.
+So biology is a domain, cell biology is a domain, plant cell biology is a domain, and plant cell disease biology is a domain.
+So domains come in nested stacks, and ontologies similarly will come in nested stacks.
+Most ontologies are domain ontologies. They contain terms related to a specific domain.
+And top-level ontology is a domain-neutral ontology. It's absolutely general. It does not apply to any specific domain, but rather to all domains.
+And we first of all define category, which is a general class or type that is shared across many different domains and is represented by a domain-neutral term.
+And the categories will be things like process, object, object aggregate, attribute, and so forth.
+We then define a top-level ontology as an ontology that represents categories.
+And then we show that BFO is an ontology that represents categories across a broad range of domains.
+And there is a book which is a guide to how you build ontologies using BFO, and there will soon be a Chinese translation.
+The translation exists. It just hasn't been published yet.
+And now this shows you where BFO came from. This is a picture of the go, the gene ontology.
+So you have three trees, cellular component, molecular function, and biological process.
+And BFO has three top-level terms, independent continuum, which corresponds to go cellular component,
+specifically dependent continuum, which corresponds to go molecular function, and a current which corresponds to go biological process.
+And examples of independent continuance are objects and parts of objects.
+So planets, people, arms, legs, tables, buildings, these are all independent continuance.
+They exist. They are self-standing.
+And then specifically dependent continuance are things like qualities.
+You can't have a headache without having a head. You can't have a color without having a colored surface and so forth.
+So that's what dependence means.
+And then occurrence are things like processes and beginnings and endings of processes.
+And temporal regions are also occurrence.
+So this is another view of the same.
+So all the relations you see here are Isar relations. That means subtype.
+So every material entity is a subtype of independent continuance.
+Every independent continuance is a subtype of continuance.
+Every quality is a subtype of specifically dependent continuance, which is in turn a subtype of continuance.
+And this is a little bit more detail. This is the mental functioning ontology.
+And you can see that planning is a subtype of cognitive process, which is a subtype of process, which is a subtype of occurrence.
+And this is the kind of ontology that you will be building today, although you don't need to draw pictures.
+You can just give lists.
+Now BFO is based on an idea of realism, which I won't go into details here.
+Basically it says that the way to build an ontology is to look at the things in the world, the things, attributes, processes.
+That your ontology is supposed to be about.
+And that means you should know what those things are like.
+And I've used the term category. I've used the term type.
+So all of these are just different expressions for the kinds of things that ontologies represent.
+So the term Bill Clinton is not an ontology term because Bill Clinton is not a type.
+But the term president might be a type.
+And the term human being might be a type.
+And the term government might be a type.
+So governments, human beings, these are all general terms.
+And they have instances.
+The United States government is an instance of the kind government.
+And the instances are down here.
+So this is Bill Clinton here.
+And he is an instance of the kind independent continuance.
+And this is a bit like the distinction between inventories and catalogs.
+So a catalog gives you a list of the kinds of things in your warehouse.
+An inventory gives you a list of the instances of those things that you have in your warehouse on any given day.
+The catalog will be relatively long-lived.
+The inventory will change from day to day or even from minute to minute.
+Now, universal categories kinds, I'm just using those words as synonymous for present purposes,
+stand to instances in two ways.
+On the one hand, each instance is an instance of a certain universal.
+But on the other hand, the universal has an extension, which is the class of those instances.
+So if we could make a list of all the governments in history,
+then we would have created a representation of the extension of the universal government.
+Now, OWL is an ontology about these things.
+So BFO has these two levels built into its makeup.
+But OWL only is interested in classes of particular.
+So OWL uses the word class systematically because OWL is only interested in classes,
+where we are interested not just in classes, but also in the universals or kinds or types,
+which those classes are the extensions of.
+Now, you don't need to worry about that.
+Certainly not for today.
+This is just information.
+All right.
+So when you're doing science, you're not interested in instances.
+There is no biology of Bill Clinton.
+But textbooks are about Homo sapiens.
+They're about arms and legs and mouths and hearts and cardiac muscles.
+And so scientific ontologies consist of general terms.
+And those general terms, then, can be used to formulate scientific laws.
+They can be used to design scientific experiments.
+And when we do experiments, we're interested in instances.
+So scientific theories are about the general.
+They're about universals, kinds, types, and so on.
+Scientific experiments are about the particular.
+But they are performed in order to test assertions about what is general.
+And in order to do medicine, you need to have an understanding of both the instances,
+your patients, for instance, and the kinds, diabetes and so on.
+All right.
+So this is my simple ontology of organisms,
+and I'm sure it's full of mistakes.
+And you have object at the top because all organisms are objects.
+That object is a BFO term.
+Everything else is domain specific.
+Only object is domain neutral.
+And an object is a self-contained material entity.
+It's a material entity with its own boundaries.
+So a table is an object.
+A laptop is an object.
+A pair of shoes is not an object.
+Two objects.
+All right.
+And now each of these terms is, apart from object,
+which is the root of this ontology, is related to exactly one parent
+by means of an ISA relation.
+So a frog is an animal.
+An animal is an organism.
+An organism is an object.
+Now, this corresponds to an important traffic rule
+for when building ontologies.
+When building ontologies, you should define your terms
+using this kind of expression.
+And a man, a human being, is an animal which is rational.
+So the genus here is animal.
+The species here is human.
+And C is rational is the specific difference.
+So it's down here.
+Now, if this is going to work as a traffic rule
+for building definitions, every term in the ontology
+should have at most one parent because A is the parent of B
+in the ontology.
+That's how you define your terms
+by looking at the parent in the ontology.
+And if there are two parents, you're lost.
+Some people will define your term in terms of the right-hand parent.
+Some people in terms of the left-hand parent.
+And then you'll have two definitions for one term,
+and that will cause problems.
+This is one of the rules for definitions in chapter 4 of the book.
+So there are some 20 odd rules like that,
+which you would find useful once you start building ontologies.
+Another very simple rule is that the terms in an ontology
+should always be singular nouns, like organism or headache
+or drug administration.
+All right.
+Now, ontologies should contain general terms.
+But sometimes they will contain general terms,
+which are made up general terms.
+So if I'm doing an experiment on people in Buffalo
+who are fans of abba and smoke,
+then I might create a general term,
+person in Buffalo who is a fan of abba and smokes.
+There is no universal corresponding to that general term,
+but I build an ontology corresponding to that term anyway
+because I need it.
+And that's called a defined class.
+That term does have an extension,
+which is the class of all people who did that.
+But it doesn't correspond to a universal.
+So that class is not the extension of any universal.
+It's a defined class.
+Today I'm going to be talking only about universals.
+And there are clear cases.
+So cell membrane retina lung planet are clear cases.
+And then these are clear cases of non-universals.
+And for the moment, just we believe in low-hanging fruit.
+We'll just think about the clear cases.
+And that will apply also when you're looking at the sentence
+which we're going to be using in our practical example.
+If something is difficult, ignore it.
+Only do the easy bits.
+When you finish the easy bits,
+you can start working on the difficult bits.
+All right.
+So these are the three main terms in BFO.
+Continuant, four, I should say.
+Independent continuous, specifically dependent
+and a current.
+And the idea is that things and processes exist
+in reality in different ways.
+We keep track of data about them in different ways.
+And so we should keep the ontology divided into
+continuance and occurrence.
+There's nothing which is not either a continuant
+or an occurrence that we deal with in BFO.
+And there's nothing which is both.
+Now, there are some people who say that hurricanes
+are both continuance and occurrence.
+They are wrong.
+And I can prove it, but I'm not going to prove it today
+unless you insist.
+All right.
+So this opposition between continuance and occurrence
+is represented in many, many different areas.
+So stocks and flows in a warehouse
+or commodities and services when you're dealing with
+economic goods.
+So a car is a commodity.
+Car rental is a service.
+Service is a process.
+A commodity is a thing.
+Continuance exists through time.
+That's why they're called continuance.
+Occurrence occur in time.
+That's why they're called occurrence.
+So you are a continuant.
+You're a substance.
+And your life is a process.
+And substances, objects, are three-dimensional.
+Processes are typically four-dimensional
+because they extend in time.
+All right.
+So we're still only here.
+And now we introduce the relation specifically depends on.
+So equality specifically depends on the thing, the object,
+or the collection of objects in which it inheres.
+And similarly, processes depend upon the things in which
+they inherit.
+Temperature depends upon its bearer.
+A thing participates in a process.
+And we're not dealing with the relations today.
+So only if you're very keen should you note these down.
+What does specifically dependence mean?
+Well, on the level of instances, one instance is
+necessarily such that.
+Let me start again.
+An instance, A, for instance, the smile on the face of a cat
+is specifically dependent on the cat means the smile is such
+that if the cat ceases to exist, then the smile ceases to exist, too.
+And we all know that that's true.
+On the type level, what it means is that the species
+smile is specifically dependent on the species mammal,
+I don't think fish smile, means for every instance of the
+species smile, there is some instance of the species mammal
+such that the instance of smile specifically depends on the
+instance of the species mammal.
+Now, we need to understand that there are these two levels,
+but actually it will be the first level that we will
+primarily be focusing on.
+And then now some examples of specifically dependent
+continuance qualities like whiteness or temperature,
+roles such as my role as lecturer, or his role as lawyer,
+or her role as midwife, and then the disposition,
+which is something like a tendency or a power or a potential
+or a possibility, all of these things are specifically
+dependent continuance.
+So we have qualities, roles, and dispositions.
+They are the three main kinds of specifically dependent
+continuance still, although we don't rule out that we will
+identify other kinds, and we are toying with capability
+as a kind in this list.
+So BFO does not claim to be complete.
+The claim it makes is that if you have scientific results
+about certain kinds of entities, then those entities can be
+represented using BFO, and if we can't do that, we will have
+to change BFO accordingly to extend it to deal with those
+kinds of entities.
+We do not at the moment have a good way of dealing with
+energy in BFO, and we may have to add the resources in BFO
+to deal with energy, for instance.
+All right, so this is an example of quality.
+Biologists like to look at organisms and recognize and
+record their phenotypes, which means roughly their qualities.
+So they look at a fly, and they are particularly interested
+in the eye of the fly, and they are particularly interested
+also in the color of the eye, so they note the particular
+redness of this particular fly's eye, and the redness
+instantiates the universal red, and the eye that they see
+instantiates the universal eye, and then red itself is a color,
+and so this particular case of redness is also a color,
+and eye is an anatomical structure, so this particular
+instance of eye is an instance of anatomical structure.
+Everything above the word instantiates is ontology,
+and down at the bottom we have something which is more like
+a database.
+It's a representation of instances.
+That's a good way to represent ontology work.
+You keep the ontology components in the top part of your
+representation, and then you put examples of instances in the
+bottom half in order to give examples so that people can
+understand the ontology more successfully.
+All right, so now we have what we call realizable dependent
+continuance, which are specifically dependent continuance,
+but they're not qualities.
+Qualities are not realizable.
+You just have the temperature or the mass that you have,
+but your role is something that you have because you are
+engaging or you can engage in certain kinds of processes.
+They need to be realized in those processes,
+and the same goes for disposition.
+So if you have the disposition of going bald,
+that's because there are processes in and around your
+head of hair loss.
+So realizables are realized through processes.
+Now functions are special kinds of dispositions.
+Basically, they are the dispositions, the realization of
+which constitutes the reason for the existence of the bearer of
+the function.
+So pumps exist because we needed something to pump,
+like hearts, and that's why we say the function of the heart
+is to pump blood.
+But we don't say the function of the heart is to make a
+thumping noise, even though the heart makes a thumping noise
+while it's pumping blood.
+A thumping noise is just a disposition.
+It's a side effect.
+The heart is there in order to pump.
+It's not there in order to thump.
+All right.
+Realization is everywhere.
+So we always have realizables over here and realizations
+over there.
+So I am now realizing my disposition to speak.
+I'm realizing my disposition to walk backwards and forwards,
+messing up the video, because I point to the screen all the
+time and that doesn't come through on the video.
+All right.
+Now, so we have two kinds of specifically-dependent
+continuance, qualities on the one hand and realizables on
+the other.
+And every realizable is associated with a certain family of
+processes of realization.
+And roles are realizable entities where the realization is
+a matter of what is socially determined, roughly speaking.
+So it's external to the bearer.
+So when somebody is a pointed lecturer, that gives them the
+role of lecturer.
+And that was an external appointment, society recognized or
+acknowledged or granted them the role of being lecturer.
+The same thing goes to being president, being a lawyer, and
+so on.
+It's a matter of social acceptance and ascription.
+So roles are externally grounded.
+You can see how roles work here.
+So to say that John is a nurse at T is to say that John is an
+instance of human being at T and there is some nurse role which
+inheres in John.
+And that's a defined class.
+Nurse is a defined class.
+Nurse role is a universal.
+All right.
+Dispositions, including functions, which are a special kind of
+dispositions, are internally grounded.
+Even on the physics of the entity.
+A pump or a screwdriver can perform its function only because
+it has a certain physical makeup.
+And my disposition to go bald can exist only because there is
+a certain physical makeup of my head which is responsible for
+this particular disposition.
+So all dispositions depend upon the underlying physics and roles
+depend upon the external social environment.
+So, and that's where we put all possibility, potentiality,
+power and tendency and so on.
+They all go under disposition in BFO.
+And this is how we deal with traditional cause-effect relations.
+An effect, sorry, causes an effect means that there is some
+independent continuum which has a certain disposition which is
+triggered by a certain process.
+And that triggering is the cause of the process which is
+triggered, which is the effect.
+So a function is a good or designed disposition.
+A disposition which exists because of evolutionary
+selection or because of design.
+And I don't think we need to go any further along that line.
+So all functions go hand in hand with functionings which are
+processes just as all dispositions go hand in hand with
+realizations of those dispositions.
+All roles go hand in hand with exercise of the role.
+Another kind of disposition in addition to function which is
+not a term in BFO is disease.
+So diseases are dispositions to symptoms of various sorts.
+And they too as dispositions and therefore as realisables
+have realizations.
+The realization of a disease is the expression of the disease,
+the realization of the disposition.
+In other words, it's the disease course.
+It's a series of processes.
+And disease and disease course are very often confused in
+writings on medical ontology, but BFO distinguishes them.
+And then we also have disorder.
+A disorder is something wrong with your body.
+So a carcinometous lung is a disorder.
+You have the disease of lung cancer because you have a
+carcinometous lung which is a kind of independent
+continuum.
+It's part of your body.
+And that disease which is a disposition is realized or
+manifested in a relevant disease course which is things like
+extremely rapid cell division and so forth.
+All right.
+And that is the basis for the ontology of general medical
+science, which is one of the ontologies that we have developed
+in the context of the Oberhoff boundary.
+All right.
+I said that we were toying with the term, introducing the
+term capability, not necessarily as part of BFO but as
+part of ontology in the BFO suite.
+So a capability is a disposition which is beneficial to its
+bearer, or which is beneficial to its bearer or to the
+organisms around its bearer.
+So if I have the capability to speak English, then that
+brings me benefits and maybe it brings other people benefit.
+And so dispositions are, sorry, capabilities are those
+kinds of dispositions which are good to have.
+And then functions would be special kinds of capabilities,
+namely they would be those capabilities which are the
+raison d'etre for the existence of the bearer.
+So we're not going to talk about this today.
+I'm just mentioning it in passing.
+And the idea is that great ability, being good and less
+good, bringing more and less benefit, doesn't apply only to
+functions.
+It also applies to capabilities which are not necessarily
+functions.
+So my car has a capability of driving, but that's its
+function.
+It also has the capability of heating.
+That's not its function.
+But it can heat either better or worse.
+It can heat well or less well.
+So great ability applies to all capabilities.
+Functions are a subset of capabilities, just as
+capabilities are a subset of functions.
+And you can see how, well, this is one example.
+So my digestive system has the function to digest food.
+Therefore, I, not my digestive system, but I have the
+capability to digest food.
+It's not my function to digest food.
+I'm not just here to eat.
+But my digestive system is just here to digest food.
+But anyway.
+So these are the three terms I just talked about.
+And they are arranged like this.
+And the way it works is that dispositions are the
+biggest group.
+And then capabilities are those dispositions which are
+gradable on a scale of more or less benefit.
+And then functions are those capabilities which are the
+reason for the existence of their bearer.
+So the pump.
+The heart is there to pump blood.
+That's a function.
+The car is there to transport passengers.
+That's its function.
+The screwdriver is there to screw screws.
+That's its function.
+And then all of those things have various capabilities which
+are good to have, but they're not functions.
+All right.
+Now, this is BFO ISO.
+And we'll talk just a little bit about some parts of it.
+So we have independent continuance.
+We've talked mainly about material entities.
+Material entities include mainly objects.
+But there are also what we call fiat object parts and
+object aggregates, which we'll talk about a little bit later.
+There are also immaterial entities.
+And these come in three kinds, sites,
+continuant fiat boundaries, and spatial regions.
+And I'm going to go into those three in more detail now.
+So sites are things like holes in the ground,
+or rabbit holes specifically.
+They are container places.
+A ditch through which water flows would be a site.
+But so also is this room and this building.
+We are in this room.
+That means there is a container which we are inhabiting.
+And sites are always three dimensions.
+The interior of a coffin is a site.
+The interior of a drawer is a site.
+And then there are what we call continuant fiat boundaries.
+And now let's suppose that we take this drawer.
+The drawer has a boundary along its top.
+So my finger is now penetrating that boundary.
+But the boundary is not a physical thing.
+It's not like the top of the table.
+It's a surface which is a fiat surface.
+It's there because we conceive of the boundary of the
+containing portion of the drawer as having a top.
+So that would be a fiat surface.
+And now if I draw a line through the middle and say
+everything in front of this line belongs to Mary
+and everything behind the line belongs to Sam,
+then I'm creating a fiat line.
+And if I point to the middle of that fiat line,
+then I'm pointing to a fiat point.
+Now other examples would be the equator is a fiat line.
+The surface of the planet is a fiat surface.
+And the north pole is a fiat point.
+And then we have spatial regions.
+Now spatial regions are not surfaces of the planet
+or lines on the planet.
+They are regions which are defined on the basis of
+frames of reference.
+And so spatial regions are that through which other things
+can move.
+So my mouth contains an interior which is a site.
+And my mouth is now moving through space.
+So the spatial region is one fact of the matter
+when we're describing my movement.
+And then the movement of the interior of my mouth
+is another fact of the matter.
+And that's why we need to distinguish sites on the one hand
+from spatial regions on the other hand.
+Spatial regions are defined by frames of reference.
+Sites are defined by those material entities
+which they are the sites in or on,
+or to which they are related to.
+All right.
+All spatial boundaries are fiat boundaries, we say.
+This is because if you look very closely at the level
+of microparticles, even the most solid kind of boundary
+will be revealed as being not a boundary at all,
+but rather an area of increasing and decreasing
+compactness of molecule.
+So when we talk even about the tabletop,
+we're talking about a fiat boundary, BFO says.
+And the reason BFO says this is because we want to be compatible
+with what physics has to say about boundaries,
+even though we don't deal yet with what physics has to say
+about boundaries.
+All right.
+Now, I don't think I'll go through this.
+So fiat points are located in zero-dimensional spatial regions.
+Fiat lines are located in one-dimensional spatial regions.
+Fiat surfaces are located in two-dimensional spatial regions,
+and sites are located in three-dimensional spatial regions.
+And materials entities such as objects, object parts,
+and so forth are located also in three-dimensional spatial
+regions.
+Process boundaries are located
+in zero-dimensional temporal regions,
+and processes are located
+in one-dimensional temporal regions, and that's there.
+Then material entities are
+a subtype of independent continuant,
+along with immaterial entities.
+The subtypes of immaterial entities we just dealt with,
+the subtypes of material entities are objects,
+a fiat object parts, object aggregates.
+My arm is a fiat object part,
+and the people in this room is an object aggregate.
+Objects are natural units in the realm of material entities,
+so they are causally relatively isolated,
+and there are three kinds that we are already documenting,
+but there may be other kinds.
+So organisms, lumps of rock and laptops are the three kinds.
+So that's an object,
+but there are many fiat object parts distinguished here,
+which can become objects in their own right
+when the cow is appropriately divided, and that's fiat.
+Now, another term in BFO is history.
+So every material entity has a history which is
+defined as the sum of all the processes
+taking place in the spatial temporal region it occupies.
+Then sites I've talked about,
+just say one thing about sites.
+This is a site, it's called the Manhattan Canyon.
+A Manhattan itself is on the one hand a material entity,
+on the other hand, it's a complex site.
+So people live in Manhattan,
+but they don't live in lumps of concrete.
+The lumps of concrete make up the material entity,
+which is Manhattan.
+And there is what we might think of as the extended Manhattan,
+which consists of both the concrete and the sites,
+which those pieces of concrete form.
+And the same ambiguity is found for very many words,
+like mouse.
+Though sometimes we mean by mouse the physical part,
+sometimes we mean the whole with an H.
+So these are examples of ways we speak.
+And we've dealt with that.
+Now, very quickly, I would say something
+about information entities.
+So there was one big change in BFO in the course
+of the last 15 years.
+We needed to have a way in which we could
+deal with information entities.
+Now, they're not independent continuance,
+like lumps of rock.
+They're not specifically dependent continuance,
+like qualities, as we will see.
+They're not processes.
+So I'm thinking now of things like databases or images
+in a computer.
+So what are they?
+What are information entities?
+Well, we decided that we needed to add a new term, which
+would be a sibling of specifically dependent
+continuance.
+And this is the term generically dependent continuance.
+And this was decided in developing the ontology
+for biomedical investigations, where
+we were interested in things like gene sequences.
+Now, if you have a gene sequence,
+that's because there are molecules which
+have a certain quality.
+But that quality can be dealt with by means of BFO.
+We already have quality.
+And the gene sequence as a pattern
+instantiated by a certain molecule is just a quality.
+It's just a very, very complex quality.
+But now when we capture that quality in a computer
+and we see the gene sequence on our screen
+as tens of thousands of letters of the alphabet,
+then we have the same gene sequence.
+But now it's not a quality.
+It's an information entity.
+And it's an information entity which
+represents that quality of the molecule.
+So where would we put this information entity in BFO?
+Well, what is its characteristic feature?
+Its characteristic feature is that it can be copied.
+So that's what we do.
+We take the file and we send it in an email
+as an attachment to someone else.
+Exactly the same entity is now in two places.
+Similarly, when I say to you that a gene sequence can
+be copied, then there is information
+which comes out of my mouth and enters your mind.
+The very same sentence starts off as an utterance on my part
+and becomes something that you listen to and understand.
+So that's copying.
+And so copying means not specifically dependent.
+The gene sequence in the molecule is specifically
+dependent on the molecule.
+The neighboring molecule has a different sequence
+because it's a specifically dependent continuum.
+That means it's dependent specifically
+on a certain bearer.
+Just as you can never have my smile,
+even if you succeed in copying my smile exactly,
+it won't be the same smile.
+It will be a copy.
+And if you have the same headache that I have,
+it will still be your headache.
+But an information entity like a PDF file,
+the very same file can be in 100 places at once.
+All right?
+So this is a notion of copying, copyability,
+which implies multiple location.
+The PDF file is in two laptops simultaneously,
+the very same file.
+All right, so that was our definition of information
+entities.
+The basis of our definition has to do with copyability.
+It's not specifically dependent on its bearer.
+It's generically dependent.
+That means it has to have a bearer.
+There has to be some laptop in which this information entity
+exists.
+But it doesn't have to be this one.
+It could be any of a million other laptops.
+So this means that generically dependent continuance
+can migrate from one bearer to another.
+Specifically dependent continuance cannot migrate.
+Yes?
+So we were talking about PDF files.
+There would be two different files in my laptop,
+your laptop.
+Which means two different qualities of the underlying
+magnetic hardware, but one information content entity.
+Yeah, but is the file the bearer,
+or is the file the document?
+So this is a matter of legislation.
+We have to define how we're going to use those terms.
+But for present purposes, we just
+have to get clear that one and the same thing
+can migrate from one laptop to another.
+Now it does that because of magnetism and electricity.
+So things are happening in the world of physics,
+in virtue of which things are then happening in the world
+of information content.
+Exactly the same when I speak, there
+is air vibration in virtue of which my sentence
+gets transmitted to him.
+We need to understand how we capture all of those things.
+But the basic distinction between the information
+content, which stays the same as it moves,
+and the physical molecules which stay in the same place
+as they started in that distinction has to be recognized.
+All right, so these are examples of information objects,
+laws, plans.
+In each case, we have some bearer, somebody's brain,
+or some piece of paper, or some hard drive.
+And then we have a pattern which gets imprinted on that bearer,
+either by means of ink or by means of magnetism
+or by means of neurons.
+And that pattern can be copied, can migrate.
+And the pattern is where the information is.
+And the information exists because there
+is a quality, which is specifically dependent,
+in virtue of which we can recognize the pattern.
+So there is a pattern in some medium.
+And in virtue of that pattern, the medium
+might be paper or a silicon.
+Or in virtue of that pattern, it might be ink on paper.
+There is information on the corresponding medium,
+which can be transferred to another medium.
+And this is the start of the picture.
+And now the idea is that the information quality entity
+is the pattern on your hard drive, which specifically
+depends on the information bearing
+entity, which is your hard drive.
+And there is some relation then between the information
+content entity, which migrates from one bearer to another.
+And the relation is concretized.
+So that, if you like, is an abstract pattern.
+The information content entity is an abstract pattern.
+The information quality entity, which is on the bearer,
+is a concrete pattern.
+And information is abstract patterns.
+That's the idea.
+All right, so I think we'll stop here.
+You have the definitions of the terms and various other slides
+relevant to this is called the information artifact ontology.
+You can look at those later.
+Let me just say one or two things about what we planned today.
+First of all, I do have slides prepared,
+which you will find in the slide deck on the Wiki page
+by this evening on documents.
+But I'm not going to present those today.
+We don't have enough time.
+I'll present those in a later meeting.
+The ontology of documents specifically.

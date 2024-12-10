@@ -1,0 +1,523 @@
+It's great to be here trying to figure out intelligence, every little bit of it, little
+mysteries of little quirky things and then we figure out something that makes a big difference.
+Life is great.
+Today we're going to hear from Chris, who's a grad student here.
+What's your name?
+Oh, there's your name.
+I thought that was the name of the penguin.
+What's the thing with penguins, Chris?
+Penguins are beautiful.
+Okay, I guess.
+Yeah, you're probably going to see a lot of it here.
+Thank you, Chris!
+Okay, so I'm Chris and I'm going to be talking about finite horizon TD methods.
+And to give a quick overview of this, I'm just going to quickly summarize what TD learning is,
+and then I'll just start rambling about the finite horizon setting of this.
+So TD methods are applied in a reinforcement learning setting where you've got some agent in some state
+and it has some actions available and taking action will give it some reward and lead it to a new state.
+And it chooses its actions in a state according to a policy.
+Where in some state, it gives some probability distribution over actions,
+and it's not really concerned with immediate rewards, but rather it cares about returns,
+which are defined to be this discounted sum of rewards.
+And this discount rate gamma is used to specify the agent's horizon of interest,
+where if it's set to zero, it only cares about the immediate reward.
+But if it approaches one, you care about all of the rewards.
+And in particular, the agent wants to know what the expected return is as a consequence of its actions.
+It wants to know the expected return under its policy.
+And it does so by defining these value functions,
+where the state value function is the expected return under policy given some state,
+and the action value function is the same expectation but conditioned on action too.
+And so TD learning approaches this problem by trying to estimate these value functions.
+And so if you have some penguin in some state, it takes an action,
+it receives some immediate reward, and it's in a new state.
+In that new state, it tries to guess what the rest of this return will be.
+And it does so by querying its value function for that next state,
+because the value function is defined to be this expected return in some state.
+And so if it were to add up this reward it saw along with its guess,
+it gives it a guess for the previous state's value,
+and so it can update that state's value towards it.
+And to put it more formally, it would compute this TD target,
+which is a reward plus a discounted value of the next state,
+and it would take a step in that direction with some step size alpha.
+And some notes about this is that it can be applied to any signal of interest,
+not just rewards, and that lets you learn these generalized value functions
+and understand how state features work.
+And something that I want to emphasize in this talk is that
+the value function update target depends on itself.
+And something nice about this recursive property is that
+it can learn independent of span.
+So no matter what you set this horizon of interest to,
+whatever you set the discount rate to,
+it has a constant number of computation per time step.
+So the computation doesn't scale with that.
+But because it's trying to satisfy itself through this recursive relationship,
+it can lead to divergence in certain scenarios.
+So that's TD learning.
+And to introduce the finite horizon setting,
+we can pretend we have this infinite sum of rewards
+or some arbitrarily long one, and it's undiscounted.
+And what if we just threw those ones away?
+And we only cared about, let's say, the next five steps.
+So this is a case of time-dependent discounting because
+you can imagine that the discount rate is set to one for the first four steps,
+and then on the fifth step it's set to zero,
+which cuts the rest of the return off.
+And this is independent of state transition or where you end up.
+It's purely based on time.
+And something that I should acknowledge is that
+episodic problems can also produce finite horizon returns,
+but this horizon depends on the environment.
+And it can still be infinite if you have some policy
+that's avoiding terminal states.
+So I still consider a return up until the very end
+of an episode to be an infinite horizon setting
+because it's not limiting itself.
+It could go onto infinity in certain scenarios.
+So to define finite horizon returns, it looks similar,
+except the return is only considered up to h steps into the future.
+And similarly, we have value functions,
+which are expectations of this finite horizon return condition
+on the same things as in the infinite horizon setting.
+So say we want to use TD to try and approximate these value functions.
+So we have a similar setup where, like, the penguin takes an action,
+it receives a reward, and it's in another state.
+And let's say it only cares about what happens three steps from now.
+So if it has one reward, if it wants to know what happens in three steps,
+it has to be guessed what the next two rewards will be.
+And one way you can do that is if it had the two-step value function
+for the next state.
+So if it adds this guess to the previous or to the reward it saw,
+it would have an estimate for three steps from the previous state.
+And so it can make an update in that direction.
+So an implication of this is that you have to learn multiple value functions.
+So you have to do this for each h from one to some final horizon you care about,
+and you update a TD target, which looks similar to the infinite horizon case,
+except you're bootstrapping off of the previous horizon.
+And you do this, again, for each h.
+And also for each h, you would perform a TD update,
+which also looks similar to the infinite horizon case.
+And something important to note is that the value of the zeroth horizon is always zero,
+because nothing happens in zero steps.
+And so you can do this.
+You can use TD to estimate these finite horizon returns.
+Like, you can learn them online and incrementally.
+But this idea is in you that you can do this with TD.
+It turns out that there was a paper from 30 years ago that has a section
+about predicting over a fixed interval, which describes this whole process of finite horizon TD,
+where it says if you want to predict what happened seven days from now,
+you need to know what happened six days from now, five days from now,
+all the way down to one day from now.
+But as far as I can tell, this wasn't really tried in a reinforcement learning setting.
+People didn't really think about the motivation behind it,
+or why you would ever want to do this.
+So hopefully this talk is going to try and motivate why this is interesting
+and why you might want to do this.
+So two days ago, we saw some reasons why you might want to do this.
+And it was in terms of a metric, this mismatch between your performance metric,
+where you measure it against a finite horizon,
+but it's trying to estimate this infinite thing.
+But it turns out I didn't even think of this.
+I wasn't thinking of it in terms of an objective.
+So hopefully this can bridge off of that.
+So the one way that I view finite horizons is that it's trying to learn
+the step function of the return.
+It's applying the step function over your reward sequence,
+whereas discounting is applying this exponential decay over your reward sequence.
+And a nice thing about step functions is that you can subtract two step functions
+to get some impulse at a very specific time step.
+So this lets you extract individual rewards from your value functions.
+So if you have the sum of 10 steps and the sum of nine steps,
+you can subtract them and say what the reward will be in 10 steps.
+And from a signal processing perspective, if you treat these as filters,
+the constant gamma will result in geometric weights.
+And that has a nonlinear phase response,
+so you actually distort the underlying waveform
+and you lose a lot of information about how the signal actually behaves.
+So this might have implications in the prediction setting.
+And this is also a simple case of compositional GVFs
+where the answer to what happens in eight steps
+depends on the answer to what happens in seven steps.
+And so forth.
+And it gives a clear and interpretable example
+of being able to specify a question that can leverage what has already been learned.
+So for example, if you already know what happens in eight steps,
+you can ask a question about what happens in nine steps
+and not have to start from scratch.
+So to address this in control,
+if you try to maximize over this fixed shorter horizon, it won't be optimal.
+But optimality isn't guaranteed anyways if we only try and approximate these values.
+And this can come from using function approximation
+or even in the tabular setting if you're using a constant step size.
+And leveraging off the previous slide,
+you can still continually increase this final horizon
+and leverage what you already learned until you're sufficiently optimal.
+So something that I really like about this is that it can be viewed as unrolling TD.
+So this is one way to view TD where you've got some value function coming in,
+you add a reward to it, and you produce a new value function.
+And this feeds back into itself.
+So this can be seen as the value function is trying to satisfy itself
+with respect to this reward signal coming in.
+And finite horizon TD would look like this, where there's no more loops in it.
+Like the same reward is being added at each step,
+but each value function is trying to satisfy itself with respect to the previous value function.
+And if you follow this chain of dependencies, it's unidirectional
+and it eventually reaches the zeroth horizon,
+which is always zeros, it's known from the start, it's not learned,
+so you get this one for free.
+And so because everything is grounded into zeroth horizon,
+it has this intuitive stability to it where it just has to work.
+And to further explain this, like the first horizon is effectively learning the immediate reward,
+which is a stable Monte Carlo target.
+And so this will eventually converge if you have a fixed policy,
+and then the second horizon will have a stable target and eventually converge,
+then the third horizon will have a stable target and so forth.
+So this appears generally compatible even with nonlinear function approximation
+in the prediction setting as long as you have a fixed policy.
+And this can also be viewed as maybe a way to bootstrap that avoids the deadly triad,
+because this seems generally compatible with function approximation and off-policy learning.
+So because I mentioned the deadly triad, I have to show you Barrett's counter example.
+I'm not going to really talk about how this environment works,
+but it has linear function approximation and it's off-policy.
+And it used a discount rate of 0.99, so I tried predicting up to a horizon of 100,
+which loosely relates to that discount rate.
+And I specified every horizon's weight vector to be this weight vector here,
+which is what was used in the book when it was talking about this divergence issue.
+And so I first tried finite horizon dynamic programming.
+I did synchronous updating where I swept over every state and horizon
+and performed all the updates synchronously.
+And then I tried an iterative deepening scheme where I would do some number of updates
+for one horizon, then move on to the next horizon, do the same number of updates,
+trying to simulate what happens if you kept specifying new horizons.
+And then I also ran one-step finite horizon TD with important sounding
+to see what happens in an online model-free setting without these expected updates.
+And important sounding usually makes things have higher variance and even more unstable.
+So synchronous dynamic programming ended up looking like this,
+which is very concerning given everything that I've said so far.
+But if you let it run for a few more sweeps, it just eventually converges.
+And if you run finite horizon TD, it also eventually converges.
+And this is averaged over a thousand runs, so it's very consistently converging.
+There are error bars on there if you look closely enough.
+But the reason it looks like that at the start is because I initialized
+every weight vector to be exactly the same.
+So if one horizon's bootstrapping off the other value function,
+they have the exact same weight vector, so it looks like it's bootstrapping off of itself.
+But the first horizon is not bootstrapping, so that will eventually converge
+and then they'll eventually cascade down to the hundredth horizon
+where that will eventually converge.
+And if you do iterative deepening where you slowly increase the horizon you're updating,
+it converges immediately.
+And so this is performing the same number of updates as the synchronous updating,
+but it organizes the updates in a more clever way that lets it learn a lot quicker.
+So maybe there's something here, but I didn't really look too far into it.
+So something that I've been ignoring, there's this elephant in the room
+that this is not independent of span.
+You have to learn H value functions.
+And the computation scales linearly with the final horizon H.
+But what about if you're to do finite horizon Monte Carlo?
+So this would have to store and sum the last H rewards.
+But if you only care about the final horizon and you don't care about everything that leads to it,
+you only have to update one value function because you have all the information
+you need to update the horizon of H.
+So under this idea where you can skip over learning value functions,
+we can look at n-step TD.
+So one step TD looks like this where you take one action,
+you see one reward and then you bootstrap after that.
+And then two step TD takes two actions, receives two rewards and then bootstraps.
+And three step TD looks similar.
+And something to notice that all these value functions are the exact same value function.
+So because this thing is trying to estimate the thing up until the very end or something to infinity,
+so they're all using the same value estimate or the same value function estimate.
+But if we look at this in the finite horizon setting,
+so one step finite horizon looks like this where you take one action,
+you receive one reward and you bootstrap off of the previous horizon.
+Now if you do two step finite horizon TD,
+you receive two rewards and then you bootstrap off of the horizon
+that's two steps before your current horizon.
+And similarly, three step finite horizon TD will bootstrap off of the horizon
+that's three steps before the current horizon.
+And the punchline of this is that you can skip over learning value functions.
+So you only have to learn H over n of them.
+And looking at this closely, you have to add up n rewards
+and update H over n value functions so the computation ends up scaling with
+n minus one plus H over n.
+N is the n and n step.
+How many rewards you're including into your estimate?
+And H is the final horizon that you care about.
+So this has the worst case of H operations at n equals one and n equals H,
+which happened to correspond to the two extremes of one step in Monte Carlo.
+So if you do anything in between them, you'll save computation.
+And it has the best case of at n equals square root of H,
+which ends up scaling sublinear in span.
+It scales with the square root of the horizon you care about.
+And to give some example of this, if you use 10 step finite horizon TD
+to predict v100, you can store in some of the last 10 rewards
+and then you only have to update 10 value functions.
+So that's on the order of maybe 20 operations.
+So the estimate for v10 would be the sum of the rewards plus zero.
+The estimate for v20 would be the sum of the rewards plus v10.
+And you can follow this up until you reach v100.
+And so you can improve the computation with this.
+And I think that the square root of H is pretty reasonable
+because if you're predicting like 256 steps into the future,
+it's on the order of maybe 16 operations.
+So this is all in the prediction setting so far.
+So now I'm going to see what happens in control.
+So it's trivial to extend all of these previous ideas
+to learning action values in a prediction setting.
+But it's less trivial when you have policy improvement involved
+and you're trying to do control.
+Because there's this nuance where each horizon has to be greedy with respect to themselves.
+Like the best thing to do in eight steps is one reward
+plus the best thing to do seven steps from that point onwards.
+You need to know the best thing to do for each horizon you care about.
+And because of this, the greedy action for one horizon
+can be different from the greedy action of another horizon.
+So it's inherently off policy.
+So I had mixed feelings when I saw this
+because it was interesting that off-pulsingness just naturally emerged from this.
+But I was sad because off-pulsingness just naturally emerged from this.
+So normally we treat it as two separate cases where we work out the on-policy case
+and we say it has nice guarantees and here's the off-pulsing case that's not as good.
+So yeah.
+And also because you have to know the greedy action of every horizon,
+it might not be possible to get the savings from end-set methods without approximations.
+Because you need to know what the best thing to do is at each step
+and if you're skipping over value functions, you don't have the greedy action anymore.
+You don't have those action values to base your decisions off of.
+But on the other hand, because of the unidirectional dependencies of these value functions,
+the optimal policy of one horizon is unaffected by the policy improvement of later horizons.
+So if you know the best thing to do in two steps, that's never going to change
+even if you learn what the best thing to do is in four steps.
+So in addition to leveraging previously learned values and prediction,
+you can leverage previously learned policies and control.
+And so one step, finite horizon Q-learning looks pretty much how you'd expect it to look
+here. It looks like Q-learning, but you're doing H-value functions
+and you're bootstrapping off of the horizon before the one that you're trying to update.
+And so, yeah, again, the values of the zeroth horizon are always zero.
+So I try this in a tabular environment.
+I call it the slippery maze, and that's because for every action you take,
+there's a 75% chance that your action will just get overridden
+and it'll just take a random action instead, and the agent is unaware of this.
+So it's a really stochastic environment and you receive a reward of minus one at each step.
+So I compared finite horizon Q-learning to discounted Q-learning,
+where they were both epsilon greedy, but finite horizon was epsilon greedy
+with respect to the final horizon it learned.
+And I tried those horizons and I tried to choose the discount rates
+to be comparable to those finite horizons that I used there.
+And the main hypothesis here is that because the environment is so stochastic,
+even in a tabular setting with constant step sizes,
+it might not be worth trying to predict so far into the future
+because so many things could have happened and it'll just be noise after a certain point,
+especially with the constant step size where you're only approximating things.
+And so the results look like this, where if we look at the finite horizon side,
+if the horizon's too short, it doesn't do very well because it can't even see the goal,
+but if it only predicts 16 steps into the future, it ends up doing better
+than if it were to predict farther than that.
+And if we look at the discounted setting, it seems that even though these were chosen
+similar to these finite horizons, it doesn't really have a tight connection to it
+because even though in a random walk, these have the same expected length
+as those finite horizons, it's still including about 30% of its mass beyond that horizon.
+And so all of them perform relatively similar compared to the discrepancies we see
+in the finite horizon setting.
+But it's further suggests that a shorter horizon might be better in some problems,
+even in a tabular setting.
+And so this is a very simple problem where a finite horizon thing might look good in control
+and there might be a benefit to using these shorter horizons or shorter predictions
+beyond the objective you're trying to measure.
+But I try this in a deep setting where I did deep multi-step finite horizon Q-learning
+where the way I handled the multi-step thing was to treat all of the rewards on policy
+and then just bootstrap off of the off-policy thing with the Q values.
+So I used n equals 5 and predicted up to a horizon of 100 and I used the lunar lander environment.
+This is fully connected with one hidden layer and all the horizons were treated as heads
+over this shared representation.
+So it wasn't that much more computationally expensive than regular DQN
+because there are just additional rows in some matrix.
+And the results look like this.
+And something I want to emphasize is that I didn't compare this to any other algorithm.
+I'm just showing one curve here.
+And it's because this experiment was run under certain conditions
+and under those conditions, DQN just doesn't work.
+And so the first one was that this didn't use any momentum, this was just vanilla SGD.
+The second one was that there was no target network in this
+and that's something that I intuitively would have expected
+because the bootstrapping targets are decoupled in time.
+But the real kicker that I don't understand why this is happening
+and it's really bothering me, but there's no experience replay here.
+So everything just worked and it was monotonically improving.
+It was pretty stable and I talked to Harm about this
+and he suggested that maybe the problem was too simple and to try it in Atari.
+And right now I'm running it on breakout and it's only a million frames in
+but it seems to be steadily improving and it still doesn't have experience replay in it.
+And yeah, I was expecting this to be a problem because this is a fully connected network.
+It's all sharing the same representation.
+It's all doing backprop through the same representation, but for some reason it's working.
+And it will probably improve if we do add these things.
+So that's an added bonus.
+So to quickly summarize, there might be used to only considering a shorter finite horizon
+because you have stable update targets.
+You can get an exact notion of what happens and when.
+It's a clear example of compositional GVFs and there are a lot of empirical benefits to it.
+So it's no longer independent of span, but you can reduce computation prediction with multi-step methods.
+And yeah, so this thing, like it's interesting because it can be applied at a fundamental level.
+It is well understood.
+It makes sense even in a tabular setting and it seems to scale well to nonlinear cases.
+And so this seems to like it's opening this whole new world with new horizons to pursue
+and perhaps there are better ways to handle the unavoidable off-policiness of finite horizon control
+or maybe there are better approximations for reducing computation.
+For example, if you had two-step actions or two-step options,
+that would already have the number of horizons you have to learn.
+And because you can subtract subsequent horizons to extract expected individual rewards,
+maybe you can learn and plan with some automatically unrolled model in time.
+Because learning a finite horizon return is kind of like automatically iterating a model,
+but instead of iterating a one-step model ten steps,
+it's adding a reward at every step of that process.
+So it might be a bit more stable than iterating a model blindly.
+And maybe there's an online way to do that iterative deepening thing.
+Look promising in Bayard's Catter example.
+Maybe it could be done online in a clever way.
+So one way to do this is maybe each horizon can have its own step size
+and use some adaptive step size method like tidbit.
+And yeah, let's see what I had.
+Oh, okay.
+I didn't think I went that fast.
+But like, what about TD Lambda?
+Like I showed that like n-step methods were useful,
+but it turns out that with TD Lambda,
+you get these truncated traces that travel through horizons.
+So on the left is what it normally looks like where you have some state space
+and you have this decaying trace that's going through the states.
+But in the finite horizon setting, it looks like this,
+where the traces are traveling through state and time.
+And the problem with this is that like,
+because it's a mixture of every n-step return,
+you need to learn all h-value functions again.
+So you can't really get the savings here.
+And I think instead it scales with h-squared,
+so it ends up being worse than if you were to do a one-step method.
+But in addition to these computational savings of n-step,
+you also have this bias variance trade-off
+that you normally have in n-step TD
+and here are some results in some grid world
+that show that it does what you expect it to do.
+So after 20 episodes, one-step is really slow because it's really biased
+and there's some intermediate n that works really well.
+And if you look after 200 episodes,
+one-step eventually wins because this is a tabular representation
+and it has lower variance.
+And this is a video of it doing something sensible after a million frames
+and it's still continuing to improve.
+Yeah?
+Those are my extra slides.
+Yeah, Martha?
+What if the reward is beyond the horizon you estimated?
+Then I'd imagine you just can't see it.
+But if you look at that maze world that I used,
+it received a reward of minus one at each step.
+So I first thought that that would be a counter-example to this
+because everything that happens in 10 steps
+might always be minus 10, so it doesn't know what to do.
+But maybe just with a combination of like
+gratification and online learning,
+it kept favoring that one path
+and then it just eventually still worked.
+But I don't know why it was supposed to work.
+Yeah?
+Sorry if I missed this.
+What is the parameter sensitivity
+depending on the probability of the horizon?
+I don't know.
+Is that a problem?
+This one?
+Yeah.
+So in this case, the horizon was just way too short.
+Because this is the mean episode length,
+so it's maybe taking hundreds of steps
+and it's only predicting eight steps into the future.
+I see.
+So one of the things that's going on here is the cascade.
+Cascades is where you have one thing to be learned
+independently and then one thing is to be learned on top of that.
+The short lines that are added are independent of the higher lines.
+So I wonder if you can take just that idea
+and separate it from the finite horizon idea.
+If you could have a cascade where you're learning a fast gamma
+and then also learn a longer gamma
+where it builds on the first line.
+So when you do the cascade without the finite horizon,
+that's the TD delta?
+I saw some policy gradient methods
+that did finite horizon Monte Carlo
+and it seemed like there was a benefit to using it.
+Was it in that TD or not TD paper?
+Yeah.
+So if we walk around and see what comes here
+and what is the real horizon,
+then that would be like 3-4 in the same thing.
+But then it seemed like we had a weekend,
+well, in a whole bunch of Atari games,
+and so we had one particular
+entrepreneur who was UK in our case.
+He's also sort of controls the absolute amount of control over the horizon
+and what we found here is that
+at least with Atari games, the horizon doesn't need to be that long.
+At least the values here, I think, what's the longest line?
+Well, in breakout I'm doing 256 now.
+So that already seemed like a pretty long horizon.
+We used a horizon, not a hard one,
+but a soft one for that horizon of a hundred.
+And that, across all the games, seemed to work already pretty well.
+So I'm very curious to see what the result of that would be
+at Atari, and especially, you know,
+we don't need to increase that much.
+It's pretty easy.
+Yeah.
+The natural mindset for Atari.
+Okay.
+You mentioned that you had some off-policy,
+and then you'd be happier.
+Uh-huh.
+Okay.
+Well, it was interesting that I wasn't really thinking of off-policy yet
+and was just thinking about, I guess, control in general,
+what the optimal objective is.
+And because every horizon had to be greedy with respect to themselves,
+it just naturally became off-policy,
+because the best thing to do in one step isn't the same thing
+as the best thing to do in ten steps, necessarily.
+And, yeah.
+I thought that was really cool,
+but at the same time I didn't want to deal with it.
+But, yeah.
+But I have to.
+Is that the lunar lander environment plus sparse is a reward in that one?
+Not very sparse, but...
+Something that I noticed,
+I initially ran it with the horizon of 50,
+which ended up being too short for lunar lander,
+and that made it filter out certain rewards.
+Because there's this cost of using fuel,
+but there's a worse cost if it crashes.
+So, when I was just viewing the returns, it looked really bad.
+It looked like it wasn't learning at all.
+But when I actually rendered it and started watching it,
+it was actually learning to fly really reliably.
+It was really stable and was just floating in the air
+or descending really slowly.
+Because in terms of the next 50 steps,
+the cost of fuel looks the same in every direction,
+but it's not crashing in 50 steps.
+But eventually, after I think it was like 3,000 episodes,
+just from exploration,
+I figured out how to get to the bottom in 50 steps,
+and then it eventually reached that performance.
+Patrick, can I see you back there?
+I have a question,
+but I'd like to know if you can share anything with us.
+How about Martha?
+Yeah, but you know, I think in my childhood,
+before I was a really great father,
+I needed to go back to school,
+to be a good mother,
+and to be a good mother.
+Okay, thank you very much.
+That was a great talk.

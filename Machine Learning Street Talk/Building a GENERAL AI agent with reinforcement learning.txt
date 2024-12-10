@@ -1,0 +1,1492 @@
+open-endedness is essentially, you know, we're studying systems that can generate their own data
+in an infinite capacity. And so it's systems that essentially if you run it for longer and longer,
+they get more and more complex. They generate more and more quote-unquote interestingness or
+interesting data. And so if we can actually, you know, crack this nut of how do we actually come up
+with a self-improving system in the sense that it keeps generating interesting data, we can then use
+that data to train, further train our models. But of course, you get into this perpetual data
+machine type of idea where obviously, you know, there's how do you generate more data if, you
+know, the data is ultimately coming from a model that you probably trained on previous data. How
+do you get net new information from that? Well, I think a lot of this is actually just resolved
+purely again, going back to this idea of the reward function, right, or a preference function,
+where there is outside information coming in through some sort of filtering criteria.
+For example, human designers in the loop or designers designing some sort of preference
+model that could essentially automatically rate the kinds of automatic data that's being generated
+by these open-ended systems. What does Waker stand for? Right. So Waker stands for weighted
+acquisition of knowledge across environments for robustness. Fantastic. And what was the title of
+the paper? Oh, right. Yeah. Reward-free curricula. Oh, God, what was the title? Reward-free curricula
+for training robust world models, that was it. Okay. So give us the elevator pitch.
+Yeah, totally. So basically like the overarching question that we're trying to answer with this
+paper is like, how should we go about training like very general agents? So in the context of
+the paper, we think of a general agent as being one that's able to perform a lot of different
+tasks. So we might think of these as different reward functions or for thinking of it from a
+reinforcement learning perspective, but also be able to perform those tasks in lots of different
+environments. So, you know, we don't want a robot to just be able to do, you know, pick up tasks,
+do tasks in my like my kitchen, specifically, we want the robot to be able to go into like arbitrary
+apartments and also be able to do those tasks in like arbitrary environments.
+And so we kind of thought about like, yeah, how do we want to create an agent that can do such a
+thing? And we argue in the paper that a good way of doing it would be to have an agent that has a
+very general world model. So a world model meaning that it can predict the outcome of sequences of
+actions and predict what will happen if it does certain actions. And so we argue if we have a very
+general world model that can lead to a very general agent that's able to perform, you know,
+a variety of tasks in different environments. And so then, you know, once we've established that,
+we kind of ask the question of how do we get a very general world model? And what does it mean
+to have a good world model that works well in a very general setting across different
+environments and different tasks? Like how do we define that? And how should we gather data to do that?
+Beautiful. So I really enjoyed reading the paper. And it reminded me a lot of Kenneth
+Stanley's poet paper. So he was doing this thing called curriculum learning. And it's really related
+to machine teaching as well. There's quite a few things in machine learning where you say, well,
+if we had a really principled way of selecting the best training data and presenting it to the
+learner in the best possible order, could the learner be better? And in that poet paper, Stanley
+was kind of generating a diverse set of environments and like training a learner on those things.
+And you're doing something very similar. And you're using this mini max regret, which is a
+concept from decision theory. Can you bring that in? Yeah, absolutely. So, so I guess we have this
+notion of like wanting to be to perform well across a wide range of scenarios, right? So scenarios
+in our context mean like different environments and different tasks. And kind of like the most
+standard way of thinking about that, especially in reinforcement learning or machine learning in
+general, as you think about like the average performance. So, so how do I optimize like the
+expected reward across all of these different scenarios? And a lot of the work that Minchi's
+done as well kind of argues that just just optimizing for expectation isn't necessarily
+the best, the best objective. So, you know, we can imagine in the real world, we don't really know
+like the distribution over possible tasks or anything will, you know, in most situations,
+we don't know things like that. And so maybe a better objective is to try and be robust instead.
+And robust, basically, we can think of that as meaning like we should do reasonably well in
+every situation we could be in. And that's kind of what a robust objective is. And one of the
+ways that you can define a robust objective is via minimax regret. And so regret means like
+suboptimality, like how well did I do relative to the best I could have possibly done. So that
+means basically the same thing as it does in normal English. And so the minimax regret
+objective basically says across all possible situations, I want to try and do minimize the
+regret across all possible situations, minimize the maximum regret, I should say. So that means
+in all possible situations, we should do almost as well as the best we could have possibly done.
+And I guess just to contrast this against the standard objective for robustness or the more
+common objective for robustness, at least traditionally, is like maximum performance.
+That means maximize the performance, while the environments like minimizing and choosing the
+most adversarial environment or the most adversarial scenario. But the problem with kind of the maximum
+objective is that in some environments, you just can't do anything, let's say, like some such
+situations as too hard, you're doomed. And so if in some situations, you're doomed and you always
+get like zero reward or negative infinity reward, that means there's no incentive to try and do
+better in any other environment because your maximum reward is always going to be zero.
+And so therefore, I think like Minci argues as well as Michael Dennis and a lot of these recent
+papers argue that minimax regret, so minimizing the maximum suboptimality is actually like a
+better objective for a general agent that's robust.
+Fascinating. So if I understand correctly, is it a way of saying I want to have the best case
+worst expected regret?
+Yes. So basically, minimax regret is saying that if you assume that, you know, the environment is
+adversarial to you in some way, like when you're training or at inference time, when you're actually
+testing your policy out in the real world, minimax regret is saying the agent should behave,
+the model should behave in a way that minimizes its worst case possible regret over all the possible
+conditions of the world that this adversary could choose.
+What's really interesting about this paper is we are talking about the reward-free
+exploration phase. And we're also talking about the domain of model-based reinforcement learning,
+as opposed to, you know, let's say value-based reinforcement learning, where you get this
+entanglement, right? So the dynamics, the model of the world, it's still in there,
+but it's kind of enmeshed with this value model. Whereas in model-based reinforcement learning,
+in a principal way, we kind of separate out the parts so that we can do explicit planning and
+imagination and simulations and stuff like that. So we're very much in this model-based domain,
+right? Yeah, absolutely. So we focused on model-based reinforcement learning, or
+some people like to call this the world model setting more recently. But yeah, like you said,
+in typical model-free reinforcement learning, we typically aim to learn a policy and a value
+function. And yeah, as you said, that value function is kind of implicitly encoding the
+dynamics through the fact that we learn the value function using the Bellman equation.
+So the Bellman equation kind of propagates the information between transition and the
+environments through the value function. So the value function will implicitly have the dynamics
+in it. But in model-based reinforcement learning, we want to very explicitly model the dynamics of
+the environment. And so what I mean by that is we want to be able to take some previous sequence
+of observations, perhaps those are images, and then also condition on the next action we want to
+take in the environment, and then be able to predict the distribution over the next observation
+or state. So we're very explicitly modeling the dynamics of the environment. Okay, now this is
+really interesting because people think about reinforcement learning. And in reinforcement
+learning, you don't so much care about having a model of the world. You care about building
+trajectories that lead to some, you know, task or goal or whatever that you're interested in.
+So like, I mean, just in broader terms, what do we get from explicitly modeling the world?
+So there are a few arguments for why we would want to explicitly model the environment. So one of
+it is a lot of people would argue that you get better sample efficiency by modeling the environment.
+And the argument for this is, you know, the reward function might be quite sparse.
+And so if you're just relying on, like, the propagation of rewards backwards to try and
+learn the optimal behavior, that might not be as efficient as actually learning the dynamics,
+because the dynamics can be learned from every single transition that you have. It's kind of
+like a standard supervised or unsupervised learning problem. So you kind of have, like,
+a richer signal to learn from, which might arguably lead to better sample efficiency.
+But I think, like, the more concrete arguments that I would argue for are that if you have a
+model of the environment, it's some kind of more general thing that you can then use to develop
+better decision-making later on. So if you just learn a value function,
+you're kind of only learning how to optimally do that specific reward function or optimize that
+specific reward function. But if we have a model of the environment, we can kind of arbitrarily
+be given some task later down, whether it be a reward function or a goal state or something
+like that. And we can then plan to optimize that task later down the road. So I would think that,
+you know, it's kind of a much more general way of having a powerful decision-making agent
+rather than just specifying, like, one task and learning the optimal kind of policy for one task.
+And I guess another thing that I'll add to that is rather than only learning, like,
+a feed-forward policy, like, you wouldn't reinforcement learning. So something that
+maps directly to actions. The other thing that a world model allows you to do is also to do
+online planning. So you can imagine, at test time, we're trying to deploy it in the environment,
+we can actually do a bit more further planning through the world model to then work out what
+the best action is, rather than relying on just a neural network to immediately output an action.
+And there's kind of a lot of work showing that if you can do this, like, planning at test time,
+you can kind of get a lot of better performance on a lot of environments, especially things that
+really rely on search to do well, things like go and like these kind of games where you do have to
+think explicitly ahead in the environment. And so I would think those are the main reasons you
+would want to consider learning a world model. And maybe a last point I'll just add is that I think
+this is kind of a, again, like, unclear whether this is true necessarily. But I think some people
+would argue that a world model will generalize better than learning a value function. So you
+can imagine like a world model is learning things like, you know, state transitions. So you can
+imagine if you're training on straight transitions, the model is kind of implicitly being forced to
+learn something like physics or something like that. And so if you're like very explicitly
+forcing the model to learn something like physics, you could argue, you know, we'll go to some new
+state and the rules of physics will still hold and therefore the world model will still be
+quite good at the new state potentially. Whereas if you learn a value function,
+I guess it's a little bit less clear as to whether you're put in a new situation will the same kind
+of structure of that value hold as it would a model. Anyway, sorry, that was a bit of a long
+answer. But no, no, it's fascinating. I mean, when I was reading the paper, one of the reads I got
+is in machine learning, we are often overcoming the curse of sparsity. So of course, like in
+trajectories and reinforcement learning that that's quite intuitive. But even in learning the world
+model itself, the model, just because of the way they're trained, it tends to compress the world
+into small little motifs. And actually, the world is quite complicated. And we need to combine
+the motifs together in lots of interesting and rich ways. And by exploring through the world
+model, we're almost kind of like make it, we're forcing it to make those connections.
+Yeah. And I think, you know, to follow up on Mark's, Mark's point, I think it's also interesting,
+because especially in the Waker paper, the world model setting, we're looking at specifically
+reward free world models. And so essentially, there's this explicit decision to separate
+out the two components of world model, which is essentially the dynamics function, which tells
+you how things transition from state to state, how does a state transition state of the world
+transition to the next state of the world, given an action that the model or the agent is taking
+in that world, and the reward that it receives. So the slider part, the reward is defined by the
+reward function. And so, you know, I think Mark was to follow up on his point, a lot of the benefits
+of the world model is in this design arrangement is that you can compositionally separate out
+this dynamics aspect from the reward aspect. So the general idea would be, why shouldn't
+agent train in such a world model be able to generalize to a new setting? Well, maybe if that
+setting shares a lot of the underlying dynamics in that version of the world, for example, rules
+of physics, and the agent has learned how to exploit those to accomplish navigation around
+that environment or reach different types of tasks, achieve different kinds of tasks in that
+environment, then you can sort of superimpose a different reward function that essentially
+defines a different task, because the reward function defines what task success is. So you
+can essentially superimpose different tasks on top of that dynamics model. And you would,
+you know, you could expect that the agent could learn more quickly, because it's already mastered
+sort of the foundational skills of navigating or manipulating different aspects of the dynamics
+of that world. We've been on a bit of a journey here, I think over the last few years in the
+literature of we want to have robust models, and we're doing that by kind of perturbing and,
+you know, making a bunch of manipulations to the environment. And there was this
+domain randomization, and there's like unsupervised environment design. And of course,
+your iteration now is doing this in the domain of reward free exploration. But can you take us on
+that journey sort of maybe starting with domain randomization? Kind of just to elaborate on
+something that Mark was previously talking about, which is that the typical, you know,
+standard setup in machine learning is to essentially optimize a model's performance
+over a uniform distribution over the data points. And so this is really just randomly
+sampling data points, and we try to minimize the loss over those data points for whatever
+objective we're trying to minimize or maximize. In reinforcement learning, we want to train agents
+that can perform well in lots of different versions of the environment. And so you can think
+of each environment almost as a bundle of data points, right? It's kind of the set of trajectories
+that the agent can encounter within that version of the world. And we essentially, in reinforcement
+learning, we want to learn to maximize the reward of the agent in that set of trajectories. So we
+want to specifically start to actively pursue those trajectories that give us the highest reward.
+And we learn from the reward signal as the feedback signal for figuring out, you know,
+which actions and therefore which trajectories will lead to maximizing that reward. And so typically
+when we operate in the multitask setting, we essentially randomly sample different versions
+of the environment and essentially have the agent try to maximize its performance, its reward,
+on that random sample of environments, uniformly sampled from, you know, the set of possible
+environments. And this is essentially causing the agent, it'll cause the agent to learn a policy
+that's optimal for essentially uniform distribution over those environments. But of course, this is
+kind of a naive assumption because we essentially are assuming that every possible version of the
+environment is equally likely, which is obviously not true because some versions of the world will
+not be as likely as others. For example, like if you walk outside, the sky is usually blue and not
+green. And so, you know, when the sky is orange, maybe that happens if you're in California and
+there's a wildfire, but that's not usually the case. And so instead, what we can do is we can turn
+to decision theory and think of sort of more sensible approaches to what it means to act
+optimally when you're uncertain about what state of the world the world will be in. And so the
+thing that we focus on in this paper is this idea of minimax regret, where it is this idea again of
+having the agent act in a way that essentially minimizes its worst case regret
+in any possible state of the world. So largely, you know, this is a shift from randomly sample,
+what it means in practice is you want to shift from randomly sampling environments during training
+to essentially sampling environments that maximize the agent's regret. And what this means is you're
+now actively sampling for those environment settings where the agent's experiencing the most
+regret. And here regret is defined just simply as what does the optimal agent do in that version
+of the environment? And what did this current agent that's learning do in that environment? And so
+there's this gap in performance. And you want to actively find those environments where that gap is
+maximal. And if you view this as this adversarial game now between, you know, an adversary like
+nature that's choosing the environment and the agent that's learning to solve the environment,
+you can think of the adversary as, you know, having a payoff function in that game or it's
+rewarded for the, based on the regret that the agent experiences, and the agent is trying to
+shrink that regret. So the agent you can think of as being rewarded for, you know, the negative of
+that reward. So the agent's reward signal is you can think of as the negative of the regret.
+And so now you have the setting where you can essentially view this training process,
+this active sampling process as a two player zero sum game where the adversary is, you know,
+rewarded for the regret of the agent in each environment it chooses. And the agent is rewarded
+based on the, the agent receives the negative regret as its payoff. And so we know that in two
+player zero sum games, there's always this, there's always a solution called a Nash equilibrium.
+And so this is an idea in game theory where basically this is a choice of behaviors on both
+parties or a choice of strategies on both parties in the game, such that no player can do better
+unless the other player changes their strategy. And so you can think of this as a situation where,
+you know, I'm not, neither player is incentivized to deviate from their behavior once they reach
+this choice of mutual strategies. And so we know that all two player zero sum games have a Nash
+equilibrium set of strategies between the two players. And in this case, we know there's
+additional theorem called the mini max theorem, which says that when in a two player zero sum
+game, specifically two players and zero sum, when you are at the Nash equilibrium setting,
+then each player must be playing what's called the mini max, the mini max strategy,
+which means that each player is minimizing the maximum, minimizing the maximum reward
+for the other player. And so here, the reward again is the regret. And therefore, just based on
+this known, you know, theorem about two players zero sum games, we know that the agent, which is,
+you know, receiving the payoff of negative regret, it's the min player, it must be implementing
+the min and max regret strategy. And so this is how we essentially can shape the training process
+to essentially arrive at an agent that performs mini max regret decision making,
+rather than decision making that optimizes just a uniform sample of environments.
+Okay, so can I play back some of those things as I understand it? So essentially, we are,
+we're building a model, which will learn to select the environments where we perform badly on.
+And then we fine tune on those environments, because we're leaning into the gaps, we're saying,
+where do I perform badly? Let's fine tune on that. And then you're saying that if we continue to do
+this as a kind of adversarial sampling game, that we will reach a Nash equilibrium, so it will
+converge in a good place. But help me understand that why would it, you know, it seems to me
+intuitively that it might be unstable or it might not quite, why does it converge?
+So there's no guarantees around convergence. And so I think this is an area where there's
+a lot of room for innovation around these methods. A lot of this is, this is more, I would say,
+like theoretical motivation around why we think actively sampling environment settings based on
+estimates of regret is a good idea. And another point related to that around sort of this gap
+between the theory I just explained and in practice is that regret itself is a pretty hard
+quantity to actually measure in practice. Because, you know, knowing regrets defined as what's
+optimal performance minus my agent's performance. So you kind of have to know what optimal
+performance is. And in general, you don't know the optimal behavior. Therefore, you don't really
+know the optimal performance on any environment unless it's like a very toy setting. And so
+in practice, we also use approximations for the regret in order to do this kind of active sampling.
+And so there's a lot of deviations between theory and practice. So there's no guarantees,
+you know, that different forms of gradient based optimization for RL training would actually lead
+to converging to Nash equilibria. A lot of the theory is just stating that if you were to run
+the system, the learning system for a long time, if we make the assumption that the optimization
+algorithm is fairly good at producing, you know, an improved response to the other player in this
+type of zero sum game, you if you're assuming that if the successive sort of series of best responses
+that the optimization algorithm is generating continues to improve over the previous ones,
+you could make the assumption that maybe eventually it does get to that equilibrium. But
+there is no mathematical guarantee that this actually happens.
+What we want to do is, you know, build this latent dynamics, you know, predictive model,
+which is a simulacrum of what the idealized version is. But we don't have a way of directly
+computing the regret. So we kind of perform, you know, we learn a proxy for that regret. How does
+that work? So we think of regret in the following way. So there's kind of this old school result
+from like MDP theory, or maybe it's not that old, but like 20 years ago or something like that,
+called the simulation lemma. And that basically says that, you know, if we let's assume for now
+that we have like an optimal planner, so we can give our like model of the world to this optimal
+planner, and some reward function, let's say later down the road, we get given some reward
+function. And so we give the model and the reward function to our optimal planner, and we assume
+that this planner can return the optimal policy in our model. So we kind of have this, you know,
+planning oracle. And if we assume that we can do that, then we can think about the difference
+between like how good the policy would be from our planning oracle in the model versus the truly
+optimal policy in the real world. And so what the simulation lemma tells us is that, you know,
+the difference between these two policies, so the one found by acting optimally in the model versus
+the truly optimal one, is bounded essentially by the error between the model and the real world
+under the distribution of states that the policy would generate. So, you know,
+it only matters that we have low error where the policy would go essentially, because, you know,
+if there are some states that are just completely irrelevant to what the policy is going to do,
+it's not really going to matter if the model's not accurate in there. So we kind of use this
+result to think about the regret. So that gives us like, you know, if we have like one true MDP
+and one model of an MDP and one reward function, the simulation lemma can tell us, you know,
+what would kind of be the regret if we did this optimal planning within this one model of the
+of the MDP. But then in our work, we're not really interested in the setting of like one MDP,
+one reward function. So we start to think about, you know, what happens if we have arbitrarily
+many environments, as well as arbitrarily many reward functions, which we don't know in advance.
+And then I guess the other thing that I should say, like you alluded to like latent dynamics is,
+you know, these existing results are assuming that we have an MDP that's fully observable,
+meaning you know exactly what the state of the environment is. But usually when we think about
+like world models, or even or just maybe more modern reinforcement learning, we're really interested
+in learning from like quite high dimensional signals. So images or maybe probably images,
+but maybe there are the high dimensional signals we want to reason about. And because we're just
+using image observations, this means that the world is like partially observable, like we can't
+infer everything we need to know about the world just from one image, you know, for basically any
+physical task, like the velocity of objects is important, but you can't infer that just from
+one image. So in this partially observable environment, we really want to take a sequence
+of observations, because we need to use those sequence of observations to infer what the state
+is. So you know, viewing a sequence of images will help me to infer what the velocities are,
+for example. And so we can think of this as inferring like a belief, a belief over what the
+state is in a partially observable MDP. And so we need this full sequence of images, and we need
+to use the full sequence of images to then to be able to predict ahead what the next observation
+will be. And that's kind of what, you know, most world models are attempting to do. But if we just
+like take in a bunch of images and then try and directly predict images again, that's like quite
+a hard problem to just like just predict straight an image space. And so the most common thing to do
+is kind of to take your previous sequence of images, and then try and get like some compressed
+representation of the history of images into like the latent state, and then predict the dynamics in
+the latent state. So yeah, so I have my sequence of images, I kind of compress these somehow into
+some vector. And then I give it a new new action, and I try and predict what the next kind of latent
+vector will be given this new action. And this now represents my prediction of the dynamics in the
+world. And then if I want to, you know, predict what the next observation would be an image space,
+then I can also decode that back to an image. But then a lot of works also argue that maybe we
+don't want to actually learn to predict the entire image. So maybe you don't want to actually
+decode the entire image. But that's, that's another aspect that we might want to get into. But
+there's this whole broad story of working in the latent space. And in reinforcement learning,
+there was that paper called World Models by David Haran and Schmidhuber. And it also, I think,
+has a relationship with, you know, what Lacoon's doing with JAPA and these like, you know, joint
+embedding prediction architecture. So it seems to be something magical about working in the latent
+space. And also you were talking about, you know, partially observable Markov decision processors.
+And, you know, that seems to be this idea that we need to have a modeling framework for the world.
+And I guess like the ideal situation would be is that we just, we knew exactly what would happen,
+you know, every single time step in every single state. But we don't, you know, so we model it as
+a partially observable Markov decision process. And the Markov bit is quite interesting as well.
+I mean, maybe you guys can just sort of introduce, why do we use that as a model?
+So Markovian basically just means you only need to look at like the current state to be able to
+infer all the information about the system. So in a Markov decision process, we have some state,
+and then we assume that we're able to take some actions. And given some state and some action,
+we get some distribution over next states of the system. And then the system will transition
+according to that distribution to the next state. And this is just like kind of a general framework
+for modeling like systems that we might want to control. So, you know, it kind of dates back to
+like early work and control theory. But then it's also the main framework used in reinforcement
+learning. Yeah, and the reinforcement learning setting, because it's the decision process, we
+also add an reward function, which tells us how good it is to be in a certain state or to execute
+a certain state action pair. But yeah, as you said, with relating to like partial observability,
+and a lot of like systems, we don't actually know what the true like state of the world is.
+So, so you can imagine, you know, if we want to think of the entire world as a partially
+observable MDP, we can't just have some vector telling us exactly what the true configuration
+of the world is, or maybe that exists, but we can't we definitely can't just know that. And so
+we usually think of it as being a partially observable system. So this means that like,
+given given the state, you know, at each step, we'll basically get some distribution over
+observations, and we just get to observe that observation. So you know, the state of the world
+could be what it currently is in here. And maybe my observation is like a camera image. So I only
+get some camera image of the world that allows me to infer a bit of information about the state.
+And because it only allows me to infer a bit of information about the state, it doesn't tell me
+the whole state. It really you need to keep track of all of the observations you have to be able
+to keep track of all the information you have about the world. So, you know, you can imagine
+if the task is for me to remember how to get out the door a while ago. You know, I don't just need
+to be able to like look at my current image of the world to be able to infer that information. I
+need to have kept track of like all my previous information as well. So that's kind of why we
+think about often want to think about like partially observable environments as opposed to
+fully observable ones. Amazing, amazing. So I mentioned maybe you can bring in this this
+latent idea and sort of contrast that to what Lacuna is doing as well.
+Sure. I mean, so I think in machine learning and deep learning, there's this general paradigm
+that's been around, you know, since the inception, which is learning latent representations of data.
+And one of the benefits of learning latent representation is that, you know, ideally your
+objective that leads to learning these latent representations is that you are ultimately
+learning a lower dimensional representation of the data or dynamics that you're modeling,
+like in our case with the world model, that captures just what is necessary.
+It's a more compact representation of just the information that's necessary to predict
+the task you're trying to predict. And so with our case or latent space world models,
+a lot of the benefit of working in the latent space is that if as opposed to working in the full
+image space, for example, if your observations are images like in a video game, is that there could
+be a lot of spurious features or, you know, a lot of additional information that you could be
+expending lots of compute and, you know, gradient updates just to learn those patterns when they
+don't actually impact the ultimate transition dynamics or reward dynamics that you need to
+learn in order to do well in that environment. So one example is if you have a game where,
+you know, maybe the background is different because it's daytime or nighttime or it's
+close to sunset. But ultimately, you know, the background doesn't really impact how the player
+moves around in the environment or whether they've reached the end goal of the task. And so
+if you're training a model where it needs to compress a lot of this information first into
+a smaller dimensional latent vector or latent representation, you don't really need, you would
+expect that latent representation not to actually capture. It would start to ignore the background
+color and it might only capture certain features of the environment that can essentially, if you
+were to decode it back out, it might only capture certain information about the environment that's
+predictive of the actual task that you want to solve. So maybe if the task is to, say,
+reach a coin at the end of a level, then maybe the latent representation would capture
+the presence of the coin or whether the proximity of the character you're controlling to the coin.
+And so with the JEPA related work, I think a lot of this is also, you know, motivated with this
+idea where if we can learn a better latent space representation of images or videos or whatever
+modality we're trying to model, it's a much lower dimensional computationally efficient
+representation that you can effectively use for downstream tasks. I'm actually not super familiar
+with exactly, you know, the visual JEPA objective, so I don't think I can say too much about that.
+Oh, that's okay. Yeah, I mean, you pretty much nailed it. So, I mean, Lacun even gives the
+example of like, you know, in self-driving cars, you might not be interested in the leaves on the
+road, you know, so like with increasing levels of nesting, you kind of like learn to ignore the
+things that are not relevant and focus on the things that are relevant. But we're almost
+getting to the center of the bulls eye here. So intelligence to me is all about model building
+and that's what these abstractions are. They're models that kind of are predictive about the
+thing that that's relevant and kind of like ignoring what is not relevant. And we build
+better models when we have a curriculum. I mean, apparently, this happens in nature as well. Max
+Bennett, I was talking to him the other day and he said, you know, our genome doesn't encode all of
+our skills explicitly because it would be too inefficient to do so. But they do encode a kind
+of curriculum. So we teach babies, we babble with babies and we teach babies how to talk and stuff
+like that. So the curricula is really important. And then we're getting to the center of the bulls
+eye, which is intelligence in general. Now, I think Lacun thinks that it's specialized and what
+that means is that there are there are motifs that statistically generalize. And what that means is
+that you do need environments, you need to find motifs that are present in in as many environments
+as possible. And those are the generalizing features. Would you agree with that? Yeah,
+definitely. I think that a lot of so a lot of really powerful machine learning methods, for
+example, are trained in simulation. And when you're training in simulation, there's a concept in
+from control literature called the sim to real gap. And essentially, this is essentially
+quantifying a performance difference between, well, it's quantifying a few things. One is just
+how different is the are the actual physical or other other kinds of dynamics captured by your
+simulator compared to reality. So if you have a physics simulator, how accurate are, for example,
+the friction dynamics or different kinds of contact dynamics in your robotic simulator compared to
+those actual dynamics in the real world with a real robot. And this also leads to a sim to real
+gap in terms of performance. So if you train in the simulator, you know, a lot of times what
+machine learning is really good at is it's really good at learning to exploit whatever system you're
+training the model in. And so it's fairly common for, you know, systems that are models that are
+trained within a simulator to learn to eventually exploit the simulator. And so actually, like
+one big area of games AI is using is actually leveraging this idea where they essentially
+use ML models, they optimize ML models within a certain game environment to try to find bugs
+within that environment to look for exploits automatically. So ML systems are very good at
+finding exploits in whatever system you have. But then the issue is those exploits are usually
+exactly where the gap between your simulator and reality resides. And so you actually don't want
+your model to learn to exploit these differences between the simulator and reality to get a high
+performance, because that kind of defeats the purpose of then later transferring your model
+that's trained in simulation to reality. Because now in reality, obviously the model
+can't exploit those same glitches within the simulator. Because the reason this is really
+interesting is that the premise of your paper is that it is possible to build a generalist
+agent, which means it's an agent that can be fine tuned and work really well on a whole
+bunch of downstream tasks. And to me, that implies that at least in our physical world,
+in any situation, you might use this agent that there are general motifs that it could have learned
+during free training that it could become activated in any situation. Is that fair?
+Yeah, maybe I can say something about just the way that we could think about the different
+latent dynamics objectives. So I think I agree that at least when I try and think about how I
+think or how people think, I think I agree that a truly intelligent system should kind of think
+through the world and a very compressed representation of the world. If I'm trying to think through
+how to go to the airport, I'm definitely not predicting ahead in terms of the raw image
+space of trying to predict every image I might observe on the way to the airport and things
+like this. And so I think we have this trade-off between, like we said with the BGEPA paper,
+should we just try and kind of basically model the minimum information we need about the world
+to try and do the relevant task in the world? And I think what you're saying, I think that
+probably is maybe more what we think about when we think about human intelligence or something
+like that. But then there's also this other way where we just say we're going to just enforce
+the model to be able to predict ahead every single image. And so in our paper, we do actually enforce
+that the model has to predict the next image. And so basically what this might mean is maybe the
+model does, hopefully it does, like you said, kind of capture the underlying true things that
+matter in the environment. But it might also mean like what we were saying with the leaves example,
+like this might force the model to kind of capture a lot of irrelevant details that don't
+really matter, like the leaves on the ground and things like this. And so maybe that means it
+isn't actually capturing the underlying motifs, it's actually just getting good at image generation.
+But then I've, or image prediction, I should say. But then I've also heard arguments kind of saying,
+you know, so what if people don't really think in terms of like image prediction, you know,
+we think in terms of like more like these high-level motifs. But other people would argue that,
+you know, kind of the machine learning machinery is there to do really good image prediction.
+So if we can get a model that can actually just like predict images ahead really well,
+and not really worry so much about whether it's reasoning about these like high-level features,
+you know, if you can predict images ahead really well, you know, that's enough to make,
+to do good decision-making in a lot of contexts. So I think there's this kind of like
+contrasting ways of thinking about, you know, image prediction is good enough, we'll just predict
+like really visually good scenes, and that will be good enough for decision-making. Or do we want
+to force the model to try and reason about like more abstract features of the environment, and
+that's kind of a more intelligent way of reasoning about the world. And yeah, I think that's a very
+interesting trade-off. Yeah, yeah, I mean, like it's like the biggest problem in machine learning
+is overfitting. You know, so as you say, like they're all of these statistically generalizing
+features, but they generalize within the domain. And the domain might be like your simulator,
+or like, you know, how you're training it, rather than how it's being used in production.
+And then as you say, that there's also this almost human chauvinistic or puritanical view on this,
+which is that, well, you know, it does the right thing for the wrong reasons, or I use different
+motifs to do the reasoning. So that thing must be doing it wrong. Do you know what I mean?
+And I was talking with Chris Bishop at MSR the other day, and, you know, he's big on
+symmetries. And yeah, you know, the kind of stuff that like Max Welling and Taka Kohen
+and Bronstein and the DeepMind have done loads of cool stuff on this. But it's this idea that,
+like, we know the world has a certain geometry, it has certain physical priors, so like we can
+deliberately, you know, kind of construct the approximation class in machine learning methods,
+so that like we make it an easier problem, right? Because we know the thing is in there.
+Yeah, so I mean, I guess sort of the slight tangent I went into around the
+simtereal gap, I guess part of the point I wanted to make there is that, you know, one way around
+the simtereal gap is you could try to train, you could try to parametrize a very large space of
+possible versions of reality. And this is kind of the motivation behind this method of domain
+randomization, where you sort of say, this is the, you know, this is the specific task domain I care
+about, I can parametrize the different versions of the task with a few parameters. And I basically
+want to search over the space of parameters and train my model or my agent on all possible
+variations of this world. But obviously, that's not very sample efficient, because that design
+space could be huge, could be massive. And so instead, we like these active sampling strategies,
+like we were talking about earlier, around mini max regret style, active sampling, where you
+sample those environments that maximize your regret or some other type of objective, maybe like
+uncertainty, similar to what we do in the waker paper. But ultimately, these things,
+these active sampling process, it leads to what we like to call an auto curriculum,
+automatic curriculum. And this is in contrast to prior curriculum learning works, because here,
+this is an automatically generated curriculum. So you, you can kind of not have any predefined
+notion of what is easy or hard, it's purely fixed to what is easier hard for the model in terms of
+how good the model is at performing at those tasks. And so it's nice, it's an automatic curriculum.
+So you can think of it as almost like weaving a path through this high dimensional design space,
+automatically, such that if the agent or model were to train on data along this path of environments,
+through its experiences in this path of environments during the training curriculum,
+it'll basically be maximizing some sort of information gain objective. Because, you know,
+for example, regret, if there's a high regret, that's, that means there's a high
+ceiling, there's a high gap in terms of how much the agent can improve, which implies that there's
+a lot more for the agent to learn in those environments. So it's sort of this like optimal,
+you want to find this optimal path weaving through the high dimensional design space of
+environments. Now the danger here is that as you do this auto curriculum, the auto curriculum
+could also go haywire very easily because the design space is so big. If you're training in
+simulation, which we have to do because these methods are so sample inefficient, we need so much
+data to train them, you want to train in simulation. But if you're doing the auto curriculum in the
+simulation design space, it could start to veer very easily and quickly into different corners
+or niches of the design space where, you know, the parameters no longer really make sense in terms
+of mapping to a physical reality or a real world scenario that we as human users actually care
+about. And so kind of it would be, you know, it would defeat the purpose of spending all this
+compute to train this model that could then help us in the real world because now it's veering off
+into parts of the design space that don't really matter for humans. It's kind of noisy parts of
+the design space. And so this kind of leads us to this question of grounding. How do we ground
+curricula? How do we align the curricula such that, you know, they can still do their exploration
+through this active sampling type of procedure over the environment design space, but at the
+still at the same time maintain at least some proximity to the parts of that design space
+that are relevant to what humans care about in terms of the actual tasks they represent.
+I've been speaking with Kenneth Stanley a lot recently and we're talking about open-endedness
+and in general, I've been trying to come at this problem from multiple angles and I've been using
+the lens of agency because I think agency is something that happens in the real world and
+that's why we have this divergent process because we have multiple agents, you know, kind of like,
+you know, undirected following their own gradient of interestingness. So in evolution,
+that's a great example of that. It is this divergent process, but it's also grounded. It's
+physically grounded, you know, so it's like the physical world creates some kind of constraints
+on the things that are found. And I mean, you know, Clune called this AI generating algorithms,
+there's quite a few different takes on this. But the idea is that to search this complex search
+space, we need to have a divergent search and that's like, we actually need to create the
+problems and the solutions. So like in the real world, the, you know, the giraffes had the problem
+of like eating the leaves from the trees and the problems and the solutions get generated in tandem
+and this whole thing just kind of grows and grows and grows. And that seems to be the most
+important feature that is missing in current AI systems and the grounding or the Stanley
+calls it the gradient of interestingness. I'm not sure whether you'd agree with that. But I mean,
+what Mark, what do you think about the importance of like this divergence in AI?
+Kind of the current paradigm of machine learning of kind of like, you know,
+gathering some data set beforehand or specifying some simulated beforehand if it's reinforcement
+learning is kind of good enough to do like a lot of reasonable tasks that we might care about.
+You know, like obviously like predicting language or generating simulated language or
+performing very well at some simulated task in RL. But it definitely seems like the next step
+towards like very general agents that are kind of, you know, I guess maybe I don't know if we
+want to use the term AGI, but there's something, something more long lines of a general agent
+that's kind of, you know, able to kind of self improve and learn in more diverse environments.
+It definitely seems like that's kind of the next step of where machine learning will go.
+And if we're going to get to that point, I kind of agree with the idea that, you know,
+it certainly doesn't make sense to have some agent that just randomly trying to gather
+completely random new knowledge. Like it certainly seems to make sense that, you know,
+even as a human, to improve your intelligence, you kind of selectively try and find out the
+areas in which like you can gather more and more information or more knowledge and things like
+this. And this is kind of what, you know, leads to this kind of, I guess, branching or, you know,
+like you said, like the diverse set of things that you might want to learn more about. And so,
+yeah, I think like it clearly seems to make sense that like this kind of more open-endedness thinking
+is probably going to be like the next paradigm of how we think about these kinds of systems.
+But I think Menchu will have more to say about this.
+I think the reason open-endedness is so interesting now is I think we're, there's a few
+reasons why I think it's like newly relevant to this current era of machine learning,
+because these ideas have been around for quite a while, like Ken Stanley, Joel Lehmann, Jeff
+Klune, Lisa Soros, a lot of these researchers, they've been thinking about open-endedness and
+novelty-based search, divergent search for decades. I think it's really interesting to think
+about why there's sort of this resurgence of these ideas now. And I think a lot of it is because
+it is, again, it's sort of following the same sort of tailwinds that have been driving a lot of
+the ML industry, which is just like much better compute, much larger data sets. And I think what
+we're seeing now is that we know that modern deep learning methods work best when we can scale up
+the compute and the data. That's how you get them to work to their maximal capabilities. At some
+point, we're going to run out of data. And a lot of people are now starting to talk about this as
+sort of a pending issue on the horizon, which is, at the current rate of consuming data for
+training our foundation models, at some point, we're going to run out of data. Where are we going
+to get the next trillion tokens from? And so I think a lot of this now points a lot of the interest
+to open-endedness, because open-endedness is essentially, we're studying systems that can
+generate their own data in an infinite capacity. And so it's systems that, essentially, if you
+run it for longer and longer, they get more and more complex. They generate more and more
+interestingness or interesting data. And so if we can actually crack this nut of how do we actually
+come up with a self-improving system in the sense that it keeps generating interesting data,
+we can then use that data to train, further train our models. But of course, you get into this
+perpetual data machine type of idea where, obviously, there's how do you generate more data
+if the data is ultimately coming from a model that you probably trained on previous data?
+How do you get net new information from that? Well, I think a lot of this is actually just
+resolved purely, again, going back to this idea of the reward function or a preference function,
+where there is outside information coming in through some sort of filtering criteria.
+For example, human designers in the loop or designers designing some sort of preference model
+that could, essentially, automatically rate the kinds of automatic data that's being generated
+by these open-ended systems. And if we can do this kind of filtering, we can, essentially,
+automatically find useful net new data, net new trajectories, net new even maybe sentences
+like tokens or net new content to train our models on. I've been thinking a lot about
+creativity recently. And I think creativity is the other half of the coin of intelligence.
+So in the world we live in, I think that the intelligent process is us. We are a divergent
+search and we are basically tackling a complex search space and we are building knowledge
+and we are memetically sharing them in our society. We're embedding them in our language
+and then language models come and acquire all of that knowledge. So the cynical take is that AI
+today doesn't generalize and it doesn't creatively find new knowledge. It just is a representation
+of the knowledge that we have found. But it's not black and white, is it? So the work that you're
+doing is a great example of, no, no, no, you can generate new knowledge by exploring these complex
+search spaces. And even though you're exploring existing models, you're discovering interesting
+and novel combinations of those models that have not been found before. So it's creating a novel
+margin on something that was not there before. But I suppose the ideal future we want to get into is
+that we really can just from a far deeper level generate new knowledge.
+Yeah, I think one interesting thing that I've been thinking about more recently is that
+sort of the high level question is just right now all of the state of the AI systems from chat
+GPT to stable diffusion style models for text image generation, all of these systems, they're
+amazing, very impressive. Like five years ago, I would not have believed that these systems could
+exist at this level of performance today. But ultimately, what they do is they're in the
+they're in the Q&A business. So I basically ask these systems a question, or I give them a command,
+and they give me an answer. And so I think the next frontier of AI is really how do we design
+systems that don't just answer questions, but they actually are the ones that start to ask the
+questions. And I think once we can have AI systems that start to ask interesting questions,
+that's when we start to get closer to I think traditional notions of what a strong AGI might be.
+Okay, so again, really, really interesting. Now, so we're getting into agency and people think that
+oh, you could give a language model agency, you just like, you know, run it in a loop and interesting
+things will happen. Well, that's not true, because the whole point of open-endedness is to prove that
+existing systems converge, they don't diverge, they don't accumulate information. So we would need to
+create a kind of agent that like, you know, it would just keep running and it would just keep
+doing interesting and novel things, it would keep accumulating information. And I think that the
+reason why language models don't have agency is because they are essentially a low entropy model.
+And what that means is during training, a lot of the sort of like the unnecessary, you know,
+complexity was snipped off. So the models only know about relevant things in the next step,
+what's the next best token. And it feels like we would need to have not only a higher entropy
+search, but we would also need to have a diverse set of models that are actively, continually
+learning and diverging from each other. But that's just my take. I mean, what do you guys think
+about that? Yeah, I think that, so I guess this relates quite a lot to this idea of like intrinsic
+motivation, which is something that we utilize in our paper. And I guess, I guess the idea with
+that is like, you know, if we're trying to like gather new data in an environment, like we shouldn't
+necessarily be constrained to just trying to gather new data that's like good for a specific task.
+And so I guess this kind of, you know, so intrinsic motivation basically says I should just
+gather new information because it's novel and things like this. And so we can basically like
+specifically try and gather information that, you know, reduces our uncertainty about the
+environment and or similar objectives that don't rely on some external reward signal.
+And I think when you get to the situation where the model is able to like self-improve in the
+absence of an external reward signal. So intrinsic meaning that the signal for what you should get
+is just purely generated by the model. So it's purely intrinsic to the model.
+So I think the situation where, you know, you have the model that's able to self-improve without any
+external signal without a human having to define what the reward is or what the objective is or
+this was good data, this was bad data. I feel like that does feel like a lot closer to the notion
+of agency because of the fact you don't have some kind of some external person defining what's good
+and what's bad. And so yeah, I think like this, and you also mentioned the word like creativity
+because I think at least in the context of things that I've done in terms of machine
+learning and reinforcement learning, I think like intrinsic motivation feels like the closest
+thing related to creativity. So you're basically like trying to gather information because it's
+novel or because you think it's or the model thinks it's interesting rather than because,
+you know, it satisfies some objective. And so I think we can maybe say like intrinsic motivation
+is in some sense like an objective for being creative as well. I don't know if you have any
+thoughts about this. Yeah, I think I think that it's I think there's definitely a hugely deep
+connection between intrinsic motivation and creativity. In the literature, intrinsic motivations
+also sometimes called artificial curiosity. So this is a term that was coined by Juergen Schmidhuber.
+Could you explain it just what it is? Yeah, so oh yeah, so taking a step back. Intrinsic
+motivation is essentially in reinforcement learning, we train on reward signals. And as Mark
+was saying, we typically train on external reward signal. By external, we mean that this is a task
+based reward. So this is external in the sense that something outside of the agent that's learning
+like the human system designer decided that this is what the reward signal is for the task.
+Intrinsic means that we want to we don't design directly the reward signal, but we're actually
+using some aspect of the model itself in order to drive the models learning forward. And so one
+example of this could be prediction error. So if the model has a large prediction error on a certain
+task, like averaged over each time step, we can use that as a reward signal and say, hey, you want
+to visit more parts of the environment where you're bad at predicting how the state will transition
+when you act in that part of the environment. And so as you can see, this is very similar to maybe
+like intuitive notions of what curiosity is. Curiosity and different forms of play. In the
+psychology literature, a lot of people actually argue that, you know, different forms of play
+in curiosity, really, they amount to you can model these behaviors as essentially a person
+trying to engage in activities where, you know, they're not very good at predicting the outcome.
+And that's kind of what makes you could argue that's kind of what makes certain kinds of
+entertainment fun because or entertaining because you can't actually predict what will happen.
+You know, in a few frames of the movie, like a movie wouldn't be very interesting or a book
+would not be very interesting if you can predict what will happen in the rest of the book just
+by reading the first few pages. And so intrinsic motivation is really saying, let's guide the
+model towards parts of the environment or the world or experiences where it's similarly unpredictable.
+Stanley speaks about this concept of deception, or we call it the false compass,
+which is this idea that any objective and even you could say exploring all of the search
+spaces is an objective. So he said every objective has deception. And if you monotonically
+optimize any objective, you will always lead into, you know, like a deceptive part of the
+search page. But then like the counter argument is, okay, well, let's, let's not, let's not have
+any principles for doing the, you know, the exploration. Let's just do something completely
+random. And that doesn't seem very good. So then, you know, there's this concept of, well,
+how do I, how do I imbue some concept of what's interesting without falling victim to deception?
+Yeah, so Ken Stanley has a famous essay in the realm of openness, where he points out
+that this notion of interestingness is ultimately a subjective concept. And so even in the case of
+intrinsic motivation, which I think is, you know, in practice, we can get a lot of mileage out of
+this. And we've seen this in a lot of domains where exploration helps a lot, like even in the
+Waker paper, it's largely founded on this idea on how we exploit intrinsic motivation for learning
+world models. But ultimately, you know, these, these model based measures of intrinsic motivation,
+they are by definition based on the particular model at play. And so at some point, you know,
+you're, you're starting to overfit to what that specific model finds interesting. And of course,
+what that model finds interesting, if your measure of interestingness is something like a prediction
+error, is going to be a function of, you know, the specific architecture of the model, the actual
+inductive biases of that model, the capacity of that model to learn. And so you could imagine a
+model where, you know, at the beginning, it's looking for lots of interesting parts of a particular
+video game environment. But at some point, you know, it might saturate what it can represent
+and what it can learn. And at some point, it might start to find things that's explored before
+interesting, just because it's starting to forget those parts of the environment, you know, if you
+have like a very rich stream of different kinds of environments that it's exploring. So ultimately,
+this is like an example of deception, because now it's like, I think that my model is the model
+thinks it's exploring parts of the environment that it finds interesting based on this prediction
+error. But ultimately, it might actually start to go back to other parts of the environment
+because of issues of model capacity. And another really famous example of this issue would be
+like the noisy TV. So like if your environment has, you know, this, this noisy TV where it's just
+showing random noise, random RGB pixels, you know, that's, you know, that's not something you can
+actually predict, because it's just noise. And so the model, if your intrinsic motivation is really
+just to search for novelty in the form of prediction error, it might just start staring at this TV
+forever because it's something that it just can't predict. And then it'll just, by looking at that
+TV, it'll be maximizing its prediction error. Yeah, yeah, it's so interesting. So just coming
+into Rich Sutton a little bit, so he had this idea called reward is enough. And essentially,
+that doesn't make in the case that, you know, just using implicit motivation or the stuff that
+you've just been speaking about using this trajectory, you know, optimization process
+that we can do everything we need to do. And in your paper, you're kind of making an argument
+similar to what Lacuna has been making for years about self supervised image learning that what
+we should do guys is let's, let's kind of pre train a base model. So this model understands
+environmental dynamics really well. And then we stick a reward in there and we build agents
+after that. So does it in any way reinforce or puns intended Sutton or do you think it's
+still complimentary? I think it's still complimentary, at least if I understand the,
+the meaning of the reward is enough paper, because my understanding of that
+line of thought is basically saying that, you know, we can kind of specify, you know,
+any tasks that we might want an intelligent agent to do as optimizing a reward and some like MDP
+or PromDP. So market decision process or something like that. And I think our work isn't contrary
+to that in the sense of like, you know, I do think that that probably is a sufficient framework
+to be able to model any, any kind of behavior that we might want an agent to do. But I think
+when it comes to actually like practically implementing that idea, there's a lot of
+difficulties. So the first one might be, you know, how do we even specify that reward function?
+So, you know, if the reward function is to have a good life or something like this,
+like there's obviously like, you know, maybe there is some like numerical way of defining
+that in terms of an MDP. But there's like not actually a good way of writing down that function
+that maps what I do to whether I'm getting good rewards. And so I think there's this kind of
+like, you know, I think that's a good framework for like thinking about any problem. But then
+you have these kind of like practical issues of how do you actually define rewards? And how do
+you, how do you say like, were there an agent's doing well and not doing well and things like this?
+And so I think that's still, even with the world models lines of work, I think that's still like
+kind of quite a difficult issue. So the world models lines of work kind of, you know, allow you
+to model, you know, predicting ahead in the environment, which is a very useful thing for
+doing a lot of tasks. But then if you actually want to optimize some specific task, you still have
+this problem of like, how do you define the reward? And so we eventually want to get to this
+point of being able to like inject a reward into the world model. So we're kind of in agreement
+with that kind of line of thinking in a sense, we're eventually going to use a reward to derive
+the the desired intelligent behavior. So I don't think there's any conflict in that sense. But
+we still have this kind of problem of how do we inject that reward into the the world model?
+How do we define what that reward should be? And the case of, you know, one of the easiest
+things to do, for example, would just be to label each image with reward. And then you can kind of
+encode that image into the latent space of the world model and then use that to define how good
+a certain thing is. And that's kind of the style of thinking we think of in our work. But I don't
+think that overcomes this like overarching issue of in general, it's, you know, rewards can define
+everything. But how do you in practice like get that function is pretty hard? Yeah, I mean, in a
+sense, reward is enough is sort of a tontology. Because once you know the reward, if you know
+the reward function for your environment, you can essentially compute the value function,
+which gives you the optimal policy. And so reward has to be enough if you know the reward function.
+And so I think the more interesting question is definitely like, what is enough for the reward?
+What is enough to actually have a system automatically figure out what are interesting new
+rewards for us to train new agents or new models on or continue training existing models on?
+And I think this goes back to the question of environment design. This is largely the motivation
+of that line of work, this auto curricula environment design, where essentially if we can
+automatically weave through this path of possible environments of the design space of the environments,
+the design space clearly will encompass like a big part of the design space is also encompassing
+the reward for those tasks. And so essentially, we want to find a curriculum automatic curriculum
+or path through the possible reward functions in which we can start to train a more and more
+general agent. But then the interesting question is, again, like what exactly is the right notion
+of interestingness in order to drive that curriculum that path through the design space of
+possible things we could be training our model or agent on? And that's I think one of the most
+interesting open questions and it relates to the question as well of how do we get the model to ask
+the questions? Because really what drives humans in terms of asking further questions is our own
+implicit notion of interestingness, which is informed by things like the scientific method
+and being able to create explanations about the world. And we find things interesting when we
+can't actually explain some phenomenon about the world based on existing theories or explanations.
+And so I think what's really missing for a well grounded, you know, human interpretable version
+of interestingness is having models that can essentially come up with their own theories
+about the world and start to probe those theories for where there's mismatch between, you know,
+their learned theory of the world and evidence that new evidence that they find from experiences
+in the world. Yeah, it's so interesting. And I mean, when I make the argument that agents should
+be physically and socially embedded, it's actually quite a simple argument, which is just
+the guardrails. It's that interestingness thing. I think that that is how, you know, having agency
+but with the guardrails of our physical and social embedding. So, you know, we're sampling
+things that make sense because they're already there. That, you know, but obviously we can go
+off piece to little bit as individual agents. I feel that that's what helps that process.
+Just coming back to Sutton, it's entirely possible that I've misunderstood Sutton,
+by the way. So, my interpretation of reward is enough. And it might be true, as you say,
+that it's tautological given that if you already knew the reward function for a particular environment,
+then it could do everything that it needed to do. But my interpretation of reward is enough is that
+it would lead to a general intelligence and, you know, general in the kind of
+magical sense that it would work in any possible situation. But if it is specialized in the way
+that we agreed earlier that there exists a reward function which would, you know, codify
+motifs and things that, you know, you need to know or optimize in a particular environment
+or set of environments, then to me, that's still specialized intelligence. And I would agree.
+Yes. Yeah. Yeah. Which I think that aligns with my take as well, where I think if you have a reward
+function, it's already sort of applying largely applies to at least the examples in that position
+paper about reward is enough. It seems like most of the reward functions they discussed
+are largely grounded in a specific task. And I think that if you have the reward function for
+specific tasks, then it definitely seems that you can have some optimization or learning algorithm
+that essentially learns to optimize that reward and therefore achieve that task. So I do think
+sort of the open question that I think saying reward is enough. I think it kind of passes the
+buck up further one level to the question of where that reward comes from. And I do think that
+having systems that can automatically design interesting new rewards, that seems like the
+frontier. Yeah, I agree. And you know, because to me, intelligence is about discovering the
+knowledge and the knowledge is the reward function. So if it was like kind of baking the
+knowledge into the system. Okay, so another sort of galaxy brain take is I was talking to
+Bishop about this the other day. And do you think of like deep learning models as one model? Or do
+you think of them as a sort of like intrinsic ensemble of models? Because they behave differently
+in an input sensitive way. So, you know, like depending on the prompts you put into a language
+into a language model, you might find that like a different part of the weight space gets activated
+and essentially it's like retrieving a mini program. And that program is being run. But
+it's not it's not model building, it's like model retrieving. But would you agree with that?
+I guess I'm not sure about that like, like within like subsets of a single homogeneous model. But
+I guess the thing that I like to think about that's, I think quite related to this is this idea of
+and I think Yanakun also kind of, well, a lot of people have laid out like a similar architecture
+is like, you know, should we think of intelligent agents as having kind of like separate subsystems
+that can maybe like be thought of as different neural networks. And so, you know, we could have
+like, you know, the standard notion of a policy, which is like outputting actions. And maybe we
+also want to have the notion of like a prediction model more like a world model that predicts what
+might go ahead in the world, as well as maybe like a planner that is somehow good at like
+optimizing in that model. And so we could kind of think of all these things as like separate
+subcomponents that we assume an intelligent, you know, an intelligent thing would have,
+like an intelligent thing should be able to predict ahead on the world. It should also
+be able to output actions. It should hopefully maybe be able to infer like why other things
+happened and things like this. And so I guess as to whether we think that should, you know,
+be just like one homogeneous model for which maybe you query it and maybe, you know, different
+aspects of that model will kind of, you know, handle different aspects of the query or that
+we should think of those as separate components. I'm not really sure as to whether it matters
+whether they're separate components or not, because I agree that you probably could just
+have like one massive model that does all of these things. And I think at least from the
+trend that I've been seeing in kind of the world models literature and also just like,
+I guess the RL literature, or maybe just we should talk about the foundation model literature,
+is you kind of don't want to have like a separate model that does the prediction for
+actions in a separate model that does the prediction observations. Like why not just have
+one massive model that's jointly trained to predict everything you might want to query.
+And then depending on the different query, you know, it will just either predict an action or
+a predictive video sequence or it can be conditioned on actions or condition on language.
+So I think in this sense, like this kind of model, like you said, is more like just
+one massive model, but it kind of has like a lots of different subtasks that it's able to do.
+And so maybe this is actually like the more effective way of training model, because then
+you kind of get generalization across these different subtasks as well.
+Well, yeah. And the reason I'm asking the question is, it seemed, I mean, like, you know,
+for an outsider coming in, it looks like statistics is broken. You know, in the
+olden days, we used to talk about the no free lunch there. I'm used to say, like, you know,
+you need to have specialized models for different situations. And now the narrative is that we
+have generalist models, we have foundation models, and they are better than the specialized
+models in a strong sense. And, you know, I like to sort of push on this a little bit and see,
+well, when, when does it break? Because we know that there are like these physics inspired models
+with inductive priors that, you know, know about invariance of, you know, like molecules and drug
+discovery and stuff like that. And surely they would be better than a language model. But no,
+no, no, no, now they're training language models on mathematical conjecturing and like, you know,
+like drug formulation using tokens and so on. So, you know, as an outsider, you might just think,
+well, we can just use a big transformers model for everything.
+I think a lot of this does come from, well, so I think the attention based transformer
+architecture is proven empirically to just be highly scalable, highly effective at learning
+lots of different kinds of data distributions. But I think also part of it is just that we're
+just starting to enter this regime where we're just training these models on an insanely large
+amount of data. And I think that a lot of times we need to sort of take a step back and really
+consider the amazing performances on different tasks and really think about, you know, how much
+information was actually leaked into this task in the training data. Because right now we're really
+just training these huge models on, I think I would say that we're largely training them on the test
+distribution in many cases. I do, there, I have seen like lots of examples of truly impressive
+behaviors from these models that do seem like a truly novel like zero shot generalization to
+unseen tasks. Like there was a recent example I saw on Twitter where someone had like a very low
+resource like rare language and they gave it a few, they gave I think the cloud three model a
+few examples and it was able to essentially perfectly reproduce new utterances in that
+language. So that does seem very impressive. But it does seem at the same time, you know, a lot of
+the performances, for example, on LSAT or like AP biology exams, I imagine a lot of that is really
+a function of just literally giving the model the test domain in terms of information during the
+training step. Okay, okay. So there were like two schools of thought on this when we talk about
+world models, you know, people are talking about sorrow and is it building a world model? And
+it certainly seems to be, it seems to be doing, I mean, obviously it's not doing navier stokes,
+it's not doing like fluid dynamics, but it seems to be doing something like that. So like one
+extreme view is that it is just a hash table. And you know, it's kind of doing some diffused
+approximate retrieval or whatever. Another school of thought is that it's like a simulator.
+And you know, people talk about the simulator's view of large language models and you know,
+like it's like, it's modeling not only, you know, just the words and the language,
+but it's also implicitly learned to model the world and the people and all of us.
+So that's the spectrum. I mean, like, where do you think these things are on that spectrum?
+Yeah, I think we have like, it would be great to be able to play around with it and kind of see
+what we can get out of it. But I think, I think if you can, for example, you know, after each kind
+of, you know, so it's a language condition model. So if after each kind of frame, you could, for
+example, put in a different language, language kind of conditioning and say like, you know,
+what happens here if, you know, the mug was pushed off the table instead of whatever else
+was originally happening in the video. And so if you can basically do this kind of like
+counterfactual or like interventional predictions where you kind of give some new action and then
+you're able to see like the alternative outcome of that new action, I think if the model is able
+to do that, then I would think that it does have a pretty good understanding of how the world works
+in the sense of, you know, I really think like, if you can predict the outcome of any action,
+given some sequence of observations, I do think that's a pretty good proxy for being able to say
+if you can do that, you really do understand how the world works. And so I think if the model
+can do that, I would be kind of inclined to say that it does have a kind of world model in the
+sense of understanding the underlying world, but then there might also be a chance that, you know,
+you know, these models aren't, like you said, it's more just like a diffuse retrieval. And
+perhaps if you try and do like a very fine grain conditioning on a slightly different outcome,
+different like conditioning, maybe it won't actually give you the correct kind of counterfactual
+prediction. And so I think maybe we'd have to see how good these models are at generalizing to
+slightly different inputs and things like that to really see if it understands things well, or it
+is just like kind of generating some arbitrary video. Yeah, I think it's a double whammy because
+our colloquial use of language and like, you know, use of models and intelligence is so static
+that like, you know, we think of that as being intelligence, but we're still going like we're
+now creating, we're creating knowledge right now, we're creating models because we're exploring,
+we're doing exactly what you said, Minty, we're like we're exploring the search space
+and we're building models and we're combining them together. And, you know, presumably we would
+diverge quite quickly from the language models. But I mean, what's your take on this idea that
+they are, you know, potentially world simulators? Yeah. So just regarding the sort of lookup analogy
+for these large models, I think it's, so my mental model is similar to that. Although I think it's
+very close to, I think a really good write up of this alternative take, which is more like,
+there's an alternative take, which is that it is kind of like a lookup table, but the prompt
+itself is a key that maps not to a specific sort of response, but to potentially like a function.
+And a vast space of functions. And Francois Chollet had a really good sort of blog post where he
+kind of goes more into the details of this viewpoint. But I think that that really, you know,
+resonates with my intuition of how these things behave, where it's not literally looking up like
+a key value in a hash table. It seems more like it's, these models have learned over
+tremendous amounts of data to compress that data, they have to learn, I think, more abstract functions
+that help to explain that data. And therefore they're learning functions. So they're approximating
+some kind of function or a vast family of functions. And I think the prompt really acts
+like as a key that essentially activates a particular function. And so you can kind of
+think of, you know, in the classical world where one neural network equals one function,
+like basically it's mapping from images to image net labels. Now like foundation model,
+in the foundation model regime, it's like one foundation model is essentially kind of like
+a giant database of lots and lots of different functions that's basically activated selectively
+based on the input with prompt. And I do think that, you know, based on this, I think it's
+definitely possible that with enough data from the world, enough experiential data that these
+foundation models can learn sort of a basis set of dynamics and transitions that explain how the
+world works. And essentially, if it does learn these transitions, for example, in like the massive
+amount of video data that Swar is trained on, I would say that, yeah, I would agree that they
+are essentially starting to approximate world models. Sure. Yeah. So yeah, these are two separate
+papers. So the first one being Dreamer led by like Danajar Hafner. So this is, you know, example
+of work in the space of world models. And so basically what Dreamer involves doing is like a
+way of training a world model, and then also showing that you can just generate synthetic data in
+this world model and then optimize decision making like purely using the synthetic data.
+So we talked a little bit earlier about like partially observable MDPs. So we want to like
+take kind of the sequence of observations, and then be able to predict like the next distribution
+of the next observation given some action. And so we also talked about how you might want to
+like compress this into like a more compressed representation of the previous observation.
+So basically, what Dreamer proposes to do and a lot of works on world modeling is to take your
+previous sequence of observations, and then you map them to some compressed representation.
+And then could predict ahead in this latent space, the next latent state condition on the
+action. And then yeah, the really interesting thing about this is that now, you know, we can in
+general predict what's going to happen to condition on different actions. So now if you want to get
+like interesting behavior out of something like Dreamer, you can then go ahead and generate a
+lot of synthetic data using Dreamer or the Dreamer world model, and then use that to optimize behavior.
+And so in Dreamer, basically the way it's done is by doing like on policy reinforcement learning
+in the world model. So a lot of people call this like reinforcement learning and imagination.
+So it's basically, you know, you're imagining a bunch of synthetic data, then using that to
+like use some standard reinforcement learning algorithm and then optimize behavior in some
+sense. And then you could also do other things like Monte Carlo tree search, which is like closer
+to like the works on Mu Zero and things like this. Creativity is a little bit like a cloud.
+And all the creativity only happens on the surface of the cloud. So there's this interesting thing
+that like creative discovery depends on the history of all the things that I discovered before.
+And typically like new discovery only happens at the end of the chain, not back in the middle.
+Tinkering. Exactly. And there's also this notion that creativity happens through knowledge. So
+like knowledge, new knowledge doesn't come from the ether. It's kind of, there's some creative
+component to it, but it's on the trodden path of existing knowledge that we already have.
+Yeah, that wasn't a very good question. But when we talk about imagination through like, you know,
+like reinforcement learning policies and so on, what we're saying is like, you know, I'm imagining
+all of these like possible, you know, worlds and so on. But I'm using the cognitive primitives
+of all of the stuff that I already know. Yeah, I think knowledge is definitely compounding,
+compounding artifact. That's basically like the culmination of everything, all the experiences
+that we, that we encounter, like throughout our whole life, and through also like beyond,
+you know, going backwards beyond like even our individual lives into like the cultural
+knowledge that's shared. And what's really cool about language models is that they are essentially
+a codification of cultural knowledge. And so Jeff Klune has this concept of AI generating AI.
+And so he's got multiple pillars of essentially what it takes for you to have AI systems that
+generate general AI systems. And he recently added actually like as a fundamental piece of this in
+his framework, this idea of building on top of foundation models. And so he says he calls it
+like standing on the shoulders of giant foundation models, which is I think really just sort of the
+ML equivalent of building on top of cultural knowledge. There's a real shift recently towards
+talking about synthetic data. And as we were just saying, like, you know, synthetic data doesn't
+come from the EFA. So we already know stuff about the world. We build simulators, and we kind of
+generate new information. But in the neighborhood of things that we already know,
+and then we kind of like iterate and fine tune on the generated data. What do you think about that
+process? Yeah, no, I think, yeah, maybe I'll bring it back to the like the plan to explore line of
+work. So yeah. So basically, like the motivation of that kind of work is like kind of saying, you
+know, we might have some like previous data set or something, and we've trained our world model on
+that data set. But we really want to go out and like gather more data and then like improve the
+world model by gathering more data. And so we can use things like intrinsic motivation to then
+give us like a reward signal within the world model. So in the sense of something like prediction
+error, which mentioned earlier. So now we can basically like train a policy in the world model
+that's now not trained for a specific task, but it's trained to go out and gather information
+in the world. So basically, now, you know, you do this imagining in the world model to imagine a
+head. But instead of imagining ahead, how do I do a task? Well, you're imagining ahead, how do I get
+to states that I don't know what happens and therefore we'll learn more. And that's basically
+like the motivation behind plan to explore. And then on our paper waker, it's kind of like inspired
+by plan to explore as well as works on like auto curricula. And so basically, what we're trying
+to say is, you know, plan to explore is good for getting an agent to go out and gather data within
+a single environment. And you know, and presumably once you've gathered enough data within a single
+environment, then you can generate a bunch of synthetic data in that single environment,
+and then do what we discussed with dreamer in terms of like optimizing a policy for that
+very specific environment. But what we're really interested in is saying, you know,
+let's not assume that we have like one specific environment beforehand. Let's assume that, you
+know, there's some space of, you know, broad range of scenarios, like we want a very like general
+agents, there might be a bunch of different environments. And then within that, what those
+different environments, we kind of want to be able to handle absolutely any task. And so in the
+wake of paper, we're basically saying like, you know, how should we gather the data within this
+like broad space of possible environments and tasks, such that we can train a very good world
+model. And then once we have that world model that's kind of like capable across environments and
+tasks, you know, the assumption is that we can then use that to generate good synthetic data,
+which we can then use to optimize behavior. And so maybe to talk a little bit about like how we
+formalize this problem. So, you know, we mentioned earlier this idea of like the simulation lemma.
+So we basically say that, or an existing work that says like, in a single environment, we can
+bound the gap between the optimal policy that's trained in the world model, so trained in the
+synthetic data to the truly optimal policy by the error in the world model and the distribution
+of states generated by that policy. So it's kind of intuitive, like the world model should have,
+you know, low error, and then we will get a good policy out of it. But then what we're trying to
+say is like, now let's assume we don't know what the environment is beforehand, and we also don't
+know what the task is beforehand. So how do we get like a good world model that can handle like all
+of those situations when we later want to go ahead and optimize some task? And so the way that we do
+this is we basically, yeah, we then use this notion of mini max regret to say that the policy should
+have like low maximum regret across this whole entire space of environments. And then using the
+simulation demo, we can basically say now the world model has to have low error across all
+environments under the distribution of states generated by the optimal policy for any future
+task. So you're going to say like, yeah, the world model has to be good for any environment and
+under, you know, in any area that the policy might go to that's relevant to the future tasks.
+And then what we kind of say in the paper is, you know, if we want a truly general agent,
+we're not going to know what the distribution of tasks is beforehand. So we don't know,
+we don't know what the reward function is. We don't have a set of reward functions.
+You know, we're just going to kind of assume the agent has to do anything later down the line.
+And this is kind of like related to this idea of like open-endedness that we've talked a lot about.
+And so if we don't know what the task is going to be like later down the line,
+then the best assumption we can do is say that, you know, it could be any reward function later
+down the line, which is maybe not the best assumption because as we talked a bit earlier,
+if you're just kind of, you know, we talked about a bit about intrinsic motivation and
+interestingness. And if you kind of assume the task can be absolutely anything later
+down the line, you're kind of assuming that, you know, the agent might want to do something
+completely ridiculous later. Like if you do this in robotics, that might mean the task is just to
+do like backflips later or something like that, but you have no interest in doing that. So it's
+not clear if that's really a good assumption about how we should think about what tasks might be
+interesting later, but that's the assumption we make. So we assume the task can be absolutely
+anything later down the line. So now we have to get to the point where we have the world model,
+which is good for any environment and under the distribution of states generated for any task
+or any optimal reward function. And to do this, we basically like leverage two different techniques.
+So to generate this state, so to handle the aspect that we don't know what the task is later
+down the line, we assumed that we have an intrinsically motivated policy that's basically
+seeking out the maximum uncertainty in any single environment. And so basically, if this
+if this intrinsically motivated policy is seeking out the maximum uncertainty in every
+environment, it's kind of like estimating for us what the maximum uncertainty is in every environment,
+because it's like actively finding uncertainty in every environment. So now we have a policy that's
+finding like the maximum uncertainty in every environment. And then if we want to optimize
+this like mini max criterion across environments, we kind of need the maximum uncertainty to be
+low across all environments. So so we kind of have to have like, you know, this policy isn't
+able to find like lots of big errors across all different environments. And so basically,
+you know, what we could think might might might what happen in practice is, you know,
+you can imagine there are a bunch of different environments, some which are like a low complexity
+and some of which are high complexity. And if we just kind of naively sample from those two
+different environments data, you know, our world model is going to very quickly get good at the
+low complexity environment. And then it's going to leave a lot more data from that high complexity
+environment to eventually get the errors low in the high complexity environment. So to bring
+back to the title of the paper, which is weighted acquisition of knowledge across environments
+for a busness. So the idea here is that we're basically going to change how we sample that
+distribution of data across environments, to make sure that maximum uncertainty stays
+low across environments. So what this ends up looking like is, you know, we're going to sample
+less data from the environment that has lower complexity. And then we're going to actively
+sample more data from the environment that has higher complexity, such that we bring those
+errors down on the higher complexity environments. And I guess this is a little bit different to
+existing works on curricula, because normally in curricula, like automatic curriculum learning,
+you kind of assume that you have some reward function, which is telling you how well the
+policy is doing in each environment. And use, use that specific like metric of how well the
+policy is doing to determine, you know, where the policy has more potential to learn. But because
+we're making this assumption that, you know, we don't know what the reward function is, we're
+trying to get a general agent that can kind of do any task, any reward function. We don't assume
+that we know that reward function beforehand. So we can't use reward as a metric of saying like,
+I need more data from here, or I need more data from here. But then kind of the main argument
+of the paper is showing that, you know, if we just think about this in terms of prediction error in
+the world model, like we can actually use that as like an intrinsic motivation signal to say,
+you know, does the agent need to gather more data from this environment or from this environment
+without access to reward function. And so we could kind of think of this work as kind of a more
+general approach to automatic curriculum learning in the sense of like, we're not assuming that
+you have a reward function beforehand, we're kind of agnostic to what the task is. And because,
+and to kind of distill that knowledge that's gathered without the reward function, we use
+the world model as a mechanism to like distill that knowledge. Because if you just like naively
+have an agent gathering information with no reward function, you know, how do you kind of
+put that knowledge into the agent? And we kind of argue the best way of doing that is the world
+model. So that's kind of a summary of like the waker paper and like what the ultimate algorithm
+ends up doing. So I mean, essentially, you're doing a high entropy search. So you're leaning into
+areas of complexity, and you're building a higher complexity model, which
+goes against the grain of the intuition of like Occam's razor, that we should have simple models.
+So you're almost deliberately saying, no, I want I want to model the complexity and have more of
+that. And then the other interesting thing is like from a curriculum learning point of view,
+I think traditionally, we did explicit curriculum learning. And, you know, we might have some
+principles around having a monotonically increasing curriculum of complexity,
+whereas here by leaning into environments where we do worse on, so we're selecting them based
+on prediction error, we're actually implicitly getting a kind of monotonically increasing
+complexity, which just happens to work really well. Yeah, I guess actually, it actually almost
+ends up being in the opposite direction. So so by leaning into the the higher complexity environments
+more, we're kind of saying, let's prioritize the harder environments more to begin with. So let's
+gather more data in the higher complexity environments.
+You know, because I guess intuitively, if you kind of want to be good across all environments,
+you kind of need more data from the higher complexity environments. And we don't really
+explicitly think about an ordering of going first from easy to hard. I guess that maybe there is
+something to look into there because, you know, like a lot of these works go from low complexity
+to high complexity, because it's kind of easier to learn an initial policy that can kind of do
+something in the low complexity environment. And then you build up the complexity gradually.
+But I think that that idea is most useful when you know what the task is. So you could imagine
+if the task is like locomotion, if it's walking, you kind of want to first learn a policy that's
+able to walk on flat ground, and then maybe gradually build up the complexity like add and
+bumps, and then eventually it can walk on like very complicated terrain. So it kind of makes
+sense to go from low to high complexity. But in this work, we're focusing on purely intrinsic
+motivation, meaning that the policy is not trying to learn a specific task. It's trying to just seek
+out uncertainty and like reduce uncertainty. And so we don't really have the notion of, you know,
+you first need to be able to learn how to do something on an easy environment and then move
+towards harder environments, because there is no specific task that we're trying to learn.
+And so I think for this reason, you know, we wouldn't didn't really focus on this notion of
+moving from easier to harder environments. So actually, you know, we're consistently
+something more data from the hard environments. And I guess I think this relates or I think this
+is something that you brought up when we worked on this is like, you know, I think we can really
+relate this idea to like a lot of different contexts, including things like like language
+models, for example. So, you know, you can imagine, if I'm training an LLM, I don't really
+necessarily have this, you know, not really a reward function in some sense, you're just trying to
+do like unsupervised prediction. And so, you know, we could, for example, take the prediction
+era of like a language model and a bunch of different domains and say, you know, the language
+model is not very good at predicting a language about some certain task or something like that.
+And, you know, we could say, you know, and intuitively, the same thing kind of holds if
+it's not very good at predicting, you know, what the next token is in French, like we should
+presumably gather more data in French. And so that kind of gives us a way of like actively
+gathering the appropriate data. And so, yeah, I think this idea of like gathering more data
+based on certainty, obviously, is a very general idea, like the idea of like active learning.
+But we kind of like specialize that into thinking about how do we think about this in terms of
+the reinforcement learning setting. It might be interesting to talk about as well, like sort of
+because we looked at some of the metrics as well, right, the environment complexity metrics.
+Yeah, we don't have the external notion of difficulty, but we also did look at sort of the
+emergent curriculum. Yeah, yeah, yeah. Gotcha. Yeah, so I guess some, so it kind of depended
+on the environment. So in some environments, you just kind of got this like very straightforward
+behavior of like, you know, consistently gather more data in the more complex environment.
+But because we're actively trying to gather data of the environments for which the uncertainty
+is the highest, kind of this curriculum could change over the course of training. So what
+happened in some of the other environments, for example, is that initially, all the environments
+are just like high uncertainty, like there's like all environments are kind of misunderstood,
+therefore like sample all environments like equally more or less, to just get a rough understanding.
+And then, you know, as the model would improve on the simplest environments, then we would see
+like more and more emphasis towards sampling the highest complexity environments. So I guess in
+that sense, we would get something to more like kind of what you said in terms of like a standard
+curriculum, but a bit different in the sense of like, initially, everything is uncertain. So
+we're just going to sample everything uniformly. But then we kind of get a better understanding
+of which of the environments, you know, the uncertainty remains high on these higher
+complexity ones, and those are the ones we need to like, go out and gather more data.
+Yeah. I mean, I can see this both ways. I mean, certainly from like a Bayesian optimization
+point of view, that there's something to be said for, you know, this is where I'm uncertain,
+going gather more data where I have highest uncertainty. And as you say, like traditionally
+in curriculum learning, we are told that we need to have monotonic increase in complexity. But as
+you just said, that's when we have a particular task in mind. Now, neural networks, they're a
+little bit like a block of clay, aren't they? So, you know, it starts off with abject complexity,
+and then we do standard, you know, we do stochastic gradient descent, and we chip away at the clay,
+and we kind of build, we sculpt a statue that we want to build. And I'm just trying to get an
+intuition here. So like with this maximum entropy search, you know, like high entropy search,
+what we're doing is we're saying, okay, well, here are some complex models. And these models
+must contain motifs that tell us a lot of information. It's a little bit like the ELO
+algorithm in chess, you know, you actually get information gain when something surprising
+happened. So here's a big block of complexity. And I'm going to try and infer what the motifs are
+in that complexity that explain the information that I'm missing. I think that a lot of this
+ultimately traces back to sort of there's like this like fundamental pattern
+towards I think that like ties a lot of these ideas around active,
+active experiment design or like active sampling, which is and all these autocurricular methods,
+which is you essentially want to devise what, you know, nowadays we call a self-supervised
+objective or self-supervised training algorithm, where essentially you have the system essentially
+use signals that produces itself during the training or evaluation process in order to drive
+itself forward in terms of deciding what future data to train on. And so, you know, we sometimes
+call these kinds of systems autocurricular as well, because it's automatically generating this
+curriculum of tasks to train on. And I think the sort of like the fundamental connecting
+pattern here is just that the signal that we use to drive the training, it's always going to be
+based on something like an uncertainty signal or going back to the open-endedness literature,
+something like a classic notion of interestingness. And I think there's just a lot of different
+possible choices for this metric. And so one, for example, we talked a lot about
+minimax regret. So regret could be one of these driving signals because it measures the existence
+of a performance gap and therefore probably an information gap as well in terms of learning to
+master those tasks with high regret. But also uncertainty is also another one. It ties back
+to novelty because novel environments you will be more uncertain within. And so there's fundamentally
+lots of different sort of branches of these autocurricular that you could use depending on
+this search objective that you use to drive this exploration process.
+Can we contrast this to, you know, like large language models, they are self-supervised learning.
+So, you know, we do this self-supervised objective, you know, which is like typically
+predicting the next word. And it's a similar thing with self-supervised image learning.
+Now, the differences with that is you're talking about a principled way of, you know,
+seeking specific information, you know, with, let's say, high entropy. And that would lead to
+an implicit curricula. Whereas with language modeling, language modeling, there is no implicit
+curricula. But I might argue that there kind of is because the way the model does this continual
+learning, it might regularize itself. So if you give it sort of surprising and weird information,
+the language model might just kind of brush it off. And if you reinforce things that it already
+knows, then it's almost like a stream of channels, you know, it'll say, okay, you know, go and go and
+pay attention to that. So it's almost like it's implicit. Yeah. And I would say that in some ways,
+it's almost explicit in terms of how we design these systems. A lot of times, like if you look at,
+for example, OpenAI's job listings, they're actually hiring specifically for experts in
+different domains to essentially create the next batch of supervised data to train or instruction
+tune their models on. For example, they hire biologists or they hire people with legal expertise
+to generate this data. And you can think of this essentially as a human-steered or human-driven
+version of this active sampling process, right? Because essentially they know that the model
+tends to get high perplexity or it doesn't perform as well on this domain of tasks.
+It doesn't get as high of an LSAT score as it could. And so you can essentially, you know,
+it's beyond an algorithm at this point, right? It's kind of the super algorithm where you have
+the system designers now also being part of the data collection process. And in a way,
+supervised learning is really just sort of one point in a continual learning process
+where, you know, classically we just looked at one step of this, which is here's a batch of data
+trained on that. But really, building machine learning systems, especially nowadays,
+everything's in production. These are all live systems. You have to keep it up to date. You
+have to keep it continually generalizing to new knowledge, like chat GPT or Claude or Gemini.
+And so really it's sort of this pattern over and over again in sequence where you collect a batch
+of data, train your model on that, collect the next batch of data, continue training your model
+on that. And really, you want to be selective about what the next batch of data is, because
+obviously if you just retrain it on the previous batch of data, it's going to overfit to that data
+beyond a few epochs, or it's not going to, you know, get as much novel information from it
+just because it's already trained on it. So you do want to selectively, actively collect the data.
+And so I think we kind of almost explicitly already do this at a systems level. And I think the next
+frontier is really just having systems that self-improve in this way, where they can start to
+guide more of their own active data collection. I love this way of thinking about it. You know,
+like GPT-4 is a memetic intelligence. It's not just like, you know, a bunch of weights on a
+server somewhere. And so you could argue, you know, there's this concept called graduate student
+descent, which is what happens in academia. Or even as you just articulated with open AI,
+it's a little bit like an epic mechanical Turk, right, where, you know, they are monitoring the
+logs. They know when things go badly, and then they lean into it in the same way you are. They
+go in higher experts, and they kind of like add more and more data in all of the holes.
+And eventually, there are no more pockets of like abject failure. It just appears to work
+really well for everyone. And people start to say that it's, you know, generally intelligent.
+So yeah, so there's this interesting systems view of intelligence.
+Yeah, it kind of starts to mimic just the scientific process in a way, where we're sort of,
+we were putting a lot of hope in the model to basically be able to distill information from
+sort of the net news batch of data that we collect, you know, that we know the model
+currently doesn't explain well. And we put a lot of faith and gradient descent in order to
+basically be able to come up with updates to the weights that better explain that data.
+So we're kind of already treating the system as almost like an automated scientist or an
+automated version of this like continual process of creating theories and explanations about the
+world. But of course, you know, humans are still much better at language models at doing this,
+or large models at doing this. So I do think there clearly seems like a huge gap in terms of
+what we still have work that needs to be done in order to build systems that can actually build
+much more robust theories, based on like net do new data and even seeking that out as humans do.
+Interesting. And certainly, you know, in this broader memetic intelligence, we are still
+the sources of agency. But we were just sort of talking a minute ago about there being two
+types of AI, you know, there's an AI where we are the generating sources of agency,
+but there might potentially be another AI in the future where that that is the generating
+source of agency. Yeah, I so I think that this kind of ties into my my the framework I personally
+used to think about open ended systems as well, where I think that, you know, at a high level,
+you can you can study AI sort of in silico, you can study it in systems that you control that you
+design, and that you try to sell like have the AI model self improve within. And so you can try to
+build systems that self improve within silico. And that's going to lead to potentially some issues
+around like the grounding problem, where essentially it starts to the auto the auto curricular
+exploratory process starts to veer into parts pockets of the design space that are not relevant
+to tasks you care about. And so this kind of the danger of like generating open ended systems in
+silico. And I think it's very similar to potential dangers of generating agi in silico. And I think
+the alternative is really just what are existing intelligence systems? And how do we actually
+amplify the efficiency, the efficacy of those systems, the intelligence within those systems.
+And so you can kind of think of like sort of the entire enterprise of AI research as do we want
+to generate like AI or intelligence from scratch? Or do we want to build tools, you know, motivated
+or inspired by human intelligence and other intelligence systems, and use that to further
+amplify existing intelligence, like human creativity, human intelligence? Could you argue
+because if intelligence is a divergent search process, you might be tempted to think that well
+if we had loads of tools to help us share the models and help other people discover the models
+that I've created that will help us generally be more intelligent. But could you make the
+counter argument that I'm actually sequestering agency or stealing agency from other people?
+Because rather than thinking for themselves and discovering novel models, they're just going
+to use my model. Yeah, I mean, I think that in the best case scenario, you're building systems
+that essentially, you know, not not, you know, to think about how, you know, as existing systems
+nowadays can build on the shoulders of foundation models, you really want the to build models
+where even humans can stand on their shoulders, where the humans can basically leverage the
+existing expertise or automated capabilities of those models to then like move further beyond
+what they're naturally capable of doing. And really, that pushes the frontier of the knowledge
+that we can create as a civilization. And so you're already starting to see this where there's
+some recent studies that show, for example, like junior software engineers that use systems like
+chat GPT to help them with coding at work. They actually now are starting to match the
+performance of more senior engineers, because it sort of levels the playing field. But that
+also translates into just like net more productivity per software engineer. And so I think that it's
+more just unlocking sort of existing bottleneck and how productive each individual can be.
+And really just means that each individual can create a lot more value can discover a lot more
+knowledge than before. Okay, I mean, do you think that it creates a tendency towards boilerplate
+though? So we're more we're more efficient at doing things that exist. But, you know, like on
+the frontier, we might have a slowdown. There's definitely the danger that it can lock you in
+to certain patterns, right? So basically, if chat GPT always returns a certain boilerplate that might
+have an anti pattern in it, if that stays around, it could self amplify. And then future generations
+of programmers might just adopt that by default, because it's what's already generated by autocomplete.
+So I think that that's also another really interesting realm of questions, which is basically,
+how do you how do you avoid these kinds of these local optima when you start to train a model on
+its own outputs? And I think, again, like sort of the solution will start to look like some form
+of novelty search or exploration. Makes sense. Okay, and what do you guys think about like, you
+know, academia, academia versus industry? And some say there's a bit of a brain drain from academia.
+Totally. Yeah, I think there's like a very, very clear trade off between the two in the sense they
+both have like fantastic things going for them. And I guess the trade off being, you know, academic
+freedom and academia and be able to like individually pursue ideas like purely for curiosity's sake.
+And, you know, that's something I've really loved about academia. But I guess, you know, I guess
+the general trend and machine learning research at the moment is kind of towards like larger scale
+projects, especially, you know, a lot of the properties that we might want to see kind of only
+emerge when you expend a lot of compute. And therefore, you know, a lot of interesting research
+can kind of maybe not only be done in an industry, but it's a lot easier to do some kinds of research
+in industry. And so I think this kind of leads this trade off of, do you want freedom or do you
+want to be on these like larger projects that are potentially more impactful? And so yeah,
+I've really struggled with that trade off. I think they both have big pros and cons. I don't
+know what you think, Minji. Yeah, I think that industry is, I think I like at a very like first
+rough approximation would be to say that industry focuses much more on exploitation. And academia
+is where, you know, in principle, you should get a lot more exploration. But I do think that currently
+both systems are kind of like entwined in the same sort of reward function at a high level,
+where essentially, you know, if you care a lot about citations and a short term greedy algorithm
+for maximizing citations would be to focus your research efforts on sort of whatever topic is
+trendy or hyped at the current time. And so like, I think you see tons of people obviously
+working on language models, partly because it really is a fascinating subject. And
+it really is like the most powerful form of deep learning we have. So I understand why
+everyone's working on it. But I also think that a lot of it is kind of you do get this sort of
+gets richer effect around different topics that people tend to gravitate towards. And you lose
+a lot of the exploration that you should otherwise have. And it's partly because, you know, like
+both industry and academia are at some level optimizing for a similar sort of reputational
+status or citation count sort of metric. And so I think that's an issue. But I also think that in
+some ways, industry, you could say has additional benefit where I do think that from like a short
+term point of view, industry is better poised to make certain higher impact research, not just
+because of the resources available to industry, but also partly because sort of industry, you know,
+riser dies based on whether the actual research artifact you produce is useful. And so I think
+that's like a very powerful reward function that is not necessarily true for academia. And then
+sort of on the to take the counter position, I think academia, obviously, you know, you have a
+lot more freedom to just explore ideas that don't need to be on that critical path for value
+creation immediately. And so it gives you a lot more scope to potentially find like the next big
+thing. And so I think really it's about like if you want to if you want to take the bet that you
+can, you know, play a part in discovering the next big thing, then and that's that's suited to
+your taste for research, then academia makes more sense. But if you know, you want to you want to
+maximize the probability you'll have a higher impact in sort of like a near horizon line of work,
+then industry is definitely, I think, a better bet. Rich Sutton, you know, he had this bitter lesson
+essay. And he made the argument that it's just all computation. And there are no shortcuts. And
+you can even think of, you know, after maybe we're not very intelligent, evolution has just
+been running for a very, very long time. And we are the result of that. So in a sense, do you think
+that we could make strides in intelligence, you know, just through interneuity? Or are we always
+going to need loads of computer power? It's definitely like makes me think of like the recent
+trend that we've been seeing even in like kind of the reinforcement learning literature lately,
+which is like these kind of large scale, like mostly industry projects that are kind of
+even ditching the idea of doing like sequential decision making. So, you know, you have all
+these algorithms that are like, you know, optimal planning and so forth. But we're kind of seeing
+a trend towards, you know, even ditching that complexity of algorithm and just going straight
+to just copy what the human did. And so kind of reducing the problem to, you know,
+essentially no real algorithmic innovation and more just like, can you gather enough expert data?
+And I think, yeah, I guess the reason why that trend is occurring is, I guess, like you said,
+there's kind of been, you know, the bit lesson kind of said that, you know, just being able to scale
+with more data and more compute is kind of the most important thing. And a lot of the more complex
+algorithms, especially around like reinforcement learning are actually like quite challenging
+to scale up, especially like online reinforcement learning. If you want to go out and like,
+actually have an agent like actively collecting data in a bunch of different environments
+and updating itself online, like that's so much like engineering infrastructure to set up.
+And so I think there's this trend towards just like the simplest algorithm possible,
+which is like not even reinforcement learning, not even planning, just copy an expert. But I think
+that that's like, you kind of said earlier with like this kind of like short term exploitation.
+I think this is, you know, it kind of makes sense to exploit this now and push it as far as possible
+because, you know, it's very easy to just train a large transformer and then gather as much data
+as possible. And I think in areas like robotics, we haven't really seen like how far can that go?
+Like, can you actually get a generally useful robotics platform just by gathering more expert
+demonstrations and training a larger and larger transformer? And so I think it does kind of make
+sense that why like a lot of industry projects are pursuing that because we don't really know,
+you know, will that actually hit a bottleneck? Or if you just gather enough data, will that
+will that kind of be sufficient? And I guess like, you know, you could argue that I think it's
+probably true that there must be a better algorithm out there that can in principle do this in a more
+efficient way. But I guess if it's just easier to just gather more data and just do imitation
+learning, I can see that there's at least a business case for trying that. So I guess I'm on
+the opinion of like, you know, there must be a more efficient way of getting to like a more
+intelligent system. But it's not necessarily clear that just scaling like raw supervised learning
+or unsupervised learning like won't get you there. And so it does make sense to pursue that first.
+But kind of what I hope and expect to see is that eventually pure imitation learning or pure
+unsupervised learning will kind of run out of steam and everything will plateau. And I think at
+that point, you know, then these like more complicated algorithms about gathering more data,
+reinforcement learning, planning, et cetera will really come into their own. And so I guess this
+again relates back to like the academia industry trade off, like, you know, a lot of the projects
+in industry are just going to kind of be exploiting gathering data right now. Whereas maybe there's a
+lot of scope to do these kind of more exploratory projects where maybe that will get you to like
+the next frontier a few years down the line. I don't know what you think about this.
+Yeah, I definitely think that yeah, just like treating everything as just supervised learning,
+it does tend to work because we have large data sets. But I think again, like the challenge
+is just at some point we will run out of tokens will run out of data to train on. And so that's
+why the self improving more self exploratory systems will be more and more, I think paramount to like
+driving performance even further. So if we want to sort of break beyond sort of the token limit
+of like the data that's available now, we actually need these systems to generate their own tokens,
+their own synthetic data. And that's that's where like the self play auto curricula exploration
+types of algorithms will start to become more and more prominent. And obviously you need an
+environment in which to do that exploration. And that's where the world model line of research
+is going to be very powerful just because that allows you to really sort of milk all of the value
+within the existing previous data you have seen by creating these role models where you might be
+able to do like counterfactual trajectories and really learn much more amplify the existing data
+you had. Yeah, I mean, I think one of the one of the key things for me is modeling dynamics. So
+it's quite interesting actually with the human knowledge thing. So even looking at the innovations
+from from deep mind, you know, early versions of AlphaGo were bootstrapped with human knowledge.
+And then there was the AlphaZero. So I was actually doing what we're talking about is actually
+discovering knowledge on its own. And in principle, that's a great idea. But of course,
+like any restricted domain, it's tractable. But in the real world, it isn't. And I'm not sure
+whether it makes sense to use the computation and you know, information metaphor for the real
+world and humans and so on. But but the basic idea is that we are all real agents. The universe is
+a massive computer. We're discovering all of this knowledge. And then we're bootstrapping that into
+a machine learning algorithm. And then the question is, well, if you kind of just capture
+the thing now without the dynamics that produced it, will the system be robust? And could you still,
+you know, kind of carry on as we were in the real world, if that makes sense. So
+but yeah, the interesting thing with the work you've done is that you are modeling
+agential systems, you are modeling dynamics. But could that be used for, you know, much more
+complex tasks like the real world? Like simulating much more complex systems in the real world.
+Yeah, I think that if you if you so I think that just purely imitation learning alone
+is not really going to get you there. But I think that if you can, if you can imitate.
+So one is sort of finding the set of tasks, I think that if you find the set of tasks or reward
+functions that could be relevant, then you can start to simulate things that are otherwise
+really hard to capture by just purely imitating historical trajectories. So for example, strategic
+adaptation type of behaviors are really hard, because those are sort of an open ended space
+of behaviors, where if you basically have like a stock market, for example, that's a really good
+example, where if you have a stock market, that's a very open ended system. And like different
+traders will have different strategies that are best responses to each other. And then over time,
+the set of strategies evolves over time in an open ended way. You know, trading strategies that
+worked 10 years ago probably won't work very well today, because people have sort of they've
+sort of figured out those strategies. And so they won't be very competitive. And so I don't see an
+imitation learning system being able to sort of generalize to that level of complexity just
+because by definition it's imitating previous trajectories and therefore strategies. So I
+think you need some notion of like a more interactive trial and error learning that
+allows for strategic adaptation. And that requires some notion of a payoff or a reward. And so you
+kind of need to have this idea of you can't just purely I think learn a model of something like
+the stock market just based on previous data, you really need to have more inductive biases
+around sort of, you know, what creates a payoff or what the actual reward function is for each of
+the traders. But that might be something that you could, you could learn over time, but maybe not
+in the yeah, so this is kind of like, it's not very coherent, but I feel like you might need
+something that looks more like learning over a space of programs that starts to encompass
+different kinds of tasks. And then you can basically simulate those tasks to completion
+with agents that can essentially try to self improve against other agents.
+The stock market I think is a wonderful metaphor for talking about. And for two reasons, first of
+all, from the grounding reason, because you know, like the the the the memetic world is very
+ungrounded. And that's why we develop as humans lots of weird shared delusions about things,
+because it's actually like, you know, it can go in, it can go in almost any direction. And also
+the concept of alpha, I think is really important because a trading strategy works really well
+today. And then when other people learn about it, it no longer provides an advantage because
+everyone else knows about it. And I feel it's the same with language models. So you know, like GPT4
+pros was really novel and cool. It was great to, you know, have a like a TED Talk speech when it
+came out. And now it doesn't seem cool anymore, because everyone's using it on LinkedIn. So it's
+almost like that we need to have this in like continuous creative evolving process, producing
+new sources of alpha. And the paradox is that if everyone has access to the same model, it can't
+be a source of alpha by definition. Yeah, I guess on that like topic, because we kind of talked about
+like synthetic data earlier, and you kind of said like, you know, one one mechanism towards getting
+like a kind of self improving system that is able to kind of, you know, continue to improve is to
+kind of like filter the synthetic data, for example, so you might kind of, you know, have the the new
+system, and then we generate some more data, and then we kind of have some like filtering mechanism
+to say that, you know, in the current stock market, this is this is good data or what, you know,
+whatever system we're thinking about. And then we can kind of like, use that to enable the model to
+improve, you know, and adapt to the new system. But something I've always like why like thought
+about is like, or I guess one, is it really trivial to be able to like filter that, you know, new
+synthetic data. And then two, it feels like, if you're just relying on like filtering existing
+synthetic data, like, isn't that a never going to kind of plateau. And so I guess eventually,
+you know, we talked about how you kind of said that you do actually actively not need to go out
+and get real more real data. But I guess I'm kind of asking you, do you think this idea of just like
+filtering synthetic data from a model is kind of sufficient to always be able to adapt and
+improve? Or is it always going to be a mixture of like more real data, plus synthetic data filtering?
+I think it's the latter, just because at some point you would expect that the synthetic data you
+do generate, it'll start to sort of saturate like what's already in the model, just because the model
+is trained on a finite amount of information. So at some point, you're just going to start to see
+more and more, especially like the more likely trajectories or sequences of samples, you'll
+start to see that more and more. And so you're not really going to be very sample efficient in terms of
+searching for the synthetic data. So can you tell us about the results of the paper?
+Totally, yeah. So basically, we evaluate this algorithm on a bunch of like synthetic simulated
+domains, kind of like robotics related tasks, and kind of environments where there's like varying
+levels of complexity. So you might have a robot pushing around a variable number of
+like objects, or maybe you have different terrain that the robot might want to
+learn to kind of, you know, do locomotion over and things like this. And so kind of,
+the main comparison we make is like, how well does Waker work relative to like naive domain
+randomization? So how well does it work if you just like uniformly sample the space of environments
+versus if you do actively seek out the environments that have this like higher uncertainty?
+And so basically, what we show is that, you know, if we do the Waker approach,
+we still do like very well on average, but we consistently do better in terms of robustness.
+And so robustness by robustness, I mean here that that we do better in terms of the worst
+environments that the agent is evaluated under. And so this kind of means, you know, if the agent is
+able to do well in the worst environments that it that it is evaluated under that kind of shows
+that it's able to do well across all environments, because its worst performance is still good.
+So we kind of this this shows that we achieve this like robustness property, which we talked about
+in terms of like mini max regret. But we evaluate we don't evaluate it in terms of like the true
+notion of mini max regret, because as we talked about earlier, actually evaluating regret exactly
+as difficult, because that that requires knowing the exact true optimal performance,
+which isn't something we can really know. So instead, we just show that, you know,
+the agent performs well across all environments more so than if you just like naively sampled
+the environments uniformly. And in terms of decomposing the performance across
+the spectrum of possible environments, so like, you know, the ideal situation is that
+we have a very simple model, which just generalizes. So we happen to have found
+the golden motif, you know, there's a spectrum of correlations, almost all of them are spurious,
+but we've just, you know, just by through some sheer magic, we found the best motif to work
+in all situations. Probably that's not quite true. Probably there are some good generalizing
+motifs. And the model has also kind of like memorized the long tail. And that there's
+some degree of like, you know, it works really well on the test set that might not out of domain
+distribution. Do you have any like way of reasoning about what that is?
+So, yeah, I agree. I guess there's like not necessarily, it's not necessarily the case
+that by like, focusing more on these like long tail examples, that's necessarily the best way
+of training the best model. Because like you said, like, maybe it happens to be the case that
+if the model is trained on some certain subset of the tasks, like that will actually generalize
+better. But I think in practice, that's not something we can really, really know how to,
+you know, like optimally select the best kind of set of tasks that will generalize well.
+And so we do focus more on like, you know, these these kind of long tail tasks or like the ones
+that we might see rarely and therefore have high uncertainty about. In terms of like the
+out of distribution generalization. So we do also do some experiments like looking at how well
+does the model generalize out of distribution. And basically, what we show is that if we train
+the model in this way, and then we give it some more environments that hasn't seen at test time.
+If the environments are more complex, then then we've seen sorry, hasn't seen at training time.
+Basically, like this model then generalizes better to out of distribution environments
+that are like more complex, which is kind of what you'd expect. Because we've kind of
+bias something towards more complexity, we're able to generalize better to out of distribution
+environments that have higher complexity. And then I guess the question is like,
+do we care about out of distribution environments that have higher complexity,
+like what about the out of distribution environments that have lower complexity?
+And I would argue that, you know, basically, the lower and out of distribution environments
+that have lower complexity, like we would already expect that the model is able to do very well
+at. So there's not really much of a difference there because, you know, almost any reasonably
+trained model can handle the very simplest environment. So what we really care about is
+can we generalize out of distribution to like higher complexity environments? And so by biasing
+the something towards the higher complexity environments, we do show that we're able to
+generalize further out of distribution to even higher complexity environments.
+Okay. But is there any way of knowing whether it's kind of like memorizing the high complexity
+instances or whether it's still learning abstract motifs and generalizing between them?
+Yeah, that's a great question. I think that's a really interesting question generally for ML
+as a field right now, which is better evaluation benchmarks for generalization within different
+kinds of models. And like we alluded to earlier, there's kind of this issue of data leakage between
+training and test set, which is definitely an issue that is currently happening with large
+language models. It doesn't take away from the impressiveness of these models because clearly
+there is a strong generalization aspect to their behavior. But I do think that in terms of measuring
+performance on specific benchmarks, we really need to solve this problem. How do we have these clean
+data sets that allow us to truly test on inputs that the model hasn't seen at training?
+I think in the case of reinforcement learning, that's a bit more difficult just because usually
+we focus on a particular task domain. And so there's always going to be some shared similarities
+within the task. But obviously, we didn't do this in this paper, but we could try things where we
+have more controlled settings where we change one aspect of the environment and really see
+if it's learning specific causal relationships between things that have to be accomplished in
+that task. But we didn't do that. That I actually think would be a really interesting idea for
+a new evaluation environment for RL. Yeah, I mean, the benchmarks thing is just a huge challenge in
+machine learning in general. But just to kind of round off the interview, I mean, Minchie,
+you were talking about you're doing some work with Ed Greffenstein, he's an amazing guy,
+I'm getting Ed back on. And you said that you've been looking into this kind of the interface
+between humans and machine learning. Can you tell me about that?
+Yeah, so just to not say too much about it, because it's related to current work that's
+happening at DeepMind, is just that, you know, I think from personally, from a high level point
+of view, I'm very interested, you know, talking about this divide sort of this fork in the road
+in terms of what's the path to open, studying open-endedness, studying it in silico or studying it
+in situ in the setting of an actual open-ended system like a user app interaction or, you know,
+the interaction between a user and a piece of software on the web, or potentially with many
+other users, there are such rich existing systems online that are already open-ended because they
+amplify or connect the creativity and knowledge of humans to create more knowledge and more creative
+artifacts. And so I think what's really interesting in my mind now is sort of studying
+systems or algorithms that allow us to better steer the creativity of humans as they are
+mediated by software and basically allow us to essentially amplify existing intelligent
+or creative systems that are open-ended, so amplify existing open-endedness rather than try to
+build it from scratch. Amazing. Guys, it's been an honor to have you on MLST. Thank you so much.
+Thanks so much for having us. Thanks for having us. Yeah.
+Great. Cool. Yeah, we're done.
