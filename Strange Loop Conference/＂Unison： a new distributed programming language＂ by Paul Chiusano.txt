@@ -1,0 +1,523 @@
+Thanks for being here.
+I am very excited to be talking to you all about Unison.
+It is a new programming language with kind of special support for building distributed
+systems.
+This is joint work that I've been doing with my awesome colleagues, Arya, who is in the
+audience here.
+And also my other colleague, Roonar, who just had a baby.
+And a bunch of awesome open source contributors.
+And I'll flash up their names at the end of the talk.
+So what is Unison?
+So it is an open source, statically typed functional language.
+Very much influenced by a few languages, Haskell or Lang, and this research language
+that's very interesting called Frank.
+Unison itself has been sort of a research project for several years now.
+But I would say the past year or so, we've really been focused on trying to turn it into
+something real that you could use for real stuff.
+And we are almost there.
+We are currently alpha testing our very first release, which is super exciting.
+It is a public alpha, and I'll say how you can participate in that if you're interested
+at the end of the talk.
+So what's sort of the motivation here?
+Like why another programming language?
+So I mean, in general, just I love programming, I've been doing it for about 20 years.
+And I feel like the essence of it is so much fun.
+It's captivating.
+I'm excited to go to work every day.
+But there's also many aspects of programming that are sort of not as fun, that feel like
+needlessly arcane or complicated, and really wanted to just kind of design a new language.
+Really starting from first principles, being willing to rethink anything and everything
+about how programming currently works, and see if it is possible to create something better.
+And so that's sort of like overall kind of the guiding philosophy, I guess, behind Unison.
+But then there actually is one very specific core technical idea that the language is sort
+of based around.
+And I want to sort of share that idea and explain it clearly, and then show sort of
+all the benefits that we're getting from building on this idea in Unison.
+And it's kind of a simple idea.
+It's actually not, it's not really a new idea, although no one has really tried to build
+a programming language around this before.
+So these next two slides are like the most important slides of the talk, I think.
+So, because we're going to be like building on them.
+But so what's the core idea?
+It's, in Unison, we're going to identify definitions not by their name, but by a hash of their content.
+So, if we define a function factorial, factorial of n is equal to the product of the numbers
+1 through n, it actually doesn't matter whether we call that function factorial, or whether
+we call it blah, it doesn't matter whether we call the parameter n, or whether we call
+it z, it's the same function.
+And we can compute a content hash of the implementation of that function.
+And let's say that hash is whatever, J1E, okay.
+In reality, these are going to be 512-bit SHA-3 hashes, okay, but I'm not going to show
+those in the slides for obvious reasons, okay.
+So, okay, so we say that the code is content-addressed, it's identified by its content.
+And we're actually going to do something different when we store the code in a Unison code base.
+So, rather than storing a Unison code base just as a collection of text files, where
+the text is just this completely unprocessed form of your program, right?
+So, instead of that, what we're actually going to store is, for each hash, we're going to
+store its serialized abstract syntax tree.
+So, a very processed form of the code that's sort of easy to manipulate and do things with.
+So here's, this is not the exact Unison code base format, but this sort of gives you the
+basic idea.
+So we have a .unison directory, and then within that, we have a subdirectory, one for each
+hash.
+So, our factorial function, we have a directory for that hash.
+And then within that directory, we have this AST file, which is a serialized form of the
+factorial program.
+And then very important is that separately from the AST is we are storing the names or
+the name of that definition.
+So, the name is just sort of separately stored metadata.
+So, we're saying this hash has the name factorial, and it also has the name blah, and maybe it
+has 50 other names too.
+And then we would have the same kind of structure for other definitions in a Unison code base.
+So what's actually in this serialized syntax tree?
+So if you look at the definition of factorial, it's actually referenced, it has three dependencies.
+It's referencing product, it's referencing the function range, and it's referencing the
+function plus.
+So what's actually stored in the syntax tree is not those names, it's actually the hashes
+of product, range, and plus.
+And then when we actually compute the Unison hash for factorial, we do some further normalization.
+So, you know, we normalize what the names of local variables are before we compute the
+hash.
+So, okay, bottom line, these Unison hashes, unlike names, they uniquely identify the exact
+particular definition that we're interested in.
+So the hash of factorial, it uniquely identifies factorial, and it pins down the exact versions
+of all of its dependencies.
+So it's like an unambiguous way of referring to a particular piece of code.
+And so that's an idea that we're going to be building on.
+So I guess show of hands, like, are those two slides, like, pretty clear?
+Raise your hand if that's, like, clear.
+Okay.
+Cool.
+Great.
+All right.
+So that's it.
+That's the idea.
+That's Unison.
+Okay.
+All right.
+So...
+Okay.
+So it doesn't seem like much, right?
+But we're going to get all these benefits by building on this idea in Unison.
+So first sort of thing is we're going to get a really nice story for doing code-based
+management.
+So we're not going to have builds anymore.
+We're going to be able to do renames trivially.
+We're going to be able to cache test results, so we don't have to keep running the same
+tests over and over.
+We're going to eliminate dependency conflicts as a thing.
+That won't be something we have to worry about anymore.
+We're going to get a nice story for doing, for having typed durable storage without any
+sort of boilerplate of writing JSON encoders and decoders.
+And then kind of the domain that was sort of a motivation for this design decision in
+the first place is we'll be able to have Unison programs that describe entire elastic distributed
+systems in which deploy themselves at runtime as they're executing onto thousands of nodes.
+That's okay.
+That's not done yet.
+That's where we're going.
+Okay.
+So I'll make it clear what's actually implemented now versus what's in the pipeline.
+But okay, cool.
+So I'm basically going to spend the rest of this talk going through these benefits and
+seeing how they emerge from that one design decision of content address code.
+Let's look at renames first.
+This is kind of an easy one.
+So because we're storing the name separately from the syntax tree, it's really easy to
+just replace that name with something else.
+If we want to say rename factorial to transmogrify, we just say, okay, great, we'll get rid of
+that factorial file and add a transmogrify file and boom, the function has been renamed.
+So very important is that, first of all, we are not behind the scenes doing a whole bunch
+of text manipulation on behalf of the user to make this happen.
+We really are just updating that name in one place, which is cool.
+But even better than that is that this doesn't actually break anyone's code, including our
+downstream library users who we may not even know about.
+So right now, if you publish a library and you decide you want to rename a function in
+that library, basically on your next release, you're going to break all your user's code
+and that's really unfortunate.
+So because the AST is referring to things by hash, you can move things around, rename
+them, and it doesn't break anyone who's depending on your code, which is a really nice property.
+Okay, that's cool, right?
+I think that's cool.
+It's one of these things where, if you're designing a system today and you ask, would
+you rather have that or would you rather have what we have now, it's sort of like, well,
+this is clearly an improvement.
+So it's just a nice, easy win that we're getting.
+So another thing is that we don't have builds anymore.
+So once we've added factorial to our code base, that definition never changes.
+It just is.
+And so we never need to parse or type check that definition ever again.
+And when we're writing, say, a test that is referencing factorial, we are just going to
+look up the type of factorial and just pass that to the type checker when we're just type
+checking just this one little snippet of code that we're actively editing.
+So generally, and I'll show that during the demo, you're never really going to be waiting
+around for the compiler to process hundreds of text files just to type check, parse and
+type check your code.
+And so the way we do that is we actually just also alongside that hash, we store the AST
+and then we also store what was the type of this definition.
+And then the type checker can just look that up and type check just the new code that we're
+writing.
+And then also very important is that this isn't just a sort of ephemeral state of your
+IDE that's doing some incremental caching.
+It really is that as soon as anyone has written factorial and added it to the code base and
+shared it, no one else in the world who obtains that definition needs to parse or type check
+factorial either because it is part of the Unison code base format.
+Okay.
+Another thing we can do is we can actually cache test results.
+So Unison is a functional language.
+It doesn't just allow sort of unrestricted side effects.
+And so, and unit tests do not have access to IO.
+Of course, you could write integration tests that do IO, but unit tests don't have access
+to IO.
+And so they are by definition going to be deterministic.
+They're always going to yield the same results.
+So if factorial five equals 120, now it's going to continue to equal 120 forevermore.
+And so we can just cache that test result.
+And the way we do that is just associated with the hash.
+We might keep the AST, the type, and hey, what was the result of evaluating this hash?
+Okay.
+So we're getting all these nice properties.
+And it's really because of this general idea that the code base is append only.
+So we're only ever, so nothing is ever changing.
+We're never modifying or mutating a definition.
+We're only ever introducing new definitions.
+And because nothing is mutating, we can cache all sorts of auxiliary information and associate
+it with these hashes.
+And we don't need to worry about complex cache and validation logic like what your IDE has
+to do to maintain a compilation cache while these text files are being mutated out from
+under it all the time, which is super complicated.
+So we kind of are sidestepping a lot of that complexity.
+Okay.
+So now for the scary part, I'm actually going to try to give a demo of this.
+But first of all, discovering those six slides or whatever worth of information was just
+a completely mind-blowing experience, just to see all these things just sort of emerge
+and it's been really cool, it's been a really cool project to work on as a result.
+So all right, let's move to a demo here.
+How am I doing on time?
+Okay.
+So I have here, on the right-hand side, I have, and is that pretty legible, the font?
+Is that big enough?
+A little bigger?
+Darker?
+Light on the left side?
+Mm-hmm.
+Like that?
+All right.
+I'll try just bigger.
+Sorry.
+All right.
+Okay.
+So on the right-hand side here, I have the Unison tool.
+So I'm going to go ahead and do a demo of this.
+All right.
+So I'm going to go ahead and do a demo of this.
+All right.
+All right.
+All right.
+All right.
+Okay.
+So on the right-hand side here, I have the Unison tool, and we call this the Unison code
+base manager.
+It's the thing, it's sort of this all-in-one tool for running Unison code, working with
+the Unison code base, renaming things, doing refactorings, parsing, type checking code.
+And then on the left-hand side, I just have my favorite text editor, Vim.
+You can use whatever text editor you want.
+And I guess I'll sort of show a few things here.
+So one of the things that, so the code base is in this nicely processed form where we
+know the type of everything, and it's very structured.
+And so we have, you know, a lot of interesting, like, useful things that we can do.
+So if I want to just do a search for some definition, I might, you know, say list, tab
+complete.
+And then, so you can sort of search for definitions this way, look them up by type.
+I could even do a type-based search, find me definitions that have this type, that take
+a natural number and a list and return a list, and it tells me, okay, there's actually two
+functions, take and drop.
+So we can build up all these, like, indices on the code and just sort of maintain that
+in a very straightforward way, which is cool.
+So another thing that Unison is doing is it's actually watching for changes to these .u
+files in the current directory.
+We call these scratch files, because they're just kind of places where you scribble down
+some code, and once you get it working, you add it to the code base and then maybe even
+just delete the scratch file, because now the data is in the code base and it's all good.
+So if I save the file, it sort of picks that up right away and says, okay, there's nothing
+there, but let's go ahead and, you know, add a definition and it'll parse and type check
+the file.
+Something below these triple dashes is, we call that the fold, it's going to just be
+ignored, so comment it out.
+So any line that starts with this greater than, we call that a watch expression, it's
+going to be evaluated on every file save.
+So you notice, like, sometimes that arrow is red, and then if I save it again, it is
+now gray, so Unison will actually cache those watch expressions, so they're not going to
+be re-evaluated every time, so it's like, you should never feel like, oh, I can't save
+the file because it's going to redo this huge computation, it's just going to sort
+of cache it based on that hash.
+Okay, so these watch expressions are kind of replace traditional, like, redevelop print
+loop, you just kind of, like, write code and then interactively evaluate different expressions.
+So let's go ahead and define factorial, and I'll give a couple test cases, too.
+So first I'll define product, it's by folding the numbers, starting with one, multiplying
+them together, and I might check, okay, product, that seems to be doing what I expect.
+And like, so once I'm happy with the definition, notice this message, these new definitions
+are okay to add.
+So I'm going to type the add command, and it says, okay, I've added these definitions.
+So now the syntax tree of product is in the code base.
+And I could view it, and I can, all these commands have tab completion, so that's kind
+of helpful.
+View it, and it'll render that syntax tree with import statements inserted, you know,
+the most sort of accurate, precise import statement.
+So you can be kind of sloppy about your imports, because that's not actually part of your,
+that's not actually part of what's stored in the code base.
+So one thing, and once it's in the code base, I might just, I don't know, just delete it.
+It's still there, I could get it back if I wanted to get that back, like, basically dump
+it back to the scratch file, so I could look at it or make changes to it, you know, I can
+type that edit command, but, you know, I'm happy that it's there, so I'm just going to
+leave it there.
+One thing I was going to point out is, okay, if we look at product, it uses this function
+fold l, and if we wanted to rename fold l to, I don't know, Frobnicate, and then we
+view product again, you can see it picks up that new name for fold l.
+Okay, but I kind of like the name fold l better, so I'm just going to undo that, and it shows
+me the diff of, you know, what was just undone.
+You can also view the history of, you know, Explorer, the changes you've made, it's very
+semantic, sort of not showing these textual diffs, it's showing like, okay, this definition
+was changed, or this thing was renamed.
+Okay, cool, so let's define factorial, and yep, it's the product of the numbers 1 through
+n, and I'm going to just define some tests, also using watch expressions.
+These are called test watch expressions, they start with tests instead of just a single
+greater than, and I just have a few examples here, which I save the file, everything type
+checks, you can see the tests pass, and they're actually cached, why are they cached?
+It's because I ran through this example earlier, so they just happen to already be in the test
+cache.
+And once I'm sort of happy with this, I can add factorial and its tests to the code base,
+and I'll go ahead and just even delete those definitions.
+Now if I run the tests, it's not actually running anything, it's just looking up those
+already computed test results in the cache.
+And even if I rename the function that's being tested, like I rename factorial to blah, and
+I run the tests again, it's still just not actually doing anything because the test cache
+is keyed by the unison hash, so renaming doesn't affect any of that caching.
+Cool, and then I guess one last example that I was going to show is, so later in the talk,
+I'm going to show like a really simple distributed merge sort implementation, and I just wanted
+to show that rather than like switching back and forth again.
+It's a distributed sort, merge sort function, and I'm just running it locally, sort of simulating
+execution locally, and I'll show the actual source code for this on a slide later.
+But anyway, so this is kind of the basic sort of environment, it's kind of low tech, you
+know, you have your text editor, you've got unison running, and you know, you just sort
+of write code, it's very interactive, and it's nice.
+All right, cool.
+So what are some other benefits of this idea of content address code?
+So I said that we're going to eliminate dependency conflicts.
+So dependency conflicts, they arise when you have, generally when you have diamonds in
+the dependency graph.
+So suppose, I'll explain what that means.
+Okay.
+Alice, she's written a library, has some definitions in it, has an employee type, has some functions
+in it, and Bob and Carol are making use of that library.
+Maybe Bob works in HR, and so he needs access to the employee type, and maybe Carol works
+in accounting, and she's, you know, also needs access to some of the definitions for running
+reports or whatever.
+And then Dave wants to make use of Bob and Carol's libraries.
+So this is a diamond dependency, because shaped like a diamond, okay.
+So this by itself is not a problem.
+The problem, the diamond dependency problem is when Carol and Bob may have different ideas
+about which version of Alice's library they want to use.
+And maybe Carol wants to use Alice version two, because it has some newfangled, new functionality,
+and Bob still wants to use version one.
+And in a real programming language ecosystem, you know, these situations can be very common,
+and it, you know, can generate results in all kinds of problems, and it's like, oh my
+gosh, we have a dependency conflict, like what do we do?
+Everybody stop, stop what you're doing, like, we need to, like, resolve the situation and
+get everybody to agree on, like, which version of Alice's library we're going to use globally
+across this entire code base.
+Okay, so, but okay, let's breathe, take a step back, okay.
+What are these so-called conflicts really, like, what are they really about?
+So they are, I would say they are caused by the fact that all of our libraries have to
+occupy a single shared namespace where you cannot have multiple definitions sharing the
+same name.
+So like, for basically artificial reasons, you can't have Alice version one's notion
+of employee in the same code base conveniently with Alice version two's notion of employee,
+because, you know, they're the same type, because they're named the same thing.
+But they're not the same type, they're different types.
+And if we just had a reliable way of consistently referring to types, like, say, a hash, a content
+hash, then it would be perfectly fine to allow as many different versions of the same library
+in our code base, and basically there's no issue.
+So that's what Unison does.
+And it's, I guess, to give, like, maybe some intuition for, like, how this is not a problem,
+it's sort of similar to, suppose you had two email types floating around in your code base,
+and they have different fully qualified names.
+You know, that might be totally fine if those two email types are being used in, like, different
+parts of your code base, it's like no big deal.
+Maybe if those two email types are, like, coming together in the same piece of code,
+you may have to write a regular function to convert from one to the other.
+Maybe you would decide, like, hey, let's kind of standardize on an email type, because we're,
+like, using, you know, using it all over the place, and, like, it'd be easier to just have
+one.
+But the point is that it's not really a conflict, it's just sort of, like, a thing that you
+may choose to do something about.
+It's definitely not something that prevents you from getting work done, like what might
+occur if you suddenly have a dependency conflict in some of the libraries that you're trying
+to work with.
+Okay, cool.
+So easy typed durable storage.
+This one's kind of near and dear to my heart.
+So okay, you're writing some code.
+You've got some data.
+You want to save that data and read it back later.
+So maybe it's a list of employees.
+Okay.
+And so what do we do right now?
+It's, like, list of employee.
+That's, like, this nice typed, structured thing that you can compute with.
+And what do we do?
+We're, like, okay, throw all that out.
+We're going to just, like, dump it to just a blob of bytes or JSON, throw out all that
+type information.
+Oh, yeah.
+And we're going to make you write a bunch of boilerplate to actually make that happen.
+And, like, okay, why do we do that?
+Well, it's partially for a good reason.
+So we want to be assured that when we go to read that information back later, we want
+to be assured that it has, like, a well-defined format that we'll be able to get back something
+that contains the same information about what was in the original list of employee.
+So, you know, we may be, the notion of, like, what an employee is may have changed between
+the time we wrote it out and the time we're reading it in.
+And so we're, like, because the notion of an employee may have changed, we need to sort
+of write all this manual code and do all this stuff.
+But this is really the same kind of problem as the diamond dependency problem.
+If we simply don't allow, if we don't refer to things by name, if we say that what an
+employee is, is simply, like, the hash of that type, that can never change.
+So it may be that the name employee is assigned to a different type in version two.
+But we can always still deserialize the version one notion of what an employee was without
+any problem.
+And it's perfectly fine to have, you know, multiple versions of what an employee is floating
+around your code, kind of for the same reasons I already talked about.
+So this gives us, like, a really nice story for, like, defining, like, reliable, durable
+data structures.
+You can just, just very straightforwardly, hey, I want to make this persistent, and
+then I want to be able to un-persist it later.
+And you can do all kinds of neat stuff with that.
+Okay.
+So last one here.
+So let's talk about distributed systems now.
+The basic idea, we'll look at an example here, just conceptual before I actually show any
+unison code.
+Suppose Alice wants Bob to, so Alice and Bob are two nodes in a distributed system.
+And Alice wants Bob to compute something.
+Bob, go compute factorial seven.
+Okay.
+So except in unison, Alice is not going to send the name factorial over to Bob.
+She's going to send the hash of factorial over to Bob.
+And Bob may say, and so, and that hash uniquely identifies what function is being evaluated.
+And so Bob might say, like, oh, actually, I don't know about that hash yet.
+Can you send it to me?
+And Alice says, sure, here it is.
+And then Bob says, great, I've got everything I need, I'm going to go ahead and run that.
+And then Alice, here's that result, boom.
+And Alice keeps going.
+So this idea of having a content, or having a reliable identifier that always means the
+same thing on all the nodes in your system, that hash, that sort of gives us this nice,
+efficient dynamic deployment protocol.
+And sort of more generally, if you know about Merkle trees, it's sort of like a Merkle,
+if you take the dependency graph, it's sort of like a Merkle tree dynamic sync operation.
+And it can be made very efficient, very straightforward.
+Okay.
+So this also works, so Alice and Bob don't need to be named nodes that you've set up
+in advance, either.
+So it could be that Alice just conjures up a node from the cloud, or from this, maybe
+it's a cluster of nodes that you're managing.
+But the point is, you haven't set up that node in advance to have any code.
+You didn't have to like, oh, set up its class path and make sure it had all the right jars,
+blah, blah, blah.
+It can just sort of start out as this empty unison node that doesn't really know about
+any definitions.
+And simply when you first contact it, it may do some dynamic syncing of code that's needed.
+And of course, it can be cached for next time.
+And so this sort of works for defining elastic systems where you're really just provisioning
+these more anonymous compute resources, and then kind of just discarding them when you're
+done.
+Cool.
+So let's look at actually some unison code for how this plays out.
+I'm defining a function here, factorial at takes in a node, Bob.
+I'm going to say at Bob, go ahead and start computing factorial seven.
+The quote here is saying, basically, don't evaluate factorial seven here.
+Play that and ship the un-evaluated thing over to Bob so he can start evaluating that.
+This returns like a future.
+So at this point in the code, factorial seven is running on the Bob node.
+Here I'm saying at spawn, at a newly conjured up compute resource, start computing factorial
+of eight in parallel, and then maybe I'm going to wait for those two parallel computations
+to complete, and then add them together.
+This is a really silly example, I admit, all right.
+Let's look at the type, too, because this is kind of important.
+It's you see these funny curly braces attached to the arrow.
+So in order to get access to the at, spawn, and force operations, we need to tell unison
+that in the types, we need to say, hey, we're okay with remote stuff happening in this definition.
+If we were to delete the remote from here, unison would complain, it would say, hey,
+you're trying to do something that requires the remote ability, and your types don't give
+you access to that here.
+We still have nice types to keep track of things and prevent you from getting mixed
+up about when things are happening that you want to keep track of.
+Here's like a little bit, this is the distributed, sort of a toy distributed merge sort implementation.
+Looks a lot like a regular in-memory merge sort, you're dividing the list in half, you're
+recursively sorting both halves, and then you're merging the results.
+The only sort of difference is that we are, the recursive sort call, we're doing that
+in parallel on two different newly provisioned compute resources.
+This interface to distributed programs is like, this seems like the dream.
+There's no JSON, there's no opening network, it's just like, you just wrote code and you
+just kind of annotated where you wanted concurrency and distributed execution to occur, and then
+what is it, just magic, what's going on here?
+We're working on this right now, but the idea is that distributed programming should just
+be a library.
+We don't think that we are going to have all the answers about what is the right abstractions
+for building distributed systems.
+Remote is just, anyone can define these, we call them abilities, where you just define
+a set of operations, the at, force, and spawn, and then with regular Unison library code,
+you can define different interpreters that handle these operations.
+One of the things you might do is have one interpreter for these operations, which just
+runs everything locally.
+Maybe it even simulates failures and injects latency, things like that.
+But then you could also have another interpreter of this ability that, you know, attached
+the computation to an actual source of elastic compute and actually was running it for real
+and parallel on lots of nodes.
+The idea is you should be able to write these libraries just as well as we can.
+And it's really the only things that the Unison language needs to provide are some of those
+primitives for doing the serialization of computations and syncing and things like that.
+And then you could sort of build up your own protocols and abstractions.
+I'm super excited to do that and also to see what other people will come up with.
+And very exciting.
+So these, I just want to say that the things that I showed here, just this really simple
+remote ability is really, this is more for just batch computing.
+So it's like you essentially have a pure program, like it's something that in principle
+you could run just as a regular purely functional program just on your one computer.
+It's just you're saying like, hey, it would be nice if my laptop were actually a supercomputer
+and I could just have access to as much compute as I wanted.
+So that's certainly a useful thing, you know, for doing things like data science, machine
+learning, lots of things are just batch computing.
+But I think the other really interesting use case in distributed systems is when you have
+these more stateful elastic services where you have lots of concurrency, but then the
+system is sort of coming to some consensus or agreement about what the state of the system
+is.
+So this would be something like you're implementing some sort of key value store and it's, you
+know, massively parallel, you know, tons of updates happening concurrently on all these
+different nodes.
+And like it would be great if you could write services for that kind of thing in Unison
+as well.
+And so this is sort of a topic of ongoing research.
+There's a lot of interesting research that's like happening in the distributed systems
+and functional programming communities that sort of, I mean, we really want something
+that's nice.
+Like that's as nice as that sort of batch computing thing where like, so, yeah, just
+trying to, this is active area of research and I think it's super exciting.
+And yeah, I'd say in the next six months or so, you know, we'll start to see more about
+kind of what that API could look like.
+So yeah, that is the end of my talk.
+So let me just say a few things.
+First of all, thank you.
+I also want to say thanks to just all the open source contributors who have like contributed
+to Unison and helped get it to this point.
+If you're interested in helping out with alpha testing, if you go to unisonweb.org and you'll,
+you know, just follow the links there, it'll sort of guide you to the dock site and then
+tell you about how you can get started.
+And then other thing is we're having just an informal get together at the sliced pint
+at 6 p.m. after the conference ends today and feel free to come by and say hello and
+have some pizza or drinks and any last minute coordination will do in the hash unison channel
+on the strange loop slack.
+So I think that's it.
+All right.
+Thank you.
+Thank you.
+Thank you.

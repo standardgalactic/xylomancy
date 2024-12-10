@@ -1,0 +1,416 @@
+All right, so I told you guys last day that I'd covered most of the new material that I want to cover for this class in terms of small molecules and drug discovery.
+So today, what I want to do is kind of take what we've learned and put it to like real practical use. So, last night I got online.
+I went to the Kaggle website, which is a fun website. If you guys haven't seen it, they have a lot of different like competition like machine learning type competitions there and like every, you know, possible domain.
+And a number of them are, you know, in life sciences and this one.
+And so, so you can download models, you can download data sets. And this particular data set is a set of molecules with like a binary classifier on whether or not they cross the blood brain barrier.
+Right. And we talked the other day about blood brain barrier.
+So that's going to depend a lot on the hydrophobicity and the size of the molecule. But let's see if we can build a model to get a little more precise than that and start to, you know, predict whether different molecules are going to cross the barrier.
+So, we can go online and read about the data set. So it's got about 2000 compounds and they show you kind of like a preview of the data set here.
+So you can see it's just a.
+It's just a spreadsheet. Right. And so it's got a numerical ID. It's got the name of the molecule if there is one.
+And then a number one or zero, depending on whether it does or does not cross the blood brain barrier.
+And then the smile string. Right. And we walked through like what the, what the smile strings mean the other day.
+So the first thing we notice here is that there's about 483 zeros and 1500 ones. Right. So, it's 75% one. And so now we know if we're like later on we're going to look at the accuracy of our classifier.
+We know that we can build a classifier that's like about 75% accurate.
+By just having it spit out one right so so that's our baseline right 50% accurate is is is not our lower bound it should be 75% accurate and then we want improvements on that so we want to see how far, how far can we get from a dumb classifier.
+And it just says oh yeah everything goes across to a smart classifier that you know, ideally would be like 100% predictive.
+Okay, so that's where we're starting.
+And I'd like to kind of walk through how we would build that model. I'm going to try to like build the model for you guys in real time, but I also like built it last night.
+So if you don't get through it I'll scroll scroll down to the right answer, but I want to go through it slowly, so that you can kind of like see the see the logic here. Okay, so like in the cooking show.
+Like in the cooking show yeah we're going to we're going to French chef it you know.
+The model is going to be really I thought about that like oh we'll do like a little French chef, where we'll start to like run the model and it might take hours and hours and I'll show you the answer and and it turns out we're going to build.
+We can actually build a very small model here, we can train it even without GPUs and and it'll kind of run in in real time.
+Okay.
+So I'm just setting up, you know, if you if you guys have used Google Colab and just giving it access to my, my Google Drive.
+Can you guys see the text there, or should I, everybody want to come closer to these.
+But can you can you guys read the text. I mean from here again.
+Okay, and they can.
+I know right.
+Let's see if we can increase the font size oh zoom in.
+Yeah, definitely.
+You think.
+All right.
+So we're going to call install a couple packages that are going to be useful. So we'll install our D kit and and Kaggle just so we can download this data set from Kaggle.
+We'll run that cell.
+Okay.
+And then this is just, this is just downloading the, the data set itself.
+Okay, so, so now we've got our data. Okay, so we have like a spreadsheet basically that has all of the smile strings.
+And it has this label one or zero as to whether or not it crosses the blood rate barrier. So, what's the next thing I need to do like what do I need to do to start building a model.
+I can't just put in smile strings I I'm going to need something else says.
+Something else as the input to my model. Right. Any, any ideas any suggestions what what we should use.
+We talked about a lot of different like representations of molecules like what what would you guys recommend.
+Yeah.
+Okay, hi torch tensor.
+But how are we going to get from a smile string to to like a tensor of numbers.
+We've got we've got lots of options and they're they're kind of all valid. I picked one, but I'm curious to, you know, let's let's see like the universe of options that we have to choose from.
+So what are like, what are the problems what are the problems from going from a smile string to a fixed length vector of numbers.
+Yeah, so that would be a great choice right because we talked a lot about GNNs, and they make a lot of sense that it really starts with the molecular graph so it's got all the information on the on the molecule.
+The problem with the GNN right is like we've got a vector of numbers for every atom in the molecule, or like the paper we talked about last day.
+You know, as a vector of numbers for every bond in the molecule.
+But what we want to train our model is we want to like a fixed length vector going in, right. So, so there's a lot of ways to do that.
+In the GNN lecture, we talked about, okay, how, you know, how do we do graph based classification. We can kind of add all those vectors together, we could add them and then divide by the number of atoms.
+We could connect them all to like a dummy node and, and, you know, parameterize that.
+So, so we have a lot of options but that's basically the problem. How do we go from, you know, a list of inputs of variable length and go to a fixed length vector.
+So, the solution that that I came up with last night was, well let's get online, let's get online and see what people are doing right.
+So, this is another website that you guys should all check out and be familiar with.
+It's the hugging face website. And so this is like a really popular website where people share different transformer based models.
+And there's a nice API so if you find the model on hugging face. It's very simple to like download that model and start using it right out of the box and you don't have to do a lot of coding on your own.
+So, this model is called Kimberta. And so Bert is is is a language model and this Kimberta has basically been trained on smile strings. Okay, so we're going to input a string and then it's going to give us out one fixed length embedding from from that input.
+And so if you guys are interested, you can you can look up Kimberta and find out more details on, you know, exactly how that embedding is made.
+I haven't actually looked at it very closely. I'm kind of familiar with Bert but I don't know exactly what's going on, you know, under the hood for for this one, but I do know a lot of people use it and it's, you know, it's one of the leading kind of transformer based models.
+So, so I pulled that in here. Okay, so I'm importing the transformers API, which has access to the hugging face.
+And I just wrote a like a little function here to convert smile strings to embeddings from that transformer based model. Okay, so we'll run that.
+And yeah.
+Yeah, good question. So, how do you tokenize a smile string how do we how do we go from that string of characters to a string of tokens.
+In the past, you know, I've tried just.
+Well, you can do character by character. And that's probably not going to be the best bang for your buck, because you know you'll have something like a, like a C one character and then a few other carbons and then another C one where the where the ring gets closed.
+And so C one is kind of an entity in and of itself, as opposed to treating it as C and then one.
+Obviously, you can do everything on the character base level, but then you need a lot more data because the the model has to learn, you know, like what the appropriate chunks are.
+So, so I've tried various different things kind of like ad hoc, and they tend to work okay.
+In this case, and this is one of the one of the nice things about using these models on hugging face is that like once I once I pulled in that model from hugging face for that transformer.
+This comes with a tokenizer that people who built the model, like thought was like pretty reasonable and so I'm just using their tokenizer and I don't, I don't actually have to know how it's how it's chunking those things.
+Okay.
+And the next thing we're going to do when we define a model. And in this part, you know, I want you guys to kind of pay attention to I'm not going to try to like write it out like in detail, but it always pays to make a data set class.
+The data set will sub, you know, whatever you make it, it'll subclass the, you know, the, the data set, you know, the parent data set class.
+And this, this class basically only has to have like three different functions. So it has an init function.
+So here in, in my init function, I'm going to read in this, this file that I've downloaded from Kaggle. Okay.
+I'm going to make a list of all the smile strings. I'm going to make a list of all the navel, the labels. I'm going to ignore the other other columns I like I don't really need them.
+And then I'm going to make a list of embedding. So I'm going to call that, that function smiles to embeddings. That's, you know, that's using the Kimberto model, and I'm going to convert that list of smile strings to a list of embeddings.
+And, and now this data set class is just going to serve up, you know, one embedding, and then the, the label which is one or zero whether across the blood brain barrier.
+So that's all that all happens in the init function. When I instantiate this, this data set class, the other methods that that need to be defined are a length function.
+So if we ask for the length of the, the data set, here's just going to return the, you know, the length of the list of embeddings, all three, all three lists are the same size, so we could just, you know, return any of those links.
+And then it has to have a get item class, and get item is going to take one parameter the index, and then it's just going to serve up the, the, the embedding and, and the label right so like the example and the, and the, the label that we want to train on.
+Okay, so, so that's all that does. So, since we have these things in lists anyway, we're just going to, you know, we're just going to pull that item that index out of the list and then we'll return both of them.
+Okay.
+Okay, so, so that's our data set class. The next thing that I encourage you guys to always do is define a data loader and the data loader operates on the data set class and it just makes things really easy.
+So, here I'm going to separate out my training set from my test set.
+And what I've done here, as I said, well, I'm going to take the length of the data set times 80%. And that's going to be my training size and then the remaining the, you know, the other 20%, that's going to be the size of my test set.
+And then I'm just going to call this function random split with my data set and then, you know, the, then the size of my like training set and test set and that's going to, that's going to return this, this split here with my training data set and my test data set.
+And then I'll make a data loader, you know, for the training data set and I'll make a data loader for the test data set. And in the data loader, I'm going to specify a few different things.
+Okay, so in the training loader.
+The first thing that I'm going to specify, apart from data set is the batch size. And this is, this is really important. In general, we're going to choose the, we kind of keep an eye on the memory that
+we're using because we're often running on a GPU. And we're going to get the best efficiency if we can, you know, fill up most of the memory on that GPU with with a batch. And so depending on like how big the data is that's that's going in.
+We may be able to use like a very large batch size or we might have to use a smaller batch size. Okay.
+The advantage of using a large batch size. In addition to the speed up is that when we compute the gradient. We're always computing the gradient on the batch of inputs that we're looking at.
+But, like, ideally, we kind of want to be computing the gradient on the entire data set when we're updating the parameters right so so the more the data set we can look at at any given time.
+The more the more accurate of a gradient we can get and the more accurate the gradient, potentially the fewer steps of optimization that that we need to go through.
+So when I'm training the data. So I'm going to like train it I'm going to pass through all the data once that'll be like my first epoch of training, and when I pass through the data again.
+I probably don't want to go in the same order I want to you know I want to kind of mix things up.
+You know there's one parameter in the model that gets trained on a few examples and maybe all of those examples like are crammed into like one batch.
+And so as soon as that parameter gets updated it sort of forgets it because you know those those examples aren't in the other batches and so I just kind of want to like smooth things out and prevent it from like getting stuck in in a rut so I'm going to shuffle the.
+Examples every time I instantiate that or every every time I call this this data loader.
+And then with my test data loader, well I'm probably going to use the same batch size, but in this in this example I'm not going to shuffle them because like I want to compare the test from from run to run.
+Maybe I'm not going through like the entire.
+Maybe I'm not going through the entire set of.
+Examples so you know I just want it to be really consistent this this can be my test is not involved in the in the training at all.
+All right, so once I run this it's going to.
+Instantiate that data set class and it's going to start converting those mile strings to the embeddings from my transformer. Yeah, you have a question.
+Shoot.
+Oh, good point. Oh, all right.
+Yeah, so so that was a bug in my code. And now, now we're going to see because like when I ran this last night, I got to like 100% accuracy.
+And now now we're going to see like for real how how well it does or doesn't work.
+All right, that was not intentional.
+I'm glad you guys are paying attention.
+All right, so that's going to run for a couple of minutes who it's so exciting now.
+And while that's happening.
+Let's, let's figure out what what our model should be. Okay, so.
+We're going to use torch.
+I'm just going to import a few things here.
+And so torch and then torch that neural nets is, you know, that's where like most of the functions that that we're going to use our found.
+And we can define our model.
+Okay.
+So one of the easiest ways to define models and you can still define like pretty powerful models like this is stuff it
+through nn sequential. Okay. And so here I'm just going to put different torch that nn layers in, and it's going to take the output from the one feed it into the next one take the output from that feed it into the next one take the output from that feed it into the next one.
+And then the whole thing is this, you know, and then that's sequential and then torch knows that's that's a model. If I want to, however, I can go through and I can take each of these layers and I can say like x equals, you know, nn dot linear, and then like x to equals like another one of those on the output of
+nn and like so on and so forth. So I can, you know, I can, I can define it kind of as like an arbitrary Python function. And if I wanted to make like a variational auto encoder with those steps in the middle where I have to do like sampling or something like that.
+Like that's how I would put that in so so it's, you know, it's a kind of a powerful framework, we're going to build a really simple model so it's easy to just use this and then that's sequential.
+And we're going to stack up different different layers here. So the size of my latent vector, coming from the embedding from the converter model is 768.
+Okay, so I've got a linear layer was 768 inputs. And then I want to downsize that. So, so let's go from that to like 128. And then I'll put another
+put another layer in here that takes 128 and let's downsize it again, we'll say 64. And then let's put in maybe one more layer where we'll take 64 inputs.
+And in this case, we're just predicting one thing. So if we're doing something multi class like there were 10 different possible outputs, then then we'd want, we'd want, you know, to output 10 different logits.
+In this case, there's two different outputs, like zero and one. So, so like I could define it that way.
+But I'm just going to, I'm just going to like put it down to one and and have a have a number between zero and one that'll kind of predict, you know, whether it goes through the barrier or or not.
+Okay.
+And so if I want that number to be between zero and one.
+I'll pass it through a sigmoid layer. Okay. And so each of these layers, and you can get on. You can get on the torch documentation and you can see like what are the different layers that are in the torch that and and, and that's like a good list of you know pretty
+things that you've seen and in class and some of the things we'll talk about today, those layers are all there and it'll tell you how to define them. So, you know, if I'm doing a sigmoid it's just like taking a number in and running it through a sigmoid function so it's between zero and
+one. So I don't need any parameters there.
+I just need to specify like how many nodes are going in and then how many notes are coming out and different layers, you know, we'll have different different mandatory and optional parameters that we have to specify.
+Okay. All right. So, so this is my neural net.
+I'm going from 768 to 128.
+Yeah, 768, 128, 64, and then down to one.
+What have I forgotten?
+What's that?
+Yeah. So this is this is all just going to be linear, right. So, so I wouldn't even need three layers, I could just multiple, you know, I could just pre multiply those layers together.
+So that's not going to do me any more good than than if I just said it was a 768 to one layer. All right.
+So let's put a nonlinearity in here.
+Yeah, and Google already guesses that I want to put a relu in. I do. Thank you.
+Put one after this.
+And then our last one is, is going into our sigmoid function. So, so we don't need a activation there either.
+Okay, so, so here's our model.
+Now let's run that. Hopefully that's syntactically valid. Okay.
+All right, so we have our, we have our data loader, our train loader here.
+And we have our model. Okay, so now,
+now we just need a, like a loop to train this thing out. Okay, so each, each iteration through our data set, we're going to call an epoch.
+So let's say number of epics equals 10. Okay, so we'll run through it 10 times
+for epoch in one through 10.
+Here, it's suggesting that I do this and it's always a good idea.
+So when you're training your model, you can say model that train. And then when you're evaluating your model, you say model that eval. And then if there's any bookkeeping that it needs to do.
+In terms of, you know, whether to update the parameters and things like that, it'll kind of take care of that for you, which is very nice.
+We're updating the gradient actually.
+And so, for each epoch, I'm going to loop through all the batches in my data loader.
+I'm going to say
+embeddings and labels in
+train loader.
+And my outputs
+are going to be
+the output of my model embeddings.
+And
+my model,
+even if it's like outputting a scalar,
+it's going to put an extra dimension on the end of it.
+So it's not really going to be a scalar. There's going to be another dimension there that's, you know, that only has one thing.
+And that's going to cause me some headaches. So I can get rid of that with this squeeze function.
+And that's just like a lot of the bookkeeping that we have to do in torch to make sure that
+we're operating on the right dimensions of the tensors that we have.
+Okay. And then for my loss function,
+I'm going to use one of these built-in loss functions. Pretty much everything we ever need is already built into torch.neuralNet.
+And in this case, we'll use BCE loss
+of our outputs and labels.
+Okay.
+Oh, look at that. All right. It's auto-completed. The next thing I want to do.
+Okay. So
+now we're looping through our data loader.
+We're computing the model output. And then we also have the labels so we can compute our loss function.
+Okay. Now we need to back propagate that loss function.
+So for every parameter, we know how like a small increase in that parameter affects the loss, right? And we want to minimize the loss.
+So the first thing I need to do is if any of the parameters in my model have a gradient that's already stored from some previous operations.
+So for example, the second time I run through this loop, there's going to be a gradient stored in all those parameters from the first time I went through the loop.
+So I'm going to loop over, you know, for P in model parameters, I'm going to just zero out the gradient. So P dot grad equals zero or equals none here.
+So that's good practice. Well, not good practice. It's absolutely required.
+And I can either do that before I calculate my gradient or I can do it after I'm all done. It doesn't matter too much.
+And now I want to calculate my gradient. And nice thing about working in Torch is whatever computations that have been done up to this point to calculate the loss.
+I just call loss dot backwards. Okay, and all the parameters that went into that calculation, that backwards function is going to back propagate it through.
+And for each of those parameters, it's going to store their gradient, like as part of that parameter, right? So it's going to store it like P dot grad.
+That's the value of that parameter and then P dot grad is going to be the gradient that was calculated from my backward computation.
+Okay, so now every parameter in my model has some value and it has a gradient with respect to our loss.
+So I'm just going to loop through all the parameters in my model and I'm going to subtract some constant.
+Here it's 0.01 times the gradient and I'm just going to subtract that from the data here.
+All right. Great. Now let's
+let's see. Let's keep track of
+all of our losses. So say loss list, and we'll initialize that have nothing in it at this point. And then after we calculate the loss,
+let's just append the value of that loss to a list. Okay, and then down here when we're done, well, lovely.
+We can say we'll make a dummy variable temp, which is just the average loss in that in that list. So that's going to be the average loss over that whole epic.
+And then we'll print the number of the epic and then what the value of that loss is and we'll see hopefully that our loss will start out quite large.
+And as we train it'll it'll get smaller and smaller. Right. So should give it a try.
+Oh, it works nice.
+Okay, so we're training over 100 apex here, and our loss started out at like 0.61. But as you can see it's it's getting smaller and smaller.
+And because this model is is pretty simple, like it worked pretty well. And, you know, I put in a fairly so this parameter here 0.01 is called the learning rate.
+And we just kept it constant. And it's constant for like every parameter. And so it's, it's really kind of a vanilla model, and it tended to work pretty good.
+But if we try to train, like much larger and more complicated models, we, like we might need to do more in terms of getting that to work efficiently. Okay.
+All right.
+So now let's, let's move on and let's calculate.
+Let me just redefine my model here.
+So that'll that'll erase what what we've done before. And now I just want to train it with a few more additions so that we can make a plot of kind of what the loss, what the loss looks like.
+And we can compute the
+For some reason, the code I wrote last night is
+is now not working.
+And the, the one we did on the flies is working better. Okay, I'm not going to worry about fixing that right now.
+But maybe, maybe if we have time after the after the lecture, I'll come back. Sorry, that was like, that was anticlimactic.
+Hmm, I wonder, maybe if I just start again, like start again up here.
+Okay, we'll try that and then then we'll come back to it because maybe, you know, maybe I overwrote something. In fact, why don't we just restart the whole thing.
+Okay.
+Load it up.
+Will.
+Oh, I'm, yeah, I actually know what happens.
+All right.
+To do.
+I need to define few variables.
+My criterion, so that's going to be my binary cross entropy loss, and I need to find my optimizer.
+And that's just to use some of the, some of the fancier features here so so we're going to train with with an optimizer called Adam or Adam, Adam w actually Adam with weight decay.
+Okay, so we'll do that. We'll let that run in the in the background.
+Okay, and so, so now I want to switch to talking about like how do we train these networks in general and kind of what are the principles and pitfalls, things like that.
+You saw the kind of the most bare bones way to like train parameters and in my model.
+And that's really just gradient descent. And so I take my parameter and I subtract the gradient of parameter time some learning rate. Okay, if I'm doing that, like in theory or in principle I'm doing it on my entire data data set that I'm doing doing gradient descent.
+I'm always running in these mini batches right in this case we're doing 32 at a time. And so I'm only calculating the gradient over those examples and in the mini batch and then I'm then I'm updating, updating the parameters, based on that calculation.
+So, that's often referred to as stochastic gradient descent, because it's, it's kind of random right we shuffled our data loader every time we went through. It's kind of random which examples are put together into the same batch.
+And so it's not going to, it's not really going to be the same thing as, as, as a gradient descent. And, you know, in, in practice, that's really the batch size and everything is done for pragmatic reasons and making a computation.
+Use the GPU more efficiently things like that.
+But it also has this property of regularizing the, the optimization, and it makes it harder for the model to kind of memorize the, the answer to, you know, what's going on in the trading training set. And we'll talk more about different ways to regularize later.
+Okay, so if we want to get fancier than just subtracting some constant the learning rate times the gradient from our parameters. There's a number of ways to do that.
+One is a whole class of methods called momentum methods. We'll talk about what that is. But it's kind of like how it sounds like once, once you start driving the parameter in this direction, you tend to keep driving it in that direction.
+And the advantage of that is if the surface that you're optimizing over is a little bumpy. Well, you've got this momentum and it sort of like pushes through and sort of effectively smooths it out.
+And then we'll talk about adaptive learning rate methods. There's many of them. And the idea here is that, you know, we, at different points of the optimization, we may want to spend more or less, we want to put more or less attention on to specific parameters.
+And so those are our adaptive learning rate methods. And we may want to change the learning rate, not only over parameters, but like over time as well.
+Okay, so how does momentum work? Momentum is pretty simple. Here's like the basic formula is if I want to calculate the momentum, the momentum is what I'm going to use instead of the gradient.
+Okay, and it's basically going to be, it's kind of the gradient.
+But I'm also going to say like, what was the, what was the gradient or actually what was the momentum in the previous time step.
+And then I'm going to take some average between the gradient that I'm calculating based on based on the loss for this batch of examples.
+And like whichever direction I, you know, I moved in the in the previous time set. So if the previous time step straight ahead like this.
+And then I look at these batches, and it's saying, no, you want to move in this direction.
+Well, you know, if, if my momentum is point nine, then I'm going to move, you know, in a direction that's, that's mostly, you know, where I was going before with a slight correction.
+And if, you know, if the momentum is point one, then then it would be the opposite right I'd be moving in the direction of the gradient with like a slight correction based on the momentum in general it's it's you know probably going to be more like point nine so I'm,
+I'm, you know, moving in the, in the generally in the same direction from time step to time step. But if I get a lot of corrections that are all pointing in the same direction then, you know, then I can, then I can change that.
+Okay. And actually this is like parameter by parameter so it's not really this orthogonal thing it's more like, you know, if my gradient was here and then the in this batch is going the other way than I'd still kind of be going forward.
+So, with this formula, every time.
+Every time I apply this, this parameter this momentum term.
+I'm applying it again to all those previous time steps. Right. And so this term, even if it's like point nine.
+You know, my gradient from three times steps ago is like point nine cubed, like gradient from 100 times steps ago is like point nine to the hundredth power so it's like basically zero.
+And so it's this, you know, what happens is at each time point I have like an exponentially decaying influence from the previous time points. Okay, so that's the whole idea behind momentum methods.
+That's basically what a momentum is a to grad is is an algorithm that basically identifies features that are used less frequently. And what it says is, you know, once you've, once you've done a lot of updates to a certain parameter.
+And then you want to go slowly because oftentimes we see the loss go like way down initially, and then you got you got to, you know, turn the learning rate down, because you're getting close to to where you want to be.
+And, and you don't want to move as far and so you want to like slow down a little bit.
+And at the same time, when you get to a batch where you have examples in that batch that are really informative for part of for one of the parameters in your model. Okay, so maybe it's like a certain molecule with a certain kind of ring
+structure, where in your 2000 examples you only see it like 20 times.
+So when you when you see like part of the model that is informative about that feature and you want to learn from it, then you really want to pay attention. Okay, so it keeps track of like how big have the updates been on this parameter.
+And it basically accumulates them by taking this the squared value and then taking the square root. So it's like a root mean square, and then it's just dividing the, the size of the parameter update.
+Kind of how much that parameter has been updated already. Okay, so you'll start to start to optimize.
+A lot of your parameters initially, and then as you keep training, you're going to really focus on the parameters that haven't been updated yet. Okay, so that's kind of the idea behind a grad, the
+the problem with a grad is that you can you can get to a point where like lots of your parameters they've been they've already been updated a lot.
+And you might need to update them again because the rest of your parameters have moved. But now, like that denominator is so small that your learning rate like goes to, you know, close to zero, and it just takes forever to train.
+So, so that's a problem.
+RMS prop kind of builds on a to grad because it says okay well instead of just adding up all of the previous gradients so eventually like things are like approaching zero.
+Let's, let's use momentum on that, you know, that accumulation term so it kind of exponentially dies off, and then you're only ever looking at like a window of previous gradients so like once you've updated enough.
+If you've stopped updating this parameter, then, then you will forget that you updated a lot in the beginning and it sort of takes care of that problem. Okay.
+So, the, the method that kind of builds on that now is is Adam. And so what Adam does on top of RMS prop and then, you know, on top of like keeping track of that gradient that accumulation of gradients is it puts a momentum term on the gradient itself so it's
+combining it's taking RMS prop and then saying okay, what if we also put momentum on the gradient itself.
+And that ends up being being pretty useful for a lot of practical problems.
+So, if we just look at, you know, the number of machine learning papers that that use these different algorithms, you can see that like Adam is has really taken off in terms of, you know, being like a really effective way to to train a lot of these nets.
+Okay, so let's walk through how we use these to to fit like a simple model.
+So, the data I'm showing you here. This is from a line, you know, a x plus b, you know, y equals a x plus b, you can figure out what a and b are probably by by looking at it, I don't actually remember.
+And I just generated points on that line, and then I added a random number right so I just made like a noisy, I just made noisy linear data but like my model literally has two parameters, like plus plus the noise term and will never fit the noise
+term. We kind of don't want to fit the noise term, but if I put like a gigantic neural net and train it on this, it's, you know, it's, it's going to fit it. It's going to memorize all those data points, but it's not necessarily going to produce anything useful.
+Okay, so here's just a kind of an example of what I just said on top is this is the model that I'm going to use to train it right so I've got my linear layers. I've got my non linearity.
+I've got another linear layer. That's taking those, you know, those 1000 inputs and adding them up in according to some weighting function and then outputting a number right. So that's the model I'm going to train.
+And below is is my model of appropriate complexity. Right. It would just be a linear layer with one input one output.
+That model is going to have two parameters. It's going to have our, our why intercept or our bias term and then it's going to have our, it's going to have one way. Right.
+Which would be our slope.
+But let's say, you know, our priority we don't, we, we don't know what the internal structure of the model is. So we're going to fit it with with a model that has way too many parameters and is way too powerful and then and then see what happens right.
+Generally what's going to happen is if we have some some loss function, and we look at our training data, the training loss is going to is going to drop precipitously at the beginning, and then it'll continue to drop.
+You know, as, as we go on, and the more we train it, like the lower it's going to go in general, and there, there can be bumps.
+So we hold out a test set or a validation set. And then we train on the training set, but then we evaluate on the loss of the validation set. What we're going to see is, well probably the validation loss is going to go down initially with the with the training loss and and it's going to go
+down. So we start with like random parameters. So it's pulling us generally in the right direction. But then at some point, as we start to, if we have a simple model, and we start to memorize individual data points, it's going to make us perform worse on data points that we haven't seen.
+And in general, there's, we have a trade off between model complexity and different types of different types of error, and we can break the, the error down into three, three different components.
+One is going to be the bias. Okay, and that really is how, you know, if we, if we were to look at an infinite number of examples, where would the model be converging on like our model is probably not the true underlying model.
+And so it's going to, you know, it's not the perfect model. So it's going to converge on on some point that is potentially not the right answer. Right. So, so here we can see like there's a there's a target and like a bullseye.
+And the, the, the y axis here, these are examples of models with high, high bias. Okay, so the, you know, the ground truth is here, and, you know, our models predicting points here or the ground truth is here and models predicting points over here.
+So we have a bias model down here. You know, as we sample an infinite number of points, we're like spot on so our bias is very low. And here, you can see the points are more spread out but the more we sample the, you know, the closer the average gets to the to the true answer because the bias is low.
+So that's our bias term. There's also a variance term. And the variance is exactly what it sounds like, you know, these, these two examples, there's very little variance between what the model predicts for, for these different inputs.
+And over here in in on this side, we can see two models that have high variance. So this is a high variance around a biased answer. This is a high variance around an unbiased answer.
+Okay, so, so these are, these are kind of our, our, our two terms. And there's really, there's a trade off between these two. And then the last form of error is just irreducible error. And you can think of that as, well, gosh, if we're, if we're collecting data with some instrument that we're using to measure a physical process.
+So now we're going to try to like fit the, you know, we're taking that as the ground truth and then we're going to like build a model to predict the output of that instrument.
+Well that instrument, it might be noisy in itself, right every physical measurement we take is going to have some some error. And even if we have the best model in the world, it will never be able to, you know, predict like what is the what is the error in our instrument, right.
+So, we have this trade off between bias and variance. And that's where regularization comes in. And so regularization is basically what we use, like when we have these models that have way too many parameters.
+We can trade a little bit of bias. So, we're not going to try to predict the, the exact answer. We're going to like, we're going to put another constraint on the problem that is really intended to prevent overfitting.
+The virtue of the fact that like the thing we're trying to optimize is not the right answer, like that that inherently is going to put some, put some bias into the into the process right.
+So it's going to, it's going to take a model with very high complexity and reduce the effective complexity of that model because we're putting a constraint on it. And hopefully, the, the goal is that that's going to help us generalize to new data or, you know, like go from our training set to our test set.
+Okay, so what are some regularization techniques.
+Well, the first one is, is really simple. If we go back to this curve, you know, we could, we could just stop here.
+Right. If we, if we remember, let's say the last, you know, 10 iterations of our, of, you know, of our, our model or on this axis, maybe the last 100. And we see that the validation loss is going down, and then it's bottoming out and then it's starting to come back up.
+So we could like go back a few steps to where we thought it was a minimum, and we'd say like this is this is our model, we're just going to like stop there. Right. So that's just early stopping.
+But we can also put constraints on the model. So one popular one is L one.
+That's basically where we take all the parameters in the model, and we take their absolute value and we add them together. And then we're just going to add that to the loss function was with some constant.
+Okay, that'll be L one L two is kind of the same thing, but we're going to take the square of all the parameters. And then we're going to add that to, to our loss function.
+We can, we can take a little bit of L one and L two together. So we can have two constants and we can, we can put them both in. And that has some really nice properties.
+And there's many other techniques that will help regularize the data. In fact, doing stochastic gradient descent in and of itself regularizes the data.
+And we talked earlier about batch norm that that actually ends up regularizing the data and so like a lot of a lot of things we do help to to regularize data.
+One thing that prevents the model to some extent from memorizing the training input is dropout. And so with dropout we can add dropout after any of the layers in our model.
+And then, while we're training, it will just ignore like some percent of the of the neurons. So I might ignore like, you know, 10% or 20% like a like a good fraction of the neurons in any particular batch.
+And that that really helps it, you know, prevent helps prevent it from from memorizing specific answers and overfitting.
+Okay, so if we're going to put in these regularizers, we're putting in a lot of additional hyper parameters and in our model.
+So, you know, like how much L one how much L two or are we putting in how much dropout. These, these are all new parameters that we have to optimize over.
+And so that's where cross validation becomes really useful. And so, you know, I've shown you, well, I can, you know, divide my data set into a like a training set and a test set.
+But I can also take that training set and I can divide it up. And I can kind of optimize all the different hyper parameters in in my model, you know, like leaving, leaving different validation sets out.
+And so, so I can use all of my data to fit those hyper parameters instead of just, you know, like 20% of it.
+Skip that. Okay.
+So here's an example of what would happen as we start to overfit the model, right. And here you can see it's, you know, the orange points are are the data points that that I generated.
+I generated them from a simple model just like, you know, a single line. And you can see here we're getting, we're getting like fairly poor behavior. It's the loss is going to be really low because the model is like, you know, predicting most of those orange points exactly.
+In fact, I think this model may be fitting all of the orange points. Exactly.
+And I think that the orange is just like in in front of the, the blue so you can't see it. But, but regardless, the, the things that the model is doing interpolating between those orange points is is kind of nonsense, right.
+And certainly, everything it's doing extrapolating from that line is, you know, complete nonsense.
+So, we can take the same model, and we can run it with early stopping.
+And when we do that, we get the following curve, which looks pretty good. Like it's not.
+It's not quite linear on the, on the edges, but, but the rest of it looks pretty good. Like that's, that's a pretty good answer. And, and it's only getting weird in the, in the extrapolation range.
+And honestly, like if you looked at that data, and you didn't know that it was generated from a, from a linear model, you might think that it's got a little curve in there, you know, it almost looks like quadratic.
+And we can overfit our model, and then add an L one term. Okay. And this is kind of what we get. If we put some L one in and now we can, you know, overfit the model as much as we want.
+And here's our output so it's still doing pretty good. It's doing bad in the extrapolation range, but it's doing pretty good over, you know, over most of the range of our model.
+And on the left, what I'm showing you is, I'm showing you the value of all the parameters in the model. Right. So you can see what L one is doing. L one is driving almost all the parameters in our model to zero.
+Right. And then you can count, you know, the, the total number looks like 10, there's 10, 10 non zero parameters and those are kind of driving the, the whole model.
+And if you were to look at the line, you know, you can probably, you can probably see like 10 different like segments there or something.
+Okay.
+What about L two.
+Well, if we look, like, that's a pretty similar fit. But the, what is doing with those parameters is very different. Right.
+And so if we think about it this way, if, if we have multiple parameters in our model that are all saying the same thing, L one is going to want to, it's going to pick the best one.
+The one that is just infinitesimally better on like one data point in our set than the others.
+And it's going to like over optimize the loss based on like whichever parameter actually fits the data, the best. Okay, so it's going to pick the 10 best, you know, however many best parameters, and it's going to drive everything else to zero.
+And L two is and is driving it to zero right because we're putting a penalty where the loss function is is going to include the sum of all those parameters so wants them to be to be small with L two we're going to square those parameters.
+That, you know, maybe one is infinitesimally better than the other one.
+If we want to put the full weight of the, the slightly better parameter into the model.
+You know, let's say that's the weight is like point one, right. So we're going to put the full point one in, and we're going to drive the other parameter down to zero. And so now our
+our L two is going to be point one squared or point zero one. But now what if we what if we take, you know, point oh five of this parameter and point oh five of that parameter.
+Right. And now, because it's squared, like we were actually the L two penalty is much less, right, because now I'm, I'm taking half of those numbers and then squaring it so it's like, you know, I get a fourth and a fourth I add them together I get a half right so so, you know, if we have two parameters that are
+equal, my L two is only going to be one half as large if I split it between them, as opposed to making, you know, one zero and the other one full value. And so you can kind of see that right like, look at all these parameters in the middle here that are that are essentially
+it's like it's creating a model and you can you can almost see like there's a parameter here there's a parameter here there's parameter here there's one here there's one here, there's all these parameters in in my model that are like, they're about the same.
+And, and I'm splitting the L two over overall of them. Right.
+Okay.
+And so, you know, produces produces something similar but it, you know, makes us pay attention to more of our points.
+So it's a little more popular than, then L one and L one plus L two has some nice properties as well. Okay.
+Now, so L two is probably like the, the most popular, one of the most popular ways to just add some regularization to our loss function.
+In general, we don't just add the we could add the L L two term if we were computing the gradient ourselves, like we did in the, you know, in the first example that that we wrote out where you know P
+equals P minus learning rate times gradient.
+If we're doing our update that way. It's kind of okay if we just add L two to our loss function.
+But in, in general, because Adam and a lot of these terms that use momentum.
+Are storing like what the gradient was in the prior term. If, if we add our L two to the loss function then compute the gradient of that.
+Then that gradient is getting amplified every every step that the, that, you know, that that we do an update.
+So it builds up a, a momentum in a certain direction, and the amount of momentum it builds up as depend, you know, depends on how big that parameter was when it was initialized and and it just like it kind of wreaks havoc with things and and it
+it's not good.
+And it sort of dilutes out and sort of randomizes the regularization effect of the L two. And so in, in practice, we're probably going to use an optimizer and optimizer like Adam, and then
+sometimes it's called Adam W sometimes it's just called Adam and there's a parameter for weight decay, but we put the we basically compute the gradient first.
+And after we've computed the gradient so we don't put the L two and loss function after we've computed the gradient.
+We like we add the L two term and you know as part of the as part of the optimizer in the parameter update, but we don't include it in the gradient so it doesn't, it doesn't like have momentum and keep pushing us in that direction.
+In general, when you guys are like building models, you can just use some of these existing optimizers like Adam, you can put in, you know, like weight decay equals like whatever and it'll take care of all this, all this stuff for you.
+Okay, dropout I think is kind of interesting too.
+So, here's what, here's what overfitting that same model looks like with dropout and and here you can kind of see it's yeah it's not really as linear as the other ones, and it's still doing weird stuff at at the end, but it's got a kind of a nice like smoothing effect in in the
+And you, we get that just by dropping out 50% of the neurons like every time we run it and it kind of makes everything like a little redundant.
+This is on the left you can see what the parameters look like. I don't have an intuitive explanation for like what that cloud means I just thought I would like also also show it I'm sure there is a like a good way to understand that.
+And adding dropout is is pretty easy. We just put in a dropout layer, and then we can specify like what fraction of nodes to drop out like in in that layer and we just stick that into our model.
+Okay, batch normalization is another way to regularize things and also help the the back propagation algorithm, you know, distribute gradients from all the way from the loss function to earlier in the model.
+And one of the problems there is, as we go layer to layer to layer. Some of those gradients can can disappear. And so, or explode and so batch normalization helps that by saying for for each activation in our model, we're going to set the mean and the standard deviation to zero and one respectively.
+For all of the examples in in a particular batch. Okay, that's kind of how how that works.
+Ends up working really well. And it allows us to train like much bigger models. This is the original paper batch normalization accelerating training by by reducing internal covariate shift. So the idea there was, you know, I used to have.
+I used to be getting input from these other layers that, you know, that had some some set of weights, and in my parameter updates, like those other layers and the inputs coming in have shifted.
+And so now, like I also need to like shift this layer because it's on like it's on a moving landscape.
+A nice paper.
+No, I guess I don't have it. A nice paper that came out of a group here at MIT that actually showed that's not true. That's not, that's not what batch normalization does.
+But empirically we know batch normalization works and and so the new hypothesis on on how it works is that it actually smooths out the the loss landscape so the loss landscape is like kind of bumpy it smooths it out.
+Not as easy to get stuck in local minima.
+I don't think I want to get too far into oh yeah here's so here's a paper from from MIT kind of showing how it works.
+And I think, I think that's all I want to say, kind of about.
+Some of the theory and some of the algorithms behind training these networks. So, let's go back and let's see how how our model did is this is this from this run.
+Okay.
+Yeah, I think I think this is from here. So, we started out with our, our first epic and we got up to 86% accurate so better than 75%. That's great.
+As we in here I'm looking at my test accuracy so I'm only looking at the so you can see the loss here let's let's go back.
+My loss started out after the first epic at 0.38. Okay, so that's the function I'm trying to minimize.
+And that's that's my loss on on my training data right so that's just like generally be just be going down each each epic.
+But my test accuracy this is on the data I held that right so says my loss on on the training data is my accuracy on the test data.
+So definitely my loss is going down that's to be expected. But what's nice is my my test accuracy is is generally going up so here we're kind of
+we were in the 90s.
+We're hovering around around 90 and and if we get, let's go all the way down. Our loss is getting pretty small.
+Our test accuracy is about 90%. So, pretty good, better than random is, I thought I was like 99.9.
+Because, because we because I had the wrong training set.
+That means there's there's more to learn here so what else could we do. Well, we could start with with a more sophisticated model, we just had like a really simple neural net with with three layers.
+So, you know, we could put different kinds of layers or more layers in there, or we could actually start with with a different way to represent those molecules, like a graph neural net or something like that.
+That's probably if I had to guess, that's probably where where we could gain some ground is having a more sophisticated embedding that that was going into our model.
+But here we can see how all the all the features work. And let me just let's plot this out. Let's see what our loss function looks like.
+And so we can see it, it starts out pretty high. And then as as time goes on, it really starts to starts to decrease here.
+And, and, you know, our loss gets pretty low and sometimes it spikes right.
+And, and the same is true of our accuracy. And part of the reason for this is, when we're, when we're fitting our model.
+We're not just trying to get the right answer. Right. So if it, if it crosses the blood brain barrier and it's, and it's a one.
+We're not just trying to get a probability greater than 0.5. Our model is getting maximum or minimum loss, if it's predicting with 100% confidence that it crosses the blood brain barrier.
+And, you know, if it doesn't, it's getting like it's, it's, you know, maxing or minimizing the loss by, you know, predicting 100% confident that it that it doesn't write and so, even if the model is perfectly accurate.
+The loss is not necessarily zero, unless the model is 100% confident of the answer. And so that's really where, like a lot of the overfitting comes in as your model is getting trained, and it's getting rewarded for being like overly confident about,
+you know, test answers that it's that it's memorized, rather than, you know, just just trying to generalize based on what it's seen.
+And that also explains a lot of the, you know, why your loss can go down, and your accuracy can go up or vice versa.
+So, that's all I have to say on that. And that is the end of the small molecule section.
+Professor Kellis is going to talk to us about a few more topics, I think, GWAS and some some other exciting areas of deep learning and life science for the next two lectures and then on to the final module.
+All right.

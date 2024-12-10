@@ -1,0 +1,404 @@
+Well, good morning.
+Thanks for coming back.
+I'm sorry about the crush, but there's nothing we can do about it.
+So today, am I getting anything?
+I am.
+Today, it's pretty much the same story as last year.
+I'm going to talk to you about what I do with Vim.
+So it's basically Vim in the hands of a maniac.
+I want to give you some useful ideas, some useful tricks that are going to make your
+everyday Vim editing very much better.
+But I wanted to start out with a completely useless trick that will in no way improve
+your Vim editing.
+I wrote a plug-in this year called SWTC, and I wanted to start off just by showing that
+to you.
+This plug-in does this.
+We're still in Vim.
+I'm sorry, I'm sorry, I'm sorry, I'm sorry, I'm sorry, I'm sorry, I'm sorry, I'm sorry,
+I'm sorry, I'm sorry, I'm sorry, I'm sorry, I'm sorry, I'm sorry, I'm sorry, I'm sorry,
+I'm sorry, I'm sorry, I'm sorry, I'm sorry, I'm sorry, I'm sorry, I'm sorry, I'm sorry,
+I'm sorry, I'm sorry, I'm sorry, I'm sorry, I'm sorry,
+So the really nice thing about this, thank you, is that it's all entirely data driven
+and if you grab this module which you're going to be able to grab, you can basically just
+write your own episodes as well.
+Now everything else today I hope is going to be much more useful from that and you can
+download it from this place, is.gd slash ibv2013.
+I'll show that again at the end so if you don't get it now, you can get it later.
+It's a tarball with every bit of software I'm going to show you today and a copy of
+all the slides so you don't have to frantically write stuff down that you're interested in.
+These are the things I want to talk about today, four different sections, 12 different ideas.
+The first of them has to do with screen width.
+Now I don't know about you but I like to always code only to 80 columns but that's kind of
+annoying because it means that just occasionally you need to wrap something.
+So I prefer if I can just occasionally slop over without there being a problem.
+So here for example is the source code of that plug-in that I saw and you can see that
+just occasionally there's a line that runs a little bit long.
+But when I'm doing that, I'd like to know when I'm doing that, when I'm actually going
+over the boundary.
+So Vim has a wonderful option for that.
+It's the color column option.
+If you set color column and then give it a number or in fact you can get several numbers
+separated by commas, then it does this.
+It basically just puts some coloring on that particular column.
+So immediately you can tell when you're slopping over.
+The only problem with that is I find that column being there permanently to be just
+annoying.
+What I'd really like is something a little bit different.
+So I did this instead.
+Instead of using the color column built-in, I used a function built-in to Vim called match
+add.
+And you just give it a regex, here the regex is you are at the 81st column virtually and
+you give it a color to make things and then it does this.
+And now you notice that the only lines that have the little marker on them are the lines
+that actually go over.
+So I'm not distracted by it, but I always get a warning when I'm going over my boundaries.
+If you like to do that as well, then it's useful.
+The other thing about color column is even if you don't use it for good, you can use
+it for evil.
+If you set something like this, because you can set multiple color columns, on April Fools
+next year you can bury this in their Vim rec file and then whenever they edit it will
+look like this.
+And they will have a lot of fun.
+And the thing to do is make a conspiracy with everyone else not to notice it.
+And I say, my Vim is doing this, doing what?
+So color column.
+One of the commands that I use more often than anything else I think is the end command.
+That's the thing that takes you to the next match.
+You do a search and then end takes you to the next match and the next match.
+But I like to use the HL search option and that's the option that highlights everything
+that would have matched your search.
+And that can create problems when I'm going from match to match.
+So here's some text.
+If I search for you, then I get a lot of matches and they all get highlighted.
+Now as I go next to next to next, can you see how hard it is to see where the cursor
+is?
+That's not really helpful to me.
+So I thought maybe Vim ought to have an HL next as well that somehow highlights the next
+one that you went to slightly differently, at least temporarily.
+So I built myself that by remapping N and capital N to do this.
+Initially it was just a very simple thing which is invert the current line of the cursor
+and then wait a second and then invert it again.
+And when you do that, at least it tells you which line you are on.
+So it draws your eye a little bit.
+That still wasn't quite good enough for me so I just started excessively working through
+this.
+These are all in the table.
+You don't have to even think about what these do.
+And I went through all kinds of things.
+Put a ring around it.
+That's kind of nice.
+And then I went exactly the opposite direction and I really want you to draw my eye to it
+so hide everything else.
+Watch this.
+No way you aren't going to see where that is.
+And then I dialed it back a little bit and the one that I'm working with now just kind
+of highlights it by blinking at you.
+So they're all in the table and you can download it and just adjust it to whatever you want.
+Kind of a cool little trick.
+The next thing I want to talk about is white space in code.
+I'm really obsessive about white space.
+I do not use tab characters.
+I've always got expand tabs turned on.
+I don't like other kinds of weird non-breaking spaces in it and I do not like trailing white
+space at the end of the line.
+So when I have a file like this I don't want there to be tabs in it and I sure as heck don't
+want there to be a whole lot of white space at the end of the line.
+So how can I tell that that's happening in my files?
+Well Vim has a couple of options that let you do that.
+The list and list charge option, the list charge option lets you specify how you want
+tabs and non-breaking spaces and trailing white space to be represented and then turning
+on the list option makes Vim actually do that.
+So you turn those two options on and now exactly the same file has little markers in it to
+tell you when you've got characters that you do want to see and that can help you get rid
+of them.
+Now personally I like to use Unicode characters because they look different from the normal
+stuff that I type and it's easier to say okay that's something a bit special so mine kind
+of look like that.
+But the lovely thing about it is you can have whatever you want there and you can turn
+some of them on or not other ones on that you don't care about.
+You know if you use tabs you certainly don't want to have the tabs highlighted all the
+time because that's just annoying.
+So anyway list and list charge as options.
+The second set of ideas that I've got for you have to do with laziness and I'm really
+big on laziness so I don't use Emacs, can't be doing that many characters at a time.
+So one of the things I like about Vim over Emacs is it doesn't have a lot of these awkward
+key chords.
+I can generally just hit one key and get some useful action out of it.
+With one important exception the most annoying one is shift semicolon otherwise known as
+colon.
+Okay I don't know about you but I use colon commands all the time and it's just really
+annoying to have to roll over two keys to get to it especially given that semicolon
+isn't doing anything particularly interesting anyway how many people know what semicolon
+does?
+Yeah exactly.
+So simple and obvious thing.
+Just remap semicolon that doesn't require a shift to colon.
+Now your old colon will continue to work if you do happen to shift it but now you can
+just hit one key and get in yourself into a colon command.
+Or if you are one of the five people in the room and apparently the five people in the
+entire planet that does use that semicolon you can just no remap the two to each other.
+You've got to say no remap otherwise you're mapping A to B and B to A and it will just
+na na na na na na na na forever but if you no remap it will just swap them around.
+Now that's a trick you can use for a whole lot of things.
+If you've got two keystrokes that you don't like or one is more useful to you than the
+other you can just swap them around with a pair of N no remaps.
+Diffs.
+I do an enormous amount of patching and diffing and dealing with bug reports and so forth
+but I'm not a fan of syntax coloring.
+I don't know how many people here like syntax coloring.
+Yeah it's always the majority I just don't understand it.
+For me it's just a distraction it's just kind of oh my god the colors are everywhere what
+am I doing there.
+That's the standard syntax coloring for Vim script.
+Man not helpful.
+But occasionally syntax coloring does help so if like me you have it turned off sometimes
+it's useful to turn it on and diffs and patch files are a great example of that because
+diffs consists of meta information where did this come from and then commands take this
+out or put this in and then context around it and it's really hard if it's all white
+to tell which is which.
+It all just looks the same.
+So if you don't like syntax highlighting for most things you might want to think about
+setting up an auto command like this where you say look if it's a patch or a reg or a
+diff file just turn the syntax highlighting on for that or if you prefer it to do it with
+the file type mechanism you can just say look when the file type is a diff whatever its extension
+is then I want you to turn on the syntax highlighting and then if we go back with that you can see
+this is actually useful all the meta stuff is in green the things that are coming out
+are in red the things that are going in are in blue and that just makes it much much easier
+to see.
+So even if you aren't a regular user of syntax coloring think about setting yourself up some
+auto commands that will do that for you when it makes sense to do it for you.
+The way I tend to use Vim and the way I tend to use my terminal is to have lots of separate
+terminal windows I'm not a big user of screen or Tmux or something like that I prefer to
+have separate windows all the time and the problem with having separate windows all the
+time is that I will forget that I'm already editing a particular file in another one is
+that something that other people have yeah so what do you get when you do that you get
+this all the time.
+I've seen you've got a swap file active what do you want to do at this point and basically
+none of the options are good enough and that's my problem what I discovered was I only ever
+do two things the first thing I do is quit immediately and then go searching through
+my terminal windows for where the damn session actually is or if I know there is no session
+then this must be like an orphan swap file from a previous crash then I tend to use open
+it up read only so I don't accidentally modify it before I have a chance to look at it and
+recover it.
+So one of the things you can do in Vim is every time it detects a swap file it brings
+up a swap exists event so you can auto command to say if you get a swap exists event on any
+kind of file then just set this particular variable it's internal to Vim the swap choice
+variable says I am always going to make the choice oh so don't bother showing me all of
+that crap just assume that I typed oh and get me in there read only and so I set that
+up and it was really handy but after a little while I forgot that it was doing that and
+I'd start editing the damn file at the end of it I'd go to write and of course it was
+read only so I added in a little bit of extra activity which just says look tell me that
+it's doing that so I know that this is what's happening so that worked pretty well for a
+while and if I wanted the other which was quit then I was in the file I just zz which
+is like a reflex to me and I'd be out and I'd be hunting for my remainder of my session
+but that's what I found I was doing most of the time I'd edit a file it is a duplicate
+session I'd zz and then I'd start flicking through on the keyboard each of my terminal
+windows trying to find the appropriate one that had a session and as soon as I find myself
+doing that I'm there's no way I'm putting up with that I'm a programmer god damn it
+that's what I'm good at automating this rubbish or worse still it'd be an orphaned swap file
+so I get to the end of all of my windows and get really irritated and then just have to
+go and kill the swap file and edit again so all of that sucks so I wrote myself a plug
+in called autoswap mac that just handles everything for me let me demo it for you so if I'm going
+to edit so let's go back to that file again now what happens if I create a second window
+here's a second window and I edit the same file watch what happens now it just flips
+me back into the terminal window that's the correct one and the other terminal window
+it just flipped me out of it just automatically worked out where it should take me that makes
+life like a thousand times easier and more importantly it doesn't break my flow of concentration
+now if I was to accidentally kill that session without saving it now I have a swap file that
+is newer than what's on the file so normally it would I would again get that there's a
+swap file what do you want to do about it but this thing is smart enough so if I edit
+it it does this if you look down the bottom it says swap file detected I'm opening this
+read only it found a newer swap file so it just opened it read only and indeed it is read
+only it can't write now if I did in fact overwrite it now I have the situation where my file is
+newer than my swap file which hasn't been deleted guess what same plug-in if you edit
+it again detects that it's an older swap file and just deletes it for you automatically
+and then the next time I edit there's no swap file anymore so I don't get any message at
+all and that now handles everything that I want to do when I'm dealing with swap files
+in a safe and reliable way and my life just got significantly better now unfortunately
+I only set it up to work on a Mac and only with certain headings on the title so that
+you can find which session it's in but it's in the tab all and you're very very welcome
+to mess around with it for your platform and your editing setup as well the whole thing
+here is the idea the third set of topics that I want to talk with you about a little bit
+have to do with the use of VIM when you are writing not code but when you are writing
+language predominantly English but I want to talk about other languages as well so I
+write a lot of documentation in VIM one thing that really annoys me is when I've been writing
+some documentation and describing the components that you need for something or the steps that
+you need to follow for something and I've been writing it and it's you do step a comma
+then step b comma then step c comma then step d and at point where I get to about step d
+I realize god damn it this should have been a bulleted list because I've got too many
+points in a row and they're not going to be able to follow it so I could go back and edit
+it and make it into a bulleted list or I could get smart and write a plug-in that does that for me
+guess which I did so I got a plug-in that you simply put yourself on the part of the text
+that has the comma separated list you hit one key and you have a bulleted list thank you
+oh but it gets better if you had a bulleted list you realize you know what this really
+should just be a comma separated list you hit the same key it auto detects that it was a
+bulleted list and just turns it back to the ordinary one and you can go back and forth
+uncertain which one you want note to that it knows English convention so if you look at
+the very last point there when it goes back to being a bullet another list it adds an
+end in there and an Oxford comma thank you now one of the issues with this is that there are
+other conventions as well because if one of your bullets already has a comma in it you can't just
+turn it into a comma separated list because that's going to change the meaning so what do we do in
+English if there's already a comma in one of our options semicolons hit the same key and now it
+comes back with semicolons note that when there's an and at the end here when we go to it being a
+list it just removes the and because it's superfluous there however if it wasn't an and if it was some
+kind of conjunction it knows to keep it and put it on the end of the penultimate option and then
+when you go back again it rearranges it and puts it after the final Oxford comma it's pretty damn
+smart so you don't have to worry about lists anymore you can just swap them back and forth it
+also has a binding for visual mode so you can just visually select a bit of it and get that turned
+into a list if you want to the plug-ins called list trans guess what it's in the table
+one of the things I really really like about Vim is that I can use it anywhere in the world so
+quite a few of my clients when I'm teaching Vim or other things don't actually speak English very
+well in all kinds of parts of the world and so what I want to do for them is stick to the subset
+of English that's known as basic English it's just a couple of thousand words that are the common
+words in English but the problem is that when you write a slide like this how do you know which
+words are okay in which are not so what I did was I created a new spelling list that only had the
+words of basic English in it and I created some mappings that allow me to turn it on and when
+I turn it on then all of the correctly spelled English words that are not in the basic English
+subset get highlighted as errors and I can just go through and replace them with words that are
+acceptable and that simply removes the highlighting from them this is the standard spell checker that's
+in Vim 7 so I'm not doing anything special the only thing I did was make my own spelling dictionary
+and of course I got a mapping to turn it back off again when I'm happy with it the way you make
+your own spelling dictionary is with a built-in called make spell you tell it where you want
+it to put it and you better put it in your .vim sub directory so it can find it again and then
+you just give it a file in which each word is on its own line just in like the standard
+user shared dict but the great thing is you can choose whatever you want so it might not be that
+you need to use basic English but it might be that there are certain words that you are not allowed
+to use in your documentation for legal reasons well you could just copy the standard dictionary
+across remove those words make up a dictionary like that and just switch into it and then any
+time that you use one of those words it would come up red I kind of find that very handy
+the other thing I love about Vim is you're not restricted to ASCII with Vim I really like it
+that if I want to say no I have one more chosen glass I can do it with the correct punctuation
+using Latin one and in some cases unicode characters the only problem with that is that
+the way that you have to put those characters in is with digraphs and I can never remember
+the digraph code for anything I don't know why it is it just doesn't work for me
+so here's my workflow when I'm doing digraphs I get to the point where I need to put an O
+acute in and I do control k and then I stop I know it's an O how do I get the acute
+and so what I do is I in the end I say some rude words not very rude words
+I double escape out of the control k and out of the insert mode I do colon well a semicolon digraph
+I hunt through the list of all the digraphs finding the one that I want
+memorize it come back go into insert mode again control k and then type it in it's actually
+O apostrophe and then I get my O acute
+and pretty much every damn time I'm going to have to do that so there's no way I'm doing that
+my first idea was why don't I just remap control k so that it automatically
+temporarily jumps out of insert mode with a control O does a digraphs command
+and then jumps back in and types in the control k for me that'd be cool
+unfortunately it's way too cool because you do that it jumps out shows the digraphs then
+jumps immediately back in which wipes the digraphs off and your visual acuity has to be extraordinary
+to do that in time so what I did was I rewrote it into a function
+I said I'm going to overload it so that when I'm ready to do control k it calls this function
+and what's the function going to do the function is going to call digraphs and then the cutting bit
+is and then it's going to call get char it's going to throw away the character it gets
+but it's going to sit there and wait till I type something and then it's going to return a control
+k and because it's an expression mapping that control k will become what it actually does
+so when you do that you end up with this I'm in insert mode I do a control k
+I find what I want I hit my character to return and just type it in
+and I was really happy with that for about 10 seconds
+because it kept interrupting my flow it had filled the screen with digraphs and I'd lose
+context of where I was what I realized that what I wanted was in fact a heads-up display
+of digraphs and I wanted help in narrowing down the choices that I had to make because it's
+still a hunt and peck so I wrote a plug-in surprise surprise and with that plug-in when I do a control
+k this happens note that the line where I'm typing is still there so I don't lose context and I got
+a low visibility version of the different characters that I might want to type now I know it's an
+o acute so when I type o watch what happens
+yeah it strips out the ones that I don't want and I can look for the acute symbol
+and just type the one that I want oh I missed it hang on let me do it again o acute thank you
+so that was great but that highlighted the real problem for me which is
+if I could just remember the damn digraphs I wouldn't need this assistance
+and the mnemonics for them are terrible they're great for bram for the rest of us who knows
+so since they suck I wrote another version of this module with sequences that make sense and
+what makes sense to me is if I want o acute I should type o a if I want o tilde o t if I want
+c sedilla cc so that's what I did so my final version now looks like this
+o sorry control k o and an a will give me acute
+o tilde
+see sedilla and I'm now thinking about maybe I should just delay the heads up give myself half
+a second to actually type it in and if I don't get there in time then have the heads up come up
+haven't got that yet but this is in the tarball both versions are in the tarball
+whether you want standard vanilla digraphs or the specialty digraphs they're both there and
+you can just choose yourself and frankly the arrangement of the how do we map the digraphs
+is so simple in the actual plugin that if you didn't like my choices it'd be a very simple
+matter to go in and edit and change them to your choices final section of things I want to talk about
+have to do with my very favorite tool in vim and that is the visual modes who loves the visual
+modes visual block mode you don't know what these are these are the modes that allow you to hit a key
+v or capital v or control v and then select a region of text which gets highlighted and then
+once you've got the text selected then apply an action to it it's a fantastic way of doing things
+but it's not perfect so I want to make it perfect something I find myself doing remarkably often
+is pulling up a scratch buffer and just typing in some numbers someone's feeding me information
+about something or I'm looking it up in a book or something and I wanted to get the whole list of
+numbers and in the end I'm going to want to add them up and I don't want to do it in a on-screen
+calculator I hate on-screen calculators because you get halfway through and you can't remember how
+many of the numbers you've put in and I certainly don't want to pull up a full spreadsheet even the
+spreadsheet that you can get for vim isn't going to do it for me all I want is type in a column
+of numbers and then add it up how hard would that be well it was surprisingly hard but guess what I
+did yeah I wrote a plug-in to do that it sums averages dices slices you name it so I've typed
+in a whole lot of numbers and now I just hit plus plus because that's what I mapped it to and down
+the bottom you can see the sum the average the minimum the maximum and yes the average is done
+with the correct mathematical approximation so you don't get too many decimal places to it
+instead of doing it just like that you can do it actually in visual block mode so if you just
+highlight say the integers and double plus it then you get the sum of just the integers like that
+and because you're averaging integers you can use more decimal places because they're precise
+and it's smart so if you do something like this
+and you've got things that are not numbers in it it just sucks the numbers out of them
+and adds them up for you and it's really smart because if you have things that look like numbers
+which which are clearly not numbers it doesn't add them into the average so if I do it again
+you get exactly the same average and of course that was great that was very helpful but what
+do I want to do now that I've got those numbers I want to put them in somewhere I want to type
+min somewhere so you'll notice down the bottom it says some average min and max and one of the
+letters is underlined that's the yank buffer that has that value in it now so if I get that information
+then I can just literally say from s put from a put
+now I don't know about you but this is something that I do surprisingly often
+and my life got better once I worked out how to do it easily plugins called v-math in the tarball
+yeah you're not sure what this one's going to be about
+I really love visual block mode I love being able to select a column of something and do
+something with it the only problem is visual blocks don't always act like visual blocks
+and then they're worse than useless so here's a table
+and there's a visual block selection and what I'd like to do is sort those things alphabetically
+so I go colon sort what's going to happen
+that's going to happen
+whenever you do a colon command on a visual block the colon command applies to the entire lines
+that the block spans not just to the text that the block is highlighting so I didn't end up with
+my key characters in alphabetical order I ended up with my sequence numbers because they were the
+sortable thing at the start of each line very annoying fortunately guess what
+there's a module I didn't write this one I thought I should show you something else that someone did
+and this module again you do a block selection you do colon and then you type the capital B
+meaning apply this only to the actual block and you do your sort then
+and lo and behold it does just sort the data in the actual block and any command that you could do
+as a colon command will only be applied to the actual text in the block this makes it so much
+useful I'm nearly at the point where I'm remapping colon in visual mode to be colon B
+because it's just so much more useful
+so that's provided by a plugin called viz.vim it isn't in the tarball but the url for it is
+in the pdf that's in the tarball so you can find it
+the last tool and this is the favorite thing that I've done all year with vim scripting
+is actually kind of a viewer submission after my vim talk last year
+Steve Matney came up after was it Steve in the room are you here Steve
+obviously not he's done his good work and he's left our planet
+and he showed me a couple of mappings that he had set up in visual mode that helped him move
+visual mode data around and they're fairly weird looking mappings and I'm not going to go into the
+details of them because it's not important because I took these and I thought you know what they're
+great but they've got some nasty edge cases and they don't quite do what I want as easily as I want
+so I wrote a plugin that did exactly what I want and added it in all kinds of other cosmic powers
+and it's just much easier to demonstrate to you what this does because as soon as you see it
+you'll get the idea so suppose we select a column here watch this
+who's experiencing lust at the moment good that's what I want you to do and it works
+either on visual blocks or entire visual lines them of course you can only move up and down
+your life will never be the same I use this for all kinds of things so you remember this was the
+data format for that stupid thing at the beginning and you'll write something like this and you'll
+realize oh damn that vim is like off by one character or guess what block select it move it
+across by one character nothing else moves if you don't grab the table for any other reason
+grab it for that but that's not even my favorite thing that it does it just exports one function
+that you can call and I mapped it just to my left right up and down because it seemed natural for me
+to do that but it has one other tool that's actually even more useful to me and it's a function
+called duplicate and what this does is it lets you select a visual block and then you type capital D
+and you get a draggable copy of it and then you do this
+and then you do that and you're done
+so you know where it is it's in the table
+I know there are some vim masters and mistresses in this room but it doesn't matter how well you
+know vim there's always another option to pick up on and there's always some behavior that you can
+re-script and make it more convenient to your workflow there's always something you can borg
+from somebody else and the reason for that is simple because editing is annoyance
+the editor doesn't work unless you are bram moolana it doesn't work exactly the way you wanted it to
+but guess what you can make it work the way you want it to grab the table that's the url again
+my entire vim rec is up on github if you want to go trawling for other goodies and evils
+try some of these things out if you're good enough adapt them to your own needs
+thank you very very much have a great oscon
+and by the way I teach this kind of stuff get in touch with you if you want to know more thank you
+you

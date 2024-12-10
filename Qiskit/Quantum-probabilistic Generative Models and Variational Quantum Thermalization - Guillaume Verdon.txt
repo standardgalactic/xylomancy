@@ -1,0 +1,736 @@
+global digital summer school on quantum computing and I see we have reposted
+the link. All right, so oh, Sausalito, California, that's where it's very close to
+where I grew up. Now, we are thrilled to roll out the latest episode of the quantum
+seminar series dedicated to the research and academic communities. This seminar
+takes place every Friday at noon Eastern time right now at this hour on the
+YouTube channel and I'm delighted to see so many of you already tuned in. I'm your
+host, Slap the Minute, who might be in quantum research and today I have a privilege of
+hosting Guillaume, we're done from Google X and also from the Institute of
+Quantum Computing at Waterloo. Guillaume will present some very nice results and
+hello Guillaume, how are you today? Hi, it's Latko, happy to be here. Yeah, it's
+pleasure to see you. Last time we met, I think it was right after March meeting was
+canceled and we were at March meeting so I'm glad that we can continue the
+discussions and have everyone join us today on the call. That's right, the science goes on
+to multiple times but that's right. Indeed, I hope you've been doing well. Guillaume,
+in addition to being a social media celebrity as some of you may know, is a PhD candidate at
+the University of Waterloo at the Institute of Quantum Computing. I had a very nice visit
+there recently, so great place. He is also a research scientist at Google X or Alphabet's
+Research and Development Lab. Before this, Guillaume briefly worked at Google AI Quantum
+and was one of the co-founders of Tensorflow and Project. He holds a Master's in math and
+quantum input from the Waterloo as well as honors math and physics degree from a given
+university. I think we have some very interesting questions to discuss today. I think as many of
+you know, quantum computing operates in an exponential space, so how is classical machine
+learning and learning classical distribution, for instance, which also operates in an exponential
+space mesh? How can we learn new and interesting correlations and work with not just pure states
+but non-pure states? These are just some of the things Guillaume will tell us about today and
+maybe as I advertise your talk and describe the format, Guillaume, maybe you can pull up your slides?
+Yep. The talk format is the usual. You can ask questions in the comment
+sidebar box on the right hand side usually or below and I will try out those questions and
+ask Guillaume in real time, so Q&A is during and after and I think it's time we get started,
+so it's my pleasure to turn it over to you. Well, thank you for the introductions, Lakko,
+and thank you to the invitation and it's very nice to get to speak to the whole
+quantum community here. I really enjoy watching these seminars, so it's my honor to get to talk
+in one of these. So today I guess I'll be talking broadly about quantum machine learning and some
+context comparing it to classical machine learning and deep learning and then getting into some recent
+work from various internships and during my PhD on taking inspiration from classical machine
+learning to create new types of quantum models and algorithms. So as Lakko mentioned, often in
+quantum machine learning there is this conception that if we go to, if we use a quantum computer
+in a sense, we're operating in a exponentially large space and thus we should get exponential
+amounts of power, of machine learning power, but that is somewhat of a misconception because
+for a very long time classical computers and analog classical electronics have been able to do
+probabilistic computing and as we know quantum theory is kind of an extension or generalization
+of probability theory to include complex numbers known as wave functions. Probabilities are obtained
+from wave functions by taking the amplitude squared or the absolute value squared of these
+complex numbers and from that we get the probability of various outcomes that is known as the Born
+Rule. But on the classical side we can have mixtures of zero and one, zero or one in a
+different combination whereas on the quantum side we have superpositions. It's not zero and one,
+it's not zero or one, it's a superposition with certain values of complex numbers. So
+overall I guess the theme of the talk is to take inspiration from classical probability theory
+and take inspiration from a subset of machine learning called probabilistic machine learning
+to come up with new quantum models because the theories are very much analogous and can in fact
+be hybridized as we will see. So if you have n-pro bits, probabilistic bits, they also operate in
+a space that is exponential. You have a probability distribution over the space of bit strings and
+you can have a mixture of two to the n possible bit strings and there's many as we'll see machine
+learning models that are made to represent such distributions or generate such distributions
+and on the quantum side for pure states at least they're written as a wave function of the sort
+and have two to the n complex numbers for n qubits. So there's a lot of similarities and
+there's a difference the complex number and the real number that's important that gives in a sense
+quantum computing its power over classical algorithms but instead of having this constant
+competition I guess between classical computing and quantum computing the philosophy at least of
+my research is to try to leverage as much classical computing as possible and including
+probabilistic computing and hybridize it with quantum computation. In a sense we want to leverage
+quantum computers for what they're the best at and we want to add this such that there's a value
+add by using quantum computers hybridized with classical computing. So this is a philosophy
+and it's of research and there are various schools of thought in quantum computing and this is the
+one I guess I'm vouching for. So what actually gives quantum computers their power? Well there's
+been various demonstrations that sampling from a unitary circuit that is quite deep and has a large
+space time volume a unitary quantum circuit is quite difficult for classical computers. One has
+to do Feynman paths or tensor networks and whatnot and the difficulty scales exponentially
+asymptotically with the volume of space time. So that we know that's the power of quantum
+computers is to sample from such circuits. So how do we incorporate this exact thing sampling from
+unitaries and integrate it with the capabilities of classical modern classical machine learning
+to obtain something more powerful than either piece individually?
+So quantum computers are becoming more powerful to the point of being unsimulatable.
+I won't get into whether the boundary has been crossed or not. That's an interesting debate on
+its own. But how do you, even if we have this power, how do you actually leverage this power for
+something relevant that is not just a demonstration? So in a sense the meta area of focus at least in
+the near term has been quantum AI. And what is quantum AI? I like to subdivide it into two subfields
+that are dominant for now. There are other subfields that could be analogous to the subfields of
+classical AI. But for now it seems like the community is focused on two broad categories.
+One is quantum enhanced optimization. So that is accelerating classical algorithms of optimization
+and search using quantum or quantum inspired dynamics and quantum deep learning. And I have
+many people call these variational algorithms. I'll justify my nomenclature in a second.
+What I consider quantum deep learning is learning quantum representations of
+quantum or classical data. So there's a lot to unpack there. So we're going to spend a few
+slides trying to unpack what it means to do, to have a representation or quantum data.
+This is going to be the focus of my talk today. Quantum deep learning, learning a multi-layered
+quantum computation based representation of quantum or classical data distributions.
+What is a computational representation of data or a deep multi-layered
+computational representation of data? Representations. Let's go back to classical
+deep representation learning theory, aka deep learning, and try to understand a bit of the
+context. So deep learning is subset of machine learning, subset of AI, subset of computer science,
+which is, of course, a subset of science. And I guess the gist of it is that neural networks,
+when they learn something, they got to be able to, in a sense, recreate it. Feynman said,
+what I cannot create, I do not understand. And your favorite deep neural network,
+if you could ask it what it thinks, it would probably say something similar, like this quote.
+And what do we mean by recreate? So here I'm going to get more rigorous.
+So usually you have a data set, which is set of points sampled from a true distribution,
+p true of x. And so you have a certain finite set of data points. You don't have the full
+distribution that you could query. You're trying to learn a approximative model,
+and you're trying to approximate this distribution over a certain domain of interest that goes beyond
+the data set itself, because you already have the data points that are in the data set. But
+you're trying to extend it beyond the data set. And you have a parametrized hypothesis class,
+or in classical machine learning, we call it a variational distribution, a variational classical
+probability distribution. And Phi here would represent a set of parameters, because usually
+these distributions are parametrized using something called deep neural nets, as we'll see
+in a second. But the goal is to approximate a true distribution with a variational distribution.
+And the idea is to minimize the discrepancy between the true distribution and our
+variational distribution over the data set and hope that it extends beyond the data set.
+So that would be for generative modeling. We're just trying to learn the raw distribution of
+all our data in what is called discriminative modeling, which includes classifiers such as
+like labeling a picture of a cat or a dog or regression, neural regression, which is trying
+to get a scalar out of data, so maybe a certain continuous value instead of a discrete label.
+But in general, we have pairs of inputs and outputs. And discriminative learning is very
+similar, it can be phrased in probabilistic language, as we're trying to learn a conditional
+distribution. Random variables can be correlated, and they can have what are called conditional
+distributions. Hopefully we can see the last line here. So the idea is that deterministic
+functions such as most deep neural networks are actually, they're a subset of this conditional
+distributions, they're kind of delta functions. If you're used to the delta measure in function
+space, if you integrate over it, then you get the value y equals f of x. So it's just a very sharp
+distribution. So most of classical machine learning or I guess the popular parts of deep
+learning often deal with kind of deterministic point wise functions, whereas the more general
+theory is actually based on probability and information theory. And that's kind of the
+roots of machine learning and what we're trying to get back to with quantum, because we are in the
+early days where we must understand from first principles what we're doing, instead of just
+trying stuff and iterating on the engineering of different algorithms. You know, willy-nilly,
+we want to be guided in our research. So deep learning are algorithms to identify patterns in
+data. You use multi-layered parameterized computations to learn representations of data.
+Representations are multi, you know, deep representations are multi-step computations
+that either take you from your data space to a simplified space or from a simple space to your
+data space, right? So in the case of discriminative learning, you're trying to take the input space,
+say the pictures of cats, and go to the label space, you know, is it cat or dog, a single bit
+instead of many, many pixels, right? In generative learning, you're starting from a very simple set
+of randomness, say a set of Gaussian samples, or a set of random coin flips, and trying to turn
+that randomness into the randomness over, say, the set of pictures of bedrooms, right? The possible
+set of pictures of bedrooms, and you're trying to sample new data points from that data set.
+In terms of math, we say, you know, we're searching for a
+sub-manifold of your space, right? And if it's all continuously parameterized, it's technically
+a manifold. Again, this is what I just described. You have some randomness. A generative model would
+go to some complicated space, you know, machine learning folks and deep learning folks really
+love pictures. Quantum folks love wave functions and mixed states as we'll see. But, you know,
+discriminative learning would go to a simple space, and then once it's simplified,
+it's easy to separate out the two class. So, again, representations, every time I see
+representations, don't know if we count, it's just parameterized multi-step computation,
+and deep is multi-layer. And the building block is neural networks. So, I think I'm going to skip
+over this theory. This is an example of a unsupervised learning algorithm called a
+variational autoencoder. It's a way to compress data. So, you go to a compressed space, and by
+compressing, you're going to be forced to decorrelate the data and get a very simple randomness,
+and you could fit that simple randomness, say, with Gaussians. And then if you plug it through,
+in a sense, the reverse transformation, you get your data set again, right? And I want to show
+this because it's going to be very similar to our quantum approach where you could go in reverse
+through a quantum classical transformation, and then you have a very simple, what is called a
+latent space, a hidden space. And then when you want to generate the data, again, you go from
+latent space to the visible space, right? And these are very cool because, you know, you can,
+in latent space, if you just train the network to search for interesting features in general,
+they can find features that, and then you could do kind of logic in latent space. So,
+maybe there's a vector that corresponds to glasses, to gender, to age, and so on, and you
+could play around in latent space and see what you generate on the other side. So, you know,
+for quantum, for example, if you have properties of materials, you're trying to detect,
+and you're trying to generate new materials or new materials with properties,
+having a latent space that you've detected to play with can be very useful. And, of course,
+unsupervised learning itself is also useful in classical, and sorry, in discriminative learning,
+because finding a compressed representation is already part of the job to separate out classes.
+So, imagine we had, you know, three different classes and we compressed it to some space that's
+two-dimensional, and then we could go from a two-dimensional space to three different class
+labels of which color of the blob it corresponds to. So, again, so I'm going to be focused on
+unsupervised learning, but a lot of this actually applies to supervised or discriminative learning.
+So, what consists of a good representation? I won't go too much into this, but at a high level,
+you want the representation capacity. Are you able to capture or, you know, reproduce the data set
+for some value of your parameters of your model? Is it trainable efficiently, right, if you have a
+neural network parameterizing your computational representation to go from a complicated to simple
+space? How easy is it to train it with algorithms that are not too clustly? Inference tractability
+for feedforward neural networks, that's very simple, but there's other types of models that
+just doing prediction, the prediction step can be computationally costly,
+so that's something to keep in mind. And, of course, that is the advantage of quantum computers,
+is that, you know, if we incorporate large unitary transformations into our models, as we'll see,
+theoretically, there are unitary transformations that cannot be executed, the prediction or
+sampling step on a classical computer, right? So, it's a very important part. That's why I have
+this slide. Generalization power is the core of machine learning. Generalization is, you know,
+if I fit within my data set, will what I've learned extend outside the data set, which is important,
+because that is the difference between learning and optimization. I sense there's a question.
+Oh, just a keen awareness. This is more of a curiosity question about the representation
+capacity. It seems like a really powerful thing, but what can we usually, before, say, running
+numerical experiments and so forth, you know, how much can we say or really peer into that particular
+model you've come up with, you know, what are the kind of tools and techniques and how far can
+they allow you to, you know, can we really say a lot about that? About complexity of sampling
+unitaries? Yeah, the representation capacity, like what kind of correlations and so forth you
+will be able to capture potentially. This is more of a... Right, and that is going to depend strongly
+on the way you parameterize your transformation. In a sense, you're, by having a parameterized
+model, you have what is called a hypothesis class. And depending on the various choices you've made,
+you're going to kind of span a submanifold of states. And the idea is that, you know,
+what is very popular right now is called the hardware-efficient
+onsots. It looks very much like a random quantum circuit like this. It's very tightly packed.
+And the idea is that if you look at in the space of possible quantum states, it can represent,
+right? If all of these transformations were parameterized random, you know, single and two
+qubit rotations, right? Then theoretically, you know, its complexity is growing larger and larger,
+right? In a sense, any quantum state that has a complexity within that complexity radius,
+you'll be able to reach it. But the problem is, because you're spanning such a large space,
+your training of your quantum neural network becomes harder and harder. Because your hypothesis
+class is too large, so you're searching over too many possibilities. And this is the result known
+as the barren plateaus in the quantum neural network landscape or the quantum version of no
+free lunch theorem, where you can't have a one-size-fits-all representation. And that's where
+physicists come in. Physicists need to have, you know, good prior knowledge of the domain of
+application they're trying to do quantum machine learning and to instruct their choice of representation
+and parameterization to aid in the tractability of training. That answers the question.
+Yeah, so I like that free lunch theorem. Because I guess, you know, you could try to say, well,
+like perhaps some sort of generators that I use for my model, you know, what is the reachability of
+states, right? People ask, what is the reachability? But I think what you're emphasizing here is that
+reachability is maybe only a first step in maybe having too much reachability sometimes.
+So there's a trade-off made between capacity and efficiency.
+Exactly, exactly. And that is the no free lunch theorem, in a sense. So that's lucky for us,
+because, you know, at least for now, it seems like physicists will be needed in the future when
+we're not going to be out of a job. We still need to design architectures, at least for now. So
+let's see. Let's see where it goes. But that's right. So, you know, a lot of what I'm going to
+present today is not necessarily architectures for specific domains. It's more a general framework
+based on quantum information theory of how to do quantum machine learning, or maybe a very broad
+class of parametrizations of models that are quantum. Yeah.
+Yeah, since I've already interpreted you, there's interesting, this is kind of an unusual question,
+but why don't you throw it out here anyhow from Martin? How much time do you take to learn all this?
+I guess, I mean, so, okay, so I guess backstory. Once there was a conference on machine learning
+on a Monday on a Friday night, I decided to binge watch lectures at three times speed on YouTube
+on the basics of deep learning. I think that was 2016 or 2017, something like that. And since then,
+I've just been reading machine learning papers and, you know, I guess I have a deep math background,
+so it helps. And then quantum computing itself, I guess I've been doing since I was 19. And I'm
+28 now, so gives you an estimate. It's just always been my passion. And I went through theoretical
+physics. And now I'm here in quantum machine learning. So I would say four years of interest
+in quantum machine learning, two to three years serious, serious focus. And it looks like George
+Barron is building on my question, which probably gets into a little bit I also wanted to get into,
+which is what are some quantitative metrics for representation capacity?
+Yeah, that's interesting. I guess that's a good question. I would say if you can quantify in a
+sense a notion of volume and complexity space. And this is actually, you know, we're edging on
+on theoretical physics here, because the notion of quantum complexity is interesting in the theory
+of ADS CFT. And, you know, there's Leonard Susskin, who does a lot of work in this space.
+And yeah, I mean, that's a that's a that's an open question. I think I have some intuition
+as to what would be a good metric. But that would be an interesting further study.
+Yeah, there's a good quote by Henri Poincaré with with logic, we prove that with intuition,
+you discover that's right. That's right. Cool. So I guess I've gone through these. This is just
+some text backing up what I've said. So okay, so now that we've we have some very brief background
+and some intuition about deep learning, because this is a quantum computing audience, so we had to
+load that up. How can we use, you know, what we learn taking inspiration from VAE's or
+from, you know, the what is needed to have a good representation to
+instruct our choice of how we do quantum deep learning. So first of all, what would be a quantum
+deep representation, right? Well, a classical feed for network in a cartoonish picture,
+this is not the most general formulation, but it's a, it's a friendly one. You have some input,
+you have some parameters phi, and then you have some parameterized output f of x five.
+For quantum neural network, you have usually a pure state input, a unitary evolution that is
+parameterized in some way, and then you have a parameterized hyper hypothesis class of pure
+states, right, which is you five times your initial state. And, you know, we call the function f
+the feed forward operation, you can have a loss functionals returns a scalar that depends on,
+say, your label, and your output of your network. This could be some status measure of statistical
+distance to your data set. And you want to find the minimum or approximate minimum,
+subject to variations of the parameters of this loss functional. So how do we get scalar values
+out of a quantum computer, it gives us a wave function. So do we, what do we do with it? Well,
+we have to define a loss operator, which is a quantum observable, right, or Hermitian observable.
+And often we decompose it into small chunks that we can measure independently.
+And combine it around. And our goal, similarly to, you know, in the, the case of VQE and many
+other variational algorithms is to find the minimum subject to variations, variational
+variations, the parameters, the expectation value of this loss operator. Right. Sometimes
+it's called the energy or the Hamiltonian, but I like to generalize it to, you know, loss for
+quantum machine learning. So there's just a refresher. This is the typical way when trains
+a vanilla, what I call vanilla quantum variational algorithms or vanilla quantum neural network.
+You have a loop between a quantum and classical computer. And the quantum computer gets an
+expectation value feeds at the classical computer, classical computer has an optimization
+algorithm that's classical, suggesting use values of the parameter, and you iterate like this.
+In a sense, you know, our current quantum computers are restricted in how much quantum depth and,
+you know, what kind of quantum states they can represent, they're restricted in depth because
+of the noise. And so it makes sense that we search over the space, given this constraint of low
+depth circuits, we should search over the space to find the quantum state. And this is, this is
+why this is kind of taking over because for the NISC era, or, you know, early fault tolerance,
+we're going to be searching over the space of states that are not too big, not too, you know,
+long to quantum compute. So why learn quantum representations of the first place, if you allow
+a meal, modify Feynman's famous quote, Feynman said, you know, nature is in classical gamut,
+if you want to make a simulation of nature, you better make it quantum mechanical. And in our
+case, it's if you want to learn a representation of nature, you better make it quantum mechanical.
+Right. So quantum states and quantum processes, I think we've been, been mentioning this can
+exhibit high levels of quantum forms of correlation, such as entanglement. And that's
+exponentially hard to represent in classical memory, right, if you have a random circuit
+producing in a highly entangled state, it's very hard to approximate it. And it's hard to prove
+theoretically without a doubt. But every algorithm we've tried to simulate quantum circuits,
+it seems to fall flat on its face at some point. Right. Yes.
+The question clarification from Joe here is the loss calculated by classical computer.
+It's the loss calculated. So
+He's talking about the expectation value of the L operator.
+Right, right. It takes actually several samples to estimate the expectation value,
+right. You could think of it as like sampling from a distribution. If I'm trying to do an
+estimator of a random variable subject to samples from a certain distribution, it takes
+several samples. So there's there's like a mini loop in here to estimate the expectation value
+here. And that's a mixture of, you know, doing several measurements on the quantum computer
+and saving saving the results on the classical computer. And then the classical computer can
+aggregate the various results to get an average, right. And maybe to paraphrase you mean you run
+that same use circuit with the same inputs, the same initial state, the same parameters,
+several different measurements. Yes. Well, I guess the the loss operator may have several
+non commuting sub operators. And one wants to get an expectation value of each term in the sum.
+And then when adds up all these terms to get an expectation value of the sum.
+So that is called the quantum expectation estimation sub routine, in a sense. And here I kind of
+abstracted it out. But it's it's an extra sub routine. There's a mini loop of trying to get a
+precise estimate. It's not to be neglected. Because if you want, you know, a 10 to the minus seven
+precision for an energy, it could take you hours on a 10 kilohertz machine, for example.
+So it's an important thing to consider when designing quantum algorithms that we only have
+noisy or estimates of our our loss function. Yeah. So basically, you run that. Yes, you break up the L
+into sub operators, which you measure, you know, measure by running multiple times you get, you
+don't need the distribution here for this, you only need the actual mean value. Yes.
+Right. Or at least in the in the typical vanilla case, but as we'll see, there's there's other
+other variants out there. But usually, the quantum part, it's hard to get a scalar out of
+the quantum computer by something else than defining an observable and outcomes of measurements.
+Right. And how important would read out errors and skew and the read out be
+should get a P1 probability 80, but you have to skew because it's lost T1 process and things
+like that. That's right. You get an imprecise estimate of your your loss function. And you need
+to have classical algorithms on the side to compensate for that imprecision or to choose
+your optimizer wisely in a way that is robust in noise. Right. And I see a lot of questions. I
+hope I can get to all of these. We may we may have to do for the end here. Okay. Maybe just quick
+one here. Does the quantum advantage come from generating the variational forms?
+I mean, you know, I am not claiming a quantum advantage yet, but I would say that
+if there if there was a quantum machine learning advantage, it would likely come from
+being able to do the inference or prediction step with your model, and hence the ability to train
+it as well. So both the training and inference are rendered possible once you have access to a
+quantum computer. If you incorporate a model that has high quantum complexity, so a large unitary
+that we can't simulate classically. Yep. And I think this next one you're going to talk about,
+which is back propagation, you know, can you see? Yes, yes, yes. Okay. So how to practically leverage
+quantum computing power? Well, for discriminative models, for example, you can, you know, let's
+say you prepare a quantum data set, because again, for now, we don't have a quantum internet where
+we can import data. That'd be nice someday. And you evaluate your quantum model, let's say you do a
+feedforward or a unitary parametrize model, you get the expectation value of say several observables
+that becomes a vector, you feed that vector to a classical neural network, and then it evaluates
+some some prediction based on this say a label or whatnot. And the idea is that you can
+train both your classical part of your network and your quantum part of the network together
+via a form of quantum classical hybrid backprop. And the idea is that, you know, your quantum neural
+network can can have all sorts of components. But it could itself be a building block in a sort of
+meta network between quantum neural networks and classical neural networks. And the idea is that
+if you zoom in on say a little sandwich of nodes, here are meta nodes of a deep neural network,
+a quantum neural network and a deep neural network. So the, let's say a deep neural network or any
+differentiable computation feeds parameters to quantum neural network. And then you have
+the measurement of several observables at the output, which you feed to a classical neural
+network. And, and then you could do other stuff later on. And you get your loss function here,
+then you could get the gradient of the loss function back propagate your gradient classically.
+And effectively, what's interesting is that this thing is a actually a itself is technically
+an observable on this space if you could, you know, invert this function. But the idea is you do a
+first order approximation. So you get an effective back propagated gradient Hamiltonian, which becomes,
+or you call it a Hamiltonian because it's an observable. And then it becomes just like taking
+gradients of a VQE to obtain the gradients of these parameters, you just have an effective
+value of the gradient for a certain value of your, your, you know, all your parameters over
+here and your loss function. And you could take gradients of that with respect to your parameters,
+and you effectively back propagated the gradient of this value through the QN and you could keep
+going. And this is important because you don't want to have to do a slight change, do your whole
+chain of computations, see how it changed, and then backtrack, it's, it's more scalable this way.
+So, okay, so there's some software that does this, I have to plug it. I mean, it's one of my
+pet projects for, it's been so for a while. For now, it's, it's interface between CERC and TensorFlow.
+There's some open source contributors that are working on quiz kit compatibility. So that's
+gonna be exciting for the quiz kit community and we're supporting them. But it allows you to,
+you know, automate this, this training and integrate it into, you know, advanced machine
+learning models in TensorFlow. And, you know, TensorFlow, I think has the record of on IBM
+supercomputers for, you know, the biggest machine learning computation. So I think it's important
+to ideally integrate quantum computers with the power, at least one of the most powerful frameworks
+for high performance computing on the classical side. So any question there? In that vein,
+this is an earlier question from Adamita. Are there any data sets available for quantum
+machine learning models? I think that's, I think that's public that we're working on that. And
+we're trying to work with other, you know, other companies in the space to make sure we,
+we agree on what a form for a data set will be. But in general, because you can't download
+quantum data, you can't just save, you know, states, because they take exponential space and
+you don't know how to load them on your quantum computer. The data set takes the form of a circuit
+or a set of circuits. And those define wave functions that you could then do
+quantum deep learning on. And it's something that's being worked on. But you'll have to
+stay tuned for that. Thank you. Cool. Okay. So what can one do with hybrid feedforward networks?
+I'm going to skip over this. Yeah, quickly, I guess. There's a paper by Lucan, which is a
+convolutional neural network, which are inspired with from the Mara, if you're in the know about
+it. Basically, it's using the fact that if you know your system is translationally invariant,
+so it has some symmetry, you reflect that symmetry in your, your choice of parameterization of your
+quantum neural network. And so this is just a quantum neural network that has translational
+invariance and is hierarchical. And the idea is that, you know, maybe you can't do all the
+quantum layers, but maybe you can do only one quantum layer. And already you'll, you've down
+sampled the problem, you've reduced that dimension, dimensionality, and you've broken up some
+entanglement or you've, you've like disentangled partially. Remember, for compression, you got
+to decorrelate everything. Right. So the idea is that you can do, you could input various quantum
+data in batches, you could apply various feature maps that are quantum convolutional networks.
+And then you get kind of images from, you know, all your histograms of samples of your bit strings.
+And following this, you could apply classical convolutional layers and, you know, finish the
+job with fully connected. And at least in our early experiments, hybrid networks with multiple
+filters were better than one quantum network. And that's without noise. So with noise on the device,
+it's even better. But that's just an example of discriminative learning. I won't go too much
+into that. But in terms of applications, it would be, for example, classifying phases of
+matter, detecting whether something is superconducting or not. And the idea is maybe you train on a
+dataset of a material you know is superconducting at certain value of the parameters and temperature.
+And, and then you, you ask the neural network to detect for another material that you don't know,
+whether it's superconducting or not as certain value of parameters. So generalizes. So that's,
+that's one quote unquote killer app, we think, for quantum neural networks. Yeah. So it's just
+comparing the two with, with our old diagram. Okay. So I guess we'll get to the meat of the talk.
+Not too bad halfway there, I guess. So how can we extend these insights and how can we hybridize
+in a meaningful way with classical machine learning capabilities for quantum machine
+learning? Right? Let's go back to our slide of deep generative modeling. We have our dataset,
+we have our variational classical distribution. We want to minimize our question before we
+deep dive here. It's about NLP and maybe can we use some of this quantum representation and NLP
+transformers to reduce the huge size of it to increase accuracy? I hope that's a little bit
+out there question. So I mean, we, our team has some public work that we've used tensor networks,
+which are, you know, analogous to quantum circuits in a sense to find factorizations of
+large matrices. And we apply them to the transformers. And at least in our demo, we get a two times
+speedup. And of course, you know, that'd be great if such a tensor network could be contracted on a
+quantum computer faster. It's not an experiment we've tried yet, but, you know, it's going to come
+down to constant speedups, you know, a tensor network versus a quantum computer. For certain
+tensor networks, a quantum computer is exponentially faster, but for other tensor networks, it's going
+to be similar, potentially. So that is, that is a good question. But I guess, I guess we'll have
+to see on that side, but it's an interesting area of research in a sense, dimensionality reduction
+using quantum circuits. And, you know, tensor networks are a first step towards that.
+But it's, you know, it's encouraging to see that cutting edge ML can be improved with
+quantum or quantum inspired methods, at least today. So yeah, at least in NLP, that's the area
+that I'm confident saying something that quantum computers would be potentially useful.
+All right. So, so I mentioned we want our data set to agree, you know, for our data points,
+in general, when you want to distributions to agree, you do what is called the KL divergence.
+It's not a symmetric function, so be careful. You could go one way or the other between your
+true distribution, your data distribution, and your variational distribution, right? And it's like,
+here would be the expectation value, expected data of the ratio of logs, right? So the idea is that
+to evaluate this kind of gold standard of quantum statistics, or sorry, classical statistical
+distribution, we need access to the log of our logarithm of our model for any given data point
+x that we sample from the data, right? So not every classical machine learning model allows you
+to do this, right? So GANs, for example, don't have an explicit logarithm of the density of your
+generative model that you could query. It's implicit. It's only, you know, the discriminator
+telling you how well you're doing, but it's not a notion of log. Whereas you have, let's say you do
+a bunch of transformation that you know the determinant of the Jacobian, you could compute
+that efficiently, right? The determinant of Jacobian, if you continuously transform a space,
+right, and you had initially a simple Gaussian on that space, and you end up with a complicated
+space, you've kind of, you know, bunched it up, and you've done some complicated different morphism,
+you could backtrack how the notion of volume locally has changed, right? And for any, you know,
+value we target here, we can kind of invert the measure in a certain bin here to some set of bins
+over here. And we know the value of a Gaussian analytically. And so you could compute, in a sense,
+somewhat efficiently, analytically, the density of your probability distribution for any point
+you query. This is called a normalizing flow. But there's other types of models, you know,
+there's energy based models, there's autoregressive models, there's a whole bunch of cool models out
+there. But a lot of people know GANs because it's like the entry entry level thing, because
+people understand discriminators. But so we encourage you to check out other types of
+generative machine learning. And in a sense, we're, we're looking to have an explicit notion of a log
+for reasons that are going to become apparent in a second in the quantum case.
+So how can we extend this philosophy to quantum theory? You know, what's the intersection of
+quantum theory and probability theory, right? Well, there is, you know, just like in black holes,
+we look at black holes because they're at the intersection of quantum and gravity. So they're
+an interesting test bed. Well, here we look at mixed states because they're at the intersection of
+probability theory and probabilistic machine learning and quantum theory and quantum machine
+learning. So mixed state in general can be a probabilistic mixture over mixed states. These
+are matrices instead of vectors now. So be careful. But any density operator has what is called a
+spectral decomposition. So it's always expressible as a mixture of orthogonal pure states. And this,
+this mixture sums up to one. So it has a probabilistic interpretation. So we go from vectors to a
+density matrix. And each element is in complex numbers. So how would we represent mixed states?
+So how would we represent the intersection of probability theory and quantum theory? Well,
+we should have a model that composes a probabilistic model with a quantum model, right? And that is
+the idea of quantum probabilistic hybrid deep learning or deep representations. Hence the
+title of my talk. So as we've seen, quantum neural networks are typically unitary feedforward
+like this. And they have a hypothesis class that is pure states. We can combine here a classical
+parameterized probabilistic model that we can sample. And let's say this would flip your qubits,
+you flip your qubits to prepare a bit string, then you apply a unitary that's parameterized. And what
+you get at the output instead of a parameterized class of pure states is a parameterized class of
+mixed states, right? And, you know, your parameterized distribution, your state at this point is a
+diagonal state. So it's effectively classical. It has no quantum correlations. You can try to show
+this show there's no coherent neutral information exercise. And then after that, you tack on a
+unitary, which is hard for classical computers to do. The idea is we use classical computers and
+we make them, you know, we make them sweat, right? Like inference of probabilistic models
+can be pretty computationally intense. And then we combine them with unitaries on the quantum
+computer. Can you tell us about how you set for capital omega? Oh, yeah. So capital omega is just
+an index over your basis of your Hilbert space. It's kind of a general formulation because we
+actually phrase the algorithm both for qubits and for continuous infinite dimensional Hilbert
+spaces. So theoretically, it could be an integral or something. It's just general math, but it's
+an index that it's an index set that runs over an index for your entire basis that spans your whole
+Hilbert space of interest. Oh, yeah. And then you choose basically any probability over, basically
+anything, but there's going to be certain types that are preferential for training reasons as we'll
+see. Again, you know, you could parameterize anything classically, but it's not every model
+that's easy to train again, because let's say you need the log and you can't get it or can't get
+the gradients, then it's difficult. So as we'll see, we can choose wisely how we parameterize things
+so that we can get nice gradients and can train things because how do you train continuously
+parameterize the hypothesis class gradient based methods. So you use kind of the notion of steepest
+descent in the landscape of parameter space. And maybe one more question. I'm told I have
+speak a little bit louder. So hopefully for, I mean, let's take the extreme case, you take a case
+where you have a pure like our mixture, like our problem, you know, you have a pure mixture of all
+states. So I'm guessing that's not very useful one. So in a way, you want your state to be a little
+bit mixed with somewhat pure or are you okay having like a purity of like zero or maximally mixed
+state in other words. So if you were to optimize over architectures, so tune, and we have some
+new results that are not in the paper for this talk, you could tune how much quantum depth you
+assign to the unitary. Theoretically, this approach could be tunable in the sense that
+if the data set that you're trying to represent is purely classical and has no quantum correlation
+and the identities in the span of your unitary hypothesis class, you could learn to just apply
+the identity. And then it's a classical machine learning system. If it's a pure state that you're
+learning this, the probabilistic component is useless in a sense, because it's going to be all
+unitary, you're just trying to learn a pure states. So it's an adaptive way to separate out the task
+of quantum and classical machine learning of a quantum mixed states. And it's quite cool because
+you have one framework where you have as a subset classical generative modeling of distributions.
+So in a sense, it can via self tuning, it could adapt to use no quantum resources or use no
+classical resources or any continuum in between. And we have time here, two more quick questions.
+So are you using mixed states for the input? So maybe in practice, I guess at this level it's
+we're going to see that, I guess. It's you could use output or input. So yeah,
+I think I still have a good number of core slides, but I guess I'll
+I'll go through them faster a bit. We can run a little longer. Okay, okay. So,
+you know, why should we care about quantum mixed states? Well, you know, thermal states are at
+finite temperature. And so, you know, most systems in nature at finite temperature, unfortunately,
+our quantum computers are not at zero temperature. So even them themselves must be bundled as mixed
+states. If we were to be accurate and experimentalists know this theorists like to say it's a pure state.
+So, you know, so the ability to simulate mixed states is crucial to nature. And
+the reality is like, you know, we're trying to use quantum computers to simulate nature,
+but nature itself, if you core screen enough, you zoom out, there's a quantum to classical
+transition, right? You know, we're used to having classical physics, having quantum physics,
+and then there's a continuum in between. So the point is to have a set of continuum of models
+that can model that in between at finite temperatures when quantumness dies down.
+And it becomes classical. Or, you know, when you're very close to being fully quantum, right?
+Most quantum systems are open to quantum systems. I've mentioned this, and for various reasons,
+subsystems of quantum states are mixed states because of entanglement. If you take a reduced
+state of a pure entangled state, you get a mixed state. So just looking at patches of
+things at a time to model them, it's important. So what sort of mixed states in nature can we
+variationally simulate using something like this? Well, thermal states is of great interest because
+they're omnipresent. So the algorithm that leverages quantum probabilistic generative models to model
+thermal states is variational quantum thermalization or VQT. And so the problem is given a Hamiltonian
+and H in a target temperature one over beta, then generate the thermal state, which is the
+exponential that is normalized like this. This is the partition function. And the idea is, okay,
+well, we'll use one of our magic models of classical probabilistic distribution in a
+unitary. And how are we going to converge to the thermal state? Well, thermal states are the minimum
+of something called free energy, right? So free energy is, you know, roughly ignoring temperature
+energy minus entropy, right? So we can evaluate the energy, you know, just like in VQE
+of our model and subtract the entropy, right? So how do we get the entropy? Well, because
+unitaries can serve entropy, the actually the entropy comes strictly from our classical part
+of the model. And if your classical model has ways to get gradients of entropy, you're in business,
+or, you know, sometimes it's simple enough, you could get it analytically. And this is equivalent
+to finding, you know, the minimum of the relative entropy between our model and the thermal state.
+So, you know, we know that the unique minimum of this function is when the two states match. So if
+we do our job well, and we prioritize things well and find the absolute optimal states, then, you
+know, we've got the jackpot state of minimal for energies thermal state. So how do we
+parametrize our quantum probabilistic generative model? I've been pretty abstract now, so we're
+just going to zero it in slightly. Well, the motivation for this work was to take inspiration
+from recent work by OpenAI and such on modern versions of energy based models where one,
+it's now it's taking inspiration from physics, right? So you define an energy function using a
+classical neural network, let's say from the space of bit strings or continuous values to
+to a scalar. And you could use various algorithms that leverage gradient information such as
+Hamiltonian Monte Carlo or stochastic gradient Langevin dynamics, you know, all there's a bunch
+of open source frameworks to do the this part, you could sample the landscape by in a sense having a
+noisy ball traverse this landscape. And you get samples of the exponential this way, or the Boltzmann
+distribution known in physics. It's a classical Boltzmann distribution. So you parametrize the
+energy. And why is that going to be useful? Well, it has all sorts of compositionality perks.
+It's very good. It's comparative with GANs. This is work by OpenAI 2019. So how do we leverage
+these models and integrate them with quantum computers? Well, so, you know, what if we had
+our probabilistic part of our model was a classical energy based model like this. So it's
+parametrized energy function. And then our distribution is a Boltzmann distribution.
+Again, well, if you you could define a diagonal operator, which is the log
+after you flip some bits, which is your energy function on the diagonal. And what you get,
+if you do some math with some unitaries and exponentials, is that you just parametrized
+a operator, the diagonal is parametrized by a neural network. And, and the total operator is
+this conjugation of a unitary with this diagonal operator. So you've parametrized a Hamiltonian
+operator. And your hypothesis class is a set of thermal states. So in a sense, you, you know,
+you're targeting a thermal state, so you might as well have a hypothesis class of thermal states.
+Right. Okay, so if we have this assumption that we're using an energy based model,
+how do the gradients work out? Well, there's a bit of math involved, I skipped many lines.
+But it is possible to sample it. Essentially, you have to get bit strings at the output of your
+model. And you can evaluate, you can compare the value of the energy of your, your bit strings
+minus the, the energy of your model. And you could also evaluate gradients of your, your model,
+if it's parametrized by a neural network, and you do the sampling, which only depends again on
+sampling from, from your, your model p theta of x, and you have sampling algorithms, and you can
+evaluate gradients in a sense, it's an analytic way to guarantee that your estimates of your
+gradients are unbiased. And how do you get gradients for the quantum part? Well, the quantum part is
+just the usual. I hope you've seen this in other talks. And I don't have time to cover it. Unfortunately,
+today is the parameter shift rule, right? Which is how you take gradients in the VQE,
+which is how do you take gradients of a unitary, a state fed through a unitary and an expectation
+value. So I won't cover that, but it's very standard. It's, you know, a standard in the software
+framework. And there's various papers that use this. It's a cool theory, but you know,
+does it work, right? The answer is yes. You know, if you, if you have a target thermal
+states, you can do a reconstruction like this. This is for some Heisenberg spin model.
+We use very simple classical distribution here is just Bernoulli's so random coins
+in the quantum computer can do a lot of work and learn to represent a thermal state.
+We've done much larger systems, but you know, a jarbled set of pixels is not necessarily the
+most aesthetic thing. So we, we choose to feature the smaller systems, but we've scaled things up
+quite a bit. And the idea is, you know, the function we're optimizing is relative free energy,
+but the other metrics of quantum statistical distance also converge. So it seems to work.
+We've also tried some set of fermionic systems and bosonic systems, for example, a simple,
+you know, toy model of a superconductor that's bosonic, sorry, Gaussian fermionic. So
+that's quite simple. We can plot the correlation functions, the target, this is at iteration
+zero and it converges by iteration hundred of gradient descent pretty well. So this is actually
+a new result. I'd like to feature that's not in the paper, but it's coming in the second version of
+it. Can we tune how much quantum versus classical resources were used, right? So suppose I look
+at this Heisenberg model and I look at after training, how, how well I do in terms of trace
+distance and fidelity, depending on the temperature and the number of quantum layers I use. Well,
+we see there are certain sets of temperatures that, you know, you need more quantum layers
+to model them, right? And it's not necessarily, you know, at this point, it becomes trivial.
+At this point, there's a nice balance between quantum and classical resources. And this is the
+fidelity is trace distance. But this is kind of what you'd like to do, right? You want to use
+as little quantum resources as possible in order to have an accurate representation of a state.
+So this is something we started investigating, but it's, you know, it maybe has some deep
+implications about what's the true quantum complexity of a quantum machine learning problem.
+And I guess, you know, please take a look at these QR codes, there's links to various notebooks,
+and, you know, I've been advertising TensorFlow Quantum, but there's, there's obviously,
+you know, implementations in Qiskit from the community. Shout out to Jack Seroni and, you
+know, the TensorFlow Quantum implementations by my collaborator, Antonio Martinez.
+And three, two, one, take a picture on YouTube or whatnot, and look at the websites for these
+notebooks. So the final component is more machine learning, it's less quantum simulation,
+it's how do we use VQT to do quantum machine learning. So if we're given quantum mixed state
+data, how do we learn from quantum mixed state data? So again, we're going to use our quantum
+Hamiltonian based model, because for reasons that are going to become apparent in a second.
+So we call the task of learning to replicate, right, we want an approximate density matrix that
+approximates a data density matrix. So a data density matrix could be itself a mixture of a
+bunch of density matrices, we're just trying to approximate this thing. And we want to find a set
+of parameters such that for the optimal parameters, our hypothesis class approximates this density
+matrix. And we assume we have access to the quantum form of the data. Okay. And the idea is if you
+use a quantum Hamiltonian based model, and you aim to minimize now the relative entropy in reverse
+from last time, what you get is if you ignore the terms that don't depend on your parameters,
+you get something called the cross entropy, which is this the trace of stigma, which is your data
+log row. Right. And again, because we've parameterized our hypothesis class in terms of its logarithm,
+its quantum logarithm, we could evaluate this energy, this it's called modular energy or modular
+free energy. And modular Hamiltonian is just a name for the log of a density matrix. Okay. And so
+we're trying to learn a log of a density matrix such that the exponential replicates our data set.
+And how you do this, you plug your data, you run it in reverse through your unitary of your
+quantum probabilistic model, you sample it, and then you get expectation values of the diagonal
+operator. And this could be parameterized with a neural network. So you can have more computation
+here. The extra term here is all on the classical computer. Turns out you could also get gradients
+for these, I won't go too much into it. The quantum part is again, parameter shift. But these gradients,
+again, if you have a differentiable function for your energy, you know, like a neural network,
+then you could evaluate, you could sample these gradients, and it's unbiased, which is really
+cool. That's really important that we could get good estimates of the gradients and
+you know, it works out. If you don't use enough quantum or not enough layers of your quantum
+computer or not enough complexity of your classical distribution, sometimes it doesn't work well. So
+for various temperatures, we've tested this. And I guess this is a, this is, you know, there's many
+things you could do once you have unsupervised learning. For example, you could learn a compression
+code. So here we actually applied, hopefully some of you know about Bosonic quantum computing,
+but theoretically could be applied to other forms that are not qubits. And here we learn a compression
+code where we could throw, you know, 40% of a harmonic chain in the compressed space and still
+reconstruct the states. So this is the error matrix of the density matrix, 0.7, we start
+seeing errors. And if you throw 90% of stuff out, things go bad. And there's theory that you can
+find the logarithm modes, the modular modes of the system. And so we checked it with theory.
+And that's why we looked at the system. But that's it. That's
+Curbs there. Sorry. Sorry. What are the x and y axes on that curve again?
+This curve on the left. Oh, on this. So this is the density matrix. It's, it's the discrepancy
+between the, so we go to compressed space. It's like an auto encoder. We go to compressed space.
+And then we throw out what is like, so, okay. So we, we do, we learn a VQT and the latent model
+is a product of individual thermal states of harmonic oscitors, right? And those are like
+quantum forms of Gaussians, which is kind of cool. And we throw out the lower entropy latent
+modes. Okay. Because the entropy represents a harmonic oscillator. Sorry. Or when you say
+a mode, you mean harmonic oscillator of a harmonic oscillator. Yeah. So this is in,
+this is for say a Bosonic continuous variable quantum computing. I did most of my time and
+continuous variable stuff before. So myself as well in theoretical physics. This is similar to a
+calculation of the Hawking effect, actually. That's a whole two hours. I won't go into that.
+But here's the interesting thing. I have this in my summer school lectures that are up and coming.
+There are only two types of physicists. Those for whom all of physics is qubits and those
+for whom all of physics is oscillators. I try to, I try to play on both sides. So
+hopefully someday we can have hybrid computers. That'd be cool.
+That's right. So yeah. So we agree with theory here. I could explain how this is related to
+the Hawking and Unruh effects. But that would take some time. But it's an interesting thing that
+quantum machine learning could theoretically understand or learn an analog of the Hawking
+Unruh effects. That you, there exists a certain set of modes that an observer feels
+thermal statistical fluctuations of the vacuum. So this was the ground state we plug it in.
+And if you transform it, then it becomes a product of thermal states. And instead of Fourier modes,
+it's like these weird squished modes of the lattice. So it's kind of information theoretic
+eigen modes instead of, you know, we're used to eigen modes and physics like the resonance. But
+here it's kind of the resonance of the log Hamiltonian, which is the modular Hamiltonian.
+And this brings us actually to the end of the talk. And I've luckily haven't exceeded too much.
+So we do have time for questions, I guess. But I just want to conclude, I guess,
+you know, this is the beginning of a whole research program. It's an exciting area. And,
+you know, by starting from basics of information theory, right, we just started
+thinking about relative entropy and inspiring ourselves from physics, we
+have discoveries in machine learning. And hopefully now we could apply this back to
+the physics, right? So it's a feedback loop between physics and machine learning. And it's,
+that's a big part of the philosophy of our team at X. Yeah, thank you.
+Yeah, thank you very much. I think there were some questions during the talk that I didn't
+get to. So maybe I'll run up the chat here and get back to them again.
+Okay, I guess I'll just do a shout out to Antonio, my collaborator at Waterloo. He was
+Google and X. And Jacob was instrumental to a lot of the VQT and QMHL work and did a lot of the
+work there as well. So big shout out to them. But yeah, so any questions in the chat? I've seen
+a lot of questions in the chat here. So let's get, let's see how many we can answer, I guess.
+All right, let's start with the latest one, which is about temperature. I think the question is,
+now, is there a sense of critical temperature here relative to some sort of base transition?
+You know, are there temperatures where you get noisy data close to the critical
+temperature of some sort of base transition in the system? Or is that?
+Well, I don't know if we purposefully chose a system where we knew there was a phase transition,
+but we can kind of see that there's different regimes where you need more entanglement or
+need less entanglement, right? So seeing how many layers you need to represent a quantum state
+could be like seeing a dip in that could be a way to detect different phases or quantum phases
+of matter, I guess, like, you know, regimes of parameter space that have very strong entanglement
+and regimes that are, you know, slightly, you know, almost trivial. But yeah, I'm not sure if we
+purposely picked a system that we knew there was a phase transition, we just observed this data for
+now, but maybe something to do later on. Yeah, let's see this one. This one is about universal
+estimators. Basically, can QNNs, the quantum neural nets, be used to imitate this kind of behavior?
+I guess we're saying, you know, given that three-layer neural nets are regarded as universal
+estimators in classical machine learning. Yeah, that's a good question. So I guess, you know,
+you want, if you have a universal functional approximator, then, you know, theoretically,
+you can have a universal, you know, you span the space of functions that you could represent.
+Of course, any classical computation can be embedded. If you write it out as a reversible
+classical computation using many extra registers, and you keep the whole history of the computation,
+if it's not reversible functions, you can embed that, right, in quantum computations with toffoli
+gates instead of hand and so on. And some of work several years ago, I showed how to take,
+you know, typical classical neural networks and make quantum circuits that implement the
+classical neural network in superposition. So the idea is, yes, I think you can use quantum
+neural networks to do the classical probabilistic machine learning components, though so far,
+at least from the current state of the art of the theory, it seems like quantum computers
+will have a polynomial speedup for inference, probabilistic inference, similar to Grover's
+speedup. And that, of course, if we're competing with extremely large classical computers, will
+be mostly relevant when quantum computers are of a size comparable to the square root of our
+largest supercomputer. And that is, yeah, that's, I guess, that's, that's my answer. So for now,
+I guess the most practical approach is to use classical algorithms and classical computers
+for the classical component and use quantum computers for the truly quantum component,
+which is the unitary. Yes, that's a very nice sensible thing. There is a question. This one is
+interesting. I think it's more of an opinion question. Maybe we know that quantum Fourier
+transforms very key and usual digital computing. Does it have a role in machine learning? Is it
+similar in here, quoting the work of the relationship with Vantage and the Fourier
+transform? Right. So I guess here we parametrize their quantum neural network as a general
+bosonic, what is called book all above or Gaussian transformation. And the discrete
+Fourier transform is a subset of such transformations. And here we learn these
+transformations. So technically, if we fed the whole system and we asked it to find the eigen
+modes, and if we had a thermal state of this system, say via VQT, and then we fed it to
+quantum modular Hamiltonian learning, these modes would be the Fourier modes, because
+we know the eigen modes of this Hamiltonian, right? We know how to decompose this, this
+Hamiltonian into a sum of individual, you know, number operators. And it's the same,
+finding this book all above transformation is what I mean by it's related to the unre-effect
+calculation, QFT and curved spacetime. I know there are some chat messages that were doubting
+that, but I did my master's in quantum field theory and curved spacetime, so you can trust
+me on that one. But great. And maybe for the final question here, and taking the extra time,
+if we want to do research in this field, where should we start or what should be our direction
+of research? Right. I mean, that's a good question, I guess. You yourself have gone through this
+position not four years ago at the convention. Right, right, right. So I guess in my case,
+I started with the open source massively online courses MOOCs. I just listened to that, listened
+to a few of them, and then I progressed to, I wish I had all my textbooks here, but they're
+there back there, but the good fellow, Ian Goodfellow's textbook, inventor of GANs, and then
+Murphy, Kevin Murphy, a Googler. He did what I call the kind of the Nielsen and Chuang or the Bible
+of probabilistic machine learning. And I think there's a McKay, there's information theory for
+machine learning. That's if you want the textbook routes. Otherwise, I think with time as the field
+stabilizes, I guess, because it's been moving so fast, everybody who's involved in it is just
+cranking out papers rather than creating coursework. There will be coursework.
+I could link a Uwaterloo course that I gave some guest lectures at that
+featured some quantum machine learning. But overall, I would say it's important to
+understand the theory of classical machine learning at the fundamental level because
+similar to hardware engineering, we're at the fundamental level of reengineering a new computing
+stack. So on the theory side, we're reengineering a whole algorithm stack. So we got to start again
+from first principles. So you have to trace back to papers from the 80s of machine learning and
+the fundamentals and then work your way back to the modern thing. So I would say the modern ML stuff
+is flashy and fun to stay up to date. But I would say, take the time, go back to the core old
+literature, the foundations. So yeah, MOOCs and then textbooks is the way to go. That's what I
+did and here I am. And then maybe I can just add that now there are summer school classes coming
+online. So I mentioned the quantum information Qiskit one, I think there's a touching of ML and
+things like that in the last two lectures in quantum chemistry, VQE is definitely on there.
+Fantastic. Anyone interested in addition to what you said, we can add that. So I think
+it is that time that I get. Thank you again. And thank the listeners for joining the Quantum
+Live seminar series. We're back this Friday. I will mention next week, we're back at the same
+time, continuing with the talk by Antonio Mazzacapa from IBM on quantum chemistry. We're going to talk
+about variational quantum eigensovers, QAOA and things like that on chemistry things. So that will
+be a very nice follow up to your talk, Guillaume. Thank you. Thank you for inviting me. It's been
+an honor and hopefully the quantum community is interested in quantum machine learning now.
+So I've done my job there. All right. Thank you so much. Follow Guillaume on Twitter. Quantum
+Verde. That's right. All right. So any final words and otherwise, thank you and we'll see you next
+week. That's it for me. Thanks again for tuning in and stay home. Stay safe everyone and thank you.
+All right. It was a pleasure Guillaume. We'll see you soon guys. Take care. Cheers.

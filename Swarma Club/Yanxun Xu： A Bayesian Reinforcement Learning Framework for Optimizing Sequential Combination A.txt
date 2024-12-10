@@ -1,0 +1,318 @@
+Alright so we'll move on to our next speaker. Yanxun will be our next speaker
+and she is a associate professor in the Department of Applied Mathematics and
+Statistics at Johns Hopkins University. Yanxun has a lot of research interest in
+the reinforcement learning, high-dimensional data analysis, and
+the non-parametric statistics. Okay so today she is going to talk about a
+patient reinforcement learning framework for DPR. So you can say there for
+screen right? Yeah. Great. So thank you Lu for organizing this session and
+introducing me. So today I will talk about a Bayesian reinforcement learning
+method for optimizing treatments for HIV patients. So first I'd like to thank all
+my collaborators in this project. So my PhD student Wei and also my
+collaborators Leah and Raha from Johns Hopkins University and Yanni from
+Texas A&M and also two clinicians Amanda and Jane from Georgetown University
+and Washington University in St. Louis. Okay so making the optimal
+sequential decisions is very important in many diseases. So today I will focus on
+HIV and we know the emergence of anti-retroviral drugs ARP has transformed
+the HIV infection from a fatal disease to a chronic disease. So it's
+significantly reduced HIV related mortality and the common ARP drugs fall
+into different drug classes with different mechanisms. For example the
+first one the NRPI is called a nucleotide or probably you can ask my mouse.
+Okay so the first drug class called NRPI is called nucleotide reverse
+transcription inhibitor. It inhibits the reverse transcription step in viral
+replication and other common drug classes include like NRTI, PI, ECT, EI and
+the booster. And the model ART drugs usually combines three or more ART drugs
+from different drug classes. Since such cocktail approach is most efficient in
+suppressing viral loads. For example the clinician can prescribe two NRTS and one
+drug from instinct and all they can prescribe like two drugs from an ARTI
+drug class and one from NRPI or one from the PI. Okay so people living with
+HIV now are recommended to follow up with their physicians semi-annually by
+the current HIV treatment guideline. And at each visit there are social
+demographics, lab test results such as DD4Cons and viral loads and also
+clinical environments such as BMI and glucose are collected. And then
+physician assigns their ART regimen based on their clinical observations so
+each ART regimen is a combination of different drugs from different classes
+and this process repeats every half a year by average. So nowadays the US
+Department of Health and Human Services provides general guidelines on
+assigning ART treatments. However these guidelines are usually applied to
+treatment naive subjects meaning subjects who are recently diagnosed with
+HIV and who never took ART treatments before. And for happily
+pretreated people with HIV for example if this person has been diagnosed with
+HIV for 20 years and has been taking ART drugs for a long time and there's no
+consensus. And also the current guideline didn't take into account the
+potential adverse effects caused by the long-term use of ART drugs because
+the HIV now is more like a chronic disease and those patients need to take
+ART drugs every day and indefinitely. So you need to take every day to take the
+drugs every day to suppress the viral loads and they may cause some long-term
+adverse effects but for example like the kidney disease and weight gain or
+depression and the current guideline didn't take into account all those
+side effects. So our goal is to determine the personalized ART regimen to
+optimize the long-term health. That means not only the drugs can
+suppress the viral load but can also control these side effects. So large
+scale HIV studies such as Max-wise cohort studies and it provides us
+opportunities to achieve this goal. And they collect data from participants
+semi-annual visits and here is the ART treatment history for one randomly
+selected subject with seven visits. Here the x-axis shows the calendar dates of
+their visits and the y-axis shows the ART recommendations this person has
+taken and different colors here represent different drug classes and the drug
+name are marked. So I use a three letter to represent each drug and also at each
+visit their house related amendments are recorded. For example this figure shows
+the subjects, longitudinal depression scores, viral load, EGFR for kidney
+function and the BMI. So there are many challenges to optimize the
+sequential ART regimens in a data-driven manner. First we need to estimate the
+drug effects. Like before we assign them we need to understand their drug
+effects from a high-dimensional and unbalanced space. So when I say
+high-dimensional it means with more than 30 ART drugs they are all FDA approved
+on the market. There are a large number of possible drug combinations. So that
+could be millions of drug combinations you can choose. So even if the feasible
+combinations about like thousands there's still there are a large number of
+possible drug combinations. And also when I say the unbalanced that means some
+drug combinations are frequently used but others are wrong. So for example we can
+see for this drug combination is two ART drugs and one PI drug it was the
+using our database for almost 1000 times but another similar drug
+combination. So the same two ART drug but a different PI drug it was only used
+for 12 times. And the second challenge is how to generate a realistic ART regimen
+from a large discrete space in the optimization procedure. So after we
+understand the treatment effects of these drug combinations we need to assign
+their drug regimen to patients. That means we need to generate a realistic
+ART regimen. So then the problem is how to represent each ART regimen. A naive
+method would say okay I can use a binary vector. So say I have 30 ART drugs on the
+market and then I can use a binary vector it's an indimensional binary vector to
+represent. So if this drug combination contains drug one then it's one otherwise
+it's zero. However it will cause two to the n possible drug combinations and many of
+them would not be feasible. So like I said usually you know people combine the
+drugs from different drug combinations but usually we assign like for example two or three
+drugs from ARTI but really we assign one drug from PI. So not all these possible
+two to the n combinations are possible. And then we need the efficient way to represent
+the drug combination. And lastly we aim to optimize sequential treatments from
+observational data. So we have all those data collected from observational study
+but we want to assign them to the patients in the future. So the fundamental challenge
+of optimizing treatments from observational study is this distribution shift issue.
+So that means the training data may be collected on the different policies from the
+world we try to evaluate. So we need to address the distribution shift issue.
+Okay so to address these challenges we develop a two-step Bayesian
+reinforcement learning framework. And here is an overview. In the first step we propose a
+Bayesian dynamics model for individual's longitudinal observations using a market
+vertical Gaussian process. And this estimate dynamics described how individuals health
+related variables evolve over time condition on their historical states and the treatment
+histories with uncertainty quantification. And in the second step we create a pessimistic
+environment with uncertainty penalization to mitigate the distribution shift issue
+and also use an offline reinforcement learning method to optimize the sequential ART regimen.
+So it's a two-step approach. Okay so now let's go to the model details. So first I introduce
+the problem formulation. Assume for each individual i we use xi0 to denote the baseline
+covariates such as a race and ti records the visit times. So assume each one has ji visits
+and we have ti1 to ti ji to denote the time of the each visit. And also assume we have m time
+varying host state variable. So here we call state variables because they change over time.
+For example like h, bmi, egfr those clinical variables or demographics they are collected
+each visit. And also zi to represent the ART draw combination used by individual i during the time
+period ti j minus 1 to ti j. And then the data can be summarized as d. So for each subject
+so we have a total of i subjects and we have baseline covariates the time of each visit
+and the time varying state variables and also the drug the drug information.
+And then we use the yij bar. So the bar is a common as a common sign we really use to
+represent the history. So the yij bar means all the state variables before the current visit j.
+And the zij bar means all the treatments this person has been taking on pure the time j.
+And also we use the dynamic we use after the dynamic model so that means condition on the yij
+bar and the zij plus 1 we update the state variables from yij to yij plus 1. So remember
+the first step of our method to learn the dynamic model of you know how to transform from yij to
+yij plus 1. Of course the yij plus 1 condition on the whole history of the yij and the treatments
+the yij. Okay so our goal is to optimize the ART assignments to maximize the individual's long-term
+house outcome. So because we want to maximize the house outcome essentially we can transform the
+problem to an optimization problem. So this optimization problem is like we first define
+for each individual i we suppose she already has gi visits. So if this person is a new patient
+the gi will be equal zero. So the gi can be zero or if this person already has gi visits
+and then we want to predict as the next few visits for example. And then we let the y new
+and the zi new to denote her future longitudinal states and the treatments because our reward may
+depend on her future states. For example we want her let's say next two years the depression is
+minimal. And assume for any future visited gi the ART regimen is assigned through a policy
+function pi. So that means if we can learn if we can prioritize this function pi and we can optimize
+data and the equivalently we can optimize the treatment. And let's say we assign a stochastic
+reward function ri that depends on the house states. So we can depend we can define the reward as
+for example this person their uh their very load is low and the pressure set is low and the BMI is
+in the normal range and the kidney function is a normal range. Okay so for example if our goal is
+to select the sequential ART regimen that leads to lowest accumulative very low in the next two
+years and it is can be an active sum of the very loads. Okay so they notice the expected reward
+for any individual i to be the following because we in the first step we learn a Bayesian model. So
+essentially you can generate their future states and also so we can generate the future states
+y i new from the learned dynamic model and we generate the zi new from the pi the function. So
+we learn the pi from their parameter as the function pi and also because we learn the dynamic model
+and then we can integrate out uncertainties optimization procedure. So that's kind of the
+benefits of using the Bayesian framework in the first step because in the decision making step
+we can integrate out uncertainty we can adjust for this uncertainty quantification from their
+uncertainty of their dynamic their dynamic model. And our goal is to find as optimized optimal
+policy function pi that parameterized by theta i star. So we want to find as an optimal parameter
+that can maximize the ri theta. So that's a problem. Okay so now we have already defined our reward
+function ri and we want to find as a parameter theta that can maximize the ri and essentially
+it's a classical reinforcement learning problem and we we can use the policy gradient method to
+solve the problem. So essentially if you can calculate the gradient of ri and then you can
+use the policy gradient method essentially you update the theta by this formula. So it's also
+classical results it's that you update theta by you know the previous theta and then plus
+some step size si q and then times their gradient. So the essential problem is how to calculate
+the gradient of our reward function. So we can see our reward function is relatively complex right
+you take the expected value of the reward function ri and ri is the function of y new and y new you
+need to generate from the predict distribution of your dynamical model and besides all that we also
+need to integrate out the uncertainty from the dynamical model by the p5 condition on d that's
+a posterior distribution of the phi. So it's not easy to calculate the gradient of this ri theta.
+Okay so luckily for the policy gradient method there's a there's a way to calculate that so if
+you are interested in details you can find the details in the paper but we can represent the
+derivative of ri theta as follows and this formula looks very complex but we can't
+decompose this into three separate steps. The first step is this step so it's about
+the log of our policy function so essentially if you can parameterize the ART assignment function
+and then you can optimize that so that's our first challenge we need to parameterize the policy function
+and the second step is how to generate the future states based on our dynamical model
+so that's the second step is we want to sample the future states and the last thing is if we
+can define a reward function so essentially you know you decompose the calculating this gradient
+by three uh sub steps if we can sample future states if we can define a reward function if we
+can parameterize a policy function and then we can calculate the gradient of the reward and then
+we can plug into policy gradient method and then gather the optimal theta. Okay so now I will introduce
+each part so how to sample the future states so if we want to sample the future states basically
+we need a model and then we do the predictive inference and in this case we have multiple
+longitudinal states and we use a multivariate Gaussian process so the reason we use a multivariate
+Gaussian process because it's a popular choice for modeling irregular space multivariate
+longitudinal data with great flexibility and also natural uncertainty quantification
+and here's irregular it comes from the missing data because sometimes maybe some visits
+and some measurements may be missing. Okay so the multivariate Gaussian process the whole
+framework of this multivariate Gaussian process is relatively standard we use yimt to denote the
+mth longitudinal variable for for individual i at the time t and we have a mean function f t
+and the answer iid residue epsilon so for this f we assume the multivariate Gaussian process
+distributed so we will have the mean function so the next next slide I'll introduce how we
+model the mean function and for the various covariance parts we assume they're the
+separable covariance function so they're here the c m to denote the correlation represents
+the correlation among different state variables because they could be correlated and the ct to
+represent their correlation among the time so this separable covariance function adjusts for
+the correlation among variables and also along the time okay and here for the ct the correlation
+kernel that for the temporal correlation we use the oil kernel because we expect the curve
+that's not too smooth okay so for the mean parts that's kind of the key one of the key
+contributions of this model is that for the mean parts the first two parts are kind of standard
+we use a baseline it's like linear Mase effect model we have fixed effects and random effects
+but how to model the drug combination effects it's a key thing so remember I said for the drug
+combination it's a high dimensional space so how to represent the drug combinations here we
+borrow like the kernel idea so the way we model that is we assume there exists so we we assume
+there's a okay okay so we assume there's a we define a drug similarity regimen function kappa here
+so because the z itself is a high dimensional space so to reduce the dimensionality we introduce kappa
+so it's like borrow the kernel idea we reduce the dimension from the original all the drug
+combinations to a manageable size as capital D here so we introduce a bunch of representative drug
+regiments zd and then we calculate the similarity between each drug possible drug combination with
+zd and then as long as we can estimate the parameter gamma md here and then we can represent
+the drug effects for each drug combination and the way we define the similarity function
+it depends on two properties the first one is we want sharing of the information because the
+similar drugs for because the drugs from the same drug class they have similar drug effects because
+they share the same mechanisms so we want to share information from different drug combinations
+and also from this kernel the introduction of this similarity function it can reduce the high
+dimensionality so let me briefly introduce the uh the idea of this kernel uh because of time
+limit i will not see the detail so consider a straight way to compute the drug drug combination
+similarity and so one straightforward idea is we use linear kernel so the linear kernel they
+can compute the similarity between regiments based on the proportion of common drugs that two regiments
+share so for example here we have three drug combinations and of them use two same drugs
+from the nrpi class so d4t plus lam and assume the third drug the first two regiments they
+choose one pi drug but different pi drugs and another one is choose nrpi so you can use linear
+kernel that means the pairwise similarity among these three kernels will be two over three right
+because they have three drugs and they share two same drugs however there are some disadvantages
+for example the first two drug combinations so all to both of them they use two same nrpi drugs
+and the third drug they belong to the same drug class because the same drug class they share the
+same mechanism so we would expect the similarity between the first two drug combinations would
+be larger or would be higher compared to the similarity between their between them and the
+third drug because the third because the third drug combination they have the drug from a different
+drug class and another example for example if you have these two drug combinations both of them
+have two drugs from nrpi drug class and one drug from the pi drug class if we use a linear kernel
+and they would share zero similarity because they don't share any of common drugs however we know
+the same drug class would share some similarity so the the the good method we should borrow this
+clinical information and share certain similarity for these two drug combinations so the way we set
+up the way we define the drug similarity is we use the sub subject kernel so the sub subject
+kernel is the idea was to represent the sentences in natural language processing language and here
+we represent our drug combination by a tree structure and the subject kernel can represent
+the similarity at all levels of the tree representation so essentially the upper level
+is art and then we have the second level to represent which drug class we draw the drugs
+and the third level represents how many drugs from each drug class and the third level represents
+the each drug from each drug class and then the sub subject kernel can represent the whole
+similarity for example like regimen a and b they can adjust for their similarity is a blue box
+and for regimen a and c they can adjust for their drug similarity is a yellow box even you know they
+don't share any common drugs but you can still incorporate their similarity okay so now i have
+introduced this marker varity Gaussian process to model the longitudinal states and then if
+we have a model and we have our own parameters and then we can write down the likelihood
+and you can assign the price to our unknown parameters you can obtain the posterior distribution
+from the mcmc so i escape all the computational details here but essentially now we finish the
+first step so we have the marker varity normal model we can sample future states okay so the
+second one is how to define the reward function and the reward function it depends on the clinical
+goal right so here the it depends on how we define the long-term house for each individual so here
+after consultation with the clinicians we determine that we define the reward
+that depends on the barrel load kidney function and the depression so we want to care about first
+you know whether it can successfully suppress the barrel loads and also maintain a good kidney
+function and also the good mental health so let's see our goal is we will so here we can say we want
+to maximize the overall house in the next two years remember the visits are semi annual visits
+so that's why here the sum is from the next visit next four visits because next four visits means
+the overall good health in the next two years and then we want the depression this as small as possible
+and also oh yeah here is the next four visits and also for depression it's as small as possible
+and for the barrel load and the egfr because as long as they are normal threshold it will be fine
+so we define this kind of step function as long as they are in the normal range it'll be fine and
+if it's outside of the normal range and we give certain penalty and also here we have to personalize
+the weights wi so for example if some person they they're they more care about the depression
+and then the wi one can be have a higher weight so it's personalized and determined by the physician
+and also patient is himself and also to mitigate the distribution shift to issue we use are certainly
+penalized the reward that's another advantage of using the Bayesian method in the first step
+because we can easily quantify the uncertainty so this idea is by this paper by you from UC Berkeley
+group and essentially we define a pessimistic environment by introducing a penalized reward
+so the ri is defined by the previous slide but now we penalize the uncertainty of the
+it's a predictive variability of their state and their treatments and it's a tooling parameter
+where we need to learn okay and then we use the posterior predict distribution to quantify the
+uncertainty again because we have a Bayesian model so that's very straightforward okay so now we
+define a reward function and the last step is how to parameterize the policy function so to
+prioritize the policy function we make this also the three types of decision after talking with
+this clinician so essentially we decompose this to several steps so first if this person has been
+using ART drugs for a long time and we will see if this person needs to switch the regimen or not
+so if the older drugs works and we can just keep using the older drug so this way we will represent
+as a logistic regression method in the logistic regression model you know as long as all the
+health measurements are in within the normal range and then we will decide to just you know
+keep the old drug and if one of them is not in the normal range we will switch if this person
+needs to switch and then we will need to generate a new regimen and because we use the three representation
+and then we can now decide you know if we need to switch how to generate a new regimen essentially
+we need to decide like which drug class and how many drugs use the initial class and also which
+individual drugs at each class so this essentially is a non-central hypergeometric distribution
+again I skipped all the details it's kind of a little bit complex so we have these three levels
+of 3D series okay so now we have already finished these three steps so we have multivariate Gaussian
+process to some whole future states and we define reward function and we have ways to
+parameterize a policy function we can use a policy gradient method to optimize a print
+okay okay so now uh so here I finish all the matter introduction last last part of the slides
+is I will introduce real data analysis results uh so for the real data we got about 300 women from
+the Washington DC site from the white study uh and also now we get four state variables at each
+visit depression viral low EGFR and the BMI and there are about eight percent missing data
+and the baseline covariates we consider include H smoking status substance use
+employment status hypertension diabetes and in this study we have 31 ART drugs and six drug
+classes and we choose 105 representative drug regimens so those regiments based on the popularity
+of the drug combinations if they have been used a lot of times uh for the from the patients and
+then we would know that as representative ART regimen okay so here is one uh hypothetical
+patient so we will use this example to demonstrate the precision medicine of their you know the utility
+of the clinical utility of the proposed methods okay so this person has been uh has been had 31
+visits and here is their history of treatments and for these patients we assume their uh weights as
+one third one third one third okay and then we run our optimization method and here we can see
+their expected reward versus uh their SGD iteration so it became relatively stable after
+one thousand iterations and here is optimal regimen in the next two years so we can see at
+the visit two there are two ART drugs when you see one PI and one booster and then it changes
+one new regimen for visits 33 to 35 okay and also here I want to show under their estimated
+optimal regimens that's the predicted depression scores and we can see for their visits from 32
+to 36 there are about 23 improvement of depression so that also shows the clinical utility of our
+you know newly assigned optimal drug combinations okay I will skip the next example due to the time
+limit uh oh yeah okay to summarize we we propose a like a Bayesian reinforcement learning approach
+it's a two-step approach and it can learn their dynamics with uncertainty quantification it can
+also assign the long-term optimal drug combinations to optimize each individual's health okay yeah thank
+you oh yeah thank you so much Yanxun any question from the audience? Yanxun those are very exciting
+work I actually have some question because you touched a very good point where you need to
+balance the um priority like competing priorities when you are in the clinical practice but since
+we are a little bit over time so I probably will talk to you later about that no I was wondering
+like how the uncertainty will be uh impacted by how you define your reward function oh yeah so
+the the that is so the uncertainty part uh you know how the uncertainty affects the final decision
+depending on how you tune the parameter so like here and yeah I skip that part but here you can show
+if we have different tooling parameters like lambda equal zero you don't penalize at all
+and then you have this drug combination and if you use like increase the lambda and then it will
+penalize the uncertainty it's kind of uncertainty is reflected by the sample size in their data if
+this drug combination has has been used a lot of times it has relatively narrow uncertainty it
+had never been used then it has a lot of uncertainty so for example here with lambda equal zero they
+actually recommend this drug combination it's the first drug combination it so it it actually never
+been used in the in the data so that's kind of create a treat off like we need to discuss the
+clinician like if this drug combination has never been used do you want to try this new drug or you
+want more conservative choices like you know these two drug combinations it right it has been used
+more times yeah I mean this this tuning parameter definitely plays a role but you know actually
+when you define your reward function there is another part with the personalized weights
+so I was wondering like no we also have similar problems so we also have like for example the
+survival or quality of life to balance but then when we provide the personalized weights and if
+you change a little bit of the weights actually the the the rules or the decision you will make
+or you learn from the data will change so yeah that's a good question yeah we can we can discuss
+more because yeah thank you so much I'm going to share my screen

@@ -1,0 +1,28 @@
+Processing Overview for Brandon Rohrer
+============================
+Checking Brandon Rohrer/How Deep Neural Networks Work.txt
+1. **Back Propagation**: The process of determining the error contribution of each weight or neuron in a neural network and updating weights accordingly to minimize error. It involves taking the derivative of the output (loss) with respect to the inputs, which in turn depends on the derivatives of the activations (like sigmoid or ReLU functions).
+
+2. **Activation Functions**:
+   - **Sigmoid**: Its derivative is simply the function itself multiplied by its complement, i.e., `dZ/dA = Z * (1 - Z)`.
+   - **ReLU**: The derivative is either 1 if the input `A` is positive, or 0 otherwise, i.e., `dB/dA = 1` if `A > 0`, else `dB/dA = 0`.
+
+3. **Training a Neural Network**:
+   - Start with random weights for all connections in the network.
+   - Present an input, compute the output, and calculate the error (difference between the predicted output and the actual target).
+   - Use back propagation to calculate the gradient of the error with respect to each weight.
+   - Adjust each weight by a fraction of its gradient (typically using gradient descent or similar optimization algorithms) to minimize the error.
+   - Repeat this process for many epochs (iterations over the entire dataset) to train the network, refining weights each time.
+
+4. **Training Tips**:
+   - Use bias neurons to account for shifts in the data distribution.
+   - Implement dropout during training to prevent overfitting by randomly setting a fraction of input units to 0 at each update.
+
+5. **Additional Resources**:
+   - Andre Carpathi's lectures and resources on neural networks.
+   - The article "The Black Magic of Deep Learning" for practical tips on deep learning.
+
+6. **Final Thoughts**: With the understanding of these principles, one can attempt to build a neural network from scratch or use existing frameworks like TensorFlow or PyTorch. The goal is to adjust weights through backpropagation to learn representations that minimize error over a set of inputs and outputs. The network will 'learn' to perform tasks such as classification, regression, etc., by finding a good set of weights through iterative training on a dataset.
+
+7. **Additional Comment**: The process described is a simplified explanation of the workings of neural networks. In practice, there are many more nuances and considerations, including the choice of architecture, learning rate, regularization techniques, and the selection of hyperparameters that can significantly affect training outcomes.
+

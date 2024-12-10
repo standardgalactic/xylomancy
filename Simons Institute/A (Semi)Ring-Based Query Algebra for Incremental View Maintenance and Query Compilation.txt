@@ -1,0 +1,961 @@
+We're going to have two talks.
+We have half an hour break.
+We have another two talks.
+We dial the afterwards to help our open discussion.
+Well, well, well, well, well, well, well, well, well, well.
+That is not important.
+Notice also we have, from two to three, we have eight of nine,
+seven talks that are maximally in the long.
+So here is, um, yeah,
+bother the chain and so on.
+Two and talks are just eight minutes, two to three.
+For those who participate in the reception tonight,
+at 415, the bell will ring.
+Please start marching because at 430,
+please check the email with the exact address.
+It's up the hill.
+What's that?
+That's the bell.
+So when you're up there on the whiteboard and you get some bell,
+then you know it's time to start wrapping up.
+You should just lead everybody and just go, I slide.
+Yeah, but everybody speaks German.
+So, okay, great.
+So we started our first talk.
+Welcome.
+Thank you.
+So, yeah, I'm going to talk about rings.
+Sorry, not semi-rings.
+Although, you know, on my slides,
+I will point out sometimes, you know,
+this also works for semi-rings, you know,
+and usually every works for semi-rings,
+except for the ultimate purpose
+for which I'm developing this, right?
+So, so why do I want rings?
+So, I mean, this has come out of projects
+that I've been working on where we wanted to compile queries
+and where we really suffered from having
+so many different case distinctions
+when SQL was really a very messy language for us.
+And I tried to clean this up.
+And generally speaking, of course, you know,
+nowadays, if data science, people have come up
+with lots and lots of calculations
+for numeric computations.
+I'm going to talk about my thing, which is, you know,
+case quite old already.
+So, you know,
+relational calculations are terrible
+for numeric computations, right?
+It starts with that, you know,
+union is not even an operation, right?
+It's certainly not a total operation
+because there's certainly pairs of relations
+that you're not allowed to union together, right?
+So, we don't have a semi-ring.
+We certainly don't have an algebra.
+So, lindigual algebra, yes, but not an algebra.
+Aggregations and afterthought,
+certainly these core languages that we've been studying most,
+right?
+And, you know, one very experienced senior colleague
+of mine once told me about undergrads, you know,
+that no matter what you do,
+they will never understand universal aggregation,
+universal quantification, right?
+So, it's hopeless.
+And in my experience, having graded
+millions of database exams, you know,
+I think this is true, right?
+And people, you know, when you give them some universal property,
+usually if they manage at all
+to realize that there's something to be done here,
+that it's not just existential, right?
+They will do something like
+doing accounting theory, right?
+I've done this down, you know, of course,
+this would usually qualify it in some way, right?
+But rather than saying, you know,
+is it true that all, you know, people understand for all, right?
+You ask, you count the guys
+who understand for all, you count the people
+and you compare that, right?
+And people do, right?
+So, in a sense, right?
+And of course, saying this as somebody who has, you know,
+got that job, basically,
+based on working with logic, you know,
+and maybe I feel like a traitor to you,
+but, you know, quantification
+is actually not that important
+to most people who use these languages,
+but aggregation is, okay?
+And there's things I would like to do,
+and for which I need rings as well,
+particularly I would like to be able to, you know,
+express finite differencing elegantly, right?
+There's differentiation sometimes,
+because it's easier to say, right?
+And this is key to many things.
+We did a lot of incremental view maintenance work,
+but you need this in other contexts as well.
+I mean, one thing that we have heard a lot about
+is semi-navigational data log.
+Of course, that's incremental prediction,
+but it has all kinds of different versions of things,
+like online and streaming, et cetera, that need this.
+And even just for, you know, expressing, you know,
+many, you know, core query operator algorithms, you know,
+that kind of applying it delta, you know,
+is an important thing, right?
+So if you try to figure out how to do this for SQL,
+without any kind of cleanup, you know,
+this is a very messy task,
+and that's why, you know, when I started working this,
+I don't think that people have been working
+on very large fragments of SQL
+to do things like incremental view maintenance.
+So here's a key tool.
+Monoids, semi-rings, or rings, right?
+So let's assume we've got a semi-ring,
+or ring A, and a mono-HG, okay?
+And I'm defining, you know,
+finite support functions.
+That means functions,
+right, where only finally many elements
+map to something else than zero, right?
+The zero of the semi-ring A, okay?
+And then they find the operations in this way.
+So I've got these functions, X, you know,
+maps to alpha of X, you know, it's one of them,
+you know, alpha, and the sum of two such things
+is just, you know, the pair-wise sum here, right?
+The important thing, the multiplication,
+is the convolution product, okay?
+And this is where the mono plays off, right?
+We are basically, you know,
+we are basically, you know,
+for an X, right?
+Its value is going to be, you know,
+for the product, you know?
+But split up in all ways
+that they multiply up to X, right?
+It gets Y's and Z's of G, right?
+And, you know, sum up the product
+of these alpha, of Y, and beta, of Z, okay?
+And it's very straight
+for defining the zero and the one
+such we've got this, got a semi-ring,
+and a ring if A is a ring, okay?
+So, you know,
+we've got this, you know,
+A is a ring, okay?
+We call this a monoid semi-ring or ring, right?
+And if it's cumulative, it's also
+an algebra, so it's a monoid algebra.
+So, one thing
+that we're observing, although it's very obvious,
+if you just take the plus operation
+of this, of such a monoid ring
+and you add some obvious killer product
+so you can multiply in, so to say,
+the elements of the ring, right?
+And you've got a free module on G, okay?
+And with this, it's actually very easy
+to prove the following thing, right?
+So,
+figure of characteristic functions for every element
+of the monoid, right?
+I've got a function that basically, you know,
+maps to value one for G
+and to zero for everything else, right?
+And we say that some operation,
+we're going to talk about operations
+for multiplication here, you know?
+Over, in this case, the ring
+of integers, right?
+It's conservative over
+the multiplication inside the monoid, right?
+If, on these characteristic functions,
+it's actually just this product, okay?
+And in my opinion,
+that's what you always want,
+otherwise it would be very weird, okay?
+And if you make this assumption,
+there is actually just one way
+to build a product to get a ring,
+given the addition operation on such functions,
+okay? And that's this convolution product.
+So, Chris, it might be just me,
+but I don't understand this last condition,
+the conservativity.
+Can you explain it again?
+So, I've got the
+elements of the monoid, right?
+Remember, my
+monoid ring, the elements are
+functions, right? Yeah?
+And there are special elements that look like these characteristic functions, right?
+Okay?
+And now I'm talking about
+multiplication operations for my monoid ring,
+right? I already showed you one,
+but I want to kind of justify it, right?
+So, let's not constrain it yet, right?
+Let's say, what multiplication function could I build?
+And let's just assume that I want to look at those
+that satisfy this property, right?
+You know, that's the product
+in my monoid ring
+of
+the characteristic function of g and h
+is the characteristic function
+of g times h in the monoid.
+Okay?
+Yeah?
+We will later actually
+use tuples for these
+elements of this monoid, right?
+And then this is very obvious that that's what you want.
+It's very weird otherwise, okay?
+And with this, and the fact that
+you've got these modules, you can very easily prove
+that there is just one way, namely
+this convolution product to build a ring.
+Okay?
+Yes?
+So, yeah, and there's something on the
+previous slide that you
+looked at here.
+Um,
+I confused.
+So, why does it have
+finite support?
+Well, it is non-zero
+only on the one element of g, right?
+So, it has
+finite support as only one non-zero element.
+So, yeah, okay?
+I don't know.
+Notation bad, right?
+Okay.
+Good.
+So, this is also a very
+basic, you know, algebra stuff
+for the moment, right?
+And now let's apply this to databases, right?
+So,
+we're going to build a monoid ring of relations, right?
+So, what I'm going to,
+remember, one thing I want to achieve is that
+union is a total operation.
+You might say, not a big deal, but it makes
+such a fuss of it, because I would otherwise
+be gazillions of case distinctions when you do
+incremental view indents, for example, where
+we've got deltas, where union is
+something that is applied in many
+different and weird ways, including, you know,
+doing differences, right?
+So, records conceptually
+is a tuple of a scheme of its own, right?
+So, union, in my context, could have
+records, tuples of different schemas, right?
+It's a set of tuples, and each
+tuple has its own schema, right?
+It's a kind of partial function mapping
+column names to data values, right?
+And we talk about, we call this, this T is
+the set of all records that I can build, right?
+Give them a, you know,
+a vocabulary of column names
+and a domain of
+data values, right?
+So, we call this
+generalized multiset relation,
+you know?
+A finite support function from tuples
+to elements of our same ring or ring,
+okay? And here's an example, right?
+So, you see, as two tuples that have,
+you know, weight, value, whatever, R1,
+R2, right?
+And this one is actually kind of a unary tuple,
+and this is a binary tuple, right?
+And that's just bunched them together,
+and because they have their own schemas,
+so to say, you know, there's no problem
+with doing that, yeah?
+It's just kind of polymorphics, so to say,
+and here is my
+monadring of relations again,
+and I'm sorry, I'm basically very
+done as here because I'm showing you the same stuff again here,
+just I filled in now this concrete,
+you know, structure here, right?
+So, the monoid is now
+these tuples, right?
+And the operation, the modification operation of the monoid
+is putting them into
+singleton relations and joining them with natural join,
+okay?
+And you can have the convolution product,
+et cetera, et cetera, right?
+Everything else, you know, the one element,
+you have got these nullary tuples, these empty tuples,
+so to say, they're as small as possible tuples, right?
+And of course, joining them in doesn't change the thing,
+it's idempotent, so to say, right?
+The join is in, yes?
+If you're just joining two individual tuples,
+not sets of tuples,
+what happens if they don't join?
+If they disagree on the common arguments,
+what is the result of the join?
+Well, we're not computing this, this is not how the join works.
+The only way we actually kind of using this monoid operation
+is here, and if it doesn't match,
+we're not going to use these y's and z's, right?
+Yeah?
+Are you using a commutative join?
+This join is commutative, right?
+This multiplication operation is commutative, right?
+And of course, because we have a ring here,
+we also have a minus operation to the plus, right?
+So, example,
+and I'm just showing you this again
+for reference, right?
+Suppose I've got these three generalized
+mindset relations, right?
+Let's take s and t and s,
+right?
+Let's take s and t and add them together, right?
+So,
+well, I can,
+these two go together, so I get, you know,
+for c, I get s plus t1,
+for b, c, I get t2, right?
+And now the multiplication, right?
+The thing is now,
+I have to look for every tuple here,
+right, that I want to construct,
+and conceptually, this is a very indirect thing,
+I have to think all possible tuples, right?
+But there will be only, you know,
+given that the input is so, right?
+I have to see all ways
+of constructing these tuples, right?
+So, the interesting case here is this thing,
+a2, bc,
+which I can construct in two ways
+by joining, so to say, or multiplying r
+with s plus t, right?
+Because this thing
+joins with this, no contradiction,
+it also joins with this.
+Of course, if this was b prime,
+a different value would not join, right?
+And for that reason, I get, you know,
+a different value, right?
+Sorry, why did it join
+with the first row of s plus t?
+In this case,
+it's like a rational product operation, right?
+Don't overlap in schema, it's like a natural join,
+so to say, it's a natural join, right?
+So, how should we read
+the missing entry?
+So, under b, there's only one b.
+So, you could
+talk about null values, I don't think
+of them as null values, it's probably not keen
+to think of null values, right?
+These are not tuples, but records,
+they have their own schema, okay?
+So, it's polymorphic, each of these things is an object,
+you know, each of these records
+that knows its schema and its
+local domain, right?
+So, this tuple says, I'm
+a unidouple on c, and this tuple says
+I'm a binodouple on b and c.
+Okay?
+And why am I
+doing this? Obviously, that I can
+union together anything, right?
+So, I've got a total operation, I can build a ring
+and get exceptions and weird things
+to say about it, right?
+Yeah?
+Chris, I'm sorry for nitpicking, but you do want
+to have a monoid structure on the set of tuples.
+Yeah?
+What is the binary operation that has to be defined
+for any pairs of elements in the tuples?
+Yeah, that's this,
+it's the
+natural join on singletons.
+Yeah, but the natural join is not
+always defined.
+So, I understand
+that you can define the convolution, but
+I don't think you can define the basic
+monoid operation, or at least I don't
+understand how you define it.
+Yeah.
+So, yeah, I mean, I have
+the full thing, there's some kind of version of a
+fail, and I've built a monoid around it, but
+I wanted to leave this out here.
+Good, thanks, okay. Sorry about that, you know.
+Because I really don't need it for anything else.
+Yeah?
+So, and there is a semantic definition data
+where you see these things, but I would go
+back and forth.
+Okay, so, but yes,
+very good point.
+Sorry about being, you know, trying to brush this
+under the rock.
+Right, so, yeah, so
+this thing is a commutative ring of one,
+of course, and I've shown you this thing already.
+It has this minus operation, and it's also
+if you take it for the whole numbers,
+right, the integers as
+the ring, it's the smallest ring,
+right, such that
+all relations in set of
+back semantics are elements, right, and
+plus and modification generalize
+union and natural join, right.
+So, in particular,
+if you apply this stuff, you know,
+to just normal relations,
+you know, this is exactly union and this is exactly
+the natural join.
+Okay.
+So, this is not arbitrary,
+but that's the natural thing to do, right.
+So, this is something that
+is exactly union and natural join on normal relations,
+multi-set relations, you know,
+back semantics.
+But it also works
+for these things that I get by
+basically putting items together that
+are, you know, have different schema, you know.
+Okay, and it doesn't do more than that, it just
+does exactly this.
+Well, I think I run
+the other time. Okay,
+yeah, so,
+well, you can build polynomials, you can
+distinguish elements which are variables and
+which are constant relations, of course,
+and you can
+talk about deltas, right.
+Just using a distributivity, right.
+This maybe looks hard to read, but just about the
+location, right. I mean,
+suppose I've got some general smart solution
+and it's delta times some other
+process delta minus the old
+version, right. I just, you know,
+apply distributivity and I get these things, right.
+Okay. And one thing that is worth
+mentioning here is that
+you can talk about the
+degree, right. So if you have got
+kind of two variables here,
+you know,
+it has degree two and
+the delta always has degree one less unless
+it becomes zero, right.
+That's important for this differentiation here. You can,
+you know, can basically differentiate these things
+as many times as you like, but every time
+the degree goes down by one.
+Okay.
+Okay, so one thing that I
+need next is a generalization
+of these things. These are again
+rings, but they are not going to be
+community anymore, right. They allow me to do
+sideways binding passing. Okay.
+And that allows me to basically have
+conditions which are by themselves not
+finite support. Okay.
+So that would be kind of infinite
+tables that I can join in so to say, right.
+And
+so, so basically what I'm
+going to have is, you know, before
+that I had these things that are functions from
+tuples to, to, to
+ring elements. Now I've got functions from
+tuples to tuples ring elements.
+I don't think this is just a correct form, but I think
+this, this first thing is going to be the
+bound variables, the input variables, and
+that's, these are those that I can compute the
+output variables, right. And even this,
+this is again finite support, right.
+And ultimately you can prove in some way or
+another essentially that there's again only one way
+to build this, right. And what it basically does
+is, that's the interesting part, looks kind of
+ugly, right, that you can basically pass
+the output variables of one relation
+and the input variables of the other, right.
+You know, and otherwise
+it's again, it's convolutional, this is again a ring,
+you know, the
+facility proof is kind of cute also, very, very
+easy, right. And this is something you can now
+use to kind of do things like, you know,
+sideways binding basing, like in relation
+practice we can talk about safe queries, etc.
+Okay.
+Sorry, Christoph,
+why couldn't we get a
+inverse here?
+What? No, no, we can
+get an inverse. Okay, you're in a semi-ring
+for some reason all of a sudden. No, I always
+I wanted to be as channel as possible.
+I always talk about semi-ring, but this also works
+for rings, you know, because they are also semi-rings.
+Sorry, if I didn't do this consistently.
+No, I know, I
+this is, yeah, no, this is,
+yeah, okay, in the title I should have
+put the same again in parenthesis.
+Sorry, yeah.
+Yeah, so I can do that
+and since I'm running out of time I
+want to speed up a bit. We have to find
+a language, right?
+And the important thing about this language is
+that it basically does all the interesting stuff
+of SQL.
+There is, of course, ugly stuff, you know,
+that maybe, you know, null values you don't
+particularly set and out the joins and stuff
+like that, right? But it can do all the aggregations
+and it can do universal quantification
+in particular, right? So we have these operations
+of the ring that we already have seen, right?
+We've got some ring elements, relations, atomic
+relations, but also functions like arithmetic functions
+and so on, and we can take variables,
+you know, that we have basically, you know,
+fetched, you know, just like in rational
+calculus and basically maybe
+if they are numerical, kind of make them
+part of something that we sum up,
+because conditions, okay?
+And there is semantics
+and it's horrible and I'm just going to
+show you that, so this is
+the stuff that we have already seen before.
+Summation, right, is kind of a generalization
+of addition, of course, right? And the
+important thing is that you're basically saying,
+you know, if I've got some variable,
+I've got some
+tuple here, right? This sum
+is basically over wise
+that I can multiply in such I get
+y again, right?
+And as a consequence, what this means is
+that
+this is not like just like a projection that
+counts the copies, right?
+It doesn't just compute tuples
+of maybe, you know, where some variables
+have been removed, but also these variables are
+still in there, right?
+If you don't want them, you know, you just
+querter them further later on.
+And actually, this is the only way to do this,
+so you get a ring, right? Some of the stuff
+it's impossible to read right now,
+right? But it was actually quite tricky.
+In many cases, again, you can argue that this is the only
+way to do this, okay?
+So we have conditions, right?
+We also have something called lifting,
+but you can basically take, you know,
+some query, right? And take
+the kind of stuff that is basically this
+multiplicity, right? The ring
+stuff and lift it again and put it
+into a, as a data value into
+a column, right?
+And
+here's an example, right?
+And I don't have
+the time I'm not going to go for this, right?
+We can do a deltas for all of them
+again. The ugly thing
+is the delta for the condition, because that
+basically just says in general, right?
+Add the new version of everything and
+subtract the old version, right? It's not a good
+nice efficient delta. On the other hand,
+you know, if this alpha
+doesn't contain a sub query, right?
+No relational
+atoms, right? Then this, the delta is
+zero, okay?
+So in many cases, if you don't have nested
+queries of complex structures, this is actually easy,
+okay?
+And
+we can define degrees again by every, you know,
+the degree of the delta is always one less
+or zero, right? Then the
+degree of the input query, okay?
+So with
+that, we've done something that I want to quickly talk
+about, which is this what we call recursive
+incremental view maintenance, right?
+So we've got this kind of difference operation, right?
+And we're talking about some, in this case
+I've simplified this and basically
+look at the
+the successor element. In the case of
+relations, this is, you know, the relation
+and the relation plus one tuple
+of your choice, right? So I want to simplify
+to kind of illustrate the idea here, right?
+What you can do is the following, right?
+Suppose you've got some polynomial, that's a query,
+right? You can talk, it's
+you can compute those according to the rules that we
+have, okay? At some point, the
+difference here is zero, right? What you can
+do is, you know, as you go
+and, you know, add to X some values, right?
+You know, you can compute this thing,
+right? But you can always,
+you know, compute this new thing
+as the old version plus the delta, obviously,
+right? You can do this for the entire table,
+right? You can memorize the whole
+thing, right? So this thing
+is this thing and that thing, or this thing
+is this thing and that thing, right?
+And the
+thing is, we can
+compute incrementally
+values for this function
+without any multiplications. There's just
+additions and memorization, right?
+And the thing is,
+this, of course, a bit more
+notation you can do for our query language
+as well. That means you get rid
+of the joints. There are no joints in this thing.
+But you memorize multiple levels,
+you know, of deltas, right?
+If you can afford this,
+you get rid of the joints.
+Okay?
+I have some
+example, in this case, I wrote it like
+SQL because there is a direct mapping
+to our language, right?
+And you can basically take such a query
+and this is a very fast animation because I know
+I'm going to run out of time.
+And
+I'm basically doing what we do here,
+you know, on this example of SQL, right?
+I want to compute a delta for this query queue, right?
+So this is a TPCH-like
+schema, right? So I've got orders
+and line items, right? And I'm
+asking for the sum
+of the prices times exchange rates,
+converted to one currency, right?
+Of orders joined with line items,
+right?
+This case is just one value, it's a
+zero-dimensional query, so to say. There's
+no group i in this case, but this also works
+for group i's, okay? And the degrees
+too because I've got two relational
+variables here that I'm joining together.
+Now, insert a single tuple. In our
+work, we've built a system, we can also do
+batch updating and so on, it's more complicated,
+I'm not covering it here, but in this case
+we're talking about inserting, we can also
+talk about deleting single tuples now.
+In this case, for inserting
+an order tuple, right?
+So I can talk, I can express,
+and I've just written all of this
+in this language here
+in SQL, you know,
+my delta, and I can start
+optimizing this, right?
+This is the query, but I'm going to
+insert not a single tuple, you know, that's the delta
+into this O, and now I'm going to
+simplify, this is just a compilation step
+where I simplify things, right?
+So I can pull this out, this is just
+associativity,
+right? And at some point
+I'm done, and I've got a query that's
+in this case just degree one, not degree two
+anymore, and I'm going to materialize this,
+and it's a group i query now for x-order
+key, right? And I'm materializing
+this, and we have to increment and maintain that one as well,
+right? So I give this a name,
+and I'm going to take this query again,
+and I increment and maintain it, of course for line
+I think, because orders don't exist here.
+I can simplify, and I get
+for all this
+some insert triggers.
+I can do this for delete triggers as well,
+okay? And in this
+case, you know, there are no
+joints. Well, these modifications are on
+scale-ups, right?
+And so this
+is kind of constant time updates,
+right? For this thing,
+for this query, right?
+And
+so in general, we have some
+combination techniques here, where we basically
+built these triggers, you know, this looks
+like C, this thing we call this NC0C,
+because we
+can prove that everything,
+you know, the data complexity,
+after compilation, is in NC0,
+okay? And remember, NC0
+are, you know, constant depth circuits,
+you know, of bounded fan-in,
+right?
+And they have been separated from AC0,
+which is the complexity class that we
+best, you know, for relational algebra,
+right? So we actually have a complexity
+configuration that actually, yes, NC0 is
+known to be strictly small than AC0.
+It's not a complexity for the assumption.
+This is one of the cases where we actually have
+separated classes, right? And the incremental
+computation is possible in NC0, why it takes
+us AC0, or if you have got, you know,
+aggregation, even something slightly bigger
+than that, TC0,
+you know, for the non-linear
+version, right? So that's kind of a
+complexity theorem here as well.
+And, yeah, we've built a system
+around, it's called db-toaster, it still exists.
+You can download it and use it
+and play with it. There's a lot more in
+that system, a lot of work went into the
+compilation, into, like, doing this thing
+on a large scale and efficiently and,
+you know, for a large queer language.
+But, yeah, that's what we've done here.
+I recommend
+that you ask for a show of hands for how many
+people have used db-toaster,
+because I have a pretty
+many people here. One.
+One. Oh, wow.
+Many more hands. That's nice.
+Well, thank you. Thank you.
+It's good. For all
+the users in the room.
+No, actually, this is not true, because we
+actually got a lot of questions on.
+Yeah, but unfortunately, it never went
+beyond just some guitar project.
+It's a lot of code though.
+Question.
+Acyclic schemas only,
+in essence?
+No.
+No restriction of that kind at all?
+Okay.
+I don't understand how you disambiguate
+a cyclic schema in this.
+So, you have to understand one thing, right?
+You know, this grant,
+so you're eating algorithm for
+proving that something is acyclic, right?
+You take a hypergraph and you start eating
+ears away according to rules. Those that are
+at the boundaries, right?
+The thing is, in our technique,
+you know, when I
+do this compilation, and every time
+I basically replace, you know, a relation
+by this kind of
+top, you know, by this singleton
+tuple thing, right? This is the stuff that I'm filling in.
+And then I'm starting to kind of simplify, right?
+You know? I'm basically
+removing a hyper edge.
+But this is not strictly acyclic once.
+You just remove hyper edges, you know?
+And the grid gets smaller and smaller,
+right? There is nothing special
+that we exploit for acyclicity here.
+It doesn't care.
+Okay. Yes?
+I'm sorry. Do I decide?
+No, I'm done with my talk. I'm already answering questions.
+Is this okay?
+Or should I say it?
+Yeah.
+Yeah.
+One slide about open things
+that, because it's 2010,
+like the next steps or
+any conclusion?
+Just...
+So, this is a question now.
+Yeah, okay.
+Because there are other people who are saying,
+okay, yeah, so, well,
+look, the thing is, you know,
+we spend a lot of time on this, right?
+Building this thing and we built lots of prototypes
+and we sometimes wrote it, you know,
+using new languages and so on, right?
+And, you know, we
+published this at
+different times, you know, with a thing
+about doing a startup, you know,
+I did the stuff initially with Yaniv.
+We wanted to start it and
+didn't happen when he went to academia
+and later there was Oliver
+that many of you know and have worked with
+and before I think about doing a startup and
+it never happened because it's just the two of us, you know,
+and, you know,
+at some point,
+you know, we all kind of burned out of this project, right?
+So,
+you know, I think there is no
+great, I mean, you know,
+the kind of cleaned up version of some things
+that I've talked about today. It's actually not published.
+It's just a technical report. Maybe one more
+thing to do is publish this, but I'm not sure
+if anybody still wants it because it's like 10 years old
+and people have already moved on and
+you know, I basically have to kind of say
+oh, but it's worth publishing
+because it actually happened before all these
+other people have done something very similar, right?
+But I mean, Dimitro's
+that is a benchmark for
+I mean, people compare
+whatever approach they take to
+to dramatically
+the benchmark for the students that have worked on it
+and now have academic careers and are only
+in the business of like just saying how bad
+this is, now much better, their thing is that they do now, right?
+Right here.
+The guys at P.M. Wehran with Frank Bakcherian
+and this
+I didn't bring up Dimitro's
+but it came out because they were comparing
+I mean, Frank
+was comparing with the materialized
+I don't know how well it did
+compare. You know, I had, I never had the energy
+to kind of really do the comparison myself, right?
+Of course, Frank Bakcherian's work is beautiful
+and it is a lot more general, right?
+You can do this for pretty much anything, right?
+But, you know, all the stuff
+that we can do, you know, since we do
+a lot of static stuff, right?
+We in principle can be better, more efficient.
+Okay.
+I would say
+I don't think you can get a paper
+accepted in Sigma or VLDP
+on incremental anything
+without comparing to Dimitro's.
+That's the way it should be, although I'm not a reviewer, you know?
+You know?
+It's a system to be.
+Okay, good.
+But I think you want, I'm sorry, you had your ratio.
+Yeah, this question might be too half-baked
+so maybe we'll take it offline.
+I was trying to understand, when you're working
+the joint by thinking that middle table
+space-time train up there, like
+can you bound how big that table gets
+and what the costs are moving that data
+in and out to work on it?
+No.
+No, it can be quite bad.
+So there is this thing, the read algorithm
+from like effort systems, this net thing,
+it reminds me a little bit of this,
+but I don't know if you've looked at that
+or if it's related at all to writing commission.
+I'm honestly not sure about
+if I can, yeah.
+I mean, maybe I forgot
+because this was like 30 years ago
+at the last.
+But yeah, I mean, so the thing is
+usually, right,
+the auxiliary views, right,
+have, you know,
+they have this lower degree, right,
+and usually this is also reflected
+in the kind of number of relations
+that join together, right.
+So we can usually assume it's of course
+a question of which cons you have to keep,
+you know, and not project a way
+that these things are smaller, right,
+but it's still costly in general.
+And there's tricks that we even have done
+as individuals, there's some trade-offs
+where you basically decide not to materialize
+and, you know, there isn't
+a lot of things I didn't say because
+it's, unless you want to build this,
+it doesn't matter to you,
+but we had to spend a lot of time on it.
+For example, this lifting operation, right,
+that takes basically something that is a multiplicity,
+right, in this kind of, you know,
+multiplicity domain and lifts and puts it back
+into the data values in the table and so on.
+But this efficiently, right,
+was very complex, the optimization
+of the way of
+techniques for that and so on, right,
+and there, particularly, there's sometimes a trade-off to me
+where we say, actually, we don't materialize this thing.
+Yeah.
+So please just keep your questions.
+We have these discussions and let's thank you again.
+Thank you.
+Thank you.

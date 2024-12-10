@@ -1,0 +1,516 @@
+Hello, everybody. Welcome to the 20th William Gouldow Distinguished Lecture. I'm Michael
+Wellman, Chair of Computer Science and Engineering, and I am pleased to see that so many of you
+are here to join us for this today. Our Daryl Lecturer is Sanjeev Arora, the Charles C.
+Fitzmoura's Professor of Computer Science at Princeton University, and Director of a
+cross-disciplinary entity called Princeton Language and Intelligence. Professor Arora is a
+renowned theoretical computer scientist, and we will hear today, has lately focused on questions
+fundamental to understanding artificial intelligence. The DOW Distinguished Lectureship is the highest
+external honor bestowed by the EECS department, and it enables us to bring extremely prominent
+and accomplished individuals, such as Professor Arora, to our campus. The lectureship was
+established by donations from students and friends of William Gouldow, a former faculty
+member and chair of what was then the Department of Electrical Engineering. Professor DOW was a
+scientist, educator, and inventor. During his 38 active years at Michigan from 1926 to 1964,
+he was largely responsible for creating and organizing at least 13 laboratories and research
+units. He introduced a number of innovative areas of study into the curriculum, including
+vacuum tubes, nuclear theory, solid state devices, and computer engineering. I am personally quite
+honored to welcome Sanjeev Arora as our DOW lecturer. I would now like to ask Wei Hu, Assistant
+Professor of Computer Science and Engineering, to step forward and formally introduce Professor Arora.
+Hello, everyone. It's my great pleasure to formally introduce Sanjeev Arora, and as Mike mentioned,
+he is Charles Fitzmorris, Professor of Computer Science at Princeton University, and also the
+director of the Princeton Language and Intelligence Initiative. Sanjeev is very well known for several
+breakthrough results in theoretical computer science, such as probabilistic checkable proofs,
+and approximation algorithms for NP-hard problems, and many more. In the past decade, he has been
+focusing on the theory of machine learning, in particular deep learning, and he has been running a
+very active group at Princeton working on this area, which I was fortunate enough to be part of for
+my PhD. And of course, he has also received a large number of prominent awards. So these include
+the ACM Doctoral Dissertation Award in 1995, Packard Fellowship 1997, Simon's Investigator Award in
+2012, Gerdo Price twice in 2001 and 2010, Ferguson Price in 2012, and ACM Price in computing in
+2011. And Sanjeev is a member of the National Academy of Sciences, as well as the American Academy of
+Arts and Sciences, and he is also a fellow of the ACM. So it's with great pleasure that I welcome
+Sanjeev to tell us about skills in large language models. Let's welcome.
+Thank you very much, Mike and Wei. It's a pleasure to be here. Amazing faculty and great atmosphere. By
+the way, there are still a few seats over here if you'd like to filter and feel free. Also here. So
+yeah, this, of course, language models need no introduction. But here what we'll try to do is
+give some mathematical and conceptual understanding of how they get complex skills. And I'll start
+with something that you all know. Of course, it's today is actually the one year anniversary of
+ChatGPD. Sorry, yesterday was the one year anniversary of ChatGPD. That's when everybody learned about
+it. And maybe you've seen you tune into the story at some point in this 10 years preceding it. There
+was Alexneth and here are the numbers, corresponded a number of parameters. And then there were these,
+the early language models, which are already very shockingly good, about twice as large. GPT-3 was
+like more than a thousand times larger. And it was hugely better. And then these were even larger. And
+GPT-4, nobody knows, but probably is even bigger than that. And of course, GPT-4 is believed to have
+passed the Turing test by many people. And so some quick numbers. $1 billion is a remote
+compute budget for one model. They're so large. Zero is a number of independent experts outside
+these handful of companies who know the code, data set, training method, et cetera. And then about
+10 million is the max compute budget. I mean, until a few months ago, it was like 2 million or
+something of any US academic research group. But now Harvard and Princeton have announced our GPUs
+haven't quite arrived yet, but soon. And so there's this talk of great interest to the world. And
+society, you know, that AI is controlled by a small number of firms, although lately there's some
+promising signs in the open domain. That was just to set the background, which I think most of you
+know. The other thing that people, that will be directly relevant is this whole debate about, is
+the thing intelligent? And even many experts find it hard to believe that out of what's essentially
+glorified autocomplete, you would get intelligence, right? Because as you know, that this is all they
+do, that there's a piece of text, you input it into the model, and you get a probability distribution
+of the next words. So that's like autocomplete. And the quality score of the model involves
+checking, this is what it boils down to. Basically, it's average predictive value on real text. So
+like when you estimate the probabilities point one, one tenth of the time, it's correct. Okay,
+roughly, that's what it means. We'll see more details later. And then training, of course, is
+great. In the sense, you update the models in the parameters to improve on this quality score. So
+very simple idea. And so, yeah, this debate about whether it's even intelligent, you know, yeah,
+there was this famous paper which referred to language models as stochastic parents. And maybe
+in 2020, the models were kind of like that. But today, you know, not clear. So we'll return to
+that issue. But still, the debates still continue among leading researchers in AI, whether these
+models are intelligent.
+Inserting these two experts, Jeff Hinton and Andrew, they posted this nice interview hosted by Andrew,
+where I mean, Hinton obviously is much more interested in, you know, potential dangers of
+AI. And at one point, at this point in the video, he asks, you know, one important thing to, for
+experts to agree upon, you know, before the public can understand it, is our chatbot is actually
+understanding us, you know, because Hinton seems to think they do. And, and this is very relevant
+for this whole discussion of AI, relevant alignment and safety. So again, this is just background,
+which most of you know. So now, we want to understand. So if we, if we can have that debate,
+even in order to have that debate, we should at least understand what we're talking about, you
+know, what are skills, what are complex behaviors, etc. And how do they emerge? So as already
+indicated, the driver of AI, it seems has been that bigger is better. And so let's see what that
+means. And one caveat here is that bigger seems to be necessary, but not sufficient. You know,
+they are entities, we just put a bunch of money together to train models, and they're not so good,
+okay, of that scale. So you do need some good engineering, good science. Okay, so bigger is,
+bigger is better. What, what do people mean by that? So a lot of people in AI, well, AI draws on
+people from all kinds of fields, many are physicists. And so the first thing they thought about was
+scaling laws, to just understand how things scale. And this was an open ad paper, where they found
+that this error in next word prediction on new text, new meaning unseen, not training text. Scales
+as something like this. So this is called cross entropy, which formally is just the sum over the
+words in the corpus of log of one over the probability that the model assigns to the next
+word that it hasn't seen given the previous words. And it has this kind of behavior. This is this
+actual form is from a later paper from DeepMind, the Chinchilla scaling law. So look at this,
+it's there's a constant term. And then there's this term, which decreases with n the number of
+parameters and data set size. So polynomially, so as you make this larger, usually make both of
+these larger in tandem, you increase the size, you increase the data set size. And then you find
+that, you know, the prediction is getting better. Okay, the quality of predictions. All right, so
+this constant term, it turns out mathematically corresponds to the entropy of, of language. So
+even if you give humans the prediction task, there'll be a range of opinions of what the next
+word is. And, you know, based on that, you'd drive a probability distribution and the entropy of
+that. And then this is mathematically is kind of like, you know, you don't need to understand this,
+but those of you who know about KL divergence between distributions, it's like the KL divergence
+of human respect to the model. And that if you put in, you know, the numbers and these days,
+which are in the trillions, you get something like, you know, 0.05. Okay, for GPT three was
+about 0.05. Okay, that number. So it's very small, right? 34% of the entropy. And one of the things
+that people found mysterious is that, you know, so basically, when you're scaling up, you're
+reducing this lower term. Why the heck should that make a huge difference? So we'll return that.
+So that's just improvement in the capability that you're training on, right, predicting the next
+word. But it was found that there were these range of tasks that people in natural language
+processing and other fields had studied for decades. And slowly and suddenly it was found
+that when you increase model to a certain size, suddenly these tasks start becoming solvable.
+And solvable in many cases without any training, just from training on text, next word prediction,
+voila, it can do truthful QA or, you know, multitasking or whatever. And this, this competence
+for many tasks actually emerge about the same scale. The x-axis here is flops, floating point
+operations, but it could, you could also put other things on the x-axis, number of parameters,
+data set size. x-axis is not a log scale anyway, so those things don't matter. Yeah, so that was,
+that was termed emergence. So a peek ahead, you know, another thing, of course, you've all
+interacted with Chagapiti. So like skill mix evaluation. This is an evaluation that I'll
+talk about. This is from our group. So you start with n skills. These are language skills,
+like modus ponens, simple reasoning, red herring, you know, red herring in an argument, spatial
+reasoning, cell sewing bias. These are, you know, language skills, theory of mind skills,
+topics, you know, sewing, building, beekeeping, etc. And you generate a randomly select some number
+of skills, some number of topic, one topic, I'm sorry. And you ask the model, generate a short text
+about sewing that exhibits these skills. Okay, spatial reasoning, these things. Okay, so the 7
+billion model Lama tool chat from Meta, which is, this family of models is a fantastic tool for
+research because these are open models. So, you know, it says something, it's okay, but not great.
+The 70 billion model is noticeably better. Okay, so it at least tries to address, you know,
+it has a metaphor in there, like trying to fit a square peg into a wrong hole. And then GPT-4,
+you know, addresses all the, all the requirements, and it's much more interesting. So you can see,
+you know, just interacting with it, you know, so those of us who think about it all the time,
+you know, we have our pathways of testing, you know, new model comes out, we give it these things
+and see what it says. Right, so clearly things getting better. So why is bigger better? That's
+the theory we're trying to create. Okay, and that's this paper with Anirudh Goyal of Deep Mind,
+and this was done at Deep Mind when I was on sabbatical there, theory for emergence of complex
+skills. So the point of view here is deep learning, language models, these are very hard to
+understand. What can we, what kind of conceptual understanding can we derive now? That can be
+somewhat rigorous, and it should make some kind of predictions that should stand up. Okay, so why
+do I say what kind of understanding is possible right now? So maybe many of you know that deep
+learning is kind of a black box. So we lack understanding, I see. So as we mentioned in my
+group, we've been trying to develop understanding of what happens to deep learning, and we have
+some rudimentary understanding, but it's still very, as I said, rudimentary. So then, you know,
+what's the definition of the problem? You know, what are skills? What is, what is competence on
+tasks? You know, there were all these, there at this point dozens, if not hundreds of language
+tasks that we know models are good at. So what is, what are these tasks, what mathematically,
+right? If you want to say something mathematically. And there are decades of, the decades of research
+on trying to formalize what's language, language tasks, etc., and mathematical formalizations,
+but they are fairly rigid. Okay, nobody thinks that those mathematical frameworks are actually
+describing language. Okay, there's some very rough approximations. Then, even if I have a
+formalization of skill, then what is combination of skills? That also is not well-defined. And how
+do you argue, you know, given that we don't know what's going on in deep nets at a very good
+mathematical level, how do you argue that all these ill-defined tasks now emerge roughly in
+tandem? Right? And how is this related to an export prediction? Why do combinations of skills
+emerge? Right, that we saw the example that the larger model could really combine skills flexibly
+on demand. And here's another intriguing phenomenon. Like, if I start combining k skills, the number
+of combinations is number of skills to the power k. It's k is like that. And we all know how
+exponentials work. So this means that even for like k equals five, you know, like even if the
+number of skills is in the, let's say a thousand, and it's certainly much more than that, fifth
+power or something starts getting to be really large and certainly bigger than the training
+corpus. So you would not see all possible combinations. So somehow you have, it's a meta
+scale that you learn. And this is an old debate that Noam Chomsky started in the 50s, you know,
+pointing out that humans somehow learn language without actually having seen all possible
+combinations. There's a poverty of stimulus. Somehow we learn language and we have all these
+flexible ways of using language, but we don't see all those examples. So it's somewhat related to
+that. So now I'll start to develop the theoretical framework and how to think about this. So the
+first thing to realize is that this autocomplete, the next word prediction, it's actually more
+powerful than it looks. Okay, and the experts understand this, but somehow maybe people who
+haven't thought about it are mystified by it initially. And there's a very famous old example
+by Winograd, who was trying to write a PhD thesis on language, computers understanding
+language back in 1970, and he realized it was very hard. And here was his example, one of his
+many examples. And these are called Winograd schema. The city councilman refused to demonstrate as a
+permit because they feared violence. Now here I have marks day, right, in a different color. And the
+reason is that they is actually ambiguous here. It could refer to the city councilman or the
+demonstrators. And so to, to clarify this, you can insert what's called a closed prompt, okay,
+a multiple choice question. Who feared violence? Okay, and the model can be asked to provide the
+answer A or B. So that's the next word prediction, A or B. And until four or five years ago, the
+models were clueless, 50-50. But now they're all aced this, this kind of test. Okay, so this
+is called the closed question. So for many language tasks, not all, but quite a large fraction of them,
+you can test understanding or ability to the task by, by this multiple choice questions. So we'll,
+we'll return to these. And the point here is that this next word prediction, you remember there was
+a log there. So that's normally the cross entropy. There's a big difference between 50-50 guess, you
+know, like your 50-50 between two answers. And 100% correct or close to 100%. Because the cross
+entropy for, for perfect prediction is log one, which is zero. And log two is very large in comparison.
+Everything is larger than zero. So, so if you reduce this uncertainty for next word prediction,
+get better at next word prediction, it's going to force the model to also go from this log two to log
+one, because that's what the human is. And if you go to log one, and you understand that this was
+demonstrated, this is a city councilman, you have to understand, you know, everything about the world
+around this, who are city councilmen, who are demonstrators, who causes violence, you know, all of
+these things, who had, what's a permit, et cetera. So just to answer that one question, seemingly
+simple disambiguation of day, you need to understand a lot about the world. And that's tested by this
+question. All right, so next word prediction is a little bit more complicated. And you can easily
+generalize to other settings and realize that by injecting simple questions into text, you can
+really force the model and test it to, to, you know, test it on its all kinds of understanding,
+right, whatever is being talked about. All right, so complex skills, what are complex skills? And
+this is what we analyze it, its ability to combine more basic skills and solving new tasks. Now that
+seems like a recursive definition, what are basic skills? So we'll return to that. But anyway, so
+it's a tuple. So we already saw an example of this. So yeah, write a single piece of text with two
+sentences on the topic sushi, demonstrating these skills. And, and you know, GPT four, again, is
+that. And just looking ahead, we did this evaluation, and I'll talk about it at the end. The small
+model. So this was by the prediction of the theory, you know, that this kind of thing will emerge. And
+actually, it was tested on the more recently. Yeah, small models can only combine a small number of
+skills, and medium a little bit more. Grass students, you know, three, four, four, you know, it starts
+getting to be tough, you know, like takes 10 minutes. And then large can do like that. Okay, yes.
+Just what I showed, you know, there's a list of skills and a list of topics and
+the case skills.
+The piece of text that are generated actually
+Oh, we use GPT four, automatic and human spot check. Yeah, I'll get to the details. Okay, so here's a
+cast of characters for our theory. So now we're going to talk about skills and complex skills and how
+they emerge. So normally, the paradigm of language models is that you're modeling the
+distribution of language that humans have a certain distribution, and that the model is
+learning to mimic that. We want to move away from that. So we are going to think of language or the
+training or the corpus as pieces of text of a certain size. And you're still going to have these
+kinds of, you know, prediction tasks within the piece of text. But, you know, it's just pieces of
+text. And now these pieces of text have a certain probability. Okay, so text T has probability
+muti. And we're going to assume that there are some latent skills in text. What they are, we don't
+care. Okay, it's a mathematical theory. There exists some basic skills. Okay, and these could be
+linguistic, logic, science, you name it. And these also have a probability, each of them. Now, for
+every piece of text, there's a set of skills that are needed to understand that piece of text. So
+think of that as edges in a graph. Skills on one side, pieces of text on the other, and more
+pieces of text is very, very large. It won't fit in all the computers of the world. But anyway,
+it's a mathematical framework. And so there are these edges that indicate which skills are needed
+for which piece of text. And now we are assuming that to test understanding of T, nature has added
+close prompts to it. We have some unknown process. So some very wise entity has added those things. Now,
+I want to emphasize one thing. What are we looking at? These pieces of text are not the training
+pieces of text. These are for testing the model. So what we're looking at here is test what happens
+at test time? Why can we get to test time and forget about training? It's because we're going to
+assume the scaling laws. So the scaling laws I showed you, you know, that as a model gets larger,
+it gets better at bringing the next word. We're going to assume that as a law of nature, kind of
+like second law of thermodynamics. Once you assume that, it tells you how well the model predicts
+the missing words or answers to close prompts in the test data. So this is what we're looking at
+here is the test data, not the training data. Training is done if followed the scaling laws,
+so I can directly go to test data and reason about what's going on there. Any questions? Yes?
+It's given by nature. Yes. Yes. So it's an arbitrary distribution. The theory
+can't assume what this distribution is. And yeah. Okay. So by the way, what we're also trying to do
+here indirectly is to change the way people think about language models. That, you know,
+that there are these latent skills, there are these pieces of text. And these pieces of text,
+you know, right now, we're thinking of natural text, but they could be synthetic. In future,
+the models may have images, whatever. So there could be other types of data here. Yes.
+There's a joint distribution. Yeah. But each piece of text has a probability.
+We assume nothing. Yeah. Yeah, very good question. So, yeah, across, you know, each piece of text
+has a probability. And so the sum of these has to be one. That's the only thing we assume. Yeah.
+So you can see, yeah, we're trying to assume as little as possible. Yeah.
+I guess the big picture is you want to show that new combinations of skills can be like learned.
+Yeah. So we'll get to that. Yeah. Yeah. Yeah. Combinations I haven't gone to. So now statistical
+tasks associated with each skill s. So a skill is just a node in, you know, at the, you know,
+in this layer. So there's a skill here. Now, you know, it has edges to various pieces of text.
+So statistical task associated with the skill is roughly, you know, you have to
+renormalize the probabilities and so on, but pick a random text piece adjacent to s and answer its
+close points. Okay. So that's a statistical task. So now, you know, skill, which seemed like this
+very nebulous thing. Once you have this framework of graph theory is just a very simple thing that
+you pick, what is the task you pick a node here, arbitrary node, it's associated with each node
+as a task associated with it, and then randomly pick a text piece adjacent to it and answer its
+close points. Okay. So it's called task, right? There's a distribution of text pieces, and competence
+is a success rate. So now that we've defined statistical task for individual skill, you can
+also define it for tuples of skills. So if you have a skill pair, you pick a random text piece
+adjacent to both s1 and s2 and answer its close points. Okay. So again, you have to renormalize
+probabilities so that this is a probability. And the competence is again successful. So these are
+complex skills and you can define it for triples, quadruples, etc. Yes.
+Yeah, I have a question on the joint distribution. If I have two texts and I want to ask the same
+thing, I could get a different answer. You're only going to pick one piece of text, not two.
+And asking for the same skill. No, you're going to pick, no, the test is just the statistical
+task is to pick one piece of text. Yeah. Yeah. Okay. Yeah, you can see we have to, given all
+that's unknown, we have to like thread a path to with minimal assumptions that still gives you
+something. So even here, it's actually, yeah, people are surprised. There's anything that you
+can say. All right. So illustration, just to illustrate the notions I've introduced. Suppose
+nature produces text using a five tuple of skills. So to understand this and to answer this, you
+have to have some five tuple of skills. Then this piece of text appears on the distribution for
+or the statistical task for five physical tasks corresponding to individual skills, those five
+skills, five choose two statistical task corresponding to pairs of skills, right? There
+are five skills, pairs of skills that five choose to five choose three statistical task
+corresponding to triple those. Okay. So there's a huge profusion of complex skills, right? All
+k tuples. We've commented on this before. All right. So that was a framework. Now we have to
+assume something, right? So the gentleman there was perplexed. Nothing has assumed so far. What are
+we doing here? So you need something. So that's a mixing assumption. So when nature, you know,
+how does nature produce pieces of text? So it picks a k tuple of skills IID, meaning with
+replacement from this measure, not IID, but yeah, with replacement, independent rows with
+replacement, sorry, not identical. And uses an unknown process to convert into text piece with
+an associated problem. Okay. So this is a key assumption that these pieces of text, you know,
+they were relying on skills. And what this is saying is that that graph is a random
+bipartite graph, random from the side of the text. So the piece of text was generated using a random
+k tuple of skills. And the closed sufficient assumption. And this can be relaxed in some
+ways. But for now, just assume that average error in the closed prompts tracks the excess
+cost entropy. So, you know, what we're talking about, you know, the error and next word prediction,
+it corresponds to error in answering the closed prompts and all the closed questions. And that
+can be made a little bit more rigorous. But for now, just assume that, okay, that these
+multiple choice questions have squeezed out all of the models confusion about your next word
+prediction. Okay. So that was a framework. Now the key technical part, why emergence? Like
+competence on many skills emerges roughly together and also competence on many skill
+tuples. And just to give away the buzz, the punchline here, remember, the graph is a random
+bipartite graph. And that has very strong mathematical properties. That's where it will
+come from, you know, this synchronized emergence and this surprising emergence of k tuples.
+Okay, so yeah. So again, emphasizing the key part here is that these each piece of text was
+generated by picking k skills randomly from the distribution skills. So here's a key calculation
+for understanding how competence emerges on tuples of skills or individual skills. So let's
+say we have a certain model and, you know, it has a certain error in the next word prediction,
+which by our assumption corresponds to error in predicting answers to the multiple choice
+questions. And x denotes a piece of text where some error appears. So our general framework is
+that whenever even one error appears in a text piece, you didn't understand. There's no notion
+of partial understanding. You made one error too bad. You get zero points. Okay, so in order to get
+full points for a piece of text, you have to answer all the questions exactly correctly. And, you
+know, exactly correctly, there's some threshold excess cross entropy. But okay, that's the only
+thing we assume. Okay, so now that's where all the errors are happening. So now there are these
+tasks associated with its skills and skill tuples. So whenever a skill is adjacent to a lot of these
+pieces of text where errors are happening, you haven't got competence on it. Now, here's what
+scaling does. Remember, we are going to assume scaling law kind of like second law of thermodynamics.
+And this is what we're looking at the test performance on test data. So scaling up the model
+10x reduces this prediction rate, you know, this error in the closed questions by faculty according
+to scaling law. Roughly, that's what comes out of the scaling law. So what that means is that half
+of these x's go away. Okay, so x's correspond to where there was mistake. You scale up the model,
+half x's go away. So now you have only half as many x's. So theta is that fraction of text
+pieces labeled this. So now the question is, as we do the scaling and this theta gets smaller and
+smaller, how does competence on skills and tuples of skills emerge? Okay, so here what we use is
+random graph theory. So remember, I told you that text pieces are generated by taking random
+tuples of skills. So that means that this graph is random. So the outgoing edges from each of the
+text pieces is a random set of key down here. And now why is a set of text pieces with error? So the
+x's and that is a certain size, theta. Now, the point is we don't know anything about gradient
+descent or anything, like where the errors are, anything. So this set is an arbitrary set. Yes.
+Are you considering also disconnected graphs? Like I said 3 is not connected to anything.
+Yeah, this was just, I mean, this is a small graph. It could be disconnected. Yeah, yeah.
+Like is it necessary? No, no, no, it does nothing. Yeah, it's just I asked it to give me a random
+graph. Okay. All right, so competence on a scale, right, is the fraction of its edges that do not
+go into this place where the errors are. So now it becomes a graph theoretic question, you know,
+how many edges, how many nodes are there with a certain fraction of edges? So this is a kind
+of theorem you can prove with just simple random graph theory. So, you know, people who've done any
+random graph theory like day one, the probabilistic method, you know, expectation argument, you can
+prove these kinds of results. That for at least one minus alpha fraction of the edges, at most
+beta theta fraction of the edges go to, sorry, at least one minus epsilon fraction of the skills,
+at most beta theta fraction of the edges go to y where, you know, alpha beta theta k satisfy this
+equation where h is entropy function. So I won't prove this here. But for those of you who know
+the probabilistic method, you know, here, the proof idea is to just use a probabilistic method to
+show this holds for all y of certain times. Okay, because y is arbitrary, we kind of assume anything
+about what y it is. So we have to argue for all y and the probabilistic method allows you
+to do that. Okay, any questions? Yes.
+So this is more like about the data that you are focusing on over here, like, for example,
+using theta and n1. And n1 in this situation, of course, can't be small, but like when we talk
+about real language, like it's huge. No, no, it is huge. This is an asymptotic statement. It won't
+hold for n1 equals 10. Yeah, yeah. No, this is n. Yeah, no, that was just a picture. So this
+called the emergent curve. Okay, so now when you plot these curves, you basically get the kinds of
+behaviors. Okay. So by the way, this theory, you know, is giving you some minimum guaranteed
+competence on the skills, you know, in real life, it could be better, you know, maybe this, this
+place is where the errors are special. Okay, this was for any, any distribution of errors, arbitrary.
+So this in real life could be better than this. But just from the random graph theory, this follows.
+Now, what about complex skills? Remember complex skills correspond to the tuples of basic skills. So
+the tuple is the basic skills with the nodes in the graph at the bottom, tuples are k tuples of
+those nodes. And the basic emergence law that happens, and this appears to be new, it uses a
+tensorization argument. I hadn't seen it before. If competence or anything like it before is what
+I mean. If competence on k prime tuples is currently described by some curve, then off the 10x
+scaling of the model, the same curve holds for competence on 2k prime. Okay, so that's the
+meta theorem. So what that means is so, I mean, just a quick idea of what's going on here. So
+lower is better here. So this is in terms of error. So the lower means better, lower error. So at
+any time, you know, for single skills, there's a certain competence for pairs of skills, you'd have
+worse competence for quadruples of skills, you'll have even worse competence, according to that
+calculation. And when you scale up the model by 10x, you improve theta by a factor two and all of
+these shift down. So pairs goes down to where the single skills are, quadruple goes down to where
+the pairs are. That's what this theorem says. So in other words, if you scale, roughly speaking, if
+you scale up the model by a factor of 10, so you go from 7 billion models to 70 billion model to 700
+billion model, which is roughly the range we're talking about these days, you'll see that the k
+will double. Okay, that's a rough prediction. And, okay, and here this addresses. So as we argued
+before, the number of k prime tuples is just too large for any reasonable size of the set of skills,
+but it emerges. And it follows from just these two assumptions that, you know, pieces of text are
+using a random subset of skills. And the scaling. Okay, so it's actually implying that, yes, you
+learn to be good at k prime tuples of skills, even though you may never have seen it in the training
+data, which leads us to skill mix evaluation. So we did this, the theory and then, you know, informally,
+you type into chatbots and it seems, you know, that larger models do have better ability to
+combine skills. But with students and then these three, the two deep mind colleagues, Jonah,
+Brown, Cohen, and Anirudh Koyal, we did this evaluation. Okay, so let me start by saying, yes.
+One quick question with the previous part. So like, the skills are randomly selected in the
+journey process. Like, as your points for improvement, where do you argue, like in regular
+life, of course, we won't see all the skills we got in the sample, some skills will be more
+sampling. Do you see some scope for improvement there? Do you see some influence?
+So the issue here is, you know, if you say, okay, it's some arbitrary, so all the other
+distributions already arbitrary. And then if you even make this distribution arbitrary, then
+basically what can you say, right? Yeah, that's the problem. Yeah.
+A question about, sorry, I just forgot one more. Okay. Maybe you'll remember later. Okay. All
+right. So skill mix evaluation. So let me start by saying, you know, another big motivation for
+why we wanted a new evaluation. So these days, if you're following AI, you'll know that, you know,
+they are the big, big models, the headline models, GPT4 and whatever. But then there's like a whole
+slew of models, including many from China in the last couple months. And, you know, they are, they
+all score very highly on the leaderboard evaluations. And, you know, it's not clear at all
+what's going on, like there are these small model that comes out and they claim, Oh, on this task,
+this, this evaluation, I'm actually better than GPT4, you know, those kinds of claims. So it's
+getting to be a mess. And let me tell you why. So maybe many of you have heard about good hearts
+law, right? When a measure becomes a target, it seems to be a good measure. So the moment you
+put out an evaluation, then it's out there. And people can game it. And which leads us to this new
+law I created last night, good hearts law 2023 version, that when a measure becomes a target
+with big bucks at stake, it seems to be a good measure within weeks. And that's really been the
+case, you know, if those of you who remember alpaca eval, I mean, there's LLM people remember, you
+know, like February, it was created to give small models a fighting chance. And, you know, it was
+interesting. Within months, it was like, completely not a good measure. I mean, you can see these
+models, which, you know, I don't want to single out alpaca eval. I mean, there's nothing wrong with
+the measure, right? It's a good hearts law. There are all kinds of other, you know, hugging face
+evaluations. You go there and you download the top ranking model. It's unprintable, you know, what
+its language capabilities are. So for many of these, yes.
+Yes, for example, like, if you measure like, the number of parameters in a model as a target, but
+like you apply the law and it says like, the number of measures, they cease to be a number, the number
+of parameters cease to be good measures within weeks, or like, no, no, number of measures is not, I
+mean, you can't, you can't just spend a few bucks and get more parameters. Oh, okay. Right. They are
+only a handful of, if for no other reason than just GPT shortage, a GPU shortage. Okay. All right. So
+anyway, so that's my rant. And probably people who follow this have this run to that. Yeah, they're
+all these evaluations, and then these leaderboards and these models, which are supposedly great. And
+then you try to interact with it and chat form. And it's unprintable. They are very, very core. Yes.
+So the 2023 version of Good Heart Law, if you replace the dollar sign with like, academic measures,
+like publications. Yeah, I think it's happening so fast. And it's not because of academics, because
+almost no academics right now have even ability to play this game. So most of these models are like
+little startups. And I don't know, quite a few from China. Actually, the Chinese models are not bad at
+all. They, they, I mean, yeah, they are serious things. Okay, so. All right. So why, so why is it a
+mess? Go to valves for 70 billion miles are too easy for GPT for. But then because of good hearts, when
+they are first introduced, but then because of good hearts law, pretty soon, seven B models are
+competing with you before. So there's that contamination, you know, evaluation examples, what
+it's, it's out, out there, you know, companies keep training new models, they can find evaluation
+examples, and they end up in training data either by hook or by crook. Coming for leaderboard, you
+know, there's probably deliberate training on data real or synthetic to improve the rank on leaderboards.
+And many LLMs with good scores often have poor capabilities. I single out these two. Okay, so
+skill mix evaluation. So it tries to address this. And it also relates to the theory I showed about
+combination of skills. So how about is a model able to combine skills that it already knows?
+Alright, so the goal is to be, you know, this ability to combine skills is relevant to general
+intelligence. And yet it's also easy to administer. Okay, it's starts getting to be very close to
+relevant intelligence, but still it's easy to administer. It should be resistance to training set
+contamination. It should have a difficulty dial to avoid saturation effect. And there you can just
+increase the number of skills you're asking the model to combine. And should have a clear part to
+increase the difficulty or scope in future. For example, you know, we started with a set of
+100 skills, but tomorrow you can add 1000 more, you know, what asks this group, you know, what skills
+are important for humans, then you can add it. Okay, and it gives some evidence of novelty and
+understanding. And the claim is that LLM is not a stochastic tire, at least in a weak sense. This
+thing. Okay, so skill mix. So I already indicated, but here it is again. So you start with a set of
+n skills like these. How do we choose the set? It's about 100 skills. All of these skills are
+well recognized in terms of language skills, theory of mind, you know, how we understand each
+other, physical reasoning, logical reasoning. And all of these share one thing, they all have a
+Wikipedia entry. Every model today, even little ones are trained extensively on Wikipedia. It's
+like the most reliable source of information out there. So they all know this. Okay, and you can
+test it. They all know these skills. They can define it for you. T topics, these were topics we
+chose because they are well known enough, but still don't occur too often in normal training
+corpus. And using randomness, you select k skills and one topic.
+And then you have this prompt, generate a short text about showing that exhibits these skills.
+So this is k equals three, three skills and one topic.
+And then you already saw this. Okay. Lama two, seven b, Lama two, 70 billion, NGPT four.
+Yes.
+Why is it necessary to have a separate selection of topics? Why not just ask the LLM to generate
+a short text that exhibits these skills? Okay, so we'll get to that. Yeah, because of the stochastic
+power. Yeah. How do you evaluate this? There was another question about this.
+So we evaluate by GPT four automated. You have to set up that pipeline. You know,
+the paper describes this, but this is the trend these days. Anyway, you're using GPT four to
+evaluate. And then we did human spot checking. So we spot check. So just to check that, you know,
+the, that GPT four is evaluation is reasonable. And, you know, we did the usual thing here is,
+you know, GPT four is at best a imperfect instrument. So, you know, you have to do some
+runs to see, you know, or didn't quite get this. So you clarify the instructions and so on. Yes.
+So how do you future proof this? Like in the future, are you still going to use GPT four to
+evaluate some like more powerful models? Oh, no, no, no. So you would have to. Okay. So
+if in the future, the skills get very complicated. I mean, there's a question,
+right? So the skills, ideally, you would want to be such that all the basic models.
+So then spot like they can spot it as well. And then you would hope that, you know,
+you just ask them K questions. Is this skill there? Is this skill there? And they say yes.
+So it seems that checking is simpler than generation. Right. This is the old P versus NP
+but yeah, read the paper. There's still some copyouts there.
+Yeah. But in general, you would use the apex model of its time to do this.
+And so these were the results. So there's more than one version in the paper.
+This was the strongest version. And we explain why we think it's stronger. And we then come to it.
+Initially, we had some version. And then we realized how we could make it stronger.
+So you do this evaluation and you realize and then we made it stronger. And anyway, so this is it.
+And I guess maybe those of you following the field know these, you know, Mistral, QN, etc.
+It was interesting because, you know, there were claims made of how good they are and they probably
+are very good. But at least on this, they don't do as well. And the one takeaway here, the red arrow,
+is that GPT-4 wiped the floor all the months. So that was actually
+stronger performance than we expected. Like we didn't expect the gulf to be so large. Yes.
+So regarding evaluation, to what degree do you think this results due to the alignment between
+GPT-4 being both the generators? Yeah, so we discussed that. Yeah. So, you know, we also did
+grading with Lama 70. And that was actually less reliable. So this is closer to, and as I said,
+human spot checking, right? So we think, you know, you shouldn't trust the second decimal
+in this too much. But I think the first decimal is probably okay. So I guess my question is more
+regarding if I define the skill like modus ponens has a very clear definition. I'm guessing for
+some of the skills, they can be interpreted in several ways. No, I don't think so. Again,
+saying like GPT-4 is grading maybe different from GPT-5. Yeah, sure. That can never be ruled out.
+Yes. But that's, no, no, for the same set of skills I'm saying. No, I'm saying like for the same set
+of skills, it might be different. That's right. Yeah. So for the same set of skills, GPT-5 is
+grading maybe different from GPT-4 and vice versa. So as I said, you know, with human spot checking,
+you are sort of sure of the first decimal of the second. Yeah. Right now. Yeah.
+What did the dashes represent? We didn't even test it because the performance for K equals
+three and four was bad enough that, yeah. It didn't make sense.
+Yeah? It might have performed better with more skills. No, I seriously doubt it.
+Okay. So, all right. Stochastic parrots. So do these things understand us or are these stochastic
+parrots? Stochastic parrots refer to their suggestion that basically these language models,
+you know, they're trained on a ton of data. So when you, at test time, when you're asking them
+things, they're selecting out pieces of text that they saw in their memory and presenting it to you.
+And the point here is, which I implicitly made earlier with, you know, N skills and T topics,
+they're N choose K times T possible combinations, right? Set of K skills and T topics.
+And then, so that's a large number of combinations, but right now N is small,
+only a hundred. Ideally, we would do this test with N equals a thousand or 10,000. You know,
+there are lots of skills, but that, you know, to do it at an academic scale, maybe any scheme is
+very tough to do it like so that there aren't too, lots of easy skills and so on. So you really need
+some good filtering here. So these, this we are reasonably confident that all these skills are
+roughly about same difficulty or at least the amount of time they appear in the corpus,
+is roughly similar. So then we had this set of skills and using the small language model,
+we identify skills and topics. Sorry, this doesn't pass. So to identify skills and topics that have
+low probability in standard text corpora. So they have non-zero probability, obviously, you know,
+they all appear in Wikipedia, but they, the prevalence is not super high.
+Okay, like one percent is considered upper limit. So you estimate that using text corpora, you can
+just send, you know, a million sentences to a Lama 7 and it can tell you the rough,
+the rough prevalence. Then you do a simple probability calculation based upon estimated
+frequencies of skills on the corpus, which shows that at least one third of GPT-4's correct answers
+for K equals 5 used skill-topic combinations that were not in the training corpus. Okay,
+so that's our estimate. So you gave it new settings, so to speak, which are not in the training
+corpus. I mean each skill was there, but not this combination. So we think that this shows that at
+least the, you know, it's not a stochastic kind of weak sense that, you know, this, that it's just
+completely dependent on the training corpus. It's generalizing a little bit. Yeah. Okay,
+so let me finish and then take questions. So this is another discussion that's been going on on
+Twitter between the leading lights of the field. So by the way, I showed Hinton this and he liked,
+you know, this interpretation about originality. But anyway, do LLMs contain a world model, you
+know, again, related to that? Like, do they have a model of the world? And so here was a prompt,
+you know, give me just two sentences of text about a mother and child shopping in ancient Mesopotamia
+and which incorporate these skills. Okay, and now the usual, if you're a GPT-4 whisperer, you know
+that, you know, you have the first attempt is not the best and then you tell it to, okay, can you
+look over your attempt and improve, et cetera, two rounds of that. We did that in the evaluation too
+for all the models. And then it gave this. Okay, so that's pretty good. Yeah. Yeah, Jeff Hinton
+also thought it was pretty impressive. Okay, so concluding thoughts. So we've given an elementary
+and plausible account of scale emergence. I mean, there's not a lot of assumptions, but one or two
+key assumptions. It explains phenomena such as learning a k-tuple of skills is possible without
+seeing it in the training data, and this is verified. How are extensions of our theory? Obviously,
+there's simplistic elements. The skills are hierarchical. Almost certainly there are non-ID
+combinations, which we haven't played with. We've reduced skills to statistical notions, right,
+distributions and distributions of text pieces and so on, which seems limiting. And there's a
+general question. Is intelligence as a form of skill learning or it's something else?
+Harder versions of skill mix would be interesting for code, visual reasoning, et cetera.
+We think that automated, auto graded evaluations with large number of random challenges is the
+way to do evaluations in the future. Some way to, you know, get over this
+good, harsh law business, hopefully. And are there ways to create LLMs without
+reading scale and call? I mean, the whole theory was explaining why scale helps, but is it necessary?

@@ -1,0 +1,174 @@
+Okay, I guess we go, we'll go for it.
+The actual Unix philosophy.
+What is the Unix philosophy?
+This video is going to be short and sweet because, but we're going to be talking a lot
+more about the Unix philosophy throughout all these videos that I have.
+And I really need to clarify what it is.
+There's been a lot of misunderstanding about what the Unix philosophy is out there.
+So I'm actually going to cite from the people who created it.
+And this is indirectly from Wikipedia and, what do I have his name here?
+Oh, I'm spacing out his name.
+He's an Oxford professor.
+He does a great presentation on this.
+But I can't remember his name, I'm really sorry.
+But so this is it.
+Doug McIlroy wrote, and he's the guy who invented pipes, you know, the idea of chaining
+something together in a pipe.
+He says, the Unix philosophy is this, writing programs that do one thing and do it well.
+And I'm going to interject.
+That's when everybody stops.
+I think that's it.
+But as this professor suggests and many others, right, it goes on to say that you need to
+write programs that work together and write programs to handle text streams because it
+is the universal interface.
+So these two secondary parts to the Unix philosophy are forgotten all the time.
+All the time.
+They're forgotten all the time and people wonder what's up with pipes and stuff.
+And I'm going to, the reason I have to explain this is because you'll hear me go off on other
+technologies that I will not necessarily throw into the bus right now.
+I'll wait until another day to do it.
+But usually what I do is because they use a monolithic approach that discounts all three
+of these.
+Okay.
+And I'm going to let you imagine what they are.
+If you want to take a guess right now at some of the biggest applications to be used
+in the Unix world, the Unix and Linux world are not actually following the Unix philosophy.
+And you're like, well, why?
+What's the benefit of following the Unix philosophy?
+What do I get because I follow the Unix philosophy?
+And that, we're going to kind of go on.
+So let's, let's finish this here.
+People get this wrong at the time.
+They do the one thing.
+Well, if we get the rest.
+Personally, my favorite list of qualifications.
+So this, one of the designers and creators of X, the X window system, which has had problems,
+but you know, when it came up, it was nice.
+Like Yankers says, small is beautiful.
+Make each program do one thing well, build a prototype as soon as possible, choose portability
+over efficiency, store data in flat text files.
+Okay.
+JSON.
+Yes.
+YAML.
+Yes.
+But maybe just, you know, call them, call them files with white space between each line.
+One thing for line.
+Use software leverage to your advantage.
+In other words, take that each piece of software and compare, you know, use them combined.
+Use shell scripts to increase leverage and portability.
+People don't like hearing this, but this is where, this is why creating a shell script
+is way better to initially get an idea of what it is you're building if you, even if
+you want to build something else later.
+Avoid captive user interfaces.
+I have to use this graphic user interface.
+I have to use this one Unix program and nothing else.
+There's sort of some, you know, takes on that these days because, you know, we have
+kind of a monolith model.
+And then we have nine, every, make every program a filter and people don't know what filters
+are.
+A filter is just taking the output of one program and feeding it into the input of another program.
+This is the most fundamental idea of Unix pipes.
+And if you don't know about Unix pipes, maybe we can talk about this separately, but that's
+what's up.
+That's when you take the idea.
+And this allows you to do things like this.
+Let's say I wanted to put the date right here.
+So I can type, you know, exclamation point, exclamation point, and then I can type H now.
+And this is a program.
+So this causes my VI to read the input on that line, replace the current line with the
+input from the program that's going to run.
+So this runs a program and it puts that thing right there.
+I didn't have to do any extension to VI.
+I could have done this with VI and not any, and not even Vim, it would have worked because
+these are, these tools in the Unix world have all been built to use the Unix philosophy.
+And people throw out the benefit of writing filters and tools like this all the time.
+And they put everything into a single program.
+Let me give you another idea, so another example.
+So you'll see me doing this all the time.
+So I can actually write a program site, Zetlink.
+This is a program that runs my Zetlink cast and searches for everything that has this
+word in it, philosophy for that keyword.
+And then it outputs all the lines of that, of those that it'll cast in to the output.
+Now I can send this line to the, the bash command line underneath and take its output
+and replace this line with itself.
+So you can write code inside a VI that generates output, could be even another code.
+So let me show you what I do.
+So I go, exclamation point, exclamation point, bash, that sends that line to the bash, takes
+its output and replaces the line with the output.
+And I get a line that it's, it's went out, fetched from my repository, which thing has
+a unique identifier if it were more than what it would have done that and it puts that there.
+That is not a plugin.
+That's not a plugin.
+That's just using the Unix philosophy.
+So I had to give a little quick demonstration of that.
+I'll do other videos on using Vim filters and combining Vim with filters.
+But this is, the Unix philosophy is the reason that when people approach learning the terminal
+and Unix or Linux, that you need to consider the ecosystem of it.
+It's not like just, you know, Vim or just this IDE or just this or that.
+It's the combination of all the pieces together that make it powerful.
+And when you see me make decisions about what I use and what are the most powerful pieces
+of the tool set that combined make a singular experience, that's why, that's why, that's
+why you have a hard time pegging me down on whether which, you know, development environment
+that I like or, or this or that, because, because it's not just one thing.
+It's the entire thing.
+And you have to understand the basis for the Unix philosophy before you see the value of
+any of these other things.
+And a lot of people don't.
+A lot of people don't.
+They don't use it properly because they don't, they don't leverage all of those things.
+So yes, I absolutely use multiple text editors.
+I use Ed and VI sometimes Ed is a better text editor than VI, you know what can't be done
+that way.
+Emacs, you know, and I'm going to just say, I have a lot of really good friends that use
+Emacs.
+I will never use it.
+Why?
+Because it doesn't follow the Unix philosophy of their own admission.
+And installment says the Unix philosophy is not the big deal.
+The guy who made, who ported, ported, not made all of the, you know, commands and stuff that
+ended up being a Linux for GNU, you know, doesn't even think there's value in the Unix
+philosophy.
+Just pause on that for a second.
+Even Torvalds uses Emacs, a micro version of Emacs.
+So I'm not against Emacs.
+If you want a really monolithic, all things are done in this thing, you can't escape it.
+That's fine.
+But don't you dare say that that is consistent with the Unix philosophy because it is fundamentally
+and categorically against the Unix philosophy.
+The Unix philosophy is writing lots of things that do one thing really well and having those
+things connect.
+And having their method of communication be simple text output, text input and output.
+That's it.
+That's it.
+And then you have filters and everything and you can get around all those different things
+that are happening.
+Okay.
+So one last little quick example of this before we leave it.
+So like if I wanted, you know, the idea of like, you know, you can echo something, right?
+And then you could send that to something else, right?
+And you see people do different commands all the time with set and lock and TR and all
+that.
+I don't necessarily like those.
+But you could change it to do any number of things.
+You could say, I wanted to go to TR and I wanted all the Ss to be capitalized with S,
+I guess.
+I'm doing it wrong.
+I might have to kill this video.
+Oh, there we go.
+So that just capitalizes.
+So that's the idea, right?
+TR is just a tool that does one thing.
+It does one transformation as it goes.
+And you can pipe one thing to the next thing, to the next thing, to the next thing.
+So pipes are an implementation of the Unix philosophy, the very most important implementation
+of the Unix philosophy.
+Everything in Unix is a pipe.
+Everything in Unix is a file and it can be piped to something else, including the
+everything you type.
+All the processes are all in slash proc and we'll talk about that another day.
+So the moral of the story is, hey, look, there's our people.
+I prefer Vib.
+Okay, I'm going to end the stream there.
+There's lots of opinions on this.
+I do that would be.

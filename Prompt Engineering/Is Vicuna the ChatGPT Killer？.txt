@@ -1,0 +1,274 @@
+Since the release of Alpaca met us large language model and the leak of its weight
+There has been an explosion of open source models first
+We had Alpaca from Stanford group followed by Dolly from Databricks can then a bunch of models from Cerebrus and
+Most recently GPT for all from Nomek AI
+But there's a new model which claims to be as good as chat GPT. It's called Kubek Kunya
+It's an open source chatbot that claims to be 90% of chat GPT's quality
+They have used a very interesting training data set and evaluation strategy
+It's more on that in a minute in this video
+We are going to do a one-to-one comparison between chat GPT and Wacunya on these tasks just a spoiler alert
+It's very impressive
+So watch till the end for detailed comparison
+Before looking at the model and how to use it and potentially how you can retrain it by accessing its weights
+Let's look at how it was trained
+So Wacunya has a 13 billion parameters and it's trained by fine-tuning
+Lama on user shared conversations collected from shared GPT
+Now if you don't know what shared GPT is it's a website where people can share the chat GPT conversations
+So if you go to share GPT.com
+They have an introductory video, but I would encourage you to actually look at these examples that people have shared
+So for example, here is an example conversation that this person had with chat GPT
+You can learn a lot about prompt engineering just by studying these examples
+A shared GPT has a Chrome extension and you can install this and share your own conversation with the community as well
+So this team of researcher
+collected data from shared GPT and
+fine-tuned the Lama model on that data set
+And I think that is why it is performing as good as chat GPT because it's specifically trained on a data
+Collecting from chat GPT right before looking at the evaluation. Let's look at the training data set
+So in this case, they have collected
+70,000 conversations from shared GPT and it was trained on eight a 100 GPUs for one day
+So to convey Wacunya with different models what they have done is they selected 80 diverse questions and then
+used GPT4 to judge the output of these different models including Lama, Alpaca
+Chat GPT and Wacunya. We will look at the evaluation in a minute
+But let's first look at the comparison between different models
+So in terms of data set Lama was trained on one trillion tokens
+Alpaca is trained on 52,000 samples and Wacunya is trained on 70,000 samples
+In terms of training code, Alpaca and Wacunya code is available. Lama's code is not available
+Now for evaluation Lama used academic benchmarks
+Alpaca is using authors evaluation and Wacunya is using GPT4 assessment. In terms of cost
+for their 7 billion parameter model
+the training cost was around $140 and
+for 13 B-parameter models it's only $300
+Now keep in mind in this case they didn't really had the
+training data cost because they were simply using shared GPT API to get the training data
+So Alpaca has a maximum context length of 512 whereas in this case they increase it to
+2048 which also substantially increases their GPU memory requirement
+That's why you need a lot of B-fair GPU to actually use this
+But they also did some memory optimizations on top of it. It is very interesting to look at their evaluation strategy
+So they came up with eight different strategies including Fermi problems, role-play scenarios, writing, coding and math tasks
+Then they used GPT4 to actually generate
+different questions and then they selected 10 questions per category and collected answers from five chatbots
+And then they used GPT4 for evaluation again
+So it rated the answer based on healthfulness, relevance, accuracy and detail
+This is actually a very interesting use case for GPT4
+So basically it can assess the quality of answers as well
+So all the students not only you can generate your essays with GPT4 or chat GPT
+But in future it's going to also score your essays and assignments
+One thing they found was it's not really good at judging math or coding tasks
+Which is kind of strange because now they have a core interpreter as well in GPT4
+So based on the results in terms of predictive response quality assessed by GPT4
+Vecunia can be as good as 92% of chat GPT responses
+So it is very close to chat GPT
+But let's look at the actual responses to see if whether it's actually close to chat GPT or not
+Now they have provided a demo where you can actually access
+Vecunia 13b and play around with it
+So here I simply ask it can you create a 3D travel plan for LA and it gives me a pretty detailed answer
+So before further playing with this let's look at the evaluation responses that were judged by GPT4
+So this is a very interesting website
+They have provided some questions in these 10 different categories that they mentioned
+And then response from Vecunia along with the other models
+And the great thing is they have also provided
+Evaluation from GPT4
+So let's look at a few examples before we actually experiment with the Vecunia model itself
+But first let's look at the writing category
+And then there are 10 different questions
+So for example for this question composed in engaging travel blog post about a recent trip to Hawaii
+Highlighting cultural experiences and must-see attraction
+So GPT4 gave 9x10 and 9x10 both to Vecunia and chat GPT
+So here is the response from chat GPT
+But I think we are interested in Vecunia
+So I'm going to read I think a paragraph of it and let's see how good the flow is
+So Aloha fellow travelers if you're looking for tropical paradise with the rich culture and
+breathtaking scenery
+Look no further than Hawaii
+My recent trip to Aloha state was an unforgettable adventure filled with exciting cultural experiences
+And must-see attractions
+So of course now our trip to Hawaii could be complete without spending some time at the beach
+With this crystal clear waters, golden sand and gentle waves
+That actually looks pretty nice, I would say
+If you compare it with chat GPT responses, I think it's it's it's up there
+All right, I'm going to put a link to this page so you can look at these different examples
+Let's look at something else
+And let's say
+Try to script for a youtube video exploring the history and cultural significance of jazz
+Right, so hello and welcome to a youtube video in the history
+All right jazz is a yeah, I think it doesn't look bad at all and in this case GPT4 thinks it's
+8x10 and here's the response so assistant one
+which is
+Chat GPT provided a well-structured script for a youtube video including visual cues
+In narration, which made it more engaging and informative rain assistant to Vakunya
+Also provided a good response discussing the history and culture significance of jazz influence on the other
+Okay, it's rolling in civil rights movements
+However, assistant to the responsible is less engaging and back the visual cues and structure
+For a video script. Okay, so there they are actually competing three different things
+Chat GPT versus Vakunya and then you can even see the ability of GPT in GPT4 to assess these so which is great
+Let's say in terms of roleplaying the GPT4 thinks that Vakunya is as good as chat GPT
+Which is pretty awesome
+Let's see
+Coding examples now one thing that we notice about GPT4 is not good at evaluating math and coding
+So but so far from what I have seen I can't say that the responses are pretty nice
+How do social media platform in this one is the way people consume share?
+Okay, so in this case
+GPT4 thinks that
+Vakunya actually gave a better response
+So again, I'm going to put a link to this. You can actually go and experiment with this
+I think it's a pretty
+nice tool to simply compare the responses and see how good this model is
+But let's go and play with it ourselves. Okay, so I'm going to put a link to it
+How you can use it?
+But here is a question that I asked thread an email explaining why GPT4 should be open source
+Now keep in mind it doesn't have access to internet. So it doesn't know what GPT4 is
+But here's the response as you may know GPT4 is a groundbreaking language model
+That has the potential to revolutionize the way we communicate and interact with technology had it its core GPT4 is an open source project
+And we believe that its continued development improvement should remain in the hands of the community
+I actually doesn't know what GPT4 is
+But it's writing a letter about it
+I'll also show you a response from chat GP team so that we can compare it
+Right, then there are several reasons. So one is collaboration and innovation
+Open source project foster cooperation and innovation among a community of developers researchers and enthusiasts
+By allowing others to continue contribute to the project site
+Then improved quality and open source project can draw
+On the collective expertise of a diverse community
+Which can lead to more accurate and reliable models. This is particularly important
+for a complex and powerful to like GPT4
+Then transparency with an open source project
+The source core and development process process are transparent
+Which allows for greater accountability and trust in technology. It's making actually some really good points
+uh flexibility
+So open source project can be adopted and modified
+To meet specific needs and use cases
+Which can lead to more flexible and um customizable solution
+I think if it had access to GPT4
+The internet and knew its capabilities
+The GPT4's capability it could come up with some other arguments as well
+Now same question and the response from uh chat GPT
+So as you may know the development of AI and machine learning model is a rapid rapid advancing feed
+That is the potential to revolutionize industries and societies as whole. So you see like it that
+Uh
+Texts is pretty similar like it's using similar words and it's because that the training data is derived from
+Chat GPT. So one such model j so GPT4 is a set
+To be released in your future. Okay, so it kind of have a sense of that. Okay
+What is deep into what GPT4 is so deep open open sourcing GPT4
+Uh
+Would mean that the open source of data used to train the model would be freely available, right? So it's a more uh
+A descriptive I would say but let's look at the reasons, right?
+So advancements of research, uh, in this case, it's talking about advancement of research, but
+Vakunya was talking about um
+Collaboration and innovation. So innovation is basically advancement of research, right then, uh increase trust
+uh, so we had uh
+Improved quality transparency. So it's basically
+Looking at the same points and then flexibility
+Which I think is accessibility, right? Um, do they could be, uh, relevant. So
+From the responses it does seem to be
+Um
+Similar to to chart GPT if not, uh, right there yet. Okay next, uh, I asked both of them
+To create a list of things I need to do, uh, to plan for my wife's birthday party
+Okay, so it came up with a list and they look pretty similar. Uh, chart GPT
+Set of date. Well, it's a birthday party. So, okay
+Uh, decided on a theme guest list venue invitation food and drinks
+decoration entertainment gifts timeline
+Set up and cleanup, right and here's the list, uh set up budget
+Word is marked choose a theme make a guest list choose a venue
+right
+So decide on a location for the party whether it's at home or or a rented hall or whatever, right plan the menu
+Uh plan the decorations. So this is pretty similar list
+Send out invitations purchase supplies make a timeline
+Uh plan for transportation higher entertainment order flowers, right?
+Uh, okay. Good point. All right. Uh, make a shopping list and plan for emergencies. So, uh, and if you look at the more detailed description
+It actually does a pretty nice job and I think like
+I would say in some cases you won't really, uh, see the difference between the two
+Although in the stand it was a little more descriptive and simply said, all right
+Here's the list of things you can do, right? So but but I would say like both of them are pretty good
+Okay, one thing to note from time to time
+You might encounter this network error
+This regenerator refresh the space, right? So, uh, I have noticed that happens a lot of people are trying to access it
+Uh, so they are simply prioritized
+Some folks which kind of make sense now. I asked it to actually write a python program and the great thing is that actually
+Formatted it, right? Let's look at it whether it's actually
+uh
+correct or not
+Okay, and wow, this is great because it also explains the code like
+Uh chat GPT
+So this function takes an integer num as an input and check if it's prime or not, right?
+And then it explains the logic as well. So this is pretty awesome. I would say, okay
+It's still writing so it's giving examples as well. I'm actually impressed
+This this definitely could be as good as chat GPT
+Now since it was able to actually solve that coding problem
+I'm going to ask it to actually write a code for a website
+that has three buttons
+And whenever each button should display a random joke when pressed
+So let's see
+Whether it can actually come up with that or not. It came up with the code just by looking at it seems to be working
+I'm going to run it too. One thing I noticed is that
+It actually stopped producing the code. So it seems like there is
+A limit to it like how much textures can generate but let's run this
+In a web browser
+And see if we can create a working website
+Okay, so when I ran the code it did make a website
+However, if I click on this joke one
+or any of the joke so it
+Dispays this message this sorry the joke doesn't exist
+Uh, so let's ask it if it actually can fix the issue or not
+Okay, so it gave me the code again
+Um, so let's run it again. So here's the website and actually it works. Which is crazy
+This is the type of thing that uh
+Chat GPT can do
+Like I had to do a little bit of tweaking
+But it actually works which is impressive. So again, let's get a little philosophical with this
+And we will ask it. What is the meaning of life? So one thing you will notice is that um, I'm in a queue
+Uh, there are some people ahead of me
+And so it could be a little slow in response
+But uh, still it's free
+It's okay. So here's the response the meaning of life is a philosophical and existential
+Question that has been debated and explored by various thinkers scientists and religious leaders throughout history
+It's a complex and subjective topic
+And different people may have different answers. Okay in general
+The meaning of life can be thought of as
+The overarching purpose or significance that gives our lives direction and fulfillment
+Some people believe that the meaning
+Of lies the life is to seek happiness love and fulfillment
+while other believe
+that
+It is to serve a higher power or achieve spiritual enlightenment
+There is no correct answer to the question of the meaning of life
+And may be something that each individual needs to discover for themselves based on their beliefs and experiences
+Cool based on my experience. This is the
+On the open source chat bot which comes close to chat gpt
+Actually, there are some other parameters as well. So for example
+Now right now and we were limiting the output tokens to 512
+But you can take it uh to double that size. So I think the one example where I saw that it stopped responding
+We could do that. Uh, and then
+You can change the creativity and everything using the temperature as well
+So overall
+It's a very impressive too. It's definitely uh
+Much better than uh lama and alpaca and even the gpt for all that. Uh, I I posted another video
+So I'll post this link again. Uh, you can explore it now
+There's definitely one question that you might be thinking. Can you access it locally? Right before that, um, I want to actually show you one more thing
+There is another model called kovala, which, uh, I don't know if it's available or not. We can actually test it
+Now let's return it. So it's another model which is going to be released pretty soon
+Uh, it's a very similar, uh, supposed to be very similar
+in responses
+But I'm going to keep you posted for that
+Um, okay, it doesn't seem to be what I get
+Assemblies that signal is
+That the answer was not really um
+That long always it makes sense. Okay
+Now you might be thinking can you use this on your local machine?
+So to answer this let's look at the release plan. So initially there is the training
+Serving an evaluation code on github repo, right? We plan to release the model weights by providing a version of delta weights
+uh
+That build on the original
+Lama weights, but we are still figuring this out, right? So if they haven't
+Release the weights, they might release it
+Uh
+Well, I think I'll I'll look at the discord server to see
+When that happens, I'll definitely make a video on it. Now in order to train it the training is going to be very tricky because
+um
+It needs around eight
+um
+A 100 gpus to train it. So it's amazing to see how uh far we have come
+Just in a span of two or three weeks
+Since uh, I'll pack I was released. Um, it's simply
+Astonishing to look at the progress
+Uh, thanks for watching. Hope you like the video
+Uh, if you did, please like consider liking the video and subscribing to the channel
+Thanks for watching. See you in the next one

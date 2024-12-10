@@ -1,0 +1,302 @@
+So today we're going to look at Vim Grammar, and Vim may seem a little intimidating at
+first.
+There's a lot of keystrokes to learn, but there's actually a lot of logic to it, and
+you only need to learn a very few keystrokes to be able to become really good and do some
+pretty powerful stuff with that.
+So let's take a look.
+Vim command can be really cryptic.
+You get something like this, CIT, then some text, escape, bunch more letters.
+What is this?
+It's changing this bit of HTML with the list element into a table row with one table cell,
+but you would never have guessed that, reading that command.
+What was that?
+What did we just see?
+So Vim is grammar, just like English, and if we want to go a little bit of background
+English, a very simple English phrase or sentence has a subject verb and an object,
+so something like, I love Vim, I'm the subject, I'm doing an action, which is a verb, and
+Vim is the object.
+So in Vim, it's very similar.
+Vim has the idea of commands and motions.
+You can think of them as verbs and nouns.
+So we're doing something to a particular part of our document.
+So a very simple command right here, DW, we're deleting a word that we'll just go through
+and delete the word, or delete till the end of the word from the current cursor.
+So the first thing you need to learn when looking at Vim grammar is motions.
+Move your cursor, and that's how you get around Vim, right?
+They're typically the first thing you learn when you start learning about Vim, things
+like HDKL, which are like the arrow keys in Vim.
+They move you around.
+The carrot and the dollar sign, which move you to the beginning or the end of the line.
+A good way to remember those is that it's just like a regex, so that's the mnemonic
+that I use to remember those two.
+And then there's a few motions for words as well.
+W moves you forward one word, B moves you to the beginning of a word, and E moves you
+to the end of a word.
+So again, they're all just revolutions, W for word, B for beginning, E for end.
+Once you've used them two or three times, it'll start to stick.
+So that's pretty simple.
+And they move your cursor.
+You can use visual mode.
+It will show you what's been moved, and that can be great.
+You can also, in a regular non-keyboard-based program or text editor, normally if you want
+to do an action to a particular section of text, you select it with a mouse and then
+do some kind of action, whether it's deleting it or italicizing it or whatever it is that
+you want to do.
+You select it first.
+And you can do that in Vim as well, using visual mode.
+Use these motions to select and then apply an action.
+But that's actually kind of slow and inefficient.
+But it can be great for actually highlighting some of the motions that you can do.
+So here I've got an actual instance of Vim running, and actually let me turn on something
+that will actually show my keystrokes.
+Oh, and it looks like it's on.
+So if I, nope, it's not catching it.
+Let's see.
+She's through it's off, she's through it's on, and, hmm.
+Are they going to the first workspace?
+Oh, maybe they are.
+Yeah, let's see, I just move it over to the first workspace.
+Oh, it doesn't work in full screen mode, that's a shame.
+All right, now I'm out of full screen mode, and, okay, now it's capturing it.
+So it was the full screen mode that was causing the issue.
+By the way, this is going to be a very informal talk, so feel free to stop at any point if
+you've got questions, and would like to figure out what I'm doing.
+If I'm going too fast through some of these keystrokes, hopefully it'll help to have them
+actually displayed on the screen, but, you know, sometimes it's like, what did you just
+do there?
+A bunch of characters show up.
+So just your basic Vim navigation, you can go hjkl, and it moves you around just like
+the arrow keys.
+If you want to familiarize yourself with the basic navigation, you can go to your terminal
+and type VimTutor, and that will pop up a text file with a bunch of exercises in there.
+It's a great introduction to Vim and some of the basic ways to move around.
+So moving around with the hjkl is slow and painful, and you may be tempted to really
+boost up the refresh rate so that you can move much faster.
+And actually, I was talking to a co-worker who told me he had actually slowed down his
+refresh rate to the point where it became too painful to actually just move with the
+hjkl.
+The reasoning behind that was to force him to learn more efficient ways of navigating,
+and I tried it a little bit and it definitely helped me become a much better navigating
+around in Vim.
+So if moving around by one character at a time is too painful, you can move by word.
+So using W moves you to the next word.
+Notice the cursor is now at the beginning of the next word.
+If I hit B, it brings me to the beginning of the previous word, while E will take me
+to the end of the current word.
+If I go into...
+So I'm currently in normal mode.
+You can think of this almost as the mode where you can issue commands.
+Vim has also an insert mode where typing keys just puts in text.
+And then visual mode highlights things.
+So if I go into visual mode with V, now I'm in visual mode.
+You can see down in the lower corner here it's highlighted which mode I'm in.
+And now if I were to go back with B, you see it's highlighted one word right there.
+So I could then highlight multiple lines and do things to them, however, that's kind of
+an inefficient way of working.
+So I'm going to show you a better way to do this.
+And you can go back to normal mode from just about anything using Escape.
+So now that we've looked at a few motions, how to move around inside the text, let's
+look at some verbs, some commands.
+So some common ones you'll use all the time are D for deleting, but that also acts as
+a cut if you're wanting to cut and paste.
+C deletes but also puts it into your memory or your clipboard.
+C will change, it deletes the text but also drops you into insert mode, that way you don't
+have to delete and then enter insert mode, that's extremely convenient.
+Y will yank for copying equals will auto-indent while the angle brackets will indent to the
+left or the right depending on which one you did.
+So to actually use them, if you do a command twice, it will operate on the current line.
+So DD deletes the current line, CC changes the current line and YY yanks the current
+line.
+So pretty simple so far.
+The power of these comes with combos.
+You can combine your commands there with the motions we saw earlier, now all of a sudden
+you can delete, change, yank arbitrary amounts of text from your file.
+So for example, D$ will now delete from the current place from the cursor till the end
+of the line.
+C carat changes from the current location to the beginning of the line or DJ delete
+the current line and the line below it.
+And you can see this is a lot more efficient than using visual mode.
+If I were to drop into visual mode, select till the end of the line and then delete.
+It's slower than if I just undoing here with you, if I just did D$.
+I saved myself a keystroke there but if I'm selecting things it's a little bit slower
+and when you're dealing with more complex changes, definitely staying in normal mode
+makes things a lot faster.
+Composite motions.
+So the motions I've shown so far are very basic but sometimes just moving forward a word
+or till the end of the line is just not fine grained enough, if you want to move to a really
+arbitrary place in text, you've got T and F which will move you till a particular character
+or find a particular character.
+The difference is that T does not include the character that you searched for while F does.
+So F is an inclusive search while T is exclusive.
+And again, they can be comboed with commands.
+So DTL will delete from the current cursor location till the first occurrence of L but
+will not delete the L itself, while CFE will change up to but will also include the E,
+will remove it as well.
+So if we were to go here and say, let's say we're in the middle of the word somewhere
+and we decide that we want to change this somehow but just the middle part of the word,
+if we want to change the next three letters, we could say CTT and actually that's changing
+the next two letters because I used till which will not include the T and then I could type
+something.
+If I undo that and instead did CFT, notice now the T is gone.
+So that allows you to move pretty much any arbitrary place in a word.
+That's not all, however.
+It's still kind of limiting with just those motions because it's great if you want to
+change a word or change the entire line or maybe change an arbitrary part in a word or
+in a sentence but usually you want to do more than that and this is where modifiers come
+in.
+When you need to do more than one, you can add a number and it will do whatever action
+you wanted over multiple instances of that modifier or rather the motion.
+So for example, D3J instead of just deleting the line below now deletes three lines below
+it or D4T parenthesis will delete from the current cursor location all the way till the
+fourth parenthesis.
+This can be useful when you're inside a bunch of nested parenthesis and you're trying to
+delete a bunch of them, that becomes quite useful.
+I use it the most of course when deleting multiple lines.
+If I want to delete to a particular point, you just say delete the five lines below my
+current cursor location and boom, it's gone.
+It's definitely a lot faster than going into visual mode and then, okay, let's see, that's
+roughly about it and then move to the end of the line and then delete this and then
+I forgot to select the beginning of this line so delete that full of clunky but I could
+just do here D4J and boom, it's gone.
+So now we come to text objects.
+Text objects are a lot of fun.
+They're kind of taking the idea of these motions to the next level.
+So text objects represent text concepts in your particular file.
+The basic ones that come with VIM are mostly just prose related.
+So we have the concept of a word, the concept of a sentence, concept of a paragraph and
+also the concept of an HTML tag.
+Text objects come in two flavors.
+There's an inner version and an around version.
+The inner version takes just the inside of a particular thing.
+In this case, for example, the inner paragraph will apply an action to a paragraph but not
+to the surrounding white space while around paragraph also catches the surrounding white
+space.
+That's the case as well for a sentence or for a word.
+Same thing for an HTML tag.
+The inner HTML tag is the actual text between the opening and closing tag whereas if you
+were to do around HTML, it would apply to the closing and opening tags as well.
+So if we look at a few of these, let's see, do I have an HTML tag?
+Here's an HTML tag right there.
+So if I decide I want to delete the text inside of this HTML tag, I could say D-I-T and now
+I've just cleared text inside of this HTML tag.
+If I wanted to delete the HTML tag and not just the content but the opening and closing
+tags as well, I could say D-A-T and they're gone as well.
+Now I could have just deleted the line in this case but if I went in and added some extra
+tags, now if I want to say D-A-T, it removes the HTML tag I was in both opening and closing
+tags as well as its content.
+Text objects can't be used by themselves.
+That's the key difference between text objects and motions.
+Motions can be used to navigate a file.
+You noticed earlier I mentioned that it's a lot easier to navigate by words than by
+characters.
+It's a lot faster.
+So jumping to the up and down lines or to the beginning or the end of a line works really
+well.
+You can't navigate to an inner paragraph.
+That's not really a thing.
+So text objects have to be used in combination with a command.
+Also another nice thing about text objects, they don't require your cursor to be at the
+beginning of a piece of text.
+With motions, if you want to delete an entire word and you're in the middle of it, you first
+have to move to the beginning of the word and then say delete from my current position
+till the end of the word.
+With a text object, you can be anywhere in that word and just say delete the word I'm
+currently on and it's gone.
+So that definitely saves you some work right there.
+And just like motions, text objects can be combined with commands and with modifiers.
+So DAP deletes around the entire paragraph including the white space.
+You can also add a modifier in there.
+So D2AS is now going to delete around two sentences.
+Just to note, the text object is not S, it is AS.
+So even though in English we would say delete around two sentences, it is not D, A2S.
+This is your command right here, delete.
+This is how many of the text object to and then the text object itself, AS.
+Delimiters could also be used for text objects.
+So delimiters can be parentheses, square brackets, angle brackets, curly braces.
+Even quotes can be used as delimiters.
+And then you can say I or A with that delimiter and you have a text object that you can now
+combine with an action.
+That's incredibly huge.
+Probably one of the most common things I do in VIM every day is something probably like
+this, CI parentheses where I just want to change the contents of the current parentheses
+I'm in.
+I don't have to say, oh, there are four words inside my parentheses.
+So I'll move to the beginning and then delete the next four words.
+I just drop anywhere inside of it, CI parentheses and now it is changing and got a few here
+where I could just do DI parentheses and I just deleted it.
+If I wanted to change it, I could CI parentheses and put something different.
+So back to our original problem.
+We've got this huge set of commands right there that change our list item into a table
+row with one cell and it's still not really readable.
+So let's break it down piece by piece.
+So there are actually kind of three clauses to this set of commands.
+You can see they're broken up by calling escape where we're going back to normal mode.
+So we've got this first one here.
+We're changing something and putting a value in.
+Then we've got a second clause right here again changes something and goes back into
+normal mode and then a third clause once again we're changing something.
+So if we look at them one by one, first we're adding a TD inside of it.
+So CIT changing in our tag and then just the value that we're putting inside of it
+and going back out to normal mode.
+And I've actually got it down here.
+So let's take a look at it doing it live.
+It doesn't matter where I am.
+I don't have to move inside the tag.
+I can be anywhere on it.
+CIT removes the inside of it and now drops me to insert mode.
+And then I just start typing.
+So I want to put a TD inside of that with a value and then close the TD like so and
+then escape and I'm back into normal mode.
+And that's changed it from an LI with a value to an LI with a TD inside of it with a value.
+Second clause, we go to changing the closing tag which will do live as well.
+So LL just moving over inside the angle brackets and then CI angle bracket changes inside the
+angle bracket once again dropping me into insert mode and this is no longer a closed
+LI.
+It is now a closed TR and once again escape brings me back into normal mode.
+And then that final one which is the carrot moving me to the beginning of the line and
+once again CI angle bracket which changes inside the angle brackets and TR.
+And there I've just changed a bunch of things without having to navigate a whole lot.
+The only real time I navigated much you saw had to do LL to move over two characters.
+There's more efficient ways of doing that but I left that in.
+It's often easy if it's just two characters to just do an LL but there's definitely more
+efficient ways of doing that.
+But taking advantage of the text objects especially is hugely powerful especially using inner inside
+of a text object because it saves you from having to navigate to a particular place.
+If your cursor is touching the text object in any way you can just say I want to change
+inside it and it happens.
+So it allows you to start thinking about the next thing.
+One of the things that impressed me the most when I first saw Vim I had a friend who was
+using it and was that he didn't seem to type and things happened he seemed to think and
+his things happened.
+It wasn't a keyboard plugged into his monitor, his brain was plugged into the monitor.
+And taking advantage of these commands, these motions, these text objects is a big part of
+getting that efficiency right there.
+So that's basically it as far as vocabulary that Vim gives you.
+There's a few basic commands, there's motions you can use to move around, you can combine
+them with commands to do actions on arbitrary pieces of text.
+You've got your text objects which allow you to act on more discrete pieces of your code
+or your prose but there's not all that many pieces.
+The power comes from composing them, combining them in any way that you need and Vim gives
+you that flexibility of not having to learn 50 different commands but learning these 10
+or 15 and then just combining them to do something powerful.
+However, Vim is extensible and if you do want to add new words, new verbs or nouns to your
+vocabulary, it is done.
+There's a lot of plugins out there, some examples for adding a verb, keep hope has Vim commentary
+which gives you support for turning arbitrary text objects or commenting out.
+So it figures out what the comment style is in your favorite coding language and you can
+just tell it, comment out this line, comment out this paragraph, etc.
+You can also add some other nouns, this can be very useful to get some more language specific
+support.
+So for example, you could have all your Ruby blocks be text objects from this one plugin
+right here.
+So everything between a do and end can now be targeted with a single command if you need
+to change it or copy it or whatever rather than targeting it with just motions.
+Finally, indent object goes by indentation level, it's extremely useful if you're writing
+language with significant white space such as coffee script or Python.
+And I have a cheat sheet up showing a lot of the commands that I showed you at this
+repo right here.
+I've linked to it, the presentation itself is available on my GitHub, joelq slash Vim
+grammar and there's a link on the read me there showing this cheat sheet that I set
+up that recaps a lot of the commands that we saw.
+There's my GitHub and Twitter if you're ever interested in following me.
+I'm Joelle Kenville, I work at Thoughtbot here and it's been a pleasure.

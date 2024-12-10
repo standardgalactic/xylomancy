@@ -1,0 +1,3146 @@
+Good morning. Welcome to today's lecture. So I'm very told you, I think that today we are going to focus on once one computation, quantum computing. Why are we doing this?
+So to start with a small spoiler. So quantum computers are not from the, from the point of view of quantum algorithms. So which algorithms can you run on quantum computers?
+Quantum computers don't allow speed ups for the algorithms that are needed for AI training. So AI training, as you know, works with neural networks. Nowadays, most of the, at least the AI training that is, that is, you know, gaining traction among the general public,
+that's trained using, using so-called neural networks, and they can't run on quantum computers. Well, they can be run on quantum computers, but they can't be run more efficiently than, they can't be run more efficiently than on a normal computer.
+And so, but why are we still looking at, because we believe it's very important trend and so you should understand it.
+So,
+so we last time I was here in March where we spoke about computation. I would like to take up this once more, but last time I used for computation I use as a paradigm.
+The
+church approach with recursive functions. Now I want to do Turing machines as well just quickly, because I think it's very important paradigm to understand and then we will talk about logic gate based computation quantum mechanics and quantum computing.
+And my goal is so is to allow you as philosophers to understand it and also as computer scientists for those who are computer scientists to understand enough of quantum mechanics, not as a mathematically but at the, you know, more verbal level of description so that you can get the basic idea of how quantum computers function.
+And it. So, um, we saw last time already that if you want to understand a I agents need to understand models computable algorithms and complex systems and, and today we're going to speak and try again about computation.
+So, I think Barry is spoken about this at length is right about models and modeling.
+Yeah, so just to remind you. So what we are doing when we are programming computer, no matter what is supposed to run the it's a model in the sense of science.
+So it's a representation of an aspect of reality using abstract symbols that is created to describe explain or predict the aspects of reality in question unless it's a purely mathematical task by calculating a huge prime number.
+If you calculate you which prime number then that's not a model of reality.
+And that that is something else which we can discuss now but most models that are put into computers are models of reality.
+And we say that a model is adequate. If relative to some set of requirements, it can be used to engineer an entity or an emulation that satisfies the requirements like an Airbus a 320 satisfies of the requirement of transporting a certain amount of, of weight or passengers and cargo.
+Over, you know, the Atlantic, for example.
+And synoptic model is a model of a system that can be used to engineer given system or emulate its behavior.
+So, now what's a Turing machine.
+So, Turing asked, what is a computable function.
+He, his answer in 1937 or 36 was a mathematical functions computable if an algorithm can be formulated that performs this functional Turing machine.
+And so if the algorithm P computes a function F, which maps T to N with T element of the set N exponent K.
+If P is the value F of N one to N K upon the input and one to N K element of T, after finite number of steps, then it is computable.
+And it cannot yield an output if you input a vector so this.
+This is a vector like vector N one for N K.
+If that vector is not within T, which is the domain of the computation that won't create an output. So, for example, if you give LGBT an image.
+It can't do anything with it because its domain is language and also mathematics actually.
+It can't use images for quite a while he I think it's called is a neural network that is that that has its domain images so you can give it.
+No, it has I think it's domain text and it creates images.
+And, and but I think you can also give some of these programs an image and take create an alternative version of this image.
+And so that, so that that just says that the computability requires a domain for the function to work on this is very this is super important slide I actually didn't think of it when I wrote the slide but
+but what you can see from this last statement here is the narrowness of all a is because whenever I get an input that is not an element of the set of its domain it will just fail.
+And so all I put by this definition, all I everything that can ever exist are always made for a certain domain.
+Right, and if, and if you get out of this domain, it will not compute.
+And so, and so I think with this slide alone you can already refute the notion of generally I because humans don't work like this right humans can always take vectors of input from a domain that they have not been prepared for.
+Also animals can do this and that is what is called natural intelligence, but computers can always only compute something for the set of the domain of computation for which they were prepared.
+So, the Turing machine is a model of a computable function a universal Turing machine can compute all computer functions so this is the universal Turing machine this is universal Turing machine.
+This inside there's universal Turing machine right so all your, your, your mobile phones and computers yes they are universal Turing machines.
+And so the Turing machine is a tape divided into cells each cell contains a symbol from some finite alphabet zero usually zeros and once the effort contains a special blank and one or more other symbols.
+There's a head which is called q here that can read and write symbols on the tape and move the tape left and right and one and only one cell at a time.
+And in some models the head moves at the tape station that doesn't matter.
+There's a state register that stores the state of the Turing machine one or finitely many among these is the special start state with which the state register is initialized.
+Now there's a finite table of instructions that given the state q one, the machine is currently in at the symbol a one it is reading on the tape so right now this.
+The head is q one is reading the symbol zero.
+And it's reading the symbol and tells machine what to do next.
+It can either erase or write a symbol, and then can can move the head.
+And so, so this is how it works.
+And here you have a simple Turing machine that doubles the number of ones it reads and inserts a zero between the two series of ones.
+So, it's defined by these parameters the M equals and then there's a series of symbols.
+So q are the states of the machine.
+Sigma capital Sigma is alphabet input alphabet gamma is the tape alphabet.
+And, and these this is and so this, if you look at it, it has a delta has a state transition function that lets the machine move from one side to the other.
+So the machine will replace a one one it reads on the tape by a one one one zero on one. So it doubles the ones it reads and separates them by a zero. That's all it does.
+And to do this you have on this Turing machine you need, as you see here six states.
+And so here we see what it does. So the tape it has to work on is prepared to have two ones and three zeros and at the end.
+So here it will have two ones zero and two ones, and then it stops.
+So that's, that's all it does.
+Sorry, and, and let's, let's see how this works so instead as one, it, it actually reads the one.
+And then it's, it replaces it by a zero and moves one step right. So you see here it has replaced it by zero is now in state two and has has moved one step right.
+So in step in this now it reads a one.
+And it's, it's staying.
+It's staying in in state two, but then it moved but it moves on one to the right by moving one to the right.
+It was he it gets here. Right. So now it reads a zero.
+And it moves one further to the right.
+And here it, it's, it reads a zero it's now getting it getting into into into stage three and so on. So this basically this the state transit it's called a finite state automaton.
+This is what the machine does. And it perfectly determines its behavior. So you could now give it, you know, the tape was a million ones, and a million and two zeros, and it would then move through this algorithm.
+As long as it would take it to fill the whole tape was another million ones and leaving two zeros. Sorry, one zero in the middle.
+And so, and so this is, and all computers are like this only that the finite state automaton that is used is of course much bigger than this.
+You know, but every computer can be in the end reduced to a combination of such finite state automata and even so even if even if I if I have software running here.
+I think it's called on this, when I program software in the high level programming language like here I have.
+I think it's called.
+It's a some C dialect and Objective C.
+So if I program for the iPhone with Objective C, I create ultimately many many finite state automata that work together to accomplish such computations.
+So this is basically how this basically works at the level of the electrons at the level of the bits. And, and so so this is just basically all you need to know is just that the want to close the door.
+Thank you.
+It's basically just that that it gets more and more complicated with bigger Turing machine, but they all work like this in every computer that can be that exists, including the quantum computers can be represented with such with such finite state automata.
+It's not done, because they get bigger and bigger and more and more complicated but basically to improve that this is the case.
+And I have here an example of a, of a finite but not computer function which is non recursive.
+And, and so, so when the functions non recursive you learned last time when I was here that it cannot be computed all to a machine. So it's on computable and it's called the busy beaver function I will not go through it now.
+Because when I wrote this lecture I didn't realize how much work it was to teach you quantum mechanics. So I need more time for quantum mechanics, at least, you know, one or one.
+So I will skip this but in the, but you can read this it's a super interesting problem was invented by, by Tiborado a mathematician.
+And it's, it's very, very funny. It's, it's very funny.
+Look how simple the Turing machine looks and it can't compute. It can't finish it's, it's just, it's just super and, and I go I expand quite well here you then you have one.
+How it what it does how it works, you know its job is to put to put the whole table of ones.
+And it's just so funny. And, and here you see that it becomes uncomputable and why. So it's a super cool problem.
+If you want to work on it yourself, you will enjoy it and it's, it's the nice thing about it that you don't have to be a mathematician to understand it, but it shows you really clearly why many drums are not computer not computer but I just, I just have to have to skip it.
+So I want to show you now before we move to quantum mechanics.
+How logic. So, and do you have any questions on this Turing machine model with the finite set automaton.
+I mean, if you if you study computer science you are you write the test about it. It's not too easy. Then they give you, they give you for example a piece of, of, of sort of code to the code and then say write down the sequence of finite set automaton to achieve the pseudocode so it's, but you get the principle I think
+right. It's just if you want to apply to save it gets a bit tricky but it's, it's just, you know, in the end math. So, so now getting to to the logic gas computation so you have to the idea of of of by of the binological
+was was invented. The first to invent this was a German called Conrad's and at the same time Americans were trying to do a hexadecimal computer, which you as a computation basis 1616 bits.
+Right, so to experiment for and, and, and there is a hexadecimal is an important principle today in computation, but it's only used in high level but the lowest level the computations are all the two bit computers.
+And so the each bit can have a zero and a one and conrad's who's a realized that this was, was easiest to do because, because you can, because for true reasons you can use binary not binary digits which have had invented by another German called Leibniz, you've heard of him.
+And, and he realized that he could use the binary digit and it would use electricity. Now the first computation machine he built was was that rework that was put into production had, I think five or three or four hertz.
+So it could do for computation. It had a clock of four computations per second. And, and, as we will see that the parallel suffices to add to numbers.
+Think you need a few more steps to do this we will see it a bit later, but, but, but it, it, but it worked and then very soon he built also electronic versions and then of course IBM start to build electronic button and so on.
+But basically the idea is that you're using Boolean logic to to to program the computer and you see it here.
+So this this Boolean logic is called logic gate.
+And so, if you take. So here you see an example of logic gate and gate will just, it's called gutter in German that's from the German media.
+And it doesn't use use illustrations of the dummy because it is, along with the Russian, the best for mathematics, topics. It's just that I can't. I don't know any Russian.
+And, and, but I always look at the French to German and the English version to select which one I should take and often the German is the best.
+A logic gate is is an idealized or physical device that performs a Boolean function, which is logical operation performed on one or more binary inputs that uses a single binary output.
+So there is a mistake here but I won't correct it now. So the end gate, right.
+It's, it's basically taking. So if you have fear current and no current here, you have one zero, then you will have no current output here.
+If you put no current in both you will not have currently either. If you put current in both you will have current and so on. So the transistor is set up in a way, basically, to basically implement this truth table.
+Right. So that you get only one if both of the, of the inputs are one.
+And an or gate gives you it gives you a electricity on this.
+Why output a channel when with one of the channels is has current on it. Right. So, so, and, and if you have now many, many of these logic gates you can build a micro circuit.
+And of, and of many micro circuits you can build a microprocessor. So in the end, in here, we have millions hundreds of millions of gates combined to.
+To make up the processor that is working.
+And, and so this is a multiplexer.
+So, the multiplexer, and it has a truth table. Right. So how does it work.
+It has a control signal called as zero. It has an input one and input two and output. And you see here that the control signal decides on on what is done with the input signals.
+And basically, it's a data selector that select between several input things and forward to select the input into a single output line.
+If the, if this control signal set to zero, you see the output here will only be easy role. But if it said to one, the output will only be one.
+Right. So it basically suppresses based on the controls in the suppresses one of the input channels, and only put forward the other channel so it's a way of basically selecting which channel should should should move on.
+And, and, and so here you, it's quite easy. You can see if, if this is zero, they're both zero, then the output will be zero, and so on. For example, if this is one, and you want is zero, this will be zero, but this is one and you want is one is will be one and
+if I trust a would just says, if a zero is zero, then you will have the value of easy as output. If a zero is one, then you have a one.
+Right. And so, and this is the symbol the official symbol used in in circuits to describe it. And, and it's made up of an and not and or gate.
+So, so you have three gates that you need to put together. And so this truth table is basically what you get when you train together and not want or gate.
+So you can see it all the examples how these small logic circuits or these logic gates are put together to create one small circuit.
+And it's all about, you know, deciding how to which electrons should should move out here.
+So the multiplexer is a very abstract, but everybody has used an adder, right, which is just if you type into your pocket cash, the three plus four and it puts out.
+It puts out a seven and, and this adder works like this. So it combines an exclusive or and an end gate.
+So an exclusive or is, is the gate that it does this.
+So if you have two inputs a and b, what output do you get so if you have zero and zero, it will be zero. If you have one and one, it will be zero.
+And one only is either of them is one that's why it's all right and and or as computer scientists saw and the other is is has of course this truth table.
+And this one is like the Latin Bay.
+Right. That's why it's always also in the movie with the B.
+And this one is like out, out the Latin, which means either or.
+And, and so if you if you have now the two inputs here I am B, then you have the carry bit and the output s. And you see, if either of them is one you will get a one here but if they're both one, you get a zero, but you will get the carry bit.
+The carry bit will be put into the next adder to remember that you have over flown the bits of the of this unit and propagate this into the next adder so that you can get then what children one day.
+So when you learn the cherry bit is just this, you know, when you do this.
+You don't have a carry bit in the digital in the 10 digit system. But if you do this year.
+Then I will, but we can still do it.
+Get to put yourself a small one here.
+Then you, because we have 11 and then you have this. It's easier to see when you do this.
+You know,
+then you get the one year you get the one year you have to get at the one year then you get the two year.
+Sorry, the one year and two and then two.
+Right so this is how to carry over bits.
+Basically this circuit was to see it gives you a carry over bit.
+And so this is how the so and you can see here really nicely how it's made of an exclusive or and and and and and and and gate.
+And so this is pretty so so this is pretty nice, I think.
+And the full adder.
+This is just when you take. So this is, this is made of a this is the most elementary XOR and and get so these are the basic logic gates.
+This is now one half adder and now if you put two half adders together and combine them with a with an or gate, then you get the this data, which which is called the full adder.
+Right. And so, basically, with this you can build any processor, because all the other calculations multiplication division and subtraction can be modeled on the addition.
+Right. So, so addition is just addition, like, subtraction, addition with a negative integer multiplication, just many, many additions.
+So three times five times five times five times five.
+And division is just inversion of multiplication.
+So, so now you've understood basically how computers work.
+It's really, it's really that simple. It's just that the circuit.
+And so, and it's fascinating when you talk to specialists who have the profession.
+They say, oh, you know, I had a friend working at Intel and she said, oh, you know, it's so annoying.
+This morning, again, one of them mathematicians came to me. She was from England.
+And, and, and, and very knows what I mean.
+It's just certain socially, because they want to come to me and wanted again to have something that is not cannot be realized in binary logic. Why don't they get it.
+I thought they were mathematicians. You was an engineer was so funny.
+And basically, the trick is to imagine how you can put mathematical operations in this format cleverly that you can get efficient computation.
+You can see just for completeness, how complicated you can get. So, this defines the output.
+That's a lot of the formula best in the proposition logic.
+And this year is the, is the as the as bit, which is a sum, and which you see it's a, these are it's all.
+And you will get back to the symbols. They're very important. You want to ask the question.
+Yeah, so these, I'm just wondering, I understand the logic of these days, but how is this done in the engineering in this actual circuit board, there is a set of predecessors that is set up to be an actual day.
+Yes, yes, this is set and then afterwards you need to, when you're doing the software to computer, you're getting it all you see students sisters to calculate this summit.
+This is, this is, this is the lowest level code is about this. The lowest level code is when the compiler gives out the instructions for the transistors, or the circuit and all the circuits and the second element of the professor, but the programming
+language is, of course, exactly for this. Right. But but but when when you program for example in C or C++ or any other high level language, ultimately, when it gets compiled, it gets informed into machine code that tells the transistors, tells the processor what to do.
+And in principle, if you build a very simple computer that just has to add her, then you wouldn't make it that you need to have this compiler.
+This is what the book, but in principle, if you just want to addition, just a written vision, you wouldn't need a programming language.
+So, so how do you tell what to do by putting electricity in a certain circuit.
+You know, you can't tell them this but you just put the physical and then they do what what this circuit does just as a pattern does it and so if you want to have addition, and you have an adder then you have to put electricity on the circuit in a certain rhythm, and that
+is what all of the computer does. It gives the reason of the pilot of the electrons, and then they moved in this reason through the circuit, and then then the calculations automatically performed.
+And this is a deterministic device, it can only do that, it will always do that, you know, it's fascinating. And, and the idea that that was an Englishman for a change tracks by that he was the first to have this idea that you can set up such deterministic, you know, circuits, he did, and he designed it to be mechanical.
+And his idea was to do this in a mechanical way, but but the gates were the same, they were just realized not as electricity but mechanically and, and so, and so even like this had already thought that the machine could be built based on this principle and so it's, it's, it's not one wants to
+understand it's not so hard, you know, and yes, we don't need all this overhead if you at the very first product to the very first models, they were just taking mechanical points.
+They simulated and said dry was throwing in points, because you're dropping in slots, and then the machinery of adding was performed, and yet several slots indicating the value of the digital ones to add is through into coins and then they got added.
+You know, and all this was mechanical you realize that the compile there was a compile it was just the order wasn't by dropping the thoughts into the chorus.
+And but, but, but I think it's still the same. It's just that now there's so many the circuit there's so many micro micro circuits and so many millions of of of of gates that I added but that's basically how it works.
+So, the story about chat GPT is told, according to which, if they just printed out the next most likely syllable then you would get too much repetition.
+And so to avoid repetition they added a little spot of indeterminacy or randomness to the output. How do you get randomness if everything is going.
+It's, it's very, it's very simple that you're somewhere in the circuit, you're so you build a random generator. There are many ways to be a random generator the best ones are using actual radioactivity.
+But there are also other ways to be a random you can also do it with software so that you can make circuits that reduce random numbers they are not as perfect so if you, if you analyze the output over long periods of time you can find patterns.
+But if you only look at a few outputs they create quite they actually simulate randomness quite well.
+And so then you basically somewhere in the circuit you put in the randomness. So, so this is in the, in the, the randomness is created by answering the, I think, but nobody knows but I think that the most likely way I think it works is that the input is slightly modified every time.
+And the model itself, the core GPT format is the totally deterministic, but if you slightly at changes input of course we'll take it.
+That's why, that's why when you give the same input to jet to PT several times you get different answers. But I think if you do it over a long period very long period of time you will also see a better horizon.
+So, so, so, so how can it be that, that an algorithm that that does something like check it is I don't really want such a computer architecture.
+Well that's because jet to PT is one quote merely a very long equation. It's a very long computer equation and it takes a certain input.
+So the numbers of the symbols of the letters that are input are transformed into numbers and numbers are plugged into the big equation. Then the equation is computed.
+Using using using using the regular CPU or GP was a regular CPU for for the operation of the equation.
+It's not computed like like this, you know, so it's just a deterministic equation. It's a stochastic model, but once the equation is set up it's just a deterministic equation running on a normal true English universal machine.
+We have a question.
+Yeah, so in the first words, you know, machine will compute.
+And also that seems a random what it's really happening is that it's compression going into a function that is machine for that point in point.
+Yeah, so it is also random generator as a Turing function, right?
+Unless it's a real random, so sometimes you need a real randomness.
+Then you use quantum, then use quantum physics, so use
+radioactive decay. And radioactive decay gives you a true random pattern.
+And so if you look up random generator, random number generator,
+you find all the different concepts and also as the holy grail of random number
+generation, of course, radioactive decay, because that's a true random phenomenon.
+So if you really need that, then you use it and transform the signals given out by the
+physical random generator into electron and to put it into such a circuit.
+Then you have a true random element. And random, so computation with randomness is
+very important. So by doing computation with randomness on conventional computers,
+you can actually get polynomial approximation to quantum computers for many, many problems.
+That's why there's so little left to do for quantum computing.
+Because now they've managed to find so many clever ways of using conventional computers
+to do things that thought that where it was thought at the beginning of quantum computing
+that there's a big difference between the conventional computer and the quantum computer,
+now this has shrunk. And that's because, for example, by introducing randomness into
+conventional computing, you can eat up some of the advantages of quantum computing.
+Okay, so I think this is pretty satisfying, isn't it? Because now you know basically how
+this works. And I think, as a philosophy, you don't have to know at all how certain special
+circuits are now set up to do something. It's just to know now how simple it is. You just put
+electricity on this spot, and this spot, and this spot, and then you get automatically,
+you get the addition. It's quite nice. And it all works because of the Boolean logic.
+That was an Englishman too, by the way, we defined it first.
+Boolean. Yes, Boolean.
+Iron.
+Yeah, an iron, sorry, the Brit.
+Yeah, okay, I give up. It's so complicated. So this is all I wanted to tell you about
+computer data. I didn't do it last time, but I think it was important because it really,
+really clearly shows you what is going on. Okay, now to understand quantum computing,
+so actually, when do we have this morning, Barry?
+So when do we have the first?
+So anyhow, so we, so I want to explain to you how quantum computers work. And I think you can,
+you will be after that, you will be able to understand it at the level we just understood
+classical computers, I think, which would be already quite a lot, quite some good.
+So let's start. So, but to do this, we have to start with quantum mechanics.
+So, so I still want to talk, so we do the first break at 11 or 15 minutes and then,
+then we do the rest. Okay, so, so I will try to not to do as little
+mathematic as possible, but I have to introduce some mathematical concepts. So the very, very
+important phenomenon is, is a wave, because the Schrodinger equation is a wave equation.
+So you need to, we need to go through a bit, a little bit of mathematics and physics.
+So if you have here two pure sound waves, one with a frequency cosine of 10 pi t,
+and the other one was cos of 8 pi t, you will get a superposition. And if you, so if you have
+two chords of an instrument that you, that you, how do you say this, that you stimulate to make
+a sound, like on a piano, you have hammers hitting on chords, right? Yeah, but I don't even know what
+the right unsubstant, what the right English word for this is, but anyhow, yeah, hit, you just hit
+right. So, so if you hit on the piano two chords of pure, they are not, but if they were pure
+frequency, then you would have, you get superposition. And so what is, what is happening is that, that
+because this one is 10 to 8, and so, so you get them superposition of them. So they add up,
+but here they cancel each other out because this here you see is positive and this one is negative.
+So they cancel each other out so that you don't get much signal here. And then they start to add
+up again here, they're both positive and they're in sync. And so they get high signal here, they're
+slightly out of sync. So you get less signal, you understand the way it works, right? It's just
+adding up the frequency. So at every, and so by doing this, you now get beats. So this creates beats,
+when you hear beats in music, they're created like this. And so this is, this is just, just
+to remind you of waves, okay? And now let's look at the classical, one of the experiments that,
+that led to the discovery of quantum mechanics. So imagine that you have a
+gun here that, that is shooting particles on a wall that has two slits. And if you, if you
+shoot the bullets and now measure here, you have a detector to measure where they arrive.
+And you have one slit closed, then you get, of course, this distribution because you get
+most bullets hit here and then less here and less here because of the way they move through
+the slit. So the slit determines this pattern. And so here you have very few and the most are here,
+more or less right behind the slit. And the same is true for the second slit. So this is what you
+see when you basically have one of the slits closed. Now if you open both slits and you have
+these bullets, then you will get just an addition of the two waves as a pattern, right? And this is,
+this is called, so the probability distribution of detecting P12,
+bullets fired against the wall with two slits equals the sum of the probabilities measured
+in each slit, just the sum of the two distribution. Now if you have a water source here, now you
+tap into the water regularly with a small hammer, you will get this relation to the water waves.
+And now you have two slits again and a detector here. Now you see something fascinating. If you
+close one slit, you get this pattern or this pattern, which is the same as the pattern you get
+with the bullets. But if you open both slits, you get what is called interference. This interference
+is like the interference I've shown here. So they add up and create a pattern that doesn't
+look at all like just add up the two probabilities because they sometimes cancel each other out and
+so on. So they create this strange pattern. And so for a wave source, imagine the interaction
+of the wave pattern resulting in an interference pattern with a different wave intensity. So
+it's just not the sum, but it's actually the sum of the absolute. And if you calculate this out,
+you get, according to trigonometry, you get this. So here the angle between the two waves is,
+so to speak, determining more of the terms and so on. So the delta is the phase difference
+between the two waves. So here it was 8 to 10, the phase difference. And that's what creates
+the interference. And now, so this is just not yet quantum mechanics. It's just to remind you
+what's happening when you have wave interference. Now we have the first, now let's go through the
+principles of quantum mechanics. The first principle is that the probability that a particle
+starting at s arrives at x is a square of an amplitude. The amplitude is written like this. So
+this particle s should arrive at x and this is written like this. And it's just a complex number
+if you calculate it. And so if you take this value and square, it's absolute, then you get
+the probability. And the value itself is just called the amplitude. It's called the probability
+amplitude. It's a bit irritating. That has historically reason why it's called amplitude,
+but it's only the likeliness that s will arrive at x. And so just one important thing for quantum
+mechanics, you also need to understand imaginary numbers. So this is the Gauss imaginary number
+space. You see it has a real axis and it has an imaginary axis. And doing that, you can represent
+square root of minus one. And so here you have the coordinates on the real axis. And the point z
+is x. So that's this plus the imaginary number times y. This gives you the coordinates in this
+Gaussian imaginary number sphere. And was it Euler? Yeah, I think Euler didn't present it
+like this, but he implicitly used it and Gauss formalized it. And Euler was a Swiss guy, by the
+way. And this is the complement. So if you exchange the plus sign here on this y-axis
+by a minus sign, then you get the complement. And we will use the complement all the time
+later on to just can imagine that the complement of an irrational of an imaginary number. So that's
+what z is called an imaginary number. Its complement is z with the bar. And i is just equal to square
+of minus one. So that's how you can imagine the small i. Square root of minus one.
+Okay. So I still don't know what amplitude is.
+Amplitude is just the kind of the relationship this term, the direct
+term x bar s, it's called bra ket s x, x s bra ket bra x ket s. This bra ket just means the likelihood
+that s arrives at point x. And we will see it in on the next slides. There's a good explanation.
+You will just see it graphically. So, but before we go back to this bracket notation,
+we look at Heisenberg's uncertainty principle. So everybody here has sort of the uncertainty
+principle. And there's an explanation of the uncertainty principle that you can understand
+without mathematics, almost without mathematics. And I want to show this to you because later on
+with quantum computers, we also see how important it is to understand the uncertainty principle.
+So suppose we have a single slit and particles are coming from very far away with a certain
+energy. So coming far away, it means that they have essentially the same energy and that they
+are horizontal. So they all have a horizontal momentum p zero in the classical sense,
+classically when that's from Richard Feynman, when he says classically always means classically
+physical not classical music. And so the particle is moving neither up or down because it came from
+very, very far source. So the whole vertical momentum is lost. So it's now only moving
+horizontally. This is by the way one of these instances of what's called Nancy Cartwright
+called physics as theater. So you prepare, you want to make a statement in physics. Now you
+tell a long story that justifies your assumptions. That's the theater. And then you have the great
+thing evolving. And so it doesn't move up or down, just moves from left to right.
+Now the particle comes out through the hole. We know that position vertically,
+it's only in the range of B because B is the size of the slit. And now the uncertainty
+of its vertical position is in the order of B, delta y. So and now we might want to say
+since we know the momentum is absolutely horizontal, we might think that delta P y is zero,
+but that is wrong. And why is this wrong? Well, we once knew that the momentum was horizontal,
+but we don't know it anymore. Because before the particles passed through the hole,
+we did not know their vertical positions. Now that we have found the vertical position
+by having the particle comes through the hole, we have lost all information on the vertical
+momentum. And because according to the wave theory, there is a diffraction of the wave
+as they go through the slit, just as for light. Therefore, this pattern is spread out by the
+diffraction effect. The diffraction means that particles can hit here and then they get, like
+it was shown here, you know, they can rebound like this from the corners of the slit. And so this
+means that basically we are losing the information about their vertical position.
+That's super interesting, right? So the spreading out through this, and this is by the way,
+this is from a dialogue between Einstein and, I don't know, Niels Bohr. So it was,
+some of the great theoreticians, was contradicting to the uncertainty principle of
+Einstein. Then Einstein came up with this. And it's very funny because they walked really
+in a park in Berlin or somewhere and he explained to him, like, this was the slit,
+and was losing the information. And then later, he wrote a letter to him again. And we still
+have this letter. And so Feynman uses this letter. And he also describes, it is so great how Einstein
+was thinking that he just, you know, the other one was challenging, but he just came up with
+experiment and it's so beautiful. So now we have lost information about the vertical momentum.
+So you know what momentum is, right? So momentum is mass times velocity. So it means that
+it determines how hard this bottle will hit against this object, for example, this. And
+then it will pass on some momentum to this microphone and so on. And so the momentum is lost.
+And now we can detect this diffraction as a particle count. And when the counter receives
+the particle, say here, the particle has a vertical momentum in order to get from this
+blitz up to z. So the vertical momentum P y has a spread, which is equal to P zero times delta
+theta, where P zero is a horizontal momentum. That's just trigonometry. And now you can
+calculate how big the spread out pattern is. It's delta P y equals P zero times lambda divided
+by B. And so we have lambda as the wavelength. And if we make B smaller and make a more accurate
+measurement of the position of the particle by making the slit smaller, the diffraction pattern
+gets wider because if B is below one, then of course, because it's in the denominator,
+then the whole expression gets bigger. So the narrower we make the slit, the wider the pattern
+gets and the more the likelihood that we would find the particle has sidewise momentum.
+Such the uncertainty in the vertical momentum is inversely proportional to the uncertainty of y.
+And in accordance to quantum mechanics, the wavelength times momentum is a blank constant.
+So we obtain the rule that the uncertainties in the vertical momentum and in the vertical
+position have a product of the order of the blank constant. So if you multiply this, so this is
+the uncertainty expressed as a product. And this is greater or equal to the blank constant divided
+by two. And so this principle is always valid in quantum experiments, no matter which mutually
+rated properties of a particle are measured. And so this will be very important for quantum
+computers later on because it actually means that if you want a bit, which is the equivalent of the
+bit, so here we saw that is a bit, right? That's incomplete. That's not incomplete. That's an
+ultimate and so on. We will have some similar bits in quantum computers. And they are called
+quantum bits. And to get the such operators here that operate on bits and get offered are called
+quantum gates and not any more logic gates are called quantum gates. These are called logic gates
+because they operate according to the rules of proposition logic. And in quantum mechanics,
+they will be called quantum gates. And of course, when we have an output here, we want to know what
+it is to measure it. When something comes a bit after quantum computation, we want to measure a
+bit. And then when we measure it, we can always only get a zero and a one. Nothing else. And we
+will later on see why this is the case, what this has to do with the uncertainty principle. But now
+I derived the uncertainty principle for you. And I think this was Einstein's way of doing it.
+There are many, many other ways to derive the uncertainty principle. And it applies in many
+places in quantum physics. But this is the simplest one. And it was made by Einstein. It's
+funny because Einstein on a walk made a contribution to quantum mechanics. It's quite a full story.
+It shows how he thought. And I think he also made with the EPR paradox on, he made the most deep
+statement about quantum mechanics physicists ever made, though Einstein wasn't participating in
+inventing quantum mechanics. He was witnessing it for decades. I mean, Schrodinger came out with
+the equation 26. Einstein died in 55. And so he was for 30 years, he was commenting on it.
+And he made the observation that quantum mechanics is incomplete. And we will get back to this.
+So now let's look at what, so now we've understood quantum mechanics, the principle of
+uncertainty without understanding. Are there questions to this?
+I mean, why is, what, why is, because you introduced it on this slide, but you don't say
+what why. So why is just the vertical place? So, so this is, this is the, this is a vertical
+place. And this is a vertical momentum. Sorry. It's, it's, it's, it's an imperfection of the slides
+due to, because I was when I wrote this so in this that I, and it's so clear always in physics
+when you just have the letters x, y and z, it's just location, right? So, and this is, this is,
+so this is the location, this is a momentum. And yeah, so it's, I say it here, vertical
+momentum. And so this is vertical momentum, this is vertical position. Good. Now, now the double
+now we don't have it. So this here was a gun with small bullets, like a classic gun, but tiny
+bullets may be made of aluminium. Now we have a gun that shoots electrons. And so, so we have,
+again, a wall with two slits, we have the detector, we have the backstop. And then now we measure,
+we close the two and we measure and we get this pattern and we do the inverse closest and we get
+this pattern. Okay. So now the, the, the electron gun behaves like a particle, because you measure
+the pattern that you would measure with small aluminium bullets. Now, if you open both slits,
+it looks like a wave, because we don't obtain this anymore, but we obtain the pattern like with a
+wave. But wait a minute, we have short, we short particles with the electron gun, we can create
+such a gun, right? And we short particles, but measure a wave. So this was, when this was observed
+for the first time, they were almost desperate. They couldn't believe it. And, and, and I made this
+joke already last September once, the Germans could, everything of, all of it was in Germany.
+There was only one quantum physicist who was working in Germany, but not a German, a major one. And
+then there was another French one. Iraq was a French one, there was a Danish one, all the others
+were Germans. So the Germans could figure, still figure this out, but for the general
+theory of relativity, they needed a drew. But this they could figure out, because they could use
+their classical physics. And so, so when electrons with classical physics regard as particles are
+fired against the wall, the probability of detecting the electrons which wants to close
+is just this, but the probability distribution is not the sum of the two detected intensities,
+as with the bullets, but instead the pattern looks like an wave interference pattern, which
+you remember has this equation with the cosine term, right? And so, and so, so it seems that the
+electrons behave like particles with only one slit, but like wave response. This was the
+second important experiment which could not be explained using classical physics. Now,
+now let's go to the second principle. When the event can occur in several alternative ways,
+the probability amplitude for the event is the sum of the probability amplitude
+for each way considered separately. So, so this is, this is both holds open is this amplitude
+plus this amplitude, but you have to, you have to square this, so this is interference. And
+yeah, so here you see it again. So I don't know why I have two slides here, but this is,
+this is just showing this, that, that, that if you close the slits, now both slits are open,
+now you get this pattern, and this is computed like this.
+And now we also start to understand, so Barry, now you understand this notation. So you see,
+this is the likelihood of, of getting from S which is here to X which is here. So this is
+the arachnotation, it just describes like this. And so, and so now what you can see also what is
+very important is that you have to add this likelihood to go through one from S to one to X
+to the likelihood to go from S to two to X, and then square it, right. And
+if an experiment is performed which is capital of determining whether one or another alternative
+is actually taken, the probabilities of the event is a sum of the values for each alternative,
+the interference is lost, right. So here, if you, if you close one of the slits, you can,
+you can, you can lose it, you lose the interference.
+Now we see here again, if you have now several two slits, this is super important to understand
+quantum mechanics. Now we want to understand the likelihood of going from S to X and we have
+put here two walls. So now we have, we want to, we have first to see, we have the possibility of
+going from S to one, then from one to A, and then from A to X. That's one pass to go from,
+from S to X. Then we have the next pass which goes from S to one, then to B, then to X, and then we
+have the next one which goes from, it's not shown here, which goes from S to one, from one to C,
+and from C to X. And so you see, now you can write this in an elegant way with a, with a,
+with a sum sign, summing over the two holes in the first wall, and then the three holes in the
+second wall, and then you can see, you can put, now you put in all the combinations. So, and if
+you do this, so you put E for one, and then you put, so you have a one here and a one here,
+now you put A for alpha, and then B for alpha, and then C for alpha, you get the three first
+possibilities, and then you do it, and then you get all the possibilities of going through this.
+And so you have to find the probability of going from S to X, you have to, you have to identify
+all the combinations and sum them up, right? And this is, and this is basically what,
+what also happens in quantum computers in a way. So, so quantum computers, and if you look at
+advanced quantum mechanics, then you have an integrated, because then you're not anymore
+looking at discrete paths, but you're looking at a continuum, right? But the beauty is, I can save
+you from the integral today, because quantum computing doesn't need the integral. Quantum
+computing is this artificial world, an artificial machine, that, that only looks at discrete states,
+like you do it here. So this is a super, do you understand this?
+Do you understand this slide? Not the quantum computer slide, just this.
+Yeah, you will see this as a preview, you will understand that, but do you understand this
+first part, that you have to add all the different paths together to get the total probability?
+Right? And, and so this is, this is, this is what is done. And, and you will encounter this
+notation very often now. So now you see the explanation of the direct, direct notation.
+This is one explanation. The real one is with a, with a complicated integral, but,
+but this is what I showed last September, but I won't show it, show it here because it makes
+no sense. We would lose too much time. So, so how do we calculate the amplitude that we
+were to get the probability? So if you have two locations, R1 and R2, and the particle
+move from R1 and R2, it has waves like properties, the amplitude propagating as a wave with a wave
+number equal to the momentum divided by edge. So this is basically this, this shows you how to
+calculate this probability. So you, you take the exponential function, you have the, the
+e from the unreal, from the complex numbers, you have, you have momentum, you have the distance,
+you divide it by the plan constant, and then you normalize it by this distance.
+And this is the probability of moving from R1 to R2 expressed in an, in an amplitude. So that's
+a proper amplitude. And you can see why amplitude comes from, because that is like what you get when
+you decompose sine and cosine into the exponential function, you get this exponential expression.
+So, so remember the Euler equation, you all know the Euler equation, it just shows you
+how you can decompose sine and cosine into, into the exponential function. And so basically this is
+just exponential function style of expression of the sine curve. So that's why it's the amplitude,
+because it, and it depends of course on the momentum. So, so if you have a lot of momentum,
+the amplitude will be higher, right? And then you will, and then, and then, and then this value
+becomes higher, and then you have a higher likelihood of coming from R1 to R2 with a higher amplitude.
+And so, and so this is the way, it's a classical relationship between,
+between the momentum and, and mass, which is the kinetic energy. Now, now comes the next
+super interesting experiment. So the experiment was done already in the 19th century, but for
+a very long time nobody could explain it at all. And then there was another experiment.
+And now I'm skipping Max Planck's contribution, which was, which was,
+which was the quantization of electrons, which was the being of quantum mechanics in 1905.
+But I'm skipping this because we can't, we don't have the time here. And I'm jumping ahead. So,
+so I need to say this. So Max Planck has discovered that the electrons
+are not situated around the nucleus in an atom in a continuous way, but that there are probability
+levels which are fixed. These are the probability levels of the electron. And if you look at the
+modern electron model, or an atom model, we know it's like this, that we have,
+that we have different levels at which the electrons can be the lithium or atom with three
+electrons and three protons. And then they can be at different levels of, of distance from,
+from the, from the nucleus. And if they're more away from the distance, they have higher energy
+levels. And Max discovered that when the electron drops down, then a certain quantum of energy
+light gets emitted. And that this light is proportional not to a discontinuous function,
+but to a discrete function, quantum, a quantum of energy, not a continuous value. And G then
+ran a two great British businesses had described a law that would use a continuous function.
+And it didn't work. It was incompatible with, with reality. And so Planck looked at this experiment
+again. And by great inner pain, as he wrote to a friend, he had to accept as a continuous,
+non-continuous value nature. It was terrible because basically physics always assumed that
+everything is continuous, like the laws of Newton, you know, laws of motion. And then there is now
+suddenly a discrete amount that is there. It was all left white for quantum, because there's a
+quantum of energy level. So, so this was already known. But, and there were some, you know,
+Einstein had also worked on the, on the problem with, with his model of particle motion. So,
+there was already some stuff was done, but, but quantum mechanics was still not really
+kickstarted, you know, though Planck had already invented the electron quantization in 1905,
+there was no quantum mechanical equations, but the one that he had invented. Now,
+Stern and Gallant and Frankfurt at the University of Frankfurt, they made an experiment
+where they, they had an oven that could create silver atoms. So, with a lot of heat, they could
+evaporate the silver atoms, and then, then the silver things could move like this through a hole.
+And with, we inside the vacuum, of course, so that they would not be disturbed. And then there was
+a big magnet with a strong flux upwards. The flux is made by making the magnet like this. And then,
+you know,
+what's wrong with me this morning. So, anyhow, there were already the laws of electromagnet
+system allow you to build such a magnet that has a strong magnetic field upwards because of the shape
+of the magnet. And so, do they, sorry, the Maxwell, thank you. Maxwell's equations allow you to
+construct this magnet. And so, and so then they had a glass plate and the silver atoms were flying
+through this magnetic field. And then they detected the deposits of the silver from this beam on the
+glass plate. And they expected to have a smear, what I have indicated here in red. So, classical
+physics was a continuous vertical component of the angular momentum would lead to a vertical
+smear, but they observed two points. They were shocked. They were shocked, you know, because
+they thought that angular momentum, so why are the silver atoms at all distorted by the magnetic
+field? Well, because they have angular momentum themselves, they act like small magnets. And
+so, that's also why in iron we can have, if you put a magnet against iron, the iron bar becomes a
+magnet itself because all the atoms, the iron atoms have themselves, they have themselves
+tiny magnets, and they all arrange themselves in the same way so that you, then they become
+like a magnet, you know, every child knows them. And so, they thought that this property, this
+property of being a small magnet, which is called angular momentum, would be continuous,
+but it was, and then somebody realized that this was like with the quantization of the electrons
+in Planck's equation, right? And so, they said, oh, this property that makes the silver atoms
+like magnets must also be discrete, like the electrons are discrete. So, they discovered this.
+And then they called this property the spin. And spin is a property of particles that let some
+behave in a certain magnetic field. Spin, there's no translation. And so,
+yeah, it's maybe. So, I'll show you.
+Let's take, I need the English page, but my browser is set in a way to always show the German way
+one first, but we'll go to the English now. So, they call it an intrinsic form of angular momentum
+carried by elementary particles and thus by composite particles such as blah, blah, blah,
+spin is one of the two types of angular momentum in quantum mechanics. The other being orbital
+angular momentum. The orbital angular momentum operates as blah, blah, blah, blah, blah, you
+don't need to. So, basically, the spin is, it says the existence of electron spin in angular
+momentum is inferred from experiments such as Zangala experiment, but that's all we know about
+spin, right? So, we have a mathematical model of spin. We call it angular momentum, but that's
+only because it's an energy to classical physics, but as Feynman says, we don't know what spin is.
+We can't imagine it. We just have a mathematical model of it, which is super accurate, but we
+don't know what it really is. It is what makes the electrons or the atoms fly in a certain way in
+the magnetic field. That's all. But how it works, we don't know. We can't imagine it, actually.
+All the geometrical analogues we have are wrong. There is no way to use our common sense view of
+the world to measure what spin is. Spin is just this, the behavior of the particles in the magnetic
+field. And this is fine. And this, when I realized this theory, that was the idea for our paper.
+When I realized it, nobody can explain what spin really is. Then I found my uncle who was
+asked what spin is. Oh, I don't know. Nobody knows.
+So anyhow, let's continue here.
+Do I still present the presentation on the screen? Can you check?
+Is it still visible in the Google Meet? Good. And so now you can, with this,
+indicate the strong magnetic field in one direction, this, what is it called,
+flux. And which is called, this is a Napler operator that is used to describe such a field.
+And physically, we don't have to look at it. And here you see now a different type of atom that
+is split into three beams. So this is, so silver is split into two, but atoms of spin one are split
+into three beams. And oh, let me look up. So just for completeness, what atom is, has been through one.
+Anyhow, the particles are divided into those which have spin one and spin half and so on.
+Yes. Yes, please. And, and, and so, but there are atoms which have spin one and they can be,
+and they can be split into three beams. And now, if you see here, now we can imagine different
+Stern-Galer apparatus, which has here inversion of the magnetic pole. So first it has north-south.
+So the flux, and then the flux goes into the other direction, and then it goes back to this
+direction. So we are changing the direction of the flux in this experiment. And now you see
+that in the first apparatus, we split the, we split the beam into three, and then we can
+put it together again in this apparatus. And then, and then it's changed in this apparatus,
+and then put it together again here. So, and now you can, you can imagine to put several such
+machines which are able to split and unify the beam. So this splits and unifies the beam.
+Now we can imagine that you put several of these in series, but you can now put in a filter.
+For example, for example, when you put, you have the first of these apparatus machines
+with a filter that filters out the minus and the, and the, and the negative and the zero spin
+beams of the, of the, of the split beam. You only get this. And then if you put the second in here,
+only the plus will arrive, right? And so, and so now you can develop a kind of, you know,
+alphabet to describe these machines. So this would be a machine that splits and reassembles
+the, the atom beam. This would one that splits it and reassembles it, but that filters out the
+zero and minus. This one filters out plus and minus, this one filters out plus and zero. And now
+you can say, you can calculate the amplitude to pass the various combinations of pure filters
+that you can express them in matrix notation. So here this is the start state is the end state.
+And now you want to know the likelihood of starting in plus s and ending up in plus s. So this would
+be, we put, we put these two filters here in a row and then determine the likelihood that
+the iron, the, this beam, the plus beam is ending here. So there would be a second filter here.
+And that's of course one. Why is it one? Because, because now after this filter, I only have
+spin plus atoms left. And when they go through the second apparatus, they are not hitting any
+obstacle, right? Or even if there would be an obstacle here, they get through. And so now you
+can have a matrix telling you the likelihood to pass from through such a filter machine.
+So for example, the likelihood to get from minus s to plus s is, is zero. And the likelihood from
+zero s to plus s also. So you can only get with such a symmetric apparatus, you can only get from
+plus s, from the same s to the same s. And you can also rotate the filters and put the,
+the Stern-Gerlach filters in series. And then you get even other probabilities for the particles
+to pass through the filters. And so now you can write, you have this matrix that, that describes
+how the particles go through the filter. And now you can express this in terms of the likelihood
+of a particle to go from one state to another state. And these states are now, and now remember
+that we had the sum already here, right? This is the sum of going through both filters.
+Or this was the sum, well, I meant this one, this sum of going with a certain path through both of
+the filters, right? And now we can apply it to these types of filters as well. And now we can say,
+so I have a certain, I go, I have, I have now, let's say, my three holes. And so now I have the
+probability of going from three to hole one and from hole one to here. And then hole two and hole
+three. And if I have three holes, then I will have all the possibilities. And, and, and, and, and
+this is, this is basically represented also as a matrix. So we said that with the filters we just
+saw, we can only get from the same s to the same s, which means that only that in this matrix,
+when row and column are unequal, you have zero probability. And when row and column are the
+same, we have probability one, right? And so this is called the Kronecker delta. So the Kronecker
+delta just says that you can only get a one in the matrix if J and I are equal, which, so row,
+row one and column one, row two and column two, row three and column three. And that gives you
+the probabilities of going through the filter system. And here we have an example, a workout
+example of this going, going through this, through this type of filter. And, and this uses the,
+I think it's complicated for today, but this uses the turned around filter that we had here.
+And, and to model the turned around filter, you need to calculate the complement.
+So you, so when you square, when you want to know the, the probability of going
+from plus s to plus t, you need to, you need, and to square this, you, you need to multiply
+the probability with its complement. The complement was this, which we saw here.
+You can also, it's also often expressed with the star. So you need the complement where,
+when you have a matrix complement, you, it's a star. And so, so this shows you that you need
+this complement. And now basically what we can see is that if this is supposed to be true,
+now you can calculate this, multiply this out, right? You can say this is this plus this plus
+this. So these are the three possibilities s to plus t, s to zero t, s to minus t, and they all
+have to add up to one. And at the same time, this also has up to this here, the part that
+without the trend, without the inversion also has to add up to one. This is, and so these two
+equations are only consistent for all relative orientations of the t and the s apparatuses,
+if we have these law, if the inverse of, if all these inverts are true. And so that means that
+actually this amplitude is always equals to the exchange amplitude of inverted. And so, so these
+are basically using the filters, the fundamental laws of quantum mechanics derived. So the first
+one is the Kronecker delta that was, that basically only the ones in the matrix, only the
+probabilities, so that only these amplitudes are one. Then the next one is that to get this
+probability, you need to add up all the paths through the filters. And the third one says that
+that the inverse of this bracket is, is the same as the, when you, when you exchange the two
+target and the two, the two, yeah, the two locations, thank you, and build the inverse,
+then it's the same then without exchanging them. And so this, and so you can derive those three
+laws of quantum mechanics from the filter, from the filter experiments. And, and, and I think this
+is quite elegant and relatively simple to understand. And you can read it, read it up in
+the third volume of, of Feynman, I think it's chapter five, in the third volume of his physics,
+Feynman lectures on physics, you can get it online. So if you, if you go to Feynman lectures on
+physics, you Google that, you come to a page at Caltech, where he gave the lectures in the 60s,
+and there all the lectures are beautifully for free, you can look at them, they are really well,
+very well set up and chapter five explains all of this. And, but, but basically,
+so I now very quickly, it takes a bit longer to do it properly, but very quickly I showed you,
+these are the three fundamental laws, and this means I will do this a bit later. But, but, but
+one very important aspect is the following. So if this is a location of a particle, and these are
+basic, and basic locations, for example, in the three dimensional space with three dimensions,
+you can express one of the locations, or the one of the amplitudes,
+as a linear, as a linear combination of the basis states. So to take a complex number,
+number one, you multiply by the first component, the second one by the second component,
+the third by the third component, you add them up, and that gives you this number. So,
+and this is what this also shows. So when you want to go from the left, have the amplitude of
+going from that location to that location, basically you express each of the two locations
+in the base, in the base dimensions. And that's in the coordinate system of two coordinates.
+That's just like saying, this year, this, this vector is just a combination of x and y.
+So, so this is just z is just equal to alpha y plus x, right. And this is, so this is basically
+what is done here. So you are basically expressing a certain particle location as a linear combination,
+or some other property, as a linear combination of the basic coordinates, right. So we could,
+this is a one times x, so therefore there is no, there is no parameter here, but this is alpha y.
+And, and, and so these complex numbers are just the parameters to express
+the location or the quantum property expressed by this cat using, so by the way, why is it called
+bra cat? Because, because these are brackets, right, these two are brackets. And then they
+call this one a bra, this one a cat. And at this time sexism was still on vogue, you know, they
+were not woke yet. So they were allowed to call it a bra. And nowadays it's still called a bra.
+And it's interesting. And I've, this is no joke. I told this to my sister, she works in the cultural
+area, she runs a beauty institute, and she told me, she asked her to ask a gender professor at
+the Faculty of Mathematics or Physics, and she tries to get rid of the bra, because she believes
+it's sexist. So that's how, where we've gotten, but when the bracket location was, was invented,
+you know, the man invented, who invented was, was Dirac. And, and she just said, you know,
+these are brackets, I call this bra this, he was a Frenchman, so they invented the bra, you know,
+what do you expect. So, so, so that's how it came about. So, so, so this is, so now we have,
+we have gone through the very basics of quantum mechanics, and using the filters. And are there
+any questions to this? It's a bit of mathematics, but not very complicated.
+Yeah, so I think, I think the best for you to do is to, is to, is to read this chapter in
+Feynman. I don't, I don't have the time. Yes. So, so the, yes. So he's very, in the best sense,
+very Jewish. He's great. And, and he is, so the, the, the, for each, if you go to his web page,
+for each, for each printed lecture, there's also a video that you can watch. And he stated
+really well is very fun. And, and so anyhow, but, but what you can take from this is that
+this filtering allows you the passing of the, of the beams of particles through the filter allows
+you to derive the basic laws of quantum mechanics. And that what was, that's what was actually done
+in a way, you know, that they use these types of experiments to derive the basic laws of quantum
+mechanics, only that it didn't happen in the order that is presented in the book by Feynman. So
+Feynman, to explain it easily, he then invented a new order in which it was of course not done
+in practice. But you know, that's normal. So if you look at Weierstrass, so when Weierstrass
+started to systematize mathematics, he also invented a new order how each mathematical
+truth is based on, on the basic axioms of piano. And, and of course discarded the way that mathematics
+had evolved. He replaced it by an artificial evolution of mathematics. That is now the way
+mathematics is taught in every textbook. But when he did it, he had to reorder everything to make
+it more plausible in the way it evolves. And, and, and so this is how Feynman does it as well.
+But basically, it's always about can the particle reach another, another position,
+and what do I have to do to calculate this? And this way you get to these basic laws.
+I think before we do a bit more of, we are, we will finish the quantum mechanics part today,
+I promise, so that we can maybe do a bit of quantum computers already today or the rest tomorrow.
+So now we do, we do a, how many, how much break, 10 minutes? Yes, how many minutes?
+So see you at five past 11.
+So you have one word for your
+or
+something, some of the things that low
+how
+Yeah, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at any point, at
+any point, at any point, at any point, at any point, at any point,
+at any point, at any point, at any point, at any point, at any
+point, at any point, at any point, at any point, at any point, at any point, at any point,
+at any point, at any point, at any point, at any much, much higher
+fill.
+Yes, very funny, very interesting.
+Thank you very much.
+I don't know how it's going to be.
+Maybe even just in my eyes.
+When we were talking about related things,
+we were using quite a lot.
+Just a bra or just a s.
+Can you just remind me what just a bra or just a s?
+Does the cat mean s?
+Does the cat mean s?
+So just the cat means the sum of the positions
+of the bay state of the quantum system.
+And you will see it much better here.
+I'll try to reach down to it.
+This.
+This is the quantum bit.
+And you can see it's distorted to be a sphere.
+Because psi up there is quantum bits.
+And now this psi is composed
+as a linear combination of the 0 and 1 states.
+And so alpha, delta, complex numbers,
+which when squared together always give 1,
+and they determine where on the sphere you are.
+So you see the 0 and 1 is here,
+the 0 is on the other side.
+And basically, depending on the linear combination of the 2,
+you end up on the point of the sphere.
+And so that shows you that there are infinitely many points
+that the quantum bit can take on.
+And that's the point that Charles and Euclid
+and Charles, like many, many people,
+forget about what Charles consists of.
+He seems to think that you can just have a bit.
+The cupid is just like a bit.
+Because when you measure it, you only get a 0 or a 1.
+But the problem is that physically,
+that for each issue with infinitely many possibilities
+it has.
+And when we have several qubits shared together,
+you have a superposition pattern,
+like the one I showed at the beginning,
+all these single qubits.
+And so the way is super complex.
+And I think the use of quantum computing
+is that you think that you take control of it.
+But I think it's a positive statement
+in the control of the problem.
+Because the complexity of the quantum wave
+is to have a quantum wave that continues.
+And the bits, and the 64-bit qubits,
+they are out from the qubits.
+They are regular.
+And they are always in this defined state.
+And each of these has infinite numbers
+of states.
+Because that's what the equation shows,
+especially the one on the bottom side.
+You can suppose there's theta divided by 2 times
+ket 0 plus a whole feet,
+sine ket at the both by 2 times.
+And ket 0 would be a mean.
+Kept 0 and ket 1 are the base states.
+They show the sphere.
+They see extremes.
+They are locations.
+They are just locations.
+But of course, how do you know where the base states are
+as it were?
+Oh, so you actually put the computer in the base.
+So if you have a quantum wave to solve
+8 qubits, for example,
+put it down to 0 Kelvin.
+And then you hope that they are all settled
+at 0.
+And then you shoot lasers against them
+or try to put them to a higher level.
+Okay.
+But we know we can't get down to absolute infinity.
+Yeah, they have sort of bits that are error problems.
+Yeah.
+Because you can't, that's what I wrote to Charles.
+I didn't even answer that.
+I was supported by this.
+Because he failed to answer the call.
+So when I write an email like this,
+you always ask him for a question and post.
+Sometimes you have a problem with it,
+but always you see what I really mean.
+He was writing around it.
+It actually is a bit catalytic way
+because it was thought in basic practice.
+So which of course I know.
+Can you send me this response?
+Good.
+So let's continue.
+Sorry.
+So.
+So I am.
+So this is.
+This shows you
+kind of
+a precursor to the
+to the Schrodinger equation.
+Which is an equation that describes
+the
+the relationship
+between the C,
+which I will explain in a minute,
+and the Hamiltonian.
+So what is this?
+So C I of T
+is the likelihood to find
+a particle
+in step C in one of the base states
+E. So this is like what I said here.
+So this could be
+a particle and
+C I
+is the likelihood of finding it in one of the base states
+for example, the base states in the X.
+The base states are
+like co-ordinated in a co-ordinated system
+and C I is the likelihood
+of finding
+a particle in one of the base states
+and
+as you can see this likelihood
+is
+time dependent and so if you
+created
+computer derivative by T that's equal
+to summing up
+over the different
+base states of the system
+and adding them together.
+So this sum is again reminding of what we've seen here
+that
+such amplitudes are always made up of sums
+of the elements
+of the elements in the base states
+and
+this is the matrix that gives you the coefficients
+with which
+so these coefficients we saw here
+are coefficient, right?
+And this matrix gives you the coefficients
+for doing this in higher dimensions
+than if you have only one dimension
+and
+so matrix H
+has to include the thing we are doing
+to the system to cause it to change
+if we know
+the numbers that are in the matrix
+we have a complete description of the behavior
+of the system in time
+and Hamilton was the first
+who invented this matrix as a way
+to calculate the position
+of particles in classical
+mechanics. So here there was
+a guy before him who was called Einstein
+and he formalized Newton's law
+in a very elegant
+frame using differential calculus
+and then Hamilton
+formalized it even more elegantly with this matrix notation
+matrix notation
+probably English.
+And here
+you can see how the elements
+of the matrix are added together
+multiplied with this amplitude
+this is the picture of Hamilton
+this is Daiglio Tupi because
+when he lived there was no photo yet
+so the precursor of the modern photography
+and I don't know why he is distorted
+he looks a bit better
+if he is not horizontally distorted
+so
+it has to do with the arrangement of the screen
+so the Hamiltonian
+is equal to its transpose complement
+so this means transpose complement
+that's when you turn around the matrix
+and exchange every element of the matrix
+with the complement which was z
+so that means when you
+remember z
+is equal to
+x plus
+e times y and z
+complement is
+x minus e times y
+so when you take the matrix and replace
+all its elements
+turn it around like this and then replace all its elements
+by their composite
+that doesn't change the matrix
+so it's a
+unitary matrix and the total probability
+is equal to its transpose complement
+and the total probability of finding
+a particle is
+the sum of each of the amplitudes
+and that's
+of course
+that is independent of time
+and
+so now to make this a bit
+clear if we have only one single particle
+like an atom address so if you would
+freeze
+helium atom to zero Kelvin
+then it's addressed and it is
+in only one state
+so and then you keep it frozen like this
+then
+the physical circumstances
+are not changing with time
+and so h is an independent of time
+this now gives for one single value
+it gives you
+so the matrix
+bigger matrix of h
+contains for example
+one times two matrices could connect
+h11
+h12
+h21
+but now we have a matrix with only one element
+which is
+h1 and so we say
+for this single
+probability
+or amplitude of cb
+in the one state
+if we
+calculate the derivative this by time
+this is equal to the product of the first
+element of the matrix
+multiplied by the value of c
+and so and if
+h11 is constant then the solution
+is even simpler
+if you do not calculate the solution
+this is differential equation because
+here you have a variable
+and here is the differential of a variable one equation
+so that's called differential equation
+the solution of this is another equation
+and this is c1 is e
+the exponent of e divided by h times
+h11 times
+t and so
+so this is
+and e is also called
+the matrix h is also called the energy matrix
+because e
+is the energy here
+you saw this earlier
+with momentum p
+and that's
+another form of momentum together with mass
+gives you the energy and this is also
+a form of expression of the energy
+so this is a quantum mechanical
+expression
+of a system with one state
+and now here
+we have
+if we have a two state system
+so this is the ammonia molecule
+and the ammonia molecule
+maybe I should read this out first
+this is so funny
+now this molecule like any other
+has an infinite number of states
+it can spin around any possible axis
+it can be moving in any direction
+can be vibrating inside and so on and so on
+it is there for not a two state system
+at all but we want to make an
+approximation that all other states remain fixed
+because they don't enter into what we are concerned
+with at the moment
+it's very strong
+in physics all the time
+problems get simplified to one aspect of the system
+that is interesting
+and all the rest is abstracted away
+we will consider only that the molecule is spinning
+around its axis of symmetry as shown in the figure
+that it has zero translational momentum
+that it is vibrating as it is possible
+and so you see you have this axis here
+the molecule is spinning around it
+and now it has two states
+either with a
+nitrogen atom up or
+it can spin around like this and then the nitrogen
+is down that's the second state
+so this is state one
+and this is state two
+and so
+if we express this with the Hamiltonian
+we see we have basically
+two equations
+we have this equation describing
+the likelihood of being in state one
+and
+and this is
+the likelihood of being in state two
+and you see that now you have a more complicated Hamiltonian
+with four entries
+I messed up the notation here
+should be
+like this of course
+and
+so now you see that the likelihood
+of each of the two states
+is composed as a linear
+combination of the two states with these parameters
+which are usually complex numbers
+what is important
+seems to me it's just about
+clockwise and clockwise
+spinning
+it's up or down
+in both cases anti-clockwise spinning
+you see the arrow points
+into this arrow here it's the same
+both times anti-clockwise spinning
+but
+here the nitrogen is pointing up
+and here the nitrogen is pointing down
+so it's about the orientation of the nitrogen with regard to the spinning axis
+if you take
+so it's
+does this have anything to do with spin
+no this is another
+so this is interesting
+so each
+I've shown in the example
+that you can regard any property
+as quantum mechanical property
+and call it a state
+so here we have two base states of the molecule
+we have the base state nitrogen pointing up
+and the other base state nitrogen pointing down
+and there are now two
+in this physics sphere
+to reduce one to two states
+each other to a basic state
+in another situation it's the spin
+up or down
+in another situation it's the polarization of a photon
+in another situation
+it may be the level of the electron
+on it
+in the plant model of the atom
+and so on
+so you can always select
+other properties of the system that you look at
+call them quantum states and then calculate them
+this may be a good
+time to mention our
+paper
+bearing I wrote a paper
+I can put it up on screen
+you mean the quantum one
+so which you might
+find interesting to read
+just
+appeared on a heave
+so I should be able to find
+this one yes this is it
+I guess
+so they don't reduce paper
+and it's a six
+or they publish
+an update
+and I know
+the director
+of how he personally
+is involved in
+possible ground damage
+and he told me that
+the six weeks would not spend on
+evaluating the quality of the paper
+it was spent on deciding
+under which category it should go
+and in the end
+it would be under
+history of
+history and philosophy of physics
+history and philosophy
+and so this is the
+this is our new paper
+and
+it's
+it gives you an ontology of physics
+and it uses and it also does this
+for quantum mechanics so basically our idea
+was to give an ontology
+to
+show an ontology of classical
+physics so classical mechanics and then
+quantum mechanics to show
+that our ontological approach can cover both
+both types of physics
+so anyhow
+so this now here
+these two states are selected as a base state
+therefore the matrix
+describe combinations of the two base states
+and when you multiply elements
+of the matrix with the two states and add them together
+you obtain the probabilities
+of being in that state
+and so
+this is basically
+why only probabilities because
+as you know quantum mechanics is only probabilistic
+which is off now
+and so this is
+what it's about
+now
+here it's again
+it's described
+in
+in bracket notation
+so this is
+the state you're interested in
+this is so to speak
+the amplitude of
+c being in state one
+plus the amplitude of c being in state two
+multiplied
+with the parameter of that state so this is
+a linear combination
+that expresses this state in terms of the two
+of the two base states one
+and two
+and this is super important
+so this basically
+gives you an idea
+how in quantum mechanics the state
+of a system
+is always expressed as a linear combination
+of the basic states and if you have
+a full-fledged quantum system
+which we can't calculate with
+you don't have a sum but you have an integral
+over infinitely many states
+so a full quantum mechanical state description
+would be a Hilbert space
+dimension and this is just a full-fledged
+Hilbert space
+and so this is just what I wanted to
+demonstrate with this atom
+with this molecule of
+ammonium
+so I want to summarize
+the laws of quantum mechanics one more time
+so
+three and c are states of the electron
+or state of the system
+one, two, three, four are the base states
+the states are orthogonal
+so the base states are orthogonal
+which means that
+we have a matrix which is only filled with
+ones on the diagonal and there is no likelihood
+at all to grow from one
+base state to the other
+but only from one base state to one base state
+to the same base state
+c can be described as a linear
+combination of the amplitudes of all the base states
+these are all the base states
+and now I say c might be
+amplitude c to be
+instead one times this complex number
+two, three, four add them together
+and then I can like we did it here
+yeah this like here
+and so this way
+we get the
+linear combination and if we consider
+any two states c and c the amplitude
+of the state c will also be
+to be also be in the state
+c can be found by projecting
+the state c into the base states
+and then projecting
+from each base state into the state c
+so this is c to one
+one to c, c to two
+two to c, c to three, c and so on
+summed all together this gives you
+the total probability and this is again
+what we showed at the very beginning
+with this analogy
+of the matrix little hole
+where I said this equation is so important
+where is this bloody here
+here this is so important
+because this already gives you the idea
+why you have to sum up
+all these different amplitudes
+okay now we
+we are almost this is
+the first law
+and then there is another
+very important aspect
+so
+if xn is a local state of the particle
+then we can define the amplitude of p
+in the state as this
+since the base states are associated with
+the location on the line
+we can think of the amplitude cn as a function
+of the coordinate x and write it as cxn
+the amplitude cxn
+will in general vary with time and are there
+also forms of t so we obtain this
+right and this is now
+basically
+derivative here he
+tries to derive the
+the scrolling equation in a soft way
+but we are not going to go through this
+so what have we learned so far
+this is the kind of
+very important summary
+of the difference between
+classical physics and quantum mechanics
+so in classical physics
+you have the phase space with
+fluid points
+we need to make this bigger
+oh this is actually better isn't it
+yes now you can sense
+I would like to show you how
+Hamilton he looks so much like a frog but he looks
+better but anyway
+so classical mechanics makes use of a phase
+space whose individual points represent
+possible states of a physical system
+and with subsets of
+points representing physical properties
+so for example
+you all know that
+in a classical physics system
+you don't have any
+any irrational
+complex numbers
+but you have
+you have only for example
+classical coordinate system and then you have
+a point some like another point and you have
+locations defined of the point
+and also you can define
+it is a moving body
+but you can also let's say define
+its momentum
+and then with time and momentum
+you have a phase space defining
+where the point is and how fast
+it is moving
+and so
+this is the phase space of classical mechanics
+quantum mechanics uses a complex
+space and physical properties correspond
+to subspaces
+and the central subspace is what we call
+the state
+and so such a one dimensional
+subspace is a line
+and it's called array in quantum mechanics
+and one ray is what is
+so what is a
+a single point in classical physics is not
+array in quantum physics
+and the ray expresses
+that you can take
+that you can take the
+we had it here was
+a very simple Hamiltonian
+where is this
+here
+and this equation
+we multiply this with one complex number
+but we can have
+infinitely many complex numbers
+which we can multiply the C
+and by doing this we get a line
+so if you multiply it by one
+we get a value, if you multiply it by two
+another value and another and another
+and so because there are infinitely many complex numbers
+we can imagine that
+we can basically parameterize
+the particle to be
+everywhere on the ray
+so the ray is what is the point
+so that means that in quantum mechanics
+there is no single point where anything is
+but there's always a ray
+and
+is it
+drawing a continuum with the object now
+doesn't that contradict the quantum idea?
+no because
+when you measure the particle
+you get a likelihood of it being
+which we are now referring to
+occurs via the Planck constant
+so we've seen the Planck constant
+because
+there is an equation that contains the Planck constant here
+so
+we have here the Planck constant in this exponent
+but
+we can still get an infinite number
+of points
+they are just spaced in a certain way
+because of the Planck constant
+so the quantization
+comes in by the Planck constant
+which expresses that only at
+certain regular intervals
+we can measure a quantum phenomenon
+but basically
+it's still a line because there are infinitely many
+values of age
+so that's
+so there is a line
+but we can only measure
+certain discrete points along the line
+yes exactly
+and this is why
+this is when we build
+the St. Gallagher-Paradres that splits the beam
+we basically have such a measuring
+machine that measures two discrete
+points
+but we must
+imagine
+that the particle
+itself can of course be anywhere
+but with our experimental
+setting we can only measure
+certain points and this is the quantization
+and now
+so now
+the logic
+communication
+in classical mechanics the logic
+communication of the property p that corresponds
+to a set of points p in space
+phase page
+which is to say the property not p is
+represented by the set theoretic complement
+pc of the set p
+so here you see this
+but in quantum it's actually
+so this is the point
+for example a certain point
+and the complement are all the other
+points in the phase space where the particle is not
+in quantum mechanics it's different
+in quantum case the negation
+is an orthogonal complement
+of the subspace
+so here we have
+for example
+an array which is spin
+in z direction
+and its negation is the orthogonal spin
+in z minus direction
+so in quantum mechanics
+the negation is
+an orthogonal ray
+orthogonal to the ray I was
+to the first ray
+and so
+now you have to think
+of
+the
+collection of all vectors in the space that are orthogonal
+to every vector in the subspace
+as the complement
+and if p is the projector onto p its negation
+is presented by the vector projector 1 minus
+p
+and this is the
+picture trying to depict
+in quantum space the basic dimensions
+the states are raised
+and
+now
+so there is a very profound difference
+between classical and quantum properties
+which is illustrated by considering a two-dimensional
+hybrid space representing possible properties
+of a spin-off particle
+so a spin-off particle is schematically
+shown on the right
+the line p through the origin
+of the physical property
+of spin
+of the positive spin one-half
+in units of the Planck constant
+again this is where the quantization comes in
+the line p perpendicular
+to this line is an orthogonal complement
+and represents the physical property
+of spin minus one-half
+in the z direction
+the key point is that there are many other lines
+through the origin such as q
+which is now
+the spin
+directly x
+and
+they are neither the same as the property
+sz which is a spin
+in the z direction nor
+its negation z that
+minus one-half and you see here that
+also there is of course a complement
+to x which would be x
+minus which would be now here
+and so
+you have infinitely many
+angles in which you can measure the spin
+and each gives you a spin and a counter spin
+you know you have infinitely many
+and so you have infinitely
+many possibilities
+of determining the location
+of your point
+and so
+this is
+very important and what we say in quantum mechanics
+is we have two properties
+for example
+p and q
+they are
+they are incorporated
+incompatible when the projectors
+onto the corresponding subspace do not commute
+so when p times 2 is not
+q times p and so when we don't
+have commuting operators then we have
+a situation that lacks the precise analog
+and classical physics for example entanglement
+and we will understand entanglement a bit
+but quantum entanglement
+entanglement doesn't allow such
+subspace commutation and so
+if there is no such commutation
+then we can't
+we can't have an analog
+in classical physics
+and so
+this evolution from the Stern-Gallach
+apparatus to Schrödinger
+finding his famous equation took
+only 5 years
+and it was a great historical moment
+marking the birth of the quantum mechanics
+description of matter
+it occurred when Schrödinger first wrote down his equation
+for many years the internal atomic structure
+of matter had been a great mystery
+no one had been able to understand
+what had mattered together
+why there was a chemical binding and especially
+why it could be stable
+Schrödinger's discovery of the proper equations
+of motion of electrons on an atomic scale
+provided a theory from which atomic phenomena
+could be calculated
+positively, accurately and
+in detail in principle
+so that was why it was such
+a big revolution because suddenly
+could calculate
+exactly why a hydrogen atom
+is stable and which
+different variants of hydrogen atom exist
+so you doterium and tritium
+could also be calculated
+and also the helium atom
+and so the equation is capable of explaining
+all atomic phenomena except those involving
+magnetism and relativity
+it explains the energy level of an atom
+and all the effects of chemical binding
+so
+this is so
+so attracted
+and you know
+effective that now there are quantum
+simulators that can
+simulate the binding of a ligand to a protein
+so it's amino acids
+how they are constituted in space
+and you know this exactly
+and you know where you know which electrons
+residues are
+you can use Schrödinger equation
+systems to calculate
+to try to predict the position of a ligand
+towards these electron charges
+you have to then again abstract a little bit
+but this is really fascinating
+that you can now do calculations about
+methods of resizing
+but it's only true in principle
+because soon the mathematics
+becomes too complicated to solve exactly any
+but the simplest problems only the hydrogen
+and helium atoms have been calculated
+to a higher accuracy however with various
+approximations some fairly sloppy
+behind the says
+some fairly sloppy is so lovely
+what many of the facts of more complicated
+atoms and of chemical binding of molecules
+can also so in quantum chemistry
+you have to simplify a bit but you can still
+use the quantum principle to calculate
+the relationships of matter and it's very
+fascinating and that was
+possible due to the Schrödinger equation
+which I'm not showing
+because it takes a day to
+to teach it how to get there
+now
+we know we have
+already had a superposition a superposition
+is that the quantum particle
+is not in one
+of the base states phi i
+but that it is a combination
+like I showed here for just
+two states
+combination of the values
+it has in the two states
+so if it's projected
+on the two states and this is a quantum
+superposition and basically
+all quantum in a quantum
+computer all quantum bits
+are in a superposition state
+so there are
+when you measure
+a quantum bit as we will see
+in a while you obtain
+an approximation of a pure state
+but it's not really a pure state
+so that means that
+if you let's say you have two
+base states like in a qubit and now
+you measure it
+you get almost zero or almost one
+but you have still a very tiny
+complex number in front of the other
+parameter so you have something like
+0.999999 times
+one state 0.001
+times the other so it's very
+you don't get a so you have
+always superposition in quantum
+and that's why they are always
+that's why it's a rail a line
+because you have infinitely many points
+however
+however there is something else in superposition
+which is entanglement
+and so let me explain to you what entanglement
+is so entangled particles
+can be prepared experimentally
+for example you can take a photon
+and polarize it
+to generate a pair of low energy
+spin one-off photons
+oh yes I want to give you an example
+of a spin one
+particle photon has spin one
+so photon has spin one
+and you can get
+out of it you can get two
+weak energy photons of spin one-off
+and here
+and so
+the two spin one-off particles here
+you have particle A and B
+they are in the superposition of states
+so if
+x direction spin up is measured for particle C1
+then spin down is always measured for particle C2
+even if they are far apart
+and this is also true
+for
+so actually this is I think
+a wrong rotation but it doesn't matter now
+so this should be C1, C2
+but basically you see that the first particle
+has
+is
+is a mixture
+oh no sorry these are the two particles
+no that was correct so these are
+I had just to think about it a bit
+so
+this is the first particle, this is the second particle
+the first particle
+has
+x spin up
+and the second x spin down
+and so this is
+this is that
+this particle
+has the opposite
+states then this particle
+and this means the combination of the two spaces
+it's called the tensor
+and so
+if you measure now this particle
+in x direction
+it will have x direction up
+and the other one will always have the opposite
+direction
+but if you don't measure one of the particle
+you don't know which one has spin up
+and which one has spin down
+now the interesting thing is
+if you produce the two particles
+and take them away from each other very far
+and you do the measurement on one
+then you always have the opposite measurement
+of the other and that has
+that is called
+non-locality of quantum mechanics
+though you know
+the point is that when you create the particle
+you basically encode already
+this opposite information
+now if you take them apart and measure one particle
+then the other one always has the opposite
+and they can't communicate
+because they are so far apart
+that even if they could only communicate
+by some unknown means
+above the speed of light now we know that the speed of light
+is the highest speed that can be attained
+in the universe so basically
+you take them so far apart that they cannot communicate
+and then you do these measurements and you find out
+that their spin is opposite
+and this is called entanglement and the question is
+how can this be, how can it be
+that we don't know which particle is which
+but we know it upon measurement
+and we don't understand this
+but we can describe it with this equation
+and
+so
+these states are incompatible
+so
+what does this mean
+so
+sorry this slide is messed up
+the quantum part
+of the phase space is the Hilbert space 8
+and the complex vector space with an inner product
+an element of
+H
+here it should be here
+is denoted as Psi, the inner product
+is written
+like this
+I should group them
+so that it doesn't mess itself up again
+it's not groupable
+it's such a city software
+you see that's
+the consequence of Microsoft having the monopoly
+on this so they don't have to make an effort
+to make it really good
+so
+and so the inner product
+that's
+and so the counterpart of a point
+in classical phase space is a one-dimensional
+subspace of the Hilbert space array
+consisting of all multiples C times C
+of some non-zero
+C
+so this is why it's aligned
+you can have infinitely many C's
+arrays determined by the attic operator
+so you can basically
+say this here
+this pet bra determines
+array in linear algebra notation
+and so if you take
+this operator
+and apply it to a cap then you get this
+and
+this basically
+allows you to measure
+quantum
+quantum magnitudes
+and so
+this is a certain
+interpretation of quantum mechanics invented by
+Omnis and Griffiths we don't have to go
+into this now but basically
+I just want to explain a little bit to you so
+that you know what a projector is so
+if you have
+two projectors P and Q that
+measure
+or describe some properties like for example spin
+in X and spin in Y direction
+and if the two projectors commute
+so their products
+are
+with the order of
+then they commute and only when this
+condition is fulfilled the product itself is a
+projector and it projects
+into a subspace P and Q
+in a grid with quantum logic
+but if it's not like this
+so then the conjunction P and Q is meaningless
+in the sense that the history
+of interpretation assigns it no meaning in other words
+one cannot assign two incompatible properties
+to one quantum system at the same time
+therefore
+we can't
+interpret the singlet entanglement
+because let's see
+the singlet entanglement this year
+this is the singlet entanglement where you have
+two photons which are entangled
+one in the one
+point in one direction the other in the other direction
+and now
+so this is again
+a way of expressing this
+expression of this
+and now let's look at states
+A and B
+so a projector A
+tensor B is A tensor
+this is the matrix filled with 1s
+times this this represents
+a property of the diatic
+product space A tensor B
+it is the conjunction
+of the separate properties of the subsets since A and B
+so basically
+you have two rays which
+describe a property of the system like the spin
+direction and if you have
+A tensor B then you basically have
+the conjunction of these properties
+so that means a particle having both
+being projected
+with this projector has both properties for example
+spin A
+and positive
+and spin B
+negative
+is a
+commuting operator
+which assigns
+a projector to the particles A and B
+and basically it says
+particle A is
+the spin direction positive
+and particle B
+is x spin direction negative
+so you could say if you have a
+range like this
+that is the z direction the particle
+flies like this and if you turn it
+by maybe 45 degrees
+you get x direction of the particle
+to be separated like this
+and so this and so if you
+do this on two different particles
+one has gone through one standard
+of apparatus the other one through the other
+now both can be assigned
+assigned the spins
+to these particles and that's perfectly
+perfect but in the entanglement
+this projector
+there is no projector that
+commutes and therefore
+we cannot so if we project
+something into this singlet entanglement
+there is no
+there is no such tender product
+and if there is no tender product
+we cannot say anything about the spin of
+A or B
+we
+in the direction
+unless we measure the z direction
+but we can't say anything about any other direction
+because of the entanglement
+and so
+this just
+is to show you
+that mathematically
+those
+paradoxical points which correspond to states
+for which we have non-commuting projectors
+and this
+why am I showing this to you
+because we get to projectors with the quantum
+computers and we will also
+deal with entanglement there
+so
+what time is it now
+it's still one o'clock until one o'clock
+we have right
+so
+since you've been working so hard
+well I do I will do
+what I think I will do is
+at least the quantum bits
+so now we have
+yes
+or does everyone understand
+entanglement
+to be fair there is a lot of
+people's work that I'm not planning
+because we take way too long
+probably to
+to explain
+so
+let me see
+if I can
+describe the scenario
+we have a photon
+which we split into two photons
+one of which has
+a spin and the other which has a
+complementary spin
+and we send the second
+photon
+thousands of miles away
+yes
+and then we change the spin
+of the first photon
+and even though there's
+no way in which they can be communicating
+with each other no we don't change it
+we measure it
+so
+maybe to make this one more
+I think I misinterpreted
+when I first saw this equation so what we see here
+this equation describes the spin
+in x direction this equation describes the spin
+in z direction these are two
+different entanglement one with regard to
+x one with regard to z spin
+so they are both
+are describing
+different entanglement apparatus
+if you would like so
+and this year
+this is one state
+of particles A and B
+in which A has spin up and B has spin down
+this is the other state of particles
+A and B where A has spin down
+and B has spin up so A and B are the two
+particles I think I got this wrong last time
+so this is
+and so what this expresses is that
+there is basically a mixed state
+between this tensor
+and this tensor
+this tensor describing A being spin up
+this tensor describing B being spin down
+and this tensor describing
+x being spin down and x being spin up
+now when we make the measurement
+we discover
+that x is A has spin up
+then we know that B is always
+spin down though now they are
+they are separate
+geographically
+and if we discover
+that x has spin down and B has spin up
+then we will always be up
+so this is the same in z direction
+however
+the two projectors
+these projectors don't really
+commute although there is a tensor product
+shown here the projectors corresponding to these
+don't commute as is shown here
+right so
+so this tensor product
+of A and B
+which doesn't commute
+projects
+so the same project on to A
+B with C but only commutes with the
+projectors 0 and 1 on A and B
+but it doesn't commute
+with the tensor product
+and so though there is a tensor indicated
+here there is no mathematical commutation
+because we cannot change the order of the two
+projectors mathematically
+and so therefore
+that's what Omnis and
+Griffith say therefore
+this is not an interpretive mistake
+right so you can't
+because non-projective
+non-commuting projectors which are measurements
+of the quantum state non-commuting projectors
+mean that there is no way
+to assign
+that the tensor
+product doesn't need to assign
+two reliable properties to the
+particles in question
+so the
+the tensor
+product of the projector doesn't
+assign
+interpretive
+property to the particles in question
+and so that you can see here
+because you don't know unless you do a measurement
+you don't know which of the particles
+is spin up and spin down
+you only know that they are anti-sensical
+so in this way
+the
+this
+the paradox
+that you can have a
+photon
+being changed in some way
+in one part of the universe
+it rise to an equal and opposite
+change in another photon
+this paradox is eliminated by
+Griffith's
+it's not eliminated it's just
+he just said
+that basically
+the entanglement
+has no it's
+uninterpretable and my interpretation
+in this case is that
+we created the entanglement
+with the machine that created
+the entanglement photons
+but we
+because we don't understand what's really going on
+we can just say there is an entanglement
+but we don't know in which direction which photon
+is and this gets only revealed
+when
+when we measure the photons
+the properties that say
+we take the spin in the X
+is this property
+dependent
+or independent of the spin in the Z direction?
+yeah so that's a very good question
+so they are not only independent
+they are totally
+for the same particle
+they are mutually exclusive
+that's because of the
+that's another instance of the Heidenberg principle
+that's why I introduced Heidenberg principle
+so if I measure the spin in the X direction
+I can't measure anymore the spin in the Z direction
+because I have what's called the collapse
+of the wave function
+that's how it's called in quantum mechanics
+and that means that I don't have a wave
+anymore after the measurement
+that I now have information
+about this particle
+with regard to a certain dimension
+but I can't obtain it anymore
+for
+another dimension
+and it's basically like
+the particle
+and now it hits
+it's split and it hits the screen
+I see it on the screen but now it has lost its properties
+because now it's not anymore
+flying in the beam but it's now
+condensed on the glass plate
+now I have information about it which spin it's head
+but I've lost the quantum system
+the wave is not anymore wave
+it has now become a physical piece of dust
+that I see on the glass plate
+and so in this way I've destroyed
+the wave character of the particle
+by measuring it
+and this is what happens here as well
+and you can only measure in one
+the spin in one dimension
+and that's why on the quantum computer
+you only measure always in one dimension
+because you can't
+afterwards the particle is so to speak gone
+but then he said
+given that there is an infinite amount of angles on which
+you can measure spin
+that the particle
+has an infinite amount
+of independent exclusive properties
+yes
+this is a very clever statement
+and this we will see
+tomorrow at the end of the lecture when we get
+maybe we are faster
+and that's by the way this infiniteness
+is expressed by the
+by the index w
+so you know that you have x, y and z
+these are three axes but if I spin my hand
+like this they can be anywhere on the sphere
+and w expresses this
+that they are arbitrary
+and now
+so one qubit
+has an infinite amount
+an infinite amount of
+it's a continuous variable
+it can have an infinite amount
+of combinations
+and so that's the fundamental difference
+between the quantum computer and the classical computer
+the classical computer there is electricity
+on the channel or not
+on the gate or not and if there is no electricity
+zero if there is electricity it's one
+and
+sometimes you can also have
+errors in single bit measurements
+but this taking a side
+basically
+in a quantum computer
+each qubit has an infinite amount
+of
+possible instances
+but when you measure
+you can only measure one
+and the problem is how do you
+before you do the measurement
+how do you manipulate this infinite amount
+before you do your measurement
+you can keep it so that you get
+the regularities that you want
+in a gated circuit
+because in a classical gated circuit
+everything is regular according to the
+laws of Boolean logic
+but how do you want to maintain this regularity
+in a quantum computer
+and that's what we are going to think about
+so arenas and grittits
+have a relatively sober view of entanglement
+but there are some people who think
+that we can use quantum entanglement
+in order to do
+quantum communication
+over long distances
+in a way which will be preventing
+people listening
+in the outside
+do those people have a point
+that we can use?
+we can already
+do it now
+for short distances
+because we can use the entanglement
+I didn't prepare this
+it's called quantum teleportation
+so that the entanglement
+then basically
+there's a circuit
+that has an experiment to set up
+where you can basically
+prepare a particle
+and then you can
+send this particle
+to
+another party
+you can then
+measure yourself the particle
+and give this other part
+a measurement result
+and then this measurement result
+is meaningless to anyone who doesn't have the particle
+but if you combine this measurement result
+with the particle you can then
+decipher the code
+and so this entanglement
+can indeed be used for secure communication
+because you don't even have to encrypt
+the transmitted
+measurement result anymore
+because somebody who doesn't have the particle
+will not be able to do anything with it
+because there are infinitely many possibilities
+and this is one
+and now this property is used for the other
+to decipher the particle
+so with this you can create quantum communication
+the big problem with this
+is that we don't have quantum repeaters
+and so
+because quantum particles lose their properties
+when they get transported over after a certain time
+you would have to have a quantum repeater
+that basically measures
+the property of the particle
+and then
+recreate the particle in exactly the same way
+and transport it to the next repeater
+so that you always threshold
+the particle
+and we don't know how to build such quantum repeaters
+so therefore right now
+the dream of
+secure communication by quantum teleportation
+as it's called
+which is not a teleportation because you need to transmit
+in a conventional way your measurement result
+but because of this
+so this has been done
+but only over short distances
+because the particle
+many particles can lose
+their quantum state in a millisecond
+so you need
+at the speed of light you can travel quite far in a millisecond
+so this is
+300 kilometers
+and so therefore
+yes it's 300 kilometers in a millisecond
+and therefore I think the longest experiment
+is 200 kilometers
+that has been performed
+so because within 200 kilometers of distance
+the particle did not lose yet its quantum property
+that you wanted to use
+for this quantum teleportation
+but so you would have to have some issue
+with the United States
+now maybe we can build a quantum system
+that the best
+systems I think lose
+the quantum entanglement property in a millisecond
+so maybe you can build with half a millisecond
+but that gives you
+600 instead of 300 kilometers now
+then you would have to have a repeater every 500 kilometers
+so that would be 12 repeaters
+across the United States
+just to communicate within the United States
+a little bit easier
+because you just need two of the one repeaters
+but you need at least one
+in Luxembourg it works really well
+or in Liechtenstein
+but they are not the world powers
+who look for quantum communication
+so now in Luxembourg
+you could already
+inform the other one about a secret
+today was quantum teleportation
+Russia would have
+from Vladivostok to Moscow
+I think it's 10,000 kilometers
+so you need 20 quantum repeats
+so this is why it doesn't work
+so you had another question
+but this is basically
+this entanglement
+I have much more
+I have a full set of slides explaining
+the whole theory of grises
+but this is not the right moment to show it
+he has this book
+if you are interested in this
+it's called Consistent Quantum Theory
+appeared in 2002 in Cambridge
+there are three authors
+who have Omnis, Griffith and the third one
+who have written a book about Consistent Quantum Theory
+all of them have the same trick
+that they basically
+trick
+with the commuting
+operators
+but I think Griffith's book is the one that presents it
+in the best way
+but you need quite a lot of mathematical knowledge
+but it's a great book
+so what is a qubit?
+quantum computers don't use
+bits but qubits
+and here you have a qubit symbolized
+in a very primitive way
+as the two basic states of some
+physical system
+so quantum computers
+can speed up some computational
+problems
+but
+what's that
+but in practice
+it has not really been shown
+so in practice
+the qubit has been built
+and also
+logical qubits have been built
+which are several physical qubits
+that make up one real qubit
+one logical qubit
+to do error correction
+but nobody has yet calculated
+anything useful as a quantum computer
+like for example the Fourier transformation
+which is what the quantum computers
+would be much better at than classic computers
+because we don't have
+quantum computers of the sufficient size
+now what are qubits?
+there are systems with two base states
+and many superposition states
+an example of such a system is the spin vector
+of an electron or two energy levels of an atom
+and so now the base states
+are always modeled like this
+the vector for zero
+is a vector of one and zero
+and the vector for one is just the opposite
+so this is how you model in a two-dimensional space
+you do your base vectors
+now
+this doesn't come across right on this slide
+because of the projector
+maybe I could change it
+but I'm afraid that then I will kind of
+lose
+yeah I think then I will lose the
+completely lose it
+but it looks like an old but it's really a sphere
+perfect sphere
+and on this perfect sphere now you have
+to state zero to state one
+sorry state one and state zero
+and there was a size
+here
+it's much the
+no
+but suddenly the google
+pudding is out of sync
+I can stop it and restart it
+no but try then backwards
+to the slide in at a minute
+and now go forward again
+okay maybe I'm offline
+no because I can see your face
+the face is moving
+just slide it
+let me stop
+stop presentation and represent
+presentation
+so
+okay now the slide in
+good so here you see
+you see this sphere
+and that's high
+is one state of the qubit
+and
+this is expressed can be expressed as
+alpha times zero plus
+better times one that's a linear combination
+that expresses the arbitrary qubit state
+and as you pointed out
+there are infinitely many of them
+because A and B
+are complex numbers and the only restriction
+is that they need to be there
+there some needs to be one why is that the case
+because it's a sphere right so this is just
+Pythagoras
+and
+but basically because
+we have Pythagoras here
+we can also express
+A and B
+in terms of the sine and the cosine
+which works like this this is the Euler
+theorem you don't you can look it up
+but it's Euler's equation
+applied to this
+and now you don't have alpha
+and beta as complex number as anymore
+but you now have
+Euler coordinates defined by the
+angle so this angle which
+which is used
+to operate on the
+zero state
+vector is theta
+and the one for
+the other
+is phi and so you see
+here you now
+combine theta and phi to define
+the position of the psi
+with regard to the two basic
+dimensions
+and because this
+vector is not observable in qubits we can
+drop it
+and then we obtain this
+so and there because there are infinite
+number of qubit states so therefore quantum
+computers manipulate continuous magnitudes
+so they basically
+manipulate quantum mechanical
+waves in infinite space
+while classical computers manipulate
+discrete bits
+and this is the fundamental reason why quantum
+computers have the potential to be much faster
+than classical computers however
+it's much harder to manipulate the continuous
+magnitudes than a classical discrete bit
+which can only take
+values of 0 and 1
+this is super important to understand
+other questions to this
+what is it that
+that is being manipulated
+is it the angle that is being manipulated
+so if you get
+because that would just correspond
+to the bridge
+so what is being manipulated
+so when you create a quantum
+computer with one bit
+only
+so when you have a quantum computer
+with only one bit
+and
+initialize it you try to set
+the state to 0
+and if you have 8 bits as well
+you try to set
+all the states to 0
+now
+when you now
+initialize this
+you can imagine that you have
+a superposition of all the qubits
+of the quantum computer into one big wave
+so you do not have a wave
+equation
+for each single qubit but you now have
+a superposition across
+the two exponent 8 bits
+and also that's
+in this case 8 bits 256
+continuous variables
+contributing all to the wave
+but you don't know the shape of the wave
+so you just know
+that you have a quantum mechanical
+superposition
+in this 8 bit register
+and now you start manipulating it
+by applying energy for example
+to single qubits
+by doing this you are changing the shape
+of the entire curve
+of the entire quantum mechanical wave
+until at the end of your manipulations
+you make the measurement
+that's how you manipulate it
+so you are basically manipulating
+the whole register with the quantum paper
+so this is what I mean
+with manipulating
+but before I can explain
+I first have to explain the quantum measurement
+so
+quantum measurements are described
+by a collection of measurement operators
+these are operators which act
+on the state space of the system that is measured
+so when you measure
+this
+this year
+you actually assign it
+either a 1 or a 0
+you can't measure
+these angles
+and that's now again the discretization
+of quantum mechanics that we are asking for
+although Barry you have an infinite
+number of positions
+on the two lines
+of the two rays 0 and 1
+when you measure you can only
+get one value
+0 or 1
+so now we have again the quantization phenomenon
+right
+and
+so
+the index M here
+refers to the measurement outcome
+that may occur in the experiment so the quantum experiment
+is just 0 and 1
+in quantum computing
+and if the state of the quantum system is π
+immediately above the measurement then the probability that the result m occurs
+is the following
+so you have
+a bra
+ket psi and then you have this operator
+in the middle that you have to
+multiply
+this means
+complicated integration operation
+but at the end you get a certain probability
+and so after you've done
+this measurement you get
+this measurement operator times c
+divided
+by this
+which is just a normalizing factor
+to express that you have now
+basically
+that this is normalized between 0 and 1
+and so the measurement operator
+satisfies the completeness equation
+so that means if you have two
+of them and you multiply
+these two operators this is the
+inverted
+transposed
+complement or so this is a complement matrix
+then you get the identity matrix
+and
+so the most important
+measurement we have is the measurement
+of a single qubit in the computation basis
+so this is the measurement of a single qubit
+with two outcomes m0 and m1
+and now
+you basically
+get 0 or 1
+if you apply this measurement to the system p
+and
+usually
+this factor here
+is not taken into account
+but you only want to know the 0 and 1
+so this is
+what you measure
+and of course
+so this is the state that we had
+before and now you want to see whether it's
+1 or 0 and then you do this kind of measurement
+and
+now comes back to a question
+so quantum computer
+performs calculations by manipulating qubits
+within a quantum register
+so quantum register
+is a set of several qubits
+that are changed together in one quantum register
+and the quantum computer performs
+calculations by manipulating qubits
+within a quantum register
+the state of a quantum register is the two
+exponent n-dimensional
+space, the tensor product of the state space
+of the single qubit so here you have
+the single qubits
+and their tensor
+product
+of the vectors gives the quantum space
+here you see what a tensor product is
+so if you have this vector and this vector
+the tensor product gives a matrix
+of size n times n
+so it's z times z
+and z times z
+times z and so on
+until you have filled the whole matrix
+that's the tensor product which gives you
+your new state space
+and you have to
+be aware that each of those is already
+infinite
+because each qubit
+has a
+it's a complex vector space
+as is indicated by the c
+and has
+infinitely many values
+so you can make this
+this big Hilbert space
+that gets more and more complicated
+as you're adding more qubits
+and with a thousand qubits you have now
+the ten exponent thousand
+dimensional Hilbert space
+but which has infinite
+but each of the dimension
+of the Hilbert space is
+continuous and not discrete
+whereas in a quantum in a classical computer
+they are all discrete
+and they have a base on which the computation happens
+and
+so let's look at a very
+simple
+base of this vector space
+that is of course the basis one and zero
+and the register of
+two qubits has then this basis
+zero zero zero one
+one zero one one
+but of course the state of the register
+is now a super position
+of the base of the form
+so what you have now is
+so you have now two
+base sorry two
+bits
+and so
+this is
+bit one and bit two
+but now you can multiply
+the first bit so zero one
+and zero so this is zero one
+this is zero zero this is zero two
+zero zero and zero one
+and now you can multiply them
+or you have to multiply them
+with
+with a complex
+number for each of the basis states
+so this is the basis state
+is multiplied with one complex number
+the next base state
+with another complex number and the next and the next
+so that you now have the sum
+of the four base states
+each multiplied with one
+different complex number and that gives
+this is a very important equation
+because it shows
+that a classical computer would only have
+but here you have to multiply
+each of the four with a complex number
+indicating where they are
+on the way and so the
+super position that you obtain
+by the four qubits is really this
+so this by the way uppercase c
+to indicate that we are not talking about one qubit
+but about a register and now
+as you see we have now
+even in the four qubits
+you have four times intensively many values
+that together form this
+complicated way and now
+this is the wave equation so to speak
+of
+your base
+states and why is it a wave equation
+because this cat here
+that you see here is equivalent
+to the Schrodinger equation
+but now the Schrodinger equation is like a super position
+of four different Schrodinger equations
+each made up of two qubit states
+and each
+with its own complex number parameter
+multiplying
+and I think that when mathematicians
+work with quantum computer theory
+they often forget
+how brittle this is
+like the email we saw yesterday
+it basically shows that
+the mathematician we are talking to
+in this case he was even visited
+but still he forgot it
+he forgot to see
+that these are not just the four states
+when you measure them
+it's only the four states
+but when you are calculating with some
+at runtime before you make the measurement
+of complexity you have to do is even in the four
+even if you have just two qubits
+and this gets worse and worse
+the more qubits you are adding
+because the number of qubits is in the exponent
+so it's an exponential growth in complexity
+and with a thousand qubits
+so the thousand qubits by the way
+is the minimal amount of qubits
+that you need to have
+a practically useful quantum computer
+for example if you think of an RSA
+so the RSA
+you know this
+the internet for encryption
+when you pay with the credit card
+the number of the credit card is encrypted
+and how does this work
+the browser obtain the public key
+from an authority
+that provides public keys for the security
+and everybody has this public key
+now the
+now the browser
+the browser actually
+yes and then
+there is a private key
+known only by the authority
+that is now also known
+to the credit card company
+and now when you send
+your
+encrypted
+now when you encrypt
+your transmission
+you need both the private and the public key
+to decrypt it
+and with quantum computing you could
+decrypt it quickly
+with a quantum computer
+without knowing the private key
+by factorization
+of
+by prime number factorization
+which is a quantum computer and an algorithm
+you could track it without knowing
+the private key very quickly
+but for this you need at least a thousand qubits
+or maybe many more qubits
+but then you need to manage
+two excellent thousands qubits
+so more qubits
+and these are more states
+then we have
+particles in the observable universe
+so if we take our strongest telescope
+and all the
+our galaxy and all the other thousands of galaxies
+that you can see with our strongest telescope
+and count how many particles these are
+these are less than two excellent thousands
+so
+two excellent thousands is a big number and that's a number
+we are facing for quantum computers
+that have the use for registers
+so they need a register for thousand qubits
+and we will see a bit later why that's the case
+but they need big registers
+so
+so this
+equation is extremely important
+yes, question
+I just want to clarify if I understand it correctly
+but then the point is because
+okay
+there's one
+one qubit
+if you measure the state of the qubit
+you will get either one or zero
+so basically the northern hemisphere
+or southern hemisphere or this way
+before you measure it
+you will get either one or zero
+but if you have just one qubit
+it's kind of useless because
+any time it's only going to be one or two
+but when you link
+two qubits together
+you don't have to
+basically it can do a computation
+with any of the infinite values
+that it has and only after it's done
+the computation you can measure the result
+again and quantize it
+the trick that you are doing
+and we understand this much better
+is that you are using
+the qubits to perform
+in a certain style of calculation
+using quantum gates
+we will see how this works tomorrow
+and then you only have to measure
+out of the many qubits in your register
+one single one
+to get all the information you need to solve your problem
+that's why it's so hard
+so you need to set up
+it's very, you need a lot of cleverness
+you need to set up a mathematical algorithm
+that allows you to be
+expressed in this amplitude
+of a qubit register
+but at the end can be
+obtained, the critical result
+can be obtained with one measurement
+and tomorrow there's one very simple algorithm
+the Deutsche algorithm
+which was the first quantum algorithm
+which works
+with one or two qubits
+I forgot it but we will see tomorrow
+which explains the principle
+from which you can understand
+why it does such a beautiful speed up
+but this we will look at tomorrow
+and then you will understand
+how it works in the same way you understand today
+how the logic gates work
+but the key is always
+to
+make implicit usage
+of the complexity that this allows
+and then you nevertheless
+get all the results you need from one or
+very few measurements
+and this is the
+trick of quantum computing
+and of course it's not only
+superposition but also entanglement
+so entanglement
+is super important
+for quantum computing
+so this is a two register
+a two qubit register
+with 0, 1, 1, 0
+and now an entanglement state
+this is the same way an entanglement
+that we saw with the photon
+so that we see that it's a mixture
+of 0, 1, 1, 0
+and this state cannot be
+connected into a product of the states
+of the first and second bit
+this is quantum entanglement and the main foundation
+for the high efficiency of quantum computing
+for some problems so not only
+is the wave superposition for several qubits
+important but also the entanglement
+and the entanglement here
+it says
+it comes back to it
+into a product of the states of the first and second bit
+that means what I said before
+that the projectors are non-commuting
+because we cannot factor
+this sum into
+product of the first and second bit
+so this is like the photon entanglement
+and these entanglement states
+are critical
+for quantum computing
+and they give the quantum computing their power
+because entanglement is a phenomenon
+that does not exist in the classical world
+of course
+how
+can you maintain a coherent
+computation
+if you have this kind of entanglement
+just between two bits
+so basically
+as we
+see in the Deutsch algorithm
+you are making usage of the entanglement
+for elegant computations
+the problem is
+elegant computations
+that save you
+so you are utilizing the entanglement
+to save computation steps
+because such an entanglement in the Deutsch algorithm
+you can do one computation
+instead of two
+if you were operating on the entangled state
+one operation is like two operations
+and then when you do
+the true algorithm
+which is
+quantum Fourier transformation
+then you can
+then it becomes more and more efficient
+and so this is what we are going to look at tomorrow
+but the entanglement basically allows you
+because when you
+manipulate one bit the other bit gets automatically entangled
+and each computation
+is a register manipulation
+so when you hear the test of the computer
+you are sending electrons through the gates
+and that creates a new form of electrons
+and this is how you manipulate
+this is what is called a circuit
+and at the end
+you read out a register
+that is connected to your circuit
+to get your for example
+the additional result
+here it is different
+here you are not
+the quantum circuit consists of a series of manipulations
+of a register
+and each time you manipulate
+you manipulate all the qubits
+at the same time
+and that is what
+if you find an algorithm
+where this creates less
+computation steps then you have
+the advantages of the quantum computer
+and Deutsch
+was not a German by the way
+I think it was an Englishman
+was the first
+in the early 90s to figure out such an algorithm
+and then
+in the early 2000s it was implemented
+for the first time
+and I think that is the paper
+that I was sent yesterday
+as answer to my question
+so a quantum gate
+is a manipulation
+of a quantum register
+so for example
+if you have as a quantum
+a qubit
+the state of an atom
+at the energy level of an atom
+and now you have the electrons
+on the lower
+on the lower energy level of the atom
+and you shoot with a laser against it
+you will elevate the electrons to a high level
+and this way you will
+be able to change the state
+of the quantum bit
+and this is
+what a quantum operator does
+it changes the quantum register
+and the quantum gate
+so if the quantum register
+is up against psi
+the quantum register maps
+this psi to a multiplication
+of the operator
+u with psi
+and so that is the quadratic
+matrix
+which has exactly the same rows and numbers
+as the qubits of the computer
+so if the computer has two qubits
+then the matrix is two times
+two matrix with three qubits
+three and so on
+and these three eights
+and these rows and commons
+are also normal with regard to
+scalar multiplication
+so
+so that
+it's a quadratic matrix
+with this property
+and so that also means
+that you can always take it back
+so every quantum operation
+is reversible
+because of the unitary nature
+of the matrix that means
+when you apply this
+to a quantum register
+which is a vector of zeros and ones
+you apply this unitary matrix
+you get a result you can always
+calculate that
+so look here for example on the or
+once you have the result
+that you have a zero or a one
+the one can come
+from three different constellations of the input
+so it's not reverse seven you don't know anymore
+what was it
+what was the input
+and the quantum computer
+each operation
+on the quantum register as a unitary
+operator which is fully reversible
+and
+mathematically speaking that means
+it's also normal with regard to scalar multiplication
+and
+so the
+resulting product
+is still orthogonal
+so that means that the
+resulting matrix
+the columns
+the columns are always
+the columns of
+the matrix are
+orthogonal so linear
+independent and also normalized
+so
+so this is
+a quantum gate the quantum
+to
+repeat it once more we are starting with one qubit
+which has
+impossibly many states but if you measure it
+you can get one base state
+then we have
+we take
+several quantum bits together which we have the quantum
+register
+which is like a vector of zero and one
+here is an example
+this is
+two quantum big quantum registers
+with four base states
+zero zero zero one one zero and one one
+and all the
+in this state it's like
+a big dröninger wave
+which is linear combination
+of those base states
+and this is an entanglement
+of two base states
+and this is the quantum gate
+so unlike
+here where we have a
+Julian table that
+presents what the
+quantum gate does
+what the logical gate does
+the quantum gate is like a matrix multiplication
+like matrix multiplication
+so that's the matrix
+but
+yes
+but so at the technical
+level
+it's a technical level, yeah it's not a component
+like a circuit but it's like a manipulation
+of the energy level
+of one or several of the qubits
+and basically what it does
+it is acting mathematically speaking
+like a matrix multiplication
+and so here's an example
+so this is a negation gate
+so it turns
+around the state of
+two qubits so if you multiply
+this
+with a qubit
+which is in state one zero
+you get out a qubit with a
+register
+which is states one and zero
+you multiply this then you get out states
+zero and one
+and so
+now we have a superposition
+time on the basis
+of zero and one on the two qubit
+computer and now this
+means that there are linear combinations
+of alpha
+times zero plus
+beta times one and you know
+that zero is in matrix
+notation and zero
+is this
+oh no I think zero is always this
+I have to look it up I'm very
+bad at remembering
+this was here at the beginning
+yes
+so zero is this
+and one
+is this
+now if you multiply
+if you multiply
+so the linear combination
+which is so near
+so if you have alpha
+times this
+am I getting this right yes
+plus beta times this
+so I'm going to get rid of all of this
+plus beta times
+this
+then this is alpha
+and zero and beta and zero and beta
+so this is alpha beta
+so this is the representation
+of an arbitrary
+parametrization of your
+qubit register with two
+complex numbers now
+you can take this
+and multiply this alpha beta
+times this gate
+zero one
+sorry it needs to be written down the other way
+zero one one zero
+times alpha beta
+and then you get
+zero times alpha
+plus one times beta is beta
+and then the other one is formed
+one times alpha plus zero times
+beta is alpha
+so with simple math sorry it's
+a bit covered but I don't have
+so I put it back here zero one
+one zero multiplied
+by alpha beta
+equals beta
+alpha
+so because of
+multiplication right
+and so this unitary
+operator does
+changes the order of the two qubits
+and so this is super important
+so
+if you think of quantum computation
+you have this register
+and then you have just many many
+such unitary matrices
+multiply with a register until you get
+a certain result of your register
+and then you have one of the two qubits
+and that gives you the result of your entire computation
+the whole computation is just
+a long multiplication series
+of the register with different
+matrices which represent the quantum gates
+that's what is
+mathematically
+and
+so this result comes from
+that this position is determined by saying
+zero times alpha plus one times
+beta and this position is given by
+one times alpha plus zero times
+beta that's just linear
+basically an algebra and now
+you can imagine that you have a bigger register
+now we have big matrices
+and they all get multiplied
+and after that you get the final result
+and now comes the interesting question
+so
+from this you see that every quantum
+computer is just a series
+of matrix multiplication
+so therefore every quantum computer can be
+simulated by classical computer
+because of course the classical computer
+can also execute matrix multiplication
+however it's not so
+so
+and it's
+there are cases where
+the quantum computer needs 10 steps
+and
+the quantum computer
+the classical computer needs n steps
+the quantum computer needs
+the squared of n steps
+for example if it would need 100 steps
+then the quantum computer would need
+would need 10
+and if it would need 10,000 steps
+the quantum computer
+would just need 100
+this looks pretty good
+right, the problem is
+that the quantum computer needs
+many, many, many more bits
+than the classical computer to achieve this
+And it needs so many more bits that the only computations, the only speed up that is useful to
+help with the computer computer is this, which is called, so this is called polynomial speed up,
+and this is an exponential speed up, where you have basically this.
+So, so if you have, for example, here two exponent 10 computations,
+everything 8 is 156, 9 is 512. So that's 1024. Here you would only have 10.
+So this is 100 times speed up. But if you have, let's say, two exponent 12,
+that's 4096 computations. With a quantum computer, you would get down to 12.
+You see, that's amazing, right? So here you need 12 computations, you need 4,000 computations.
+And that's called exponential speed up, right? Now think of, I mean, it gets worse. So if you
+think of you need on the classical computer 20 to exponential computations, that's
+as many particles as we have in the, in the middle way, right? So it's a huge set of particles.
+And now if you do the quantum computer, you just have 100 computations, sorry,
+two to exponential. You just have 100 computations. So an exponential speed up,
+and this is what you basically need for, if you want to crack encryption with a quantum computer,
+you apply an algorithm that achieves a speed up. And now you see the difference. So 100 computations,
+that can be done, you know, one clock cycle of a quantum computer is a tenth of a millisecond.
+So then you can do this in less than a second, right, on a quantum computer, whereas you would
+need two to the exponent 100 computations on a regular computer, which takes years,
+or I don't know, thousands of years. So, so this shows you that an exponential speed up is very,
+very effective. But even what you see here, you understand now that each quantum computer
+can be, can be simulated with a, with a, with a normal computer, because it's in the end
+just a series of matrix multiplications. I think for today, this was more than enough, I'm afraid.
+And, and I, Barry, do you

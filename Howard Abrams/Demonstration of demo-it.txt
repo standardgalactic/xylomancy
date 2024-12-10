@@ -1,0 +1,202 @@
+I can't remember. It was probably about three years ago that I realized that every sprint
+had this demonstration. And this demonstration is always kind of the same thing. It's like,
+what did you do? Show it off, right? And I noticed it was always the same kind of thing.
+There's always a little presentation to kind of describe it. Then I'd show the source code.
+It actually runs because no one believes you when you just look at the source code,
+that sort of thing. Now, of course, as a Emacsian, I noticed that it was always in this particular
+what's not take a little piece of paper and it's like, okay, I want to show this,
+I want to show this, I want to show this. But everything I was doing was just an Emacs.
+I just open up the buffer, open up a shell, run, run, run. And of course, you know,
+when everyone's looking, you end up fingering everything. Just slows things down. And then
+what happens you get you start talking a little bit more a little faster, and you know,
+then just goes to hell. So I started creating little functions that I could kick off, because
+as Matthew was talking about, you could make a little function, I could do anything, you
+find it anything that you want. And so I would. And pretty soon I had this little small collection
+of functions that would help me kick these things off without that fingering anything.
+And so I packaged them all up and threw them up on the intertubes. And so I ended up programming
+my demonstrations, I call it demo it, because I have no absolutely no creativity in coming
+up with clever names. So this is kind of how it looks. You basically create a list of all
+the steps that you want to have it do. So demo it create is just this macro, and a macro
+can either be a function that you want to call, or an expression you want to evaluate,
+or a key that you want to press that way you're only pressing the advanced key. So let's take
+a look at this one here. So we have fine file, you all know fine file, just loads up a file
+into a buffer. And that is an expression. The next one I'm going to call for the next step
+will be this one function I've called called start shell. And it just starts up shell in
+the side buffer. And then when I hit the advanced key again, it's now going to run in that shell,
+a phrase called Ruby, you know, calling my source code. And then I'm going to hit the
+advanced key, and it's going to do a metapie, which goes up in the buffer in the history.
+When I hit the advanced key again, it's going to then insert everyone and that way I'll run
+this program twice with different parameters. Okay, and then all I need to do is just kick
+it off with the demo at Stark. Well, so I run Ruby example, okay, and that runs at once. Then
+I'm going to hit metapie, and it's going to pull that down, and I'm going to append to it the
+word everyone. And it will run it twice. Let's see it, I'm going to run this in action. So I hit
+the key, and it does a fine file. Oh, wow, it's awfully small. Sure, I can do something like this
+in order to make it we could see it. I'll fix that in just a minute. So here it is, I hit the
+key again, it loads up a buffer or a shell. Did you start recording? I did. Yes. So your demo
+insert text thing actually does a character by character. Exactly, because why not? Okay,
+so now I hit it again. This is the metapie. And then I hit it again, and it types in every one
+and there you go. How about that? I've done this little demonstration very quickly. It looked
+like I was really live, and I did fat finger single thing. Okay, and that's, that's, yeah.
+All right, so let me go through some of those functions in a little more detail, because I
+noticed that most of the functions are either about showing code, or running code, or presenting,
+and then I've got the MISC section. So first on the showing code, I have four primary functions,
+one's called load file. So I could do the fine file, but load file loads it up in a side buffer,
+because that's usually what I want, because I'll have a presentation like this. And then I'll
+just load it on the side in a bigger font, so that I can kind of see it a little easier. That's
+nice. I can move, I can move the cursor around, and I can do all the normal things that I normally
+would. When I advanced, though, I can keep on going. The part file basically does the same thing,
+but it only shows, basically does a narrow to a certain section by line numbers, or you can give
+it characters if you really want to get specific. The problem, so this is nice if you just want to
+show part of the code. What I like, though, is that somebody created this thing called fancy
+highlight. And fancy highlight basically puts the rest of the code in a subtle gray, and only
+syntax highlights what you want. So I like this feature. Yeah, it's a minor mode. Yeah, exactly.
+So I just pulled that in. So part file and fancy file act the same way as far as their behavior,
+just one shows things a little prettier. I also found that I like to do some comparisons between
+functions, or between source code files. So I have one function that takes two files, and it just
+loads them up inside buffers like this. That way I can kind of compare Ruby and Python, kind of
+the same. All right, running code. So I have a function called start shell, and this can either
+start each shell or the regular shell, and it does it in the site buffer, and it has the same kind
+of parameters as far as how big to make it. Do you do it on the left? Do you do it below or whatever?
+Start shell will take a directory, a command, and like I say, side, right, below, I used to use the
+quoted symbols. But I thought I should do the colon symbols, because they seem to be a little,
+I don't know why, but I actually have to maintain backward compatibility from when I did it before.
+So tick right and colon right work act the same. So but then I can then do run shell, and it'll
+just kind of run it in the default shell. The name here that you see up above, yeah, defaults to
+shell, but if you have different names, then these things will run in whatever you want. So you
+could have multiple shells running and run things in different ones. Is your mic really off?
+Oh, I think that's the mic for this through the thing. And if not, oh well. And then show shell
+just brings it up. Okay, presenting. So all presentations for me are in org mode files,
+because that's kind of how we roll. There's a nifty little thing called org tree slide, which shows
+each section as a single screen. So instead of having to collapse, move down and reopen,
+you know, I just have a key and it just brings to the next section at a time. So demo presentation
+just loads it up, quit quits it, but you never want to do that really. The function presentation
+return basically, if you've got a shell open or a file, you call return and it closes that just
+kind of goes to the presentation and then advances it a screen. So it's this kind of this wipe
+return with no advanced closes everything that it doesn't advance it and then presentation
+advance goes to the next section without it. So you know, got them all. And then highlight phrase,
+that's what you saw at the beginning with the little green that it was going through. So I can
+say highlight, give it a regular expression and it'll kind of highlight it. Miscellaneous. Demo
+at insert, this types into a buffer, as if you were typing, you can give it a colon fast if you
+really want it to go fast or a colon slow and a colon medium and all this and, you know, that sort
+of thing. Does it play keyboard sounds? I really wanted to, I'm really debating whether I'm going
+to do that or not. If you disable the rest of the keyboard, you can make the keyboard sound as well.
+Yeah, yeah, yeah. I know, I keep fighting with that one.
+Yeah, yeah. Okay. So highlight, do what I mean. This is so programmatically, you can give it
+fine numbers and it'll highlight it or region and it'll highlight it. It's also, it's also interactive
+so that you can highlight a region or if you don't have a region, it highlights the function.
+And that's kind of interactive so I can just kind of jump around, hit a key and have it just
+highlight things that I want to show it off. Demo at show image is like load file,
+but it does it without the mode line. So it just kind of magically appears. So that's really a
+buffer down at the bottom. And then I sometimes find that I just have to do a quick org mode
+presentation. So I created a function that creates a demonstration as an org mode and
+that's all it does. So hitting the advanced key advances through the presentation and that's all
+it does. All right, so how to get started. I've learned it up on Meltha. So you can just do a
+package install and call demo it and it installs it. I have recently added a what I consider a
+metric shit ton of customizations. So you can like open windows, where should they show up?
+Above, below, left or right. So you can kind of customize how all your presentations will
+work. All of these parameters you can give it to the demo at thingy so that you can kind of change
+it. So this time I want my windows on the side or above. And then of course, all of those functions
+then take even more overriding saying sale, but this case I want it over here. I also have created
+an info file. I'm so proud of myself. So all the documentation that you could imagine is
+in org mode or in info mode. So I can like let's go to customization here are all of the functions.
+Is that part of normal info mode, the key shortcut thing you're bringing up on the
+venues? Well, I'm seeing the ASDF. It's IV. Yeah, I've got an IV link so that I can just jump to
+any link in an info file. Okay, and then I also have a template, a snippet template that you can
+grab. So I do recommend when you start playing with it. This thing has evolved on its own over
+years. So I may have added a bit too much. But then again, hey, why not? But starting simple with
+what you want. There are quite a bit of examples in the info file. Like, yeah, I'm trying to put
+more examples like live coding. So you can do live coding where you can hit a key and it'll type some
+stuff kick off. He has templates and yeah, there've been some fun things like that.
+Anyway, questions?
+Well, I was just curious, things like demo, insert it or whatever. How do they find the correct
+window to start inserting tests into? Good question. This is not stateless by any means. It really is
+kind of a state machine that you're kind of manipulating. And that is one of the problems.
+That's why I kind of recommend keeping it simple at first. Just because you have every step expects
+all the buffer positions, including the current buffer to be in a particular state, so that
+that function executes as if it's in what you think in your head. So if you open up a presentation
+step one, then open up a file step two, that file is going to be the default thing. So it expects
+you'll be in the shell buffer when you hit the advanced key. Okay, so that makes sense. Yeah,
+I would like to have it. So version three, get around to this thing, we'll be trying to
+do some sort of a snapshot so that you can say, oh, run step 10. And it sets up all the
+windows and buffers the way step 10 should be. It would make debugging a lot easier. Because right
+now, you know, to test things out, you kind of run through it quite a few times. Yeah, so that's
+cool. Is this presentation run through demo? Of course. Here it is. So
+I create a few variables just to the source codes that I'm going to bring. And here it is.
+Oh, let's make this a little bigger. So the first thing I do is I put in a whole bunch of
+keyword parameters that kind of override my current setting. So full screen, single window
+means get rid of all the other windows. I'm going to use advanced mode. I've got two minor modes.
+The simple mode uses space bar to advance. The advanced mode is F 12. They used to do a lot
+more things and it's like, oh, these are stupid. So the minor modes have gotten smaller. So it's
+not really as advanced as advanced should be. I'm telling it, I want to use eshell, not shell,
+and use a variable width when you show your presentation. And step one was to load up the
+org mode as a presentation, making it huge, baby. And then advance, advance. And then here's my
+mini demonstration here, right here in this section here. And then, yeah, and then I'm just going
+through each one of these parts. Now you notice that there is this thing here. Excuse me,
+show file, a demo. These are functions. Let me just jump to the end here. These are functions
+I've created to do multiple things per step. So for instance, showing part of a file. Okay,
+so I had that little section where I say show file. So what I'm doing here is I'm going to
+do a return, which closed the shell, but didn't advance my presentation. I then killed the buffer
+just to make sure I could reload it, reload it without problems. And then I say highlight the
+phrase demo load part file. And then I actually called it, and then highlighted things with a
+colon line, the five and the 12. So I sometimes will create a function that does multiple steps
+one time and then kick it all off with one step. Yeah, that's it. So nothing too complicated,
+I don't think, I hope. Yeah, I don't see anything too weird.
+Is this assuming some of your normal setup that works in your, for instance, if you have
+refined the lines or hidden the lines between buffers and such,
+for the look and feel that you have, that's not part of the demo, that's part of your normal
+setup. Or do you set that up in the demo or is it part of your natural setup?
+You know, that line probably has blurred over the years. So I don't know. I've tried to keep
+this package to be just this. So there's probably some things in my normal flow, like I'm using
+ORC bullets to highlight things and stuff like that in an ORC mode file. Yeah, you'll notice like
+in my demonstration here. So we're so good example. Oh, yeah, here's a good example right here.
+So I ran everything in a variable with font, and yet this thing here, this section here,
+was in a fix with font, because I've actually got the little equal signs around it to make it,
+you know, a code thing, right? But I hide those normally. And so I've kind of put some feature
+in there so you can customize in the list whether you want those hidden or not for your
+presentations, but I always have them pinned anyway. So I would love to have other people,
+more people play with that. I've got a couple of users, not too many, because this is like,
+this is weird shit. So
+it is. It is. Programming your presentations is only what we geeks do. And so yeah, I've got
+a few people, you know, given me pull requests and this sort of thing, right? But I'm not sure
+just how many people actually use this. So I would love to have someone try it out and go,
+Howard, you have some feature that's not in here, whatever, since you've seen all my presentations.
+Right? It's like, I can't get mine to look like yours. So there must be something else, right?
+There must be. Yeah, exactly. Yeah, exactly. Yeah.
+Does this install from like the typical Emacs package repository?
+Yeah. Yeah.
+So I had to refresh my package because I didn't find it.
+Let's see. Demo it. There it is.
+There we go. So I tried to kind of explain
+so people know what it is. Because yeah, I don't know. Demo it. It's a horrid name. I couldn't
+really call it demo. I couldn't feel confident about that. It had to be somewhat unique, but
+I couldn't call it like Snaggle Puss or something weird, you know, so. And I couldn't. Yeah. Anyway.
+And then, you know, some people have suggested some names, but it's too late now. It's up there.
+It's not changing. Yeah, I should have called it die, di. Demo it for Emacs or something.
+It only seems right, like evil. Yeah, it's a perfect example. Yeah, any other questions?
+And Max, be it's told on dare I say windows or say one, whatever you.
+Yeah, no, no, that's a name. It's a native for windows. Yeah.
+Yeah. So and it works pretty well, especially if you're kind of used to the Unix way, like if I
+have to get on a Windows thing, I'll load up Emacs and just kind of stay there because it's kind of
+Unix-y. And I feel safer because this is my comfort zone, where the little buttons I don't
+quite understand so much. So yeah, I'll pull up an E shell, which acts like a Unix shell,
+but it's all within Emacs. So it makes me feel a little better. Yeah, well, it's a shell, you know,
+a normal, what we call a normal shell, but it's all in Emacs. Yeah, it's based. It's not bash.
+It's not bash, but it's close enough for most things. You know, you type in a command and it
+kicks it off. However, all those commands are actually needless functions too. So you can
+it blurs the two together. If you get used to it, it's really nice.
+I think I remember reading in the info page for it that they didn't recommend using it as like a,
+like in Windows, it certainly makes sense. But like, it uses buffers for all interprocess
+communication. So like, you do a lot of pipelines that starts losing it.
+Yeah, yeah, you kind of Windows is still probably waiting. Yeah, but it's all,
+yeah, that's that's a whole nother discussion. Maybe, yeah, maybe we should do that a whole thing
+on that another time. Because yeah, there's a lot of actually some real cool features about it that
+I like it. Yeah, probably very interesting. I'm still sort of
+feeling my way around what I want my shell interactions in Emacs to be. My preferred
+way to go would probably be to use terminal mode or terminal. But I find it to be severely broken
+as a terminal emulator. So I made a little laundry list of things that I would like to fix,
+but in the meantime, I need to use something else. So right now, I'm making do with shell mode.
+But you know, yeah, yeah, yeah.
+I still run a separate Emacs terminal for commands. Yeah, I'm starting to think that's
+what I'm going to go back to doing that. Yeah, it's kind of frustrating because I go open something
+and I go over here and I go over there. But I give all my full power shell tools.
+Yeah, if you're running a lot of programs, yeah, you kind of want to do it that way.

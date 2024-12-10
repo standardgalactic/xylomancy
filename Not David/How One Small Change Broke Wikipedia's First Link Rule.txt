@@ -1,0 +1,337 @@
+Alright, here's the game for you.
+Go to Wikipedia and click on the random page button.
+Then from that page, click on the first link.
+And then just keep repeating that, always hitting the first link.
+What do you think is going to happen?
+Will we wander aimlessly around Wikipedia forever or will we eventually hit a dead end?
+Well, neither, because actually, roughly 97% of Wikipedia pages lead to philosophy.
+And I had a lot of questions about this, like what's so special about philosophy or why
+should we stop at philosophy, or is this something that's specific to the first link, or will
+it work with any link that we choose?
+You see, despite the fact that the philosophy game has been around for a long time, it even
+has its own Wikipedia article, which, yes, does also lead to philosophy, I've never
+seen an in-depth analysis of it.
+So in today's desperate attempt to get my own Wikipedia article written about me masquerading
+as an education video, we're going to take a look at the structure of Wikipedia and figure
+out why almost every Wikipedia page leads to philosophy with a giant asterisk.
+The problem with making a video about Wikipedia is that Wikipedia changes a lot.
+And since I originally recorded that intro months ago, someone broke the philosophy game
+and then unbroke it and then broke it again.
+Let's just say making this video was a wild ride.
+I think it's really cool how it broke and how it could have been even worse.
+So first, let's take a look at the philosophy game as it was, when it was working, and then
+we'll go into how it broke.
+Of course, things may look different when this video goes up, but the approaches we'll
+use will stay the same.
+If anything, I guess it's fitting that a video about Wikipedia is changing as it gets
+made.
+Feel free to assume that was intentional.
+Okay, so there are in fact several types of Wikipedia link games.
+For example, how many links does it take you to get from say, banana to Neptune, the planet?
+It took me seven.
+But that's not what we're talking about today.
+The philosophy game is on the surface really simple.
+Like I said at the start, we go to a random page and keep hitting the first link over
+and over.
+We'll keep doing that until we hit philosophy, hit a loop, hit a dead end, or exceed over
+100 jumps, though that last one never actually occurred for me.
+We'll collect the articles and keep track of how they're linked together in order
+to make our network.
+But how we actually implement that was a bit of a pain, because telling a computer what
+the first link is, is a bit trickier than it first appears.
+After all, the first link is not this, but rather it's one of these icons.
+Obviously though, these aren't really in the spirit of the game, so we'll ignore
+them.
+We'll also ignore international phonetic alphabet pages and citations.
+These aren't true Wikipedia articles, they have slightly different URL addresses, so
+we'll ignore those as well.
+Lastly, and most importantly, I want to introduce the language exclusion rule.
+But don't worry, we'll also compare without this rule.
+It goes like this, the first link on many Wikipedia pages is just the language of the
+name of the article, specifically these ones in parentheses.
+The language exclusion rule is to disregard these.
+Let me out for a second.
+Plastic Love is a famous city pop song from 1984 by Japanese artist Maria Takeuchi.
+Without the language exclusion rule, Plastic Love goes to Japanese, but with language exclusion,
+Plastic Love links to Maria Takeuchi, which links to city pop, which then links to Japanese
+pop music, and so on and so on.
+The first link path is now representing more what Plastic Love is, rather than what country
+it happens to be from.
+But more importantly, I think it also gives us better insight into how we, as humans,
+make definitions for things.
+Which is, to me, the most interesting aspect of all of this.
+And we've got enough to start tackling the question that started this all off.
+Do all Wikipedia articles lead to philosophy?
+Coding everything we talked about just now was not easy, but after some hair-polling,
+a lot of coffee, and moving to Germany for unrelated reasons, here are the 5,000 articles
+that I found for the Wikipedia first link network.
+And here's the star of the show, the philosophy article, right in the middle of this big chunk
+of nodes and arrows.
+This giant component represents all the articles that I found that have a path to philosophy.
+Percentage-wise, it contains 97.3% of all nodes in the network, which agrees quite well
+with other estimates I've seen online.
+So no, not all articles lead to philosophy, but the vast majority do.
+Let's take a second to appreciate some of them.
+Orange Juice, the best juice, arrives to philosophy in 13 steps, while Orange Juice, the best band,
+arrives to philosophy in 9.
+Apple Juice, being further from the light of God, appropriately takes the longer 15 steps
+to reach philosophy.
+The game's Celeste takes 14 jumps, and it might fill you with determination to learn
+that Undertale takes 15.
+Both the Calgary Flames and Edmonton Oilers take 16 clicks each, which I guess I should
+just be happy that the flames can tie the Oilers in something, at least.
+And finally, philosophy arrives to philosophy in 10 st- wait, what?
+Maybe let's put that one aside for a second.
+And we could keep going.
+Trust me, I did.
+Though, maybe it's easier if we instead summarize it as a graph.
+The x-axis shows the number of steps it took to get to philosophy, while the y-axis shows
+the number of pages I found that took that many steps.
+As you can see, the number of articles with a given distance from philosophy is bell-shaped
+with an average of around 14 steps.
+The physical structure of the network is also kind of interesting.
+I found 10 articles which link to philosophy.
+We can think of these 10 as roads to philosophy.
+If we color the different parts of the network according to which of the 10 roads they arrive
+on, we'll find that the vast majority of the network belongs to only one of three
+paths.
+53% of articles representing mostly science and countries arrive to philosophy by way of
+analytic philosophy.
+25% of articles arrive by awareness.
+These articles are mostly about institutions, whether they be political or academic, though
+interestingly, all of mathematics is here as well.
+Lastly, philosophy of logic, which accounts for 15%, had a lot of articles focusing on,
+well, logic, but it also has a focus on languages.
+So effectively speaking, 93% of the Wikipedia first link network can actually be thought
+of as three giant lobes joined together by philosophy.
+But what about those articles that don't lead to philosophy?
+Well I found two articles with no links at all, ending the run.
+Honestly though, I'm just going to ignore these.
+Given how rare they are and the fact that Wikipedia actively discourages pages with
+no links, they feel more like mistakes to me.
+Much more likely are clusters that end in loops.
+For example, if you somehow reach the page node parentheses networking, you'll never
+get to philosophy, because it links to telecommunications network, which then links back to node parentheses
+networking.
+Similarly, mathematical optimization and discrete optimization make a loop, and so do information
+technology and information and communication technology, which yes, apparently those are
+two separate pages.
+The very largest loop I could find was the single cycle of three, the one on screen right
+now.
+Everything else was a cycle of two.
+But I think the fact that some pages don't reach philosophy raises an important question.
+Should they?
+Like it seems somewhat arbitrary to me that they don't.
+As an example that's not really related but speaks to what I mean, dog, cow, and chicken
+all link to domestication, but cat links to domestication of vertebrates, a different
+though weirdly similar article.
+Why don't they all link to the same page?
+I don't know.
+And what's more?
+Have you ever seen what a cat can do with its body?
+Cats don't have bones.
+This is clearly a mistake.
+Now I have to admit, I did do a bit of a lie.
+I said that the largest loop I could find was the one with three articles.
+And that is true if we're only talking about these small islands that don't connect to
+philosophy.
+There is actually one more loop hidden in the main body of the network, and it's a
+big one.
+A full 11 nodes or 16 nodes if we don't use language exclusion.
+And that's the loop containing philosophy.
+Yeah, that's right.
+Following the first link path from philosophy and hopping across 10 other nodes leads you
+back to philosophy.
+Which I mean, the fact that there is a loop isn't that surprising.
+A good Wikipedia article should have at least one link, and so we should be able to keep
+clicking forever.
+But because the network is finite, the only way that's possible is if articles repeat.
+Hence a loop.
+But at the same time, doesn't a loop make the philosophy part of the philosophy game
+kind of arbitrary?
+Why is it not the three-dimensional space game or the geometry game, both of which are also
+in that loop?
+What makes philosophy so special?
+It turns out that the answer to that is a bit tricky.
+One of the most common ways of identifying important or special nodes in a network is
+just to see which ones have the most connections.
+Network researchers often call this degree centrality, where degree just means the number
+of connections and centrality is another word for importance.
+Personally, though, I like to call it the popularity centrality, essentially the more
+popular you are, the more important you are.
+Maybe don't read too deeply into that one.
+In my network, philosophy connected to 10 other nodes, though of course these were just
+the ones I found.
+But relative to the rest of the network, 10 isn't that high.
+Seven other nodes, including mathematics, also have 10 connections, and 18 have a higher
+number of connections.
+Association football is the most popular at 51, and my favorite, coming in fourth place,
+is the article Moth, with 17 incoming connections.
+Yeah, Moth had more connections than philosophy, and it's not called the Moth game.
+Though maybe it should be.
+Now, that being said, even though philosophy is not the most popular article in the network,
+it is the most popular within the Big Loop, which is a good first step to motivating that
+it's not arbitrarily chosen.
+But it's also clear that popularity is not the be all and end all.
+Luckily for me.
+Instead, it could be that philosophy is important because of how it's positioned in the network,
+structurally speaking.
+We already saw that we can kind of view the first link network as three big lobes connected
+together by philosophy.
+But can we make that a bit more formal?
+Well, yeah, but bear with me for a second.
+The Corpus Colossum is a thick bundle of neurons that connect to a bunch of things, but it's
+mainly famous because it's the bridge between the left and right hemispheres, or lobes, of
+your brain.
+So by virtue of being a bridge, it's important.
+When network neuroscientists want to measure the bridgeiness of a neuron in a network,
+they measure something called betweenness.
+So let's use that for our network as well.
+Unlike the gree centrality, which assigns importance based off popularity, betweenness
+centrality quantifies the importance of a node in a network by measuring the number
+of shortest paths that pass through it.
+Applying that to our network and resizing the nodes so that they reflect their scores,
+we'll find that philosophy is the node with the highest betweenness.
+Not just in the Big Loop, but in the whole network.
+So philosophy really is acting as the bridge between all these different concepts.
+Which brings us back to the big question.
+Given that philosophy is in a loop, isn't it kind of arbitrary?
+How important is philosophy actually?
+Well, it's certainly special.
+It's got a relatively high number of connections.
+I may be downplayed it a bit when first talking about it, but top 20th place out of 5000 is
+pretty good.
+On top of that, philosophy has the highest betweenness centrality in the whole network.
+No other member of the Big Loop has both of those features.
+Of course, the fact that philosophy is in a loop to begin with means that you can never
+miss it, and you're also most likely to enter that loop on philosophy as well.
+So I think for those reasons, yeah, philosophy is important, and even though it's in a
+loop, it's not arbitrarily chosen.
+It makes sense to call the philosophy game the philosophy game.
+A nice and easy conclusion.
+Except.
+Except, none of that is true anymore.
+Because someone broke the philosophy game.
+So what exactly happened?
+Remember how we found that Wikipedia can be thought of as three big lobes connected by
+philosophy and how the page for awareness connected 25% of the network to philosophy?
+Well, someone redirected awareness to instead point to psychology.
+This gets redirected all the time, so that's not a problem in and of itself.
+The issue is that psychology is within that 25%, meaning that whoever did this made a
+new loop and in doing so cut off a quarter of the network from philosophy.
+But it gets worse.
+Even though 75% of articles still lead to philosophy, there's no compelling reason
+to stop there.
+It's become completely arbitrary.
+It's just another of the 97% of nodes that now lead to awareness.
+But awareness game, if you will.
+All things considered, this attack, if you will, wasn't so bad.
+This is because awareness was also a member of the big loop, meaning that even though
+awareness no longer pointed to philosophy, there was still a path back to it.
+So 97% of Wikipedia pages still lead to something.
+I'll leave it to the philosophers among us to debate whether that something should
+be awareness or philosophy, though I suspect they might be a bit biased.
+But regardless, the overall shape of the network is largely unaffected.
+It could have been much worse, though.
+If someone decided to redirect analytic philosophy to somewhere else, not only could they have
+cut off 50% of the network from philosophy, but because analytic philosophy wasn't part
+of the big loop, they would have actually split the network into two completely separate
+halves, with no path from one half of the network to the other.
+The structure of the network would completely change, and arguably there wouldn't be a
+star of the show.
+Network philosophy was actually redirected since I originally recorded that section,
+but the reason it didn't break the philosophy game is because it wasn't redirected back
+into its own lobe like awareness was, it was sent to one of the smaller ones.
+And this idea of attacking the weak points of a network to ruin my YouTube video is probably
+one of the most important, and applicable, parts of network research.
+Using essentially the approaches we took in this very video, we can identify the weak
+points of a network to either attack or defend it.
+To be clear, I'm using the word attack in a general way.
+A targeted attack on a city's electrical grid is obviously a really bad thing, but
+a targeted attack on a metabolic network of a cancer cell is a really good thing.
+Attacks also don't have to be targeted.
+A tree knocking out a power line is a random attack, as is an attack from neurodegenerative
+diseases like Alzheimer's on brain networks, though that's obviously a bit more complicated.
+Targeted or not, by knowing the structure of the network, we can predict and prepare
+for how these attacks will affect a city or a patient and help to defend against it
+before it even happens.
+Which begs the question, was the attack on the awareness article random or targeted?
+Well, if we go into the article history for the awareness page, we'll find some juicy
+drama.
+On April 5th, 2024, someone made a change, logging the following, changed order of psychology
+and philosophy so it doesn't break the rule that every first link brings to philosophy.
+Now I know awareness did first link to philosophy when I started gathering data in early 2024,
+so presumably someone had changed it at some point and this person changed it back.
+I think it's worth pointing out that one day prior I posted a short preview of this
+very video to my Patreon subscribers.
+Obviously that can't have been a coincidence, so thank you to my amazing and patient subscribers.
+Anyway, on May 22nd, 2024, someone undid that change and wrote C Talk page for why psychology
+is first.
+Now, I'm not very familiar with this backend part of Wikipedia so I couldn't find whatever
+they were referring to on that talk page.
+Regardless, all of this has me convinced that this was in fact a targeted attack meant to
+ruin my video and make me look like a fool.
+But the jokes on them, I'm already capable of doing that all by myself.
+Anyway, let's go back to the awareness page for a second.
+Notice that even though philosophy isn't first, it is second, which gave me an idea
+and it's something I haven't really seen anyone talk about at all.
+What happens to the philosophy game if we don't use the first link?
+Well, we've done it before, so let's do it again.
+Go to a random Wikipedia page, click the second link this time, repeat until we hit a loop,
+then start again.
+Re-watch all of Neon Genesis Evangelion while the code runs, okay it's done.
+Generate the second link network.
+Realize there's a bug in the code that affected the first link network as well and go back
+and regenerate that network re-analyzing question why you do this to yourself.
+Repeat the previous steps and finally here it is, the second link network.
+But why stop there?
+Why not the third link network?
+Why not the fifth link network?
+Why not the hundredth?
+Okay, maybe not that one.
+And here they are, the second, third, and fifth link networks.
+As you can see, unlike the original first link network, these are much more fragmented.
+The importance of philosophy is also heavily diminished.
+The probability to even reach it is 2% for the second link network, 1% for the third,
+and my program never even found philosophy for the fifth link network.
+What's more interesting though is how the network is changing shape.
+Part of this is because it's becoming increasingly likely that we'll run into a page that doesn't
+have enough links to continue the walk, which is why I stopped at five.
+That explains the fragmenting, but not why the connected components of the network are
+changing shape and becoming kind of stringy.
+What we're seeing is, I think, our collective agreement on how we discuss concepts.
+Early links try to contextualize a topic within a broader concept, while later links reflect
+individual properties of that topic.
+Neon, Genesis, Evangelion, and Gurren Lagann are both animations produced by studio Gainax
+about giant robots and making friends.
+Given their similarities, it's not a surprise their first couple of links are also very
+similar, whereas the later links reflect more of their individualities.
+In other words, for larger link numbers, the chance that two articles point to the same
+thing decreases.
+Instead, they just continue, like a string.
+You can really see this effect if we choose links completely randomly.
+The network just looks like it dissolved in some soup.
+Hopefully you can see how the second, third, and fifth link networks are kind of trending
+towards that.
+The main difference being that anytime you reach a page with fewer than five links,
+the fifth link walk stops, while a random walk can continue with just one link.
+And it's this trend that's interesting to me.
+If the structure of the second link network was already very stringy, it would suggest
+that there's no collective agreement in how we describe articles beyond the first link.
+But that's not what happens, while greatly diminished the second and third link networks
+still show some residual agreement and from there gradually trend towards the random network.
+We're essentially seeing the functional decay of our collective agreement on how we
+write definitions for things.
+Wasn't this supposed to be a math video or something?
+Though actually, I think that's what's really amazing about this.
+We're using math and we're analyzing the structure of an abstract network to learn
+something about how we communicate and connect the world around us in our mind.
+Wikipedia is this uncoordinated mess that tries to encapsulate everything that we know
+about our universe, and in doing so, sometimes reflects a bit of who we are, if you know
+where to look.
+Looking into Wikipedia is kind of like looking into the night sky, staring into either for
+too long makes me start to think, where's my place in all this?
+And that's when I realized, maybe I don't need a Wikipedia page about me.
+Maybe the connections I was looking for were already all around me.
+I guess what I'm trying to say is, it's a great big and amazing universe, but you're
+what makes it mean something, especially if you're signed up to my Patreon.

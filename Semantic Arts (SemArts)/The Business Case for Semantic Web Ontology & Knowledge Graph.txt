@@ -1,0 +1,530 @@
+Thank you for joining today's webinar, the business case for semantic web ontology and
+knowledge graph.
+My name is Thomas Cook, and I'm joined here today by Mark Wallace, who will be leading
+you through today's webinar.
+Thank you for joining.
+Next slide, please.
+Just to share a little bit about Cambridge semantics, we were founded a little over ten
+years ago.
+We have offices in Boston and San Diego, and our founders came out of IBM's advanced
+internet research group doing some research in the early days of semantic web.
+And they saw a need in the data management space for the ability to use graph and semantics
+to connect all of the silos of information across an organization into a single place.
+And they set out to create the Anzo data fabric, our flagship product.
+They were using a lot of off the shelf triple store technologies for that, and many of those
+were having scaling issues.
+And they came across the company called Sparkle City, which then later became Anzo Graph DB.
+So they joined forces, and now Anzo Graph DB is now an integral part of the Anzo data
+fabric.
+Today, we'll be talking primarily about Anzo Graph DB, but stay tuned toward the end of
+the webinar.
+I'll show you a quick demo on the Anzo data fabric and how it's used to automatically
+create knowledge graphs and use ontologies.
+All right.
+Thanks, Thomas.
+Hi, everyone.
+Good day.
+This is Mark Wallace.
+I'm an ontologist with Semantic Arts.
+And Semantic Arts is a information technology consultancy.
+We are experts in semantic technology and ontology design.
+We've been specializing in semantic strategy and ontology implementation at many clients
+since 2000.
+Currently three of the Fortune 100.
+We have worked for, we've been thought leaders in this space for a while.
+We speak at conferences, publish articles.
+We author books.
+There's a couple of books there being shown.
+Dave McComb, our president and founder, and his latest work on the data-centric revolution.
+And a lot of what we talk about as we talk about the business case in this webinar is
+really gone into in detail in these books.
+Kind of what's the problem and what's the solution.
+Collectively, our team has over 200 years of experience in this area.
+We do invest in the ontology community beyond just Semantic Arts.
+We have a proprietary, well, we have an ontology, just a minimalist upper ontology, which if
+I have time, I'll talk a little bit about that later.
+It's something we, it's under the Creative Commons license.
+We allow others to use it for free.
+We run a gist council for governing that ontology.
+We also are part of something called the SD's part group, which is kind of a think tank
+of a lot of data practitioners.
+We get together once a month and again, try to move the art forward beyond just Semantic
+Arts.
+And we also observe the international worldwide web consortium standards and guidelines in
+the work we do.
+So we, we don't have a particular tool set that we try to sell.
+We use best of breed and what our clients are interested in.
+As for me, I am an ontologist, meaning I design and build ontologies for clients.
+I've also come from a long background as a software architect and developer.
+I have decades of experience designing and building data-centric systems.
+Even before the Semantic web, I seem to always get myself into data-centric projects, data
+layers, things like that.
+I got exposed to the Semantic web in about 2004, and I've been working in that area ever
+since.
+I've built some large-scale RDF applications up into the billions of, you know, triples
+in nodes and things like that.
+I've been an invited Semantic web speaker since about 2009.
+So that's who I am.
+Let's talk about what we're going to talk about.
+So the agenda for this webinar is basically this, we're going to talk about kind of briefly
+why are IT costs so high?
+What changes might be needed to solve this?
+I'm going to ask the question, is the Semantic web knowledge graph, is that the fix possibly?
+We'll give you an introduction into a quick introduction to ontology and four knowledge
+graphs.
+You can have a knowledge graph without an ontology.
+We think they're better with them.
+We'll do some myth-busting after that about kind of the way things were, but the way things
+no longer are.
+We hope that's helpful.
+And then we're going to go into some demonstrations.
+We'll be using AnzoGraphDB and we'll demonstrate through some Zeppelin notebooks.
+We will demonstrate some new things coming to the Semantic web.
+There's something called RDF Star, which we will show and we will show inference.
+And we will show some graph analytics over RDF style graphs and how that can interact
+with inferencing, which is something that Semantic web graphs can do.
+And then we'll leave some time for Q&A.
+So hope this will be very helpful to everyone.
+We got a lot of wood to chop, so we're going to go ahead and get started.
+We'll start with the problem.
+In the business world, the problem, as we see it, is that between 40 and 70 percent
+of most IT budgets are spent on integration.
+This particular stat comes from Dave's book, The Data-Centric Revolution.
+And really, the reason is that most IT systems have local data models and local knowledge
+graphs.
+And the reason by that is if you think the implied scope of relational system is supposed
+to be the enterprise, with the idea that a relational database might serve many applications.
+And that's the case in a lot of cases or in some cases.
+But in a lot of cases, we find with clients that the actual scope of relational system
+isn't even the enterprise.
+A lot of times it's just an application within the enterprise.
+And we say the implied scope, relational databases didn't go out to explicitly state a scope.
+But if you think about the way identifiers and tables and things are defined, there's
+just no real mechanism for those to mean anything beyond the context of that particular
+application or that particular database.
+There's nothing built in to standard relational systems to move beyond that localized view
+of your data.
+And so we end up with silos all over the place and therefore the need to integrate.
+In the last, I'd say, 10 years or so, we have seen the advent of labeled property graphs.
+When you see me use LPG, that means labeled property graphs.
+These are graphs where you can name the edges and give a label to the nodes to say what kind
+of nodes they are.
+But here again, the implied scope of the typical labeled property graph is a single graph database.
+You're generally working on one data set or maybe several data sets that have kind of
+been hand harmonized.
+But again, there's no real mechanism to reach beyond a single graph database in terms of
+sharing schema, sharing meaning, things like that.
+So this local problem ends up creating silo after silo of data that has to be integrated
+hence the high integration costs.
+And to fix this kind of local data problem, what you need is, first off, you need kind
+of global or IDs.
+Like you need identifiers that will help you, that were designed to have a broader reach
+than just a local system, something that would work at a broader scale, at a minimum, at
+an enterprise scale, and perhaps even broader than that to work with partners or even to
+share data around the globe or to use public data around the globe.
+In addition to just IDs that kind of work more broadly than a local system, you need
+a shared schema.
+How can I talk about a schema like customers or orders or things like that and do it in
+a way that everyone else is using the same schema unambiguously?
+And how can we make sure we know what an order means to us or a customer means to us versus
+a customer to someone else or across the departments in our enterprise?
+So that's another need, shared schema, clear meaning.
+And the other thing is we really kind of need a level of vendor agnosticism because once
+you get to the level of enterprise, you're not able to buy everything from just one vendor.
+So you kind of need something that's going to be able to work across vendors and not get
+you locked in.
+Here's a question that I pose is Semantic Web the fix.
+I'm assuming that most people on the webinar have some exposure to the Semantic Web.
+It's essentially a set of standards that allow data to be represented kind of in the way web
+pages were in the past where they have URIs to get to them.
+They can be hosted anywhere in the world and they can be linked together from anywhere
+in the world.
+So we're going to try to web page and link to another web page on someone else's blog.
+So Semantic Web is a set of standards that does that, but instead of just web pages,
+it's going to represent kinds of things in the world, orders or people and relationships
+that exist in the world, like, you know, an airport is located within a city is located
+within a country.
+So we're going from text linked to text to object representations linked to object representations.
+That's kind of my quick background if you didn't know what the Semantic Web was.
+So the first thing about the Semantic Web in terms of could this be the fix for some
+of the problems we're seeing is that the explicit scope of RDF, which is the basis of the Semantic
+Web that stands for resource description framework and it's basically the thing that
+makes the graph.
+The explicit scope of it is web scale.
+It was specifically designed for that.
+It does have global IDs.
+It uses URIs, which as we know are sufficient to fit the global web.
+Different organizations can have their domain and therefore they can control what's in that
+domain so they can keep from clobbering each other.
+You know, my website is different than your website.
+I can manage the URIs in that domain and we can apply this to global IDs so that we can
+define data or schema and be globally unique about what we mean and allow other people
+to use our IDs both for data and for schema.
+Adding to that, since the schema is done with these global URIs, it is not only it's
+shareable globally.
+And then beyond that, there's another part of the Semantic Web called OWL, which is ontology
+web language and it is a language for defining schema known as an ontology and to do this
+with unambiguous meaning.
+So instead of just having a word for something, a term, you might think of a table name or
+something in a database and you hope you understand what that word means.
+These ontologies allow you to go much deeper than just using a word.
+You can describe not only with textual comments and labels, but you can actually describe what
+it means in combination with other concepts you've modeled.
+And I will show you an example of that just a little bit later in the presentation.
+Finally, Semantic Web is vendor agnostic.
+Again, the Semantic Web is essentially a set of W3C standards.
+And then different companies will implement against that standard.
+So everything would be interoperable.
+So your vendor agnostic, you can work with multiple vendors.
+You can even make it easier to change out technology.
+If you need to switch technology, your data can be brought into and your queries into
+a different vendor platform and it all still works because it's all standards-based.
+Okay, so that's why we think Semantic Web might be the fix.
+We'll be showing some examples.
+So for the purposes of this webinar, when we kind of titled it about Semantic Web Knowledge
+Graph, this is what I really mean.
+I mean a knowledge graph, so a data model that's made of nodes and edges.
+But in particular, one that is using RDF as the graph technology and an owl ontology
+as its schema.
+So that's what we mean when we talk about a Semantic Knowledge Graph with ontology.
+Okay, so now I'm going to talk a little bit about what would an enterprise owl ontology
+be.
+And this is really the bread and butter of a lot of the work that Semantic Arts does.
+Once we go into organizations and we help them make sense of the information they have
+in their data systems, and part of it is just figuring out what is all this data about.
+And we'll go in and a lot of times our initial engagement will be to create something called
+a core ontology.
+We say think big, start small, so we think big, we're going to do a core ontology of
+the main concepts common to the enterprise, the ones that are central.
+And then we'll start small with some small pilots, but they will initially leverage that
+big overarching ontology so that there's room to grow in the future.
+So an enterprise ontology defines a common core set of concepts.
+So these are the concepts that are central to an enterprise for a financial service company.
+These might be things like accounts and transactions and customers and so on.
+The nice thing about this core set of concepts is that really it's relatively stable.
+Technology changes here and there, but the things that are central to a financial services
+form or an architectural firm or a real estate company, those things don't change all that
+fast.
+It's a relatively stable set of concepts.
+And also we find in our practice it's relatively small, meaning we'll find there's maybe a
+few hundred total concepts that the business runs on.
+And that may seem kind of a lot, but the alternative is what's currently happening where you have
+multiple databases with each of multiple tables and those tables have multiple columns.
+And if you think about the full set of concepts you need to understand when you have, let's
+say, we've had even a client with a small data set that we worked with, they had about
+700 tables and about 100 columns per table.
+And so that roughly is 7,700 concepts.
+And there are some ERP implementations that literally have tens of thousands of tables
+and hundreds of thousands of columns.
+And really for someone to get their mind around all that information, they really have to
+understand tens or hundreds of thousands of concepts.
+So in our case, we'll get these off and down to a few hundred and people can actually get
+their head around them and understand what things mean.
+So that's what I mean by it's a relatively small in comparison with all of the tables
+and columns you would normally have to get your head around to truly understand what's
+going on in an enterprise.
+And honestly, that's why most people don't, right?
+It's such a mess.
+We have no idea.
+There's no real way to see all the data and all the information, and that's by integration
+so difficult and costly.
+So one thing about defining an enterprise ontology like this is that it helps identify
+terminology conflicts that the enterprise has.
+It helps synchronize the case where you might have different words for the same concept,
+right?
+Different lines of business of different people use different words when they really mean
+the same thing.
+Also during this time, you'll see the opposite.
+You'll see the cases where the same word is being used for different concepts, that kind
+of ambiguity as to which one are you meaning.
+So doing an enterprise ontology, it takes some work.
+We'll often spend three months trying to identify the core concepts with a client.
+But then it pays big dividends because when you come up with this core set and then over
+time you might want to go more deeply into a particular subdomain with a client, you'll
+find that you have a place to ground everything and everyone's talking in the same with the
+same set of concepts.
+So it really, it's a little bit of work up front, but it eases integration all the way
+down the line.
+The last thing I'll say about an enterprise ontology is these ontologies are formal models,
+meaning they actually have a mathematical basis.
+That formality means they're computable and you can actually, you know, tools do automation
+based on these formal models.
+One of the things you can do is detect logical schema inconsistencies.
+So once you build a schema, and again I'll show you an ontology later and you might start
+to get a sense of how that's possible.
+You define some terms in terms of other terms and you build this network of meaning and
+that if anything is inconsistent, the tools can tell you.
+Also these formal models allow you to discover new facts in the data, meaning you can come
+up with new statements that were never explicitly stated, but you can tell through the logic
+of what has been stated that these other things must also be true.
+We'll see some cases of that.
+Just kind of a picture of what this might mean then.
+You kind of have this ontology model of concepts and their relationships to each other kind
+of in this oval.
+And you can use that as a lens by which you can look at and often integrate into specific
+kind of siloed databases and the information they contain or maybe as a way to view holistic
+basically your enterprise data lake and you can map these common central concepts down
+into that data and understand what you're looking at.
+And you can even virtually or ETL them into a knowledge graph and actually query it.
+Okay.
+Now I'm going to switch to kind of again if you've heard about Semantic Web, you may have
+heard some of these traditional kind of pros and cons of them.
+On the pro side, they use these global URIs for linking data and reusing schema, which
+is one of the things we kind of said you need to be able to do to get out of that local
+memory space.
+Again, they have this idea of an ontology that ensures that the schema meaning is clear.
+And this is actually a bigger problem than many realize.
+One of our ontologists, Michael Ushel, says you cannot maintain what you do not understand.
+And a lot of times people can't possibly understand all the schemas in all of their data systems.
+This is too much.
+Or the meaning is ambiguous because it's just a name without any further definition.
+Another pro of the traditional Semantic Web is that it's vendor independent.
+So that helps you not get locked in.
+But there's also some cons that people bring up about traditional Semantic Web knowledge
+graphs.
+One of them is to say, well, there's no properties on the relationships.
+With the advent of labeled property graphs, you can say some things about a relationship.
+Like let's say you have a flight route between two airports.
+You can say, well, the distance on that A has route to B and the distance on that relationship
+is 950 miles or something.
+In a Semantic Web graph, there's no properties on relationships, so this can lead to more
+complex models.
+You have to create an intermediate object called a route and point at the two ends and
+put a distance on that.
+So that's been a con traditionally that people have brought up and people have moved sometimes
+feel that other labeled property graphs could be easier because they allow that kind of
+modeling.
+Another knock has been, well, you can't do graph algorithms.
+Semantic Web knowledge graphs are great for queries, but they don't actually do true graph
+algorithms like shortest path or page rank, things like that.
+So now we get to the myth busting part of the webinar.
+We're going to tell you and then we're going to show you.
+But this is the tell part.
+The myth was that, okay, unfortunately now because of these pros and cons, I have to pick.
+The myth is you have to pick either an RDF graph or a labeled property graph.
+If you like this kind of more global data harmonization and integration and some of the analytics,
+in terms of averages or statistics or things like that, computations, RDF is good for that.
+But the labeled property graphs are good for things like graph algorithms and edge properties.
+And you've got to kind of sit there and pick which one is going to work because they have
+not been interoperable to date.
+But this myth is now being busted in the last, I'd say, maybe a year or so.
+There's something out there now called RDF star.
+And it's got a query language called sparkle star, but it is a extension of RDF that allows properties on the relationships.
+So that's one of the key things we were kind of missing in semantic graphs.
+I will show you some of that later.
+And the other one is that you don't get graph algorithms.
+And we're showing Angiograph DB and it provides graph algorithms.
+And I'm sure other vendors will be coming out with this soon, but, you know, the idea of a page rank and weighted shortest path some of these things that were traditionally not in a typical RDF triple store vendors like Cambridge semantics are now putting
+these in so now it's kind of not an either or I can get all the benefits of a semantic graph with global IDs and ontological schema.
+I can also get properties on the edges and I can also get page rank and other type of graph algorithms. So, and that's, that's the telling now we're going to move kind of to the showing.
+So, we're going to do a demonstration using some airline data flight delay data and such Cambridge semantics already had a data set that was doing this and using the RDF star to put
+data on the on the edges so what we're going to do is we're going to preview that Thomas is going to jump on and kind of talk a little bit about the data that we that they have gotten for their flight delay demo and talk you through how they model that
+and bring that into the system, and then I'll take back over and show you how we can put ontology on top of this and inference on top of this and then get the best of both worlds.
+So, we're going to put the edges on the properties graph analytics as well as formal model inference to get answers to queries. So with that Thomas, I'll hand it to you.
+Thanks Mark.
+Now so when we set out to collaborate with semantic arts on a joint demo for this webinar we said well hey let's reuse something that we've already done and perhaps reuse an ontology that you've already created and and so the airline demo.
+So here is one of our Anzo graph getting started tutorials, and we basically took some CSV data from the Bureau of Transportation Statistics they provided individual flight delay information so we downloaded all of the flight delay data from
+3 to 2019, and that comes down in a CSV file, and we basically just loaded that data raw into the graph and just kept up all of the same predicate names it didn't create any global IDs, just some very simple getting started tutorials, and then now what Mark will show you is how you combine that with an ontology.
+Next slide.
+And so what the data looks like there there are a couple data sets that we're combining but the main data is this flight information, and it's about 32 columns you can see those listed here. There's about 6 million records.
+When you you can download these and these data science notebooks the Zeppelin notebooks and run them yourself the data will come off of our S3 buckets so when you load the data when you run the notebook it'll load the data from our S3 buckets.
+This is what it looks like go to the next slide.
+The first thing we need to do is convert those rows and columns into triples and so we looked at the different entities that exist in there there's there each record is a flight. It has a departure of a specific airport.
+It also arrives at another airport, and then when a flight goes from one airport to another airport we can also connect those with an edge.
+This is just a very simple model that we first got started with go to the next slide.
+Once we have that you can start to see how the graph model starts to build out and so this is kind of the standard for each record there's there's airports that are connected by a flight, the flight has a departure and an arrival and we connect those with the destination link.
+Now, Mark will take you through how to use this ontology but basically each one of the rest of the go ahead yeah go to the next slide.
+Each one of the columns is associated with different properties on those nodes and here we show the RDF edge properties.
+I think that's a build out one more. So here we have airport Boston is connected to airport JFK.
+We put an RDF star edge property of distance equals 187 on that edge and that allows us to do different types of analytics, like weighted shortest path so Mark will show how that's done in the data science notebooks as well.
+Next slide.
+Once we have that data loaded then we can start doing all different types of analysis so our sample notebooks the getting started the first one loads the data the second one runs these different queries so you can start analyzing it but that's just the raw data.
+Now we want to start integrating that with other sources, and that's what Mark is going to take you through so how do you do that how do you apply an ontology to that existing data set.
+And I'll hand it back over to you mark.
+Alright, thanks Thomas. Okay, so, so yeah now we're going to kind of get to the demonstration portion so what I'd like to kind of start with.
+I'd like to start with kind of showing you a picture of kind of the main concepts in the ontology and then I will take you from the picture into the what the ontology looks like so.
+Flights are historical events in our model, as opposed to like the idea of a flight or a possible future flight.
+Flights are historical events so they have a start time and end time they have a route code they have you know what was was there any actual delay things like that.
+Flights depart from and arrive at airports.
+Airports can have routes to other airports, as Thomas kind of just mentioned and they can have these routes can have distances, so we can model that.
+You know airports are a type of place in the general sense airports is just one of many types of places.
+Geographic regions, such as cities, states and countries are places too. So you know this model is just showing showing that there's lots of different kinds of places, some being region some not.
+Some being landmarks or other things.
+It's important to note that places can be located within other places, you know that makes common sense to us as humans we understand that.
+You know, if I'm located in Melbourne, Florida and Melbourne, Florida is located in Brevard County Brevard County is located in Florida then I'm also located in Florida and the United States etc.
+This is something we can put in our ontology the idea that places can be located in places.
+We can also even define that located in is something called a transitive property, meaning like I said if a is located in B and B is located in C, then the system, if we say that located in is a transitive relationship.
+The system can infer that a is located in C and on up the chain, and that actually will play into some of the stuff we show you in a minute with the flight demo.
+So yeah so just an example again places so airport can be located in a city the city can be located in a state state in a country, etc.
+So kind of the overall model that kind of pictorially will have a flights and places airports they arrive and depart from.
+We will get into a little bit later the idea that we're going to subclassify and be able to determine what's an international flight and an international sorry international arrivals and departures.
+So a subtype of flight those that come in from somewhere that's not the current domestic country and some that are leaving from a domestic country to a foreign country, based on a certain perspective.
+In terms of the data that we're building from, we actually end up with two different data dumps that we used one was the flight data.
+One with delays that Thomas mentioned another one is an airport set of airport data that just tells what airports are located in what you know cities and countries and what their latlongs are and things like that what their codes are.
+So we'll end up building data that looks kind of like this will have you know airport located in a city city located in the country.
+Other airports linked to again up through cities and countries and airports and their routes to each other with distances on the edges.
+And then we also have that flight data so there'll be a particular flight.
+So we'll get into kind of the URIs that model these things actually as I hover you can kind of see that because we're using an RDF graph, every one of these things is really modeled with a URI that makes them distinctive and globally shareable.
+And other people that want to talk about the same Orlando airport could do so by using the same URI.
+And essentially so then we'll talk about flights particular flights that have an arrival and departure time and maybe a delay and where they departed from where they arrived at this is the type of data will be building.
+Okay, so that's just a picture.
+And now I want to show you an ontology. So let me show you what an ontology kind of looks like there's a language for this called out ultimately this is there's a to be like software there's like a software text file, or you can also store them in a triple store, but ontology.
+This model we can.
+Interestingly, we even can name we name the ontology with the URI to make that a universal ID, we can give it a universal and give it a version number.
+We can annotate the ontology say a few things about what it is who created it, etc.
+And the ontology really allows us to define classes or types of things and relationships between them. So for example, in the simple flight ontology that we were using.
+We use this as part of a training course that we do it's a kind of a small ontology but it shows the key concepts and when we understood, or we found out that Cambridge already had a flight demo we thought we'd go ahead and utilize it.
+So again as you can see the ontology all of these items in here have a URI that defines them. We've defined a concept called flight, you know at the highest level organization in place.
+This sort of tree diagram shows kind of concepts defined from general to specific so the most general concepts are at the top of the tree and as you work your way down, you know things get more specific so for example an airport is a kind of place.
+We can describe every, every item, you know with what we call a preferred label.
+And a textual definition.
+The classes are the types of things so we can say an airport's a type of place, a geographic region is a type of place, and then we can go further a city is a type of geographic region, a country is a type of geographic region, a state, and again we can define all these.
+And where this, I think where this kind of gets particularly interesting is how the definitions get formal.
+Let me show you that in just a second let me show you just a couple more things about the annotations.
+I mentioned that vocabularies can vocabularies can be globally shared schema can be shared.
+There's some of that happening right here with SCOS, which is an organization put out a vocabulary called SCOS, which is simple knowledge organization system.
+And they had this neat idea that you might have a preferred label for something and then alternate labels for something.
+What if your name isn't quite right and people have a hard time understanding it. So we utilize their vocabulary to say well this is what we're going to call it.
+But we want to, for searching or just for people's understanding we want to allow you to say there's also alternative labels for these things.
+You can also do these multilingual so that your data can be understandable in any language.
+You can have multiple labels one in English one in Spanish, you know, one in German etc.
+And then to the types of objects we're going to have that's really these classes are the types of objects in our world.
+You also can have properties. This is a set of object properties in this vocabulary and essentially it's the kind of relationships that will occur between things.
+So arrives at departs from has route to located and we've mentioned these sort of things again all documented.
+These properties are really the way you know this is a way to connect objects objects data properties are the way to connect values. It's just I want to put a value on some object like its name or the date that it started, or the date that it ended, or distance
+and miles.
+Another cool thing about ontologies is that you can properties. In addition to classes properties can be hierarchical.
+And that's the concept of the concept of a delay and amount of time and minutes when something was between when something you know was planned to occur to when it actually occurs.
+And that's the general concept of a delay but actually in the flight area we might want to talk about distinguishing the more specific arrival delays versus departure delays.
+We can actually say well on arrival delay is a delay, but it's a little more specific this is the amount of time for when a rival was planned to occur to what it actually occurred.
+So that's kind of the ontological concepts now here's where it gets more formal. I'm just going to try to walk quickly through one definition here, an international arrival.
+And it is we can, we've defining this in terms of other terms we're saying a flight, or an international arrival is what, well it's a flight, but it's specifically a flight that arrives at a domestic airport and departs from a foreign airport.
+Okay, well, you know, what is a foreign airport.
+Well, an airport is an airport, and a foreign location something that's simultaneously an airport on a foreign location well what does a foreign location mean, or foreign location is any place that is located in a foreign country.
+Well what's a foreign country will foreign country is any country that is not in the set of domestic countries.
+So from this perspective of doing this for a client United States what's a what's a domestic country well it's a country that is this particular one.
+So actually that that kind of shows you how you can define elements of the concepts in your ontology in terms of other ones and you get that that really specific meaning like I now understand, you know, when someone just says a domestic airport or an international
+I guess that what that means I can actually step all the way through the formal definition and understand how they're defining that.
+And this sort of stuff allows us to infer, you know, new new facts and we'll see that in the demo and I'm going to jump to that now.
+So, let us now go to
+this is a Zeppelin notebook, it's like a data science notebook it's connected in this case it's connected to a anzograph DB back end.
+And this notebook as Thomas said will be made available so anyone wants to work through it can so this is, we're going to actually get get going here.
+First off, I'm going to kind of reset the world. So we're going to actually do this live. This is basically just dropping all the previous data that was there.
+I should mention, there are Docker containers.
+I believe Thomas these can be downloaded as well I'm not sure but if not there's there's ways that you all can, can get a copy of.
+Yes, that right they can download a Docker container just like just like I did. Okay, so the next thing we're going to do is we're going to load the ontology. So I showed you that ontology in this protege tool, which is a free tool.
+So this is the actual code of an ontology on just that you look at this real fast you define different properties you define your classes everything you saw in there the pref labels the definitions, the data properties and the classes including
+their kind of complex definitions, all in this file, and this file is not too big it's about 400 lines or so.
+So we're going to take this ontology and actually kind of put it into and so graph DB, just by running this.
+Okay, it's in there. Next step we're going to load the US flight delay CSV files.
+So we're going to define this data to the ontology as we bring it in meaning we're going to use vocabulary terms in the flight ontology, as we load it.
+You know by using the ontologies vocabulary will also get its formal meanings. So we'll get the idea that, you know, certain properties like location or transitive, etc.
+And notice that there's some concepts in the data that we're going to go going to go ahead and load like maybe wheels off time or taxi in time that we actually don't have semantic arts didn't have in its original ontology and that's okay.
+That's one of the cool things about these graphs is, you can have others things that aren't in someone's ontology you try to use we're just going to use a different namespace for those items and you'll see that.
+So here we go.
+And so graph, basically, does a slight, they allow you to use this is standard sparkle update syntax the same we're going to insert into a graph and we're going to start building a graph.
+We're going to have airline URIs and we're going to say something as a flight carrier it's got a pref label we're going to build airports say something is an airport what its terminal code is.
+It's part where we get into the thing called RDF star which I can't go into a lot but the idea of an edge property. We're going to build an edge from an origin airport to a destination airport, we're going to build a triple that looks like this.
+And then we're going to say, Hey, for that edge with this special syntax of double angle bracket that edge between those specific airports has a particular distance and miles.
+We're going to build flight data who operates it etc.
+And this is where as Thomas mentioned we're going to go grab this a CSV file off of an S3 bucket.
+We're going to do a little bit of data manipulation on the way in, we're going to build, since we need to build these URIs to allow things to be shared we're going to build URIs I won't get into the details but using standard sparkle, which is the language of the query language of the
+data building language, we will do that, and then essentially will, as you see will be using the flight terms for a lot of this data as we build it.
+So let me go ahead and do that.
+Okay, and it's bringing that data in I had a little query at the end it says we pulled in about 10,000 records.
+We're going to do another one, bringing another data set this is the one that was airports and cities and countries and things like that.
+Again, we're going to be building airport, defining airports and their labels, you know their terminal codes, and this data talked about the city and country we're going to be.
+We call this a semantic arts we call this minting URIs.
+You know, the URI is so powerful, you do got to put in a little bit of work to get that power and that really is thinking hard about how you want to name things or how you want to give them an ID.
+It's just like you meant to coin we talk about minting URIs. And as we bring this data and we're going to be careful that the airport URIs that we meant here are minted in the same way as we minted them as we were doing the flight data, talking
+about to and from airports, and by using the same ID those things will just snap together in the graph essentially will get integration for free by doing some thinking about how we want our URIs to look.
+And this one.
+Okay, and we got 6000 or so airports.
+So,
+now we're going to do some some queries. So, this first one this is a sparkle star query.
+This is part of essentially Cambridge semantics original demo. It's just saying I just want to find the longest routes in general.
+I'm syntax this RDF star sparkle star syntax this is a query that basically says go find me from things that go from an origin airport to a destination airport, and grab the edge distance off of that edge.
+And go ahead and we're going to order by descending distance. So we're essentially going to find the, the longest ones first.
+Looking for airports.
+And so essentially we we did a little trick in here where we can build new variables and we simply took the airport code said okay Honolulu JFK that's the longest, etc. So here's some analytics we're doing on the graph using edge properties.
+So that's already a cool addition to standard RDF where you would have had to create a separate object to represent distance between two things we can put that right on the edge.
+Another query that came out of the original, you know the basic ends of grab capability is this idea of
+Page rank. So what are the most well connected airports based on page rank. So there's a syntax by which we use something called a service call which is a standard part of sparkle, and we're essentially going to try to find things that go from
+We're going to look at all the links coming into or out of an airport and figure out which airports have the most links coming to them, meaning they seem to be the most well connected.
+This is a graph analytics capability, not something that you typically can do in a typical sparkle query.
+And it computes a page rank value and we can see Chicago is the highest, the most highly interconnected airport followed shortly by Dallas Fort Worth.
+Okay, so we've already seen just on the straight graph, this edge property computations, as well as page rank graph analytics two of the things we said you know this is part of that myth busting that now there are systems that can do those sort of things with a semantic graph.
+But what we're kind of now something a little bit new that we haven't seen in the previous Cambridge demos is we're going to go ahead and use the ontology that we brought in and its axioms.
+And we're going to run what's called a reason or the answer graph DB has a reason or it'll generate new triple store statements new statements new connections in the graph, based on the logic that's in the ontologies definitions combined with the data that we loaded.
+So for example, this will infer located in transitivity. So if we said McCoy airport was located in Orlando, but we didn't say McCoy airport was located in the United States.
+But we also but we did tell the system that Orlando was located in the United States. And so what's going to happen is that located in transitivity it's going to be able to infer the new fact that oh okay there's a whole bunch of airports that I now know are in the US.
+And then directly I'm going to assert that direct link.
+Logically, it will infer what places cities and airports could be considered domestic locations and and foreign locations, based on whether they have a located in transitivity to a foreign country or domestic country.
+That's new information it wasn't explicitly stated, you know if you had a database.
+It's not just going to figure that out, but these semantic models will figure it out. And I like to think of them as they're pretty intuitive they do kind of what we humans do without us thinking about it.
+You know if I know that an airport is in Orlando, then I know it's the United States but a database doesn't know that.
+But with an ontology plus a graph like this in a semantic graph, the, the graph will figure it out through inference.
+Finally, and it's interesting because these chain on each other. So, given this chaining, given those inferences it will further determine which flights are international arrivals and international departures.
+We will have never declared any flight to be an international departure we're just going to have said you know the data just said it started at this airport and ended at this report.
+The data simply said, you know this airport's located in this city. So inference is now going to give us a lot more information.
+So let me go ahead and I'll show you.
+And so graph just has a command create inferences and we're going to create inferences from this is basically, I haven't mentioned this yet but we put all this data in something called a name graph it's just a named bucket to put statements in.
+When we generate all this new information all the things that the system can infer, we're going to put those in a slightly different name graph just to kind of keep them separate.
+There's different rules options we're just going to run with all the inference rules.
+And this is out there computing the inferences it's gone ahead and done it. And so now we're going to ask a question that's actually very much based on inference, which flights are international departures.
+So, instead of looking for something that's a flight, our query now looks for something that is an international departure.
+If you recall, we never said anything was an international departure we just said things were flights and where they came from so the inference, the only way to answer this query is that the inference will have figured out which things are international departures.
+So let me run that.
+So there we go so this is a combination of now this data has been reasoned over and now additionally flights have been additionally classified as to whether they're international departures or arrivals cities have been reclassified or additionally
+classified as to whether domestic or foreign cities etc and all that comes together here.
+So that was departures. This is just a similar query looking for international arrivals.
+So we have things at departing from an international arrival something that departed from a foreign country, again relative to our US client and are landing in a US
+foreign city and landing in a US city.
+I've been showing you some kind of pretty pictures because we do have these things like labels we can put on the objects but I just wanted to show you you know what is this data really look like.
+It turns out because I've been talking about these your eyes this is what the data really looks like, you know you have a uri representing the carrier, a uri representing the flight with a unique ID so they don't collide except where you want them to link up together.
+So the departure airport is really a uri the arrival airports uri we're just able to hang labels and other things off them to make them, you know, pretty when we display the queries for a typical user, but it's all your eyes under the hood.
+I have a quick query here just to see how many countries were represented in our flight data.
+We're saying you know find everything that's a country. We got 238 countries represented in this data.
+How many statements are in our graphs.
+In the data we've loaded.
+We ended up with almost 400,000 essentially edges.
+So we got 400 statements in our basic flight and city network, and then when we ran that inference we got another 200,000 facts that were added based on the logic in the ontology, and the data that we had.
+So now we're going to do something kind of cool that brings it all together if anyone's still out there and following.
+We're going to figure out the longest routes from foreign airports. So this is, we had done a longest routes before which was a page rank, not a page rank a distance calculation on the edges.
+We're going to combine that edge calculation with inference discerning as whether an airport was foreign or not.
+Remember foreignness of airports is inferred. The data never said anything about that the data only marks countries, you know we mark the countries for our client as the USA will be the domestic country everything else will be foreign.
+We'll infer the airports to be foreign, based on whether they're located in the city that's located in a foreign country. So this is really showing the combination of inference and edge properties in the same query.
+So you'll see, and where the inference fits in here is simply that we never declared anything to be a foreign airport, but now in our query we can say only give me foreign or airports that have routes to other airports.
+And it was the inference that added all those statements determining whether an airport was foreign or not. And again, so we're using the results of inference, plus the edge properties to compute the longest distance routes that involve foreign airports and here they are.
+Okay, pretty cool we're combining inference and edge properties in a semantic web graph.
+Very nice and then this is kind of the last little bit. We're going to use that page rank algorithm again, but again we're going to filter down only to foreign airports which is not something that was originally the data but inference brought us.
+So this shows a combination of inference plus a graph algorithm in a single query. So again you see us using nodes that are foreign airports that was inferred page rank being run.
+And we will run that.
+And these are the most well connected foreign airports in our data.
+San Juan at the top, St. Thomas coming in next.
+So that's in a nutshell and it was pretty fast but I hope we got through it all and I hope it made sense to you you'll have time to download the notebooks and play around with it a lot yourself hopefully.
+So at this point I want to kind of switch back to and let kind of Thomas take things back Thomas you might want to pick up the presentation.
+Yeah, thanks so much Mark this is a great example of how to use a combination of inferencing combined with the ontology and analytics and RDS so a wonderful example of how all that can be combined and people can download the notebook and try it themselves so.
+I wanted to take you guys through a little bit about Anzograph before the top of the hour. The recording of this webinar will be available we'll send that out but today we were looking at Anzograph DB in the Zeppelin notebooks that Mark was showing.
+And what makes Anzograph so special is our ability to scale and our performance so we have a linear horizontal scaling which means that you can add as many nodes to a cluster to handle any amount of data which is very unique for RDF triple stores.
+Not many out there are able to scale in this way and what we mean by linear horizontal scaling is that as your data volumes grow, you can simply add more nodes and you will get the same performance so we published some benchmarks where we have.
+Where we have some queries running on a single node, we scaled that data up to 40x the data and we ran the same on 40 servers as well and the queries running about the same time and so that proves the linear scaling of Anzograph so we can handle any data volume.
+We're an in-memory database distributed MPP processing both for loading and querying so you get amazing performance. We're designed from the ground up for analytical processing so high performance analytical processing.
+We've built all kinds of different analytical functions from data warehouse style functions, graph algorithms, over 50 different data science functions, also recently added geospatial support as well as data virtualization and we're built entirely upon standards.
+So that is Anzograph DB. It's available for free download up to 16 gigabytes of processing and you can download these sample notebooks and try it yourself and I'll hand it back to Mark to recap and I also have a quick few minutes.
+I want to show you of the Anzo data fabric at the end to show you how you can leverage ontologies in our Anzo data fabric to build a knowledge graph. Mark.
+Yep, thanks Thomas. Yeah, so just to recap, you know, we kind of talked about why our IT costs so high, you know, so much of it is integration, what changes were needed to solve it, you know, we kind of needed a more global way of looking at things of doing schema and IDs.
+We looked at semantic web knowledge graphs as possibly the fix kind of took you quickly through the breakneck speed of an ontology and what you can do with it and how you define terms and in terms of other things and get them more concrete meaning as opposed to just, you know, names of things.
+Did some myth busting about kind of the either or dilemma that we've faced pretty much to date between semantic web knowledge graphs and other labeled property graph implementations that
+that are falling away that that's no longer the case there are ways now to combine them all.
+And then we hopefully demonstrated that convincingly with, you know, a small problem set that brought in data and was able to show the combination of graph algorithms edge properties and ontological inferencing.
+So we hope that was helpful to you and Thomas, you can wrap it up.
+Thank you so much. And last I wanted to show you the Anzo data fabric, which is a platform designed to automatically create knowledge graphs, import ontologies and connect different data sources together.
+This allows you to quickly accelerate these types of these types of projects. So what we were looking at Anzo graph DB is more of a developer tool and developer interface where you type in a lot of code to be able to accomplish what you're doing.
+Whereas Anzo is more of a graphical user interface. So you can see here, these are several different data sets that are connected together. These are publicly available drug product data sets.
+And you can see how the different colors represent different data sources. And so that's what we're seeing how those different data sources linked together here.
+And you can see the ontology and how everything is connected inside of the Anzo data fabric. It also provides you several tools over here on the left to onboard different data sources.
+So we can onboard structured data from virtually any data source unstructured data, build out data dictionaries. You can model that and then blend that together, transform it, cleanse it, etc.
+Curated analytics ready data sets for downstream access. And that's the final step is access so you can do different BI, build different BI dashboards inside of here or make the data available through OData or JDBC connections to downstream processing tools.
+So that's a little bit about the Anzo data fabric. If you're interested in that, please contact us or feel free to download Anzo Graph and give it a shot today. We really appreciate everyone's time and attention.
+And I know we ran out of time for questions. We'll follow up via email for the questions. But hope everybody has a great day and thank you for joining our webinar.

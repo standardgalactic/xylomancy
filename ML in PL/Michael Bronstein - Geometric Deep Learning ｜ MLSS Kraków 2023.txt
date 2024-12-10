@@ -1,0 +1,2085 @@
+Thank you very much.
+So great pleasure to be here.
+It's actually my second time in Krakow, and I think it's a very beautiful choice for
+having a machine learning summer school.
+So in the next three hours, I would like to talk about geometric deep learning.
+And if you wonder this intriguing image, what does it have to do with machine learning?
+So you see, it fits more a kind of an alchemist.
+So we wanted to use this image in reference to this famous quote from Alira Hime, who
+was receiving the Best Paper Award, or the Proof of Time Award at New Europe in 2017.
+And he was speaking this way maybe a little bit critically about deep learning, at least
+at that time, that we say things like machine learning is the new electricity, and he's
+alternative metaphor was machine learning has become alchemy, so in the sense that some
+kind of science that maybe produces something that we don't really understand what it does.
+And really what we would like to do here is to try to understand from certain perspective
+how these methods work and why they work, and maybe more importantly, when they fail,
+and you see kind of maybe general blueprint for developing potentially future machine
+learning systems.
+So the concept that will be important to these lectures is the concept of symmetry.
+And symmetry according to Vile, who I'm quoting here is, depending on how wide or narrow you
+define its meaning, is an idea by which men through the ages has tried to comprehend and
+create order, beauty, and perfection.
+So it sounds a bit poetic, but I think it is true, so that's from his book that is titled
+Symmetry, that he published in Princeton.
+And symmetry is a Greek word, so it goes back to the ancient Greeks, and as you probably
+know, ancient Greeks like Plato considered symmetry to be really the cornerstone of the
+universe.
+So according to Plato, what is nowadays called platonic solids, symmetric polyhedra were the
+basic building blocks of all this stuff in the universe, so probably tiny little things
+that build up the matter, and if you think of it in modern terminology, that's not very
+far from truth.
+So Plato believed that geometry is really the key piece of mathematics, and even according
+to a legend, there was an inscription on the entrance to his academy saying that nobody
+skilled in geometry, that is not skilled in geometry, should be allowed to enter.
+And this idea of matter being built of small symmetric polyhedra, actually not far from
+truth, if you consider how crystals are organized, and the first to study this from a formal
+perspective was actually Kepler, who is maybe more famous for his discovery of the motion
+of planets, but he was also the one who laid the foundations of modern crystallography,
+basically considering how spheres can be packed into different configurations, and if you also
+think that this is old and boring and outdated stuff, so last year's Fields Medal was given
+exactly for solving these kind of problems maybe in higher dimensions.
+So geometry itself also, at least in a formal way, goes back to ancient Greeks, and what
+we still often study at school as the geometry dates back to Euclid, his famous elements,
+a system of axioms from which his geometry was derived, and as you know, there are five axioms
+or five postulates of Euclidean geometry that the last one was somehow sending out, and people
+for many centuries or even thousands of years tried to do something with it, and for example,
+in the 18th century Giovanni Saccheri, who was a priest, almost arrived to the construction
+of a non-Euclidean geometry, but he considered it such a heretical idea that he thought that
+it is repugnant to the nature of straight lines, so he abandoned these ideas and never took it
+to the full extent, but in the 19th century what happened is that finally came the realization
+that dethroned Euclid and broke his monopoly of geometry and the works that probably gauss
+himself, deeds but never published, and then famously Lobacevsky, Boje and Riemann, who created
+the first examples of what we now call non-Euclidean geometries, and in the 19th century this is how
+the geometry started looking like, so a zoo of different types of geometry without clear
+relation or understanding what actually defines a geometry, so there was obviously a need to put
+order in this mess, and the new idea, new approach came from Felix Klein in 1872, so he was only
+23 years old, he was lucky to get an appointment as a professor at the University of Erlangen in
+Bavaria, so this is something that, for example, Euler failed to have in Switzerland, he had to go
+to Russia to become a faculty, probably not very dissimilar to situations that some of us are
+facing in these days, so Klein was asked, as it was customary in Germany and still customary,
+I think, to deliver a research prospectus, basically to explain what he is going to do until his
+retirement in Erlangen, which actually never happened because he moved three years after to
+different places eventually to Göttingen, and in this prospectus that entered the history of
+mathematics as the Erlangen program, he proposed a kind of algebraization of geometry, so studying
+geometry from the perspective of group theory, so essentially considering a geometry as a space
+plus some class of transformations formalized using group theory, and studying properties that
+remain unchanged or invariant under these transformations, so you take an object and you
+apply to it rigid motions, and you preserve a lot of things like areas, parallel lines, distances,
+so this is how you create Euclidean geometry, but you can consider other groups, like a fine or
+projective groups, and in fact he considered projective group to be the broadest construction,
+he in fact showed together with Beltrami that the first non-Euclidean geometry,
+hyperbolic geometry with negative curvature could be constructed with a projective model,
+and these ideas had really big impact on geometry, on mathematics more broadly,
+I would say culturally, like category theory is an extension of these ideas to more abstract
+objects, but probably most importantly it had an impact on physics, where came the realization
+in the beginning of the 19th century, probably starting with Neutra with her famous theorem,
+that the laws of physics themselves can be derived from considerations of invariance or symmetry,
+and for example what Neutra showed is that principles like conservation of energy that
+previously were considered to be empirical could be derived mathematically from certain
+symmetries, so symmetry of time in this case, and these ideas in a more generalist form led to
+what nowadays is known as the standard model, so basically all the world can be modeled and can
+be derived from first principles of symmetry, so what I think physicists among you would call
+external symmetry or internal symmetry, right, the symmetry of the spacetime, so what's called
+the Poincare group that gives rise to Minkowski geometry of special relativity or internal
+symmetries of quantum fields, that's what gives rise to different forces or different
+interactions, and I think nobody put it better than Philip Anderson Nobel laureate in physics
+that without only slightly overstating, you can say that physics is the study of symmetry,
+so what does it all have to do with deep learning and neural networks and machine learning in
+general, so let's do maybe a brief detour into the history of machine learning or artificial
+intelligence, right, so the term artificial intelligence comes from these people, the
+Dartmouth conference that happened in 1956, organized by McCarthy and others, and you can see
+them some very prominent figures sitting here, so this is for example, this is Claude Shannon and
+this is Marvin Minsky who would become all very important scientists, and historically
+apparently the term artificial intelligence was introduced to kind of distance themselves and
+not to be in the shadow of the expert of that time who was Norbert Wiener who introduced the
+term cybernetics, which I think is still used, I think here in Poland it's probably still used as
+a kind of overarching term for everything that it has to do with computer science and artificial
+intelligence, so around that time there were many works that tried to understand how the brain
+works, so I think at that time it was already understood that somehow our intelligence is
+concentrated in the brain, so models for neural networks, probably the most famous one is by
+Frank Rosenblatt, the so-called perceptron, but there are models before that, and he was able to
+show that was in the 50s, so these models had to be implemented in analog hardware, he was able
+to show that he can solve some simple pattern recognition problems with these neural networks,
+and it was extremely remarkable at that time, so there were articles in the popular press like
+the New Yorker saying that this is the first serious rival to the human brain ever devised,
+so I think you can only smile, I can hear you laughing, and it's remarkable machines capable
+of 40 mounds to thought, so that's according to New Yorker was the perceptron, and there was a
+little bit of hype, as you probably know this MIT computer vision summer project, so they thought
+that they would be able to model a large part of the visual system over one summer, of course,
+we're still working on these problems 50 years after, and there is no end to it, but also at MIT
+these two guys, so one of them appeared already in the picture, Marvin Minsky in the same word
+paper, they published a highly famous or infamous, if you want, book called the perceptrons, where
+they introduced mathematical analysis of these networks proposed by Rosenblatt, and they showed
+for example one example that is taken from this book, that a very simple logical function like
+exclusive or could not actually be implemented as a perceptron, so these patterns are not
+linearly separable, so that was a very harsh criticism for the models, and some people say
+in retrospective that this was what triggered the AI winter, so some people even say that there might
+have been some personal animosity between Rosenblatt and Minsky, they went to the same high school,
+and Rosenblatt also died in a boating accident, so as far as to suggest that it was a suicide,
+well the story is probably much more mundane, so the funding that was cut by government agencies
+like DARPA was more related to them being more pragmatic and budget-restricted, and that had an
+impact on the field that coincided with the publication of the book, but if you look at the
+substance of the problem, what Minsky and Pebert called in their book perceptron was actually
+not exactly an architecture that was devised by Rosenblatt, so they actually clearly stated, so
+they refer to this architecture as simple perceptrons, and this is what we now typically
+understand by this term, so it's, as you know, it's just a linear combination of the input
+coordinates with learnable weights that go through a non-linear activation, typically sigmoid or
+in simple cases sine function, but what is also very important, they were probably the first
+ones, at least to my knowledge, to use geometric approaches to machine learning problems, so
+they, for example, formulated this group invariance theorem that tell in which or what kind of
+transformations in the input patterns the neural network will be invariant, and another interesting
+thing actually the subtitle of the book is an introduction to computational geometry, so that
+was the sixties, so this term didn't exist, they actually introduced it, and one of the reviews
+of the book that was critical was asking whether this is just some kind of new mathematical fad
+that will go away a few years after, and you probably know computational geometry is now
+very well established field, so it has remained there for a long time, but if you go into the
+substance of the discussion is actually the question is what kind of classes of functions
+these neural networks could represent, right, so what is what is called the expressive power,
+and there were results at that time, so coming from mathematicians in particular
+Komogorov and Arnold working in the Soviet Union that claim that you can take multi-dimensional
+functions and decompose them in this way, and basically any function could be decomposed in
+this way, so these kind of results are known as universal approximation, they go probably as far
+as the thirteenth problem formulated by David Hilbert, and the modern statements of these
+theorems are usually attributed to Sebenko and Hornig, these are late eighties, early nineties
+that are specific to deep neural networks, so what these results say is that if you have not a
+single layer of perceptron, but two layers like this, then you can approximate any continuous
+function to any desired accuracy, so the results, it's a class of results, it's not a single result,
+but roughly the way that we can understand it is that with just a configuration like this,
+with just two neurons like this, you can approximate, you can represent a step function,
+once you can represent step functions, you can decompose a continuous function into
+tiny little steps, so the proof is slightly more involved, but that's roughly the idea.
+Now it's sort of constructive proof, and there are different versions for limited widths or
+limited depth, it's sort of constructive proof, so it doesn't tell you how, so it's an existence
+result, so it tells you that you can find a neural network with potentially a very large
+number of neurons that approximate functions, and if you look at machine learning problems,
+so in a very maybe simple and naive setting, like classifying images of cats and dogs,
+basically you can think of it as some cynicism say that deep learning is a curve fitting problem,
+so it's multi-dimensional curve fitting, so there is some kind of black box where you put
+something that acts as a universal approximator, so some sufficiently rich
+architecture, and you try to represent the function that distinguishes between cats and dogs
+in this way. Of course this is not a well-defined problem, if I give you a finite sample of,
+let's say these are cats and dogs, I can pass infinitely many functions through these points,
+so I can interpolate these points in infinitely many ways, so we need somehow to restrict our
+class of functions, and that's typically what you do by imposing some sort of regularity,
+and mathematicians have very well understood concepts of regularity like Lipschitz continuity,
+right, so in simple case you can think of it as a function with bounded derivatives, right,
+and the problem is what happens when you increase the dimensionality of your input when it doesn't
+look like a one-dimensional curve, but it's an n-dimensional curve, and here the results,
+unfortunately, are not favorable because you can show that as you grow the number of dimensions,
+the number of samples that you need to take in order to approximate a function to accuracy
+epsilon grows exponentially with the number of dimensions, so this is again, it's not a single
+result, it's a class of phenomena that are called the curse of dimensionality, so it's
+statistical or geometric phenomena that explain that how functions behave in high dimensions,
+and the term itself actually goes back to Bellman who spoke about the curse of dimensionality
+in physical problems. Now, in these problems, simply if you think of images, right, of even
+something like 30 by 30 pixels, which is probably the smallest image you can imagine, digits from
+the MNIST dataset, the number of dimensions will be approximately thousands, so if you count the
+number of samples that you need to take, if you took this kind of straightforward approach,
+it will probably be more than the number of, not only the cats or dogs on earth, but probably
+close to the number of particles in the universe, so not sufficiently many animals around just to
+do it, and this kind of problem of curse of dimensionality, right, or you can also call it
+combinatorial explosion, was brought up in another report that is associated with the AI winter,
+which is the Light Hill report in the 70s. It was commissioned by the analogy of the DARPA,
+or basically the British funding agencies, and that was the point of time where they decided
+to stop funding these crazy ideas in looking at neural networks. So what happened, of course,
+was this AI winter, but at the same time people continued working on these architectures, and
+some interesting ideas came from the field of neuroscience, from the study of the organization,
+and the function of the visual cortex, the famous experiments in the 50s and the 60s done by
+Hubel and Wiesel, a duo from Harvard that won the Nobel Prize in medicine for understanding the
+organization of the visual cortex, where what they found is that the cells in the cortex were
+organized with some local shared weights, and this was reproduced by Fukushima in his famous
+now-cognitron paper in 1980. So the idea here was a neural network that has two types of neurons,
+so neurons that he called simple neurons and neurons that he called complex neurons, so one
+in modern terminology that would correspond to local filters and pooling operations.
+And he worked on OCR-type problems, so character recognition, and the problem, of course, if you
+treat these type of problems with the standard perceptrons, if I give you a digit of digit three,
+and I move it just by one pixel, you see that the input into the neural network can change
+dramatically, and in fact he complained that perceptrons were not by design invariant to these
+translations. So his architecture actually is remarkably modern by modern standards, so it was
+seven-layer network, so I think we can call it deep by modern standards. It had local connectivity,
+what neuroscientists called receptive fields. The filters were non-linear, and he wrote in
+neuroscience terminologies, so he talked about inhibition and activation. He had average pooling,
+so these are the complex layers. He used reloactivation, so already in the late 60s,
+that was common, but the training was not done using back propagation, so it was a kind of
+unsupervised type of clustering approach. And back propagation, again, it existed already
+in maybe in some other forms, but this is how neural networks were trained. So Rosenblatt had
+a special rule for a single layer perceptron, then there were some other methods that were developed
+in the 60s, and then backprop became really popular in the 80s, starting from the paper of
+Rumelhead. So Lekant, who was just a fresh graduate at that time, and he was working on
+actually the application of back propagation neural networks, was interested in Neocognitron,
+and he also happened to work at AT&T, which they were developing the first digital signal processors
+at that time. So basically there was a good application to implement on a DSP, and basically
+he stripped down the kind of neuroscience terminology of Fukushima replaced nonlinear
+filters by linear filters that could be implemented as convolutions. Actually the first paper never
+mentioned the term convolution, and the name came after in I think in 89, or even later, and he was
+able to show in real time complex pattern recognition tasks, such as recognition of handwritten digit,
+which was a difficult task at that time. It was actually deployed in commercial applications,
+they were working with banks, and the post office, and that's where the MNIST dataset comes from.
+But the computer vision community took a different path, and the late 90s and the early 2000s,
+probably until the first decade of this century, the approaches that you would typically use for
+image recognition were to detect some local features, then compute local feature descriptors,
+and then create some representation that would be passed into some very simple
+classifier like a support vector machine, which also were considered to be more favorable by
+mathematicians, because you can prove, for example, global optimality results about them.
+So there are many papers written, so SIFT, the scale environment feature transform,
+one of the most cited papers in computer science ever, was extremely well engineered
+detector and feature descriptor for these tasks. And what happened in 2012, as you probably all
+know, that all these carefully designed handcrafted features were beaten down by a very large margin
+by a convolutional neural network. So it was this lack of confidence of the computational
+capabilities of hardware, the GPUs, as well as availability of large data, the image network,
+which contained millions of annotated images, that finally allowed these architectures to shine.
+And since then, all the best results in this benchmark were by deep learning. So if you look
+at the AlexNet architecture that won this benchmark in 2012, it is more or less the same as what was
+done by Lekana. It's just slightly deeper. There are some different architectural choices.
+It has way more parameters. It was trained on GPUs, which, by the way, was not novel. GPUs were
+used for general purpose computing at least a decade before and for training neural networks
+probably at least seven years before. So in a sense, it was very careful engineering and
+application of existing ideas on a very large dataset and a very important problem that
+convinced everyone. Yeah, there is a question.
+Sorry to go back a couple of slides, but you were mentioning Fukushima's implementation
+and no sort of back propagation learning. So like, was he giving some kind of
+neuroscience, how do you say, proof for this? Like some kind of habit learning or how did the...
+I don't remember what kind of rule he used. I think it was inspired by some hypothetical
+ideas of how the brain learns. Yeah, but it was not back propagation. He showed many other things.
+So he showed, for example, geometric stability, stability to noise, but again, it was in the
+early 80s. So the training examples were very rudimentary, so black and white letters.
+Thank you. Right, so basically all the rest is obviously history, right? So the people who
+started the deep learning thing got the Turing Award and now are very famous. And basically,
+this is technology that has really transformed the field, both the academic subjects and the
+industry. So just to give, we'll be talking about graph neural networks, and you've probably heard
+from Miguel as well in the previous lectures about graph neural networks. So just to give you
+a little bit of history of this one, so they're actually very much related and rooted in chemistry.
+And chemistry is probably one of the fields of science, which is data intensive. It produces
+a huge amount of data, experimental data. And since early times, chemists try to organize
+these data first, publishing these humongous books containing information about molecules or chemical
+reactions, and then it appeared, the first digitized archive, the chemical abstract service.
+And also, with the appearance of the first computers, came the need and the idea to search
+for molecules, right? So if, for example, you're a pharmaceutical or a chemical company and you
+want to patent a new molecule, how do you know that it has not already been described, right?
+So you need to search fast for molecular structures in some data set, and these were the first ideas
+of chemical ciphers that describe a molecule as a string, and then try to match it in some data set.
+So that was the kind of problems that these guys, or he was a Romanian chemist called Vladuz,
+that was one of the pioneers of a field that later became known as chemoinformatics,
+he was trying to look at molecules as graphs. And as you probably know, the term graph itself,
+in the sense of graph theory, also is associated with chemistry. This is how Sylvester called
+the first attempts to design structural molecules, structural formula of molecules.
+Basically trying to understand how atoms are related to each other with the chemical bonds,
+not only just the number of atoms and the types of atoms. And as you probably know,
+this was one of the first structural formula of benzene that was derived by Kecoli.
+And the legend says that he dreamt of a snake biting his own tail, so he came up with this
+kind of aromatic ring that they described here. So these kind of problems inspired
+these duo of mathematicians, we'll talk about them later, Weisfried and Lehmann in the 60s,
+to devise an algorithm that would test whether two graphs are structurally similar, what is
+called the graphosomorphism test. And these ideas maybe were noticed, so there are many
+related works in the machine learning community and also in the chemical community, trying to
+devise new types of neural networks that could take as input, not vectors, not images, but
+graph-structured data. And the early works by Alessandro Sperduti in the 90s, for some reason,
+most of the works were by Italians, and probably the most cited ones are by Marco Gore, Scarcelli,
+and others. And interestingly, about 10 years ago, the graph neural networks returned triumphantly
+to chemistry, so I think worth crediting David Duvenau and Justin Gilmer, who also introduced
+the terminology of message-passing neural networks that try to predict properties of molecules,
+model these graphs and learning on these graphs. And then, of course, the ideas of
+geometric learning, as we'll see maybe with some extra stuff. Also, the structural biologists
+had their own ImageNet moment with AlphaFold, first in 2018 and then in 2020, basically predicting
+the structure of protein folds. And this field is very rapidly developing, so I think these are
+very exciting and cool problems that we can address with geometric techniques. So let's just try to
+summarize basically what this historical excursion gives us, a kind of blueprint for different
+architectures. So if you look at convolutional neural networks and graph neural networks,
+they work with very different data. Convolutional neural networks work on images, graph neural
+networks work on graphs, let's say, molecules, but there are some common patterns. So in both
+cases, we have some underlying domain. So in the first case, it's agreed. In the second case,
+it's a graph. We also, in both cases, have some kind of geometric operation, so a symmetry, right,
+that is nature in the context of the problems that we are considering. So in images, it's
+translation, right? So I want to move, for example, an object in the image and I don't care where the
+object is located if I want to classify it. In case of molecules, it's a permutation symmetry,
+so no matter how I order the atoms in a molecule, it's still the same molecule, right? So I want
+somehow to be insensitive to this ordering. And we can also define natural operations that respect
+this symmetry, right? So in case of convolutional neural networks, it's actually the convolutional
+operation. Basically, I can move a patch around an image and apply the same weights or the same
+local rule that would extract the features. And as we'll see in graph neural networks, this is
+some kind of local rule that we call message passing, right, or some versions of it.
+So these are ideas that, as you see, these are two examples or architectures that share the
+common principles and that's the idea of geometric deep learning. So I can probably take the craze
+of inventing the term. So that was, that happened when I was writing one of my ERC grants back in
+2015, probably. And of course, everybody was doing deep learning, so you need to distinguish
+yourself from everyone. So I wrote that we are not doing deep learning as everybody else,
+we are doing geometric deep learning. So that was the idea. Then we popularized it in this paper
+in IEEE Signal Processing Magazine and more recently in a book that I'm writing with Michael
+So by analogy to the Erlangian program, we basically, we can think of
+a kind of common denominator for machine learning architectures. So we would like to
+take this zoo of different architectures that were historically designed for different types of
+data with different kind of problem in mind and look at them from the same perspective.
+And this perspective is through the lens of group theory and properties like invariance,
+equivariance and symmetry. And if we've seen before this problem of machine learning in
+high dimension, where you have, for example, your images of cats and dogs as points in a
+high dimensional space, we no longer consider these inputs as just a high dimensional vector
+that you need to put through some generic class of functions and then you suffer from the
+cursive dimensionality. But now we know that there is some domain geometric structure that
+underlies these inputs. And in images, for example, this is a two-dimensional grid. So
+our data lives on some typically low dimensional domain. And this domain comes equipped with
+some group, right? So in this case, it's the group of translations. And so we have a domain,
+we have a group, we have signals that live on this domain, and the group that acts on the
+points of the domain, we see how it can act on the signals themselves through what is called
+the group representation, right? And in case of images, again, the group representation will be
+just the shift operator. We'll see it in more details. And then finally, we have functions
+that act on these inputs that somehow need to respect this symmetry. And this will be through
+what we will call invariance and equivariance, right? So we basically want the function either
+to be insensitive to how I transform the input by acting on it with the group,
+or should change in the same way, right? And I should say that the choice of the group and the
+domain are two separate things, and they're not only dependent on the data, they're also dependent
+on the task. So I might have a problem like this, right? So I have, for example, images of traffic
+signs. And if I'm designing a self-driving car, it's very unlikely that I will see rotated traffic
+signs, right? They will probably be aligned and move just horizontally and maybe vertically.
+So here, for example, the group of transformations that is reasonable to assume will be just
+two-dimensional translation, maybe even one-dimensional translation. But if, for example,
+my car can also tilt, right? So imagine that it's a plane and not a car, then rotations are also
+perfectly valid, right? So then the group of transformation will be different. So it's still
+the same domain, the same data, but the task might be different, and therefore the assumptions about
+this, the prior in this problem, might be different. And if you think of another application, if I have,
+for example, a pathological sample, so essentially a glass of some stained tissue that I put under
+a microscope, so there I can also have reflections, right? Because I don't have canonical orientation
+for this glass. So it can be an even bigger group in this case. And again, task dependent.
+So as I mentioned, in case of images, the representation that we'll be working with
+is the shift operator. In case of graphs, actually the symmetry, as we've seen it, is the group of
+permutations, what is sometimes called, confusingly, the symmetric group. So it's the different ways
+that I can rearrange and different objects. And its representation is a permutation matrix. And
+as we'll see the way that it's implemented, so functions that are equivariant with respect to
+this symmetry are message passing. And we can also have another type of architectures that are also
+confusingly called equivariant neural networks or equivariant transformers, where in addition to
+the symmetry group of the domain, we also have symmetry group of the data. And this is typical
+for geometric graphs like molecules, where the nodes also have geometric coordinates, so they
+live in three-dimensional space. And in addition to reordering the atoms in the molecule, we can
+also rotate or translate the molecule in three-dimensional space. So you want to be equivariant
+with respect to both transformations. So it's a kind of analogy of the external and internal
+symmetries you have in physics. And basically, geometric architecture is just sequences of
+equivariant or invariant layers. You can also interleave them with pooling. So I will not talk
+about it too much, but pooling is implementation of another principle that is important in physics,
+which is called scale separation. And this is what makes physics work. So if you consider,
+for example, let's say this room, right, and how we are surrounded by probably a quadrillion of
+different molecules that move very fast and collide with each other, but that's not how we can model
+the behavior of gas in some space, right? It's computation intractable to trace all the molecules.
+So fortunately, there are just a few parameters that explain statistically how these gas behaves,
+right, like temperature and pressure. And this is the main principle of statistical mechanics.
+But if we want, for example, to model how Earth, with its very complicated atmosphere,
+moves around the sun, again, we can completely disregard it and consider it as a point,
+because at that scale, all these details are completely irrelevant. So the scales, of course,
+interact with each other. So this is maybe a wishful thinking. And in neural networks,
+you can also mathematically show that in some architectures pooling operations are necessary
+for them to operate correctly. So these ideas can be applied to different types of objects,
+to geometric domains, so traditionally to grids, but then also to graphs, maybe to general
+homogeneous spaces, and then also maybe to more exotic things like manifolds, meshes,
+and geometric graphs. And if you look at some of the standard architectures that are very
+commonly used in deep learning, whether it's CNNs or maybe LSTMs or deep sets or transformers or
+GNNs or intrinsic mesh convolutional networks, they can all be derived from the same blueprint.
+So there is some kind of domain and associated symmetry and associated environments that you
+can bake into your architecture and you get basically as particular instances of this blueprint,
+some of the most common and famous architectures. Any questions so far before we start talking
+in detail about graphs? So if I have time, I will try to cover all these different domains,
+but I will probably spend most time on graphs and also some physics-inspired perspective on
+these architectures. Yes, I have a question. So if you kind the term geometric deep learning,
+is there an alternative like non-geometric deep learning or like traditional deep learning,
+or what does it mean? Well, so it's a very broad term, so I think we use it maybe in a very broad
+sense, so it's using geometric ideas or geometric techniques to interpret and build
+deep learning architectures and vice versa, applying deep learning to geometric objects.
+Now whether, for example, the model of group environments and equity environments is really
+the kind of ultimate truth, of course not. So it's a mathematical abstraction and in most cases,
+the transformations, for example, you have an image, they're actually not well described by groups,
+but at least it's a good starting point. In many cases, for example, in molecules, this is
+kind of physical realities or an inductive bias that you rather want to incorporate in your architecture.
+Okay, I have one more question. Could you please take back to the previous slide?
+Yeah. Because you mentioned like the existing neural networks architectures and the group of
+symmetries, and do you think there is any other group of symmetries that we in real world applications
+should think about and because of that create some new architectures that is, I don't know,
+for example, well suited for them? Yeah, so it's a good question. So there are some other architectures,
+for example, mostly coming from physics, so of course in physics you have interesting groups,
+so I think that some Lorentz invariant, for example, neural network architectures,
+you can also combine some groups. I will show some examples that you can have, for example,
+products of permutations or some special group products of permutations in subcraft neural networks.
+So it's a general blueprint. So if you can follow the blueprint and design architecture that
+implements this, this invariance that is relevant for your problem, then you have a way of doing it.
+Okay, cool, thanks. There are also some works that try to discover the symmetry group from
+the data and from the problem, so that's also an interesting direction.
+Could you shortly address the symmetries which the transformers go for, because I still have
+difficulty to think in this symmetry like perspective? So I will talk, well, it will take me probably
+about 20 minutes, but we'll get to transformers, yeah. So transformers are special types of
+craft neural networks, you can think of them this way. So on the slide, there's the LSTM and
+so it's written that time warping is, you could have architectures that are invariant to time
+warping, but if you look at speed recognition, so maybe first of all, we humans also don't have that,
+right? So if something is super slow down, we're probably not going to notice what it is.
+So my question is, is there any other invariance or equivalence for time series data that you
+can think of? So well here, what I mean by time warping, you can actually show that gating is
+a necessary mechanism to be able to accommodate time warping. So basically gating emerges as
+basically as the architecture for this kind of, for this kind of invariance. Okay, got it, thanks.
+Yeah, I think there is a question there.
+So, okay, I mean, so you said that you will talk about transformers more in,
+like in the next few slides, but I wanted to ask about one of their emergent properties,
+like in relation, for example, to CNNs, namely that CNNs have kind of encoded in them by definition
+translation invariance, whereas transformers don't, and I think it has been discovered that
+transformers actually kind of learned the translation invariance from the, thanks to the
+amount of data that they consume, but like they weren't defined to do that. It's kind,
+this translation invariance just emerged from the data. So I was wondering whether in your opinion
+it is better to use more generic architectures, which learn those inductive biases from the data,
+whether we should encode the inductive biases in their architecture or
+and face the risk that a specific inductive bias may be also a limitation.
+Yeah, well, I think the answer is already contained at least one of the answers in your question,
+right? So the amount of data is obviously a limitation. So it might be easy to collect data
+like images, right, or maybe text, it might be much more difficult to collect data that comes
+from biological experiments, right? So if the data is limited and the data is expensive,
+then probably you want to work hard to incorporate as many inductive biases as you can. In some
+other applications, actually the inductive biases or some symmetries or some invariances come from
+the problem that you're trying to model. I think it's true for many applications in what is called
+the eye for science, right? So if you have some physical system, you know that certain properties
+will be conserved. So it makes no sense just to use a generic black box that will be producing
+unrealistic outputs, right, that are physically incorrect.
+But there is no, so it might be that in problems where you don't know a priori what symmetry
+or invariance you have, it might be a good idea to use transformers if the computational complexity
+and the scale of the data allows it. Hello, I have a question about augmentation.
+It feels like, at least in the image case, augmentation is basically exploiting this
+good symmetry, right? You augment by doing some translation. But if you use some geometric based
+architecture, maybe then you don't need to do augmentation anymore. So what's your opinion
+of augmentation? Is it like an artifact or something? Well, so augmentation is a technique of
+basically when you have limited amount of data, you can generate synthetic data that looks like
+the kind of data that you want to see in your application. This was actually one of the important
+features of the AlexNet, for example, so they use certain type of data augmentation for images
+to make it more robust. So again, you can incorporate this kind of
+inductive biases into the architecture. Sometimes it might be difficult. So another aspect that is
+often overlooked is actually the hardware, right? So it's very easy and it's probably more a coincidence
+at least originally. The convolutional neural networks map very nicely to the type of hardware
+that is used in the GPU, the single instruction multiple data type of architecture. So it was
+not by design because the GPUs were designed for different types of problems. With other
+architectures, it might not be the case, right? So there might be some better, so to say,
+architectures maybe from mathematical standpoint, but they're just not as convenient to implement.
+And therefore, maybe you will prefer to use something that is less correct, but you can do
+data augmentation and the hardware allows you to implement this architecture better.
+What do you think is a follow-up question about augmentation? What do you think about
+augmentation? Not as a simple tool for increasing the size of the data set, but as something as
+in contrastive learning as enforcing the symmetry. Can it be kind of equivalent to the symmetry you
+define? Well, it was used in this formula. I mean, can the load of enforcing the symmetry be
+shifted towards augmentation to the model? Yeah, so basically you are sampling points from the
+group orbit, right? So you can think of it this way as well. Whether it's enforced in a hardware
+or in a software, that's probably not that important. So data augmentation is a very valid
+technique if you know exactly how to do it. Okay, so let's move on to graphs. And, well,
+graphs, as you probably know, their idea itself is pretty old, so it's usually attributed to Euler who
+was thinking of these kind of problems, right? How you can connect land masses without actually
+accounting for the particular geometry, but only how, what is nearby, right? So the famous
+problem about the bridges of Königsberg, and this is what he called the geometry of Cetus,
+or basically the geometry of place, what in modern terminology we call topology. So the term was
+actually introduced by Poncarejo, by analogy to Euler's terminology called the analysis Cetus,
+and that was also where his famous conjecture appeared. So we'll talk about Poncarejo conjecture
+actually later, I hope to get there as well. So graphs, obviously I don't need to convince you
+that graphs are interesting and important, so more or less anything from very small scales or
+very large scales can be modeled as a graph. So any system of relations or interactions,
+whether it's a molecule, or model how different atoms interact with each other through chemical
+bonds, to for example, interactomes, right, in biological science, how different entities
+in our body or in a cell interact with each other, different chemical reactions, or even
+social networks, right, describing relations, friendship, interactions between different people.
+So this model is a graph, and again graphs can be of different types, so let's consider a simple
+model here, so we'll consider an undirected graph, so it means that we have a collection of nodes,
+and we have unordered pairs of nodes as edges, right, so just pairs, basically the order doesn't
+matter, and the nodes are described by d-dimensional vectors, so these are fissures that are attached
+to the nodes, and of course it can be more complicated, so you can have graphs that are
+directed, you can have both continuous and categorical features, both in the nodes and the
+edges, but just that would be already interesting enough to look at this kind of object.
+So one thing that characterizes graphs, right, basically this is again a topological construction,
+so it's an abstract object that lives on its own, the moment we need to represent it on a computer,
+we describe it, for example, as a matrix, right, so we can describe the structure of the graph as
+the adjacency matrix, right, of size n by n, n is the number of nodes, so we have one if the reason
+agent between a pair of nodes and zero if there is no edge, right, and if the graph is undirected
+then this matrix is symmetric, and the features, we can describe them as a matrix of size n by
+d, right, d is the dimensionality of the node features, so one key thing here which is already
+written on this slide is that we don't really have a canonical way of ordering the nodes of the graph,
+so when I make this description, I automatically assume some ordering of the nodes, but this
+ordering can be like this or can be like this, so anything that will take this description
+of the graph as an input must account for this built-in ambiguity, right, so I somehow need
+to be able to produce outputs that disregard in a correct way all these possible permutations,
+right, and the two types of problems that we can consider in relation to graphs are actually
+more problems, but let's say these are the prototypical problems, one is graph level
+problems, so I give you an input graph and I try to output a number that describes this graph,
+right, or maybe a vector, like for example I'm predicting the chemical properties of this molecule
+like water solubility, so the input is a graph describing a molecule, the output will be some
+number, right, another class of problems I give you a graph and I want to do node level
+decisions, right, for example I want in a social network to classify which of the users is behaving
+badly, right, maybe a spammer, so in the first case I give you a graph, right, and the output
+no matter how I permute the inputs should be the same, right, so we're talking about a permutation
+invariant function, so mathematically it can be described like this, so right, so the function
+here now is a function of x, the node features, but also the structure of the graph, so they're both
+they both form the input, and here I act on the on these two inputs with the permutation matrix,
+which is the representation of the permutation group, you see that actually the representation
+is different for different types of objects, so the features you can think of them as vectors,
+right, so I permute only the order of the rows, the adjacency matrix it's two-dimensional tensor,
+so I act both on rows and columns, right, I need to permute both rows and columns here,
+is it clear, and together this form permutation invariant function, in the second case if I want
+node level predictions, the output has the same structure as the input, right, so if I change the
+order of the inputs, the order of the outputs is expected to change in the same way, right,
+and here I'm interested in permutation equivariant functions, so equivariance means changing in the
+same way, so the output now will be, well, some kind of vector, right, or matrix, you know,
+by f capital, and if I permute the input, the output will be permuted in the same way, okay,
+now what are graph neural networks, essentially these are parametric graph functions, so I provide
+you a graph as an input, right, or these matrices x and a, and I output something, right, and
+something here, as we'll see in a few minutes, is parameterized by some vector of parameters,
+and sometimes there is no distinction made between graph neural networks or message passing neural
+networks, so we want to make this, that is distinction, but sometimes they're used synonymously,
+right, so most of the graph neural networks that are used in practice are of the message
+passing type, we'll see exactly what it means in a second, and graph neural networks again,
+you can consider them as a special instance of these geometric deep learning blueprints,
+so we have usually a sequence of permutation-equivariant layers that produce node-wise predictions,
+and permutation-equivariant in the sense that if I change the order here,
+it will change in the same way here, and then if I have graph-level tasks, I will have
+permutation-invariant pooling, right, that aggregates all the information from the,
+from these node features and produces a single output for the graph, and the typical way that,
+that they work is by neighborhood aggregation, so you can pick up a node in the graph, right,
+let's call it I, and now I look at the neighborhood of the node, by neighborhood I mean all the nodes
+that are connected to I by an edge, right, so this is how the neighborhood of I looks like,
+and I can look at the feature vectors associated with these, with these nodes,
+and you can see that even though the neighbors are unique, right, the feature vectors are not
+unique, so this is encoded by color, so these two nodes have exactly the same feature vector,
+right, just for this example, so together they form what is called a multi-set, right,
+so it's a set where the same object can appear more than once, and we also have the
+feature vector of the node itself, so I want a function to aggregate them locally, right,
+let's call this function phi, and again the, the characteristic property of this function is that
+I don't have a canonical ordering of my neighborhood, so the feature vectors can appear
+like this, to this phi, so it must be by design permutation invariant, right, it cannot assume
+any order in which the, the neighbors come, we can make it more complicated, we can incorporate
+additional information, but again as a basic structure of a graph, you don't have this order,
+right, now you can repeat this process everywhere at every point, at every node of the graph,
+and this is actually very highly parallelizable, at least in principle, and once you do it you get
+an output, right, that for every node of the graph you output some vector, and this is also a
+function of the graph, and you can easily see that if my choice of this local aggregation is
+invariant, then the output is equivariant, right, so if I change the order of the axis here,
+then the output will change in the same way, and most of the graph neural network architectures
+differ in the choice of these phi, in how I aggregate locally the features, and while they're
+probably zillions of different architectures, most of them fall within the following three
+categories, so the first one is what is called convolutional graph neural networks, and you
+can simply think of convolutional neural networks as just summing up the neighbor, the features of
+the neighbor nodes, so this is what I write here, so the update for the representation for
+the feature at node i is the sum of some transformed neighbor nodes, right, psi will be some
+learnable function, xj is the the the feature of the neighbor node, here it is, and aij are
+coefficients that depend only on the structure of the graph, in this simple case just the elements
+of the adjacency matrix, right, and here sigma is just some non-linear activation, typically
+very low, right, so that's how a convolutional type graph neural network looks like, yeah.
+Is this convolution here equivariant to 1d convolution, something like that?
+So we'll see it, we'll see it in, well, not in a second but we'll see it later, yeah,
+so basically you can obtain convolution when the graph is agreed, and we can actually see that
+that convolution on the grid is a special type, basically it's a unique linear equivariant function,
+so basically, yeah, so that's why the term convolution is appropriate, so it's an extension
+of convolution to graphs, right, and you can write it in this form, right, so if I write it as
+matrix multiplication, so x is my feature matrix of size n by d, I multiply it from the left by
+some matrix a, right, the diffusion matrix, can be the adjacency of the graph, it can be
+something else, but basically it propagates information between adjacent nodes, and on the
+right I have, in the case of a linear transformation of the nodes, it's a learnable shared matrix
+that acts on every node in the same way, right, on the features of every node in the same way.
+We'll see that it's related to diffusion equations on graphs, and this is probably the simplest
+version of a GNN, it's highly scalable, you can basically just large matrix multiplication,
+it has been used in industrial use cases, I think the first to use these kind of architectures was
+Pinterest with Pinsage, we also used it at Twitter, and then there are some statements about these
+architectures in the kind of graph neural network folklore saying that it works only on homophilic
+graphs, so by homophilic I mean this assumption that my neighbors are similar to me, typically
+the assumption is that the labels in the neighborhood are somehow similarly distributed to the label of
+the node itself, and here's an example of a homophilic graph versus a heterophilic graph,
+so and the usual motivation that is given that these matrix a typically will look like a low
+pass filter, right, so you're somehow averaging your neighbors, and if the neighbors are of the
+same type then it will work, and if the neighbors are very different types then it makes more harm
+than help, and this is actually not true, so I hope to convince you that the story is much more
+nuanced, there is also this channel mixing matrix, and there is an interesting and subtle interplay
+between these two matrices, and we'll be able to see how it works when we consider a graph neural
+network's differential equations, so slightly more interesting architecture is an attentional
+GNN, so here again we can think of it at least in some some settings as a linear combination of
+the features of the of the neighbors, maybe transformed by some learnable function, but now
+the coefficients depend not only on the structure of the graph, but also on the features themselves,
+typically through an attention mechanism, so the most famous representative of this architecture
+is the GAT, the graph attention network, and in the most general case, right, so we can write GAT
+like this, so that's if we have a linear combination sum, so we have linear combination with the matrix,
+but now the matrix is actually a matrix-valued function of x, right, so it itself depends non-linearly
+on x, and the most general case is message passing architectures where we have a b-variate function
+that depends on the feature of the node and the neighbor, and the other cases are specific
+cases of this architecture, and it was shown that message passing GNNs with specially chosen
+aggregation function in particular, it has to be injective in certain restricted settings,
+again allow me not to go into the details, are equivalent to graph isomorphism testing
+algorithm that was derived by Weisfeld and Lehmann that I mentioned in the beginning,
+and let's talk about this, so basically from theoretical standpoint what actually
+graph neural networks do, right, or message passing type graph neural networks do,
+so first of all what is graph isomorphism problem, it's telling when two graphs are the same,
+right, so I'm writing here equal, but of course it's not equal, so it's equivalent in some sense,
+and what do I mean by this equivalence, what I want to say is that there exists an edge preserving
+bijection between the nodes of these graphs, right, so in other words I can find a correspondence
+between nodes in G and G prime such that if there is an edge between a pair of nodes in G,
+then there is a corresponding edge in G prime, right, so is this bijection unique,
+what do you think, no, when is it not unique,
+exactly when the graph has symmetries, right, so this is an example, actually this graph is a
+good example, right, so you can reflect the nodes on the left and the right and then
+we can have another bijection, right, like this, so this bijection is not unique, but for determining
+if two graphs are isomorphic, it's sufficient to say that there exists such a bijection,
+right, so that's what tells us that the two graphs are equivalent, right, so basically they are
+the same up to the ordering of their nodes, right, so if I look at their adjacency matrix,
+they will be the same up to applying some permutation, right, so I can, basically I can relate
+the two adjacencies by permutation, and related to the question of universal approximation,
+right, which is fundamental for traditional neural networks like perceptrons, we can show
+that a class of functions is universally approximating permutation in variant functions on graphs,
+with importantly here the limitation finite node features, if and only if it can discriminate
+graph isomorphisms, right, so basically universal approximation is equivalent to graph isomorphism
+testing, right, so basically the two things go hand in hand, and if you ask what kind of
+graphs can we represent with message passing neural networks, right, so here is let's say the
+space of all graphs, and these would be graphs that are structurally equivalent, right, that is
+isomorphic, so by construction we know that graph neural network cannot distinguish between these
+graphs, right, they're exactly the same up to the ordering of the nodes, so just by construction it
+will produce the same output for any isomorphic graphs, but the question of the opposite direction
+is more interesting, and this is not necessarily guaranteed, right, so I might have different
+graphs that are not isomorphic, like the reds and the blues, that by chance will have the same
+representation, so the graph neural network will output the same output for these different graphs,
+so in other words if we have the space of all permutation in variant functions, right, and we
+know that these are all graph isomorphism discriminating functions, this is where we'll see a subclass
+of functions that can be computed by message passing, okay, and so the question of graph
+isomorphism as I mentioned already it came from applications in organic chemistry where
+people try to compare structures and try to determine whether two molecules are the same,
+right, so in the case of isomorphism is a special setting, right, we can also think of distances
+between graphs, and vice versa, in 68 came up with an algorithm that they believe to be a polynomial
+time method for determining whether two graphs are isomorphic, so I should say that at that time
+in the 60s even the notion of complexity was not totally spelled out, and also the understanding
+of what's the complexity of graph isomorphism testing as a computer science problem was not
+understood, actually it's not understood even now, so we know that it's not NP-hard, and we also
+don't know polynomial time algorithms for it, so it's a special complexity class that is called
+GI class, but anyway so it was actually disproved by a counter example, so it was an example
+was shown that of a class of graphs that cannot be, cannot be tested by the device for a lemon
+algorithm, we'll see such examples in a second, but the way that it goes it's essentially a
+color refinement procedure, so it considers a graph without any features, considers only its
+structure, and initially the graph has every node labeled in the same way, by label I just mean a
+natural number that is attached to a node, right, and what the algorithm does it takes a node and
+looks at its neighborhood, right, and you can see that originally in this graph we have two types
+of neighborhoods, so we have a blue node with two blue neighbors like this, sorry that's blue
+node with three blue neighbors and blue node with two blue neighbors, right, so these are two
+neighborhoods that we see in this graph, so if I now apply an injective function that I call phi,
+right, think of it as hashing, I will have two distinct outputs, right, so I will have
+nodes of the yellow type, let's call it, and of green type, right, so I will be able to
+distinguish between these different neighborhoods, so now I have a graph with refined labels, I can
+apply the same procedure again, and now we have three types of neighborhoods, right, we have green
+with one green and one yellow neighbor, we have green with two yellow neighbors, and we have yellow
+with two green and one yellow neighbor, right, and these become again distinct colors, so this will
+be let's call it violet, gray, and orange, but if I repeat this procedure again the colors will
+stop changing at which point the algorithm stops and produces a histogram of colors, right, so
+that's a graph level descriptor, you can think of it this way, and what they show in the paper,
+well the paper is actually complicated to read, but that's let's say a reduction of it, it actually
+describes a different type of algorithm, what is called 2WL that does edge color refining,
+but it doesn't matter, it's equivalent to what I'm showing here, so if I give you another graph
+and the distribution of colors is different, then I can guarantee that they are not isomorphic, but
+if the distribution of colors is the same, like in this case, we actually don't know, so it's
+unnecessary, but insufficient condition, and in fact you can find examples of non-isomorphic graphs
+that would be deemed equivalent by WL test, right, or in this case WL test cannot determine
+whether they're not isomorphic, and you can also see why the reason for it, right, basically what it
+does, it it it refines the colors of the of the nodes, so every node looks at its neighborhood,
+and this is how the neighborhoods of nodes look like, right, so this node has two neighbors,
+then this node has again two neighbors, and so on and so forth, right, so if you look at
+the structure of these neighbors, they will be exactly the same in both cases, right, and actually
+very simple examples of graphs, for example regular graphs where the degree of every node is the same,
+cannot be tested by by this by the simple procedure of vice-versa and levin, you can also not count
+not count connected patterns of more than three nodes, like triangles or cycles, and this is I
+think astonishingly disappointing given that the algorithm came from applications in chemistry,
+so in chemistry these would be two different molecules, right, and this has a six ring and
+this has a five ring, right, so or five cycle using graph theory terminology, so we cannot
+distinguish these molecules by the vice-versa-levin test, they would appear potentially the same,
+right, so we wouldn't we wouldn't know, so basically the functions that can be computed by
+wl are strictly smaller than all permutation invariant functions, right, and we know examples
+of functions that cannot be computed by wl, for example we cannot count the number of rings,
+right, so if I want to implement a function that counts the number of rings in a graph,
+I cannot do it by means of of wl test or by means of message passing, now the relation
+between wl and message passing is not random, right, you can see this even the structure
+of the algorithm is exactly the same, right, so this is what wl test does, right, so it updates the
+color of every node by looking at the structure of the node and the multi-set of of neighbors,
+right, here x d nodes, the colors, and this is what MPNN does, right, so here the square denotes
+some general permutation invariant aggregator, can be sum, can be max, can be mean, can be anything,
+right, importantly it's permutation invariant, so we can see that it's a special case, so MPNN
+expressive power is upper bounded by the vice-versa-levin test and the question is when MPNN is as
+expressive as wl test, right, so basically we're interested in this case, right, when the
+circles coincide and if you look at different types of aggregators, right, so imagine that this
+is your input graph, so I have this gray node that has two types of neighbors, we have green
+neighbors and we have blue neighbors, right, so if I consider the input as a multi-set, right,
+I completely disregard the structure of the of the graph itself, right, so what the node sees is
+just a soup of the neighbor features, so if I use a maximum aggregator, I cannot distinguish
+between this and this, right, because for the maximum it doesn't matter how many times each of
+these features appears, right, if I use a mean that I cannot distinguish between this and this,
+right, I can multiply the neighbors by some constant factor, the sum though allows the distinguish
+between all of them, right, so you can think that maximum gives a kind of skeleton of the
+set and the mean gives you the distribution, but the sum is strictly more expressive, right,
+and here's an example of structures that max or max and mean would fail to distinguish and indeed
+some appears the most expressive one and if you assume that, so the theorem about the equivalence
+between WL and message passing states that if you assume that the node features come from a
+countable universe, then if you have an nmpnn with an injective aggregator, call it square,
+and update function phi and graph-wise readout function is as powerful as the advice for a
+Lehmann set, right, and the assumption here is of discrete countable features which is not
+not always the case in practice and then the reason architecture that actually implements
+that is equivalent theoretically to device for a Lehmann which is the graph-wise morphism network
+or GIN, so basically it uses a sum aggregation, so the epsilon here is just theoretical thing,
+so there exists infinitely many constants epsilon that you can use here, so we know that
+basically there exists at least a choice, right, within the all possible message passing neural
+networks that makes it as expressive as WL, but of course we are interested in more expressive
+architectures, right, can you do better than WL and here again there is an entire universe of
+different architectures, so some of them actually go beyond message passing, at least in the traditional
+sense, and roughly you can distinguish between four different categories of approaches, so it's
+either a higher order WL test, it's not a single test, it's a hierarchy of tests, the use of
+positional instruction encoding, so that's how transformers work, subgraph GNNs and then topological
+message passing, right, so let's talk briefly about all of them and then when do we need to do the
+break, sorry, so let's maybe 20 minutes and then we do the break, so the first class of higher order
+WL tests, as I mentioned, so WL test is just one algorithm that was initially developed
+and then extended by Babay and collaborators, actually independently also by other people,
+so one of them was Eric Lander, who is mostly known as computational biologist but he started
+as a mathematician, and basically this is an increasingly more expressive hierarchy of tests
+instead of doing node refinement, they look at tuples of nodes, so it's obviously computationally
+more expensive and there is always, you can find a family of graphs that these algorithms cannot
+distinguish, so like strongly regular graphs for 2WL or 3WL tests and what is called CFI graphs
+for general KWL, I should also say that this terminology of KWL is confusing because they're
+what is called folklore WL tests versus the classical WL tests that are slightly different,
+but overall the hierarchy, right, absolute notation is the same, so we know that message
+passing GNNs are equivalent to the standard WL, you can also design just replicating in the neural
+network architecture the KWL test, higher order KGN, so this is what Hageim Aron did in his works,
+and then you can also have some other algorithms we'll talk about in a second that
+sits somewhere between, they don't exactly follow the hierarchy of the WL tests, so the
+second approach is positional encoding, and again I remind you of this example of two graphs that
+cannot be distinguished by the WL test, but imagine that I could now attach some features
+to the nodes of the graph, right, and this could be even something as simple as random features,
+you see that now because I have some extra information I can distinguish between these
+cases, right, so if I look at the leaves for example of this tree, right, I can ask for example
+whether the root appears among the leaves or not, right, and here it does appear and here it doesn't,
+right, so they are clearly different, right, I would be able to distinguish between them, right,
+so the coloring of the nodes removes at least to some extent the ambiguity, now of course if I use
+random features then the question is how can I reproduce them on a different graph, so these
+type of approaches are equivalent only in expectation, but there are other methods
+that can do better, and these are structural encoding, so the idea of structural encoding you
+have some some substructures, right, so we have a bank of substructures that call it H, and you
+can count the substructures, the occurrence of substructure for every node or for every edge,
+right, and there are two ways that you can consider subgraphs whether what is called a subgraph or
+any induced subgraph doesn't really matter, right, so the two ways that are slightly distinct,
+and for example in these two graphs if this is my bank of substructures, let's say cycles of size
+6 and 5, so in this molecule at every edge or at every node I will count once the six cycle
+substructure and these nodes I will count twice, right, because this node participates in both
+structure on the left and right, but the five cycle substructure doesn't appear here versus
+it appears here, right, so with this encoding now I have some these additional features that I can
+attach to every node or to every edge of the graph, and I can use them in standard message
+passing and this would allow me to discriminate between these, between these graphs, and the
+complexity of this method is basically it's all hidden in pre-computation, so this counting of
+substructures, so in the worst case it's order of n to the power k, k is the size of the substructure,
+so it could be large, but in practice for structures more friendly structures like
+triangles there exist more efficient algorithms, so in practice it it can be way better,
+the algorithm itself and especially the training part which is typically more expensive
+is standard and PNN, so it has linear complexity in the number of edges, or roughly order of n if
+the graph is sparse, and the theoretical result is that these kind of architecture that we call GSN,
+graph substructure network, is strictly more expressive than WL on certain assumptions on
+these substructures, right, so it should not be a star graph or it should be a structure of size
+better than, bigger than, than 3, and the, basically you can formulate it is that GSN is not less
+expressive than 3 WL, you can also do it for different KWLs, basically you do it by counter
+examples, so you can, you can design a substructure that the standard WL tests cannot, cannot count
+whether it will be clicks of certain type or other things, right, and the proof by example is
+something like this, so this is a stronger regular graph, it cannot be distinguished by 3 WL,
+but this graph contains four clicks and this doesn't, right, so if I count four clicks I would
+be able to distinguish between these, between these graphs, right, so in the, in a sense it's a kind
+of cheating, right, so I'm not following really the, the, the, the KWL hierarchy, right, so this is
+an example of different structures I can, I can count, triangles and clicks, but then basically
+the, the expressive power looks like this, so this is for example a graph substructure network with
+four click count, so it might actually, there might be examples of graphs that are distinguishable by
+3 WL but not by this method, but we, we, we have at least an example of family that 3 WL cannot
+detect, so it's outside of the, of the hierarchy, and why this is important in, especially in applications
+related to chemistry, because often we know these substructures are priori, right, in organic
+molecules for example cycles are a very prominent feature, these are what is called aromatic rings,
+right, like in the molecule of caffeine we have two, right, so we have this ring of cycle of size
+six and cycle of size five, and we see that if we incorporate this information as a kind of
+problem-specific inductive bias into the problem we are able to much better predict
+the properties of molecules, in this case it's the, the, I think the water solubility on the,
+on a toy data set of molecules that is called zinc, and by incorporating cycles we significantly
+reduce the error. Third class of approaches, what is called subgraph GNNs, and here the idea is also
+very simple, so if you look at these two graphs again this is probably one of the simplest examples
+of non-isomorphic graphs that cannot be tested by WL, right, if you do the color refinement,
+this is what WL produces, so the histograms are the same, right, that's exactly the case
+where you cannot say anything about, about the graphs, but imagine that I can perturb the
+graph for example by removing this edge, right, so if I did it the colors will be very different,
+right, so this will be the, the distributions of the, of the colors and they are clearly
+distinct, so in this case the perturbation allows to distinguish between structures that are
+otherwise indistinguishable, so the question is of course do I know which edge to remove,
+right, so here maybe I was lucky, and the answer is usually I don't, so let's remove all possible
+edges, right, so let's just make this perturbation when I remove one edge at the time, right, so,
+and there are seven possibilities, I can also do node deletions in the same way, right, and now
+instead of a graph I have a collection of subgraphs that are extracted by some policies,
+so in this case it's a very simple policy, one node removal, right, and actually results in
+graph theory, let's say that if I give you this collection, so in terminology of graph theory,
+this is called a reconstruction, so if they have the same multi-set of node remove subgraphs,
+right, so this is what we denote H tilde G, right, so graphs where basically if we look at these
+kind of multi-sets they will be the same, of course up to up to reordering, so the statement in
+graph theory that is called reconstruction conjecture claims that under some technical assumptions
+if H is a reconstruction of G then H is equivalent to G, isomorphic to G, right, so why it is called
+a conjecture because it is approved only for small graphs and it's an open question in general,
+and there are generalizations for subgraphs where you remove multiple nodes, so this is again not
+a single result, so it's a class of results, it was introduced by Paul Kelly in his PhD thesis
+that was done under the supervision of Stanislaw Ulam, who was a mathematician, a Polish mathematician,
+but he's probably more famous for initiating the Manhattan Project and developing thermonuclear
+weapons, so but he also was, he's also famous for many interesting results in mathematics and this
+is one of them, the reconstruction conjectures, so we don't know whether this is true, so it might
+be true but that's why it is a conjecture, it would be cool if it were true because of course
+in this case I could test graphosomorphism by just doing something with this collection,
+so what exactly can we do with this collection regardless whether the conjecture is true,
+right, so it will just give us stronger theoretical property of these architectures,
+so what we can do is we can consider our graph as a collection of subgraphs that are extracted
+from the given graph, right, and what is important to understand is that there is a correspondence
+between them, right, because we created these subgraphs, right, so it's built on the same nodes,
+we just might remove some edges, right, or some nodes, so we have here two types of
+symmetries, so we have the permutation of the nodes in the graph itself, right,
+and we also have a permutation of the subgraphs in this multi-set, right, because we don't have a
+canonical order of them, so together basically the structure, the symmetry structure of this
+new object of this collection of subgraphs is a product of two groups, right, if we don't know
+the correspondence there will be a special type of product that allow me to skip the details,
+and basically what we can do, we can design an architecture that does message passing on each
+of these subgraphs separately, but then fuses the information across graphs using these known
+correspondence, and this is probably more powerful than WL, a version of this architecture that we
+call subgraph union network, we can actually show that it's upper bounded by 3WL, and we hope
+that it will be equivalent to 3WL, but a few weeks after we published our paper, it was shown by
+a counter example that it is strictly less powerful than 3WL, so we don't know exactly,
+it's surely more powerful than 2WL, but upper bounded by 3WL and strictly less powerful,
+so we have even a blog post about about these different architectures and
+there are multiple methods that are related, so one of them is, for example, you can do
+dropout on your neighbors, that was done by a worker from the group of Roger Watenhofer at ETH,
+and they actually showed that this has a similar effect, so it increases the expressive power,
+not only gives some kind of robustness to the architecture, so the last more expressive type of
+message passing in your network, so I would like to mention is what we can generally call topological
+message passing, and if you think of what is a graph, essentially it's a set where you glue
+pairs of nodes together, so every element in a set writer, every node in a graph is a zero-dimensional
+topological object, so you can define this one-dimensional object, the edges that you glue
+to the nodes, and you get a graph, but you don't need to stop here, you can also
+define cells of a higher dimension, that you forgot about, glue to cycles in your graph,
+and we get what is called a cellar or CW complex, and basically now instead of traditional message
+passing in graph neural networks where we exchange information between nodes along the edges, we can
+also go up and down in this hierarchy, so we can do message passing within the same dimension
+right of the cellar complex, but we can also go across dimensions, and this hierarchical
+message passing is strictly more powerful than the vice-fair lemon, and it's obviously very
+convenient for for molecules, because in molecules these structures have some chemical meaning,
+and this probably is closer to how chemist thinks of molecule, because of course the graph
+captures all the information, but it doesn't make certain structures explicit, and in graph
+neural networks for example, well first of all you cannot even detect by message passing the
+presence of these structures, and if you want to transfer information from this node to this
+node you will need to do a few steps of message passing, here we can do it at once, so it also
+gives computational advantages, and again if you want some more details about how these different
+methods are related to each other, so there are many more expressive architectures, so there is
+a tutorial that was given at the log conference, and recorded on YouTube by my
+by my PhD student, Fabrizio Frasca, with Beatrizio Bevilacqua and Hagaimaron, so it's actually
+very nice tutorial, and they go into much more details about all these and other different
+methods for expressive graph neural networks, any questions so far?
+I have a question about summation aggregation being the maximally expressive aggregation,
+also probably it is related, maybe if you can also comment on the what was it discrete countable,
+restriction on the features, because if I imagine that our features are integers,
+there are different combinations of integers that sum up to the same number,
+so summing them actually does lose the information. So countable doesn't necessarily mean integers,
+right, but they should not be should not be continuous, so why this is without going into
+too much details, basically they use the same proof technique that was used in deep nets
+to prove the universality there, so this assumption is important, if you remove this assumption that
+this proof doesn't work, so basically they apply locally kind of the result of deep net
+that works on sets. All right, thanks.
+Hello, very interesting, thank you. I'm wondering about chemistry, whether you can encode in the
+features of your graphs also geometric information, especially in chemistry aromaticity is very
+important, but it's possible to encode it directly or you need some additional layers of information.
+So some information you can probably compute, and of course if you can pre-computed, if you
+know that these are meaningful features, then I think it makes sense to encode them,
+so the geometric information, I'm not sure that you mean information that comes from the positions
+of the atoms, right? Yeah, so I will talk about it in a second, so you can basically when you deal
+with geometric information, you also need to do it in a proper way, so you need to do it in a way
+that is equivalent to possible transformations, but I think a short answer is yes.
+In case of these like increasing hierarchy of the KWL tests, is it a case that for a given KWL
+that we know there exists some message passing graph neural network that exists that can do it,
+but we just can't construct them, or can we say that if we could make such a message passing GNA
+for such KWL, it would be, you know, intractably huge, and we would need to approximate it or
+something like that. So first of all, it is intractably huge, so it complexities N to the power K,
+so I think what is limited in practice is 3WL, so this is what Maron describes in his paper.
+I don't know, depending whether you can call it message passing or not, it depends on what
+you consider message passing, right, so because here you have more than pairs of nodes, I would
+argue that strictly speaking, it's not message passing, but for example Petr Velishko, which would
+say that it's message passing on a different graph, right, so it depends on the perspective.
+Maybe one more follow-up question for this KWL stuff. If you have a particular application that
+you're interested about, are there some cases where you can say for this class of problems that
+we're working on, we can, it's enough to be able to distinguish up such a level because
+the higher you go for K, obviously like these edge cases would get really nasty, which you might
+not see in your application. Well, so it's a good question, right, so for example planar graphs have
+WL dimension of 3, so basically all planar graphs can be distinguished by 3WL test,
+and you can argue that molecules, right, most of the molecules you can draw
+is two-dimensional structures, maybe some of them you don't, but probably a tiny fraction,
+so do you need something more powerful than that? The expressive power itself is probably not
+the end of the story, right, because nothing tells you about generalization,
+so yeah, I don't think that this on its own is really the crucial consideration. It's good,
+of course, to have an architecture that allows to distinguish between broader class of graphs, but
+if it comes at the expense of computational complexity, for example, maybe it's a bad idea,
+so you probably want some kind of good trade-off between these. Thank you.
+I had a follow-up question, so could you please define what message passing is in this case?
+Can we give a short definition? Right, so message passing is what I call message passing is
+these kind of architectures, let's see where I had it, yeah, so basically architecture of this
+kind, so this is the most general type of message passing, so we have the update of node i from
+neighbor j is done in this way, so I have a function that depends on both i and j,
+and the function is parametric, so that's learnable, and then I aggregate, you can
+actually show that summation is what you need, right, you don't need anything else.
+So, well, this is message passing, there are higher order architectures, right, like KGNN,
+right, equivalent to KWO, so this is equivalent, in the best case, equivalent to WO. It is not
+equivalent, so the more expressive WO tests, KWO tests are more expressive than these architecture,
+but then it doesn't work on pairs of nodes, it considers bigger sets of nodes, right, so
+whether you, to call it message passing or not, you can argue that, so some people argue that
+you can also think of it as message passing, right, just with a different graph,
+so in my opinion it's more a semantic question.
+I don't know, we never really looked at it,
+yeah, I don't have an answer.
+So, it seems like the topological message passing networks and the graph substructure
+networks both work on the same phenomenon of identifying and counting substructures,
+so is the, the expressivity of the topological message passing lower bounded by the expressivity
+of the graph substructure network? No, it's slightly different, right, because
+substructure networks, well, first of all, we know they're upper bound, so 3WO, topological
+message passing depends on what kind of substructure, so there, the kind of
+side information that you assume is what kind of substructures become cells in this,
+in this cellular complex, you can actually go beyond two-dimensional cells, you can go to
+high-dimensional cells, we never tried to go beyond two-dimensional cells, so depending on the
+choice of these substructures, what becomes, what becomes a cell, you might have different levels
+of expressivity, so they're distinct methods, I don't think that they're really comparable.
+So, something that always confused me about the topological ones is where you, like, you
+clue stuff to structures in the graphs to, like, make them obvious, but can you, like,
+clue to every structure or does the structure need to be, like, closed? Because in previous works,
+it was always either cycles or cliques, which are kind of circularly closed.
+What, I think, basically, the key question is whether it defines a valid cell or complex,
+I think it should be closed. Yeah, my, yeah, I also think it should be closed, but
+I have no idea about topology. Yeah, from what I remember, it should be closed,
+but yeah, so it could be a clique, for example, whether it could be a path, I don't think so.
+So, actually, GSNs can, like, count structures that you couldn't, like, glue into, or, like,
+form into a cell complex. So, GSNs can count more general structures, in my opinion, yeah,
+so something that doesn't necessarily form a cell or complex. Okay, yes, thank you.
+Inge, I have a question. If we allow more and more nodes, the probability of collision in
+this representation, do we have any results that it became less or, like, unsignificant,
+or, like, in more general, do this approach extend a bit more into randomized or, like,
+stochastic versions so that maybe the guarantee is very low right now from a sort of, well,
+secondary run. So, the expressiveness, like, theoretical is pretty low, but then, if we allow
+randomness, then, actually, like, no, run, that's...
+Sorry, you're talking about random graph models, right? Something like stochastic walk models.
+You can probably analyze what happens to these kind of graphs given
+certain type of message passing architecture. I've seen papers of this kind, nothing specific
+that comes to my mind. Yeah, you can probably, I don't know, compute some probability under
+the assumption of certain distribution of impulse random graphs of distinguishing
+within them or not. Yeah.
+So, a question regarding the size of the graph in practice. We are talking about, like, in terms of
+maybe node count and edge count, like, what to say in practice for this KWL?
+So, KWL doesn't scale well, right? So, if it's n to the power k, so also computational
+complexity versus space complexity, I don't think that we can impact this goal beyond
+3WL equivalent. Now, there are sparse versions of these architectures, so you can do slightly
+better, but I think they are mostly useful for proving theorems. So, basically, because you
+establish a link to the device for element hierarchy, then you can say that, basically,
+if your network is equivalent to one of these methods, then you know how expressive it is.
+Thank you.
+Yeah. So, there was a paper sometime ago claiming that most of the graphs in the most common
+benchmarks can actually be distinguished by 1WL. Now, I don't know if you read about it.
+And my question is, now we've seen that even in those cases, more expressive GNNs still get
+better results, but then what's the reason? So, again, generalization could be one possibility,
+right, because you train on one set of graphs and then you test on another set of graphs.
+Then, double your tests in general, they're designed for visualized graphs, right? So,
+they only consider the structure. So, how you treat features is also important.
+It makes sense.
+I think we can stop here and we have like half an hour for coffee break and then we raise
+them afterwards. So, I will put the slide with the caffeine molecule that everybody likes and then...
+Yeah. Basically, we stopped at this overview of different more expressive architectures. So,
+let's now talk about... Guys, let's start. So, basically, the situation that we have with
+the expressive power of graph neural networks, right? So, on the one side, we have the WL hierarchy,
+right? So, increasingly, more powerful, more expressive graph isomorphism tests, right? And
+we can find analogies between certain GNN architectures to these tests. On the other hand,
+the assumption that we are given a graph and we do message passing on this graph might be
+restrictive in the sense that some graphs are not friendly for message passing. And in this case,
+typically, what you would like to do is to change the graph so that message passing works better.
+This is a very broad category of methods that are called graph rewiring. So, what happens is that
+you have a gap between theory and practice, right? So, the theory, in order to make the link to the
+WL tests, you need to use exactly the same input graph. The practice tells you that sometimes
+you don't want to do it. So, as always, there is this gap. So, if you think maybe
+take a step back and look at the different types of graph neural network architectures,
+so the traditional approach in graph neural networks is you are given the input graph
+and it's both part of the input and part of the computation, right? Because you use the input
+graph to send information on it, right? So, it's both input and computational object. Now,
+as we've seen, you can do many different things, right? So, you can enrich the graph with some
+positional or structural features. You can lift it into a high-dimensional topological space,
+like Simplisher or Cellar complex, right? And do message passing on this object.
+You can, again, enrich the graph by considering a collection of sub-graphs, right? And do maybe
+some other more exotic type of aggregation that respects the product symmetry group.
+You can also enrich your representation by considering also the symmetry of the data,
+right? So, these are equivalent GNNs. If you have time, I can talk about it. And then,
+maybe in some special cases, your graph will have a special structure, like a grid, right? And in
+this case, you can maybe do more specific choices. For example, you can abandon the local permutation
+invariance. So, you will get back to convolutions. So, basically, the common denominator of these
+approaches is that you have more structure, right? Sometimes, you can assume. Sometimes,
+you can invent, right? But that's the idea. On the other hand, you can say that you don't like
+the graph that is given to you, right? And you choose to completely ignore it, right? So, you
+just assume empty edge set. So, you're back to the bare bone, right? So, the object is just a
+collection of nodes, which is a set. And these are the architectures that are called deep sets or
+point nets. So, that's the simplest case of graph neural networks, right? Where you don't have a
+graph, you just have the nodes. The other extreme of this is when you allow interaction between
+every pair of nodes, right? Again, you don't trust your graph for some reason. So, every pair of
+nodes can interact. So, it's a completely or a fully connected graph. And this is how transformers
+work, right? So, in this case, you will use, for example, the attentional flavor of the
+graph neural network architectures. And you will learn the right graph for your task, right? In
+a sense, through the attention mechanism, for example. There is another class of methods. And
+this is what we call graph rewiring, where you say, okay, I don't like the graph that is given.
+I would like to change it a little bit, maybe. And this way, the graph will become, in some sense,
+better for message passing, okay? We'll talk about it in more details. So, let's talk about
+graph rewiring and specifically about transformers. So, in transformers, you assume that the graph is
+complete, right? So, every node is connected to every node. And if you try to apply a convolutional
+style GNN architecture, right, that depends on the coefficients of the, representing the structure
+of the graph, then basically, here, the sum goes over all the nodes. And basically, this argument
+is equal for every node. So, it's not informative, right? You're not adding any information.
+So, you need to use at least an attentional architecture. And in this case, this is already,
+this already looks like a transformer. And you can think of attention weights as a kind of
+learned graph adjacency, right? That depends on this task that you're trying to solve.
+And this is a special case of GNNs. Now, of course, in natural language processing,
+many tasks that you want to solve do not require permutation environments. You actually want them
+to be not permutation environments. For example, you want to depend on the order of words in the
+sentence. So, this is typically achieved by adding positional encoding. So, in the simplest case,
+you just equip every node with some additional coordinates that tell you where you are located
+in the domain, right? Which in case of transformers, it's where you are located in a sequence. And
+typically, this is how positional encoding looks like, right? So, these are just some sinusoids.
+So, for graphs, you can do other things, right? So, the analogy of sinusoids would be the,
+yeah, question?
+Sir, are you aware of some studies about positional encoding, and especially about
+relative positional encoding, which is getting some popularity in transformers architecture? So,
+like the studies which consider all, all invariances in those positional encoding,
+like we not always want to have absolute positional encoding. Sometimes we want to be
+sometimes some shifts or rotations are not relevant. So, do you know some literature on that,
+perhaps? Yeah, so, yeah, relative positional encoding, good question. So, the analogy,
+let's say, of this standard global positional encoding would be the Laplace and Eigenvectors.
+So, the analogy of local positional encoding would be something that, for example, the DGN
+architecture implemented Gabriele Corso and others directed graph networks. So, what they do,
+they take, for example, the same Laplace and Eigenvectors and compute their gradients on the
+edges and then transform these features in some way. So, this gives you a kind of local directions.
+So, that would be probably a good analogy of local positional encoding. So, with Laplace and
+Eigenvectors as well, you have some ambiguities. So, there has been actually a recent paper from
+Derek Lim and others from MIT where they are able to solve these ambiguities. You can use random
+walk kernels. You can use substructure counting as we've seen, right? So, there are many ways of
+doing it. But, basically, between these two extremes, right, whether ignoring the graph or
+learning the graph, of course, it comes at the expense of complexity, which is a huge problem
+in large language models where these, the size of the domain, right, the lengths of the text
+can be very large. So, probably one of the key computational questions would be how to compute
+this attention more efficiently. So, here somewhere in between comes the graph rewiring
+approaches and with graph rewiring, it means that your computational graph is not equal to the input
+graph. And it's a little bit controversial topic because the graph being part of the input, somehow
+you don't want to change the input, right? So, but the fact that many architectures do it, right?
+So, if you have, for example, a very large graph like a social network where you have a lot of
+neighbors in some nodes, you cannot aggregate information from millions of nodes. So, you need
+to sample the neighbors, right? Which means that you are using a different graph from the input one.
+So, neighborhood sampling is a form of graph rewiring, right? You can also use graph neural
+networks where you bring information from not immediately your one-hop neighbors but also
+from multiple hops away, right? So, this is also some form of graph rewiring. Transformers are also
+an extreme form of graph rewiring, right? Where you allow access to all the nodes in the graph.
+Some kind of preprocessing, right? Where you prewire the graph, for example, by some form of
+diffusion. Yeah, a question? So, how do you do the neighbor sampling? Is it just like a
+stochastic or do you? Yeah, usually you sample with repetition. So, this is what Sage did.
+Do you think it's optimal or is there a way to optimize it in the best way possible?
+I don't remember if they looked into it. Probably, of course, it might matter how you
+sample, but I don't have on top of my mind any significant result that would tell how to do it
+better. Could you elaborate more on this diffusion process on the graphs you mentioned?
+Yeah, I will get to it. I will go through the diffusion equations and then I will talk about
+this as well. So, I'm specifically referring to Diggle, the work of Stefan Gundem and his students.
+So, basically, the bottom line is graph is not really any sacrosanct object and in practice,
+many architectures, even without admitting it, do some form of graph rewiring. So, you can also
+rewire the graph throughout the neural network, so it doesn't need to stay the same across all layers.
+And this has been shown efficient, for example, in the context of our squashing where you can do
+maybe a few steps of standard message passing and then do message passing on a complete graph.
+Like what transformers do. So, the argumentation usually is that the first steps capture somehow
+the structure of the graph, similar to Weisberg and Lehmann, and then, basically, you accumulate
+this information as features. And there is an extreme example of this. I think it's called
+GRIT. So, this is from the group of field torrid Oxford and what they do is they use just something
+similar to heat kernel to encode the local structure of the graph and then just use MLP.
+So, there are other extremes like this, right? So, basically, you have just some kind of local
+feature of the graph that you can maybe make learnable, but then the graph itself is not used,
+so there is no message passing. And I think it's an open question of how much you want
+to use to capture the structure in the form of some features versus in the form of the
+computational architecture. So, the graph can be changed throughout the layers and, well,
+one of the first architectures to do it was what we did with Justin Solomon and his students.
+And that was considering problems in computer graphics. So, we have a point cloud, let's say,
+of this airplane. So, every point has three-dimensional Euclidean coordinates,
+and here the task is segmentation. So, you want to label each of the points on the airplane,
+whether they belong to the body, to the engines, to the wings and so on. And here we create a graph
+to basically to represent the local structure of the data. And what is shown here by the colors
+is a distance in the feature space, right, in the latent feature space of respective layers in
+this network to the rest of the points from the red point, right? So, initially, the distance
+is Euclidean. As you can see that, that's basically the input space, three-dimensional
+R3. But then as you go deeper, you see that it becomes more semantic. So, here, for example,
+points on the same, on the engine become closer or on the wing become closer. So, basically,
+the space itself is used for the construction of the graph. And we call it dynamic graph,
+dynamic graph neural networks. Maybe not very, very, very lucky name. I think many
+architectures are called like this. And we use it also in different incarnations or similar ideas
+under the name of differentiable graph model, where basically you have
+applications where you don't know the graph a priori. So, that's, for example, the case with
+medical imaging, where you have maybe nose representing different patients
+or maybe different regions in the brain. And you have basically two branches of
+graph neural network architecture, one that is computing the filters on the graph
+and another one computing the graph itself. And, of course, there is question of computational
+complexity, but we're able to show that it is better to learn the graph for the task,
+rather than to construct it ad hoc in some kind of handcrafted way.
+Now, talking about message passing in general. So, these are hecticly added slides based on
+some discussions that we had in the coffee break. So, if you think of message passing
+and different versions of it like transformers, basically, the difference is in two questions.
+Is what information to send, what information to pass, and where to pass. Whether you follow
+the graph, whether you pass information to your neighbors or you pass information to distant
+nodes, whether it's in K-Hope or all the neighbors in the graph. And the question of what is how
+you exactly transform your information. So, it's also interesting to add to this another question,
+is when to send information. And if you look at it, basically, it's a multi-step process. So,
+this is how a classical message passing neural network works. So, these are three layers of
+an MPNN or three iterations of, let's say, something similar to vice-versa and lemon,
+and I'm sending information from these nodes to these nodes, right? So, it takes
+three steps. So, first here, then these nodes propagate information to their neighbors,
+and then this green node receives information from both neighbors, right?
+So, in a transformer, all the information is available at once. So, at the same moment of
+time, I'm sending information from all the nodes to the green nodes, right? So, it has access to
+all the information across three layers. But you can also, so, basically, here the difference is
+where to send information, right? That's the structure of the computational graph.
+But we don't consider here also when to send this information. And you can imagine an architecture
+where, for example, you delay the information. So, here, the first node in first iteration
+sends information to its neighbor. At the second layer, it sends to two Hope neighbors, right?
+So, this information becomes gradually available, not like in transformer where you flood
+all the nodes with information from all other nodes at once. You make it progressive, right?
+So, basically, these are kind of shortcuts that you have in the graph, but they're made
+progressively as you go deeper into the architecture. You can also make, so, you can think of this as a
+kind of skip connections, but you can also make skip connections sparse in time. So, you can delay
+this information. And I'm saying that here the information from the first node comes to the
+next node and is delayed in time, right? So, it would arrive to it anyway, but it would be
+entangled with the information in other nodes. So, I'm allowing direct access, but I'm delaying it.
+And this potentially has interesting implications also on the hardware aspect of
+graph neural networks, because if your graph is very large, you typically partition it into
+different parts of memory, right? And the cost of message passing is not the same, right? So,
+messages within the same memory cost much less than messages across different memories. So,
+you can imagine a graph neural network where you are doing fast messages within each part of memory
+hierarchy and slow messages across, right? So, you don't want to wait for all the messages to arrive.
+You might want to do fast messages while waiting for slow messages, right? So,
+this architecture that we call drew or end drew, this version with delays potentially allows for
+it. So, I think it would be interesting to test it on actually some practical hardware like graph
+core, for example. So, let me move to the next topic and this is physics-inspired graph neural
+network. So, I promised PDEs, so I need to hold this promise. And let's again take a step back
+and look at different objects that we've seen so far, right? And also, you can argue objects that
+are studied in this broader field of geometric deep learning. So, let's say grids, meshes and
+graphs, right? So, you can think of them as more or less the same thing just with more structure,
+right? So, meshes in addition to have also triangles. So, these are simplicial complexes,
+so graphs with some extra constraints or extra structure. Grids are also special type of graphs
+where we have certain organization. So, if you look at the grid and you look at how you aggregate
+information from your neighbors, there is no ambiguity, right? In a grid, unlike a general
+graph, I can order my neighbors in a canonical way, right? I have a top neighbor, I have a left
+neighbor, bottom and right, like shown here. So, it is totally unambiguous, right? So,
+this ordering is fixed. On a mesh, the situation is slightly different. So, I can pick up my first
+neighbor and then I can order all the rest of the nodes, all the rest of the neighbors in, for
+example, clockwise orientation. And this is possible because mesh is a discrete manifold,
+so it's locally Euclidean. I have this meaningful ordering, right? But of course, the choice of
+the first neighbor is ambiguous, so I can rotate everything, right? So, the ambiguity here is
+up to rotation. In a graph, as we've seen, any permutation works, right? So, everything is defined
+up to a permutation. So, in a sense, graphs have the least structure out of all these objects,
+right? So, second observation is that if I look at grids and meshes, I can think of them as
+discretizations of some continuous spaces. So, a grid is discretization of a plane,
+or a mesh is discretization of a two-dimensional surface or a manifold. We don't have immediately
+this analogy for graphs, and even though there is an entire field that is called network geometry
+that tries to think of graphs as some discretization of continuous space, we don't, it would be nice
+to have some continuous models for GNNs, right? And that's the idea of what we call physics-inspired
+GNNs. So, you can consider some class of graph neural networks as a dynamic system. So, you have
+particles that live in the dimensional feature space, and let's assume that the dimensionality
+always is kept the same, right? It doesn't need to be in general graph neural networks.
+So, every node is some point, some particle that moves along a trajectory that is shown
+by this red line here. So, a GNN is essentially a dynamic system, right, that is governed by
+the system of differential equations. F here is some coupling functions, right, that makes
+the, makes dependency between, between different particles, and it depends both on the particles
+and the, and the graph, and it's also parameterized by some trajectory of parameters that are, you
+know, by, by theta. So, T is a continuous time parameter. I can discretize it, and this corresponds
+to layers of a graph neural network. And the graph, right, you can think of it either as a
+coupling function, right? So, this F here, how different rows of this, of this matrix interact
+with each other, or discretization of some continuous space, as we'll see in, in, in the
+next few examples. So, basically, as the evolution equation, right, that governs the behavior of
+these particles, I can put here more or less anything, right? So, there's plenty of different,
+differential equations that, that describe different systems, but probably the first
+thing that comes to your mind when you think of propagation or diffusion of some stuff is the
+diffusion equation, right? And this, in fact, was one of the earliest mathematically analyzed
+physical phenomena, right? The diffusion of heat, analyzed by Non-Elst and Newton himself
+in an anonymous paper written in Layton in the transactions of the royal site. So, it's interesting
+actually that the, the journal had a mixture of papers written in English and Layton. And it was
+anonymous. Well, Newton devised an experimental setup where he heated pieces of different, different
+objects, metal, I think, mostly, and then he looked with his self-made thermometer, he measured
+how much heat is lost over a period of time and devised some law that, that is formulated in
+modern terminology like this, what is nowadays called the Newton law of cooling, which says that
+the temperature that the hot body loses in a given time is proportional to the temperature
+difference between the object and the environment. He actually didn't use the, the term temperature,
+that's modern terminology, he used the term heat, which has a different meaning or color in, in Layton.
+And somehow everybody guessed that it was his paper, even though he didn't sign it.
+Now, it took some time until this process was fully understood. So, Fourier, this idea devised the
+local version differential equation that governs heat diffusion and then thick in the late 19th
+century defined what we nowadays understand as diffusion equations. So, if you want to apply
+this idea to a graph, we can consider a diffusion process on a graph. And that's how it looks like.
+So, here x is some quantity that is being diffused, think of it as temperature if it's color.
+So, a node has certain temperature at time t, right? So, t is a continuous variable. And what is
+written here is the self-temperature of the node, right? This is the temperature of the environment.
+So, it's the average of the one hop neighborhood of the node. And this is the rate of temperature
+change, right? So, and there might be some proportion coefficient here. So, if I rearrange the terms
+on this expression, I can write it like this, right? So, some slightly massaging the formula.
+What is written here is called the gradient, right? So, it's just the difference between end
+points of an edge, right? So, I take the feature here and the feature here and subtract one from
+another, right? So, that's the graph analogy of the standard gradient operator from classical
+calculus. And what is written here is, again, the discrete analogy of the divergence operator,
+again, from basic course in calculus. So, in terms of operators, you can think of
+the features as that they live in the nodes of the graph as a scalar field,
+then the gradient makes a scalar field into a vector field, right? That leaves on the edges
+of the graph. And then the divergence does the opposite. So, it collects the information from
+the edges that leave, that emanate from a node and basically sums them up maybe with some different
+weights, right? So, that's what the divergence, right? So, gradient makes a scalar field into
+vector fields, divergence makes vector fields into scalar fields. Acting together, they take a
+scalar field into a scalar field, the divergence of the gradient or minus divergence of the gradient
+in our notation is what is called the Laplaceian operator, right? So, what is written here is
+the graph Laplaceian operator and by definition, you see what it does. So, it compares you to
+your neighborhood, how different you are from the average of your neighbors. And this is really a
+very important operator. It comes everywhere in mathematical physics and from quantum mechanics
+to wave equations to diffusion equations and particularly important here. So, what else is
+the heat equation? So, this is very simple, right? So, this is what we call homogeneous isotropic
+diffusion equation. Basically, heat propagates everywhere in the same way, right? What else
+heat equation is? It's an example of prototypical gradient flow and gradient flow is a type of
+evolution equation, differential equation that looks like this. So, the step at every point of
+time is in the direction of the minus gradient of some energy, that is, you know, here by E.
+And the energy that corresponds to the diffusion equation is what we call the Dirichlet energy.
+So, the Dirichlet energy, you can write it as quadratic form with respect to the Laplaceian
+operator and it measures the smoothness of the node features, right? How different you are from
+your neighbors. So, the smallest value it can achieve is zero and in this case, all the features
+are the same, right? And you can show that Dirichlet energy decreases along the flow. So,
+if you run the diffusion to infinity, all will become constant, right? So, the heat will basically
+propagate on the domain and everything will have the same temperature. So, this is what we
+typically call over smoothing in graph neural networks, right? And I should say that over smoothing
+is not necessarily a bad phenomenon. So, usually it's described as a kind of catastrophe that
+happens in GNNs and prevents us from making deeper architectures, but it can actually be a very
+benign thing, right? So, you can imagine without any learning. So, if I give you a graph and I
+have labels of a few nodes and if I assume that the structure of the graph is homophilic in the
+sense that my neighbors are expected to have labels similar to me, then I can just diffuse
+this information. So, it will be, you can think of it as a heat diffusion equation with boundary
+conditions and by just doing this, it is very likely that the result will be very good, right?
+If the graph is not homophilic, of course, it needs to do something else, maybe work harder,
+but on its own, the over smoothing is not necessarily bad. Yeah, there is a question.
+Actually, I have like two questions on this topic. So, first of all, can I see this as the,
+in some sense, the message passing algorithm there, but via the ordinary differential equation
+between the edges? Right. So, well, whether they call it message passing or not, I think it's
+a good question. So, every iteration when you discretize this differential equation,
+every step will correspond to message passing. Now, in some cases, you can actually have a
+close form expression for the solution at any time t, right? This is called the heat kernel.
+So, it will look like the exponential of the Laplace matrix. So, I can compute the value
+of the temperature at every point instantaneously without doing these microsteps of message passing.
+So, whether they still call it message passing or not, so this is where
+semantically I disagree with better, for example, he still suggests to call it message passing.
+I think it's not. So, I don't know how to call it better, maybe some kind of spatial coupling,
+right? Because you have direct information to potentially all the nodes in the graph, right?
+So, it is something that doesn't require propagating information explicitly, right?
+You might be, when you solve the diffusion equation, especially with its own linear,
+you might not have a choice. But in some cases, you do. You have close form expressions, right?
+Okay, thank you. And the second question, because I suppose that here is like the mostly ordinary
+differential equations. Is there any research to introduce some stochasticity there to be,
+let's say stochastic differential equations, something like that, and when it could help
+in this field? Yeah, so it's interesting. I think there have been some works,
+and there are some works. So, it talks for example, a big expert in this domain is Terry Lyons. So,
+I think they are working on these topics. So, we are not considering stochastic differential
+equations. We are considering whether to call them ODs or PDs. So, these are coupled ODs, right?
+When you discretize, a partial differential equation becomes a system of coupled
+ordinary differential equations. I think they, again here, the terminology is more semantic
+difference, whether you have a continuous spatial coordinate that you want to discretize. So,
+that will be the next part of it. Okay, thank you. Right, okay. So, that was basically,
+that was the gradient flow, right? And again, an example of the heat diffusion equation is
+a prototype of the gradient flow. So, if you look again at this view on graph neural networks as
+some kind of evolution equations governing some physical system, so the traditional approach
+to graph neural networks is to take this differential equation, discretize it, and then
+parameterize the evolution equation, right, the discrete evolution equation. So, every step of
+an iterative solver here will correspond to a layer, and then you parameterize every layer,
+right? So, that's how you can view graph neural networks. So, instead, what we can do,
+we can start with an energy, parameterize an energy, and then derive the evolution equation
+as a gradient flow. So, apparently, there is no difference, right? But the big difference would
+be that it will allow us to make certain architectural choices, so it will restrict
+our space of all the possible architectures that we can do here, right? Like, for example,
+the form of message passing, that will have better interpretability. And, of course, I know
+that interpretability is maybe a bad word in machine learning, so what I mean here is that
+we will be able to guarantee that certain things happen or not happen, okay? And I will be more
+specific in a second. So, let's consider the following parametric energy, so we call it generalized
+Dirichlet energy. It has these two terms, so you can think of it as an energy that a system of
+particles has, and it's parameterized by two matrices of size d by d, right? d, remind you
+that's the dimensionality of the features, so that's the space where the particles move.
+And we have two terms here, so the external energy term, it acts on all the particles,
+so think of some force that that moves them, some directions. And we have internal energy,
+so these are the interactions between particles along the edges of the graph, right? Think of
+maybe colonic interactions, right? Or maybe springs that are attached to some pairs of particles.
+And we have two types of interactions, so we have attractive interactions, and they happen along the
+eigenvectors of the matrix W that corresponds to positive eigenvalues, and repulsive
+interactions that happen along negative eigenvectors. And you can see an example here,
+so here the space is two-dimensional just for visualization purposes, and the graph here,
+you see that it's heterophilic, so the colors of the nodes represent the labels,
+and the positions represent the features, right? The feature coordinates x and y.
+So the graph is actually perfectly heterophilic, right? The blue nodes have only red neighbors,
+and the red nodes have only blue neighbors. And yet we can find directions, so the horizontal
+direction is repulsive direction where the particles are separated, and the vertical
+direction is attractive direction where the particles cluster together. We can perfectly
+separate these types of nodes, right? So if my task is node classification on this graph,
+by this very simple process, I can solve this problem, right? So we will see in a second that
+this corresponds to a convolutional architecture, and by convolutional I mean that my diffusion
+operator depends only on the structure of the graph, but not on the features,
+like in more complicated, for example, attentional networks. So I can write it as AX something,
+right? So this is what was our distinction, so in convolutional architectures we had something
+like this, in attentional architectures we had something like this, right? So that would be the
+GCN type of architectures, and this will be the GUT type of architectures. So the fact that
+this matrix is constant, it depends on the structure of the graph, is what I call convolutional
+architectures, right? So basically these goals against this folklore that I mentioned in the
+beginning, that convolutional architectures are not good for heterophilic graphs, so you can see
+that they can work very well, right? So we need to dive deeper and understand what happens here.
+So if we write the gradient flow of, yeah, question?
+Is there a link between this gradient flow and less and less popular recently,
+probabilistic graphical method, especially if you showed the previous slide, it was very
+similar to restricted Boltzmann, right, when we had this bipartite graph?
+Yeah, you can probably interpret it from, right? So gradient flows are very basic objects,
+so it's essentially steepest descent is also a gradient flow, right? So it's a continuous
+version or a variational version of it. Yeah, so probably there are links to many different things.
+So basically you're minimizing some energy here, right? So and this energy,
+so it's not the learning part, right? So it's the inference, so applying a neural network
+minimizes some energy, right? You design the network, so it minimizes some energy, right?
+And the energy is parametric, so what kind of energy to minimize is what you determine
+based on the task, so that's what is done by back propagation. So basically the gradient flow,
+you just differentiate this energy with respect to its parameters, right? By data I denote here,
+these two matrices, omega and w, and one thing that you notice immediately that they all appear
+in symmetrized form, right? So they appear in quadratic terms, so they appear as omega plus
+omega transpose, so we can just assume that they are symmetric to start with, right? So
+that's already first restriction that comes from this assumption of the gradient flow.
+The second thing is, again, this is by the design of the energy that
+the parameters are time-independent, right? So they don't depend on t, right, which will become the
+layer number. And if we discretize it, this is how we discretize, so we replace the temporal
+derivative with forward difference, so this is what is also called the explicit Euler scheme.
+So we have some step-sized tau, and this gives residual convolutional type GCN again,
+the convolutional type GCN, and why I call it convolutional, because this matrix A, right,
+that's where the diffusion happens, where the message passing happens, right, when I send
+information across adjacent nodes, it's not dependent on x, it's fixed, right?
+So you can call it a kind of a convolution. The weights are symmetric, and the weights are
+shared across different layers, okay? So the way that you can use it, you can optionally
+do some nonlinear encoding typically to reduce the dimensionality, so we have some fixed
+low dimensional dimension of this space. You apply a linear gradient flow, so all the propagation
+of information on the graph is linear, so there are no nonlinear activations, right?
+And then you do some decoder, that's for node classification, right? So that's how the
+architecture looks like. Now if you compare it to the classical convolutional architectures like
+GCN of Kieff and Welling, so there are several differences, so the GCN is non-residual,
+the weights are non-symmetric, and the weights are different per layer, right? And also they
+use nonlinear activation for every layer, we don't. So in a sense it's a kind of antithesis to
+to a typical graph neural network or a typical deep learning architecture,
+so typically you say that you need many layers, each layer parameterized separately and nonlinear
+are they activated, we don't have anything like this here, right? So all the, again the diffusion
+part is linear, we have a nonlinear decoder and potentially nonlinear encoder. So what we gain
+from it being gradient flow is interpretability in the following sense that we can show that
+in certain situations we can induce both low and high frequency dominated dynamics,
+I will define it in a second. And what it means is that we can work both with homophilic and
+heterophilic graphs. Now because the weights are shared across layers, actually the number of layers
+becomes a completely irrelevant notion here, so what matters is really the diffusion time.
+The number of layers is just how finely I discretize my differential equation,
+and the number of parameters is independent of it, right? Unlike, again, the classical
+architecture where the more layers you have, the more parameters you have. Yeah, question?
+Why don't you stay in the latent space? Why do you have needed a decoder?
+Why do I need a decoder? Well, the decoder can, for example, you might need it to produce a label
+for an old. It's not the decoder in the original space, it could be in any, into any.
+It could be also decoding the original space, right? So you might, for example,
+want to work with low dimensional space and then the number of your classes might be different,
+right? But the important part is that it's nonlinear, so all the nonlinearity goes there.
+Okay, and well, you can also use an encoder, I will show why encoder can be problematic. We actually,
+we have experimental evidence that it's not needed. So first of all, let's talk about
+homophilic and heterophilic graphs. So again, homophilic look like this, heterophilic look like
+this. And the data set here is what we call synthetic core. So it's probably you're all
+familiar with it. So it's this citation network where we can actually change the structure of the
+graph in a way that it becomes either more homophilic or more heterophilic, right? And here
+the two extreme choices of an architecture. So the task here is no classification. I can either
+ignore the structure of the graph altogether and do just node-wise predictions with a multi-layer
+perceptron. And of course, it's not great, right? So it achieves about 67% accuracy.
+But no matter how homophilic or heterophilic data set is, the result is the same because
+it simply ignores the graph, right? The other extreme is the GCN. So when the graph is homophilic,
+it works extremely well, right? Almost 100%. Because when my neighbors contain similar information,
+I will be basically averaging them and I will be doing some form of denoising. But when the
+graph is heterophilic, then it degrades very badly because in this case, the neighbor information
+is more detrimental than helpful. So the gradient flow framework, it benefits from basically,
+it's a kind of mixture of both worlds. So it works as well as GCN in the homophilic case and as well
+as node-wise predictions in the heterophilic case and the graceful transitions between the two.
+Now, another important thing, right, and that's where the encoder and decoder question comes
+into the play. So if you write the output of the neural network after L-layers, this is how it
+looks like. So it's basically, it's a polynomial in these matrices. So the matrices are dependent,
+of course, so there are some powers here, the parameters are shared. But if we ignore the
+encoder, right, and we can ignore it, at least in the test that we did, basically what the
+diffusion part can be pre-computed, right? You see that it acts as some kind of powers
+of the diffusion matrix on the features. So I can pre-diffuse the features once as a pre-computation
+step and then it all boils down to node-wise multiplications by these matrices. So the
+computationally difficult part, both computation in terms of the number of multiplication operations,
+as well as the memory access, which unless the graph is very structured, you have random access
+to your to your neighbor nodes, this is really the heaviest part of graph neural
+networks. So this now can be totally trivialized. So we've done the earlier versions of this
+architecture with just one convolutional layer. We call it sine. So already several years ago,
+we tested this on the graphs of hundreds of millions of nodes. So with this architecture,
+actually, because now we also get rid of the non-linearity, you can apply it to a very large
+graph, basically you can design multi-layer architectures that work well both in homophilic
+and heterophilic settings. Now another thing, and this is what I mentioned regarding the nature
+of the dynamics that is induced by this gradient flow, is if we look at our at our data, right,
+and our data, I remind you, it's the matrix X, right, which is of size n by d, n is the number
+of nodes, d is the number of dimensions. So we can do an analogy of a two-dimensional Fourier
+transform, right. I remind you that for a graph that we assumed an undirected graph,
+the graph of plus n has orthogonal identity composition. So it's eigenvectors form an
+orthogonal basis, right, the basis for the rows of the matrix, and the matrix W, which we assumed by
+virtue of our process being a gradient flow, right, was symmetric, we can have also an orthogonal
+identity composition, let's call it second vector psi and eigenvalues mu. So it forms the
+orthogonal basis for the columns of these matrix, right, for the dimension d of these
+matrix. And now in these two-dimensional Fourier basis, right, we can take tensor products of these
+basis functions of phi and psi, we can write the output of the neural network like this, right.
+And what you see here is that we have some filter that acts on our signal, right, so this is signal,
+so these are tensor products, right, so that's the analogy of two-dimensional Fourier transform,
+sinusoid of sine mx by sine ny, something like this, right, so that's our analogy of this.
+So this is a filter and it works both with the frequencies of the eigenvalues of the
+graph Laplacian and the matrix W, right, lambda and mu. And you see that the low frequencies of
+the graphs are magnified by the positive eigenvalues of W, and conversely, the high frequencies of
+the graph are magnified by the negative eigenvalues of W. And you can show that if we choose the
+matrix W in such a way that it has sufficiently negative eigenvalues, then this gradient flow,
+dynamics is high frequency dominant in the sense that the Dirichlet energy, or more correctly,
+the normalized Dirichlet energy doesn't converge to zero. So it means that we don't have over-smoothing,
+right, in the case of over-smoothing, this thing would be going to zero, but here it doesn't,
+right. So it means that we have some process that doesn't diffuse everything to a constant,
+it does something more interesting, right, and the condition for it is W having sufficiently
+large negative eigenvalues. So the analogy of this would be,
+so if you think of diffusion processes blurring, what we have here is sharpening,
+and we have both processes at the same time. So the attractive interactions do blurring,
+the repulsive interactions do sharpening, so we have some directions in the fissure space where
+these processes happen at the same time. Okay, questions? Yep, I think there are many questions,
+so it was very unclear. So in these situations where you don't
+dissipate to a constant value, are you obtaining some sort of chaotic behavior,
+or are you obtaining other periodic oscillations of... So this is a sympathetic analysis, we
+don't know, I don't think that I have an answer to your question, it might be that it's...
+So whether we have monotonicity, that's the question, I don't think so, but it might be the case.
+So if eigenvalues of W are sufficiently negative, then we can just kind of beat over squashing.
+So over smoothing.
+Beat over smoothing, and the question is, is it possible, is it hard to do so because there are
+two dynamics, is it hard to get those dynamics right, does it require a lot of hyperparameter
+tuning or something like that? So it's a good question, so you can structure the matrix or
+parameterize the matrix W in such a way that it has two parts, positive eigenvalues and negative
+eigenvalues, and that's what we do, so basically we help the architecture to have both, and then
+learning becomes easy. To learn it completely from scratch might be difficult, and we see that that
+GCNs which are in principle the same architectures without this restriction often fail to do it.
+My question went the same direction, but after the previous answer I got more confused.
+So those, the matrices which, once it's the delta and the W, they are learned, right, they're not
+hyperparameters. W, the elements of the matrix W are learned, right, but the matrix W has constraints,
+right, so it's, for example, it's symmetric, right, so it has half of the elements of general
+matrix W, and then basically by virtue of this theorem what it suggests us is that we need to
+further restrict the structure of W, for example, to make it have negative eigenvalues.
+So typically what we do, we decompose it into a positive symmetric part and a negative symmetric
+part, and basically this way we guarantee that it has both positive and negative eigenvalues.
+Okay, so what is the principle component that makes graph work on heterophilic graphs better than
+GCNs, and can you somehow update GCNs in a way that they will also work on heterophilic graphs?
+Yeah, so residual connection is a must. We actually show that without residual connection this
+doesn't happen. Well, the nonlinear activation, I think it's more a complication for the analysis.
+We don't know how to analyze this, basically with this nonlinearity you cannot regard it as a
+diffusion equation. So, yeah, basically residual connection and then nonlinear eigenvalues.
+If you, and remove the nonlinearity, whether, if you don't constrain W to have non-negative,
+or if you don't help the architecture to learn W with negative eigenvalues, you might never be
+able to learn it. So we've seen this happening as well. Okay, and what is the role of symmetric
+matrices, symmetric matrices W? So, symmetric comes from the assumption of gradient flow.
+So, anything that looks like a gradient flow for this kind of energy must be symmetric.
+And what does it mean in terms of operations on your graph, in terms of message passing?
+So, this is not related to message passing because W is channel mixing matrix, it acts on the features.
+I was, I was wondering, what is the relationship? So, for example, you have this gradient flow
+and say you want to learn some energy with respect to which you flow. What's the relationship
+between learning the energy and learning a metric to which with you are computing the gradient?
+Because if you change the metric, then the way in which you flow is also different, right?
+Is, are they equivalent in the learning a metric equivalent to learning an energy?
+Yeah, well, you can think of it indeed in this way, right? So, what is the interpretation,
+physical interpretation of, of this matrix W? So, if you look at the way that Dirichlet
+energy looks, right, it looks like, right, so it's something like this. So, do we use, yeah,
+so let's say continuous version of Dirichlet energy, so it will be the normal of the gradient of X
+at some coordinate U, let's call it. So, U would be the index of the null, right, the continuous
+version, right? And this is, this is the Dirichlet energy and let's write it on some domain omega,
+right? So, that would be our continuous version of, of the Dirichlet energy. Now, what is written
+here when omega in general is a, is a manifold, a Romanian manifold, so what is written here
+is the Romanian metric of, of this kind, right? I hope you can see it. So, basically,
+it's in a product defined at the position U, right? And the way that you can write it, so you can
+write it using Romanian metric tensor, which is exactly the W, right? So, this is something that
+scales the, the, the, the coordinates of X doesn't need to be fixed, by the way. This W in general
+can be position dependent, right, on the Romanian manifold. So, a more general construction would
+allow W to depend on the position, maybe not explicitly, because that would be a huge number
+of parameters that scales with N, maybe it will be done some, through some form of attention. So,
+W will, or maybe a positional encoding, right? So, W will be a function of positional encoding of,
+of the nodes of the graph, right? So, there are interesting analogies and potential directions
+of extending this using, basically, this is a Ramanic analogy of an embedding of some,
+some manifold, right? Thanks. Yeah, sorry, this will be probably a little bit like far fetch
+question, but, like, in general, like, those equations seem to be, seem to be, like, kind of
+similar to what you often get when you analyze, like, the signal, signal propagation or, like, or
+the, the type of initializations in div neural networks or, like, the dynamical is on metric
+property. So, for, so, for, for example, the requirement for residual connections also appears
+in there. And, like, are you aware, like, whether there's, like, any connections between, between,
+between, like, this, this work and, potentially. So, the closest analogy is neural ODE's,
+right? Well, these are neural, we like to call them neural PDE's, but they're coupled ODE's,
+right? So, neural ODE's, each row of these magics will be separate, independent. Here,
+we also have the, the, the extra complexity is coupling, right? So, like, would you say, like,
+like, there's, there's something universal in all those? I'm not sure what do I mean by universal.
+Yeah, I'm not sure either, but, but, like, it's basically, yeah, it's basically, like,
+like, for example, like, this residual rule appears very often in different types of.
+So, residual rules, rule here comes just from discretization. So, that's how you,
+you discretize the temporal derivative. You could discretize it differently. So,
+you can use a backward scheme, right? And then it would be implicit. So, you will need to solve
+a linear system to get your next iteration. This actually has been done with diffusion equations.
+There are advantages to it, because these kind of discretizations are what is called
+unconditionally stable. But in terms of, well, universality may be not the right term, but
+basically, what you have here in practice is a kind of controlled differential equation, right?
+So, the control is through the privileges w. So, they're time-independent, but in principle,
+you can think of time-dependent trajectory. So, you have a controlled PDE that you discretize,
+and then expressive power becomes a question of, can I reach a certain state of the system,
+for example, in finite time by choosing the right trajectory? Or how far can I be
+from, from that state, right? So, universal approximation means that in finite time, I can
+reach, I can be epsilon close to any state that they want. Generalization, for example, can be
+probably formulated as some kind of perturbation, right? So, I change my initial conditions. I want
+to see what happens to the system. And there are actually, there are some results, theoretical
+results that show that architectural choices like, for example, having symmetric matrices might be
+crucial for these properties. So, I think there is a lot more to explore there. Okay, thanks.
+Okay, so, more questions? Yeah. So, let's, let's move on with this stuff. So,
+obviously, right, so here, the conclusion was that we have no over-smoothing, but we can also
+consider more interesting equations. So, so far, we consider the very simple isotropic homogeneous
+diffusion equation. We can also consider non-linear versions of the diffusion equation, and this one
+in particular comes from the domain of image processing, where imagine that you start with
+an image like this, right? So, the portrait of Sir Isaac Newton, that is noisy. So, if you run a
+diffusion equation on an image, it actually has a closed form solution. So, it's convolution
+with the Gaussian kernel, where the variance of the Gaussian is proportional to the time of the
+diffusion, right? And in the limit, you will have just everything flat, right? So, you average
+all the pixels in the image. You see that you don't want to have results like this, because
+it might average out the noise, but it also destroys the discontinuities in the image that,
+for visual perception, are very important. So, the idea of, that was originally by Peron and Malik
+in 1990, is to have a non-linear diffusion equation that is controlled by the gradient
+of the image, right? So, basically, if you're in a smooth region in the image, like here,
+so you have standard Gaussian kernel, but the moment you reach a discontinuity,
+you slow down the diffusion. So, the effect it has, you don't average pixels of different
+intensity. So, here I'm not averaging dark and white, right? So, the kernel will look like this.
+So, it will look one-sided. And it had a lot of different versions, bilateral filters, non-local
+means filters and so on. But the idea is always the same. So, here, basically, the diffusion speed,
+right, is inversely proportional to the edge indicators, to the norm of the gradient.
+And the result that it produces is like this. So, this non-linear diffusion equation
+knows where to stop locally. And therefore, it averages within smooth regions, and it doesn't
+average across the regions. Now, we can do the same thing on a graph, obviously. So, the analogy
+would be this, right? So, here, we have again the gradient, right? This is the divergence,
+and that's some parametric function that looks suspiciously like attention, and that's the
+diffusivity, right? So, it's the local strength of the diffusion. And in fact, if we discretize it
+again with explicit forward Euler scheme, then a particular version of this equation
+corresponds to the attentional architecture. So, this is a gut.
+But this was so far, this was continuous time, right? And we wanted continuous space. So,
+the original motivation, right, when we compared graphs to other objects was,
+somehow, to have a continuous analogy of the graph neural networks. And if, again, we look,
+take a step back and look at how diffusion equations work in the plane, when I discretize
+the plane as a grid, I don't really have a canonical graph, right? In the sense that
+there are many ways I can discretize my differential operators, right? So, this is how I can
+discretize the Laplace-Anon grid. So, I can use neighbors like this, or I can rotate everything
+by 45 degrees. I can use distant neighbors. I can use convex combination of all these
+operations, right? Because this is a linear operator. So, bottom line, on a grid, I don't have
+a canonical graph, right? I can actually use a discretization, maybe, that is different at
+different points in the grid. Of course, there will be some numerical implications, but the
+discretization that we choose, right, and as a result, how the nodes are connected and which
+nodes propagate information to which nodes is, to a large extent, a numerical convenience, right?
+What makes sense, for example, from the organization of the memory or the number of
+nodes and whatever. So, we would like somehow to extend this mindset to general graphs.
+And for these purposes, instead of considering these nonlinear diffusion equations,
+like Peron and Balig, by the way, they called it anisotropic diffusion, which obviously,
+if you're familiar with PDEs, it's not anisotropic, it's not homogeneous, right? Because we have a
+scalar diffusivity function and isotropic diffusion, we also have direction, so that would be a matrix
+or a tensor. So, instead of considering this nonlinear diffusion equation, we can consider
+a non-Euclidean diffusion equation. And the model here is the following, that was actually done by my
+PhD advisor, Ron Kimmel, also in the 90s, about 25 years ago, maybe even more.
+So, again, thinking of an image, you can think of it as an embedded two-dimensional manifold,
+right? And the embedding is in this joint space, where we have a combination of positional coordinates,
+the x, y coordinates of the pixels, and the feature coordinates, in this case, for example,
+r, g, and b channels. So, a color image is a two-dimensional surface in r5, right, using this
+model. Now, by virtue of this embedding, we can define a metric, so we can use the standard pullback
+mechanism, so in case of two-dimensional manifold, it's a two-by-two matrix, given like this, right?
+And we can define a Laplacian with respect to this metric, it's a non-Euclidean analogy of the
+Laplacian, called the Laplace-Beltrami operator, and we can write a diffusion equation with respect
+to this operator, it's called the Beltrami flow, and we can actually show that it's a gradient flow
+of a generalization of the Dirichlet energy that is called the polycop functional, it's used in
+high-energy physics in bosonic strings, don't ask me what it is, but that's something is described
+by this energy. So, by analogy, we can do something like this on a graph, so now every node in the
+graph, in addition to having the feature coordinates, also has some positional coordinates, right, so
+like positional encoding, ideally this positional encoding should somehow represent the structure
+of the graph, right, in the sense that nearby points in this u-component of the space should
+be more likely connected by an edge, right, and the Beltrami flow, basically it evolves,
+so we have again here parametric diffusivity, it evolves both components, right, that I
+collectively denote by z, and the evolution of x-component is the standard fissure diffusion,
+you can think of the evolution of u as some form of soft graph rewiring, because what I can do,
+if two nodes become closer in this u-coordinate, I can decide to create an edge between them,
+if there is no edge, or if they drift apart, I can decide to cut the edge, so overall I will
+facilitate the propagation of information, and I know that it sounds cumbersome, but this is how
+it will look like, so again this is the core graph, so it has, basically there are three things
+happening here, so the positions of the circles, right, so circles are nodes, their positions
+represent some two-dimensional positional coordinates, the colors represent three-dimensional
+projection of the fissures, and you see that they're both components are evolving, and the graph
+is also changed on the fly, right, so when the clusters drift apart, then we cut the edges between
+them, so right, so it's fissure diffusion, positional coordinates are changing, and the graph is
+rewired, and you can see that the task here is node classification, so there are clearly seven
+classes of nodes that we can clearly distinguish here, now if you think of it from the standpoint
+of signal processing, we have a very disturbing picture here, right, so we have a filter that
+happens on a domain, yeah, a question? Maybe before you move to the next one, I was just wondering
+because I think what started to appear in this intellectual is that you apply some ideas from
+differential geometry to graphs, and maybe not yet directly, but not yet, right, so okay, so we are
+like talking about metrics and this sort of, so I wonder maybe you'll be talking about it next, so
+sorry if I'm pushing it forward, but what do you think are the limits which come from the fact
+that graphs are basically discrete structures, like how free are we to apply ideas? Yeah, give me
+a few minutes and I will get there, yeah, so you can find the analogies, right, not everything has
+exactly a correspondence, right, so but these analogies I hope to show that they can be quite
+useful, right, so but again if you look at this picture, so we have some kind of disturbing
+picture here, so we have a filter on a domain and the domain is changing under our feet, right, so
+imagine that you're applying some filter, right, which is what it is, right, the diffusion equation,
+you can think of it as a form of filter, all-pass filter, and the domain is moving, so I'm doing
+a filter and then nodes are somehow moving away from me, but this is a very common picture in
+differential geometry actually, and it's very common to take a manifold and evolve it under some
+evolution equation, and typically when you evolve a manifold you are interested in what
+happens to the metric, right, so here's an example of an evolution equation that is called the Ricci flow,
+so you take the first order derivative, the temporal derivative of the metric tensor of
+the manifold, right, you know that here by g, and you make it equal to the Ricci curvature tensor,
+right, so basically the metric evolves proportionately to the local curvature, so it looks very much
+like the diffusion equation, so here we have temporal derivative, here we have some second order
+differential quantity that looks kind of like our Laplacian, right, so structurally it's similar
+to the diffusion equation, of course what it does is a very different thing, and if you start with
+this manifold which has positive curvature on, so this kind of dumbbells on the spheres, it has
+positive curvature, right, and the neck between them, it has negative curvature, so if you run this
+diffusion, if you run the Ricci flow backwards in time, what will happen is that this dumbbell become
+more like an ellipsoid, then more like a sphere, and then will collapse into a point, right,
+and it was introduced by Richard Hamilton in the 80s with the purpose of proving a famous
+conjecture in topology that claims that you can characterize spheres by your ability to
+take a closed curve and collapse it into a point, right, so this is how you characterize two-dimensional
+sphere, I can take any closed curve on a sphere and I can evolve it and collapse into a point,
+right, I cannot do it on a torus, so if I have a torus and I have a curve like this,
+then no matter what I do it cannot be collapsed to a point, so the conjecture was that you can
+you can characterize high-dimensional spheres in this way, and you obviously heard about it,
+the Poincaré conjecture, and it was shown by Perlman, actually a slightly more general result,
+using the mechanism of Ricci flows, right, and that was a breakthrough of the of the century,
+it stood open for more than 100 years. Now what does it have to do with our graphs
+and graph neural networks, so I remind you that we had this phenomenon, right, that that message
+passing might not work well on some graphs, right, so there might be some phenomenon,
+some graphs might be unfriendly for message passing, and in particular it depends both on
+the structure of the graph and the task, and if my task requires to propagate information from
+distant nodes, and the structure of the graph is such that the receptive field of the graph neural
+network grows exponentially fast, right, so the number of the neighbors of the neighbors of the
+neighbors becomes very large very quickly, this happens in trees, this happens in what is called
+small world graphs like social networks, then we have a problem, we have a lot of information
+that we need to squeeze into a single feature vector, and this is a phenomenon that we call
+over-squashing, so let's define mathematically what we mean by over-squashing, so let's say that
+we have a message passing architecture of this form, right, so we have the node itself at layer k,
+and we have the neighbors, we combine them with some learnable weights, let's call them w1 and
+w2, let's say that the depth of this architecture is l, the width, right, so the internal dimension is
+p, the long linearities are well behaved, right, so the elliptics continues, and we also have some
+bound on the on the weights, so this is what characterizes our architecture,
+so what is over-squashing, it's some form of insensitivity, right, so if I look at the output
+of the neural network at node i and I examine how it depends on the input at some distant node
+j, I can describe the sensitivity of the output to the input through this Jacobian, right, so
+through the partial derivative, and if the partial derivative is small, it means that
+the information propagates badly from input to output, right, so basically I will not perceive
+the change in the input in the output of that node, and what we show in the paper is that we can
+bound the Jacobian by constants that depend on the model, right, for example the number of layers,
+the regularity of the activation functions, the bound on the weights, and also something that
+depends on the graph topology, right, and we show in particular for example that width does help,
+of course, at the usual expense of worst generalization overfitting, depth doesn't help for
+example, and the topology has really the largest effect, and intuitively we expect that in some
+kind of benign graphs like grids for example we will not have over-squashing and in pathological
+examples like trees that would be probably the worst case, right, so you see that the topology
+of the graph comes here through the power of the adjacency matrix, but we don't see exactly how,
+right, so it's hard to say, right, so what does it mean in matrix to the power l, so we need
+something more nuanced, we need some kind of geometric analysis that will allow us to tell apart
+structures like this and structures like this, right, something that locally looks like a grid
+or something that looks like a tree, that's exactly what curvature is designed for, right,
+so I remind you that in differential geometry what curvature tells you is that if you take
+nearby points and shoot geodesics in parallel at the same speed you can either converge,
+remain parallel or diverge, right, and we call this spherical euclidean and hyperbolic geometry,
+right, so locally it looks like a sphere like a plane or like a hyperboloid or high-dimensional
+cases as well, so on a graph the analogy could look like this, so there are several definitions of
+reach-type curvature on graphs, so this is a combinatorial definition that we use here, so you
+can take nodes that are connected by an edge, let's call them p and q, and look at edges that
+emanate from these nodes, so if they tend to form triangles it means that we look at something like
+a clique, if they form rectangles they will look at something like a grid, and if they drift apart
+and don't form anything then we look at locally at something that looks like a tree, right, and
+basically we can count different types of rectangles and triangles, allow me to skip the details,
+basically for every edge in the graph we can have this combinatorial quantity
+that we call the balanced formant curvature that counts, basically it looks at a two-hop
+neighborhood of an edge, and it counts certain types of rectangles and triangles that surround
+this edge, bottom line, each reproduces the continuous behavior, so cliques are positively
+curved, grids have zero curvature, and trees are negatively curved, right, so that's I think
+through your previous question how what is the parallel between differential geometry and graphs,
+so this is an analogy of curvature, so it's not a discretization of a curvature, it's a discrete
+curvature that behaves in a similar way, and now the relation between the over squashing and the
+curvature what we show is that if we have strongly negatively curved edges in the in the graph then
+we can write down this bound on the Jacobian, and it means that the over squashing is caused by
+the presence of strongly negatively curved edges, yeah.
+So it's the number of triangles that surround an edge, and this is the number of rectangles,
+this is the degree, yeah, doesn't really matter, there are several definitions, so why we call it
+balanced formant curvature because there is a classical notion of formant curvature that
+looks a little bit like this, we just touch it a little bit so it behaves like what is shown here.
+That really relates to the rigid curvature tensor and the formula from from matrix, I mean
+I don't see it now, but maybe it's a graph, so you don't have exactly the same thing,
+yeah obviously, but some I don't know components, can we do some analogy or not, this is something
+completely new. So it shows how, so you can think of curvature as how locally the volume changes,
+so in a sense it shows how the volume changes, so there are two classical definitions of
+curvature on graphs, one through optimal transport that is called the Olivia curvature,
+and this is combinatorial version that is called the the formant curvature.
+Right, so basically the conclusion, well I should make it explicit that it's strongly negatively
+curved edges that cause overscorching, right, so basically due to this bound, actually the presence
+of negative or slightly negative curvature might be benign, this is what is shown in the
+expander's paper by Petrov Ilyichkovic and his and his co-authors, so these are somehow the optimal
+graphs, the best for message passing, but expander's needs to be slightly negatively curved.
+So once we know it, we can actually interfere, basically we can surgically remove the negatively
+curved edges and replace them potentially with edges with higher, with more positive curvature,
+and this way we retouch the graph a little bit and we show that it improves the performance of
+graph neural networks both in homophilic and heterophilic settings, so there was a question
+about diffusion-based rewiring before, and I promised to tell exactly what I mean by this,
+so this is the paper that is called DIGL by Stefan Gunneman and his students from the
+Technical University of Munich, and DIGL stands for Diffusion Improves Graph Learning, so the idea
+there is that you rewire the graph by basically by computing page rank and embeddings for a
+personalized page rank embedding for every node, and you connect then in this new embedding space
+the nodes that are closest, so what it does essentially it introduces connections within the
+same connected component in the graph right or within the same clique or cluster in the graph,
+and it has a hard time to connect across different communities in the graph, so when the graph is
+homophilic this is a very good thing to do, so you're connecting to similar nodes, but if the
+graph is heterophilic it can do more harm than help, in fact experiments show that this is the
+case, they also write it in the paper, the curvature-based approach, first of all it changes the graph
+minimally, here the change can be dramatic, so that's the number of edges that are changed,
+but it also helps in the heterophilic cases because it's not restricted by this property,
+you actually typically bridge different communities by the new edges that are created.
+So still talking about diffusion, am I actually out of time?
+Okay, yeah so still talking about diffusion equations, here are some more exotic
+exotic stuff right, and this is our maybe creative way to illustrate to illustrate sheaves
+or bundles, so there has recently been probably a better picture, so that's really sheaves right
+in the literal sense, so what are sheaves? So they actually have very interesting history and well
+I like these kind of historical factoids, so the theory of sheaves in algebraic topology was
+introduced by Jean Lyret, so he was a French mathematician, he was also an officer in the
+French army, and when the Nazis invaded France he was captured and put with his comrades into
+concentration camp, and basically he was asked to work on mathematics, and his expertise was
+was mechanics, so he was very afraid that he would be forced to work on something that would
+be useful for the Nazis, and basically he will be committing treason helping the war effort, so
+when he was offered the possibility to teach something in this camp, he chose a very
+innocuous topic, algebraic topology, which could be useful, and then after well of course they
+were released after the war ended, he published it in a course that was taught in captivity, and
+one of the papers that came out of this course introduced the theory of sheaves, so sheaves
+are objects that are taught in in algebraic topology, so if we apply them to our setting to
+graph right, and this is slightly different construction that is called cellar sheaves,
+so if you think of graphs by analogy to many folds, so a manifold is a topological space,
+what I mean by topological space roughly is that you have a notion of neighborhood, I can
+tell who my neighbors are, but I don't have the notion of distances or angles, so if I want to
+talk about distances or angles, I need some extra machinery, and on many folds this is typically
+achieved by what is called an affine connection, or parallel transport, so it's a mechanism that
+tells me how to move vectors between tangent spaces at nearby points, I can also define
+a remaining metric if I want to equip a manifold with geometry, and then there is a special type
+of connection that is called the Levy-Civita connection that is compatible with the metric,
+so you can think of the same thing on a graph, so a graph is a purely topological object, I have
+a notion of who my neighbors are, but I don't have any geometry, so in order to introduce
+geometry I can equip every node and every edge with a vector space, and I can define by analogy
+to parallel transport I can define linear maps, so these are called restriction maps that go
+between these spaces, so slightly different from many folds, I go from the space associated with
+nodes to a space associated with an edge, and then if I want to transport information from a node to
+a node I need to combine these two maps, one with transpose, so basically it's kind of right, so I
+invent geometry on a graph, so I lift it into a more complicated object, and on this object I can
+now study for example what happens if I choose these restriction maps to be of certain class,
+so these are matrices of certain dimension, and I can choose them for example to be symmetric,
+or I want them to be orthogonal, or I want them to be something else, I can also choose the dimension
+of these what is called stocks, so these spaces, and I can define differential operators on this
+structure, so the difference between the standard for example gradient and the shift gradient would
+be the same way as if we have a manifold, I cannot add or subtract two points on the manifold,
+so when I need to subtract two vectors I first need to apply parallel transport, so I need to
+bring the vector from its vector space to my vector space, to my tangent space, and by doing this
+typically I would apply some form of rotation if it's manifold with the Riemannian metric,
+and only then I can subtract them, so here the same, if before the gradient looked like just
+difference between endpoints of an edge, here we'll have also some linear transformation that sits
+in between, right? Long story short I can, basically I'm interested in alplacian, right, so I have a
+shift version of the alplacian, so it's a block matrix where every block transforms the vectors with
+these kind of, with these kind of matrices, right, the combination, and now I can apply this
+operator on my data and run a diffusion equation, and I can run it to infinity with some initial
+conditions, and I can ask questions like how many classes can I separate if I choose this
+shift in a certain way, yeah. Are you doing graph rewiring here? No, we are not doing any
+graph rewiring, yeah, so the graph structure is encoded in the structure of the alplacian,
+right, so basically it's a kind of question about expressive power of this architecture,
+so I can ask how many classes I can separate, right, so expressive power is slightly different,
+different version from the, from the viceroyal lemon, because in viceroyal lemon we asked about
+the, how many, the types of graphs that we can, if we can distinguish here we're looking at node
+level problems, yeah. Can you please make some like use cases for this kind of graph and the ones
+that were shown before in which the nodes were actually separated with no connections one to
+another. So the graph here is given, so it's, I think some, I don't remember what data set it is,
+yeah, sorry, what is again the question? So like what kind of, what are you trying to model and
+why is this configuration? Oh, so yeah, the colors represent the classes,
+the ground rules classes, and the positions represent the features. And what's the difference
+between this type and the one in which you do rewiring and each class series separated one to
+another? So here the features are represented by coordinates, so the closest analogy of this
+illustration is to the one that I showed with the gradient flow, right, so the coordinates here
+represent the features, not the positional coordinates, right, and the colors represent
+classes, okay. So there is no rewiring happening here, you can also potentially use rewiring.
+And the results, well, I don't want to go through all the results, but basically what we show is
+that by using different types of sheaves we can guarantee that we can separate different types of
+different number of node classes depending whether the graph is homophilic or heterophilic. For
+example, we show that you must have non-symmetric relations if you want to deal with heterophilic
+graphs, yeah. So in previous method, WL, it's something like, I think the classification was
+on top of number of edge if I get it correctly, like if you both go to the higher classes then
+the number of edges also increases, but here in sheaves it's, it's, is it about the dimension
+that we have, like can we have a first dimension sheaves or something like this? So vice-versa
+and lemon is different, so the hierarchy there is basically they are different algorithms, right,
+so whether they do color refinement for different structures for, for a node, for a pair of nodes,
+for triplets of nodes and so on. So here we have the choice is what kind of matrices we allow,
+what class of matrices we allow, so it's typically a group, right, so we say for example
+the most general case is GL, right, so any invertible matrix, then we can restrict it to be,
+for example, symmetric matrix, then we can restrict it to be orthogonal matrix, right,
+and based on these choices plus the dimension of the sheave, we get different results.
+So it has to take dimension and also the matrix. Exactly. Thank you. So this is a more theoretical
+question, right, because it's a good question how we actually, how we learn the sheave from the data,
+but assuming that we knew the sheave, right, but we allow the sheave to be only from of a certain
+type, what is in the best case how many node classes we could separate under different assumptions
+also about the structure of the graph whether it's homophilic or heterophilic. But basically the,
+the, the bottom line of this story is that diffusion when you have, when you have these
+extra degrees of freedom looks more interesting than, than, than the standard diffusion on a graph.
+So the standard diffusion on a graph corresponds to symmetric restrictions with one dimensional sheave.
+Yep.
+Well, so it's slightly more complicated, right? So the analogy of the connection would be the
+composition of two maps, right? So what we call a transport map. So each of these f's is called
+the restriction map. So it goes from nodes to edge space. They actually can have different
+dimensions. So they don't need to be the same. The composition, right? So f, f transpose,
+is a map from the space of one node to the space of another node. So that's the analogy of parallel
+transport, right? So I'm, when I move a vector from one node to another, I geometrically transform
+it somehow, rotate it, for example, or scale it. Depends on the class of magics that I use here.
+So in, exactly. So, but then of course in practice, you need somehow to parameterize it,
+right? So you cannot, of course, in principle, you can say that, that let me learn
+individual f's for every, for every edge of the, of the graph, but it's not practically feasible.
+So in practice, f is a matrix valued function that depends on the node features. So it's
+a little bit similar to attention. But the tension is scalar. Here it's matrix. So it's a geometric
+operation. Okay. Any questions?
+Right. So basically to summarize this, this part. So what do we gain from this physics-inspired
+perspective on graph neural networks? So first of all, I think it's different viewpoint on old
+problems like over smoothing, bottlenecks. It allows to, on the one hand, to interpret
+existing architectures like guts, for example, from a different perspective. It allows to
+potentially design new architectures, right? For example, using, if you think of a genetic
+discretization of differential equations, then of course you can ask, what kind of
+solver can I use? Can I use some, some more interesting things with adaptive step size,
+or maybe, I don't know, multi-grid solvers and so on. It allows to make principled architectural
+choices, right? Like with example, with gradient flow. So basically from the gradient flow, we get
+restriction on symmetric weights. We get residual connection. We can also have some theoretical
+guarantees, right? Again, like we've seen with the gradient flow, but maybe also of other types,
+like convergence, stability, and so on and so forth. But probably more interesting are links to
+other fields that are less explored in graph neural network literature, like in particular
+differential geometry or algebraic topology. And of course, diffusion is just one example of
+evolution equations. You can consider more interesting things. So this is one example,
+right? So I probably have seen these kind of things. Coupled oscillators. So they're the
+metronomes that are put on a table, and because the vibrations transfer from one to another,
+initially they might be oscillating out of phase, and then they become synchronized.
+So think of something like this, but on a graph. So the coupling occurs on a graph in a
+learnable way, and depending on the task that we want to do, we want somehow to
+interact between these different oscillators. So it's also a differential equation, but it also
+has a second or kinetic term. So unlike a diffusion equation, it has also a solitary component.
+And here we show, for example, that we can probably avoid over smoothing by using these
+type of equations. How much time do I have?
+Up to 15 minutes, maybe. 15 minutes. Okay, so what I would like to do in 15 minutes,
+let's talk about grids. So I definitely ran out of time because out of all the geometric objects
+that we spent all the time on graphs, I think grids also deserve a little bit. And probably,
+well, everybody is familiar with grids, right? So let's look at them maybe again from the
+perspective of geometric deep learning and hopefully some new intuition, or at least for
+some of you, if you have not seen it before. So, and this also relates to the previous question
+of why we call graph convolutional networks convolutional. So first of all, a grid is a
+graph, right? So it's a particular type of a graph. For simplicity, I would like to assume that the
+grid has periodic boundary conditions, so basically it's what is called the ring graph.
+And the idea of geometric deep learning, right, this group-based framework, we had some domain,
+and we had a group that acted on the domain. We had a signal that was defined on the domain. So
+this is a general type of this mechanism that is often called lifting. So now I have a linear
+operator, so this can be anything, right? So this can be a nonlinear complicated thing.
+Here I have a linear operator, so the group representation that acts on
+functions defined on the domain, okay? And in the case of a grid, this is just the shift
+operator, so this is what I show in one dimension, so just cyclically moves the elements of the vector.
+Now, another thing that you see in a grid is that it has a fixed neighborhood structure,
+right? In this example, every node is connected to exactly two neighbors,
+and they are also ordered, right? So I always have the one before and the one
+after in a two-dimensional grid. I might have some partial order, right? So I have
+something on top and something on the bottom. So in the past, on the general graph, we had
+this kind of aggregation function, right? So we have the feature of the node itself,
+and then we had a multi-set that was unordered of the nearby features. And because we didn't have
+any order in this multi-set, the only thing that we could do is to apply a symmetric function,
+apply a permutation invariant function. Now we have a different situation. Now the nodes are
+ordered, right? So we have a fixed order of xi minus one, xi and xi plus one,
+so this function can be more general, right? So it doesn't need to be symmetric.
+And if this function is linear, then we get the convolution, right? And if I write it as a
+matrix vector product, then it looks like this. So it's a special matrix which has fixed elements
+along the diagonal, right? So this is the local weight sharing that we have in convolutional
+neural networks. So this is a special type of matrices. They are called circumvent matrices,
+right? Or convolutions, so it's synonym. You take a vector of parameters, right? Let's call it data,
+and you create this matrix by cyclically shifting by one position in this vector of
+parameters and depending it as columns. And that's how you get these matrix. Again, I'm assuming
+periodic boundary conditions. So technically speaking, it's not a convolution. It's a circle
+convolution or a cyclic convolution, but just to make things simpler, okay? Now one thing that you
+first thing that you learn in Algebra 101 is that matrix multiplication is not commutative, right?
+A, B is not equal to B, A. But with these matrices, with convolutions that are with
+circumvent matrices, that's not the case. It's actually a special type of matrices that do commute,
+right? And in particular, they commute with one of them, which is the shift operator, right? So a
+shift is also a circumvent matrix, right? Or also a convolution, right? So it looks like this.
+So what does it mean that, that a convolution commutes with a shift? So this is what we call
+shift-equivariance, right? So in other words, I can first apply convolution and then shift,
+or I can first apply shift and then convolution. The result will be the same, right? So convolution
+is shift-equivariant. You can show the other way around, right? So you can show that if you have
+a shift-equivariant linear operation, so I take a matrix and I tell you that it's
+shift-equivariant, you can show that it must be a convolution, right? So basically,
+convolution emerges from considerations of translational symmetry, right? So the only
+linear operation that is shift-equivariant is convolution. So convolution
+is the only thing that satisfies this property. And we've seen again this geometric deproning
+blueprint, so allow me to show it again. So we have a grid, we have the translation group,
+its representation is the shift operator. So the convolution is a function that is
+equivariant with respect to this group. Now, we also know that there is an intimate relation
+between the Fourier transform and the convolution, right? And let's actually try to understand what
+the Fourier transform is, where it comes from. So we know from algebra again that commuting
+matrices are jointly diagonalizable. It means that they have the same eigenvectors or more
+correct eigenspaces, but here we assume that the multiplicity of eigenvalues is trivial,
+so they actually have the same eigenvectors and the only different eigenvalues, right?
+So all commutative matrices satisfy this property. So if I have a set of matrices
+that commute pairwisely, then this is the case, right? And this is the case for
+convolutions or for circumvent matrices. So we can pick up one of these matrices, right,
+and compute its eigenvectors, right? And we know that all of them will have the same.
+And it's convenient to look at the shift operator, right, at the matrix S. And if we compute the
+eigenvectors of the shift operator, you can do it by hand. It's actually not difficult.
+You see that they look like these complex exponentials. So this is exactly the Fourier
+transform, or more correctly, the discrete Fourier transform. So the question of course
+that remains is what the eigenvalues are, right? So we know that the eigenvectors of
+all convolutions are the discrete Fourier transform, so these complex sinusoids. But the
+eigenvalues also, you can show it, are the Fourier transform of the vector theta that forms
+each of these matrices. And this gives us this dual relationship between the Fourier transform
+and the convolution. So if I have a signal x, I can do convolution in the spatial domain by
+multiplying by a circumvent matrix, or I can do it in the Fourier domain. I can compute the
+Fourier transform, and there the Fourier transform diagonalizes the convolution so it becomes an
+element-wise product, right? So basically the product of two Fourier transforms is the Fourier
+transform of the convolution, right? And typically in signal processing, the filters are already
+designed in the Fourier domain. This is bread and butter of signal processing. So the advantage of
+using the Fourier transform, because this operation usually on grids can be done efficiently. So
+instead of n squared operations, as you would typically require here, because the Fourier
+transform, the matrix has a very redundant structure, you can avoid these explicit multiplications.
+You can reuse some of the multiplications and do it in n log n operations. So there are classes
+of algorithms that are called fast Fourier transforms. And this is from the approximately
+the sixties when this was derived with the most famous algorithm is by Kuli and Tuki.
+This is how signal processing has been done, and you have it everywhere from your stereo to your
+iPhone from your computer. So this is how it's done. You cannot do it on graphs, because on graphs
+the analogy of the Fourier transform would be the eigenvectors of either the adjacency matrix
+or the Laplacian matrix. So if they are symmetric, they have orthogonal eigen decomposition,
+but these matrices do not have these redundant structures. So the Fourier transform has n
+squared complexity, dense matrix multiplication. And actually some of the early
+crafting of electrical architectures came from this domain of signal processing on graphs that
+use the eigenvectors of the Laplacian or the adjacency matrix as an analogy of the Fourier
+transform. So the difference in the case of, in the Euclidean case on the grid, there is no
+difference between the two, right? So the Laplacian is also obviously a circum-operator,
+circum-matrix, and so is the shift, right, or the adjacency matrix of the ring graph,
+which happens to be the shift operator. They all commute, so they have the same eigenvectors.
+On the general graph, they are different, so therefore these methods slightly differ.
+So the way to think of why you want to look at the adjacency matrix is this, right? So
+this is how you can think of your convolution, so basically it's multiple diagonal matrix.
+Now you can write it as a sum weighted by these coefficients of the powers of the adjacency
+matrix, right? So the adjacency matrix of the ring graph will look like this, so this red diagonal,
+right? So that's the shift operator. So if you take a square, you will get this. If you get cube,
+you will get this, right? So you combine all of them, you will get this general convolution.
+So first architectures that try to do learning on graphs looked exactly at this, taking powers of
+either the Laplacian or the adjacency matrix, basically polynomial with learnable coefficients.
+Now if you also look in terms of the degrees of freedom, so a fully connected layer will look
+like this, right? So it has no symmetry, so here the symmetry is trivial, so it has n square degrees
+of freedom. In the case of convolution, so the symmetry here is translation, we have order of
+n degrees of freedom, right? So we reduce dramatically the number of parameters in the neural
+network. We reuse the same coefficients everywhere. In the case of a graph, because we have permutation
+invariance, we don't have the order of the neighbor, so we must use the same coefficients,
+so we can only distinguish between ourselves and our neighborhood, right? So that's, well,
+here I'm assuming a complete graph, so this will look like something like deep sets, for example.
+So, but the number of parameters is order of one, so it's independent on the size of the domain.
+What else can I tell you? Well, I know that I'm out of time, so do you want to hear about molecules
+or you heard about molecules?
+Okay, so let's talk about molecules. I promise that I will try to do it fast, and probably
+heard in Miguel's lecture as well, so it will probably be a little bit repetitive. So graphs
+are a very convenient model for molecules, right? Basically, a molecule looks like this,
+so you can represent it as a graph, and maybe that's not how chemists think of molecules, but
+at least in some applications, graph neural networks have been successful in predicting
+certain properties of molecules that are required for virtual drug screening, right? Where the space
+of potentially synthesizable drug-like molecules is huge, something like 10 to the power of 60.
+The number of molecules that they can actually test in the lab is significantly smaller,
+so you need to bridge this by some kind of computational methods, and graph neural networks
+have been shown, again, in predicting some properties to be significantly faster while
+similar complexity or similar accuracy to classical methods. So one thing that is important to say
+regarding molecules, so molecules are not just any graph where the symmetry that we have
+is the symmetry of the domain, right? The permutation of the nodes or the reordering of the atoms,
+right? So the domain symmetry tells you that no matter how you order the atoms in the molecule,
+I still want to be able to say that it's the same molecule, but it also has geometric coordinates,
+right? So in addition to the, let's say, atom types that we have here, I also have the XYZ
+coordinates for every atom, right? So it's a graph that lives in a continuous Euclidean space.
+So here what I want to say that if I rotate the molecule, for example, or translate it,
+I want to be able to say that the properties remain the same. So in this case, typically you look at
+the special Euclidean group, so rotations and translations without reflections. Reflections
+can actually change the properties of molecules, or you can use some other groups as well.
+And there have been already several interesting success stories, so one of them was a group of
+Jim Collins at MIT, so they used graph neural networks in virtual screening pipelines where
+they tried to determine which compounds could be used as new antibiotics against antibiotic-resistant
+bacteria, and they famously found that a candidate, a drug that was tested against diabetes called
+halicin, was actually effective across a broad range of antibiotic-resistant bacteria,
+but things that we are doing, we are mostly interested in proteins, and this is, well,
+I think this is in general, proteins are important targets for drugs because they are
+involved practically in anything that happens in our body, from defense against pathogens, right?
+Antibodies are special types of proteins, so delivering oxygen to our cells, hemoglobin is
+also a special type of protein, so basically they're everywhere and they're encoded in our DNA,
+so we really don't know any life form that is not based on proteins, at least for the time being.
+And it was conjectured in the 70s by Anfinsen and Nobel Laureate in chemistry that you can determine
+the structure of the protein from its sequence, so proteins are long chains of amino acids connected
+to each other, and then under the influence of electrostatic forces, they fold into these
+complicated structures, but we are interested in the opposite problem, so maybe a little bit
+incorrectly, we can call it some kind of inverse problem, so I would like to design a protein
+that will fold into a certain structure. Of course, it's not that simple because
+it is tempting to think that we have a sequence that then folds into a structure, and this structure
+endows the protein with certain functions, for example, what kind of molecules it binds.
+And initially, computer scientists look at proteins as sequences because, well, it's just
+strings, so we can look for certain patterns, we can try to align different sequences together,
+right, like multiple sequence alignment. Then came the problem of structure prediction,
+and that's where Alpha Fold excelled recently, but then the problem of function is distinct,
+and you can find examples of, for example, proteins with different sequences, but similar
+structure, you can find proteins with very similar sequences, but very different structure,
+or you can also find proteins with different sequences and different structures, but similar
+functions, so they happen to bind the same molecule. So, a good analogy here is this
+lock and key metaphor that was introduced by, I like quotes from Nobel laureates, so that was
+from Emil Fischer, also a Nobel laureate in chemistry, so he was talking about enzymes,
+but I think it's more general, applies to proteins broadly. So, same way as you have a unique key
+that fits into a lock, you might have a unique molecule, or at least that's the wishful thinking,
+is that a unique molecule that will fit into some pocket that exists on the surface of this folded
+protein structure, and this is how drugs are typically designed, so you have a protein that
+is your target, so that's how its surface looks like, and here is some small molecule that sticks
+into this hole and binds this molecule, and that's how the drug works, so this is actually a molecule,
+not exactly of caffeine, but of compound from the same class, and that's how it binds the
+adenosine receptor in the brain. Many other interesting targets, though, they don't have
+these kind of pocket-like structures, and there are interesting systems of proteins interacting
+with each other, like this one, the program death complex, where you have two proteins called PD1
+and PDL1, and they are involved in cancer immunotherapy, basically these proteins tell our
+immune system not to kill healthy cells, and some cancers have these proteins, so they
+manage to evade the normal functioning of the immune system, and the idea is to block one of
+these proteins, either PD1 or PDL1, and this way basically the malignant cells are destroyed by
+the immune system, so you need to design some binder that will bind to one of these proteins,
+and they happen to have these kind of flat interfaces, so they're considered to be hard
+or impossible to drug by small molecules, but you can drug them by proteins, so that's the idea of
+biological drugs, where the drug itself is a protein molecule, typically an antibody, for
+a variety of reasons, so you can use geometry planning well, and unfortunately I didn't have
+time to talk about it, but basically instead of considering graphs we can consider surfaces,
+so we model proteins as many folds, as basically the external surface that appears to the other
+molecule that tries to bind it, and this way you abstract all the internal intricacies of the
+fold, so let me try to show you an example, so this is a plastic model of a protein,
+you see, so this protein is the one that the person holds, is supposed to bind to this transparent
+one, so you see that these complicated helixes and other things inside, so that's the protein
+fold, but what appears from the outside is this transparent surface, so this guy doesn't care
+what happens inside, so it cares only about the structure, of course the problem is more complicated
+because the conformation of the protein, its geometric structure might change as a result of
+the interaction, but at least in some cases it's a good approximation, so long story short we can
+do special type of neural networks that operate on these surfaces, so they take into account both
+geometric and chemical properties of the molecular surface, and they try to find complementary
+structures that are expected to interact, so think of kind of pieces of three-dimensional
+puzzle, but it's not only geometric complementarity, it's also chemical complementarity, so they need
+to have the right charges, so they don't repel each other, and this is a method that we call the
+massif, so we were lucky to appear on the cover of nature methods in 2020, and this year we also
+had a paper in nature that contained experimental results, so we also hoped to appear on the cover,
+but they chose a different one, but because we paid for the cover here you need to see it,
+I think it was a cool image, so we used this method to design new binders for different targets,
+and basically it's a fragment-based design, so we use this neural network architecture to identify
+potentially complementary targets that then we use to build the binder, and here the experimental
+results show different structures, so here's a binder for the PDL-1 oncological target,
+and we also have the crystal structures, and here's an example of another binder for the SARS-CoV-2
+spike protein, so that's the coronavirus that caused the COVID-19 pandemic,
+that has been terrorizing us for more than three years now, and basically this structure binds
+the region of the spike protein that interacts with the ACE2 receptor of the host, so that's how
+the virus enters into our body, and here we also tested it, so we have the structure from
+cryo-M, we also tested it on different variants of the virus, so the alpha, beta, and omicron,
+everybody was following in the newspapers, so you see that it binds many of these,
+maybe some others less, and here is also a comparison to a clinically approved drug, so that was
+antibodies that were developed by AstraZeneca, so basically what is shown here is how much
+inhibition you have versus concentration, so the smaller concentration the better, of course, so
+we are not as good as the AstraZeneca drug, but so it's something that was designed
+totally computationally, and this is actually pseudovirus neutralization, so it is probably
+much closer to real validation than at least anything that myself as a computer scientist
+could think of. Well, I think I will probably stop here, but if you think of diffusion models,
+right, so generative models, everybody is now talking about, right, like the Dali2, and now,
+of course, you have way better results, so you could imagine something like this for molecular
+design, so you have some condition on, let's say, the diffusion model that we use here,
+like the geometric structure of the target pocket, and you try to build a molecule that
+satisfies these constraints, so you don't really have a text prompt, but you have maybe some other
+way of conditioning the model, so this is one example, maybe not very interesting, so another
+example is what we call diffusion linker, where we have small molecular fragments, what is called
+pharmacophores that you know how they bind the target, but you also need to connect them into
+bigger molecule, and we try to basically to start with these little fragments and to diffuse the
+linking structure that connects them. We're not very lucky in publishing this paper in Europe,
+so we'll probably send it to some chemical journal. Well, I think I will stop here, sorry
+for running out of time. Thank you very much.
+Yeah, we are over time, but if you have still a couple of questions,
+if not, you can ask individual maybe, for that's saying. Okay, but thank you again for the amazing
+talk. Well, thank you.

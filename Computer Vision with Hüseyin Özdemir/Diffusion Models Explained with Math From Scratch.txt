@@ -1,0 +1,307 @@
+Hi, in this video, I will talk about diffusion models.
+First, the references for this video.
+Denoising diffusion probabilistic models.
+Denoising diffusion probabilistic models.
+Denoising diffusion model.
+Standard Gaussian Distribution.
+S juntosATB'den doğanno Y做
+standart Gaussian Distribution aynen
+y' Technologies günna mö congressional
+Dropajın impeci Rossiya knew
+teavan singer
+Bunun muhtemelen y ör �bü ile safety
+da cam kısız atraşlarına yardımkkepeace
+delikan ve geleplere bir kurum passport
+yetişik bir traveksi
+ve da mümkün
+place scan ve mange deniz olarak.
+Genere oral veya
+deniz her lütfen
+ilantili smashed
+bi sıra distance
+Genere eller
+if
+genretin question
+Una
+ありがとうございます
+ne
+Üçtürm Boys Unless や�üyle olarak buLAUP Sectürm Motoruc asla var.
+Çileşçe veведü bir yetenekte readyo buluşt Gri Best,
+daha少AR Music falan surtalog Color Garde'e finished.
+Örneğe çalışan restart üste bán 없는 prosesi'nin ucdan üye Myanmar oy monopolunu ill출 ediliyor.
+FIDE preced prosesi'nin tam dramatic explain'i görüşeせ°
+AB il recognizing merkenin beyaz , doo du jazz , ducks diye gecişe suspendir.
+一樣ları terk edici içinden再a birthdays olmanın altiresine suç almak
+değil.
+Epsilon t-1 is noise sampled from standard Gaussian distribution.
+Beta t is variance parameter for time step t.
+MOSFET-1'a yaklaşmakussia Narcan ve tusدم tuzlu zaten.
+MOSFET t-1ださい,  estruton'a bay evolve'e遠liste sahip olimientos.
+👀
+origine kapıcha **
+avust wellness
+1800
+hem machen
+mikro,
+Avust taival
+icamente
+havza,
+Mogre alい,
+Xt depend on Xt-1 and does not depend on other time steps.
+So forward process is a Markov process.
+Using reparametrization Q of Xt given Xt-1, the transition step of forward process can
+be expressed as a Gaussian distribution.
+So forward process can be written as a joint probability distribution conditioned on X0.
+It is possible to obtain Xt directly from X0.
+Define alpha t as 1-beta t.
+Write the equation for Xt.
+Then inside the equation expand Xt-1.
+Epsilon's are independent and identically distributed noise samples.
+On the right hand side of the equation there are two noise components, epsilon t-1 and epsilon
+t-2.
+These noise samples are Gaussian.
+Their sum is also Gaussian with variance as the sum of their variances.
+If we continue the same way, a pattern shows up.
+Xt can be written in terms of X0 and noise using alpha bar, cumulative multiplication of
+alpha values.
+Variance schedule.
+Variance of added noise is controlled with beta t.
+If beta t increases linearly from beta-1 to beta-t, then it is linear variance schedule.
+Bir alternativ is cosine variance schedule.
+And these are the related equations.
+These are the samples created with linear variance schedule.
+And cosine variance schedule.
+It is obvious that structures in the image are lost too early with linear schedule.
+And lots of samples resemble pure noise.
+By looking at beta t versus time step graph, with cosine schedule less noise is added until
+later time steps.
+And alpha bar t versus time step graph shows that, with linear schedule alpha bar t value
+decreases faster.
+Reverse process.
+Transitions in forward process are known and controlled with hyperparameter beta t.
+In reverse process, the aim is to construct X0 iteratively.
+Starting with noise image X capital T. Reverse process is also a Markov chain.
+Reverse process can be expressed as a joint probability distribution.
+X capital T is sampled from standard Gaussian distribution.
+T theta of XT minus 1 given XT is a transition in reverse process.
+X0 is observed or known variable.
+X1 to X capital T are hidden or latent variables.
+We need to find parameters such that the likelihood of sampling or observing X0 is maximum.
+Integrating joint distribution over latent variables to obtain marginal distribution
+of X0 is intractable.
+Because different Markov chains starting at different X capital T can lead to same
+X0.
+Another option is to weave the problem from variational Bayesian perspective.
+Maximizing log likelihood is equivalent to maximizing likelihood.
+Because logarithm is a monotonically increasing function.
+Inside the integral reverse joint distribution is multiplied and divided by forward joint distribution.
+To incorporate forward process into the equation.
+Expected value of a random variable is a weighted average.
+X is the value of random variable.
+Ve weight function is probability distribution.
+In our case the weight function is the joint distribution of forward process.
+So we can replace integral with an expectation operator.
+Note that log is a concave function.
+X1 ve X2 on X axis ve linear kombinasyon.
+Log of linear kombinasyon is greater than or equal to the linear combination of log values.
+This is Jensen's inequality.
+Interchanging the places of expectation and logarithm.
+The equation is converted to an inequality.
+Log likelihood is the evidence.
+And right hand side is evidence lower bound.
+It is also called variational lower bound.
+Maximizing VLB means maximizing evidence.
+Joint distributions can be written as multiplications of Gaussian transitions.
+T equals 1 terms out of product operators.
+By adding x0 it is explicitly shown that forward process is conditioned on x0.
+It is added because the beginning of forward Markov chain is a target for the reverse Markov chain.
+Apply Bayes' rule in denominator.
+The direction of reverse Markov chain is fixed thanks to conditioning on x0.
+Xt-1 is in somewhere between Xt and X0.
+Xt-2 is expresyon inside product operator in denominator.
+Some terms cancel each other out.
+Rearranging denominator we get this equation.
+One more cancellation in denominator.
+Right hand side can be written as a sum of expected values.
+As a side note, the expected value of x over joint distribution of x and y is equal to expected value of x over its marginal distribution.
+If a latent variable is not present inside expectation, then it has no effect on expected value.
+Unrelated latent variables are removed from waiting distribution.
+Distributions inside colored rectangles are different.
+We can find a relation between those two using Bayes' rule.
+Now there is one more expectation for the rightmost term.
+Tug of the expectations can be written as KL divergences.
+Now we have VLB expression.
+Minis BLB h
+Artık mass ogóle tek mostrar altyazı da także deney nowan material altyazı sahip gü Onun
+ATAM, Karanlık Yaşlı Max !!
+Burada bir bilgisi bir trzygun prefix пошkın ve
+İntekçe DNA bulanider var .
+İmik data iç
+alt i ve285 marriage approaches
+E ....
+....
+...
+X0i denilen yol glimli.
+Seğlenen kuma c surrounded ve iets kuma c
+bu modelin.
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+9.
+10.
+11.
+14.
+15.
+16.
+D政 likeuar ilave ediyor.
+performsak izleyicidir.
+펜 ağ piles tuşu kalaneto
+healthy araymak diliyi
+L flavour
+backsidevenidos shark
+kaplası vakti bu asrı on
+tüm ek симleli tüm trimmingler
+Fransızений şu an
+LOCK다� tunes tartılar
+ve
+7.
+8.
+7.
+3.
+8.
+saldırma
+preschooline
+mesajları tepki yıllık
+sona
+Şimdi xd-1-2'e başlayan kodratik eksprisyonu anlattı.
+Bu kodratik eksprisyonu 2 termesede 2 kodratik eksprisyonu anlattı.
+Bu kodratik eksprisyonu anlattı.
+Dış
+semble
+Çekil
+gradu üzerinde,
+sitelerin altında colaltan reduces
+kapieli derti ceza
+GauzCROSSTALKen needs eski acipleri, gauz penaltiesî gibi dolar谢âîniато kâri
+gamma26
+Kelüb tilmeyen kikm mükürincisi ekleyici veham
+FYRETE
+jdK
+KL Divergenç, tüm bu simülörü buluatesiz.
+aal want find parametres limiteden arih etwarозмeniz
+Arhaminın, arih etwar almaktan 2 thouzunt butter,
+Ar Yoga,
+Roma,
+Routine,
+вып eyelid
+1' vortex
+O дом
+1ciasında yaptık, doğdurmaaba ve da stüdyedek.
+Bu suratı傳recordedir.
+Hayati forayç arriba liquid panses Having
+가족 hatası.
+LT minus yağ gas
+Burası b.
+Ç躛
+utesinde
+burntason
+ya
+ärkyabını
+dövstirdeki
+orta Markov
+и
+ve Cola olarak sağa
+ve kata diagonal longue Dieu,
+demektir.
+Bu até sulfuru konumcusunu
+얼마 harit cooling ile
+kullanabildiğine
+needs koy amis bir
+okuldan série married
+olmak şiş K
+İlh theta ind generous
+İlh theta ind generous
+İls theta ind inspiretle
+İlcis felaka
+некоторat Virtual
+Altyazılar
+Mu theta is the Predicted image
+Take Log of both sides
+c is Constant with respect to theta
+Use forward and reverse transition equations
+Ki an�듀 altyazıza masum
+alfabar 1 크ppyhalarячın LOOK
+Alpabağılık 1�
+Selmanét ve kontrol ö olhar
+!!
+Kutz Einstein'e merwaz inaugur Gayas teenage
+shop
+öğret
+Ortaya yapılan üyeyiных
+bullets
+kodini
+üyelik
+Ireland
+lacver
+kanalı
+N lifestyle
+bu
+giz Straßen
+koca
+spreş leads
+bu
+bu
+lanet
+iz nations
+bu
+tombakan
+gute inhabited
+hikaye geçirilecek
+teneffiggs synagogue
+Propolis
+Bir
+Timingיא sağlık.
+Çünkü yapongיאorerleri sonrasında öğretilmesi ve
+tarz timerasında y�ra ve yarınız Sãovor processında
+Ekol bir tanem içinde.
+Timingיאpty'ye serpiye freezerc drag ossurdu.
+S segue veачoeyerini delik edin.
+İ determ 2030'de kalınçlı ve kesinlikle kuşun çıkartacao
+İ adjective drives
+İrem
+turist mensü ними bu kadar yapacak stellarya
+bir videolarda kurbanın bir體 Cockancies'renin
+ταşı gratardı ve Morgan'ın
+üste mekaninin ufakー fluxisésini
+nectara Samולatsu prior killing
+kapek ve ve ekrr Critik Chunạido-
+İk Juliet'in dette eminliği ücrü Cory'ya голumlu elektiptir.
+Bu alükofe yah Dakikoloji olarak kuzeyeklendirir.
+u Worlds'un bueno şişini sankiängercommilerin��
+ünlü de değil.
+remainselleyiacak o özellikyle en azından
+görüntüyü üem cannon videolarız chişitlam thumb dan
+vrajin
+trainings
+neşeli.
+yanYoung lon Сергaz GTC'yi
+hiç iyi dinlemiyorum.
+TEKZİRÖ
+In practice, setting variance to beta t or beta tilde t, provide similar sample quality.
+It is possible to design reverse process transitions with learned mean and learned covariance.
+These are two extreme values for variance.
+ois
+yılan
+VA,hav
+hale
+kan Kingston
+Knight
+mal spot
+d
+Bu videoyu izlediğiniz için teşekkürler.
+Bir sonraki videoda görüşürüz.

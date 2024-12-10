@@ -1,0 +1,1631 @@
+I guess we'll play. There we go. Hi, welcome to my talk on WebStorm. I'm Nick Nesey and today
+I'm going to talk to you about a great IDE called WebStorm. It's, oh, never mind. Sorry.
+I'm a web developer. I don't need that crap. Hi, welcome to my talk on Vim. I'm Nick Nesey
+and I'm here to talk to you about Vim and why it's awesome. Does anyone here use Vim like full
+time? Okay, you guys are probably better qualified. Everyone's always better qualified than me to
+talk about this. But yeah, I got into Vim probably three years ago and I've been using it full time
+ever since and I really like it. I've switched from kind of Sublime and IntelliJ into Vim and
+haven't looked back. So I'm here to tell you that you don't need a full IDE and that you can make
+your own out of something as awesome as Vim. And it's also terrible because once you learn Vim,
+then you'll want to use Vim key blindings everywhere and that'll get in trouble. But why Vim?
+It's a highly customizable IDE or editor. It runs everywhere. I have a Vim app on my phone so that
+I can use Vim on my phone and can't, I don't even have a file system on my phone, but I have Vim.
+It works with many programming languages and you can add in more with plugins and it's highly
+scriptable. So let's install Vim. It's probably already on your machine if you just go type Vim
+unless you're a Windows user. But we're not, we're Mac users, right? So we can install it
+or we can just use it. If we install it, the best way I think to install it is from Homebrew,
+which is a package manager for OSX, if you're on OSX that is, and you just do brew install macvim
+dash dash override system Vim and that will override the terminal Vim so that it just
+shows up first and we'll use that Vim instead. That way, I think OSX, I think 1010 ships with
+7.3, but Mac Vim will give you Vim 7.4 so you get all of the latest goodness and some
+Mac specific stuff as well. But there's also brew install Vim if you just want to get Vim without
+Mac Vim. I don't actually use the GUI Mac Vim, I just use it in the terminal as I'll show.
+So some of the features of Vim. Modal editing, that's probably the thing that everybody knows
+about. From Vim, it's kind of what gives it its distinction. You can't just open a file and expect
+to edit it because you're not in insert mode when you first start out. You're in normal mode
+and you have to switch into a specific mode to actually be able to edit it.
+The modal editing just basically gives you a number of different keyboards so that you have
+different keys that do different things when they're in different modes. So you start off in
+normal mode, that's where you navigate the structure of the file, delete lines, change lines,
+and do creative things to get into insert mode. Insert modes where you actually edit the file.
+Visual mode is like highlighting portions of the file so that you can delete them,
+change them, edit them, manipulate them in different ways. And then EX mode, does anyone
+use EX mode? Yeah, EX mode is the one that I usually get into by accident and have to figure
+out how to get out of. Yeah, exactly. I actually have it disabled in my MRC so that I can't get
+into it because I don't use it. I wish I were cool enough to use it though, maybe someday.
+So normal mode is probably the coolest one to talk about and that's where we'll start. The first
+thing is everyone always tells you when you get into Vim, don't use your arrow keys, don't use a
+mouse, you're programmers. You want to strive to be lazy. That's something that a teacher in college
+always burned into my head was strive to be lazy, to strive to do things as minimal as possible.
+And I am so lazy that I don't want to move my hand like four inches down to the mouse
+or two inches down to the arrow keys. If I can just stay on the home row, I'm happy.
+So I use HJKL, left, up, down, right. When I first started out, I actually had this in my
+Vim MRC where it disabled the arrow keys so that they would instead echo out, stop being stupid.
+And so that kind of forced me. It was really frustrating in the beginning.
+Now I have them back in, but I never use them. So it's kind of, now I try and use HJKL everywhere
+else. So I'll always be instant messaging with somebody and I'll hit JKJK, kind of just playing
+around and then I send that to them and by now everyone network knows.
+Do you also end messages with cold WKL?
+Yes, sometimes.
+Sibar, do you know why HJKL? I was assuming because it's on the home row.
+No, it's because the original keyboard that Vim was developed on or VI was developed on
+used HJKL last arrow keys. Oh, okay. Yeah, that makes sense.
+It's like there was a meta key and you'd use them as arrows.
+Gotcha. So nice.
+So I just got rid of the meta keys.
+There's also, like now if you follow the Vim, I don't know, blogosphere or whatever,
+everyone's disabling J and K now. Like that's too inefficient.
+Hitting J a bunch of times to go up and down. You got to find better ways to do that.
+And I've kind of just naturally stopped using J and K so much. I will for, you know,
+moving up or down a couple of lines, but the one I use the most is probably Ctrl E and Ctrl Y.
+I have that set up by default to scroll down, scroll the file down a little bit at a time
+and scroll the file back up a little bit at a time.
+I actually have it set in my VMRC to do it three times faster than it normally does.
+Oh, so it's like scroll lock?
+Yeah, it keeps your cursor where it's at, but it scrolls things up until it gets to the top
+and then it scrolls, keeps the cursor at the top and keeps scrolling.
+Ctrl F and Ctrl B will scroll down a full page or up a full page.
+So whatever you're seeing on Vim, it will take that and move it all the way up
+and then show you everything else that can fit on the page.
+H, M and L, that will move the cursor to different places in the window itself.
+So it'll move it to the top of the window, the middle of the window, or the lower part of the
+window. And then there's things like GG. There's actually capital G on there, but it got cut off
+on this slide. GG, if I hit GG, it will put me at the top of the file,
+or capital G will put me at the bottom of the file.
+So here's Vim, if you haven't seen it before.
+If I hit GG, I went up to line one, capital G, I went to line 31.
+H to the top of the file, I actually have it not all the way to the top, M and L.
+And then Ctrl E will actually scroll the window.
+So this is like if I want to see something that's at the bottom of the file,
+I can scroll it up so it's not at the bottom of the window.
+So I can see it better and Ctrl Y will go the other way.
+And then Ctrl F will go a page at a time.
+And so I've kind of just burned that into my memory of what I do.
+And I actually had to like go practice in a file to be able to write down what all of those were
+because I just don't even think about it. Oh, hang on, I, here, there.
+I downloaded this program to actually show what I'm typing.
+So what is the program?
+Keycaster, it's open source.
+But it's a real pain because you have to manually add it to the assistive devices list.
+Okay.
+But that's okay.
+Well, these days, I think you have to do that to anything.
+Yeah.
+So that makes you super elite programmer person.
+Looks really awesome.
+You're hacking the Gibson when you're doing that.
+But that's not what really makes Vim cool to me.
+I think that Vim has the secret sauce that breaks down into three things,
+three or four things, I guess, however you look at that list.
+I think that the nicest pieces of Vim are text objects and motions, the dot command, and macros.
+So text objects and motions.
+When you think about that, you think about the file as more than just a file with characters
+in it or words in it, I guess, but more than just characters that you're manipulating in an editor
+like you do in other editors.
+So text objects would be like words and sentences and paragraphs and tags.
+Tags are only in XML and HTML files.
+And these are something that you can program into.
+You can add these in plugins, add in their own tags.
+For example, tags, I'm trying to think of a specific one, but maybe like a JavaScript plugin
+will actually have like a function text object where you can manipulate a full function at a time
+and delete the contents of the entire function or other things.
+You can easily add them in on your own or plugins will do that as well.
+But the ones that are kind of built in and the ones that I use the most are words,
+not so much sentences or paragraphs, but tags definitely when I'm editing HTML.
+And then there's motions.
+So actually, going back to this, oops, going back to share.
+So if I'm in a file, like I'm hitting H to go back to the beginning of the line.
+If I'm, you know, in here, I can say W and that will move me ahead one word at a time
+to the beginning of the word.
+There's also E to go to the end of the next word.
+And so that's a way of moving.
+And there's other ones as well, but that those are kind of the main ones I use.
+So when I'm scrolling a file vertically, I'll usually use Ctrl E or Ctrl Y.
+And then when I'm actually scrolling horizontally, I'll typically use W
+and hold that to move as I need to horizontally.
+Oops.
+So then there's motions that you can do as well.
+So you can say like A for all, I can say I want to select all of this word
+or I want to select in these quotes or I want to select until something.
+And then you can also use F and capital F to find forward and backward.
+So I can say I want to do something until the next time I find an S or going right
+or going left if you use capital F.
+So we can mix those together, combine them with commands,
+and then we can do things to them.
+So these are the commands that you can do.
+You can do things like delete.
+This is like cutting because it'll put it on the default register.
+Or not register, but clipboard.
+There's change, which is the same thing as delete.
+But after you get done changing something, it puts you into insert mode
+so that you can immediately change it.
+And then there's yank to copy and then V to visually select.
+That will put you into a visual mode.
+So we can combine those together to make different motions that we want to do.
+And we can edit our file a lot faster.
+So we can have a command.
+Optionally, we can have a number before the command so that we can say
+that we want to do this for the next four, like repeat the command four times.
+Then a command and then the text object or motion that we want to do.
+So we can do things like DIW, delete in word.
+So if I go here, I'm in grid node right now.
+I have grid node highlighted.
+If I do DIW, I deleted grid node because it deleted inside of that whole word.
+There's CAW.
+So this will change all of the words.
+So if I do CAW, it did the same thing,
+but it would also grab the white space on either side of that
+if there were white space on that.
+But now you can see, I don't know if you can tell in the bottom left corner,
+it put me into insert mode right there.
+And so now I can immediately start changing it.
+Jay, I have a question.
+Jay, did you have a question?
+So I use CW all the time?
+Yeah.
+Is that doing the same thing as CAW?
+So you use CW.
+If I used CW right here, I'm on the I of grid node,
+it will change from where I'm at to the end of the word.
+But CAW will change the whole word.
+It doesn't matter where I'm at in the word.
+I know all of those H's that you could have saved, right?
+We're striving to be lazy, Jay.
+So let's change all word.
+And we can do other things like motions.
+We can say we want to yank all of the text inside of the parentheses.
+So going back here, I'm inside of the parentheses.
+I'm just somewhere inside of here.
+I can say I'm actually going to change it to delete
+because that's a lot more visually noticeable what I'm doing in here.
+But I could say I'll delete inside of the square brackets.
+And I just deleted everything in there.
+What key is this?
+That was a DIW.
+DI bracket.
+Oh, I'm sorry.
+Yeah, DI bracket.
+There we go.
+Thank you.
+But see, now if I did, that was DIW.
+So it left the brackets there.
+If I did DA bracket, it deleted the brackets too.
+And I can say like I want to delete until or DT,
+delete until the space.
+And I deleted until the space.
+Or I can say DF to delete until the space, including the space.
+So yeah, we're just striving to be lazy here.
+So see a parent?
+Yep.
+It would make you, you know, I can just write new stuff with those for seven minutes.
+That would delete the parentheses itself,
+delete everything in the parentheses, including the parentheses,
+and then put you into insert mode so that you can then immediately
+start typing.
+So you think about it like inside for I, A is like all,
+delete all, including that.
+T, like delete until, like that's how I think about it.
+I'm stupid though.
+VA, this would visually select all inside of the double quotes,
+including the double quotes.
+So if I'm inside of here, this is actually single quotes,
+but I'll VA that.
+And now I'm visually selecting all of that.
+And now I can do something with that.
+I can hit Y to yank that.
+Now it's on my keyboard or on my clipboard, and I can paste that in.
+I just did command V to paste it in, but I could also P to paste it in.
+Oops.
+No, I'll kind of talk about that.
+Kind of some of the things that I have set up
+to make working with Vim easier in a modern OS.
+So that's command motions and text objects.
+And that's really awesome.
+The second piece of the secret sauce is the dot command there.
+It lets you repeat whatever the last command was that you did.
+It just repeats it.
+That's it.
+But it's really awesome.
+So like if I am in here and I said, this is where using C really comes into play,
+because that will put you, that'll delete and then put you in insert mode.
+So that that's all, anything that you change that to and then hit escape,
+that's all a single motion.
+So if I had this string, and I just wanted to say C I single quote,
+and then foo, and then escape, that's a single motion.
+So now I can go down to this other string and hit the dot command.
+Hit the dot command.
+Oops.
+Hit the dot command.
+It just always repeats that last motion that I did,
+so that I can easily change it anytime.
+So that's where I will sometimes spend time.
+I'll do something and then it'll be like, wait a minute,
+I could do this in a single command so that I can repeat it.
+And I'll actually undo and then redo it in a single command
+just to see if I can do it kind of as practice.
+And it makes it a lot easier for working with that and making it really useful.
+So there's additional commands that we can do.
+There's DD and YY.
+That's delete or yank the current line.
+So if I YY'd that, then I P for pasting,
+I pasted the same exact line.
+It doesn't matter where I'm at on that line, it always copies it.
+If I DD it, it cuts it and then I can paste it somewhere else.
+What's P versus capital B?
+Yes, so, oh sorry, that should be on here, but it's not.
+It's got cut off on the slide.
+P will paste it below.
+Capital P will paste it above the line that I'm currently in.
+So all of these commands, I mean, they start,
+if you start thinking about it, like, you know,
+delete till, DT, you know, change in, see, I like,
+I just start singing that while I'm programming.
+Do you guys sing while you're working?
+I have to do that to keep from crying sometimes.
+There's the carrot and the dollar sign that moves your cursor
+to the beginning or the end of the line.
+I, capital I and capital A does the same thing,
+but it puts you into insert mode.
+So that's another one that we can do to really
+help us speed things up.
+So like, let's say that we had var foo equals true,
+var equals baz.
+Bax equals bug.
+I don't know.
+These aren't real things, but I'll put quotes around them.
+I repeated that command.
+Did you see that?
+I did.
+Yeah, what was that?
+That's actually a, an additional text object
+that I brought in with a plugin,
+which I'll kind of talk about,
+but I did YSIW single quote and it grabbed the word,
+inward and put single quotes around it.
+And then there's another plugin that makes
+that special text object repeatable with the dot command.
+So then I can hit dot and now magic.
+So I have all of these, right?
+These variables.
+And then all of a sudden your style guide changes,
+and you can't do multiple declares with a single var.
+Now you have to do it at the beginning.
+You have to do a var for each one of these.
+So what I could do is I could do
+capital A to go to the end of the line,
+delete, semicolon, escape.
+And then here, it doesn't matter where I'm at in this line.
+If I just hit the dot command,
+I'm going to go to the end,
+delete one key and insert a semicolon.
+Same thing here.
+And then I can go to the beginning of the line,
+capital I, delete, var, space, escape.
+Same thing over here.
+I can delete anytime.
+It will go to the beginning of the line.
+And when I say beginning of the line,
+you can see that I'm actually tabbed over.
+It will go to the beginning of the first
+non-white space character and work from there.
+So now we saved a whole lot of time doing that
+in two commands that were repeatable
+and then repeating it each time.
+I could also, with that, I could just highlight these.
+And then I could say, oops, can I do that?
+Yeah, I could highlight those and then
+hit the dot command and do them all at once.
+So I can save some time like that.
+But that was still two commands
+because I had to go to the end of the line
+and then the beginning of the line.
+And it's just so much, I'm lazy.
+So let me reset that so that I can play with, too far.
+Vim's history is also phenomenal.
+It will go back forever.
+And I can say earlier two minutes
+and it will go to the file two minutes ago.
+So, yeah, exactly.
+There's a lot more to it.
+Okay, there we go.
+Okay, so see my, I actually have a plugin in here
+called Sintastic that is hooked into my JS hint
+and JS CS plugin.
+That's JS hint, which is a linter and JS CS,
+which is JavaScript code style.
+We have these defined code styles at work.
+Everything has to be coded the same way.
+If I don't push up code that matches the JS hint
+and JS CS syntax, then it actually cancels my push
+and I have to go fix it.
+So it's just telling me that here on this line,
+foo is defined but never used.
+I'm creating a variable that I'm never using.
+That's against our code style.
+Anyway, so those are the additional commands.
+So like I said, I always think about things,
+try and make them repeatable as much as I can.
+And then I practice it.
+So I'll undo forever and then repeat.
+I'm saving so much time with Vim that I have the time to do this.
+Not really, but sometimes I'll do that
+because it does make it more fun.
+And if I have to repeat it a lot,
+then it really does make a difference.
+But not everything is repeatable with the dot command.
+As we saw in the previous example,
+I had to do two different commands
+and then repeat them to change the beginning of the line
+and the end of the line.
+But we can do that all in a single command,
+if we want, with macros.
+So we can record ourselves doing something
+and then replay it over again and then do it again.
+So a macro is just a sequence of commands
+that are recorded to a register
+and you can pick any register and record it to them.
+And then you can actually save those off to your VimRC
+and have them loaded up when you load Vim
+so that when you access that register,
+it's already loaded with that macro
+and then you can just immediately repeat it
+if it's something that you really have to do all the time.
+So to record a macro, all you do is hit the Q button.
+You've probably seen this
+where Vim will say in the bottom left corner,
+recording, and you're like,
+why is he recording, what, the NSA?
+But that's just because you hit Q and then some other key
+and you're recording into that other key.
+So then you hit Q, do all of the things,
+and then you hit Q again to stop recording
+and then you access that register by using the at symbol
+and then whatever the register was.
+So at Q or at whatever will access that.
+So let's record a macro to fix this.
+I'm actually going to, so I have this line
+which is different from these two other lines, right?
+But this line is, I'll just fix that.
+And then this line, I'll record myself.
+I'm gonna hit QW to save into the W register.
+So now it says recording in the bottom left hand corner.
+Now I want to move to the front of the line.
+So I'm going to hit command or a capital I,
+and then I'm going to delete one key,
+delete one character which is the tab character.
+And then I'm gonna spell out var and hit escape.
+Then I'm going to hit capital A to go to the end of the line,
+delete that and replace it with a semicolon.
+And then escape and then I'm gonna hit Q again to stop recording.
+And so now I'm done recording.
+Now I can hit at W and it did the same thing.
+It just repeated the same thing over and over.
+So I could, we'll just do the same thing for all of these,
+but I can actually highlight.
+I used shift V, so capital V to highlight the full line,
+and then JJ to highlight the next two lines.
+And then I could just say colon normal
+to tell it to run a normal mode command at W.
+And it will run that macro for every line that I have highlighted.
+It didn't do anything because it, well it actually did.
+It replaced the tab with var on each of those.
+So macros are really cool like that.
+You can repeat commands over and over and over and use them.
+Some other cool things that you can do,
+like if I have a data field, that's an array.
+So embarrassing.
+So I have an array of objects, let's say.
+And this is object zero, this is object.
+And then name, foo, whatever.
+And I want to actually copy this several times.
+What I can do and make test data, right?
+I'll say, I don't know, description.
+Oh, I'm so bad.
+I'll do that and I'll do foo zero.
+There we go.
+Okay.
+So I have this here, comma at the end.
+And then what I can do actually is I can say,
+I can record a macro that will auto generate all of this
+for me without me having to really do anything.
+So one thing that I want, I obviously want to have
+different IDs for every item in my data.
+What I could do is I could start recording.
+Well, I'll start recording from,
+let's see, how would I do this?
+Oh yeah.
+So I'm actually going to create an ID field.
+Well, it doesn't matter.
+I'm just going to call it zero, right?
+And then I'm going to mark this line.
+And you can do that with the M key.
+You can say M and then you can assign that to
+I don't know if they're called registers or what,
+but I can assign that to a specific location.
+So I'm going to say MK.
+So anytime that I, whenever I'm in my file anywhere,
+if I hit the tilde K,
+it puts me right back to that spot in the file, always.
+So that can be useful.
+Another thing that's going to be useful,
+I'll show it in a second,
+but I'm going to start recording right now.
+So I have that saved to MK,
+then I'm going to save this to MM.
+This is the current line that I'm on, MM.
+So now I'm going to,
+actually, I will record myself doing that.
+So I'm going to hit QQ to save to the Q register,
+and then I'm going to hit MM to save that,
+to mark this line.
+Then I'm going to go to the K register, so tilde K,
+and I'm going to hit Ctrl A,
+and I'm going to increment it to one.
+Then I'm going to YIW to yank in the word.
+Then I'm going to move back to my M register,
+which is right here,
+and I'm going to say that I have to go to that zero.
+So I don't want to just say move to zero,
+because on the next line it's going to be one,
+and my macro would be broken.
+So I can't do that.
+I have to move over to there.
+So I'm just going to say I want to F space
+to go to the next white space right there,
+and then I'll just move over,
+and I will hit the R key to replace the single.
+I'm going to do this totally bad,
+but I'll just do VIWP,
+and I'll replace that with one.
+Then I'm going to go to white spaces characters over,
+so I'm going to do to F space.
+Oops. Oh, yeah.
+So it should have been three F space,
+so I'll do F space again.
+Sorry, it's all being saved,
+so I'll just repeat everything that I'm doing.
+Just totally fine.
+Even if I-
+Exactly.
+If I undo, it will do my mistake,
+undo it, and then redo it,
+but it will happen so fast
+that I'll just look like I'm magic,
+so it's all good.
+So here I'll do it again, VIWP.
+Oh, but I pasted in zero,
+because I copied that to my-
+So I'll just do-
+I'll just do this totally bad.
+I'll mark this spot now,
+go back to here,
+yank this,
+go back,
+and then I'll do K,
+and then I will do-
+I'll get the spaces right this time.
+One, two, three.
+So three F space,
+over one character,
+mark it,
+go back to K,
+yank it,
+go back to M,
+paste it,
+and then I'm done, I think.
+So you're yank still there.
+Can't you paste it in your character?
+I'm overwriting it each time I did the paste.
+When you overwrite with a paste,
+the thing that you overwrote goes back into the Yank buffer.
+There-
+Actually, every key though is a-
+is a- its own buffer,
+so I can actually save it to a different buffer.
+If I was better at this,
+and not nervous about screwing it up,
+I would just save it to a different buffer,
+and then paste from that buffer every time.
+I mean, there's no lots of this stuff,
+but I have no idea what you're typing in there.
+I just know I do it.
+So-
+I didn't fully do this the correct way,
+but I'll just yank this line and paste it,
+and then I will run the macro command.
+So I saved that to the Q register,
+so I'll run at Q.
+Ah, totally screwed up.
+Okay.
+It's because it started from the wrong place.
+I think I have to start from here.
+Nope.
+Pretend that that worked,
+and it'll be awesome.
+Can you bring up the macro and edit it?
+You can,
+but I don't remember how to do that
+off the top of my head,
+but you absolutely can.
+You absolutely can.
+Does it get stored in a register?
+Yeah.
+Do you call it regs?
+Is that-
+Yeah.
+Or-
+I can't see because of that stupid thing.
+It was on Q,
+so there it is.
+Yeah.
+So it's basically all the everything you typed.
+Yeah.
+And it's awesome.
+Yeah.
+You can copy it out,
+and then modify it,
+and then save it back to another register.
+Is that how you would do it?
+I have no idea.
+I just use that for copying and pasting.
+Like I said,
+I've only been using Vim for three years.
+You have to like-
+I would make it really long.
+So the registers,
+like I think the double quote is the,
+maybe it's quote zero is the last thing you gained.
+Yeah.
+And there's a stack of them that goes one through nine,
+so you can go back to the fifth thing that you gained
+and grab that as one.
+Okay.
+So you can do quote five p,
+and that will paste the fifth thing.
+Okay.
+So let's try that.
+You said quote five p.
+Yeah.
+So that's right.
+Yeah.
+Nice.
+Okay.
+Well, we'll pretend that worked.
+I'm going to move on.
+Is this the macro?
+Yeah, you could.
+I suppose then you can get back into the register.
+And then you can get back in.
+Yeah.
+Yeah.
+That's awesome.
+So pretend that you were amazed by that.
+So those are the three things that I think
+really make Vim awesome to work with.
+Because if you get them down,
+and of course there's a lot that I haven't gotten down yet,
+and I'm sure there's a lot that you haven't gotten down yet too.
+But you keep learning and you keep editing better
+and getting lazier and it's great.
+But then the other thing that's cool about Vim is plugins,
+but other IDs have plugins as well.
+These are some of the plugins that I use
+that I think are really great for anyone who's going to use Vim.
+Vim, Vundal is a plugin manager.
+So it will just manage all of your plugins.
+All you have to do is put plugin space
+and then the GitHub URL minus the github.com part.
+Like so if I wanted to manage Vundal with Vundal,
+which you can do,
+you would just have plugin gmeric slash Vundal.
+Because gmeric is the user on GitHub that has it,
+and Vundal is the repository on GitHub that has it.
+It will automatically load that in
+when I run the plugin command, plugin install command.
+So that I can manage that.
+And I can manage all of the plugins that I want from there.
+And they don't have to be from GitHub.
+They can be from vim.org or wherever.
+But out of the box, it works really easily with GitHub.
+It's worth it.
+Yeah.
+That's the number one plugin out of everything.
+Yep.
+The other one, maybe not, maybe you don't need so much.
+I end up working, I do a lot of support.
+So I ended up working with a lot of different files
+and a lot of different repositories.
+And having a file drawer makes it easier for me to work with that.
+I can see all of the files that are there.
+I can easily work with them.
+If I hit, I have it mapped to LeaderK.
+That opens my file drawer.
+This is NerdTree.
+So I can see all of the directories and files in here.
+And I can hit Enter, close these.
+This is actually where using MacVim.
+I'm going to shut off those keys for a minute so you can see it.
+But this is where using MacVim comes in to play on the Mac.
+If I hit M, I get this list of things that I can do.
+So I have grid.js highlighted.
+I can add a new child node here, move that,
+so I can rename the file, delete the file.
+Here, reveal and quick look are the two that MacVim adds in
+so that I can reveal that.
+So I'll hit MR to reveal that in Finder.
+It'll open Finder and show me that file.
+And then there's also M, oops, focus.
+M, Q will quick look that.
+So I'll get the quick look view of that file if I need to.
+I hardly ever use this, but I do use MR to reveal and Finder all the time,
+especially when I have to work with images or something.
+It just makes it easier to navigate out of that.
+But this is here.
+I can add a new file, MAFOO.js.
+Now I have FOO.js and I can open it right over here.
+So it makes working with that a lot easier.
+Control P is a fuzzy file finder.
+This is really necessary to quickly navigate the file.
+So if I wanted to open test class, I could just go down a couple,
+or I could do, I haven't mapped to leader T.
+It pops up and gives me a list of all of the files,
+and now I can just do a fuzzy find.
+So I can say test class.js.
+And I didn't have to type all of it out,
+but it found it, found everything that matches from that.
+And then I can immediately open it from there.
+It also keeps track of every file that you have open in your register,
+so I have that mapped to leader R.
+And these are all of the files I have,
+oops, all of the files I have open in registers,
+and I can filter that list with just by typing as well.
+So I can open toolbar backup or whatever.
+Fugitive is a get tool.
+This is fantastic.
+It does things.
+Let me move to a repository that has get on it,
+is maintained by get.
+Like this one, this is dojo.
+I can do things like colon G blame,
+and I can see who edited every single file,
+or every single line in this file.
+And if I want to get more information,
+like maybe this is the bug I'm curious about,
+I can hit O, and it will show me the diff
+and the commit message from that commit for that line.
+And I can edit it, or I can view it right there.
+I can also navigate history from within here.
+I can get the log of this file,
+and it will load every file,
+or every version of this file in a buffer,
+so that then I can do square bracket Q, I think,
+to go to the second version, the third version back,
+keep going back and back and back.
+And I can look at each version of the file,
+and then when I want to go back to the head that I'm on,
+just G edit goes right back.
+There's plugins to do that, this one won't.
+If I change things, if I went in and deleted that code
+and saved it, then I can do G diff.
+And because my editor is so big,
+it's putting it top to bottom, which isn't really helpful.
+Let me make my font a little bit smaller, very small, I guess.
+And then do G diff again.
+Now it's side to side, and you can see what's...
+I deleted these lines right here.
+You can also fix merge conflicts and everything,
+resolve conflicts, that's what I was trying to say.
+From there, makes it a lot easier.
+And you can do things like, I changed this file,
+so now I can do G write.
+I have these mapped to keys as well,
+but I'm just typing out what they say.
+That did a git add, essentially,
+and then I can do a G commit.
+And now it opens up VIM for editing the commit message.
+The nice thing about this, having doing the commit messages
+in the same instance of VIM that I'm running,
+is everything that you type in VIM,
+or every file that you open in VIM,
+goes into VIM's autocomplete,
+so that you can use that to autocomplete
+your commit messages as you need.
+So I can say like, fixed, what file is this?
+Declare, DE, and I can just autocomplete it,
+because it's all in the same one.
+And then I, you know, WQ, save it,
+and it just closes that.
+I can also do like a git status,
+so it'll show me all the files that have changed.
+Nothing has changed, but let me go in and delete some more.
+And then this, now it shows me that this is not staged
+for commit, but I have edited it.
+Now I can hit minus, and that will stage it for commit.
+I can hit minus again to unstage that file.
+So I can work with this,
+I can work with this without ever having to leave VIM,
+if I don't want to, which is pretty nice.
+That's called fugitive.
+Get the git in there.
+Oh yeah, yeah, it's really awesome.
+And then the other one is syntastic,
+and we kind of showed that in here.
+I, you do a lot of JavaScript development,
+but syntastic works for several languages.
+If I save this file, actually, do I have it enabled?
+There we go.
+So now it's telling me that's syntastic
+that popped up on the left there,
+and then when I mouse over that,
+it says illegal break statement in here.
+So it's complaining about that,
+but this lets me kind of stay on top of
+all of my misspellings and typos as I'm editing.
+It just checks the file each time on save.
+So that's cool.
+And it works with, out of the box,
+it works with several different things,
+but you can also configure it in your VMRC,
+telling it what you want to actually run
+on each file save or not run.
+So it's very configurable.
+So those are kind of the main plugins that I use.
+I have like 50 different plugins, probably,
+but those are the main ones that I kind of boiled it down to.
+And yeah, IDEs still do a lot more,
+but for Vimmers, we're a lot cooler anyway.
+So we can customize Vim and tailor it
+to the exact needs that we have.
+My needs aren't going to be the same
+as any of yours, probably.
+I do a lot of JavaScript development,
+so I have a lot of JavaScript specific plugins in there.
+If you do a lot of Swift or Objective-C development,
+or Java or C++, whatever,
+you might have several different plugins
+that look completely different to mine.
+So you can really configure it
+to the way that you need.
+But we can still do more with Vim.
+So this is how I typically run Vim with Tmux.
+Does anyone use Tmux?
+Yeah?
+Okay, awesome.
+Yeah, I love Tmux.
+So you can get Tmux again from Homebrew
+if you're on a Mac.
+brew install Tmux,
+or from whatever package manager that you may have.
+And what it is, is it's a terminal multiplexer.
+You can view and control multiple consoles at once.
+Separate them out into windows.
+Each window can have multiple panes.
+You can have several different sessions.
+And you can pre-configure your environments,
+excuse me,
+pre-configure your environments for whatever you need.
+You can start a new session
+just by doing Tmux new session-s,
+and whatever the session name is,
+and then work with it from there.
+So let me actually disconnect from this session.
+I actually have this mapped to a new command,
+or to a command shell script that I wrote.
+That will automatically,
+I hit Tm,
+it lists out the command,
+or the sessions that I currently have,
+or I can hit three to start a new session,
+in this case.
+So I'll start a new session,
+and I'll call this OMG.
+And so now in the bottom left corner there,
+you can see it says OMG,
+that's the session name.
+And then I have a window here that's called ZSH,
+because that's the command that I ran.
+If I open Vim in here,
+it changes that to Vim.
+But that's not very helpful.
+So I typically,
+if I list out the sessions that I have,
+I have my work session,
+I have this pasta session,
+which is just a random name I thought of,
+for the session name.
+If I go in there,
+you see down here,
+I have .files,
+and talk,
+and dojo,
+and automaton,
+and Vim and Vim.
+The first four are ones that I custom named.
+So if I go to my .files,
+I can actually,
+I have it mapped,
+I'm not sure if it's a custom mapping,
+or if it just works.
+I have it mapped to
+ctrl-A, comma,
+and I can change the name.
+So I can change it to
+.j is asking a question.
+And now that window is named
+.j is asking a question.
+Jay, did you have a question?
+Are those local order node T-muxes?
+Makes it match remote T-mux sessions with local?
+Those are all local.
+They're all local windows.
+That's just each one of those
+is running ZShell locally for that.
+I can SSH in from any of those,
+and do whatever I need to from there.
+And then inside of that SSH,
+I could nest a T-mux session if I want,
+but you have to have...
+There is a way to connect to a remote session.
+Like directly without having to do SSH.
+You could program these
+so that you have a specific environment
+that comes up every time you run,
+and you could have the first command that it runs
+be an SSH into whatever box.
+And assuming you have your keys set up,
+it could automatically...
+How would you program it to set up your environment
+when you first opened?
+Yeah.
+I have a...
+I don't always do it,
+but I do have a file that I...
+This is my .files.
+And inside of T-mux,
+I have a dev.tmux.com.
+And in here, this runs...
+It just will source the file.
+It'll source my original T-mux.com.
+So basically when I connect to T-mux,
+I have to pass it a command to tell it,
+this is actually my configuration file to run.
+So then from this file,
+I source the original file
+so everything gets loaded as normal.
+Then I tell it, I want to create a new session called dev
+with a window called IDE.
+And then I'm going to split that window vertically.
+And it's going to have a...
+I think that's a height of 10 inside of the dev window.
+10%.
+Huh?
+10%.
+10%, yeah.
+And then I'm going to select that top pane.
+And inside of there, I'm going to split it...
+I'm sorry, I'm going to select the bottom pane.
+And then I'm going to split it horizontally.
+And then I'm going to create a new window
+that I'm going to call shell.
+And select that window.
+And then I'm going to select the current pane.
+And that's where it's going to leave me.
+So when I run this, it's going to leave me in there.
+Can you run other commands outside of your T-mux commands?
+Yeah, you can just say send keys.
+And then it will just start typing.
+Like you can say send keys, SSH, whatever.
+And it will just type that in.
+CR for carriage return.
+That's very useful.
+Yeah.
+You didn't expect, like, TickleExpect kind of stuff.
+I don't know what that is.
+No, I think it's just a blight that's sending.
+Yeah.
+It's not waiting for a response.
+Yeah, yeah, it's not waiting for a response.
+Sorry.
+So don't have to type your password for it.
+Another interesting thing that I do is if I'm managing, like,
+multiple servers, I'll SSH in each server,
+and then I'll synchronize all the panes
+so that everything I type into one gets sent to me.
+Yeah, I was going to talk about that.
+Yeah, that's a good point.
+Oh, I do that a lot.
+Yeah.
+There is also, so this is just running,
+this is basically running shell commands here.
+It's just changing my configuration file to this file
+and then running the original config
+and then running all of these commands.
+There's actually a Ruby gem called T-muxinator
+that lets you configure your environments in YAML
+if you are into that sort of thing.
+And then you can manage it all through YAML files.
+Yeah, I was trying to use T-muxinator,
+but it didn't really let me do something this sophisticated.
+Yeah, yeah.
+I think this is what I really wanted to do.
+Oh, yeah.
+But essentially, I'm already in a T-muxation,
+so I won't run it,
+but essentially what that's doing is it's creating a new window,
+so I'll create a new window.
+You show us the result of that.
+Yeah, let me, okay, let me disconnect here.
+Yeah, how do you call that?
+So let me make sure that it's actually in here,
+because it's in my...
+This is my home directory.
+Yeah, dev.tmux.com.
+So I think it's T-mux...
+I forgot how to run it.
+It's been a while since I've run it.
+Is it dash C?
+.dev.tmux?
+Okay, so you actually have to point it to the...
+You don't have to.
+Oh, okay.
+Mine's set up so that it...
+Oh, actually let me just close the shell,
+but that's okay because I'm running T-mux
+so...
+You can just reattach.
+Yeah, I just reattached and I didn't lose anything.
+So going back into it,
+I can just hit TA to reattach to the last session I was in.
+Everything's back to where I was.
+No problem.
+I totally forgot the command to run that though.
+I should have remembered to look at that.
+It's not dash C.
+It's...
+Oh, tmux-f.dev.tmux.com.
+Totally didn't run it.
+I'll look at that at the end.
+Sorry.
+Do you know if there's a way...
+So if you start an empty tmux session...
+Yeah.
+Is there a way to record what you're doing with the command keys
+into those commands?
+That?
+I don't know of anything.
+Because it's way easier just to set up the one you want and say...
+Absolutely.
+Absolutely.
+There is a way...
+I haven't researched it enough yet.
+I haven't had enough time,
+but there's a whole plugin similar to Bundle.
+There's a plugin system for tmux.
+And there is one that will actually...
+You saw how I accidentally closed iterm and I just reattached to it.
+Well, if I shut down my system, that session is gone.
+But there's actually a way to save that session between restarts
+and you can just bring it back up so you can always have that set up.
+Yeah.
+I haven't looked into it a whole lot,
+but I have seen that, I'm pretty sure.
+But anyway, what that was trying to do
+was it was trying to create a vertical split like that.
+And it was putting it at like 10%,
+so I can't get there with my commands.
+But essentially creating that and then horizontally splitting this.
+And so it had each of these different splits in there that we could use.
+So now I can see all of these, navigate.
+This is typically how I work where I have Vim at the top.
+And then I'll have a terminal down here
+if I need to run a command or see the output of something right here.
+So can connect just like that.
+The .tmux.conf in your home directory,
+that's your tmux configuration.
+There's lots that you can do.
+If you look, my tmux looks very different
+from what it normally would look like.
+Mine doesn't have the ugly green bar.
+I wanted mine to look a little prettier than the default.
+So it lays everything out nice.
+I have a whole theme set up for it.
+I even have, I customize what's in my bar down here.
+So you can see I have the name of the session,
+all of the windows.
+I have Taylor Swift always.
+And then I have the date and the name of the machine I'm on,
+which is Rueken.
+How does it pull something like the music?
+The music.
+It is, I actually tell it,
+let me just open up the tmux config right here.
+Go down to the, actually, it's in my theme file, I'm pretty sure.
+Yeah.
+So in here, I just have, you know, you just pass the, the.
+Shells that out?
+Yeah, it shells that out.
+And it will execute that.
+I think I have it executing every five seconds.
+It just executes the shell script
+and asks Spotify or iTunes.
+I have the already one.
+I'm not using the already one right now.
+But Spotify or iTunes, it asks them,
+Hey, what music is playing right now?
+And one of them, or if they're both open,
+they'll both come back and I'll just have double in there.
+But I typically never have both open.
+So have you tried playing around with your job script support?
+Not yet.
+Yeah.
+That's, that's on my list to play around with though.
+Not yet.
+These scripts are really simple.
+You could pull content pretty much anyway.
+If they have the, the built-in Apple script support.
+So this, this one.
+If you have a command that spits out some output, it'll.
+Yeah.
+And you could, you could get a claim to it.
+Yeah.
+This is the Apple script.
+It just says if application Spotify is running,
+then tell application Spotify to set the variables.
+So the name, the artist, the album,
+and then return the little music icon with the name
+and the artist dash the artist.
+And that's all it does.
+But you could like curl it sort of somewhere.
+Oh yeah.
+Yeah.
+Yep.
+And it doesn't have to be Apple script.
+I'm just using that for, for this, but be way easier
+if you didn't have to write this.
+Well, yeah, because previously only Apple scripts
+could really talk to the applications.
+Yeah, but in Yosemite,
+JavaScript can too, which is awesome.
+Yeah.
+Just could never bring myself to learn Apple scripts.
+So.
+So there's a lot you can do with Tmux,
+and that's all in your Tmux config.
+The one that I think is the most important probably
+is this right here.
+Is by default, the prefix command for Tmux is control B,
+which is kind of annoying because I'm lazy.
+And control B, like it's so far away.
+And I have to like actually look at the keyboard to do that.
+I think those compatibilities with screen, right?
+Yeah.
+Because well screen is control A.
+And it also, if you're using the default bindings for Bash,
+then control A and control your Emacs,
+they'll go to the beginning of that line.
+Yep.
+Yep.
+Yep.
+So it gets that out of the way.
+Yep.
+But I unbind that and I actually set it to control A.
+And then in my OS settings,
+I go into the modifier keys settings
+and I change caps lock to control
+because I never want caps lock enabled ever.
+Yeah.
+Oh, that's a good idea.
+Yeah.
+So now, if you look at your keyboard,
+caps lock is now control.
+So control A, it's just boom, right next to each other.
+That's where the control keyboard is.
+Yeah, exactly.
+And then control left bracket is escape.
+So you never have to move your hand to escape keys.
+Yeah.
+Fill in your pinkies and you're good.
+Yeah.
+There's actually a program called key remap for MacBook
+and it will let you do more advanced modifier key changes.
+So I can say caps lock is control
+when I press it with something else.
+Otherwise, if I press it by itself, it's escape.
+Amazing.
+That would be nice.
+If you look at the copy and paste for commands for Tmux,
+they're left bracket, right bracket.
+So they kind of map to the escape.
+Yep.
+So there's a lot that Tmux can do.
+Like you were saying, we can synchronize panes,
+which is really awesome.
+I've seen people have a bunch of different terminal windows open
+and then they're trying to do things all at once.
+And there's a program that will do it for you.
+But you can also, like if I create a bunch of different panes
+and I can type in here echo hello and it just runs in there.
+I have this mapped to prefix y.
+So I just say prefix y and now everything is synced.
+So now I can say echo hello and you can see
+it's typing into every one of them.
+And so I could be SSHing into several different boxes
+and running the same commands from one.
+If you're too lazy to have written a script to do it.
+Yeah.
+Yeah, exactly.
+Or if it's not worth writing a script to do it.
+Yeah.
+Oh yeah.
+If you can write a script to do it.
+Strive to be lazy.
+So you're a read-only like attached port
+and you can give other people so they can watch you do stuff.
+Yeah.
+Actually people use this for your pair program.
+You can connect to someone else's Tmux
+that shouldn't share it.
+Yep.
+This is great.
+Actually I wasn't sure how this setup was going to be
+and whether or not I would just mirror my display
+or if I would actually have like my display down here
+and then another second display which is up there.
+What I've done for presentations before
+is if I put this over here and then I open a new window
+I would just have a terminal window on each one
+and I would connect to the same session.
+I connected to the wrong one.
+Oops.
+Which one is it?
+I'm currently connected to pasta so two.
+Now I'm connected to the same one
+and now I could that way I could look down here.
+I didn't have to like try and look behind me and type commands.
+I could look at the screen
+and it's just mimicking everything I do over here.
+So you can use this.
+Use this.
+You can definitely use it for pair programming.
+I've seen tutorials that help you set up like a user
+like a script that will generate a user
+that only has access to this file
+or this system and can only attach to this session
+and then it deletes itself afterwards.
+And it does that all through I think in grok
+so that you have a you can expose yourself out remotely and stuff.
+But there's also a fork of Tmux called teammate
+which does all of that for you
+and lets you remotely connect with someone else
+to do pair programming like this.
+But by default teammate's got through a centralized server.
+Yeah, yeah.
+The Tmux was running on the server itself
+and I could have been watching it without using a third party
+and I'm just not sure about it.
+Yeah, absolutely.
+Yep.
+How do you make it read only for the attaching session?
+Wait, I don't know if you can make it read only.
+Or just blindly agree.
+You can use your key mapping so they won't know where you're going.
+Well, yeah, that's actually true
+because Vim would be so specialized.
+I'll tell you probably the number one key binding that I have
+like colon WQ is that's like three characters you have to type.
+Oh, four you have to hold shift colon W.
+Well, that's a lot.
+Right.
+If Tmux doesn't do that by default teammate does
+teammate gives you a read only session on their server
+where you just have to switch read only to their third party server.
+They're super handy but it'd be nice from a screener's perspective
+but that was not right.
+I want to say you can do that with Tmux.
+I don't know how.
+I'm pretty sure I've read about that before.
+I think I have to.
+But yeah, I don't know.
+You can do it.
+It seems silly that Tmux is going to do it.
+That seems like an obvious feature.
+Yep.
+So yeah, you can synchronize panes.
+You can create splits on the fly.
+I actually have Tmux set up so that I do control.
+I do prefix which is control a so prefix h, j, k, or l.
+I'm sorry.
+That's to move between them.
+So I do control prefix h.
+I'm sorry.
+Prefix j to move down prefix h to move left prefix k to move up.
+If I want to create a split it's prefix pipe to create a vertical split
+and prefix minus to create a horizontal split.
+So it's just kind of logical.
+Do you remap this?
+Yeah, I remapped all of them.
+Yes.
+It makes a lot more sense to do that.
+What was the thing?
+But yeah, percent and quote.
+I don't know.
+Yeah.
+It's diagonal split.
+I also have Vim set up to do that as well.
+So I have Vim set up so that I can split Vim in a very sane way.
+I can just say control h, j, k, or l.
+So control l will create a right split.
+Control h will create a left or move to the left split.
+But if there's not another split to the left,
+it'll just create another one.
+And so I can just keep creating splits all over the place.
+If I want to look at file, like a lot of different files,
+I'll have I won't put them all into individual Vim sessions.
+I'll have them all in the same Vim.
+Also that Vim session will know about the same.
+Yep.
+So typically when I'm working at home on my Thunderbolt monitor,
+I will have it split like this.
+And I will usually have six different files open that I'm looking at,
+which is totally not productive.
+But it actually it's not too bad on a big monitor.
+But that's typically how I'll have it.
+Also another great key.
+This is by default in Vim.
+Or I'm sorry, in Tmux.
+Control a prefix z.
+That will whatever whatever split you're in,
+it will make it full screen and then z again to bring them back.
+So if I want to see everything, then I can see it,
+bring them back as I need them.
+And it keeps everything okay.
+Can you take like a pane and promote it so a full window?
+Yes, I think so.
+Yeah, yep.
+But I've done that before I knew about control z.
+I had a whole script that I looked at from a tutorial that did that.
+And then it tried to bring it back in
+because you can like take these panes,
+promote them to windows and then move them back.
+And that's what it was trying to do.
+But what's the default for prefix z?
+Is that not the default in my line to you?
+Yeah.
+It's not control z though.
+That doesn't do what I wanted at all.
+Well, like is it control az or control b?
+That's a big c works for me.
+Something must be eating right.
+Yeah.
+So yeah, you can do that.
+So Tmux and Vim are really awesome.
+There's also a plugin called Vimux,
+which allows you to interact with Tmux from Vim.
+So you can do things like map or you can call,
+you can say Vimux run command from within Vim
+and execute a command in a Vimux or in a Tmux split
+and then see the output immediately.
+So like I have this repo here that I'll delete this split at the bottom.
+And I'll do, I'll just map it to a key.
+So I'll say n map.
+I want to map leader z to call Vimux run command.
+Sorry if that's small.
+There we go.
+Mix run command grunt test.
+So I want to run the tests for this.
+And then I have to hit enter.
+So I'll map that.
+Now all I have to do is hit leader z.
+Leader is comma for me.
+So comma z and it automatically created the split for me
+and it ran grunt test down there,
+which compiled all of my typescript and executed the tests.
+Now that that split is open, if I hit leader z again,
+it will just use the same split.
+It's not going to create a new split each time.
+But now I can have that mapped to do that every time I save the file
+and automatically see that.
+I never have to think about it.
+The files or the tests will just run below me.
+And if an error, it'll turn red and I'll see it immediately
+and then I can go investigate it.
+So it's a lot faster than having to manually,
+because I'm lazy.
+I don't want to hit prefix j to go down and then grunt test
+and run that.
+And then prefix k to go back up.
+That's so many keys and I'm so lazy.
+So I don't want to do that.
+I can just map it.
+And you can do those maps on the fly
+or you can save those into your VMRC or a local VMRC.
+I have that set up so I can have VMRC.local.
+In any directory and it will source those all the way back up.
+So there's a lot you can do.
+I like Vim and I think that you will too.
+But even if you're not using Vim as your editor,
+learn whatever editor that you are using very well
+so that you can be as productive,
+probably not as productive and not as cool for sure.
+But you can be something, I guess.
+The other thing I was going to talk about is your .files.
+Like your VMRC, your Tmux config.
+All of that.
+They're really awesome.
+This is how you make Vim and Tmux
+and you make your own environment that works well for you
+and the software that you're writing.
+And there's a lot of .files out there on GitHub.
+Look at them, steal things from them,
+but don't just flat out copy them.
+Don't use things like Janus or other things
+that Janus is a default Vim configuration.
+That's default and it works well for somebody who created it.
+But does it work well for you?
+Is it going to add a whole bunch of mappings
+that you're never going to use?
+Is it just going to clog everything up?
+Plus you can never possibly remember all of the shift
+that they contain.
+Exactly.
+You have to put them in one piece at a time in order to learn them.
+Yeah.
+And every once in a while, I've done it once,
+I think, since I started using Vim full-time.
+I declared Vim bankruptcy, deleted my VMRC,
+and then I just started adding things back in as I needed them.
+That way, because I go through them like,
+I'm like, what the heck does leader A do?
+I never use that.
+Oh, it does that.
+Yeah.
+So never copy them directly, steal things, and get ideas.
+And then share them so that other people can see them.
+Get it?
+Share.
+So yeah, share your .files, steal ideas from others.
+There's mine, nicknacy slash .files.
+All of my Vim, Tmux, and ZSH configs are on there,
+along with other things.
+GitHub, yeah, sorry.
+Also, my Git configuration, all of that,
+because I have a lot of nifty Git tricks in there.
+How do you manage keeping API credentials and stuff
+like that out of your .files?
+Yes.
+That's a good question.
+I won't bring it up because I'm recording this,
+but I actually have.
+So let me just finish this real quick.
+Keep practicing.
+I put all these slides and everything up here at Vim Workshop.
+So check it out.
+And then I wasn't going to end here.
+I was going to actually go through a little bit of my .files
+to give examples.
+So I'm going to rename this from J's asking a question back
+to .files.
+And so these are my .files.
+What I actually do is I use ZShell.
+And in my ZSHRC, I actually have set up a, where is it?
+Oh, if a bin directory exists in my, oh no, wait.
+Yeah, if a local RC exists, source it.
+So I can put everything in local RC.
+And that's, I'm not actually saving it to my .files.
+It's just on that machine.
+And then if I move it, I have to remember to.
+Yeah, so you just set up like variables and stuff with the private stuff in there?
+Yeah, like I have all of my keys and everything in that file.
+And then it just gets sourced.
+And it's not.
+Which file?
+Future of that?
+So yeah, I have that set up in here.
+The other thing is, like I have my .files set up all weird.
+I have actually an install script that goes through and everything
+with a .sim link.
+It creates a sim link in the home directory and puts a . in front of it.
+Yeah, it makes it really nice for keeping everything set up.
+Is that a script you wrote?
+I copied it from somebody.
+Zach Holman, I think.
+Anyway, that's not a bad approach.
+Yeah, yeah, it works really well.
+So that's my ZShell.
+I was going to bring up my VimRC a little bit.
+Where's Vim?
+So here's my VimRC.
+And as you can see, it's 444 lines.
+So I've got quite a bit in there.
+But I've got it kind of set up, split off pretty well.
+So I've got all of my general configs.
+I've actually got my whole list of plugins in another file just to manage it.
+So let me open that.
+I see.
+So you've alias common misspellings.
+Yeah.
+Nice.
+So plugins.vim.
+Here's all of my plugins.
+This file is 77 lines long.
+I turned plugins on and off as I need them.
+If they're commented out in here, the plugins aren't loaded at all.
+And then I can just experiment.
+That's why Vim.
+Vundal is really great because you can experiment.
+And I can tell it to install just by doing colon plugin.
+Oops.
+I'm not going to run it because it'll take forever.
+But I could do plugin.
+I'll run plugin install.
+It will just go through and look for anything that I don't have installed and install it and done.
+If I do plugin update, it'll go and update to the latest of each of those.
+But the main plugins that I have, I have them kind of split off.
+It's kind of messy in here.
+Instead of get cloning all of these things into your Vim directory, you just do that.
+Yeah.
+And so they're inside of this Vundal directory.
+And they're all cloned right within there.
+And then Vundal just manages it.
+These are all get ignored in my .files.
+So they're not.
+Just get cloned your .files and then run your script and then do your plugin install.
+Yeah.
+I actually have Vundal installed as a sub module and another sub module in there.
+So you update the sub modules, then you just do open Vim colon plugin install.
+And or you can do Vim space plus plugin install and it'll execute plugin install immediately
+when it opens and install all of those.
+I didn't think of doing it as a sub module like that.
+Experimented a lot.
+And I don't know if I like sub modules all that much.
+Yeah.
+There's two ways of doing it.
+Sub modules and sub trees.
+So I'm, yeah, I need to look into sub trees more.
+Yeah.
+They're both kind of a thing.
+Yeah.
+So I have all of that set up in my install script does a whole bunch of things.
+If I actually look at that, it does, it updates the sub modules.
+Then it sources link, which I don't remember what that, oh, that does the sim linking.
+Then if I'm running OS X, then it's going to install homebrew automatically.
+Brew everything that I want in here.
+So I'm going to get run the brew.sh script, which installs act and get and mac vim and
+all of those.
+So you can pretty much just stand up your whole dev environment.
+Yeah, I just got this machine.
+And well, I had a MacBook Air and over the holidays, I reinstalled, I did a clean install
+of Yosemite and then two weeks later, I got this MacBook Pro and it took me 20 minutes
+to get everything set up on both of them.
+Like really simple.
+I got my setup so that I have a puppet vagrant script.
+Oh, nice.
+So I just, yeah, that's really nice.
+And it sets up the entire machine.
+Yeah.
+However you do it, it's worth it to get this set up because if this machine fails,
+I can go to another machine.
+Yeah.
+I know people have been using like popular boxing or something to do that sort of thing,
+but I've never seen vim used to settle that stuff up before.
+Yeah.
+So it sets all of that up.
+And then anyway, going back, the main things that I wanted to show in here were
+just not to keep this going because I could talk for hours on this file alone.
+Um, I have this setup so that my backup directory, like it doesn't create the swap files in line
+with all of the other files.
+It puts it into a vim temp directory in my home directory and they're there if I need it.
+Usually I don't ever need them and I just go in and delete them whenever they're there.
+But, uh, yeah, there's that.
+The other thing is I set clipboard to the unnamed clipboard so that
+whenever I yank something, it puts it onto the osx clipboard and then I can just
+control v into another app.
+So I can, I can go here and why, why?
+And then I can go over and open up adam or something.
+And someday, yeah, arrow keys, control v.
+And I can paste whatever is right into there.
+So, so unnamed is the system clipboard?
+Yeah.
+Okay.
+There's also, um, if you're running stuff from the command line, there's a command called
+pb copy that will put whatever the output and throw it into the board.
+Okay.
+Yeah.
+Right.
+Yeah, I think that's probably what that uses under the...
+Probably.
+And actually to run it in Tmux, there's actually more things that you have to do,
+because Tmux totally devours all of that.
+But there is actually, if I go to my Tmux config,
+uh, the first thing that I do is I execute a default command, which is this reattach
+to username space command, which is something that I installed from homebrew.
+You install that and then it brings the clipboard sanity back to Tmux.
+This is something that you need only if you're on, um, osx.
+So I actually have to update this script because I have a Linux box too and this just
+fails every time I try and connect because I hardly ever use it.
+But if I need to, I should actually have it execute a different script that checks to
+see if I'm on osx and if I am, or check to see if reattach to username space exists
+and then run it.
+Otherwise, just open up a new ZShell session.
+So I have that set up.
+That makes it really nice.
+Now I can do things like I can copy things out of here and I can go in and, you know,
+paste everything.
+Ugh, I don't know what I did and I can't...
+I can paste everything into any application.
+And same thing from within Tmux itself.
+I can do Ctrl A, Escape, and now I can navigate this with hjknl and I can shift V or V to
+Tmux Highlight.
+So the orange is the Tmux Highlighting and then I can Y to yank that and I can go over
+into whatever file I'm in.
+This is actually my slide deck, so hopefully.
+And I pasted all of that in there.
+Oh wait, did I?
+No, I didn't.
+I may have screwed that up.
+What I typically do is I hold Alt and then I highlight with the mouse.
+I know I used the mouse and the worst and then pasted it in there.
+I also have mouse, I do have the mouse set up.
+So in my Tmux.com and in my VMRC I have mouse turned on.
+And that's just so when I'm moving from one screen, like from one application over to here,
+I can just click into the window that I want to be in.
+And if I'm in...
+If I have multiple VIM splits, I can click into the split that I want to be in.
+So yeah, otherwise I never use it when I'm actually working in it.
+It's just when I initially switch into it.
+Trying to think if there was anything else.
+The other thing is the VMRC.
+So I kind of have everything set off.
+Oh, I have this set up so that I can...
+I have my background and my color scheme actually controlled through my Z shell.
+So it just looks for exported globals in there.
+And I have all of that set up through...
+I'm currently using this base 16, which has a ton of different themes.
+And a dark and light for every one of them.
+Yeah, it's great.
+And so I can...
+I actually have aliased...
+You know, I have dark and light.
+So I can just say if I could spell light and it will just immediately change everything.
+And if I go back into VIM...
+Oh, if I go into a new VIM session, then it's light.
+And then I can switch it back to dark quickly too.
+So that's great if I'm giving presentations and I don't have a nice projector like this
+and I have to switch to light, then it works really well for that.
+And then I can change the theme as well.
+And so I handle all of that.
+The themes are synced.
+So there is a item theme or actually a shell theme,
+which is all of these files for like Brewer Dark is this file.
+This is the shell theme.
+And then there is a corresponding VIM color scheme that matches this.
+So that the shell and VIM always have the same theme.
+I configure it in one place and it works really well.
+And I think that's it.
+Unless anyone has any questions or anything.
+So one thing with T-Box, and this is really buggy live.
+This is really buggy last time I used it.
+If you're using I-Term2 and OS 10 and T-Mux,
+you can actually have I-Term2 connect to a T-Mux session
+and all the tabs in T-Mux will turn into tabs in I-Term2.
+And you can just add over SSH, except last time I used it,
+it was really buggy and it crashed.
+So you might as well just use T-Mux directly.
+It was just kind of one of those things from the little run for a day and try.
+Yeah.
+Last time I looked at that,
+you actually had to have a different version of T-Mux,
+like a alpha version or something.
+And I don't want the window crop.
+I want my nice pretty pink split borders in there.
+That's all configured.
+There's actually, like I said, there's a plugin system.
+For T-Mux and there's themes for T-Mux and everything.
+So you can get, you can see I have the power line theme for Vim here.
+This is actually airline, but it's, you know,
+it's got these weird characters and everything.
+You can get the same thing for your T-Mux bar down here.
+But yeah.
+Cool. Thank you.
+Yeah. Thank you.
+Thank you.

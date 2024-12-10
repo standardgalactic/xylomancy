@@ -1,0 +1,1006 @@
+Good afternoon, everyone. I am Priya Natarajan. I'm a faculty member in the departments of
+astronomy and physics at Yale, and also the current director of the Frankie program in
+science and the humanities. As you all know, we have been running this wonderful inference
+project talk series, and today we have convened for the post-doc discussion and conversation
+led by Professor Zena Tavares. He will be engaging with, of course, telling us a lot about his own
+work and his perspective, and engaging with the most recent colloquium that we had last week
+given by Kyle Cranmer. Kyle's talk was titled Causality at the Intersection of Simulation
+Inference Science and Learning. Before I dive into telling you a little bit more about Zena,
+I would like to start out by recognizing Mr. and Mrs. Richard and Barbara Frankie for their
+generosity and their support of this program and many other interdisciplinary activities at Yale,
+and just wanted to remind all of you in the room that we are recording this event, and therefore
+all participants will have their videos muted for the duration of the talk, and as per usual,
+questions may be submitted at any time in the Q&A feature and that we will get to them.
+So as you all saw last Wednesday, Kyle gave us a wonderful overview of the role of inference
+in sort of model building, be it simulations, dealing with data, large amounts of data from,
+for example, the Large Hadron Collider, and he showed us how we actually do science
+and how we actually learn by making causal inferences from events that are detected, for example.
+And so today we are going to hear a fresh perspective from a slightly different disciplinary
+vantage point, which has been our goal with these talks and the discussion series.
+So for those of you who may not yet have seen Kyle's talk, the recording will be available
+shortly, and let me just to inform where Kyle was coming from, let me give you his brief
+biography. So he's currently a professor of physics and data science at New York University
+and a visiting scientist at Meta AI. In July, he will become the director for the American
+Family Insurance Data Science Institute at the University of Wisconsin, Madison. And so his
+work is really about frameworks that he's developed for collaborative statistical modeling
+and was extensively used in the discovery of the Higgs boson in 2012 with the two
+separate experiments that independently made this discovery. And his current interests are
+sort of at the intersection of physics, statistics, and machine learning. Okay, and for our speaker
+today, Professor Zena Tavares. Zena Tavares is an associate research scientist in both the Data
+Science Institute and the Zuckerman Mind-Brain Behavior Institute. He's the first joint hire
+between two university level institutes at Columbia. In addition to his Columbia affiliation,
+he's also the co-founder of BASIS, a new applied AI research nonprofit organization that aims to
+develop universal reasoning systems and apply them to help solve hard scientific and societal
+problems. So it shows you the bent that Zena has in terms of application and domains of application
+that do step out into societal problems. And so his research aims to understand how humans reason,
+that is how they come to derive knowledge from observing and interacting with the world.
+He also constructs computational and statistical tools to help advance his work on causal reasoning,
+probabilistic programming, and other related areas. Prior to joining Columbia, he was at MIT,
+where he received a PhD in cognitive science and statistics and was a postdoctoral researcher
+in the Computer Science, Artificial Intelligence Lab, CSAIL. Zena's work has received enormous
+recognition, including an International Full Bright Science and Technology Award,
+and you know, many other accolades for his papers and his work. I'm not going to take
+a hog any more time, and I would like to invite Zena to please take the floor. And
+just want to say a thank you to both of you for speaking to us today. We are absolutely delighted.
+Thank you. Awesome. Thank you. So yeah, so thanks for the introduction. And I'm pretty excited
+to be here, and I'm looking forward to the discussion. So let me just try to share my screen.
+Great. So the title of my talk is Universal Reasoning Systems, Beyond the Frontier of
+Simulation-Based Inference. And so this is a kind of a riff of Kyle's paper, Fantastic Paper,
+which is the frontiers of simulation-based inference. And so the general theme of my
+talk is going to be thinking about what is the current status of kind of
+simulation-based inference, and what do I think is a few steps into the future, and how can we get
+that? But this will be in the spirit of Kyle's talk, very high level, and hopefully pretty short,
+so we can spend most of the time in the discussion. So as Priya said, Kyle does
+hard and difficult science, you know, investigating the nature of the universe.
+Michael's in comparison, a little bit more pedestrian, a little bit more grounded on Earth.
+And so I'm just interested in like, how can we build machines that can reason a little bit better
+than the current machines? And in particular, how can we build machines that are somewhat more human
+like in their ability to learn and reason about the world? And so here are just some kind of
+common sense questions which a human might be able to answer. So looking at this picture,
+you might say, well, you know, the driver's drunkenness likely caused this crash. Or,
+you know, if you had a weatherman giving you some report, you might say, well, you know, that's
+implausible. Or if you're an epidemiologist, you might be investigating some mutation and say,
+well, you know, this is really going to lead to some large scale societal, you know, shutdowns
+or implications. And so how can we build machines that can do this kind of reasoning? Right now,
+I believe there's no machines that can really do this, this degree of this degree of general
+and flexible inference. And so that's kind of my high level goal. So the basic foundation upon
+which I work is the idea that humans, and presumably many other animals too, have mental
+models about how the world works. And so here in this illustration, the idea is that I as a human
+have some model about the outside physical world. And so I can, you know, predict what's going to
+happen. And this is a really powerful thing to be able to do because it means that I can imagine
+how the world is going to unfold without the world actually unfolding that in that particular way.
+And that's a very kind of life preserving faculty to have. It doesn't necessarily need to be about
+physical things in the world. I can also reason about other agents, you know, think about what
+you're thinking, you know, thinking about what I'm thinking, recursively, you know, up to some depth.
+And so there's a variety of different kinds of phenomena in the world. And the basic premise
+of this approach is humans, they have mental models, and they use these models to imagine
+how the world would unfold in various different ways. And so my goal is to build universal reasoning
+systems and we can get into discussion if that's a meaningful concept. But I think there are
+basically three fundamental pillars that we need to think about, at least three. One is the notion
+of knowledge representations. And again, building of Kyle's talk, some of the most exciting work is
+simulation based models as representation of knowledge. The second bit of it is like different
+kinds of modes of reasoning, different kinds of questions that we might be able to ask. And the
+third is different algorithms for inference. And this is more the computational perspective.
+And so what I want to do in this, in this brief talk is to look at these different
+aspects. And in each kind, think about, you know, one aspect of where we are right now,
+and another aspect of like where we might be, you know, in the future.
+Okay, so thinking about modes of reasoning. And so this is a slide from Kyle's talk, and he points
+to kind of Bayes, Bayes and inference, as this principal foundation. And so what is the premise
+behind Bayes and inference? Well, the basic idea is that you have some data, you have some theory
+or some model, and given some, and given these two pieces of information, I can update using
+Bayes theorem to derive what should I believe now conditional on the evidence. More generally,
+I think of Bayesian inference as a paradigm for logical inference. And so this idea has a long
+kind of philosophical foundation. But basically, you have models, you get, you introduce new data,
+and you revise your models based on evidence. And so one of the questions which I want to get into
+is like, how general can we think about this paradigm of Bayesian inference? Currently,
+the paradigms in which we're doing Bayesian inference, I'll argue are a lot more constrained
+than the most general paradigm. And a large part of what I want to do is think about what are the
+ways in which we kind of, what are the ways in which we are to extend the notion of Bayesian
+inference to account for different kinds of knowledge, and different kinds of information
+about how the word works. And so let me just give you an example of what I mean here.
+So another kind of inference is less of the kind that Karl spoke about last week and more of the
+kind of logical reasoning that we do every day. And this could be individual common sense reasoning
+all the way up to kind of the scientific discoveries, some of the most, some of which
+are the most important discoveries in the universe, sorry, in the wild to this point.
+So let me just give you an example. So here's Galileo, and I'm sure many of you know Galileo.
+And Galileo is famous for several things, but he's particularly famous for discovering the
+nature of the moon. And so Galileo, in the 16th century, he looked up at the moon and he came
+to this conclusion. He said, the boundary which divides the part in the shadow from the shining
+part does not extend continuously in an ellipse, as would happen to be the case if it was, sorry,
+the boundary which divides the part in the shadow from the shining part does not extend
+continuously in an ellipse, as would happen in the case of a perfectly spherical body.
+But it was marked out by an irregular uneven and very wavy line. So what Galileo is saying
+here is that if you look at the moon, as we will do in the next slide, you can see this wavy line
+between the light part and the dark part. And for all about this is an obvious thing, but at the time,
+people thought that the moon was its perfect sphere. They thought it was its perfectly
+spherical body, but Galileo looked up at the moon and he said, well, it's not. But it wasn't
+sufficient for him to just say it's not perfectly smooth. He had to convince his audience. And so
+his argument basically goes, well, if it was a perfect sphere, the line which connects the light
+part to the dark part would be a perfectly smooth ellipse, but it's not. And therefore,
+the moon is not perfectly spherical. So this kind of argument, which is almost like a proof
+by contradiction if you've done some mathematics, is very common in everyday reasoning. And it's a
+very important style of reasoning because it led to a revolution in how we think about the world.
+And so how can we build machines that can do this kind of logical reasoning?
+But at the same time, it's not purely logical reasoning because, you know,
+what are the axioms here? It's not very clear. Is there some kind of formal mathematical basis?
+So it's this weird kind of mixture of between logical reasoning and the messy real world.
+And so if you think about, you know, what this looks like in a slightly more
+formal sense, we have some proposition S, which is that the moon is the perfect sphere,
+some proposition E that the terminator, which is the divided between the light and the dark side,
+is an ellipse. And then we construct this kind of argument. As soon as it's true,
+as soon as it's true, as in assume that the moon is the perfect sphere,
+then the terminator is ellipse is also true, but it is not true. And therefore, our axiom is false.
+And so one of the things that we've been looking at recently is can we build machines that can do
+this kind of reasoning with kind of real world data? And this is, you know, very much, you know,
+just the idea stage. And this is, you know, in some sense, I'm using this kind of talk as an excuse
+to think about things that which are very speculative. But our goal is to construct
+something like a proof tree. So you may not be familiar with this notation, but this is how
+people construct these formal arguments in mathematics. But instead of a kind of a normal
+mathematical logical proof, we combine that with a generative model. And so on the one hand, we have
+this formal logical deductive tree. On the other hand, all of the instances, all of the elements,
+all of the kind of the variables which constitute this logical tree are themselves
+generative, are themselves variables in kind of the kind of generative models that Carl spoke
+about last week. And this is important, because it's not just sufficient to just, you know,
+make this kind of logical argument, I have to connect it to all of that my perceptual vision
+system. I have to actually look at the moon and infer its shape. I have to actually, you know,
+use my visual system. And so what we're trying to do here in this very early stages,
+try to bridge this gap between logical deductive reasoning and kind of the more
+generative style kind of Bayesian inference that we're more familiar with.
+Okay, so I'm just going to move on quickly. So going to algorithms for inference.
+So Carl has this slide, and he's talking about, you know, what is the kind of the state of the
+art in inference methods? And I think I agree with Carl that one of the most exciting areas here is
+algorithms which combine neural components with kind of old fashioned statistical components to
+get the best of both worlds. And in particular, you can have kind of neural models, neural
+surrogate models of kind of a hard to compute, you know, conventional model, or you can have
+a surrogate model of a summary statistic. And this is really expanding an exploding field of
+combinations of neural models and kind of, you know, more conventional statistical models.
+And just to go back a little bit, one of the kind of the key ideas behind this approach, which is in
+Carl's paper is the idea of automatic differentiation. So there's many kind of values in which we'd like
+to compute. In particular, the kind of the gradient with respect to many different terms, for example,
+the likelihood, both in the neural model or in a conventional model. But on the line, all that is
+a technology called automatic differentiation. And that's what allows you to get gradients out of
+a very complicated model that you can't do by hand. And so if you think about like, what kind of thing
+is automatic differentiation? Well, you know, you can understand it from the conventional calculus
+perspective. But from a programmer language perspective, an automatic differentiation is a
+program transformation. That is, it takes your program, the program that you want to differentiate.
+And it turns that into a new program, which gives you a derivative or a gradient. And your ability
+to do that transformation relies on having access to the model. So it's not just a black box
+model, I can go in and I can inspect the source code of the model and be able to compute these
+derivatives, which I couldn't if it was just a black box model. And so one of the things I work
+on is not automatic differentiation, but a different kind of program transformation
+for a different need, but all in service of the same goal of kind of inference. And so what is
+inference in a nutshell? I think of inference as generally an inverse problem. I've got some model,
+it gives me some output, and I want to know what the input is, or I want to know what a distributional
+input is. But if that model is a program, a simulation program, then finding the output that
+would give some, you know, desired, so finding the input that would give some desired output,
+it's really an inversion program. I have to run the program backwards. Now you can do that in
+indirect ways, but one of my ideas was, maybe we can tackle this idea directly. Can we actually
+just take a program and try to invert it? Okay, so what do I mean by program inversion? I mean,
+take some program, f and its output is y, and I want to find x such that y is equal to f of x.
+And so why do we want to do this? For the reason that, you know, I just described, but in particular,
+we can think of these two examples. So one is inverse graphics. So I have, let's say, some
+three-dimensional scene on the left, and I have some rendering function which takes that scene
+and outputs a three-dimensional image. And I want to go backwards to find what is the three-dimensional
+scene that created my observed image. On the other hand, I might have a control problem, right?
+So I have the robot arm. I know where I want the hand to be. What are the joint angles which
+are going to allow me to get my hand to that particular point? So as a software tool, parametric
+inversion takes some programs. So this is Julia Code, you don't need to know the details,
+but the program is a function on the left. And we say, well, give me the inverse of that program
+with respect to some output, right? So I know what the output of f is, now give me some input.
+And so the goal is to build a system which is pretty much as straightforward and simple as
+this. And it just outputs some number 42. Now, how do we do this? So what is the main issue?
+So one issue is that most things are not invertible. So how can we have some notion of an inverse
+which, when our forward model is not invertible? And so a simple example is just addition. If I
+know that f is equal to a plus b, and I know the output is z, how do I get the values of a and b
+which would output to z equal to five? There's many combinations. It could be three and two,
+four and one, and so on. And so one of the approaches that I've developed is called a
+parametric inverse. And so the basic idea is, I'm going to take my noninvertible function,
+and there's no inverse to that function because it's noninvertible, and construct this thing which
+we call a parametric inverse. And the basic idea behind that is, of all the different combinations
+of x and y with sum to z, I want to parameterize that space of solutions. So I want to have a
+parametric representation of all the different combinations. And so let me just show you what
+that means in the context of addition. If f takes as input x and y, then its inverse would take as
+input the value, that should be z, sorry, and some parameter, and it returns two values, one for x
+and one for y, such that if I add them together, I get back the output of the function. So this is
+a parametric representation of the inverse of this simple function addition. Okay, so most of the
+time we don't really care about just addition. We've got these really complicated models that we
+want to invert. And just to kind of skip to the point, the idea is that this composes. So if I've
+got some complicated program or some complicated procedure, for example, I've got something which
+takes in two numbers, adds them together within squares, I can take every element in that program,
+replace it with this parametric inverse, so replace addition with the inverse of addition,
+or the parametric inverse of addition, replace the square function with the
+parametric inverse of the square function, and reverse the direction of the order of the computation.
+And so the big kind of point and the theorem is that this bottom program is an inverse of
+the top program. And so what this means is that there's a mechanical transformation that I can
+take to some model, some simulation model, and literally transform the source code into
+an inverse of that model. Now, you know, you should be skeptical because if that were true,
+then many, many things would be, you know, which we know to be hard would would be automatic, right?
+But the basic premise holds and we can get into some of the details of why that's difficult in
+practice. Let's skip over that. Okay, so last kind of last area I'm going to talk about is
+knowledge representations. And so one of the key areas in which I work is using programs to
+represent knowledge, like how do we, you know, how do we represent knowledge about the world?
+I think programs are a really good representation because programs, they have this compositional
+structure, you can include continuous parts, this, you know, discrete parts, and simulation models
+of programs, neural networks of programs, but more generally the space of programs is a very
+rich language. And in particular, going back to my kind of my Galileo example,
+if I think about, you know, different conceptions of the universe, how can we build a system that
+could, you know, learn like, or reason like Galileo or Newton on someone, right? What are the,
+what is the space that represents all the different kinds of theories that scientists
+have developed over the world? You know, for example, Newton's theory, I think it was MA,
+or, you know, Copernicus had a model, going back further in time, there's even older models.
+This, this structure, which is able to represent this, you know, this very rich notion of, of
+universe models, doesn't seem like it's a continuous vector space, it seems like it has a lot more
+structure. And so, you know, we haven't got quite there yet, but one of the, you know, the problems
+that we're working on is this notion of program, program synthesis, how do we learn a program
+from data? And so let me just show you a quick example of that. Okay, so here is a, here is a
+kind of an ongoing project, and this is done with, sort of, this background noise. This is done with
+Josh Tannenbaum, and most of the work is done by an undergraduate called Rheadas. And the basic
+idea is that we have this kind of, this game-like environment on the right-hand side. And this is
+a program on the left-hand side. And I can interact with this, hopefully. Let me just try to. Okay, so
+it's a little bit laggy. But you can see when I, you know, when I click, you know, these kind of,
+these purple things come down. But even that is an inference, right? It could just be a coincidence.
+Somehow it seems to be the case that when I click, that causes this purple thing to come down.
+And if I press this blue thing, and I click, you can see that something's somewhat changed,
+hopefully. Maybe there's some bugs going on. Okay, this is a site lag. You can see this,
+this, this kind of water going down. Okay, so the main point here is that this, this little world is
+not particularly interesting. It's actually just models a water plug. But it's a very hard thing
+for all of modern machine learning to, to learn because you've got these things, you know, when
+I, when I press this, the other thing, nothing gets in the way of it. So, you know, it's just a
+you've got these things, you know, when I, when I press this, the other thing, nothing changes.
+It's only when I make this further action in the world, do I see the chain? Do I see a change in
+state? So when I click now, I see these other pieces. When I click this black thing, things
+should disappear, right? And so what we're trying to do is, is to build a kind of a system and a
+paradigm of learning, where an agent will interact with this kind of domain, and produce
+the entire source code on the left hand side, right? In other words, to learn the model of
+the dynamics, just from observing and interacting in the world. And this is a very hard problem
+because it's not continuous. It's a very large, relatively speaking program. It has a discrete
+structure. And if you've, you know, if you've thought about this a little bit, you can think
+the space of problem, the space of programs of this length is enormous, right? And so how can
+we figure out how to synthesize this program from, from data? And so in this example, we, we can
+actually do it. And all of these examples, we can do it. But this is part of the discussion. So
+I'll end there. And those are the main kind of points that I want to focus on, like knowledge
+representations, algorithms for reasoning and modes, different modes of reasoning.
+Thank you so much, Jenna, for sort of charting out this landscape. Before having asking Kyle
+to react a little bit to the work that you presented, I'm just burning with curiosity,
+given your background in cognitive science, right, as well. So in terms of reasoning,
+are there sort of limits and capacities that are actually hardwired? Or is this not even a
+useful question? I mean, I'd be happy to be told, disabuse that this is not a good question.
+Yeah. So, so limits that are, that are hardwired, I think, I think the answer is, I don't know,
+I don't think anybody knows. It seems like we've been able to figure out a lot about the
+universe. People like Kyle have helped us, helped us do that from really sparse observations.
+And so I, you know, I would, I would hazard a guess that, that there is a universality to
+probabilities to reason, which is bounded only by kind of the physical constraints of
+the world and our ability to compute, right? There's computation.
+And not so much by neurons and neural structure and connections between neurons. Okay.
+Right.
+Great. So anyway, Kyle, I turn it over to you to begin your sort of engagement with
+what Zeno presented. Sure. Well, I mean, you know, it's always, you know, I think,
+I, you know, well, not that we should look for something to disagree on, but we should
+often not be boring and just, you know, because I think we, we were both excited about a lot of the,
+the same things. I, and I'm thinking back to my talk, I didn't really get to say too much about
+some of this, this buzzword of a, you know, probabilistic programming, which is very related
+to what's, but I do think that, you know, this idea that when you have some story for how the
+data came to be, which is, you know, as a physicist, you know, if you're talking to another
+physicist, you, you know, it's a causal story. It's very natural. You can, you can take that
+story and you can code it up into a computer program. So if you don't feel comfortable thinking
+about computer programs, I think it's, you're not going to really miss anything if you just
+think of it as the story about how the data came to be. And what's nice is that, you know,
+maybe you could come up with a computer program that is very, has a very unnatural story, but
+still produces the same kinds of outputs. But I think that's not the spirit of the conversation.
+The spirit is much more that the computer program is really just, you know, capturing what,
+what you think the actual underlying, you know, story is. And, and there are so many different
+ways that things could play out. And I think it's really interesting when you think about
+statistical inference, you know, and statistical models, you know, I introduced the, these terms
+of latent variables, which are, you know, random things that happen in the process of
+generating the data that you don't get to see. And, you know, examples that I get sometimes if
+you think about like the creation of the solar system, you know, like, you know, how did the moon
+happen? Well, maybe it's some big thing came and smashed into the proto earth and, you know,
+knocked off a big piece. And there are all these little, you know, you know, early on it was a
+disk and things started to form. There's some story that's going on. And you could simulate that.
+And it would have all sorts of details about individual rocks running into each other and
+things like that. We don't get to see any of that. And when you, if you actually wanted to
+simulate it, you know, it's just enormously complicated, like what would be going on. And
+especially when you introduce, you know, in the story of like rocks coming, you know, you could
+imagine like, did this thing split into two pieces or three pieces, or did it just stay together as
+one piece? If you wanted to follow that through the simulation, you get this just incredibly
+highly structured space of possibilities that doesn't look like, you know, it doesn't look
+like some vector and, you know, like a thousand dimensional vector. It's this very rich in,
+you know, like graph structured thing or something like that. And, you know, so much of
+statistics has not really dealt with, you know, a lot of classical statistics didn't
+deal with such structured objects. And I think one of the things that's really interesting right
+now is we're seeing this kind of, you know, it's partially computing. It's partially, you know,
+it's hard to tell exactly what's going on. I think, you know, to some extent, I think what's
+significant about machine learning is that the ambition level has just jumped so much. Like
+things that you could have said, but that you, everyone would have laughed at you if you thought
+you were going to actually like, you know, go after it. Like in some sense, what you were just
+describing your program inversion, you know, sure, yeah, you can do that. You could have said that
+like 10 years ago, but everyone would be like, but that's never going to work. Like that's why
+would you try to do that? But now all of those things are on the table, you know, and there are
+so many things that are working at a scale where, you know, you wouldn't expect them to,
+that it's just kind of kind of, it's really refreshing because you're going back kind of
+to really the first principles. You know, it's like instead of being restricted by all sorts of,
+you know, constraints that, you know, that make people kind of have all these ad hoc workarounds,
+people are like kind of emboldened to go back to like really first principle approaches
+and revisit them. And it's just surprising that a lot of that stuff is happening. So
+to me, I think, you know, the idea that you're going back really to like core
+Bayesian inference kinds of ideas, but you're the types of models that you're working with are just
+so elaborately complicated, and they map so much more onto the way that we talk about the world
+it's really exciting. And that's my first reaction, I guess. Yeah, I know. So lots of
+things to think about and talk about. So one of the phrases that you had in your talk last week
+was the idea that simulation models are causal models, right? And, you know, this is an
+intuitive thing to me and to many people. Part of actually my PhD work, which I didn't really
+focus on here is that taking this idea literally and saying a lot of the kind of the theory which
+is theory which has been developed in the context of kind of causal graphical models
+can be extended to a richer class of models in particular program. So you don't, you know,
+the particular formalism isn't that important. Actually, you can have a much richer formalism.
+But there's this, I think there's this underlying question, maybe to some degree,
+is philosophical, which is like, what is it that makes simulation models
+causal? Are they necessarily causal? Or, you know, can we think of simulation models which
+aren't causal, per se? I mean, just a quick question to both simulation models by construction
+causal, right? Yeah, that's my question. I mean, I think it is, but I'm kind of curious.
+I feel like you start really getting into lots of interesting subtleties where you start to dissect
+different notions of causality. And I kind of pointed at two of them in my talk at the beginning.
+You know, one is if you're, if you have a simulation that's like a totally deterministic
+evolution of you have some initial state and you just let it go, you know, okay, it's causal in
+one sense, but it's also not causal on the other, especially if it's time reversal, you know,
+symmetric, you know, like the era of time is confusing, and it's all one object, you know,
+you know, it's all one thing, you know, and so, you know, when you think about like, I don't know,
+space time unfolding, is it evolving through time, or is it just one object of space time that the
+whole future and past are all there, you know, so you get, but, but, but, but then there's another
+sense, you know, if you're, if you're, if your operational definition of causality is that there's
+some effective time ordering, and you have states and, you know, initial, you know, one state goes
+to another state goes to another state, you know, simulations are almost by definition causal in
+that way, because they unfold as the computation plays out, right? But then you can have, you know,
+stochastic components and all sorts of things. The other thing I think that's interesting about
+having this grounding a lot of the discussion about causality in this language is that you,
+some of the things that seem, you know, can be confusing. They just, they're revealed in a very
+precise way. So for instance, you know, I could take, you know, if I wanted to, you know, in the
+language of like, you know, you know, pearl causality, if I want to intervene and go set some value to
+something, like imagine I have a particle and it has some, it has some energy and some momentum and
+some mass, like what if I just want to move its energy? Well, like that breaks some condition
+that, you know, then there's some relationship that would normally be there. And that's like not
+an admissible kind of intervention, right? And, you know, if you actually try to do this in code,
+like it's kind of weird, depending on how you wrote your code, maybe it will continue to
+proceed, but you'll just get nonsense out. Or maybe it will, it will have a, you know,
+segmentation fault, because like at some point, it assumes that this condition is satisfied,
+you know, it's just kind of it lays bare a few of the subtleties around causality,
+which I think often are discussed and very like, you know, not, not that there's anything wrong
+with philosophy, but in a philosophical language where I think it can be hard to latch on to,
+but there it can be kind of grounded in a very concrete term where you can separate out, you
+know, slightly different notions. And a very, yeah. So 100%. So, you know, we have this paper and
+it's called a mega language for counterfactual reason. And the point of this paper is to define
+what it means to perform an intervention on a general program. And one of the questions that
+arises is exactly what you just said, like, what if you do some intervention, which breaks
+the semantics of your program, it makes it invalid. Like, is there some, is there some
+scope in which you just say, well, that's not allowed, or, or do you just allow it and see
+what happens. And then the more you think about it, the more you, you, you get into this question
+of like, what is an intervention in the first place? Is it just some arbitrary, you know,
+so in the common literature, an intervention is, you know, the reassignment or some node
+to some new value, right? But when you go to more expressive models, that doesn't seem
+deficient. And so is there some like underlying more fundamental logic, which is less tied to one
+particular representation of a causal model, which would say this is a valid intervention or not.
+Right. And then going to your, I guess your, your point you made earlier, if you think about
+kind of these more abstract models, so like, let's say I've got some low level complex simulation
+model, like say a physics simulation, but I want to be able to say like some high level
+intervention, like, you know, what if, I don't know, like, what if I threw the ball or something?
+Right. Right. Like, how do those high level interventions interact with kind of the low
+level microscopic model? I think is another related question. Yeah. Yeah. I'll pick up on
+a comment that I see in the, in the chat. So Jeremy Zucker said, simulations don't need to
+unfold in time. One could specify constraints among all the variables, add an objective and
+treat the entire simulation as an optimization problem. I mean, I, I don't want to get into the
+weeds too much. I think that, you know, I think the language that I had used was that, you know,
+there's some, some effective notion of time, meaning that like literally as the computation
+evolves. So like, when you compile the program and you run it, like it is, there is a serial
+operation that's happening. So there's some effective notion of time there that might not
+have anything to do with like time, like as we think of it, and, you know, like on our watch
+or something. And that's kind of, that example is kind of interesting because I think, and I tried
+to sort of, you know, couch my, my statement earlier that you can have a simulation that
+produces kind of the right output, but the way that it unfolds, the story that it tells
+might have nothing to do with how anyone thinks the world works, right? So in that sense, it's
+totally anti-causal from like a physical point of view, you know, it's not like a plausible
+scenario for how it actually came to be. But as an operational definition of what do I mean by
+causal, like you could use that, like, you know, define it and like, you know, give it a new name
+if you want, you know, computational causality or something like that, you know, it's some very
+well-defined notion of causality that, that, so even in that situation, that example, you know,
+if it's an optimization problem, like solving the optimization problem would be like the causal
+model for the data, which is very unsatisfying from the point of view of a physical, you know,
+a story, but totally operationally well-defined. But it also makes you think, well, actually,
+well, maybe not, you know, maybe, you know, like classical mechanics is expressed as a,
+you know, can be expressed as a Euler Lagrange optimization problems, you know, maybe somehow
+that's actually how the universe is implementing things, you know, who knows, right? You know,
+but I think that's part of what's interesting about describing it that way is that, I don't know,
+it allows you to ask some pretty weird philosophical questions while still grounding it in a very
+concrete, actionable, you know, set of definitions, you know.
+Right. And it seems like it places the burden on the modular to ensure that, you know, the
+causality in the world that they care about is mirrored in this notion of computational
+causality, which you use to construct your model, which is kind of a weird, but maybe necessary
+thing, right? Yeah, or at least it's a route. I don't know, you know, necessary, you know,
+like it's, you know, it's, it's a way to frame the discussion that also I think.
+That's what I meant when I say you have to put it in by hand, right? That there's a mapping
+that you do for news. Yeah. And I made some references to this kind of normative,
+you know, discussion and things like that. I think that's what's a little bit interesting
+is if you want to then talk about causal inference from the point of view of reasoning and, you know,
+are, you know, you know, they're the part which is about it being a useful thing to do that allows
+us to learn efficiently from limited amounts of data, right? And so they're the, when you start
+to frame it that way, you can also, it makes it a little bit easier to talk about, you know,
+sample complexity of learning algorithms and these kinds of things. And, and sometimes you can,
+you can make some pretty strong statements, you know, like, they're not just like the best algorithm
+that I've thought of today. I mean, you can kind of like show like there's no way you're going to
+learn this without like exponentially more data than if you thought about it in a different,
+a different way, right? And so, and I think those are, those are relevant. You know, I think that,
+that, that complex, those complexity issues I don't think are just like, oh, a matter of
+computation, they're not like fundamental. I think those things you usually are probably
+something, so strong signs of something that's actually much more fundamental, you know.
+So I do have a question for Zina, I guess, is like the, so you talked about kind of this inverting
+the, the programs and things like, and I think, I think that's super cool. And I think, yeah, this
+whole, you know, like, what that example, probabilistic programming, automatic differentiation,
+many other that are, that are things that are this kind of high level program transformation are
+really interesting set of ideas to think about. What I'm, but you also gave this example about,
+you know, the argument that the, the moon is not perfectly smooth, where it's super very fast and
+loose type of argument. And, and, and, you know, when I think about, I don't know, like, you know,
+how I think about like what's going on, say at the LHC, when something strange is happening
+in the data, and I want to try to figure it out. You know, it's definitely in the fast and loose
+category. I'm not like, iteratively inverting my, my mental model for like how the low level,
+you know, particle interactions happened or something. So I'm curious, since this is squarely.
+Kyle, I just want a little bit of a clarification. So what do you mean by fast and loose?
+Are you talking about illuminative reasoning or?
+Oh, well, this example about arguing that the, you know, the, the, the terminator of the moon
+is wiggly, you know, it had a logical element, but at the same time, it's sort of based on,
+you know, there's an observational component, and it's not really,
+well, I don't know. I mean, I guess a lot of other, maybe other examples of human reasoning
+like that they were given at the beginning, like the, the, the car accident and the, you know,
+the weather and stuff like that. It's not, you know, I don't think, well, I don't know. I,
+I don't feel like humans are doing some kind of logical reasoning at that level. It's kind of,
+you know, some approximate, I mean, they're, they're, they're manipulating high level
+sense of reasoning in that way, but it's not, it's not so formal. And once you get into something
+that's more complicated, where that you get this explosion of, of, of possible paths, you know,
+the inverse of that problem is, you know, has an explosion of possibilities. I don't feel like
+we're like keeping track of all the possibilities that some, somehow we have some effective way of
+yeah, of kind of playing out entire, like not individual scenarios, but like whole classes of
+scenarios that kind of are placeholders for distributions of possibilities. And we manipulate
+them just very efficiently. And we were able to like pick the right abstraction to do that. And
+to me, that's, it's, it's magic. I don't know, like, yeah, I mean, I wonder if that's because we have
+some kind of mechanism to eliminate possibilities, right? So that the, or we reduce the complexity,
+basically, as you're saying, right? Somehow we are able to reduce the complexity of possibilities
+in human reasoning. Yeah. So, did you have a specific question?
+I just, I mean, I just, I just, I just felt like the two different things were, and the two things
+you showed were, in some sense, you know, they have the same underlying drive for them, but they're
+kind of opposite extremes. Like one is a very, you know, like, you're making this reasoning. I
+don't think people are going through all these possibilities. And the other example was this
+kind of a program, you know, a transformation, which is going to have this explosion of
+possibilities, right? And so. Right, right. Yeah. So I think, you know, thinking about
+what I call this kind of proximate logical reasoning, or, you know, it's not, it's not quite
+formalized yet. I think the goal there is to, is to characterize what I think we would, you know,
+we do all the time, right? So maybe if you, I don't know, if you went home and the window was open,
+you might be like, well, you know, my partner must be here. Otherwise, it wouldn't be open,
+right? And so we do this kind of thing all the time. So when you, when you come to that conclusion,
+are you doing like a massive simulation of all the possible worlds, right? But it's not, I don't
+think it's just about efficiency. It's a, it's a different form of reasoning in the same way that
+producing a mathematical proof is different from sampling, right? It's not just like a different
+kind of algorithm. It's a different nature, right? Yeah, mathematical proof has this kind of
+logical, productive structure, right? This tree structure, which can be formalized in many different
+ways. But I don't think that has been kind of adapted to, you know, common sense scenarios. And so
+part of what I want to do to, to try to do is think about like, what is that? Because it seems
+like pretty fundamental, like way prior to Galileo, there were many people who came to the conclusion
+that the moon was mountainous, you know, through this kind of, you know, logical, informal,
+deductive reasoning, back to, you know, back to Aristotle's days. And so it seems to allow us to
+come to insights way beyond our observational kind of capacity. But it's, you know, I, you know,
+what it is, I don't know, but I just feel like there's a whole part of what I'm trying to convey
+here is that aside from the current paradigms of reasoning and inference, which parametric
+inversion is part of this kind of the second, the second thing, I think there's just many more
+interesting modes of reasoning. So to give you another example, one thing I think about a lot
+is this notion of actual causality. So going back a little bit to this notion of causality,
+simple question, right? Did a cause be, for example, like, did I, you know, I threw a,
+I threw a rock, it hit a window and it smashed, did my throwing of the rock cause the window to
+smash, right? It sounds, it sounds quite simple. And, you know, how can you make a machine do that
+kind of reasoning? And it turns out that it's incredibly hard, right? It seems simple, like
+you might say, well, like, had I not thrown, then the window wouldn't have smashed. That sounds
+like a reasonable thing. But it turns out that breaks down in many different ways because, like,
+what if something, something else would have caused it to, to crash any, to crash anyway. And so
+this is a basic question, which we don't have the definitions right about being a little in the
+algorithm, don't have the right definitions. And what it points to, the more I think about this
+is like this notion of causality as almost like a epistemic question. Like when I think about
+causality, is it really about, you know, the underlying world or is it more just about human
+minds, right? Like, you know, is causality part of the world or is it part of our mind? And so
+is our hope to get these kind of pristine notions of causality a false errand, because
+fundamentally they're kind of messy concepts, or is it more this kind of metaphysical thing, which,
+you know, a little bit like probability, where there is this underlying pristine
+theory, we just have to discover it. But we haven't, we haven't got that yet. So
+maybe that's a little bit abstract, but that's, that's kind of how I've been thinking about it
+recently. Yeah, yeah. And I think it's interesting. I mean, definitely this,
+yeah, I mean, the, well, what to say, I mean, it goes back a little bit to, I mean,
+this idea that you're trying to come up with like plausible explanations for something,
+I think points a lot to this idea that you have, you know, you don't, it's not that you're just
+running some program that was already written for you, you're kind of constructing the program as
+you go, like, you know, could this have been the explanation? And if so, then you can kind of
+mentally simulate what would happen, and the consequences of that thing. But to do so, you
+know, you kind of have a vocabulary of different or a nontology of different kinds of things,
+and how they can, how you can compose them. And, and, you know, a lot of programs, they're kind
+of, they're just more rigid versions of the same thing, where the types of stories, you know,
+it's sort of a choose your own adventure, but it's very, very structured here, you kind of like,
+on the fly, I get to add things. And I think, you know, that, in my talk, I mentioned a little bit
+about hypothesis generation and stuff, you know, contrast against, if you just think about like
+a lot of kind of black box machine learning algorithms that maybe can solve like the particular
+scientific tasks that you're on right now, better than anything else on the market. That's, maybe
+that's true. But like, what do you do next, right? You know, like, if you, you know, you test that
+particular theory at high accuracy, and you get the most out of your data, and that's great.
+But like, now, now what experiments should you do, right? Like, if you, if you somehow can't
+introspect, like, or something goes wrong, like the data does not look like you expected from your
+theory, like, what, what, what do you do, you know, and, and the, and, you know, and, and the human way
+of doing it, even though maybe it's not squeezing everything out of the data, like it has this
+explainability component to it, because the way the data is being analyzed is composed of a bunch
+of things that you, you understand, and then you can go inspected every little step of the way.
+And if anywhere in there, you can isolate where things went wrong, or were unexpected. And then
+that motivates generating new hypotheses, which are new stories that might explain why it went
+differently. And I think that's absolutely key to how scientists, I know it, and people that I
+know that do it, you know, how they would approach such a problem, you know, and, and so, and what's
+good is that, you know, yeah, sure, it looks different than kind of the current AI, but it's
+actually, it's adjacent to stuff that's happening. I mean, you're doing it, I'm doing some stuff.
+So it's not like some radical, like, oh, we're on the wrong path. That's, it's like right now,
+we're figuring out how to do these hybrids between, you know, probabilistic programming that have,
+you know, take advantages of the powerful parts of current deep learning things and, you know,
+mix all those stuff together. So I, you know, there are a lot of people that are,
+that say, oh, we're on the wrong path or whatever. But I feel like, actually, that these are
+starting to come together in a way that looks very exciting. And I think, yeah, I don't know.
+Yeah. And one of the things that I think is interesting, and I think it was in one of your
+charts to some degree, right, is this, this notion that the scientific process is a lot more
+expansive than, you know, often the kind of the more narrow view that we give it, you know,
+in other words, like, you know, if you, if your experiment didn't work, or you got some strange
+observations, you might invent a new, an entirely new theory, you might invent a new form of
+mathematics, right? It's not just, you know, like a constrained action space, you can really
+change and the fundamentals, at least like historically humans have, like you're building
+up upon this like massive foundation. And so I'm really interested in like, how do we,
+like all of these things that we take for granted when, you know, by the time we bought a modern
+machine learning tool, we've already taken the granted calculus and, you know, what are the
+objects that we care about, all of that is kind of given by the humans. But if we want to build
+machines that can do that part of the process too, what do we have to, what do we have to gift them?
+One question I wanted to ask was around this, you know, this notion of like modeling and
+representations of knowledge, you have the term, this term collaborative modeling, which I think
+is great, I wish I invented it, but I'll certainly steal it. What do you think are the kind of the
+key components of building a collaborative model at scale? Like how, you know, I'm very curious
+like your interpretation of this phrase, but I'm particularly curious, like what are the kind of
+the barriers which prevent like me as let's say an epidemiologist and somebody else that I don't
+know, like a climate scientist from kind of getting together and building some model which
+takes into account all of these different components in some coherent and cohesive way.
+Yeah, wow. Yeah, that's it. That's a great, I like how you threw it back at me.
+Yeah. Well, I think, you know, there's a part which, you know, when I first like, you know,
+coined that term, I, it was applied to a pretty narrow set of problems, which was really kind of,
+you know, how do you do statistical modeling kind of really in the context of sort of,
+you know, like LHC where there's lots of different, you know, lots of different data
+sources or views of a larger data set. You know that things are related in various ways. You want
+to, previously it was very top down and rigid sort of structure to be able to bring those
+things together and it didn't scale well. And then at some point we've figured out a way like to
+be able to let people kind of work in a more decoupled way, understand they're part of the
+problem, let there, you know, be the experts and their problem, figure out how they want to
+think about it and parameterize it, but still maintain the ability to bring them all together
+and kind of co, and do some coherent inference in the end. And that was like, and once we
+introduced, there was just some underlying technology really that, you know, kind of in
+terms of, you know, model sharing and, you know, interfaces and things like that. And once we got
+that part right, there was this, then this like literally exponential explosion of complexity,
+which was, it was amazing to watch and it was kind of scary also because like, you know,
+computationally everything became very hard very quickly and so we had to figure out how to keep up.
+But, but what I do think is kind of interesting and it's a little bit more on the meta side is that
+in this, you know, when we, when we went to, you know, started working on these like simulation
+based inference problems, what I love about that is that it's really like a lingua franca
+for methodological experts and domain experts to be able to really effectively collaborate,
+because there's somehow you encapsulate a lot of details about your problem and you expose
+some way of talking about it, like, but literally through interfaces that methodological people
+can work with, where, you know, if they don't need to know the details, they can kind of be,
+you know, shielded from it. But, but it, but you're not like, you're not,
+you're not losing a lot of the real complexity of what's going on inside there. And I think that,
+you know, that it's just, you know, true that I'm now able to have conversations with neuroscientists
+and, you know, cosmologists and epidemiologists and, you know, biogeneticists and stuff at a level
+that I've never been able to have before. And so, and then, and actually, it's also been a way
+for me to understand their problem much more efficiently, like even the details of their
+problem, because like the onboarding of that is really useful. But there's a part which is,
+you know, it's really, you know, actually much more on the like software engineering interface
+level, which allows you to actually build models and do composition, compositionality like you
+would want. But it's very actionable in that sense. But it also kind of pays off in a way that you
+would hope, you know, a bigger, a bigger kind of, you know, more ambitious answer to your question
+that this is something that it sounds like as lowly as like, you know, good interfaces or
+something. But it actually, I think, sort of starts to realize that. And, and it's really
+compelling idea, because, you know, if you think about COVID simulations, like, you know,
+or epidemiology, you know, the simplest ones, or you just have some uniform population that
+doesn't even necessarily exist spatially, it's just like, there's some number of people, some
+number of people have it, there's some chance that, you know, they're going to give them,
+and then you get these like differential equations. But those differential equations are
+really like all averages of something they're not, they don't look like have some underlying
+stochasticity. And they don't like, now let's say I want to actually think of it as actual people.
+And they're actually live in actual cities. And I know where they are, like, and I mean,
+it could, you know, can, you know, it can be scary sounding. But I mean, if you just in terms of the
+richness of the model, like, you know, you can, you can just, you can, well, this, you know, this,
+you know, group of people in this neighborhood behave a little bit differently. You know,
+you got like the 20 somethings over here, and they've got the, you know, other people over
+here, they have different patterns, they interact differently with each other, you know. And, and
+you can definitely see the story about how you would actually build up such a model where people
+that know about the different pieces contribute in some much more collaborative way. And that's
+like, you know, that's exciting. I mean, you have to be careful. But yeah, I think like,
+as I thought about this more, like, it seems like one key thing is as you just said, like,
+how do you have these entities, which are shared between different groups? So one model is talking
+about people or populations of people. The other model is talking about people at a more
+fine grade level. But as humans, we just got to communicate and say, hey, those, you know,
+that's about people, or maybe we use a variable name to indicate that that's a person, right?
+But it seems like a lot of the knowledge that we have in our, about the world is not, is not
+actually in the model representation. It remains in our heads. And then we communicate with each
+other to tell us, you know, what that means, right? But it seems like if you want to be able to
+build, you know, systems that can really reason, they're going to have to, in some sense, represent
+the entire stack. So all the way down, you know, it's not just like an abstract variable, but this
+really represents a human in some sense. It's a lot of implicit knowledge that is brought to bear.
+Right, right. And then the second thing is like, if you have different people contributing
+different models, which may be inconsistent, right, you may need some way to integrate that,
+you know, that, that knowledge together, right? And yeah, is there a kind of a sound way to do
+that? Or is it more like a heuristic approach that we have? But I mean, there may be instances
+where you not only need to integrate, but you may need to arbitrate, right, between to
+Yeah, I was just looking at the questions. But yeah, I know I think it's, well, the last thing,
+I mean, I just tag on that, you know, this whole story also is, is a, is a natural path to being
+able to try to do the thing where you have the different hierarchies of representations, you
+know, you know, if you can figure out some way of having this kind of ontology and almost like
+a type system over the different kinds of entities, you know, you can certainly start to make things
+that are, you know, hierarchical or some many to many are like, you know, here's an alternate way
+of thinking about the problem with a totally different set of things, you know, and they,
+you may just switch from one modeling paradigm to another modeling paradigm, you know, you might
+not be able to mix them, but for one task, one is appropriate and the other ones, the other ones
+appropriate or, you know, who knows, or be able to telescope in and out and refine the detail if
+you need it and if not, you know, enjoy the benefits of, you know, working at a high level.
+But yeah, if you have inconsistencies and stuff, I think, you know, that's, you know, I think that's
+which is certainly real. I don't, I'm guessing things get, you know, a little bit messy at that
+point, you know. Those are somewhat deeper points. So going to the example you had in your talk with
+the machine, the kind of the bean machine where you had, you know, it produces like,
+you know, non-conventional distribution. And as you said, like it's a determinist process,
+but you can think of it stochastically. And so I guess the question is like,
+you know, I'm kind of coming from the more subjective Bayesian perspective, which is that
+when I think of that as a distribution, that's more like, you know, my kind of belief about it,
+about its outcome. And so when we go to languages or representations for probabilistic knowledge,
+there's a kind of a subject. There's like a hidden subject, right? You know, if I say,
+X is some normal distribution, maybe there's like a hidden extension to that phrase, which is like,
+X is a normal distribution believed by me. And so if we want to integrate lots of different
+knowledge from lots of different sources, maybe we need an explicit representation of
+where kind of the provenance or the sources of these beliefs, so that if, you know, X is a
+normal belief by person X and Y is the, you know, X is a, you know, I don't know, a beta distribution
+belief by person Y, there's some way which we can take kind of the relative, relative like
+credencies of these two individuals to say, well, okay, I'm going to integrate that in some
+consistent way. So maybe that's a long way of saying that maybe an integral part of,
+kind of a sound way to integrate knowledge is to make explicit the notion of subjectivity,
+you know, in our probabilistic models. I think, yeah, that's the kind of.
+Yeah, no, I think, you know, I mean, I alluded briefly to that in particle physics, it's one of
+the kind of last holdouts where, you know, Bayesian inference is not fully embraced, but
+it's partially because when you start talking about things like the prior distribution on
+some fundamental constant of nature or like, does this fundamental particle exist or not?
+Or does the symmetry of nature exist, you know, is that, does nature have that symmetry or not?
+Like, you can't base it on data. So you really have to embrace the subjective version of that,
+but there is not an agreement among physicists, right? If there was like some, you know, wide
+agreement, then maybe no one would care. But if when you have wildly different subjective
+priors associated to different scenarios, like what do you do operationally, right? You know,
+it's, it's tricky. I think that it, well, that, you know, this would be an entire other hour
+discussion. But I think there's a part which is maybe worth saying is that oftentimes we
+couch a lot of this and, and like Bayesian inference and a lot of these things are somehow,
+like, there's like a rational or optimal way of doing it. And, and that's like the sound way
+kind of presumes that like, we should be trying to do something that's like consistent or whatever.
+There's another view, which is that, that, you know, we're not really optimizing anything,
+we're not like, you know, we just, we're just doing. And there's like, there's kind of dynamics,
+you know, and especially when you think about like a, you know, a very heterogeneous group of
+people that have heterogeneous access to different pieces of information. And then you just think
+about behavior. You know, it's not necessarily, you know, maybe in some cases, it's well modeled
+by something that looks like some Bayes optimal something, but in many other cases, maybe it's
+just like I was hungry. And that's why, you know, you know, and, and so then you get into a question
+of what do you, what exactly are you trying to describe? Are you trying to, are you trying to
+be descriptive or prescriptive in the whole story? You know. So, Zenad, there's a question for you
+in the chat. If everything in the ontology stack should be up for evolution, can anything pristine
+at all as in your characterization of probability theory remain? And to Kyle, can your statement
+that the particle physics simulators already express a wide variety of alternative theories
+be taken literally enough to mine it for grammars of nearby theory space? I guess the
+expansion of permitted theories. Interesting question. Zenad, do you want to have a go first?
+I'm just trying, I'm trying to interpret it. So,
+I think I would like some clarification, but maybe I might guess exactly what you mean, Boyan.
+I'm not sure how the word evolution has been used there.
+Yeah, I was going to say, Boyan, could you clarify and type in the Q&A? I guess really,
+what do you mean by evolution there? I can respond to the other part if you want to have
+or maybe he wants to hear the answer and that's not fair.
+Yeah, I guess I'd say that, you know, I had made the comment, you know, last week that,
+you know, there's a part where when you're doing simulation based inference, it seems like, well,
+how do you learn anything new because you already have it in your simulator and that seems reasonable.
+And I tried to reframe that as that, like, whenever you're doing inference, it's kind of in the context
+of some model, right? So, like, to the extent that inference looks like this inverse problem,
+it's an inverse of something. And so, like, there's a model there, kind of, you know, to start the
+discussion. So, in the case of particle physics, the model is not like the standard model of particle
+physics, which is a specific theory, is like one point in the space of possible theories that can
+all be expressed in the language of whatever quantum field theory. And so, that language of
+quantum field theory allows you to express all sorts of other, you know, possible scenarios
+and universes that can be described. For the most part, you know, I think most professional physicists
+feel like essentially anything that looks remotely like the, you know, is anything like our universe
+is going to be expressed in that language. So, in that sense, it's a very expressive one. And if
+you wanted to work outside of that language, you know, you really, everything starts to kind of,
+like, you really have to revisit everything. And so, in terms of mining it for the grammar
+of nearby theory space, I mean, in some sense, it depends a little bit on how you mean it,
+but I think in many senses, absolutely, yes. And there's a very systematic approach for kind of how
+to, you know, like, if you go to some theory, how to expand around it in a nice way, and the grammar
+is like really very explicit. And that's one of the things, actually, another one of Josh Tenenbaum's
+former students, Brendan Lake, who's here at NYU, he and I have had various discussions about,
+you know, this kind of, can we operationalize, like, rediscovering the standard model,
+where you operate in this kind of grammar of theories that's restricted and quantum field
+theory, and it would be computationally expensive, but I think you absolutely could. And the part
+that's a little, on one side, it sounds super ambitious, on another side, it's kind of so clear
+how you would go about doing it, that it almost is like, is it worth the effort, you know, like it
+would, so it would be great to do it, and to say, like, here's an automated algorithm that, like,
+basically went through the space of theories in some, you know, structured way, and basically came
+upon the standard model and said, this is it, and I don't have any, you know, evidence for anything
+beyond it. And it would be fun to do. I think it's kind of, in another sense, it's kind of clear
+how you would proceed. So, Zena, there's a bit of a clarification from Boyan. Yeah.
+Yeah. Did you see that? Yeah. Yeah. So yeah, I think I have a better sense of this question. So
+I was going back to what you were talking about earlier, which is that scientists change the
+foundations, both the mathematical foundations and the ontologies, which we use in various
+different ways. And so I think Boyan's question is, if you permit that, then, you know, how do you
+prevent your kind of your house from just crumbling, and how do you, you know, it seems like if there's
+no kind of stable foundation, then anything goes. Maybe that's my interpretation of this question.
+And the answer, yeah, I don't know. I think maybe when we think about a theoretical framework,
+maybe thinking about it less as being true or not true is it's more useful or not useful.
+And I think if we maybe go a little bit to what you said earlier, Kyle,
+like, you know, what is our, if we have some kind of goal, which may be to predict the future,
+which may be to, you know, make valid inferences, we can think about all the layers below as like,
+you know, either in service of that or not. And so I think provided that there is some kind of
+foundational, not foundation, there is some kind of external objective, I think we can be flexible
+with these foundations as long as they're in service. And to your kind of example, like property
+theory as pristine. No, I think it's a pristine model of like rational thought,
+which is really dependent on, you know, agents. Like, I think it would be hard. Maybe, you know,
+maybe, maybe this is where Kyle might disagree. But I think it might be hard to
+kind of justify property theory as being like uniquely good in the absence of rational agents.
+But that is kind of maybe a controversial claim. But yeah, I'll leave it there.
+And I guess there is another question about counterfactuals. I guess the references to,
+you know, there was this book by this work by David Deutsch and Chiara Marletto,
+the science of Kant and Kant. I remember reading that a physicist joining through the land of
+counterfactuals. I think the question here is, you know, counterfactuals can serve as
+an important thinking tool, right, in the deeper exploration of causal connections and alternate
+scenarios. And so the question is that, you know, they argued that describing physical laws in
+terms of counterfactual tasks, they generate, and they counterpossible tasks that cannot be
+generated. And the question is, is this kind of reasoning seems very similar to the way that
+Galileo was able to infer the non-smoothness of the lunar surface, right?
+Yeah, there is something very counterfactual about it, right? It's this kind of, you know,
+if this were true, right? The moment you have a word, you know, sentence, you're kind of in this
+counterfactual, yeah, counterfactual regime. And so it does seem that this kind of reason
+both touches on counterfactual reason and also this kind of proof by contradiction-style
+reasoning. Maybe those two things are equivalent in some fundamental way. I'm not certain yet.
+But I, yeah, I think it's interesting, again, going back to the third year question of like,
+what is the status of these kinds of statements, right? If I make a counterfactual statement,
+is that something that's true or false? Or is it just a tool?
+Yeah, I was just going to say, it's not testable, right? I mean, I'm kind of uncomfortable in a
+way. I mean, they're tricky. Counterfactuals are quite tricky, right? Because they're not testable.
+And so what is there? For example, in science, I've never quite understood what sort of their
+utility is. I guess, I guess what, you know, what lies at the foundation of a valid counterfactual
+I think is the validity of your model in the world, right? If you have a correct model,
+then in some sense, your counterfactuals are correct by construction. And so even though
+they're not testable, there might be a sense in which they can be correct or not correct,
+which gets pushed down to the question of is your model correct or not correct?
+But that becomes complicated because, you know-
+Right. Yeah. So I mean, I was thinking of, you know, the kinds of examples they use, right? I mean,
+I remember one, I think, there's something like, you know, the possibility of building a steam engine,
+which existed long before the first one was actually built is something they give as an
+example of a counterfactual, right? And I mean, so, and this is so as it exists in the domain of
+the possible, and its functioning does not violate the principle of conservation of energy.
+And whereas the sort of counterfactual property imposed by the laws of physics, that, you know,
+is that you cannot, for example, build a perpetual motion machine, right? I mean,
+so these are the sort of ways in which they use it. So I mean, it's a way to
+permit ourselves to sort of entertain the idea of possible worlds, right?
+Right. Or alternate universes that are like variants of our current realities. I mean,
+that's where I get stuck and say, well, you know, it's not testable. So.
+Right. I saw an article recently, which was trying, it's like a, like a logical philosophical
+trying to give a formal definition of what a law is. And the way they're trying to do it is say,
+well, it kind of must remain true under any counterfactual scenario, right? So there's
+a difference between saying, you know, I haven't done this yet versus this is impossible,
+which is quite a hard distinction. Anyway, how do you have thoughts on these things?
+Yeah, well, I think I mean, one of them is that, yeah, I think that on the counterfactual,
+it makes sense, you know, when coupled with a model, because like then you can basically,
+with that model, you can sort of simulate, you know, other scenarios, right? And so it's not
+testable in the sense that you can't like literally with that, you know, go back and change the thing
+that happened a different way. So for that particular instance, yes, it's not testable,
+but it's testable within them, within the model, and it has consequences, you know, and so like,
+you know, like, so then you, so then you, if you think of it in more of a decision theory way,
+like you're going to use your model, answer, you know, ask the question, what if I had done blah,
+blah, blah, you know, simulate or something, reach some conclusion, and based on that, you're
+now going to take some informed action in the future, you know, if your model is bad, then you
+may end up, you know, walking off your cliff or doing something bad, you know, if your model is
+good, then it may help guide you to, you know, yeah, so in that sense, it has consequences,
+but it's maybe not testable in a very, you know, strict way. Also, if you think you can somehow
+like, reprepare an equivalent state or something like that, and then sort of do it again, and you
+have some notion of exchangeability, then it sounds like if you are able to simulate it,
+then it's testable in that way, right, in the way that simulations are valued at best.
+Yeah, and then, you know, but the other example where, you know, if you can somehow
+reprepare a similar initial state and do it again with the, you know, with the opposite,
+you know, with a different, the counterfactual scenario, you know, then it, you know, that's
+effectively simulating, you're just using actual, the actual world to do the simulations, so, you
+know, but it still involves a model in the sense that you're saying a lot when you say that I think
+this initial state is the same as the previous initial state, right, you know, like, how do you
+know that that's true, right, you know, that's effectively a model in the sense that you think
+that whatever you did to prepare this initial state is like equivalent. And then, you know, so
+you, yeah, so I, but in both cases, whether it's simulated or it's like, actually like in a lab,
+and, you know, doing something, you're still bringing some assumptions to the table and,
+and, and, and you look to see what happens, you reach some conclusion, and then you, you, you
+act accordingly, and, and if you're wrong, you know, if the, if you're, your process of preparing
+the same initial state actually didn't take into account like the temperature in the room,
+and that's important, then you will reach the wrong conclusion, and your car's not gonna work.
+I guess a lot of my skepticism of counterfactuals really, I have to confess, right, comes
+out of a bias, is that this, this relates, you know, this is sort of an offshoot of this idea of
+multiverses that people are constantly playing with, you know, this idea that the multiverse,
+you know, there's an infinite number of possible universes. And, you know, it has obviously broad
+explanatory scope, so it's kind of attractive. And, but nothing, you know, about the multiverse
+is really testable, right. So I think that is where I, that's where my sort of notion that,
+you know, this is not so testable, right, is that, you know,
+you have had a multiverse talk in the series. So I mean, I, you know, and I always get stuck,
+right, when we think of, when I try to put the kinds of conceptual things that you both talked
+about, and in sort of the multiverse frame, right. So, you know, if the universe in principle,
+you can imagine universes for which, you know, the Newton's law of gravitation takes on a completely
+different form from ours, right. And, or, you know, a multiverse in which gravity may not even exist,
+right. So how would you discriminate between those universes where Newton's law merely takes a
+different form, but one in which, you know, gravity at all doesn't exist, therefore that law doesn't
+exist. Anyway, so I think I'm, it's a, it's a different rabbit hole that we don't,
+we don't want to go down. And there's a question that somebody has asked, Zana, for that, do you
+have a reference for the article that you just mentioned about the discussion of laws, like what
+the relationship between a law and the counterfactual that it is always valid?
+If you email me, I can find it somewhere in my history. I do have another question if you have
+time still. Yeah, of course, yes, yeah, please. Yeah. Yeah. So this notion of like abstraction
+or different models at different levels of fidelity has, has come up a few different times.
+And, and I think, as maybe you indicated, it's also into, it seems integrated into this other
+question of like, how do you have different, how do you do this kind of collaborative,
+collaborative modeling? So an example that I used to say when Obama was president, I was like,
+you know, suppose somebody asked me, I suppose I asked you, like, how tall is Malia Obama?
+This is a kind of a very common, not common question, but a very ordinary question, right.
+And so most people don't know the answer, but they can make a guess, right. They can say, well,
+you know, maybe, you know, her father was a president and presidents are kind of typically
+tall. So maybe she's this tall, or, you know, or I know she's a woman, maybe she's, and so all
+these different kind of sources of information, maybe, you know, her ethnic background that will
+come to integrate into your, your conclusion. And so going to my question, when I think about
+how do we build kind of very large collaborative models? I can think of almost like a
+multi-verse of different models that are connected together. It seems that one integral part must
+be the notion of different models being more or less abstract than another. To give another
+example, when I think about something as simple as a light switch, right, if I, I understand the
+light switch as just, you know, some binary model, press the light switch, the light comes on.
+Another level, you know, I studied electronic engineering as an undergraduate, I understand
+the electric circuitry behind it. Another level, I'm just a human, so I understand the physical,
+you know, the physical actual geometry of a light switch. I have all of these different forms of
+knowledge and they all influence how I interact with the light switch. So if it doesn't work,
+right, my light switch doesn't turn on. It could be because the electronics are broken. It could be
+because the London power station is down. It could be because the mechanical switch is broken.
+And I'll choose the right level appropriately, or at least I'll try to. And so going to your
+simulation-based models and simulation-based inference, do you have an intuition about how we
+can build representations of models which can capture these different levels of abstraction or
+these different perspectives or different sources of knowledge in a way, again, which is coherent?
+And is that a different question to this collaborative question?
+I mean, that's a topic that I'm very interested in and sort of wanting to work while I'm working on,
+but in various levels. So I mean, part of it is, I think, you know, also just asking some easier
+questions at first with that, those kinds of questions as a goal. But you even get into the
+situation of say that you already are kind of handed the different models at different
+abstraction levels. And also, you probably want to prepare for the fact that the ones that are
+like a higher level of abstraction maybe are not quite as accurate. So how do you incorporate the
+fact that the fidelity of the model in terms of how well it describes the data and how would you
+use it, right? Like say you have those models, how are you going to use it? So I think about
+things kind of in the sort of reinforcement learning or decision-making kind of scenario,
+which is, you know, if I'm going to use this for planning, you know, like one way of thinking
+about world models that makes them very concrete is when you think about using them for planning
+or decision-making, right? And so that helps ground the thinking a little bit, which is,
+yeah, you know, if you did have them and you know that the different levels of accuracy and
+different like trade-offs in terms of how expensive they are to run, you know, what would you do?
+And that's not quite answering the deeper question, which is like, how do you come
+up with them in the first place? But I think it's probably something to think about at the
+beginning because it's going to guide a lot of the way that you organize it and think about things,
+you know. But it's very interesting. And I mean the other, well, we have, you know,
+doing some exploratory thing right now, which is like kind of, you know, hopping between,
+you know, you know, these like game of life type cellular automata things, you know, you have
+some very low-level, you know, model that describes kind of how things evolve. But sometimes you get
+these sort of emergent phenomena that look like little organisms that walk and, you know, they
+can run into each other and collide or do something, you know. And if you wanted to
+try to figure out, you know, how, you know, the long-time behavior of one of these things, like,
+and then maybe, you know, and there might be interactions, like, if you know that you make
+a little walker and it's moving along, like at some point you don't need to resolve all these
+details, you just zoom along until it looks like they're going to collide, right? But there's this
+interesting part where you kind of hop up and down between, like once they go collide, then you
+need to drop into the low-level picture that's like exactly how are they hitting and, you know,
+model that and then, so that that ability, like the fact that we're even having this conversation,
+right? Like I just, in very few words, explain something that's in my mind and, you know, the,
+you know, you kind of know what I'm saying, maybe, you know, I don't know, like, but this jumping
+back and forth between the levels, it's, it's, it's, it seems very important to me, it seems very,
+very important and, and, and how you do that is a good question. So I think, you know, one part is
+just to give it, start with them and then see how you use them and then maybe that gives them some
+guidance, you know. Yeah, I guess, like another example I think of is, you know, suppose I go to
+work and I put in my bag a flask or a water bottle, I don't need to reason about fluid dynamics of,
+you know, the water inside the bottle as I was able to work, but when I get out and I need to
+actually pour the water into a glass, now I do need to actually reason, right? It's kind of low
+level dynamics. And so it seems like this flexible ability to jump between different
+representations or different levels of fidelity seems key. And in prior to that, it's just like
+how do we even represent these different levels in a, in a coherent structure. Yeah.
+But also, I mean, isn't this also something obsessed, something about the task of filtering,
+right? That we are filtering as, you know, when you look at that water bottle and you put it down,
+somehow you already know the quantum mechanics of, you know, how the plastic molecules are
+oscillating or is completely irrelevant. And then it's not a level that you need to access
+information or infer anything from. You're filtering that out somehow, right? And whereas
+when you pour, you still understand that you don't have to worry about the plastic,
+but you do need to worry about the water molecules and the equations of fluid mechanics,
+right? Which you didn't have to before. So I wonder if it's, I keep, I keep liking to think
+it's some kind of filtering, but maybe it's not filtering. Maybe filtering isn't the right word
+for it. Yeah, I think you're right. Like somehow you need to know what's, what's relevant. It's
+kind of reminds me of this kind of famous philosophical problem called the frame problem
+done, then it has a paper on it. It's like, how do you know what's relevant without actually
+having already know, you know, how do I know I don't need to use the low level fluid dynamics
+before, you know, until without actually using it, right? And so I don't think we have actually
+any competitive answers to this question. And this is why this is why I asked, do you think
+there's something hardwired? I mean, is there some other forms of innate knowledge that we already
+have of the world? And, you know, I look at a lot of these experiments that cognitive scientists
+with, you know, infants do, right? Like infant cognition. And they do talk about how we probably
+have some hardwired notion of, you know, counting, like, you know, so because if you give a little
+infant like three blocks, and then you take away one, they go, when, because they kind of
+know that there's something has changed, right? But, but, you know, I don't know whether they're
+they're going why, because they actually know that the number has gone down, or some other
+attribute, right? When God knows what, you know. Yeah, as soon as I haven't, you know, some notion
+of core knowledge is crucial for learning the kinds of things that humans learn. At the same
+time, it does seem that we do have a certain amount of flexibility. So going to the point that Kyle
+just made, like the zoom, you know, this conversation will happen. But even down to like
+the zoom core, right? So how do I use zoom? I press a button and somehow magically,
+you know, I get connected. I don't know. Underneath that, there's, you know, there's TCP, IP,
+there's like electrons whizzing around. I don't need to reason about all that to know how to
+connect a zoom core, but I might, right? If zoom stops, stops working, right? And,
+and so I, you know, I don't think zoom is kind of hard coded, natively into my brain, or, you
+know, or human's brain, right? But maybe something more abstract, like notions of objects and notions
+of actions are kind of, you know, I mean, there's a little bit of chicken and egg stuff going on
+here too, which is, of course, we build these interfaces to fit the things that we know. And,
+you know, and also a lot of the examples that we're giving are places where
+the world does seem to organize itself in this kind of hierarchical way with kind of, you know,
+it what's, what's a little bit, you know, when you get into the particle physics side of it,
+you know, and you see like the separation of scales there, it has like a very, you know,
+precise mathematical way. And one of the things that's pretty interesting is that, you know,
+within quantum field theory, there's actually like really deep statements about,
+about why the world does separate itself out into these scales. And that's like a,
+it's not really clear that it's not obvious at all that, that you would be able to make such
+strong statements, you know, but, but when you then go into things that are like, you know,
+when you start talking about like society or, you know, some really complex system,
+it's not really clear that the, that there is any, you know, concise definition, I mean,
+like a description of the system, I mean, maybe we're just not smart enough to see it,
+but it's also quite possible that there just isn't some, you know, smaller degree of freedom
+reduced description. And if you're in, you know, you know, if we were kind of like cognizant or
+conscious of that scale, like that scale of things, maybe we wouldn't be having this discussion,
+you know, we wouldn't be like presuming things that that's actually a useful concept to like
+break things down. And I think I'll just say that to me, this is also important. I mentioned in my
+talk, this kind of no free lunch statement. And I think it's also true when you look at like what's
+going on with like success and deep learning is that there's a co evolution of the architectures
+of deep learning and convolutional neural networks and things and the kinds of problems that people
+are working on, which were, you know, mainly image like problems at first, right. And then when you
+go to data that has a very different character to it, those models may or may not, you know, work
+well, right. And so, and, and if you really take yourself into the extreme of like any possible
+kind of data set coming in, so that you really allow yourself like basically totally unstructured
+looking data, then, you know, basically on average, everything is equally good or bad, you know,
+and there is there's no like magic bullet out there, right. So like we, so it's, you know,
+so it's important to remember that, you know, that, yeah, the extent that any of these things that
+we're talking about are going to like work or be useful or anything like that is, is always going
+to be within the context of some domain of application and which is, which is also reassuring
+because otherwise it's like it's a, it sounds, it doesn't feel right, you know.
+But anyway, so I think it is 530 and there is one more question that I would like you.
+And that's for Kyle from the, the ad from SBI, the advent of powerful machine learning methods
+is enabling practitioners to work directly with high dimensional data and to reduce the
+reliance on expert crafted summary statistics. So does the introduction of quantum machine learning
+or similar techniques or algorithms point to any qualitative rethinking of the above statement?
+Well, I'm trying to think, I mean, and a very, it seems like, you know, if quantum machine learning
+or something comes to play, it seems like it would only either it's going to not be useful or it's
+going to make it more powerful, right? So, and if it's, so I think my statement is basically that
+previously we didn't, we really relied on expert knowledge to try to navigate through
+this complicated data and structure it in a way that we could work with kind of more
+primitive computational and statistical methods. And when you pair with machine learning, we can
+now relieve the pressure on the expert and kind of automate some of that process, which is good.
+You can't completely get rid of domain knowledge. You still, you still rely on domain knowledge,
+right? Yeah, well, I think that gets into a little bit of a question of, are you just trying to solve
+this particular task at hand, or are you trying to do the bigger, you know, the bigger thing? I
+think, you know, if you really just want the task at hand, you know, pretty surprisingly good at
+some pretty automated stuff, you know, it's just that if anything goes unexpectedly, or like, you
+know, you sort of find this like, what do you do next? If you can't kind of connect what's going
+on in this automated way back to your domain knowledge, then you don't know what to do.
+And until we get to the point that we have like much more powerful AI that knows how to
+generate hypotheses and design experiments and the kinds of things that Zeno was discussing,
+you know, it's important that humans can touch base with that. For quantum machine learning,
+in particular, I don't, I think, you know, some of that stuff is a bit speculative,
+it's, you know, it's exciting. But I think if that stuff works out well, it seems like it's
+just going to enhance the capabilities of machine learning and maybe, you know, so yeah, I don't,
+I don't know that it really changes my, that particular statement, but it certainly will
+influence the landscape. So any closing thoughts before we wrap up?
+I think there's been a really, I appreciate the discussion and I, the whole series, I think, has
+been pretty interesting. And thank you for having me.
+Thank you so much. Yeah, thank you so much, Zena. Thank you so much, Kyle, for taking the time.
+And yeah, this was a wonderful sort of in depth discussion. So I just want to thank everyone for
+looking forward to seeing you at our next event. Our next event is actually going to be a book
+talk by Karl Zimmer on his latest book. So that's next week. So I will see you all. Take care and bye.
+Thanks very much.

@@ -1,0 +1,94 @@
+ා ඦ quarters of ා වළ වව වව ඹැක්දිඅ එක්ම් එක් Information ICE
+වීඌ ඐ político�, ආ ඔතා ඝා‌ රා.
+ආ, අහ කිපෙ ඕ Rolex වෙඟා වා වටසන කනēඅ වයදිවරල හොය්ණන් Vivalen.
+රහ අවබා බා එකන make a base 7 හු.
+we will see how we can clone an object, then we will add skybox and finally we will add
+some fog in our scene.
+so let's start part 1 of this tutorial.
+this is my HTML code from my previous video, the only change is Babylon.max.js.map file.
+you can download the file from Babylon.js github page.
+open video studio, we need to access project folder.
+place and hold shift and right click at the same time, then open partial command line.
+let's create a basic HTTP server.
+if this doesn't make sense to you, please watch my previous tutorial.
+now open your browser and access the folder.
+if you inspect the page, you can see our code is working.
+now let's understand how Babylon.js works.
+in our HTML page, we need a placeholder, where the Babylon.js code will take effect.
+this placeholder is called canvas.
+let's go back in visual studio and create a new canvas tag.
+save and go back to our browser, refresh and here you can see our canvas tag is working.
+in the inspector, you can see canvas is not full width.
+now go back to visual studio and let's add some CSS for both HTML body and render canvas.
+create the browser again and here we can see canvas is full width now.
+now that our canvas is ready, let's open main.js file and start writing our Babylon.js code.
+very first let's create a variable to store our render canvas.
+next we need to add an event listener which will fire a function when the DOM content
+is loaded.
+let's complete the start game function.
+first store our HTML canvas in our newly created variable canvas.
+now for the next step, we need another variable, let's create it.
+in engine variable, we'll store Babylon engine.
+don't forget to look at the suggestion given by visual studio.
+now we need to create our scene.
+again we will create a variable to store the create scene function too.
+let's now complete the create scene function.
+at this point our scene is ready.
+let's create a single box in our scene.
+you might notice I am storing everything inside a variable.
+we are doing this so that we can simply call it later if we need it again.
+here you can see we need couple of parameter for our box.
+let's keep following instruction.
+we need a name, size and our scene which we already stored in a variable.
+now check our code in browser.
+well it's not working because we created the scene but we didn't ask Babylon to render
+it.
+we need to ask Babylon to render our scene.
+we need to call render loop function.
+then simply instruct Babylon to render all the objects inside our scene.
+let's try again in our browser and we can see it's not working again.
+it's because we didn't return the scene.
+let's add the code and try again.
+this time we can see it's somewhat working but there is still an error which is asking
+for a camera.
+let's go back and create a camera.
+we are going to create an arc-rotate camera for this example.
+and to create it we need some parameter to fill.
+let's set this parameter.
+first we need a name.
+I am going to call it camera.
+you can call it whatever you wish.
+next we need to set a number for alpha.
+a alpha is the rotation value of camera along its longitude axis.
+next we need to set a number for beta.
+beta defines the camera rotation along the latitude axis.
+next radius which is the distance of camera from its target.
+next target which is a vector value meaning we need to define a single point in space.
+finally it needs a scene name in which the camera belongs to.
+the best way to learn about this parameter is Babylon.js documentation.
+try in browser again.
+you can see this time it's working.
+also I am noticing when I am resizing the browser window the box is scaling in weird
+way.
+let's fix the browser resizing issue first.
+to fix it we need to add an event listener for engine resize.
+refresh and now you can see the box is scaling properly.
+and if you click and drag the camera it should rotate now but it's not.
+that means we missed something.
+well I found it.
+we created the camera but did not activated it.
+let's tell Babylon we want our camera as active camera of the scene.
+now open the browser and now we can rotate our camera.
+nice.
+so this is the basic code structure for Babylon.js scene.
+now to further development we will just add our code inside the create scene function.
+you might want to save this code separately so that you don't have to write this every
+time.
+so far our scene contains only one box which is not fun at all.
+let's run a basic for loop.
+here I am changing the box position by multiplying its x value with i.
+so in each loop we will have different position for different box.
+I made a mistake here these should be semicolon not coma.
+now you can see we have several box and our camera is rotating perfectly.
+but our box is black this is because our scene contains no light and without light everything
+is black.

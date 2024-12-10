@@ -1,0 +1,838 @@
+you
+you
+you
+you
+Hi. All right, let me back up. There we go. Okay. So my name is Rob Pike. I was at Bell
+Labs for many years and then I've been at Google for roughly as long and although often
+credited with the creation of Google. I'm sorry. Never never accredited with that.
+Often credited with the creation of Unix but absolutely not. I was a fanboy and I
+joined well into his development and talk a little bit about that and every Unix
+history talk has this slide knit which is Ken and Dennis at a PDP 1145. My
+guess is 1974 or thereabouts but this is my personal story. I apologize for that
+but I'd like to start a little bit earlier and tell me tell you all a
+little bit more about what was going on back in the day. Back in the day which
+we're talking like 1960s this is what computing looked like. How many of you
+have ever seen a hollard punch card before? How many of you ever touched one? A
+few. Hand them around. Here's your chance. These are what these are the things
+that I learned to program on as a high school student. There was a thing at the
+University of Toronto where you could go and use the IBM 360 which I'll show you
+in a second and you did all the programming with punch cards of
+course nowhere near the computer. Punch cards worked like this. They still
+around although you don't see them so often anymore which is kind of a shame
+because they are the best note-taking paper available and there's always a
+lot of broken ones. You can write on the backup. So you see the columns are these
+are 12 holes high two off the top and then 10 through the bottom. This is a
+partial encoding of a 64-bit character set a subset of what's called ebkidic
+which predated ASCII and you basically loaded them up into the hopper on the
+right of this thing which was a UNIX. I'm sorry I'm gonna do that a lot. IBM 029 key
+punch they can come down the bottom you type they go across. I can do this. You
+load them up here they drop down here as you type they go across and then when
+you hit column 80 it pops up to here. This machine and the cards that you're
+passing around now are why code is 80 characters wide is totally stupid. We
+don't use these anymore why do we care. But there's interesting things about
+these for instance every time you make a typing mistake you have to throw the
+card away and go again which is why they made such great note paper. They were
+everywhere and when you want to make make a correction you have to find the card
+this wrong fix it replace it whatever. Not a very productive way to compute but
+a lot got done. Now this is the core memory and I've got one here for those
+you've never seen one. This is from the KDF-9 at the University of Sydney some
+years ago there were an English machine. This thing has 16 48-bit words of
+memory. That's a little bit less than you have in your pocket right now I
+suspect. And they worked very well they were actually a bit of a breakthrough
+because prior storage was either much more sequential or much slower this gave
+you reasonable speed it was like 10 microsecond response which was great in
+this sort of 60s era and it was random access which is really cool. You dig in
+a bit you can see there's three wires going through every core and the
+physicists that used to be could have explained how that worked but I've
+mostly forgotten except you have to do it has to have flipping the domains
+inside the ferromagnetic coils but they were called cores because they were
+magnetic cores little toroids and you read them by putting a little bit of
+current through and you wrote them by putting more current through and they
+worked great they were not as reliable as memory today and I just noticed this
+is probably not as reliable as it used to be but anyway this is the machines
+that you had cores in this was an IBM 360 this was the first significant
+computer I ever worked on again the University of Toronto they had a thing
+called the high-speed job stream where you're allowed up to 2,000 cards of
+input 2,000 lines of output and three seconds of compiling go time unless
+you're using Lisp where you got five seconds and for some reason it was
+freely available so I learned to program by like well learn to begin
+programming by hanging out in the computer center and using the high-speed
+job stream which this is not a photo of but this is a photo of an IBM 360 you
+can see there's the CPU there some disk drives the tape drives in the back the
+obligatory sexist figure in the background this is a card sorter I think
+back there I'm not sure though this is probably the printer off here and of
+course the console because you have to sit and work at it but mostly this was
+used for batch processing using cards although there later was a time-sharing
+option which we'll see a little bit later called TSO which was horrible now you
+could do interesting things with IBM 360s and mainframes of that era and I was
+a student in the 70s and we had a very nice IBM 360 168 I think roughly
+comparable to a Vax if you know what that is so roughly one megahertz machine
+this is a program I wrote in during the off time of my first year of university
+which was the only year I took any computing and this is nothing to do with
+my computing course except it was written in a language called PLC which was a
+variant of PL1 which was a main IBM language at the time and this is a
+program this is a printout the actual printout of my program and I apparently I
+found a bug here but I was doing was ray tracing which is to say not what you
+think it was ray tracing making figures but looking at ray bundles traveling
+through lenses because I wanted to design lenses and other optical systems and
+you know you ran the program you got this kind of output this was done on the
+high-speed job stream because even as a student I had access to that and it was
+free compile time 0.18 seconds remember this is a one megahertz machine
+runtime 0.11 seconds I have been waiting to get back to that speed of
+compile my entire career the 360 the stuff they had for doing high-speed work
+on the 360 as I in my opinion unparalleled ever since people say a lot of
+things about 360 but they knew how to make compilers run fast so what this why
+this is particularly relevant is if you go back here you can see it dated March
+29th 1975 that is the second semester of my first year of university I took one
+computer course with a professor named Ron Becker and the thing is I can only
+do three seconds compile and go and I want to do much bigger work but I
+couldn't do that on the free stream I needed an account because back then you
+need a computer account in order to spend the money to use the resources so I
+went to my professor then I said hi you know me I'm the you know annoying kid in
+the back do you have any free account money that I have I showed him this
+program I showed him what it was doing I said like to do more and he said
+actually my graduate students account has extra money in it you're allowed to
+drain it I forget what it was but we're talking like a hundred bucks but that's
+enough for a kid doing fun things to do and so I spent some more months of
+evenings developing this program and I turned into a sort of graphical thing for
+reasons lost to history I decided I need to do an algal so I learned algal wrote
+this race-tracing program over from scratch but this time I made it graphics
+so that you'd have a printout on the fan-filled paper where you could see the
+rays going through like this right so in about May a couple months after this I
+went back to Professor Becker's office and I said hey here's what I did with the
+money you gave me look and I opened up the fan phone and you could see the you
+kids like a flip book showing the animation and he said that's really cool
+come with me and he took me downstairs into this room now this room is the this
+is this photographs from about three or four years later but this room is the
+first Unix machine I ever saw it is I didn't know it was there I didn't know
+what Unix was but this was a computer graphics lab at the University of
+Toronto thing called the dynamic graphics project and there's a lot of cool
+stuff in here this is Tom Horsley I don't know where he is anymore which is a
+shame that's a PDP 1145 right there just like the one you saw in the picture of
+Ken and Dennis this is a GT40 which is a digital equipment brand display whose
+main strength was it had kind of a cool editor and also a lunar landing simulator
+which everyone knew the address to hack more fuel in that's a tape drive the
+next picture shows a little better yeah there's the machine there's the PDP 1145
+couple of disc racks tape drives GT40 this is a machine called the graphic
+wonder we'll have a lot to say about the graphic wonder later it's a graphics
+display this is the console called a deckwriter and then this little thing is
+off-topic but this was the first raster framebuffer I'd ever seen from about
+this is about remember this picture about four years later done by David Tenenhaus
+who later became well known as a networking researcher at CMU his master
+thesis was to build a framebuffer this framebuffer was 256 by 256 by 8 bits so
+on an iPhone or a pixel it's a picture about this big that is the complete
+address space of the PDP 11 that's how much that's how hard it was to do
+graphics okay these are not two telephones this is one telephone and a
+dial-up modem okay well inside that room was one of these this was actually a
+much earlier model of the PDP 11 but this is the handbook this is my handbook
+you can see it up there on the table for the PDP 11 this is the machine I learned
+to program and see on not this one but this this this class of machines this
+has two tape drives from memory this is probably the original PDP 11 or maybe
+1104 very very early version of it by the time we got the 45 it had become a
+much more powerful machine with floating point and double word access things
+like that double words that's two 16-bit words get three two bit arithmetic here
+for example is a page out of that this is the jump some machine jump subroutine
+instruction which even in 1975 was a little bit novel on not all not all
+architectures were working at that level there was a Burroughs machine from the
+late 60s that became the machine and it was mostly because it had a frame pointer
+and a jump subroutine instruction so this is this is how all that UNIX code
+that I grew up with made calls to everything in the libraries and this is
+all you need to know in order to use it and in fact you could read the whole book
+in an evening and pretty much write assembly code from then on this thing
+anybody know what this is this is a no it's not a RAM very much not a RAM this
+is a ROM this is a flip card for a thing called the deck Unibus which was the
+backplane that ran the entire PDP 11 architecture 22 bits wide I remember
+right probably count the pins and what this is is each line of this is a word
+of memory for a ROM and if you want a one bit you cut the diode and I won't
+argue with you I've been known to solder those and cut them somewhere else to
+fix a bug in a boot ROM this this was this was computing back when you could
+actually see the bits it was cool all right now back to this this machine here
+that's the graphic wonder that was an important machine because oh yeah
+this was graph wonder it was a graph it was a vector drawing despite not a
+raster didn't do this it it would turn the gun on draw line turn the gun off
+turn the gun on draw another line so it actually draw literally draw with light
+on the phosphor and it was built by a company called Three Rivers and it was
+absolute state-of-the-art for computer graphics in 1975 which was exactly why
+one Ron Becker brought me down there because he wanted to say to me you want
+to use that instead of fanful paper and so I started to do this so this was a C
+program so it got from PLC to Algol and our NC where I stayed for the next let's
+say many years and now we're tracing the actual ray bundles and lighting up
+phosphor on a CRT this is a photograph made in a dark lab with the glowing
+graphic wonder in front of me and I could animate you know in a sense I'm not
+really animate but sort of animate and you can see how ray ray bundles were
+traveling through a lens you might actually recognize this shape this is
+the shape you get near the edge of a camera frame when the lens is not perfect
+which they never are that's an off axis of stigmatism and I was able to nothing
+groundbreaking except that the translation from fanful to here was very
+important in my career I should talk about the disc it had this is not the
+disc but it's equivalent this is a photo I found on the web this is a I think
+it's an RKO 5 pack which was the disc that we had there's a single platter
+inside here when you stuck it into the cartridge slot opened up access the
+disc and take it out later to unmount it as I showed you before the PDP 1145 had
+two of them one of them was sufficient for all the storage of the lab so that
+means like the 15 grad students the professors me I was just hanging around
+having fun and this is a manual page for the RKO 5 from the manual I brought
+single it says RKO 3 here but they're essentially equivalent RKO 5 256 word
+blocks numbered 0 to 4871 that's 4870 to 512 bite blocks or 2.4 megabytes and
+that was enough to run the entire lab and when I came to Google command line
+flags that I would not have fit on RKO 5 pack but that's another story some other
+pages from that manual which I have up here this is one I printed out in
+probably 79 on that decorator actually I think it was a replacement decorator
+because I don't think the original one had the upper and lower case that was new
+only one of the terminals in that room I showed you had upper and lower case
+everything else was uppercase this is the page one which just came when I
+opened the box APB of wine it's a program written by Tom Duff and I hacked it I
+didn't know that and it's got my writing on it this is dated 79 right 75 oh okay
+so this is an early program I worked on probably that first summer this is a nice
+example of the kind of stuff we're doing there we're doing a lot of graphics
+actually kind of groundbreaking graphics work and also some sound stuff guy
+fedorco wrote a program called radio that let us play play the local FM radio
+stations not really play them they were just just tuning a radio but we control
+it from the computers so you didn't have to have that hassle of getting out of
+your chair to change the channel which is of course worth writing a manual page
+about back then all right now this there's gonna be a theme through here
+this is the 1979 May 21st version of the ED manual which is the Toronto version
+of ED now notice it says ED is the standard text editor as you all know
+that's still true the thing about this that I want to stress I think a lot of
+people today don't appreciate this for its time ED was amazing I used the
+editors on deck and on control data machines and on IBM machines and others
+and let me tell you ED was a breath of fresh air compared to what I had to put
+up with on some of the other ones so laugh at ED all you want but I'll get me
+mad at you if you do because it was the thing that started at all I'll talk a
+little about that later actually didn't quite start all but it's the one you saw
+that started at all okay other things that went on in that lab which which I
+worked on I did a system called Kepler which was an animation system for the
+plantarium in Toronto now you think animation you think you know movies
+from a screen we did that but of course it was done on a film plotter one frame
+at a time and about 20 minutes to print a frame so we'd make a movie to take all
+night to make a few seconds of film and this is not a very interesting screen
+except for one fact on it this is the sort of opening wake-up screen for that
+system there's some stuff here that I don't remember what it's about there's
+some buttons down here that look a lot like a menu which is not coincidence
+down here there's a little word it says the scroller runs down here that's
+because in 1977 I think maybe 78 when this was written I didn't know it but I'd
+written a window system I didn't know this yet because we hadn't invented the
+term but I was running commands down here while other animations were running
+up here this is a still sort of recreation of what the graphic wonder
+looked like using some library that emulated but the idea is still there
+this was a on the graphic wonder this was a live window where you could type
+stuff and make things happen and other stuff that went on in one amazing burst
+about 48 hours non-stop Bill Reeves who's now one of the top tech people at
+Pixar and I he was a student in the lab we took the guts of that animation
+program and wrote this program which was a thing for doing scored music editing
+live on a screen which was a remarkable thing to do back then we did this
+because the Canadian Broadcasting Corporation CBC was coming into their
+shoot a documentary about the future of music Yehudi Menuhin was the host and
+we wanted Yehudi Menuhin to be able to play music back through our synthesizer
+and this let him do that and of course it dumped the core as they were setting up
+the cameras but we Bill found the magic fix and it ran for the demo and he had
+never seen anything like that because nobody had it hadn't been done before it
+was pretty cool but eventually all good things come to an end and I graduated
+this is this was taken on the day I graduated University and they went off
+to go to grad school in California now when I went to grad school I was a
+problem I visited the grad school I was going to and I knew they didn't have
+Unix so I took one with me I tucked an Archeo 5 pack we had backups I tucked a
+backup Archeo 5 full Unix distribution under my arm because I knew they had a
+pdv-11 but it was running RT-11 which was a deck system and it was terrible so
+I decided why not bring Unix see what I can do and you did a lot of stuff in the
+end we end up running a lot of the Voyager ground stations off that Unix
+system that originated on a disk very much like this but point of the story
+is across the US border there just been a sort of realization that software was
+important so you weren't allowed to import software without a lot of attention
+I got to the border I had this big bag with this in it and the security guard
+or the customs guard said what's in the bag I said oh it's a computer disk I'm
+not gonna lie and he said well there's a software and I said no it's just computer
+programs he said okay you can go then but after grad school and largely because
+of people I met at grad school including Bart who we'll talk about a little
+later I got to work at Bell that research starting in 1980 which was a very
+important time in the growth of the computer center at Bell Labs the
+computer research center and it's been observed that the headquarters which this
+is 600 Mountain Avenue Murray Hill New Jersey looks a little bit like Darth
+Vader and when you get inside it's even scarier this is floor four of building
+one that's really what the halls look like these doors go into labs then it's
+kind of a long hard quarter and then off the sides are wings that have the
+offices but the labs are on the main hallway and these walls are all metal
+which is important because you can move them but also important because when you
+get explosions they tend to be contained Bell Labs was interesting we lit we
+literally had hot and hot and cold running fluorine oxygen silane in the
+halls we could do things there we can't do here I kind of miss it sometimes all
+right but it wasn't all scary so just for a slight diversion there's a thing I
+didn't I brought a variant of this which is up here take a look at ladies thing
+called cardiac which was a the cardboard instructional aid to computation which
+is a cool little like toy simulation on cardboard made in the 60s by my dear and
+unfortunately late friend Dave Hagebarger who was actually somebody worked
+hard with Claude Shannon so there's some connections there and he designed this
+system where with using cardboard and punching out cardboard things you could
+make effectively a little see here that use the cards here you take punch out
+these bugs here and put them in here and slide them up and down and eventually
+you know sort of here's the accumulators and registers and arithmetic and you
+could learn how computers were in it pretty much that is what an ALU does
+modulo the electronics and they handed out I don't know how many but certainly
+tens of thousands of these cardiacs to high school students to teach them how
+to how to know what a program was anyway and what computers were because they
+were called electronic brains then by most people they're still learning there
+three versions of this there's this one there's the one I brought this one I
+got picture I didn't bring because it's very precious but there was a later one
+called the information machine which was much much too flashy and less fun but
+this was a charming little device so not everything about us was terrifying but
+there were aspects of here's the instructions to tell you how to put
+together some can I tell you I can set up one of these fastening set up a Mac
+today but anyway back to the story so this is a a photograph of a Honeywell
+system from the late 60s which was the system that Bell Labs was working with
+MIT on to construct adapt the system from Geekos to a new experimental very
+very influential it turns out operating system called Multics which was a real
+time-sharing system back when time-sharing was was rare it was
+certainly unheard of but it was rare and the most famous example was IBM TSO the
+time-sharing option which was just awful take you 20 minutes to log in but Geekos
+was a lot more interesting and then Multics was actually going to be
+transformative but guess what the project ran way over Dennis Richie Ken
+Thompson people like that were working on it and they kind of got bored with the
+whole thing and it was taking too long to finish so one day Ken went upstairs and
+found a PDP 7 that was unused this is not his PDP 7 but this is a PDP 7 it's a
+early precursor you know lab level machine it's got deck tapes got a
+oscilloscope teletype and and computer and not much else if I remember right it's
+an 18-bit word I think that's right I think it's like it's related to a PDP 9
+which I have programmed but I've never actually seen a PDP 7 I suspect Ken's
+PDP 7 looked more like this one in a lab on some kinds of junk in it and he
+wrote a program called space war which lets you animate you know animate and
+fight like pretend space war stuff a little bit like the lunar lander on the
+gg-40 everyone was obsessed with the space space back then remember this is
+before the moon landing and it caught on and then they decided to write an
+operating system for this machine and the room this was in eventually became
+called the Unix room although the Unix room moved downstairs the name went with
+the idea and then of course eventually five years later it's actually worth
+having a Bell Labs official PR photo that's Ken before his beard that's Dennis
+that's the teletypes remember we're still using teletypes a lot of these
+machines that's the PDP 945 just like the one you saw in the dynamic graphics
+lab these are deck tapes up here deck tape was an interesting architecture we
+don't need to go into actually kind of clever and again notice what do you see
+over here two RKO5 packs probably RKO5 they might have been slightly bigger
+but we didn't have a lot of disk this is before I got there but not too much
+okay now I eventually arrived at Bell Labs research it was incredible
+privilege to be hired by them I was interviewed by Dennis Richie among
+others it was all very terrifying but they liked me I guess and I had learned
+how to program on Unix which is why I wanted to be there I wanted to be with
+the people who've made this happen and of course I'd already learned C I'd
+actually bought this book the C programming language and I read it in
+one crazy night I know how to program and see a little bit already but I read
+the book I was actually sick in bed with food poisoning and I devoured this
+thing but when I got to Bell Labs I got to do some interesting stuff with it so
+this is from the original C book probably not the one most of you have
+seen there is the original hello world as according to what most of the world
+saw and that is a valid C program as of 1979-1980 and for those of you who know
+see you'll notice there's some stuff missing for instance there's no
+included stdio but printf is there anyway okay
+then because I was at Bell Labs I got them to sign it to me
+which is nice and then in the mid 80s they wrote
+this new version for draft proposed NCC this is not the final version that you
+probably all know this is the pre-NCC final version
+but it's got another version of hello world and now we have
+stdio.h but it's still not NCC
+there's one important change happened for the final edition of this book anybody
+recognize it you're missing int main void there
+and when Ken saw that you had to put void in now between those parents he made
+a famous remark which was basically what why do I have to put void there
+but this time I was actually part of the story which was fun so now I got to
+help them out with that which is kind of cool
+all right let's back up the clock a bit and talk about editors
+when I was at the University of Toronto Edie was a godsend for us but the
+the guy the guy's in the lab Tom Duff, Mike Tilson, Bill Reeves,
+Greg Wilson, Tom Horsley, a bunch of us I probably missed some names which is
+said Dave Sherman, Sheila Crossie, I won't remember them all
+anyway they were using the system to do their research but you know they were
+hackers they wanted to hack and so one of the first things you hack was the
+first line of defense on your computer which was the editor so the editor
+went through a lot of changes now ED was actually based on a prior
+sequence of editors called QED which had originated in Berkeley in the 60s with
+Butler Lamson and Peter Deutsch Ken Thompson worked on QED or at least
+used it and when he came to Bell Labs in the
+mid 60s he pretty much either brought or recreated QED I think he brought it but
+I'm not sure so here we have a document dated
+August I think it might be it'd be U.S. terminology the 12th of
+August 66 an obsolete manual about QED however that document was written by
+Ken Thompson and probably the largest single
+document he ever wrote he wasn't a huge writer just a programmer
+but this is the manual for QED from 1966
+and QED was very familiar would feel familiar to people today although
+quite different it was a line editor and all the rest of it but it had multiple
+buffers it was more programmable and here's some interesting other
+QED documents Brian Kernahan wrote a tutorial
+to QED remember Brian's emerging here as a member of the lab working on things
+and specializing in explaining to the lesser mortals what the greater mortals
+have figured out but of course things got obsolete then too 1967 it's already
+obsolete we've already obsolete 66 now we're up to here
+Brian writes another book this one's dated 1970
+but this one now is interesting because it's advanced use of the QED tech
+center remember people are still using gcos which is down in the basement not
+based first war but but some of the others are upstairs with
+the pdp7 and later pdp11 having fun what's cool about this page for me is
+he says you should probably already know what these commands do and if you're a
+vi user you probably know almost all those commands today
+some things never change right and then here I like this one
+this is 1974 but now TSO is caught up there's now QED for TSO so you can now
+use uh TSO and QED which is an interesting combination
+um and what's cool about this page is down here
+you see it says this is an address to Ken Thompson his office is image
+mary hill 2c 520 it means two building two
+wing c room 523 author specified you it says the author of this memo sent it to
+Ken so that he could know or perhaps I've reviewed
+that there was now QED on the TSO which was probably not of much interest to him
+because by then v5 unix is happening and that's about when
+this is a year before I started working in the dgp lab at Toronto
+and we we had v5 so although Ken denies it he thinks we never had v5 I know we
+did um I think we weren't supposed to um
+what's interesting about QED this is very important
+is that QED as done by Ken not its predecessors
+was the first use of regular expressions in computing there was a theory
+by uh mr cleanie k le ne about how to define regular languages with a
+notation he called regular expressions and Ken Thompson being the
+genius that he is realized that you could apply that idea and actually make it
+work inside of a text editor to let you find patterns and things like that
+so he wrote this paper describing this is 1968
+he wrote a paper describing how he implemented QED
+for the 7090 which is another IBM machine and put the regular expressions
+inside it and this is a fascinating paper
+because first of all it's it's seminal it's the original appearance of regular
+expressions in computing as opposed to just theory but also because the way
+it was implemented was by compiling on the fly in the 7090 machine code
+to do the evaluation and that was pretty interesting
+so it's a fascinating paper really interesting but you need a 7090 cheat
+which i can get you if you want to read it
+and of course eventually QED was very massively complicated at multiple
+files multiple buffers crazy programming capabilities
+and when they went to do unix it was a smaller machine i think Ken just said
+it's messy enough so they stripped it down and just called it ed made a
+single file editor but it's kept regular expressions and the fundamentals are
+the same in about how you edit so this is the version 7
+ed page which actually post dates the ed page i show you from the
+University of Toronto before
+because that's this one 1979 remember this is about a year well probably
+almost almost simultaneous actually with v7 unix coming up
+this is the University of Toronto ed and University of Toronto ed
+was hacked like crazy and ended up going out on the Toronto
+software distribution tape where the University of Berkeley
+people borrowed all kinds of features lots of things you know about
+vi internals and how it works regional vi not vim i don't know about them
+but vi a lot of it came from the work we done at the University of Toronto
+but we were stripped of our authorship rights because the Regents of the
+University of California were afraid and said
+or something happened anyway and Bill Joy was told you can't have
+copyrights for other people other organizations so all the
+Berkeley software distribution just says copyright regents of the University
+of California but a large chunk of that software came from
+elsewhere including the work that we did in Toronto but anyway
+that's ed now what's what we did with ed was we were hacking ed and eventually
+people said leave ed alone we would just want to use it
+so Tom Duff, Hugh Redelmeyer, me and Dave Tilburg
+recreated QED for v for v7 unix and i was i was really happy later when
+Dennis was writing up the history of QED he said this was probably the nicest QED
+of all so that made me very very happy this still
+runs i have a working version of QED on my on my machine here
+it was written in relatively old c but it wasn't too hard to update
+and if those of you want to see what life was like when
+you could actually work one line at a time but get work done i can show you
+how QED behaves the thing that's important about this for my
+own history is that as many of you probably know i went on to write other
+editors like Sam and Acme and so on all of those are multi file editors
+when i wanted when i got to Bell Labs and i wanted to sort of move on to the
+hot new thing i tried vi it only did one file of
+time no interest to me you edit programs you don't edit files
+i tried emacs and it was harder to change buffers than to write a file from scratch
+so i just wrote my own and use QED to write my own multi file
+but that's another story okay this is a page i found i was going through my
+archive this weekend i have no idea what it's about
+but this is all QED commands and i think i was writing a
+memo or description to somebody about how insane this editor was to use
+that command i recognize the rest i'm not so sure about that says set buffer
+capital s to some string and then that sets the truth flag to
+something i don't know craziness but anyway history who knows we forget
+okay let's get back to unix itself this is the uh wow you really can't see the
+edge of the page there uh this is just a page of the
+the opening page of the seventh edition of the
+unix edition research real original unix came out in january 1979 i have one
+up here you can take a look at um when i was at bell labs one of the
+first things i helped them with was build the eighth edition
+which was newer and better most important things among it were
+some of the things i'll be talking about but also a much nicer shell a lot of
+richer stuff uh and it was fun to participate in making that happen
+that came out in 1985 i suspect that date is the date we got the manuals because
+i would have written it down on that day but i'm not sure exactly it says it's
+dated february it's plausible we got them delivered in april
+um then version nine came out a couple years after that and version 10
+which was probably the apotheosis of research unix was a very very nice
+system to use but by then most of us had lost interest in unix and we're
+working on plan nine but i'm here to talk about unix history
+not plan nine history so let's stick to unix okay now
+i wrote a book around 1983 brian cernahan and denis richie who are down
+the hall from me were having a heated discussion in the hallway
+because they'd written this c-book which is very successful
+and it has a huge pardon to play in the establishment of unix
+around the world but uh and brian who is really a writer
+most of all wanted to write another book with denis because that was so
+successful one called something about unix and the unix book
+got the unix book out there and he was arguing with denis that denis was a
+great writer which he was um and you know we should help
+and i heard him arguing i was really upset because i wanted the book too
+so i went back to my office and i sent out a long passionate email to
+denis and ken saying sorry denis and brian saying please please write this
+book it's really important the world needs it here's all the reasons why
+and denis came to my office and said if you care that much why don't you write it
+so i did with brian which was a fantastic and a really really fun thing to do
+we had a blast writing this book it's full of in-jokes that almost nobody gets
+but that makes them even better um all of our friends are in it
+uh if you see who there's a lot of people here and one of the things i did was i
+when the book came out i went around the lab and i got everybody who was in it
+to sign my copy of it so there's john bentley
+thug malchoroy the smartest person you've never heard of uh bradford
+um we have peter weinberger googler shard holzman who's now at nasa
+this is probably the best page ken thompson denis richey
+together on one page and uh that book was hugely successful it's still in
+print although it doesn't sell out anymore but it's amazing to me that a
+book that came out in late 1983 is still technically relevant today
+it's insane but that's how seminal the old unix idea was
+and how we still depend on everything it does for those of you who don't really
+appreciate it i'm sure you all know every machine in the
+data center is running a unix variant anyway the entire internet runs on unix
+and it's popular worldwide worldwide um this is at pebbly beach
+and i did not make this photo but i'm so glad i have it i think it's an eastern
+gray it might as probably a wallaby probably anybody know what kind of
+wallabies are at pebbly beach no no you're australian why would you know
+okay um let's go back remember that that graphic wonder did i skip one no
+the graphic wonder machine i showed you before the graphics display and then to
+the left of it there was a raster display we were all worrying about
+graphics back then because it was clearly the future and you know networking
+hadn't really caught on yet as an idea we all knew we needed it but we didn't
+know what to do and at xerox park they built this thing which is called the
+alto and the alto dates from the late 70s
+there's a vertical screen which is interesting keyboard a mouse we're gonna
+talk a lot about mice in a minute what are these
+they're actually diablo disc packs but they're almost identical to rko5
+disc packs that's the disc the disc drive down there you
+take the cartridges in and out the actual alto itself is down here
+70 percent of the of the cycles of the microcontroller inside the alto run the
+display the raster left to run the disc and let you compute but it was
+absolutely seminal machine um steve jobs is often credited with
+being the genius who stole it um i think there's a lot of truth to that but i
+think that really doesn't give xerox enough credit this machine was amazing
+very very slow but absolutely world changing now
+everybody by about 1980 knew that the future because it was gonna look like
+xerox park but we didn't know exactly what it was going to look like
+so let's go back to here here's the graphic wonder
+right university of toronto 19 this photo is 1979 but i first thought about
+75 and but it's it's vectors it's not a raster
+to screen and who who can use a pdp 1145 as a personal
+computer we needed something better so that sorry the graphic wonder
+here was designed by a company called three rivers named after a part of
+pittsburgh i think um some xcmu people and they built a brilliant
+raster sorry vector graphics machine back in the 70s
+and they decided they should get in the alto lookalike business so they built a
+thing called a perk and you can see it looks a lot like the alto
+it's got a vertical screen keyboard i don't know where the mouse is
+and we're very excited this machine because you could get it ran pascal
+and one of the tom duff and bill reeves from
+university trying with me we're now at lucas film and so
+some of us from belabs flew out to lucas film to see the perks in action
+which could basically be described as none um they had no action they were
+very uninteresting machines the software was terrible
+it had no power it was very disappointing
+they were slow they were buggy but the real problem was the software was
+lacking imagination and it was clear to us that we could do
+better but we know quite what we're going to do yet
+and this is called perk which is a clever name i guess
+but the people at lucas film re-labeled them jerk
+at urq because they hated them and they ended up doing something else all
+together but this put a seed in our minds and so we went back to
+belabs and it was david itself greg chestin
+Bartlett can't see myself i think we're the ones on that trip
+and this all came back and said i'm going to build a machine like this and he
+built a little toy it wasn't very good i think he made me it wasn't very good
+but it was enough that we could actually use some graphics programming
+and i wrote this this absolutely amazing game called nuke the smileys
+which is probably the most obnoxious thing up until flappy bird
+chances are your high score was like three because the things just came
+screaming now but anyway i just had to get a picture of nuke the smileys in
+um Bart designed this machine which he called the jerk he asked the guys at
+lucas foam is okay can we steal your name and they said absolutely if you can
+make a good jerk we want them so Bart and and i
+with help from a lot of other people started talking hard about what we're
+going to do and we had this idea to build a terminal
+not a computer we had a computer we had these nice big by now vaxes
+running unix we were very happy with what we wanted was a user interface to
+unix and i had realized i think subconsciously
+i still when i say it today i don't really know when the idea really
+happened but i worked with the university of
+toronto i'd done multitasking on a screen i knew that what this thing could
+do was give you the multitasking power of unix
+with a user interface that actually exposed the multitasking
+so Bart decided to build us the hardware vertical screen mouse keyboard all that
+stuff now there's a worry here because we're going to talk about mice
+um this is the thing this is actually a blit uh a jerk actually the same thing
+jerk and blit are the same two different names this is one
+this is it it's got 68 000 it's got uh 256 k of ram which 100 k goes directly
+to the display it just runs the display right out of the main ram
+these are the ROMs and it's got it's all hand wired
+2,200 wires on there this one looks like Bart wired it we both wired them he was
+always neater than i was but the ones we did both
+they always took a little debugging but you can look at that later that's a real
+that's a honest to god blit board from 1982 probably maybe 81
+there it is from the back and you can see it's all very tidy
+this there were much bigger boards than this around we had machines to help us
+do this but honestly you were doing this
+for days um this is what it looked like properly built
+notice the quality cabinetry uh it's the research lab right there weren't very
+many of these yeah i only built about six of them to start with
+vertical screen keyboard notice there is no mouse
+we're gonna remember that we're gonna come back to the mouse story you couldn't
+get mice they didn't exist we can only buy tablets and tablets were terrible
+compared to what mice are and can be but all we could get was a tablet so there
+was a tablet and this was the what they look like
+that's up here's a photo of a screen uh this is
+probably literally a photograph i don't i don't think it was uh made any
+other way this would have been done by the pr department
+you can see we didn't have good fonts yet this weird texturing wasn't a
+later abandoned idea i had about how to show you which window was busy which is
+this one because it's not textured i want to show you two things about this
+overlapping windows on a screen talking to a units machine in 1982 probably
+maybe late 81 uh it doesn't i don't think date is on there
+um so here's bar is writing to me or bar is writing to himself i think from
+this window to this window which is kind of cool
+r70 that's because it's a pdp1170 sending a message
+right notice he's somewhere in data kit um
+we did not use ethernet we had different network called data kit ethernet
+hadn't really caught on yet so we had early networking that was different
+from ether and in many ways i think ether was worse than what we had but
+ether got better um anyway that's the screen
+and you can see we're doing stuff now will this run
+let's find out there's no sound in night in january 1982
+oh it's gonna work i went to usenix which wasn't called usenix yet i think
+and i gave a talk or i showed a video about a
+five minute video which is available on youtube now
+and i want to express to you that nobody has seen this before
+nobody has seen active overlapping windows because no one else had done it
+and this was a confluence of all these different ideas coming together
+so a little the most important clip i hope it'll play well if you can see it
+all right you probably can't tell my mouth is moving the ball is bouncing
+that's two active windows everything frees when i make a window but that's
+okay and then the ball comes out the top now
+dead silence right who cares this video was the most
+raptorist reception of anything i've ever done in my technical
+career at the usenix conference the idea that you
+could have multiple things going on at once on the screen and manage them
+was astounding and it's hard to express how cool
+that was but i can remember you don't have to believe me
+okay can i get out of here yeah okay so here now this is a photo
+made by the bell labs pr department this is the amazing amazing genius luka
+cardelli a good friend of mine from bell labs
+he's a fellow of the royal society now he's too smart for us
+here he is holding the mouse in one of the canonical ways for pr photographs
+one holds the mouse and you can see us both staring at a picture of peter
+weinberger we did everything we could we could get peter
+weinberger and do all the VR shots but now we have a mouse right
+so what's that about well the problem was we didn't know where to get mice
+and in early 81 nicholas veert from itao and xerich came to visit
+denis and give a talk about a machine he was building which was i think a
+littleith machine i may have the name i think it was a littleith
+which was another you know perk also that kind of thing machine we're talking
+remember this before the mac before sun before all those things
+and uh i gave him a demo of the better software
+running on the nuke the smiley's machine and uh he was
+unimpressed because it was multi-process he didn't well he thought
+processes were a bad idea he's a brilliant man but he has a very
+peculiar ideas about something and denis told me to lecture him tell him why it
+matters that there are multiple processes inside the user interface and we
+did and i don't know if we convinced him but we stayed friends
+and uh we asked him what do you do about mice
+and he said there's a professor in lozan a dpfl
+that makes them for me and so i contacted this is actually a little later
+this is a company that they made but in 82 they were actually commercially
+making mice so i wrote to mr niku
+professor niku in lozan and he said we'll get you some
+no problem there are about 350 bucks that's fine
+uh and after some difficulties eventually
+we got him and this is the first mice this was the first mice
+mouse we ever had at bellabs and it's one of the first in the world
+outside of the xerox orbit sri this was later retired
+i spent so many years with this under my hand um
+i was when it was finally retired i went back and i had him sign it i think
+you can see that they they took an engraving to him they signed it to me
+because this was a very important device this this this little machine
+changed my life have a look at that but treat it with love
+all right um no obviously this machine was interesting
+the world cared about it but we had to get out of the door
+first thing we had to do according to management was change the name we couldn't
+call the jerk so we we called it blit
+which some people think means bell uh what was it bell labs interactive tomato
+or something but no it means it's the second part of bit blit which is the
+bitmap operator that we used to do all the graphics and bart wrote a memo
+describing the basic layout how it all worked and then the guys from teletype
+who were amazing in a different way they came in and eventually made a product
+out of it uh they changed the processor which is a
+self a saga um and they sold those products actually sold very very well
+um because it was the only thing you can get for
+main mainframe lux class machines you connect this up an ibm mainframe you
+connect up to it cray you do all kinds of things with it um
+and again here's another canonical way to show the mouse don't forget
+people didn't really know what mice were so if you wouldn't know there were
+buttons on it if it was the way around you'd really use it
+but this was a this was a glossy brochure they made and you can see some
+utterly nonsense stuff going on here there's a circuit design
+pretend thing this is nice profit goes up into the right
+and it made the front page of the bell labs news
+and uh because i'm who i am i wore a shirt that said jerk but you can't really
+tell didn't say blit um but i was really happy we actually front page of the
+bell labs news was a big deal for for us we were a little tiny organization
+and being important to the rest of the company mattered to me but just to give
+you an idea how radical and weird this stuff was but we're still before sun
+microsoft's before the man um very few people actually seen this in the
+wild i have mail from friends who got them and
+wrote back and said oh my god i wanted this my whole life
+um above the fold of this page of the bell labs news
+oops wrong above the fold this way yeah is this here we are we're talking 1984
+i guess the apple has come up with mac shortly before this
+here is another here are more important because it's above the fold
+is a better amount for pay phones right the world really wasn't
+quite ready for all this yet they were still working on it but on the other
+hand new fibers that transmission records that's the top story
+um no no talk that has anything to do with
+the blit can possibly avoid discussing crabs the bitmap terror
+luke's greatest contribution to computing um the deal with a
+window system and a screen manager and all that stuff
+which which took some it's obvious it's so obvious when i say it sounds stupid
+but every program gets its own little box and the idea is they're they don't
+ruin each other they don't step on each other but luke is not that nice
+so luke wrote a program called crabs he designed these little animations
+of little crabs and the idea was they would run around on the background
+texture of the screen remember it's one bit per pixel
+so the background was a texture it wasn't a solid color and whenever they
+found something that wasn't that texture they would take a bite on it
+and put the texture down and it would gradually erode your screen
+and we get now this is this picture here is actually what we call lens it's a
+another program that looks up at this one you can see the crabs
+coming out of there that's that's uh luke that's mark manassa
+uh and their faces are on the screen and they're being eaten by crabs and if
+you let it run long enough it starts to look like that
+and the little these are called turds that's when two crabs bite each other
+and they leave behind a little patch now this was really fun and cute it's
+and i think philosophically the important thing here was the idea that
+there was a rule about what a program should do and it was clear that crabs
+was not following the rule but the important thing about crabs
+was of course we put a flag into crabs that lets you launch it into the future
+and you always make sure that started mid-demo of somebody giving a talk
+and if they had no idea what crabs was they panic
+precisely because the model had been violated what are these things on the
+screen what's going on there there was really creepy it was fine
+anyway look going on to do much more important things but i don't think you
+ever did anything more entertaining than crabs
+so other things that went on at bell labs at the time this is not the bell labs
+cray but this is a cray this is a cray one these would be the
+distries for the cray uh cray one was an early 80s machine
+state-of-the-art massively massively powerful there's nothing
+like it ever before it's roughly equivalent power to this
+thing in fact this is probably stronger but at the time
+that was an amazing beast fantastic i o incredible i o
+this has more i o if you count the graphics card anyway
+and uh we got a cray at bell labs because they wanted to do an american
+simulation of semiconductor stuff um those of you who know bill coran
+bill coran worked a lot on this machine not this is the one the museum this is
+the bell labs one um but of course it was a piece of furniture because they were
+showing off uh the interesting thing about the
+cray's design is this if you this is our three quarters open
+this is the backplane and you can't really tell because the picture's kind of
+low res but these are all blue wires hanging down here
+and things are really hanging and the signal trans the signal time for
+transport had to be adjusted the what the wires all had to be adjusted to
+you know to two nanoseconds per foot time of of electricity and copper
+so that all the signals would arrive simultaneously for an operation
+and this was done by adjusting the length of the of the cables in the
+backplane and it was all put together by
+women because women do this kind of thing better
+um and there's nice photos you can find of women wiring up craze
+but it was a pretty amazing machine much much more powerful than anything we
+had in the the vac space for example this was a
+multimillion dollar computer and heavy enough that although
+the there were 14 inch thick concrete floors at Bell Labs they had to
+reinforce them to bring the cray into the computer center
+um now why is that relevant to this well this was a remember I said you
+connect a blit up because it wasn't a standalone workstation
+you could plug it in to other machines and let them talk to it and you could
+have multiple you could have graphical editors and
+circuit design and profit up into the right graphs showing up even though you
+were talking to a regular old mainframe
+and one of those was the cray because Dennis Ritchie
+and Norman Wilson ported eunuchs to this beast which was quite an undertaking
+it was not a machine that wanted eunuchs on it it wasn't bite addressable for
+instance but they did it and it worked really really well and
+eventually became the main operating system used on the cray because it you
+know the operating system was so much nice to use the one cray had built
+but they ended up buying them so this is actually at cray headquarters this is a
+photograph from a book by the photographer Lee Freedlander
+that was handed out to cray employees probably didn't appreciate it because
+Freedlander is slightly grim but uh notice that
+this time the mouse is the right way around cray knows how to use the mouse
+that's a that's the commercial teletype version of the blit called the 5620
+and Lee Freedland took a picture of two people and I guarantee there's a
+cray at the other end of that it's kind of nice
+so that was a big thrill for me but uh you know
+obviously the world has passed us past all this by we're doing
+different things now now the screen and the cray are together
+which makes things a little nicer I guess um another thing that was going on
+at the time was Dave Ditzel who I mentioned for having built the
+newt the smiley's machine he'd probably offended that I call it
+that but he'd know what I meant he went on to form um
+on what's it called not teradata transmitter transmitter
+um and uh but he did transmit it after he designed a machine at bell labs called
+crisp the C reduced instruction set processor which was a stack based
+machine that was interesting reported plan nine to it um
+and Bart LoCanti who had designed the blit wanted to make graphics
+uh really good on the not on the on the crisp as well
+so he built this machine called a baloo the
+bitman it stands for bitblit alu or something like that
+it would sit on the bus of the chris processor the chris later became the
+cpu inside the apple newton machine those of you may remember that
+this is not a particularly interesting thing and it's right it didn't work
+not because of anything wrong with this chip but because the crisp
+did not do what it said it was going to do on its bus and so they actually didn't
+talk properly but i want to show you this picture
+this is probably 87 uh there's photos up here these are pictures i i took and
+then we reduced using all the software on the blit
+um this is you know here's what it is bitmap assist it says
+that is jennifer LoCanti Bart's daughter uh that was a baby picture
+we are fairly confident this was the smallest baby picture ever done at this
+time although the pictures of the principles were actually
+smaller later you can find there's a photograph
+not a photograph but a plot of another chip done at bell labs
+that's in the museum of modern art in new york that has a peter face on it
+is much more important but i i have the baloo here you can take a look and see
+this thing so
+i have to tell you about the people there this was this photograph was made
+actually for bill coran when he left the labs
+move out west this is the the unix room not the room that pdp7 is the one
+downstairs behind this wall is a whole bunch of
+computers this was made in 2000 uh uh actually renais frenchman i've actually
+made this photo but i'm back that's me uh phil winter bottom
+that's john quinlan renais clon to risotto
+there's some other there's laurence holsberg is back here there's a bunch of
+other google people in here there's most important i guess there's can hiding
+and then this is there somewhere i've seen before he's there anyway
+these are the people that were in that lab there's thomas manskey
+um people it was it was a very collaborative thing i know i've
+told a very solipsistic story but it was a lot of people working with us and
+around us and using the things that we built that made all of this happen
+and launched unix out into the world and so unix has become this
+this is a graph of all of the unix versions and i worked on this bit
+which isn't well i didn't work on that but i worked on this bit
+which isn't very much because of all of this other stuff that's happened
+somewhat in parallel and often since but if you had told
+me when i went to bell labs in 1980 that i would later work for a company that
+had one squigillion unix machines running i would have
+not understood what you were talking about um the idea that pretty much the
+whole modern world runs on this operating system great on a pdp7
+is a little bit nuts um but eventually it was the unix had
+launched into the world and so we must bid the unix room a fond
+adieu and thanks for coming and hearing my little story
+appreciate it thank you
+so you're welcome to come up later and look at some of the props up here i've
+got some odds and ends that might interest some of you as long as you
+treat them with respect and questions i guess for a couple minutes people have
+questions as long as they're reasonably on topic
+okay now you can ask questions about anything

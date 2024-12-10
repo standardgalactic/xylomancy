@@ -1,0 +1,519 @@
+I forget now. Do you have a discussant or not? Yeah, Virginia.
+Oh, it's Virginia's going to. Okay, great. So she's here. Yeah, she's there. Hi, Jenny. Virginia, I mean.
+Hi.
+Okay, let's get up.
+Josh, you haven't seen any sessions at all yet, right? I've seen, I haven't been able to join live, but I watched a video from the first two days.
+Did you watch Belkin?
+I did. Yeah. Okay, great.
+I was even going to refer to it briefly. Yeah. Okay, that's what I want to say. Yeah.
+I'm also trying to see if there's some time, I know you said that there might, I might be able to join. I can't join the discussion or there is no discussion today, but I'm trying to see if there's any one of the other panels that my schedule.
+It would be great. I can add you to any of them. Yeah, I'll, I'll be in touch about that.
+And you just saw him duty here.
+Welcome everybody to the afternoon session everybody out in in the distributed land and everybody here.
+I'd like to introduce Josh Stendenbaum, who's Professor of Computational Cognitive Science in the Department of Brain and Cognitive Science at MIT.
+He's a principal investigator at the computer science and artificial intelligence lab called CSAIL. Is that former SAIL?
+No, SAIL is a Stanford SAIL.
+But it's formerly the AI lab and the LCS laboratory for computer science.
+And a thrust leader in the Center for Brains, Mines and Machines, CBNN. His papers are on perception, learning, common sense reasoning in humans and machines with the twin goals of better understanding human intelligence and computational terms and building more human like intelligence in machines.
+In other words, he's cut out perfectly for this summer school. I hand it over now to Josh Stendenbaum.
+Okay, great. Thank you so much, Stephen, for organizing, for inviting me.
+You know, I got to watch much of the first two days and it was really interesting to see a back and forth between people who are extremely impressed with large language models, both on their language abilities and maybe some of their general thinking abilities and other people who are much more skeptical that they have really anything to do with intelligence, at least of the human form.
+The work I'm going to talk about here is an interesting, I think, mix of those two perspectives.
+And I hope that will be useful, stimulating, engage in some interesting discussion, both now and going forward over the next two weeks.
+The heart of the talk, which will really be more like the second half, is based on this paper, which you can find on archive, from word models to world models, understanding natural language by translating into a probabilistic language of thought.
+But I'm going to spend the first half setting some context on just how we think about thinking and then build on that for the relationship between language and thought.
+This is, you know, I would say this is both an AI talk and a cognitive science talk, although most fundamentally to me I'm really interested in the computational structure of the human mind.
+So just hear it in that lens.
+But I think also just sort of very generally, you know, nobody can fail to be surprised and impressed at what has happened with the most recent machine learning models.
+And at the same time, they're very puzzling and confounding in certain ways. So I hope to try to be able to resolve some of that or at least point the way towards some of that.
+This paper, the work I'm going to talk about is joint with a number of people. I want to single out two people Lionel Long and Gabe Grand, who are the joint first authors of that paper.
+I'm putting Lionel a little bit bigger, in part because a lot more of my slides are taken from lines. So I would say all of the credit for the good stuff both on the research and in the slides to Lionel and Gabe.
+And, you know, anything that doesn't quite work or make sense is probably just me garbling things.
+Okay, but a lot of other people contribute to the work that I'm going to talk about here.
+So again, you know, we can't who cannot be impressed with the advances of AI, whether it's in perception and and you know, robots deployed in the real world like the self driving car systems of Tesla and Waymo, or most recently
+conversational AI systems like chat GPT.
+Clearly there's something really interesting and important happening, but at the same time something quite puzzling now there's a number of puzzles that people here have talked about just one I'll point to is what you might call the puzzle of confabulation,
+which points to what ways I think that the kinds of quote intelligence or unquote intelligence that we see in these systems is different in nature and origins from that in our own minds.
+So think about, for example, the context of driving this is a video from Tesla self driving system where it's it's faced with something a little bit out of its training set a horse drawn carriage and and buggy.
+And it interprets it as a truck first facing one way the other, then it's SUV then it's a truck with the person behind it.
+Now the person's gone away.
+Fundamentally the person will come back.
+You know the camp figure out which way the truck is facing. If a person were having this experience on the road you would think they should stop driving you get off the road as soon as possible.
+There's something fundamentally detached about their mind from reality here.
+And this happens in systems where lives are at stake, it can be deadly. So this is a serious worry technologically and silently.
+Now when it comes to computer vision and Tesla self driving, a lot of progress has been made.
+What I showed you what I'm showing you here is from a few years ago.
+But you still see similar kinds of things and also on the language side I'm just going to show one example of analogous kinds of things that really make you scratch your head on the you could find these in language models but I'm going to talk about multimodal language and vision models because this is where, you know, there's a lot of really
+interesting stuff going on where machine learning, and especially like grounded language, potentially might meet up with what goes on in cognition.
+So this is, I'm just going to show you a couple of little demos from Google's large language model multimodal language model, Gemini both earlier versions and then the most recent version.
+This is the figure I'm showing here which I'm giving to Gemini and I should say you can see similar things with chat GPT but it's a little bit funnier with the Google one so I'm going to focus on that.
+This is an image from my colleague Vakash Mansingha whose work will also figure in the talk.
+Vakash is one of the world's experts in probabilistic programming he and I are very interested in how our minds and our machines could model uncertainty.
+So here's an image that that I think all of us when we look at this it's, it's, it's pretty clear that though it's a little hard to read, kind of messy, it's really clear that there's a word here and that the word is uncertainty.
+But what is an LLM, a multimodal LLMC from this. Well, it might see this, the image you sent me shows a black and white image of a text box the textbook has a dark gray border rounded corners good inside is the word dream, written in a bold sensor font.
+Is there anything else I can help you with I asked how many letters are shown in the text box. There are five letters shown in the text box the letters are D, R, E, A and M.
+What is going on with this. Now we could say all right well, at least it's pretty good. I mean at least it's recognizing that there's text, and it's, you know, it could be worse.
+But it seems to be strangely self confident, strangely confident about an incorrect answer. But you could say at least it's not like seeing a person or person walking down the street, but consider this small change to the input image.
+And our LLM says, this shows a black and white pixelated image of a person, the person is facing forward and appears to be standing still. Here are some details about the person.
+They have short hair, they're wearing a shirt with a collar their legs are slightly wider than the torso. Since the image is pixelated it's difficult to discern other details such as facial features or specific articles of clothing.
+Again, the thing that I think should make us puzzle here is, is not just that the system gets this wrong, but that it seems to confidently assert things that are so detached from our sense of the reality of what we're seeing.
+And where just a small change can make such a huge difference.
+Just to update things this was this was from the first version of Google's Gemini the most recent version of Gemini 1.5 pro has gotten better in some sense.
+Now, given uncertainty it doesn't say dream it says optical illusion, but it's still wrong and it's still overconfident.
+It rates itself as fairly confident that it says optical illusion. It's interesting it makes you think is there some semantic association between dreams optical illusions and this particular way of presenting the notion of uncertainty.
+I don't know.
+The very most recent thing this was. Well, it's not that recent but the last time I gave this talk.
+I tried this on the newest updated version of Gemini 1.5 pro, just to see if perhaps it had been improved. And that would give a very different answer.
+It didn't say it didn't read it as optical illusion it gave this extended digit number 612981 53242. And I asked it to judge its confidence and it said, well 70 to 80%.
+And then what what happened just to check again consistency and coherence of this weird interpretation. I asked it just 10 seconds later just in an auto context again just gave up the same thing. And the next 10 seconds later it said geocache.
+Again now 75% confident. And then one more time.
+The distorted text appears to read Northeast blackout.
+However, it's difficult to be certain but it's moderately confident that the text reads Northeast blackout because the first and last words are relatively clear while the middle word is slightly less discernible, but still suggestive of blackout.
+Okay, so what's going on here.
+I'm going to gesture it what I think some of the mysteries or some of the answers might be, but mostly to point the way towards the difference with human intelligence and what we're trying to understand in in artwork.
+Okay, I think fundamentally what's going on is whether you're building a computer vision system, or an LLM or a multimodal language text system you're building a system that takes the inputs and outputs that our brains do perception of the
+external world sense data of some form, and it produces actions or something like actions that can be grounded back in the external world, but the inside of the system doesn't have any notion of a world, it's a function approximator.
+It's learning to approximate the input output functions that our minds produce, and it's learning to do that from various data sources, including objective data sources, as well as human reinforcement.
+Now, how, why does this possibly work. Well, again, there, there may be some laws of physics things that are like physics like for example the famous scaling laws of neural language models, where you can show in some form, especially when you're trying to predict
+like, you know, and this is very much following some of the information theoretic ideas that Richard has been talking about and others in the group here.
+If I'm just trying to predict the next token from the previous ones.
+There are certain fundamental power laws of language and distributions in language that the system seemed to incorporate and build on such that if you increase by an order of magnitude the amount of compute, you can in a predictable way, lower the test loss and predicting the next
+token that's on the left in GPT four is technical report, they suggested that you could see similar kinds of scaling laws for problem solving not just text prediction, although it's a lot if you're there.
+And I think fundamentally the problem is the power laws are beautiful laws and they're predictable in a certain sense. The thing about a power law is while it approaches asymptote, or rather approaches zero error in its asymptote.
+It, in some important sense, never gets there, compared to like an exponential decay, where there's a predictable timescale in which we'll get to zero, a power law keeps slowing down.
+And if you have any uncertainty in the power laws coefficient, or, you know, in its applicability to the, not just to predicting the data stream but actually solving a problem.
+Then it's, it's basically impossible to know how much data and compute you're going to need to actually get to the asymptote which we want to call, you know, full adult human intelligence.
+In contrast, humans don't seem to be built this way we are minds seem to be built as world modelers from the start, and I'll say more about this but from the very beginning.
+We have our minds and our brains and this is something that is inherits shared with other animals and inherits from our evolutionary legacy seem to be built to model the world, and to deal with all kinds of incompleteness and uncertainty.
+And that means both in how in the structure of the world, and our uncertainty over what's out there the current state as well as the fundamental deeper laws, the causal laws of physics, or how agents plan and so on.
+But we're built to engage these kinds of mental representations.
+As I'll show in a little bit the way in our group we've modeled this for a long time is what we call the game engine in the head by analogy to say video game engines that our brains and minds seem to be built with these kinds of resources for world modeling.
+You can see that this the notion of world models that are used, even not just in human adults but in young children to coherently understand the world and deal with situations that are importantly out of distribution.
+Right and that's really key that the ways in which we perceive and learn about the world are not nearly as time to the distributions of our experience as a machine learning or function approximation.
+So here's some examples of different kind of self driving system, these are four year olds for the most part three four five year olds.
+In a genre of YouTube videos you can see one of them, actually the video on the left.
+It's, it's sort of the video genre on YouTube is like, you know, my four year old driving for the first time, and parents have put their kids behind the wheels of golf carts or tractors or cars or trucks, and just go at it and the video from the side or from next to them.
+And, you know, you could question the rationality of the adults who are putting their kids in the situation and then putting the videos online.
+But there's a certain basic rationality that the four year old has, even though they haven't been in the situation before the systems that their mind has built through evolution and the last couple of years the first few years of their experience, allow them to handle this totally
+with their perceptual information the world's going by them at a high speed and they're in control in some way, but they can generalize from their, from, from their experience because the nature of their generalization is their minds models of the world and those transfer to these new situations
+of course their new things they have to learn about exactly how the steering wheel works, but they can learn those very quickly too, because the learning is grounded in their world model.
+And finally, I think what we have is the is a contrast between the scaling thesis of deep learning and today's AI, and what you could call the original scaling route that human intelligence follows what we might call growing up as opposed to scaling up.
+And I want to contrast three points which I think are really important for understanding, in general, our intelligence and the contrast between AI and machine learning and especially the role that language and language models plans.
+So three points that are that are fundamental to the way today's AI is working based on deep learning, one, the intelligence is seen as the end result of learning.
+We're learning starts with some simple very general and in some ways dumb mechanisms, associative learning prediction, you know, in some way.
+But the idea is if you scale that up enough, you have the surprising emergent phenomenon that now we start to call intelligence.
+The problem is though, I mean, either you call it a problem or you can call it just the way things work, but there's some remarkable kind of generalization but it still is going to depend on similarity to training data, and its ability to go beyond the training
+distribution is on is weak and unpredictable compared to when you're in distribution.
+This is true whether you're talking about perception or other forms of higher level cognition, but especially thinking things that we recognize as forms of reasoning planning problem solving and so on.
+The sort of thing that we've never seen in any computer vision system but we're starting to see some interesting kind of approximation to in language models.
+In machine learning, thinking derives from language, because it's only the data of language, not the data of pixels that conveys information really about human thoughts, which makes sense.
+Again, humans have always used language as our main medium to express our thoughts to others just like what we're doing right now in giving talks like this.
+But crucially, thinking requires language data and even carefully cleaned and curated language data.
+Our colleagues who are at the big AI companies can tell us a lot more about this or rather maybe they can't tell us about this, but they can tell us that they can't tell us about.
+And those of us who've worked with this know the importance of having the right kinds of language data as well as the right reinforcement data.
+Okay, so contrast this with human minds and especially human children.
+For our intelligence, it's not just the thing that is at the end result of all of our learning, although we do, you know, babies are not in some important way, not as intelligent as human adults, we would like to say.
+But human intelligence is built in in some form from the start. It's the foundation of learning. It's not just the end state.
+It's what's there and the learning mechanisms that let you learn so much from so little.
+And we saw some of that in Virginia's talk. And, you know, I think that the field of human cognitive element is a testament to this or what I was just showing from the four year olds is another example.
+But in other work that I'm not going to talk about here, we've done a lot of work trying to model the core knowledge of even, you know, 12 month old or 10 month old babies.
+And there's important ways in which they have a common sense understanding of the world that is in significant ways, it's not all built in but in significant ways it seems to be present even even in two and three month olds.
+As a result of our built in capacity for modeling the world, our generalization is based on the fit of our mental models. It's not about the training data.
+Data is important. We improve our models, we grow models, we can make new models from data.
+But what accounts for generalization and what drives generalization is not similarities to the data, but the fit of our world models and their ability to be flexible and themselves to be generalized.
+And crucially, thinking isn't the thing that comes at the end state as an emergent property of modeling language but rather thinking is there from the start, and it's the basis for language it's the basis for why human children construct language so robustly and
+And again there I'm referring to by using that word resilience to some of the ideas that Virginia talked about in her talk and Susan Golden Meadow has talked about, I urge everyone to watch her Ruhmelhardt Prize talk where she talks about this as well.
+This idea that as we saw in Susan's work and Annie Sengis' work with Nicaraguan Sign Language, that you know children who grow up without any language input.
+It's not just about the poverty of the stimulus in the traditional linguistic sense, but you grow up with deaf without sign language input, and you create in some form your own personal proto language or at least a way of communicating that has hierarchical symbolic structure.
+And then you bring a few such children together and within the span of a couple of generations they've created a whole new language from scratch.
+Okay, so it's very clear from data like that, that humans are built to think, and we're built with a desire to understand and to be understood to express our thoughts in some form and share them with others in as our social partners.
+And that's, you know, there's nothing I think more fundamental to to understand if you want to understand where our intelligence comes from.
+So what we've been trying to do in our work is to try to capture the human growing up scaling route in computational terms.
+And it starts with this idea of probabilistic inference and expected value decision making on top of world models, you know, informally, I would say, and like many others, that thinking not just in human brains, but in brains and many other animals is about making good guesses and bets,
+but about the next data thing you're going to see not about the next token or the next pixel set of pixel values, but about the world what's going to happen in the world and how it might depend on your actions or the actions of others, or how you might be able to change the world to change those dependencies,
+and then having some sense of what you'd like to see happen, or and what you'd not like to see happen or what could really cost your life or be hugely valuable and making good bets about how to act and what to think about next.
+Fundamentally, this classic idea of effectively rationality that, you know, you could say our minds and brains were are the original sources of this idea through evolution being constructed to do this kind of computation.
+In our work, and this is the stuff we've been doing with language models builds on this, we've been using the idea of probabilistic programs, which is a family of mathematical languages and actual programming languages and platforms to embody this idea basically take this conceptual idea of rational
+world modeling inference and decision and turn it into practical engineering terms that can be models of human minds, as well as more human like AI. And I don't have time to give a whole introduction to probabilistic programs, but you know you can think of it as a kind of catch all phrase or a complicated suitcase
+just like neural network packages a number of different things together but probabilistic programs are formalisms for combining what I think are several of the best ideas about intelligence that have come up through through a number of decades in the field.
+That includes neural networks modern probabilistic programming languages, like Jen from the cash man singers group who I mentioned before at MIT, or pyro that was developed by originally a group at Uber AI that know a good man, another collaborator of ours helped to start along with a number of others.
+You know, in many ways, build on languages like pytorch, or TensorFlow the languages that support modern deep learning and that allow you to construct really complex but end to end differentiable functions for approximation or other purposes.
+But that's not the most important part the most important part are building on the idea of symbolic languages for expressing abstract knowledge for modeling the world.
+That is, you know, across many areas of science and engineering, consistently the strongest most powerful toolkit we've had for building coherent models to to understand the world are various forms of symbols.
+And then the third idea is the probabilistic one, using those symbolic languages to express probabilistic models where you can be uncertain about everything.
+And in a turing computational sense you can be uncertain about the state of the world right now, or more abstractly how the world works, how the different kinds of data that you're getting perceptual or others are connected to the underlying state of the world.
+And then to be able to do joint inference about all those different sources of uncertainty as the basis for perception reasoning planning learning and so on, and probabilistic programs bring those things together.
+I'll say a little bit about how that toolkit works, as well as then how, once you learn language, the ability to externalize and internalize thoughts that are produced by these kinds of probabilistic programs basically that transforms things in fundamental ways and here.
+And unless people think that I'm just a deep learning or a LLM skeptic or something.
+I, you know, again I find neural language models and the long tradition of distributional statistical learning in language that they build on to be really important. And in the work that we've been doing we've been using large language models or in many by today's standards I might even say small language models to capture this actually.
+And so I think this is a place where the, you know, I would not say that want to think about human minds is LLMs or or transformers all the way down nothing like that.
+But the kinds of things that are going on in distributional sequence learning could be a way to capture some aspects of how language grounds in these tools for mental modeling and and also enriches and extends it.
+So, I mean, just very briefly for people who aren't familiar with this idea.
+You know, for a couple of decades now I and many colleagues, students, former students, a number of others who are very interested in what you could call the Bayesian approach to cognition have been using this general toolkit of probabilistic inference over structured symbolic models to capture many aspects of
+behavioral models. And I just, this is a plug for a book that's coming forthcoming edited by Tom Griffiths, Nick Shader and myself and with many, many other contributors.
+And it'll be coming later this year from MIT Press, but it's part textbook part research monograph and just showing how this toolkit can be used to capture to both explain in a principled and you know actually understandable way, but also to quantitatively predict
+and model behavioral data across so many different ways in which our minds model the world, just to illustrate one which I'll come back to in the context of language in a minute.
+An area that we've done a lot of work on is intuitive physics as as a kind of probabilistic inference and the particular kinds of intuitive physics we're thinking about are in these complex seed understanding cases which, again, not coincidentally I think are also really
+classic settings for studying grounded language. So for example if I show you a scene of a bunch of blocks think like Jenga blocks stacked up in various ways. Some of these images might look very stable others might look unstable, and I can ask you a question how likely do you think
+the stack of blocks is to fall under gravity. And we can model that by having a structured world model which consists of basically 3D object models, and then causal models of how those underlying 3D scenes give rise to images that's like a graphics
+program basically the computer graphics is a way of writing programs that generate images from those underlying 3D world models. But then there's also these physics programs. And again here I mentioned game engine so game engine style physics
+simulators capture a lot of aspects of effectively real world but common sense physics in ways that hack hack Newtonian or actual untrue scientific physics and all sorts of ways to be efficient.
+But do a pretty good job of capturing what we expect to happen in the world which makes sense because we're the ones playing the video games and they're designed for us. So by doing probabilistic inference to infer the input to a graphics program given the output which is the image.
+You can do a lot of 3D perception, and then by doing probabilistic forward simulation, you can imagine what might happen next it could also be conditional on your action.
+So the same toolkit could be applied to a much less familiar sort of judgment. Like, imagine I have these scenes of red and yellow blocks on a table and what if I bump the table hard enough to knock some of the blocks onto the floor.
+Will you knock off more red blocks or yellow blocks. So the first judgment, the one about how likely the stack of blocks to fall I mean anyone who's played Django or anybody who's ever been a kid probably has built things.
+If you're a professional builder you have a lot of other intuitions, but you know that's very familiar. The question on the right is one that unless you've seen me talk about this, you probably never thought about.
+It's not something you have direct experience about you can't learn it from feedback, how to answer that question, but I can use my language to give you that question as well as the other relevant world knowledge and then you can reason about it.
+And the models that we build can capture both the familiar judgments of like how likely the stack is to fall as well as these novel judgments, relatively equally well.
+So these scatter plots are examples of the kind of data and modeling that we've done in our lab for a long time on the y axis we're plotting the average human judgments of let's say on one to seven scale how stable or unstable the blocks are.
+And on the x axis, the average result of doing a small number of probabilistic simulations where we imagine running forward to game style physics, a few time steps with uncertainty about exactly where the blocks might be and how the physics works because we don't.
+There's are all things that our minds don't fully know the same kind of model can be used to answer these red and yellow questions so just to illustrate this.
+So this is one of these scenes and we reconstructed in a game style physics engine and we simulate a bump of the table. So there's one simulation on the right I'll show you another simulation with a harder bump.
+Okay, and you can see, watch it again that different things happen in these two simulations.
+But it doesn't really matter which one of those you ran to answer the question right I mean you look at the scene also and it's very clear from the beginning that if I bump the table, relatively hard it's going to probably be mostly yellow blocks on the floor.
+How do you do that well in our model you only need to run a one or a small number of these simulations to answer the question at the grain of intuitive physics, and you don't need to run it very long you could stop it now and you already know the answer.
+Okay, so a small number of short incomplete simulations is the basis for these pretty quantitative models and they've also been used in robotics to actually predict and be able to get for example a robot to learn to play the game Jenga, but learn from a very small amount of realistic human
+The same kind of idea has been very impactful. I think even more impactful in intuitive psychology, where we and many others this there's work that I've done with a number of students and my colleague at MIT Rebecca sacks but especially I would highlight work from Chris Baker and Julia Har
+who did quantitative modeling here going back years with us. Julian continue Chris is now working on self driving cars and industry Julian is now working on.
+It's now a professor Yale where he's extended on this kind of approach and many areas of social and communicate with social cognition and communication and really interesting ways and many other colleagues here.
+I should mention also though I didn't. I forgot to mention this before the intuitive physics work started in our group, more than 10 years ago with Pete battalia and just hammer and others, and they are now actually both working at deep mind Google deep mind, working on various
+interesting kinds of deep learning approaches for both intuitive physics and all sorts of real world physics that matter like climate modeling. That's where Pete's current focuses.
+I won't go into the details on the Bayesian theory of mind. But the basic idea is again there's a program that now describes not necessarily how actual minds and brains works but our mental models of other minds, how the actions we see agents take.
+We interpret them as the effect of planning programs that take as input.
+The arm and minds representations of their beliefs and desires, and by seeing how agents act and change the state of the world, and modeling also their perception process which leads to believe formation updating.
+We can model many aspects of how people understand other minds, especially in what you might call the sort of physically grounded and perceptual scenarios the kinds that you can also study in young babies like in the experiments I'm showing here from Gary gay Chibra, Kylie
+The intuitive psychology case is especially interesting because in work that we've done like in this paper with Brendan Lake, Tomer Ollman, Sam Gershman that helped to set some of the current stage of debates between deep learning and more cognitive approaches to
+AI, where we put out a challenge back in 2016 and 2017 for the deep learning AI world about how to think about the kinds of inductive biases mental model materials that seem to be built into human minds and the learning mechanisms that build on those.
+We highlighted both intuitive physics and intuitive psychology in the famous sparks of a GI paper, showing again some of the most earliest glimpse into some of the surprising things that GPT for seem to be able to do.
+We also highlighted intuitive physics and intuitive psychology, and then in a recent paper from Eric Schultz's group, which is kind of forms a three part story here, and it continues as as I know bush often and Schultz and colleagues continue to work on this area and we also do is to now in the era of these
+multi modal language and vision models like I showed you at the beginning, we can go and take on all these tasks like whether it's block tower intuitive physics things or agents moving around in the world and interpreting as Julia hard injured, called it the naive utility calculus
+of their rewards and costs, and give language models or multimodal models the same kinds of stimuli and questions that we give people.
+And as Schultz and colleagues showed in some of the intuitive physics settings they're kind of okay they're not great.
+In the intuitive theory of mind ones they fail all together that's a quote from their paper. So as an example this is, this is work that Julia hard injured did as part of his PhD thesis with myself and Laura Schultz.
+Where we call these the astronaut studies where people would see an agent, an astronaut on some planet, who would start at a certain point and have a home base that they had to get to, and they would follow some path along the surface of the planet.
+They could just go straight to their home base or they could take a different a not straight path.
+Crucially, there were various objects that they could pick up that could either be positively valuable or aversive to them.
+And we asked people based on the path, how likely do you think that the agent likes or doesn't like one of these objects. And also, there are different trains and the trains could be more or less costly.
+If you're giving people different maps, different configurations of objects based terrain and different paths, you could get very interesting rich inferences about what about what the agent both wants and what the rewards assigned to the different objects are as well as the costs for moving around on the train.
+So here's an example of some of the stimuli from one experiment, just to show you the kind of variation. And then in each of these cases we can ask people to make four judgments or three or four depending on how many kinds of terrain.
+And that's what's shown here. These are these are the actually the predictions of the model z scored for the relative cost for the different kinds of terrain and the relative value for the different kinds of objects, and we're assuming that the agent basically takes
+a rational efficient plan, trying to maximize reward minus cost where there's a small cost for each step, but especially costly when you travel over certain kinds of train.
+So seeing the path you can make inferences about how the agent has rewards and costs. And then when you ask people to make the same judgments, they line up almost perfectly.
+This is just one of many experiments that Julian did showing what is really a remarkable quantitative match and but but by a model that isn't just fit to data, there's a little bit of fitting but it's mostly based on thinking about what are the core concepts of
+the theory of mind that people like I mentioned before like Gargay and Chibra have studied even in very young infants preverbal infants infants who can't even walk and barely just able to reach for things themselves, yet they still have these ideas these
+intuitions about efficient inference and and use those. It seems.
+I mentioned Sherry lose work who was a PhD student at Harvard a few years ago with Liz Velke who worked with Tomer Oman, also in me to show those same kinds of things work in babies Sherry's now doing amazing stuff extending that in a new lab at Johns Hopkins.
+So these, these are cases where this kind of probabilistic program model works really well but just a pure language model is basically at chance zero correlation with human judgments, although quite good at telling you things like the background color of the scene.
+Okay, so in the last part of the talk, having sort of set the stage for how our human thinking seems to work and how we can model this in ways that are explanatory understandable and quite quantitatively predictive using these probabilistic programs.
+Let's understand where language comes into picture. I don't think that a pure machine learning transformer approach like the ones we've been talking about are on track to give a human level or certainly a human like account of how it works.
+I do think the ideas of sequence modeling statistical distribution learning that you see having such great success in LLMs, even perhaps on a smaller scale could say something important about how language comes into the picture.
+So this here is the at the beginning I talked about this archive paper the word models to world models paper from Lionel long Gabe grand and colleagues, and that's what I'm going to be talking about here is how we've been using bringing these tools together.
+The key ingredient is this, I would say the modern return of the language of thought hypothesis you know made famous by Jerry photo but obviously with a history that goes back hundreds if not thousands of years, but in the number of recent papers and proposals from various
+groups. The idea that again that there's some kind of not necessarily single language but that abstract symbolic languages which could be general or also created and constructed domain specific languages.
+So abstract symbolic language is seems to be a powerful way to think about human thinking abstraction concept learning and so on.
+And the particular kind of languages of thought that we've been thinking about are what Noah Goodman and Toby Gersenberg and I called the probabilistic language of thought.
+So this is the idea of using probabilistic programming languages the technical tool I talked about before to formalize in a cognitive setting, a certain kind of hypothesis of a language of thought, but one that is focused on modeling the world, not just possible
+worlds but probable worlds, and where the symbolic language can also express ways of conditioning and query, so that we can ask and answer the kinds of questions that our minds do and that we might, we might want for example any kind of general AI system to do.
+So if you want to learn more about the probabilistic language of thought, check out our chapter in the conceptual mind. This is one of the margolese and Lawrence readers, or the web book probabilistic models of cognition which which has examples of the kinds of models I'm
+going to be talking about, not with language models though the new thing is to take advantage of LLMs and specifically the fact that most LLMs these days are trained not only on natural language, but on on programming languages and source code.
+And programming languages like all the ones we're probably familiar with, that are designed to be read and written by humans and not just machines and so they're written in a very English like way, or natural language like way.
+You know linguists have long pointed out, sometimes the differences between natural languages and programming languages, but from a certain perspective, they're a lot more similar than they are different.
+They're not identical structure syntax, and even just much of the lexicon you know natural languages, they're not just commented or programming languages are not just commented in natural language but functions variables data structures are named using English for the most part.
+So that's a very powerful data source that allows some kind of statistical sequence to sequence model for predicting and translating between streams sequential streams to effectively learn to translate from English, or any other natural language into programming languages of thought and
+that includes probabilistic programming.
+In this paper, what we call rational meaning construction that's the name of this is, is a particular thesis on how language is understood and perhaps also how it might be produced and learned although our focus here is on language understanding and thinking about the relationship
+between language and thought in that context, by thinking what we think of as the core original notion of thinking is what I've been talking about for the, for the first part of the talk, which is the idea of having a problem a structured probabilistic model of the world, conditioning
+on observations and then, and then drawing samples of underlying latent states and future states. Okay, that's thinking from this standpoint.
+And then understanding language is effectively translating from natural language into a probabilistic language of thought that's used to define and condition and free the probabilistic world model.
+So we're going to exploit the property of these LLMs to translate from natural language to code in a way that might be familiar if you've tried using them to code but it's different in some key ways.
+In particular, we're not going to be just asking our LLM to write a whole bunch of code at least not to start, but we're going to be focusing on the sentence level and what is meaning at the sentence level.
+It's something like trying to infer a line of code in a mental programming language that is your best understanding of the meaning by which we just mean the thought that the person who's uttering that sentence is trying to convey.
+Okay, and the, the LLMs in this case can represent that meaning construction function. Okay, in ways that have some very interesting properties.
+I'll just illustrate this with a classic example from the probabilistic language of thought literature, the so called Bayesian tug of war. So just to ground this imagine that you're reasoning about a situation, like, for example, various games of tug of war various people symbolized by colored shirts
+here are facing off against each other. And let's just take one person let's just say this is a guy named Jack, and you might say well how strong do you think Jack is I haven't shown you any information so your best guess might be just average.
+Now, suppose I give you some other information.
+Like, or I should say here, so here are a few samples you know I might say average maybe is a little less than average.
+If we're talking about MIT students you may just pick the MIT average, but now I could give more information like suppose you know that Jack beat Leo in a game of tug of war.
+So that might move your arrow up from the MIT average because well you know, people who are who are stronger might be more likely to win than people who are weaker.
+Okay, I could give you some more information like Leo had just won 10 previous matches well so that means you might think Leo is pretty strong and Jack must be even stronger so your arrow goes way up.
+But suppose I told you well Leo sometimes it doesn't pull as hard as they really could. So maybe maybe Leo was getting a little lazy when Leo face Jack so might go down a little bit.
+But then Leo single handedly beat a team with Jack and Tom on it okay so now you think okay well Leo was probably lazy before Jack maybe isn't that strong.
+Since Leo when they wanted to could beat both Jack and Tom okay so the point is in a classic example of non monotonic reasoning your inference about this one aspect of the world Jack strength is going up and down as you get various information.
+So we'd like to understand how that thinking process works how updating your beliefs based on linguistic evidence linguistically expressed evidence works.
+So that's the starting point of this paper. And the idea is to use in this case we're using the probabilistic programming language church, which is based on a dialective list or scheme.
+So there's a lot of parentheses and I'm not going to be able to unpack all the language but hopefully you can get the basic idea that we write, we define functions that describe probabilistic distributions on strength laziness and so on all work through this.
+And that's, you know, that's been, that's well attested work that's been very good, you know it's basically the general toolkit for doing the kind of probabilistic intuitive mental modeling that I showed you with to the physics and intuitive psychology.
+But here we're doing it for this kind of novel domain it's not there's no core domain that infants are born with for tug of war, but we can write a model like this to capture what adults and our culture at least make think.
+And then the key new thing here is to understand how to to ground language in these mental models.
+So this is where we're going to model the translation of a statement in English like Jack one against Leo or a question like how strong is Jack into lines of code that support probabilistic updating and querying in this language.
+And this these the meaning functions which will be implemented by the neural network here, other the large or even small language model, capture various interesting ideas that have been proposed, you know I don't have time to review this history but proposed in different eras of
+linguistics and thinking about how to think about meaning how to think about concepts and, you know, I, it's, it's a very rich literature that I'd be happy to try to discuss if we have time during the question period.
+But the hypothesis here is that maybe these distribution language code models can implement some human like perhaps approximation to this meaning function.
+And again, crucially it's it's we're not trying to now capture like to learn patterns in data in the in in the world we're trying to learn patterns in our thinking and how thought is expressed in language.
+It's a modular problem, which I think is better suited to the way language actually works in the human brain right it's, there's a delimited part of our brain that is a language processing network strokes or other lesions there can really impact your language ability without impacting your
+language ability.
+And, you know, it's a relatively late evolutionary addition to us to a brain structure which shares a lot with other non human primates, for example. And so it's it's that that modularity I think is also really important here.
+So again just to unpack how this works you have a probabilistic program that describes these concepts that I can just, I can describe to you in language in this way, but to the model right now they're just given in code and I'm not and they just describe for example that, you know, players
+can be drawn from a Gaussian distribution players can occasion be lazy.
+When you when you're lazy it cuts your effective strength and half, and the strength of the team is that some of the total strength that they pull that the members pull with at any one time, and the stronger pulling team wins that's basically what this is.
+Now for now we'll just assume that that's you have that kind of mental model of a tug of war game.
+So let's just talk how do you update your release language, and the basic way of doing it is that we're using what I would call now a medium language model we use open ai's codex which was the first widely used code LLM pretty small by today's standards much smaller
+than GPT for kind of like an early version of GPT 3.5 to translate from a sentence in English like this into what in church the probabilistic programming language is called a condition statement.
+This is the constraint on possible worlds that while the underlying defined statements define stochastic or probabilistic functions which give you distributions, probability distributions on possible worlds.
+This says we're going to restrict our probability distribution, which is like our prior to a posterior just those worlds that are consistent with the jack beating in one match Leo.
+Okay.
+And then similarly a quest to a query statement like how strong is jack turns into this query, which is which the probabilistic programming language then basically
+evaluates it draws samples from possible worlds consistent with the condition and generated from that prior on the left and and checks what the strength is and then just kind of counts up those distributions so it's a kind of probabilistic mental simulation the same effectively the same or a generalization of what we were doing like those intuitive
+physics examples.
+And from this one piece of data, jack beating Leo you can see the posterior updates from the prior so jack is stronger than average.
+If I say oh jack also beat Alex or proceeded to claim victory from Alex that turns into another condition, and that updates the posterior even more so now well jack's a lot stronger than average.
+Even working as a team Leo and Alex still cannot be jack wow now jack's even stronger when you add in that conditioning state. So each again where the LLM is coming in here is it's just it's just adding in the statements into the language of thought and then we're running inference in our
+probabilistic programming language to give these answers.
+It's worth. And this is again especially if we want to understand what I think is the way forward to thinking about how meaning and language works in humans and where LLMs can come into the mix.
+And what's really powerful about neuro language models here as ways to parameterize a meaning function is the ways that they can pick up on statistics context pragmatics metaphor semantic associations all the things that in many ways were most appealing and
+distributed content addressable associative memory and distributed representations of graded semantic associations. So for example the LLM will translate jack one against Leo, which into this statement which looks like a fairly transparent semantic
+parse of that natural language, but it'll make basically the same semantic parse of a sentence which on its surface.
+In traditional syntax, you know, language structure analysis looks rather different right the syntax here is more complicated I'm not actually using the word win, but in the context, the relevant aspect of meaning for thought here is the same
+namely this is just another way maybe more poetic way or dramatic way to say that jack one against Alex and the model knows that automatically doesn't have to be specially prompted or trained for that using its associative memory properties.
+And also distributional these are probabilistic models, not on worlds, but on strings and in this case they're probabilistic models on strings in our mental programming language.
+So they can bring into bring in classic notions of vagueness if I say jack is strong or very strong. I'm not telling you exactly how strong Jack is, but you might interpret that as a distribution on different conditions statement saying well jack strength is is greater than some
+I don't know what that threshold is but it's probably pretty big. Remember this in this case the mean is 50 and the standard deviation 20. So 80 is you know, one and a half standard deviations above the mean.
+And the idea is this is again like in scalar adjectives it's basically saying I'm conditioning on the idea that jack is greater than some threshold but I, but I could be uncertain about what that threshold is.
+So even metaphorical things like if I say jack is pretty strong and Ben is a beast, right in this context, it's reasonable to interpret Ben is a beast as as being saying Ben is really really strong, you know, 80 where jack was maybe 60 or greater.
+In a different context, if I'm talking about, you know, whether you should date someone and I say Ben is a beast, you know, then I'm probably saying, stay away.
+So that that both metaphor, sort of context, a sensitive metaphorical interpretation is the kind of thing that this meaning function is very good at.
+I'll mostly just skip over this but in work with Ben Lipkin and, and Leo and Gabe and others. We've, we've done, and this is really all Ben's work, some very nice quantitative studies of showing that these contextual aspects of understanding of
+in, in the kind of tug of war context can match very nicely not always but in a lot of cases very nicely with human judgment so it's suggesting that the distributional aspects of meaning that we're capturing here are at least somewhat not psychologically real at least consistent with the judgments that people make.
+So, so, but mostly what I've done with this example is just to try to show you how this kind of framework can work to be a way of implementing what is in some sense a classical idea that language isn't that directly the medium of thought at least the only one, but it's a way of expressing and communicating
+and that statistical distributional mechanisms can be a powerful way of learning that the mappings from the signs and symbols that we externalize to the to an internal compositional structured language of our thought.
+And I'll just show you one or two examples, such as work with said John in an intuitive physics domain or some intuitive psychology work with land seeing and Shen or Tanshi Shen is showing how we can take the same kinds of things that I showed you in the first part of the talk, and effectively reconstruct them, but now in a world's worlds that are just described by language.
+So to manage it take that task of the red and yellow thing where before I was showing you the image of a scene, and then I was giving using language to describe a question.
+But what if I just use language to describe the whole world. Right, so I didn't show you an image I just described what's there you know in many ways, but but but we're still going to do a mental simulation probabilistic mental simulation in the physics engine.
+In many cases, you know in our daily life where we use language to describe the physical world as we experience it, it can be extremely expressive, very complimentary often to you know images or photos.
+It has vagueness and uncertainty and that's interesting. So we might describe a scene that like imagine a table and there's some blocks on it.
+There's some red blocks in the center there are many tall stacks of yellow blocks on the side of the table. If the table is bumped hard enough and so we asked the same question but for scenes that are described in language and then people make a graded judgment the same one to seven graded judgment of is it more likely to be red or yellow blocks.
+And so when we can test this again the same kind of quantitative study with large number of participants, all online all just reading stuff with different kinds of language expressing exact as well as approximate number of approximate quantifiers logical quantifiers, vagueness
+like the stacks could be tall or very tall and different kinds of spatial relations and across many different stimuli. We mix up more or less complex sentences using these different kinds of language.
+And in each case we're using again a relatively small LLM to translate sentence by sentence into statements for conditioning and querying in our probabilistic language of thought.
+Then we run a small number of mental simulations in this case in a 2d physics engine, compute the outputs and compare those with people.
+And what I'm showing you here is again the same kind of scatterplot I showed before, but on the vertical axis are again our human judgments, and on the x axis now are the model or the predictions of this language informed thinking model.
+So it looks a lot like what I showed you before these are the judgments from the battalion all work on the red and yellow task, we're not we're here the model was given a visual scene people were given visual scenes, and the model did that same kind of probabilistic mental
+simulation in the physics engine, but in the in the current work on the left. Again, the scene description is constructed from language using the tools that I've shown you by conditioning a prior on scenes.
+And the main point is just that the models fit human judgments pretty well in both cases and about equally well. All right, which is which is interesting.
+So compare with just a sort of zero shot or a few shot baseline LLM so these are language models which don't have an explicit mental model of physics or any doing explicit simulation and they are much worse fits to people.
+This is this on the what the high up here on the y axis is distance and distribution from human distribution of responses to the various models the blue one is the rational meeting construction model.
+And you can do a similar thing in the intuitive psychology domain.
+Like for example, in the settings that I showed you with Julianne hard enters work.
+This is work that Lance Ying and Shen did. I won't go into the details but again we can describe worlds with various goal objects that an agent might have and constraints like you have to go through doors the doors could be locked you have to use keys that could be a red key that could unlock the
+door and so on. People could be told either that you know you need a key of the right color to open each door of the same color, but it could be told weird things like keys only a locked doors of other colors.
+You know in these kinds of worlds, again the rational meeting construction model does a very good job of capturing people's judgments for some kinds of judgments easy cases, even GPT 3.5 does reasonably well GPT four does better.
+But as the situation gets more complex or unusual things change and break down like especially if we say well in this world keys only unlock doors of different colors that's an easy thing to say to somebody and you have to change your mental model.
+But when you do something like that GPT 3.5 becomes anti correlated with people and GPT four just go drops from being highly correlated to just being a chance.
+So these are examples of the ways in which you know going out of distribution from our training experience if we're just using a machine learning function approximation approach which is remarkable as those systems like GPT 4R that's what they're doing.
+But ways in which if the function approximation is just approximating a much more modular translation function and building on our mental model tools we can just do much better.
+The last thing I'll just talk about very briefly is you know what is any work like this has to raise more interesting questions if anything like this is right on the right track.
+Then it's it's not answering at this point the most interesting questions but just raising them and perhaps highlighting ways you might get it.
+So in all the work I've been doing in for a couple of decades now in probabilistic inference and mental models, you start by showing how you can do inference with a mental model but then you have to ask where do you get it from.
+Now learning from experience is one thing and I've done a lot of work and others in our group and many other colleagues a lot of that book I mentioned with Tom Griffiths and Nick Chater is about how we can learn using hierarchical base and probabilistic programs learn abstract programs by doing inference over the space of
+programs to make sense of our data, maybe even small amounts of data, but much of our learning probably the most powerful form of human learning comes through language more abstract, generic language as many folks in cognitive science, cognitive development have shown.
+So the power of language not only to update your beliefs but actually to give you new world models is really incredible and that's probably the most that that's the real human singularity there right is the ability of language to let us learn and think about situations that we haven't directly experienced.
+I mean think about the tug of war, for example, I mean, I don't know if you're like me, I've maybe done one or two tug of war games and most of my knowledge about tug of war or my beliefs at least don't come from my direct experience.
+They come from things maybe people told me about analogous situations and more generally, many of our mental models and our intuitive theories come from what people tell us.
+So the same approach that we talked about for updating beliefs from language can also be used to acquire new mental models.
+But here what's going on is we're modeling how somebody might explain to you the way this tug of war works and in fact in our experiments with humans in the in the Toby Gerstenberg and Noah Goodman and colleagues did.
+This is exactly what we do would tell people about how this work people have various strengths it can vary from person to person.
+And then now we're using the LLM to translate those say sentences in English that are generic sentences about the domain describing the world model we want our participants to use into the same kind of probabilistic program code but now these are defined statements so these are not.
+These don't condition on a specific specific world but they define the general distribution on worlds, but again they're contextual they're distributional.
+There could be different ways of understanding the vagueness and language, but the basic idea is that we can describe a world model in English, and then the code LLM can construct that world model so all the defined statements now are constructed.
+They're not exactly the ones that we use in the original paper but they have the same functional role and they can support the same kinds of influences.
+So it's just just showing you the way we can, I think, go towards one of the most interesting ways that language informs our thinking, not just as a way to convey specific beliefs about situations but new, but new world models.
+And in some recent most recent work that's still in progress with Tyler Brook Wilson, Katie Collins and a number of the others I mentioned here.
+Tyler is a brilliant philosopher who recently graduated from MIT, and he's actually just just accepted a faculty job at Yale so he'll be at Yale in a year or so.
+But together with with Tyler and others and Tyler's thesis goes into some early stages of this.
+We've been exploring the ways that the same approach can support constructing new models, even if I don't explicitly tell you in language how the world works but just by again using your associative memory and marshalling implicit knowledge to construct a model of a new situation.
+So I could tell you about a relay race and I'm not tell the relay races like a new domain I'm not really telling you how races work I'm just giving you some information.
+But we're exploring ways in which the LLM can can be queried to construct possible background knowledge and write probabilistic program code that can be suitable for reasoning about this domain.
+Just on its own the LLM isn't enough but you have to do some reasoning about the models that it suggests.
+And then those models when suitably reason to put upon can support novel reasoning in this domain and even sensible updating so we're really getting you know at least demos of steps towards computational models that can capture the richness of how we are able to think about new situations
+even ones that we haven't really thought about very much before, or that we haven't been explicitly told how to think about, but using the combination of language, the associative knowledge that's in it and an underlying ability for constructing probabilistic models of the world and updating.
+The last thing I just want to leave you with is a set of thoughts about, you know, ridiculously, has to be the last thing it is it is the last thing.
+But I think this will set up some of the discussion with with Virginia and others to, which is many people in cognitive science, whether in linguistics or other areas engaged in meaning have been interested in what you could call, you know, a unified account of meaning and what we're trying to at least point
+towards steps towards this with the framework I talked about just to just to again raise controversial points for discussion if you like.
+But the idea that we can capture the meaning of a word in context, as well as more generally as effectively it might think of it as a form of dynamic semantics if you're familiar with this but the meaning being in in context in a discourse, the incremental
+to the probability distribution over PLOT expressions in the problem that we're thinking about with problem and discussion, and the meaning of a word or phrase or sentence or other unit of language in general is a is a higher order stochastic function that can take as input a discourse
+context and return as output a meaning in context.
+And the idea is that if we think about the different approaches these are just for, you know, traditional ways of thinking about meaning language, which all have great value, and have often been seen as being competitors, ways in which we can really bring them together
+which the PLOT ideas that we've talked about can integrate the compositional logical aspects of meaning that formal semantics and other areas in the language of thought tradition have emphasized, as well as in the context of probabilistic language of thought and
+in our models of the world can give a powerful form of grounding that's not grounded in sense data, but in our models of the world. That's what the PLOT does, and the LLM or more generally a statistical distributional sequence models can capture both the
+distributional statistical aspects of meaning. It's the base that the both the sort of distributional usage approach but also more general semantic association needed to make sense of language so flexibly, as well as some of the very flexible pragmatic
+and innovative ways we use language. So, I'll just leave it at that. Okay. Okay, could you turn off your share please. Yes.
+First of all, thank you very much.
+I have a chance in the world and I'm going to forget Virginia this time, and I'll tell you why, because I'm gobsmacked at how many different areas you're an expert in. And so anyway, here's another one.
+Virginia Valium from CUNY Hunter.
+It's all yours.
+Josh, that was such a great talk and so rich in 10 minutes, which is how much time you and I have will only scratch the surface.
+So departing from the comments I sent you with respect to the unified theory of meaning.
+Many years ago, Jerry Kat suggested that the question what is meaning could be separated into questions like what is sameness of meaning, what is contradiction, what is anomaly, what is entailment, and so on.
+And it occurs to me that it would be interesting to try this to try your model to see just how well it can detect synonymy, contradiction, anomaly, and so on.
+Yeah, I think that's a great connection. I mean, I know a little bit about that, but you're inspiring me to go back and reread and learn much more about it.
+I mean, I think just in the context of the last thing I said, the idea exactly that in a sense in this framework at least, what the statistical language model is doing is capturing the notion of sameness effectively.
+Because the distribution on code in the probabilistic language of thought, if that distribution is similar, and that can be measured in different ways, then you might say, well, things have the same meaning either in context, or in general, because and that that
+distribution function can be contextualized or it can be made higher order. Okay, so that's really interesting, but it doesn't compute entailment, or other, you know, conceptual or inferential relations those come from reasoning in the probabilistic language of
+thought.
+And yeah, I mean, I think that's that would be great to explore that more see if that can account for unifying both account for the different set of phenomena and unify in that sense.
+Yeah, I think that would be really interesting to explore.
+So, going back to some of the more mundane, which I guess is upon aspects.
+The way that I'm understanding what you've said about how the theories intersect, that is how LLM intersect with Bayesian models is basically you're using the LLM as a kind of tool to translate from one vocabulary to another vocabulary.
+Is that accurate.
+And that is at the most practical level that's what we're doing.
+Yeah.
+Okay, more about that but let's let's go with that for now. Yes. Okay.
+So, the critical difference that I see in what you're doing and what LLMs are doing is the, well, I guess there are two critical differences, but for me, the most important one is the use of symbols.
+The other part is the Bayesian mechanism, but let's separate them.
+So, when you put symbols in, to me, you're putting a lot of content into the mechanism. Do you agree with that?
+I agree that adding symbols adds a lot of content, but I think, and again, I didn't have time to unpack all of this very well, I think, but when you say you putting in symbols, in different things that I'm talking about here, the you and the putting in are different.
+But yeah, but whenever you add in symbols that adds a lot of content and structure.
+Right. So, I'm thinking about the implications of that for nativism. So, it seems to me this is a nativist theory.
+I would say it is compatible with some forms of nativism that I find plausible, although none, I don't have a horse in that game, but I, through a lot of interactions with friends and colleagues like Liz Spelke, Susan Carey, many others, come to find certain
+aspects of nativism and conceptual nativism plausible, especially in certain core domains that are shared with other animals, like intuitive physics about objects that the world is three dimensional objects have some that there's some kind of physical interactions that are, you know, our bodies engage with.
+And also some forms of intuitive psychology, not necessarily higher order belief reasoning, but the idea of efficient action, and that agents have goals and they pursue actions in the physical world grounded in physics to achieve their goals efficiently.
+Honestly, there's evidence. Again, Sherry Lou, who did this work in Spelke's lab, and continue to build on it has really, you know, I mean, I was a striking evidence in three month olds, but it's every experiment with three month olds is very small and you know a lot needs to be built on.
+But as striking as it gets in three month olds science, I'm showing that that aspects certain aspects of not only physics but efficient goal directed action understanding seem to be present. That doesn't mean they're innate, but at least they're not they're present way before language and probably build on some innate stuff.
+It's compatible with that notion.
+I'm not sure who that is but could you mute.
+Yeah, that was an accident. I think they just should have turned off their.
+But so, so, yeah, there's this idea that certain kinds of symbols are used in our framework to describe those some of those core systems, but we are in contrast to like a photo or a nativism which says all concepts are innate in this in this framework here I mean it, or you
+I don't know what Jerry would have actually said about this but people like Paul Petrovsky have suggested, you know, maybe he would love it I don't know, but in a rather different version of like some forms of radical conceptual nativism.
+Most of the concepts in this framework are not innate, they're written in a language of thought that it that could be somehow innate or somehow bootstrapped through natural language I find some of the ideas that that Susan carry and Liz Belki and their different ways along with Jesse
+in which language acquisition and mental languages of thought might bootstrap each other and many things in the kind of enlightenment tradition also I think are reflect that idea.
+I think we are, we still need to show this, this is like the most interesting thing to do, but to show ways in which the things I was showing at the very end could be could be used to explain how and model how natural language can start off being grounded
+logically in a limited symbolic vocabulary of probable worlds that reflect core knowledge, but then that can support bootstrapping and introducing new concepts via those mechanisms I was talking about at the end, including new concepts but also new domain
+theories that we get explicitly or implicitly through our linguistic interaction with other people who we think know more than us.
+That sounds great.
+It also suggests to me that it is a highly modular system, even though it's also probabilistic.
+So it's probabilistic within each of these different modules, and depending on what you think the symbols are that you start with, you can iterate what you think the modules of the mind are.
+No, I think that's right. And I think, you know, I think it's this framework is not a on its own a proposal for how our minds start, but it can be used to instantiate and build and test some of them.
+And so that's, I think that's right. It does suggest that you could have, you know, different sub languages of thought for different domains, but crucially the picture that you get with adults from this is both in some ways, like strikingly super modular and in some other ways, completely holistic.
+So the striking super modularity is that the actual reasoning that you do in this in a discourse when I'm thinking about a situation and we're talking in a conversation is very modular if it might even be just specific to this context this what what Tyler Brook Wilson calls bespoke model construction.
+This idea that we might construct a model on the fly to think about a particular situation that that were that's the last thing that we've been working on there is in some sense super modular because that model is relatively small and all the inference I'm doing is just here so I do so I
+can just sidestep or avoid the classic problems of what has made Bayesian inference intractable the idea that if I'm going to actually have a distribution over all possible worlds I could think about and update that, you know, that's completely intractable.
+Many people in the nativist tradition Dan Osherson and others have written about that. And this this is a way around that or as Tyler puts it in his thesis it's in a sense a kind of way to think about a solution, certain kind of solution to the frame problem.
+So it's super modular, but it's also very holistic in the sense that the world knowledge that's used to construct that comes from like all the code you've ever written and all the semantic associations and it's like a gigantic holistic almost Quinean Web of language and code what we've sometimes called the
+GitHub in the mind view. There's the game engine in the head the GitHub in the mind like GitHub is this, you know, thing on the web which was crucial for training language code models, and you can imagine your own mind has lots of chunks of code, some of which are maybe
+some of which are not, and natural language interweave with it, and, and having a content addressable associative memory that can use that and, and marshal out from that relevant symbolic probabilistic models that can be used to reason about a particular
+situation in some sense that's extremely holistic, and maybe is necessary to grapple with what is in, you know, very clearly some of the wholism of human cognition.
+Let's go back a few steps. The intuitive physics part.
+In principle, animals could do that as well right. Yes, so a chimp could have intuitive physics.
+Some others have called and others have studied that a number of other Amanda seed and other brothers had studied other non human primates and we're actually collaborating with Erica cart mill and some others studying non human primates on intuitive
+physics, and I know colleagues who are studying analogous kinds of intuitive physics in rats.
+And I think even simpler organisms.
+Okay, so the difference between humans and other animals is going to be that language allows you to go further language allows you to go beyond intuitive physics, whereas nothing is going to help these other animals go beyond intuitive physics.
+I think that's right. I mean, again, I wouldn't say that all the all the mental models of other animals is just intuitive physics. They also have models of their social world like you know the Cheney and save farts but
+physics is mostly a social theory. But yeah, but I would say definitely that the key thing here and it's the real human singularity I would say is that language allows us to construct to both enrich our intuitive physics to think about aspects of the
+physical world that are not initially intuitive to us and maybe still aren't, but also to construct things that just go totally beyond any any core domain that evolution gave us.
+Okay, so one question that this brought up to me, because what you're talking about are all the ways that humans are so good at what they do.
+But then there are ways that they're not so good at what they do, and far transfer is one of those examples.
+And there, there are some things that are hard for people to learn, or some places where it's hard to get from a to Z.
+Even though you think you've learned a. So there's a famous little story about someone going to their logic teacher and asking about understanding if a then be and the logic teacher spends a lot of time on that.
+And the student says, Okay, I think I get it. But we try it with our and s now.
+So, that's something that just shouldn't occur, but it does occur, even with smart people.
+So, like when you try to teach people about experimental design. It's hard for them to see confounds often.
+It's hard for them to get at what's wrong with some experimental design.
+It's not that they don't have a general intelligence it's not that they don't have some principles, but it's as if what they've learned is just too far away, as far as the string of examples goes for them to get to the next one.
+So, I'm wondering how on your system, those kinds of limitations would be modeled.
+Yeah, no, that's, that's a great point, a great question and a great pointer I think to work that we could and should do more of.
+The stuff I talked about at the very end, which is again this the work with Tyler and Katie Collins and Lansing and and and very much with Leo Wong also is what we're getting at there like is is again how we can describe a situation in language maybe
+even very implicitly just start talking and then see if see if this architecture can be used to construct a mental model needed to reason about that situation and you could also make it better, more robust if I explicitly give you instructions as in the educational context
+or talking about if I try to explain to someone logic or experimental design actually another collaborator on that project said John is actually very interested for his thesis in how we learn like logic and learn to reason through language.
+So, we have, you know, our framework is providing possibly a way to do that.
+But in order for it to work at least in the current system, we do the kind of thing that LM folks are generally doing these days which is some kind of few shot prompting.
+We prompt the system with examples of other mental models and language for describing them in related domains, they could be similar or they could be further.
+The interesting thing is can you generalize to new domains, so our system is somewhat able to do that.
+But, you know, this is a place where near or far transfer would be relevant, at least so far, you know, as you might expect, you have to have some domain that's at least reasonably close.
+And, for example, we're trying we could transfer from like a tug of war to a relay race or to some other sports setting, or from a couple of sports settings to get some new sport.
+Or you might transfer from a sport setting to like a math competition or to some other kind of thing.
+So really interesting ideas about abstraction and metaphor analogy, some of the kinds of things that the transfer literature has studied are going to be relevant here.
+We're just beginning, but what you're pointing to is actually some set of phenomena and things we should really engage with and I expect, you know, at least based on our current system, it will definitely struggle sometimes with far transfer, which be which might be
+at that level, you know, I drew this contrast at the very beginning between the pattern recognition approach, data driven learning and the mental models approach.
+But at that level, we are doing a kind of pattern recognition, it's just not patterns in the world, it's patterns and thoughts and thought structures and ways of expressing them.
+And, you know, at that point, if that kind of really interesting, but much more abstract kind of pattern recognition is what's driving your ability to construct new models of new situations.
+At least initially, before you've had formal instruction or when you're just at the beginning of formal instruction, then we should expect that it to have the same kinds of fragility with far transfer that any machine learning.
+Okay, sorry to be a killjoy here, we have about 10 minutes left, but we have at least four people that want to ask questions. So what I want to suggest to Alina and Julia, and also,
+to Rageon and Stefan Carlson is to raise your hand again and I'll recognize you in the order that you raise your hand.
+Okay Julia go ahead.
+Hello. So I was wondering, I was thinking like maybe you can use the the LLM translator plus the probabilistic models that system to model how the beliefs of a reader would change over the course of being told a story or like
+reading a book.
+And then you could look across genres or books or whatever to kind of get a sense of what the kind of model of those stories being told since the stories are themselves a world model what that would be, and that you could incorporate,
+because if you have a guess because something that you didn't like touch on in, you know, in your packed talk which I'm sure you didn't have time but was that like, if you have a guess about where you are in the trajectory of the story you
+expect, then you have a guess about, about what you think is going to happen next.
+Wrap it up.
+So I was just wondering, like, do you, do you think that's a great question.
+Let me just try to answer it really quickly yet Leo Wong would love that question because in addition to being a great cognitive scientist they are also a writer they write stories and even novels.
+And one of the things that we've been working on is little mini like three act structures and things like that that follow either classic narrative structures or other things and you know maybe not surprisingly those are places where we see a big gap between human
+story understanding and LLMs even the state of the art ones, but exactly we're trying to use these models to capture how that kind of, you know, journey of understanding might unfold and also even how a creator might create it so another student that
+we've worked with Karthik Chandra has had some work at last year's COGSI conference on storytelling as inverse, inverse planning and the idea that like, if somebody's understanding and other characters journey by doing some inverse planning as in those
+theory of mind models, then a storyteller can try to invert that inverse planner to convey the emotional or mental journey that the character has, and that's a way to use this toolkit for both story creation as well as story understanding so again it's those are mostly
+promissory notes but great question and future research I think from Karthik and Leo and others will address it.
+Thank you.
+Thanks.
+Hi, I'm going to ask a question in person Josh this is ever.
+Hi.
+Hi. Yeah, go for it. I really liked your talk.
+By the way, I watched the video. Yeah.
+Well, great. Okay, so yeah, I was gonna. So, following the work that you were showing where you were basically based also on what you were saying in the, in the question period where you were, you know, few shot prompting these language models to produce probabilistic language.
+I guess I have my, I have sort of a more meta question which is, do you see that as just a way to sort of help step by step reasoning in these models or do you think this is sort of evidence for early sort of possible world modeling being learned in these models.
+Um,
+I'm not sure if I see it as either of those. I mean,
+so
+I don't think of it as either doing step step by step reasoning in language models or evidence that they do possible world modeling. It might be relate. I mean, there is, you know, obviously, as you know, you talked about some and others have, you know, there's certainly
+evidence that LLMs, if you try to just use them as end to end reasoning systems, they can benefit from step by step by reasoning and there might be some emergent world modeling capacities. But, you know, again, I look at that and I see a really interesting and mixed pattern of successes and failures.
+And depending on who's writing the paper and what their agendas are, you can highlight the successes or you can highlight the failures and the gaps.
+Um, the to me that an objective perspective is that it's patchy and fragile, although extremely impressive and really interesting. So the way I think of what we're trying to do is to say, yeah, there's, there's, you know, various kinds of interesting approximate implicit knowledge that those models
+that can be used sometimes to succeed in reasoning complex sequences of reasoning or world modeling. But I think a more robust way to use it is the way we're using it a more both a more human like animal robust for AI way to use it, which is to which is to condition and construct these bespoke
+models that, you know, where the long chains of sequential reasoning or actual, you know, coherent world modeling are there by construction.
+But, you know, there are other limits. Like, again, as I was saying, you know, Bayesian inference in really complex models is very difficult. And I don't think people do it. There's a lot of evidence they don't do it.
+But they seem to do it very generally in, in just the right small model, at least in cases where they have the relevant world knowledge to construct those models and when they don't, they don't.
+Right. So that's all, you know, our minds have mixed patterns of successes and failures there too. But I think this toolkit is better matched to the mixed patterns of successes and failures, which is what I'm trying to get at if that makes sense.
+The one that we see in humans as opposed to the weird head scratching like super intelligent cases in some places and then super dumb cheeses and others that you just see in a pure sequence model.
+I'm told Alina can go next. Thanks for your answer.
+Yeah, thanks for the question.
+Alina pick it up or you lose your turn.
+Hello. Thank you for insightful talk.
+Josh, so you said that and correct me if I'm misheard that language allows us to construct meaning that it's totally out of bounds of evolutionary gain.
+Is if this is what you said, I think this is the profound so
+I'm sure I'm not the only person who said that many people.
+Sure. Okay.
+I found truth. Yes.
+Okay, so the actual question. So you mentioned that the meaning of the world is constructed contextually and incrementally.
+So could you please elaborate on how this process occurs and how it impacts our understanding of complex concept so so we transition between the from incremental construction of the meaning to generalizations.
+Right, so the way it works in our.
+I can just I can tell you how it works in the models that we've built so far and again this is not to say that it's exactly like this in the mind but I think it might be something like this.
+And a lot more work needs to be done. But the way it works in our models is something kind of like what you're familiar in a chat like if you've used chat GPT or other conversational AI systems.
+The way it's working is that basically there if you're used to using chat GPT you type something it type something back and in the middle, some wheels turn and then you type something more in it will turn in the black box and it types more stuff.
+Okay, so it's basically like that in that you at each each sentence is translated into some expression in the language of thought roughly at the sentence level.
+I think sentences are real units of meaning like I am very respectful and admiring of many insights from language, including that words are real and sentences are real.
+Real syntactic structure to be understood there that is only being approximated in some ways by these models but the key is that yes, there's a process that can the contextual process is like at the discourse level.
+You go sentence code sentence code sentence code and each sentence to code translation is conditioned on the previous conversational history or the discourse that that you have been interpreting.
+Okay, that's just a first approximation just another thing you might want to do and surely you'll have to do is go back and edit previous code because if you realize oh I misunderstood something, I can't just add new code I have to go back and edit the code that I wrote before which is also
+something that code elements can do. I'm not saying they'll do it right, but there's other processes that involve like checking and refining and fixing models that are written in this way but maybe that gives you some sense of the contextual dynamics of how language is understood in this model.
+Last question.
+Hi.
+Joshua, thank you for the presentation so very interesting.
+I have a engineering background but I'm not expert in artificial intelligence.
+I have a few questions from your presentation, I understand that actually LLMs, the, the, the, it's, it's kind of a gold mine of human knowledge, and you seem to say that they have a modelized the real world facts and the logic so quite correctly.
+If you ask the question directly in human language, currently they don't seem to, to give the good answer because some with some of the lack of algorithm, but if you first translate the human questions into functional code like the work you're doing, and then they are capable of
+executing the code, then we are capable of having results that are quite close to human behavior. So, is that correct?
+Yeah, that's, I mean, that's more or less correct, but I don't want to, I mean, and that's that's what we've been doing in these examples and what I've been showing, but I don't want to claim I don't and I don't think it's true but certainly I don't have the evidence for it being true or how true it is that, you know,
+LLMs like always do this, right, there's a lot of ways in which language is only an imperfect reflection of the ways that we think there's certain things that are again are partly based on evolutionarily ancient core systems.
+The language is not very good at expressing, and that includes also spatial reasoning, and you can see ways in which even the best language models breakdown here and language multimodal language vision models have have had persistent problems always from the beginning
+So I think, you know, I don't want to suggest like I think, yes, language is a treasure trove of knowledge explicit and implicit about the world, but it's, and for us it's such a valuable resource as human beings.
+Okay, that's why it's no accident that language models, when they're trained to capture patterns on all the language that humanity is basically ever produced and put out there on the web, you know, start to have remarkable properties.
+At the same time, it's only some parts of our knowledge about the world is key parts to actually understanding and being in the world that basically nobody ever talks about.
+And even if they do talk about it they talk about it very incompletely and imperfectly, and yet our brains are designed to understand those terms.
+So I don't want to convey the idea that somehow it's all there in language and it's, and that's all you need by not by any means.
+Wonderful. Before we let people applaud.
+You know there's some several panels coming. Are there any of them that you can join not today, unfortunately. Yeah, I need to check my calendar and coordinate on some family things and I will I'll try very hard to join one of them.
+Okay.
+Now we'll applaud you for it.
+Thank you.
+And thanks so much for the discussion Virginia and all the all the questions are great questions so I hope to engage more in one of the panels and in person if anyone hears.

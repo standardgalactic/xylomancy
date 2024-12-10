@@ -1,0 +1,89 @@
+Processing Overview for 3Blue1Brown
+============================
+Checking 3Blue1Brown/But what are Hamming codes？ The origin of error correction.txt
+1. In a Hamming(16,11) code, a 16-bit block is constructed from an 11-bit message by adding five check bits (positions 0, 2^2, 2^3, 2^7, and 2^8) to ensure error detection and correction.
+
+2. Each group of four adjacent bits has a parity that must be maintained throughout the block: either all zeros or all ones (even parity for positions with even addresses and odd parity for positions with odd addresses).
+
+3. The overarching parity for all 16 bits combined must also be even (i.e., an even number of 1s in the block).
+
+4. To detect errors, the receiver checks the parity of each group of four bits and the overall parity of the block. If there's an error, it will manifest as at least one group having the wrong parity or the overall parity being odd.
+
+5. To correct errors, the receiver knows that there can be at most one error in the block due to the redundancy provided by the Hamming code. The receiver uses the check bits to identify the position of the error (which column it's in) and its value (whether it's a 0 or a 1).
+
+6. After identifying the location and value of the erroneous bit, the receiver flips that bit back to its correct state, effectively correcting the error.
+
+7. The remaining 11 bits, which were not used for error detection or correction, represent the original message data.
+
+8. The entire process can be efficiently implemented using Python code, which simplifies and automates the error correction and detection logic. This makes it suitable for practical applications where data integrity is crucial.
+
+Checking 3Blue1Brown/But what is a neural network？ ｜ Deep learning chapter 1.txt
+1. **Matrix Vector Product**: The process where the weight matrix is multiplied by the vector of neuron outputs from the previous layer. This includes adding the bias vectors and applying the activation function (sigmoid in this case) to each component of the resulting vector.
+
+2. **Activation Function**: Functions like sigmoid, ReLU, etc., that transform the weighted sums into a usable output range for the neurons. The sigmoid function squishes the output between 0 and 1, representing the probability of an event or the activation state of a neuron.
+
+3. **Neural Network as a Function**: A neural network can be seen as a function that maps an input (in this case, an image with 784 pixels for the MNIST dataset) to an output (10 classes representing the digits 0 through 9). This function is complex due to the many layers and parameters involved.
+
+4. **Learning Process**: Neural networks learn by adjusting their weights and biases based on data, which is typically done using backpropagation and optimization algorithms like gradient descent.
+
+5. **Transition of Activations**: The entire process of passing activations from one layer to the next can be represented by a concise mathematical expression involving matrix multiplication and activation functions.
+
+6. **Modern Practices**: While sigmoid was once commonly used as an activation function, it has largely been replaced by ReLU in modern neural networks due to its simplicity and efficiency during training.
+
+7. **Biological Analogy**: The choice of activation function can sometimes be motivated by biological analogies, where neurons are either active or not (sigmoid) or by a more simplified version that only passes signals when they are above a certain threshold (ReLU).
+
+8. **Collaboration Acknowledgment**: The creation of this video was supported by Lisha Lee, whose PhD work and current role at Amplify Partners have contributed to the understanding and application of deep learning in practice. She highlights that ReLU has become a popular activation function due to its effectiveness in training very deep neural networks.
+
+In summary, the video explains how a neural network operates by passing neuron outputs through a series of weight matrices and activation functions, ultimately transforming raw input data into structured output. It also touches on the evolution of activation functions in neural network design, from sigmoid to ReLU, and acknowledges the contributions of individuals like Lisha Lee in advancing the field of deep learning.
+
+Checking 3Blue1Brown/How (and why) to raise e to the power of a matrix ｜ DE6.txt
+1. **Matrix Exponentiation and Vector Fields**: We discussed how matrix exponentiation can be visualized using vector fields. In a vector field, at every point in the space, we draw a vector indicating the velocity of a state at that point. For linear systems described by first-order differential equations of the form `dx/dt = Ax`, the velocity at each point `v` is `m*v`, where `m` is the coefficient matrix and `A` is the derivative operator (or the fundamental matrix for the system).
+
+2. **Solutions to Differential Equations**: The solutions to these differential equations are given by `x(t) = e^(At)*x(0)`, where `x(0)` is the initial condition and `e^(At)` is the matrix exponential at time `t`. This exponential describes how any given initial condition evolves over time.
+
+3. **Visualizing Matrix Exponentiation**: By letting an initial condition flow along this vector field for `t` units of time, we can visualize what the matrix `e^(At)` does. The transition from an initial state to a state at time `t` is described by whatever matrix results from computing `e^(At)`.
+
+4. **Illustrative Examples**: We considered two examples:
+   - A 90-degree rotation, where the vector field consists of vectors perpendicular to the direction of rotation, and the resulting matrix after exponentiation describes a pure rotation in the plane.
+   - A dynamic system representing the interactions between Romeo and Juliet, where their mutual reinforcement is modeled by a matrix `m` that includes both their individual sensitivities to each other's feelings. The vector field in this case would show how their emotions grow or diminish over time, depending on their starting positions.
+
+5. **Computational Verification**: We briefly discussed the computational steps involved in verifying that `e^(At)` indeed solves the differential equation by taking the derivative of the polynomial expression for the exponential with respect to `t` and showing that it is equal to `m * (...) )`, where `(...)` represents the original expression.
+
+6. **Future Topics**: In the following chapter, we plan to explore the properties of matrix exponentiation, particularly focusing on eigenvectors and eigenvalues, which provide a more concrete way to compute these exponentials. Additionally, we might consider what it means to raise `e` to the power of the derivative operator, which leads to deeper connections between algebra and calculus.
+
+In summary, matrix exponentiation is a powerful tool in understanding how systems evolve over time, and its implications can be visualized through vector fields. The exponential of a matrix at time `t`, `e^(At)`, captures the transformation of any initial state after `t` units of time under the influence of the differential equation described by `A`. This concept is fundamental in various fields, including physics, engineering, and control theory.
+
+Checking 3Blue1Brown/Visualizing quaternions (4d numbers) with stereographic projection.txt
+1. Quaternions are a number system that can represent rotations in three dimensions. They consist of a real part and three imaginary parts (i, j, k), which satisfy non-commutative multiplication rules similar to complex numbers but with additional relationships: `i^2 = j^2 = k^2 = ijk = -1`.
+
+2. A unit quaternion is one with a magnitude of 1, which is essential for representing rotations without translating the point of rotation.
+
+3. Quaternions can act on other quaternions by multiplication from the left or the right. The result of this multiplication depends on whether you're thinking of the first quaternion as a function mapping points in space (acting from the left) or the second quaternion as the point being mapped (acted upon from the right).
+
+4. For any unit quaternion q, you can visualize its action on the unit sphere by rotating the unit circle that passes through one, q, and negative one, and also rotating the perpendicular circle that passes through i and k. This is done according to the right hand rule when multiplying from the left, or the left hand rule when multiplying from the right.
+
+5. The order of multiplication for quaternions is not commutative, which means `a * b` is not necessarily equal to `b * a`. This is similar to how rotations in three dimensions do not commute under composition.
+
+6. Quaternions describe 3D rotation through a process called conjugation, which will be explained in more detail in a follow-on video.
+
+7. For a deeper understanding of quaternions and their application to orientation in 3D space, additional resources are available, including the journal Quantum, which has published content related to this topic.
+
+8. The creation of this video required significant effort, and the support from patrons is acknowledged and appreciated for their patience and contribution.
+
+In summary, quaternions are a powerful tool for representing rotations in three dimensions due to their non-commutative multiplication properties, which mirror the behavior of physical rotations. They offer a compact and efficient way to represent complex transformations that are otherwise difficult to handle using alternative methods such as Euler angles or rotation matrices.
+
+Checking 3Blue1Brown/Why “probability of 0” does not mean “impossible” ｜ Probabilities of probabilities, part 2.txt
+1. In a discrete setting (like rolling a die), the probability of landing on any specific number is nonzero and can be calculated directly. The sum of these probabilities for all possible outcomes equals one.
+
+2. In a continuous setting (like throwing a dart at a board), the probability of hitting a specific point is zero because there are infinitely many points, each with an infinitesimally small probability. Instead, we consider the "area" under the curve of the probability density function (PDF) for probabilities. The total area under the PDF for all possible outcomes is one.
+
+3. Measure theory is a mathematical field that formalizes the concept of assigning probabilities to subsets of all possibilities in a way that is consistent and rigorous, whether in a discrete or continuous context.
+
+4. In cases that are neither purely discrete nor purely continuous, such as a coin with an unknown weight affecting the outcome of coin flips, we use a probability density function (PDF) to describe the likelihood of various outcomes. The integral of this PDF over a range gives us the probability of the true outcome lying within that range.
+
+5. The transition from discrete to continuous probability involves a shift in how we think about these concepts. In continuous probability, we focus on "areas" (integrals) rather than sums, and individual outcomes are considered as ranges with zero width.
+
+6. The rule of thumb that one uses sums in discrete contexts and integrals in continuous contexts is a useful heuristic but should be understood within the broader context of how these concepts are defined and related mathematically.
+
+7. In the specific case of the coin with an unknown weight, to determine the probability density function for the true probability of flipping heads after observing some outcomes, one would need to collect data from those tosses and then analyze it statistically to estimate the PDF. This will allow us to answer questions about the range of possible values for that true probability.
+

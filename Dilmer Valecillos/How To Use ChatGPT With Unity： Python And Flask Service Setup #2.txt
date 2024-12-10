@@ -1,0 +1,355 @@
+So today, I'm going to begin detailing now how integrated
+chatGPT with Unity.
+And first, we're going to start working on setting up
+our Python environment.
+Then we will begin creating the chatGPT web service.
+And lastly, we're going to be testing the API
+by using a VSCO REST client, which
+is going to be very helpful for this video series.
+So let's jump into my computer and start working on it,
+Python-m.
+And then VEMV, which is very similar in macOS as well.
+So just make sure that you find the right commands.
+So what I'm going to do, this is going
+to be the name of the Python environment.
+I'm going to hit Enter.
+And it's going to install the environment
+using the Python version that I currently have installed,
+which I believe is 3.8 or 3.9.
+And you can check that by just basically typing in Python.
+And you're going to see that I do have 3.8.10.
+So you can do anything greater or equal to 3.7.
+It's going to work with these videos.
+So let me just go ahead and get out of that.
+Now what I need to do is, because I'm using Windows,
+I'm going to activate my Python environment.
+And what I'm going to do is I'm going to go into my directory
+here, and then I'll access scripts and then activate.
+And if you want to use CMD, you can do CMD.
+If you're using PowerShell, which in my case is what I'm using,
+I'm going to do PS1.
+And then there's also going to be the actual command for Linux,
+which I'll put all those commands in the description
+so you guys see how to do it.
+And as soon as you do that, you're going to see that now we
+have this green, basically an MOD environment on the left.
+And that designates that we have a virtual environment activated.
+So I'm going to go ahead and copy here a command
+that we're going to need to run.
+So I'm just going to copy and paste that.
+And we're going to be using the ChatGPT wrapper.
+And what that is is basically just a Python wrapper
+that somebody else wrote that basically runs a headless browser,
+which means that it doesn't need to run the browser as we're running.
+This is basically runs behind the scenes
+by communicating with a browser.
+So once you install it, you're going to see that we have an install already.
+You're going to see some of the things that get installed.
+It's PlayWrite, which allows you to use a headless browser,
+which is what we're going to be using, green LED,
+and then different dependencies that we're going to need,
+including the ChatGPT component that we are installing.
+So the next thing that I want you to do, though,
+is if you go also to the description,
+you're going to find these requirements at TXT.
+And I'm going to link it so you guys have it.
+And all we need to do is basically going to install all these dependencies.
+So what I'll do to do that is we're going to do P install and then dash R.
+And right now we are in this level.
+So we need to go back one level.
+Well, actually, I have it on the same directory.
+So if you have it in a different directory, you can just go into that.
+But basically, it's going to be the path of that file
+that is going to contain all the dependencies that we're going to be using today.
+There we go. So we should have everything that we need
+as far as like to run ChatGPT.
+So now if you do ChatGPT and you hit install,
+what this is going to do, it's going to configure ChatGPT,
+the actual wrapper, the Python component to be able to talk to a browser.
+So in my case, I am using Firefox,
+which this is going to, you know, allow you to...
+It'll install it by default when you do ChatGPT install.
+You can see that, as soon as I did that, it already opened a session.
+When, if you don't see these at the beginning,
+you might see basically a username and password that you need to enter.
+Just make sure you do that because it's going to authenticate
+and save the credentials so that you can communicate with ChatGPT
+from within this plugin, this component.
+So we can test the release in here and say,
+create a mono behavior.
+And then that displays hello world.
+And you can see, let's see if it knows that we're talking about Unity.
+Normally, tell it, there we go.
+It does know that it is Unity, which is pretty cool.
+So we know that this is working by just, you know,
+actually adding a prompt and asking it to do something.
+In this case, it just has text.
+We didn't tell it to log it to the debug, but I think this, you know, this works.
+So once it's done, once you can communicate with it,
+you can just go ahead and close out of that.
+And you're going to see here that it says, provide a prompt for ChatGPT.
+So we can say, can you, can you calculate to, I mean, this is very simple.
+And you might get an error the first time.
+And that's because the first time that you run it,
+you need to just close it and run it again.
+And we can tell it to do something more complicated.
+We can say, create a behavior in Unity,
+that displays hello world to the debug log and then hit enter.
+And if everything is working, if you install it successfully,
+this is going to, it's not going to launch anything because PlayWrite,
+it basically runs in the background.
+And it's going to authenticate.
+It's going to, you know, send the prompt and the prompt response should be coming back.
+And you guys can see that ChatGPT says,
+here's the example of a mode of behavior in Unity and basically has our code,
+which we can copy and paste into Unity, which is really cool.
+It tells you here what you need to do.
+We know what we need to do if you're using Unity for a while.
+So now we can just go ahead and close out of this.
+We can just do control Z in Windows to close out.
+And we know that that part of the code is currently working.
+So now what we need to do is I want to create a service, right?
+A service that basically is an API that we can call from within Unity.
+And to do that, I'm going to be using Flask.
+And that's the reason why I had you install that.
+So I already have a file in here and you can call this anything you like,
+but I call it ChatGPT underscore service py.
+Just make sure that you put it on there, you know, a folder, in my case, I did service.
+And once you do that, we're going to be creating the actual service.
+So if you don't know Python, you can just copy and paste or follow along what I'm doing.
+I'll be making this available in the near future.
+In the near future, I might not make it available right now to GitHub until I get it all done.
+But you can just basically follow along and then get it all set up.
+So what I'm going to do is I'm going to access a wrapper and then I'm going to go ahead and import and then ChatGPT.
+This is going to be the ChatRapper, the wrapper that we install as one of the dependencies.
+So we're just basically bringing that package into Python here.
+And then I'm also going to be using Flask and then I'll just import Flask here.
+And then I'm also going to be importing requests.
+And then I also need to import the JSONify.
+And this is going to allow us to basically be able to handle JSON code into the Flask service that we're building.
+So in the reason for that, let me just explain that a little bit.
+It's because we're going to be sending JSON data from Unity to this service.
+And then this service is going to basically decode and deserialize the JSON and convert it into an object.
+Okay, so now what we need to do here is I'm going to say Flask and we can just say name.
+So this is just basically how you initialize Flask.
+And then I'm also going to be creating an instance of ChatGPT.
+So you say ChatGPT equal ChatGPT.
+And then we'll just do our parentheses here.
+Just make sure you do that capital letter there.
+So now what we need to do is we need to do a couple of routes.
+So I'm going to do just a simple route to start.
+This route is just going to be just make sure that we can communicate to the service.
+And the endpoint, I'm going to put it under forward slash ChatGPT and then status.
+I normally do this when I'm dealing with services.
+I always add a status endpoint just to make sure that it is running.
+And then you're going to specify what kind of method we're going to be allowing.
+So in this case, this is just going to be a get.
+And then I'll just define the actual method here.
+Just make sure that I do a status and then colon.
+And then we're going to be returning JSON.
+So I'm just going to say just sonify.
+I think that's how you say it.
+And if not, just make sure that you correct me in the comments.
+But anyway, so you can just do OK.
+And what this is going to do is just going to return this JSON to the browser.
+So now what I need to do here is I need to also execute this.
+So what I need to do is I'm going to say if name and then equal, equal.
+And I'm going to say make sure that we this equal, equal main.
+So I'm just going to say main, equal, equal and then column.
+And we're going to say that at that run and we're going to be running basically this flash application.
+And I'm going to say thread it equal false because right now, even though we're building an API,
+the ChatGPT team does not provide an API for us.
+We want to make sure that our call is executed and then return.
+If you do a thread it, we're going to be doing multiple calls.
+And right now, the API for ChatGPT is not available.
+Once they make it available, we can just basically just remove that parameter
+and then have the service be some sort of a gateway that we can access.
+So once you do that, we need to create another endpoint.
+But I want to run it just to make sure that this is working.
+And if you want to run it, all you need to do is just buy it down
+and then we can just give it the name of the file.
+In our case, it's going to be ChatGPT service.
+And if everything worked, we should see these.
+And technically, you could open up a browser window and go to that
+and then make sure that you go to that endpoint.
+So we're going to do that.
+Let's go ahead and right-click in here, open up a browser window
+and then I'll just go ahead and execute that and we can just do that.
+And then remember, it's ChatGPT status and we did get the message.
+Okay, so that means our service is currently working.
+Okay, so now let's do the real thing.
+Now we know that the Python service is working and I'm going to be lazy here
+and I'm going to copy and paste this.
+This one is going to be a little bit different
+because we're going to be asking a question.
+So the question here is going to be a post.
+And normally when you're taking in data, you want to do a post.
+In this case, we're getting data, we're getting the JSON.
+This one, we're posting to ChatGPT.
+So we're going to be creating a post.
+And we're also going to be passing information in the body of this post.
+So just make sure that you do that.
+Then this one is going to be a different method.
+So it's going to call a question.
+I'm also going to be getting the arcs.
+So to get the arcs from the request, we can just say request.
+And then you can say arcs.
+Then I'm also going to be getting some data from this.
+I'll just say request that JSON.
+So we're basically just getting an object from the request JSON file
+that we received from Unity or from anybody that is calling into the service.
+And then I'm just going to say, you know what?
+I have a prompt object now.
+Can you give me the property that is named question?
+Basically, give me the value of that property.
+So that's what we're doing here.
+And then what I need to do is just for sanity checks,
+just go ahead and make sure that we're getting some information
+that we're going to need basically for debugging purposes.
+So I'm just going to say make sure that if we are in debug
+and we can just say comma default, it's going to be equal to false.
+And then I'll just show you, I'll just explain this in just a minute
+so you guys see now what this is doing.
+So what I'm doing in here is from Unity, I want to be able to pass in a debug flag.
+And if I have the debug flag, I want to display in here the code
+that I'm getting from chat GPT.
+This is really cool because we want to see what we're getting from chat GPT, right?
+So just make sure that you do that.
+And then what we can do here is we can say, you know what?
+Chat GPT, can you give us question receive?
+Basically, this is saying, you know, I did receive your questions.
+So we're going to be, we're going to be processing that.
+And then in here, I also want to, I also want to display the question
+that I am getting from Unity or from the color.
+So we can just say, you know what?
+Show me the question that you are sending me.
+And then I'm just going to say format.
+And in this case, I'm just going to be displaying the question.
+So so far, we're not really, you know, displaying the information
+that we're getting from chat GPT.
+We're just displaying the information that we're getting into the service.
+So we can just copy and paste this.
+And then what I'll do here is I'm just going to say response chat GPT.
+In this case, we're going to be asking the component here, the chat GPT wrapper.
+Can you ask the question that, you know, the color is asking so we can just pass it in.
+So this is actually what's going to do a muscle work.
+And then we can just copy and paste this one more time.
+And in this case, I want to say, you know, response was received.
+And then technically we could just copy and paste that.
+And then we can just display the response here.
+We don't need to do all that.
+And I'm just going to do display response.
+And then lastly, we're just going to be returning the response back into the color.
+So the next thing that I want to do though is in this file, I have this HTTP call example.
+So what I'm going to do is I'm going to put this in a new tab.
+In fact, we can just put it right here.
+So we have our service in here.
+And in fact, we can just probably just make this a little smaller so we can see the whole thing.
+We don't need a break point in there.
+So I'll just make this smaller.
+So service here, couple of calls in here.
+And the thing that I'm going to have you do though, it's go ahead and download this extension.
+And you're going to start it for REST client and make sure that you download this REST client.
+We can use postman or we can use curl.
+I like to do use this.
+It was actually pretty cool because you can set up a post like this.
+This is the IP address, the endpoint, the HTTP version, also the content that we're going to be sending,
+and then the object that we're going to be sending.
+So I have an example here for a post.
+I also have another example for a post with a different question.
+And then lastly, I'm just calling into the status endpoint.
+So we make some changes in our code here.
+So we need to go ahead and kill these from running and then just basically do Python chat GPT underscore service.
+And I want to make sure that there's no errors.
+So there's no errors that it's showing.
+I can select this and then do control shift P.
+And then we can just send, I think we can just send REST client, send request,
+or you can just do control all R and basically to send it.
+We did get the status okay.
+So that's good.
+Our API is getting called.
+You can also see we got a 200 right here.
+So let's ask a question here.
+This one says create a C sharp script which displays hello world.
+So I'm going to go ahead and select all these and I'm going to do control shift P.
+And I'm just going to click on this and HTTP request.
+And with this is running, you're going to see that it says waiting in here.
+And that means that it is actually doing the call.
+It hasn't gotten a response just yet.
+So right now it's in this line.
+And it's saying, okay, you know what?
+I want to ask the question.
+And we're just basically waiting for the wrapper to get a response back.
+All right, guys, it looks like it's completed.
+It took a little bit of time, but we got the answer.
+You can see that the response here includes the explanation.
+It says here's a basic C sharp script that displays the text hello world.
+And we also get our coding here in markdown, which includes the actual hello world.
+And this is funny because this looks like a command actual a console application
+instead of a unity application.
+But it gives you the information that you requested.
+Let's say that we wanted to make it look more like a unity script.
+So you can say create a unity C sharp script which displays hello world.
+And then just select send request.
+You can see now we're getting waiting so we can wait for that new answer.
+Okay, so it looks like that completed.
+And this looks a lot better, right?
+Now we can see unity engine.
+We can see this is inheriting from one of behavior.
+And we also see a star and debug that low hello world, which is great.
+And this also tells you here what you need to do to make it work.
+It says to attach these to a game object.
+So far so good.
+So let's try a different call.
+This one says create a C sharp script which creates a cube and do not include any explanation.
+So we can say create a unity C sharp script that creates a cube, something like that.
+And we can add more complicated stuff if we wanted to.
+So I'm going to do that and then just send that other request.
+And looks like this is completed as well.
+We can see, you know, this was successful call C sharp unity engine.
+And we don't have any explanations, which is really cool because sometimes while in the future we wouldn't want to see explanations
+because we're going to get the data in unity and execute it.
+So you can see unity engine, this create cube inherits from one of behavior.
+We have our star method, which is very common.
+And we're also creating a cube and creating a primitive, which also uses primitive that you which is, you know, which works great.
+Obviously, if you wanted to do something more complicated, you can.
+So we can try something more complicated in here.
+We can say create a unity snake game and provide all the scripts required to do so.
+Something like that.
+It doesn't need to be exact.
+We can see what we get back.
+We're just going to do and send the request.
+All right.
+So we got our answer here.
+So creating a snake game in unity will require several scripts to handle different aspects of the game, such as snake movement,
+spanning food, detection of collision.
+So it has everything in here that you would need to do that.
+Looks like it doesn't have the scripts necessary to do that, but it tells you what you would need to do to basically implement something like that.
+But we know that this is working.
+So let's say that you wanted to display the actual questions that are getting, that is getting asked.
+So just make sure you include debug equal true.
+And this is going to be really powerful when we're starting to use this for something like in unity.
+That way we can see the questions that are getting sent to the service.
+We can just call this one.
+And then we can actually click in here to send the request.
+And we got a 400.
+Let me try that again.
+And it's going to go ahead and send it.
+And now you can see the question receive is displayed, which is basically this land right here.
+We can see chat GBT question receive.
+I can also see the questions that are getting asked.
+But you can see now we're getting the answer as well because the bug is set to true.
+And you can see here the response was received.
+And we got the script that we requested.
+And we can also see the explanation of how to use that script in unity.
+So that's honestly everything that I wanted to show you guys today.
+I'm going to be doing the actual chat GBT service client for Unity on the next video.
+Where we're going to be able to basically display this information in Unity.
+And then we'll keep working on more cool videos.
+And hopefully get to the final version of this prototype, which is what you guys probably saw on Twitter.
+Or you saw on the initial video that I did on chat GBT.
+So really excited about this video series.
+If you want to learn anything more about what I'm doing with chat GBT, let me know in the comments.
+And also if you're enjoying these videos, also let me know.
+I really want to hear from you.
+Thank you very much, guys.

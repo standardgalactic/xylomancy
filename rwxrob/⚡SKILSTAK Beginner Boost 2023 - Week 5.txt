@@ -1,0 +1,1490 @@
+Welcome to week five of the beginner booths. This week we are going to be
+focused on making changes to files and we've already been kind of focused on
+moving files around and searching for them and stuff like that. We actually
+haven't there's a couple of commands that we have left over to do with regard
+to you know moving files around. We have not done the MV command which I want to
+add right here really quick. So how do I move or rename a file or directory and
+let's see how do I move multiple files and remove what's multiple files. So one
+of the reasons that I avoided these commands last time was that hey hello
+was that they just require a discussion of something called globbing which is a
+way to specify more than one file at a time. Okay and that's not something that
+we did in the other you know weeks because we were all about dealing with one
+file at a time and you know we want to keep it really succinct. So there's two
+main things that we're going to do today. We're going to wrap up the moving
+around of files and all of those commands and directories and then we're
+going to start we're going to touch on the absolute minimum. We did a prep
+session last week I don't know if you know this but every week we do a prep
+session to try to focus in on the absolute minimum necessary to get you
+boosted which I'll just as a reminder is to fulfill something like a machine
+learning engineering job where all you care about is using Linux you don't care
+about becoming a you know a great system administrator you can certainly a
+essential step to that but there's a lot of stuff in the internet and online
+that in certifications that that go too far they they require you to know things
+that only a system administrator for Linux or Unix would need to know and
+really you just want to be good on the command line that means you've already
+got Linux someone's already set it up for you right so the assumption
+generally speaking on the internet a general when they talk about Linux is
+that you want to become a system administrator really you just want to
+use it so I just want to restate that that's the reason that we kind of skipped
+week three we went with week four last week and it's the reason that as we go
+forward every single decision about what we cover and when is scrutinized with
+that one priority in mind what is the minimum I need to do to be able to be
+productive using Linux right not not you know and I'm talking about the Unix
+command line stuff like that all right so let's keep going so that's that's
+where this statement comes from I just once again the ones over to the left
+people always ask that's because it's in markdown that'll be rendered as one two
+three four we covered that on the first day so what is the minimum I need to
+understand about users groups permissions of reproductive how do I
+search within a file inside of a file like if I want to search from the
+command line I want to go inside a file and find stuff in there these all have
+commands to go with them if you know the command awesome I'm deliberately doing
+it though like this so that you can quiz yourself right so as you're going
+through you can ask also this will help it pop up more quickly in search results
+whether it be through the skill sack that I oh just a reminder for those of you
+don't remember you can go to skill sack dot I oh and you can see the all of the
+stuff for the beginner boost is here the overview the quick start and such are
+all here we're on week five which is not posted yet but here in week four you
+can see how we did that right so we have we have this right here and if you want
+to quiz yourself you can just kind of cover over these answers and then just
+look at this there is a way for us to cover that so you have to click on it
+to see it but we've decided to not do that so so that it prints well so if you
+want to quiz yourself the reason that we did it this way is so that if you want
+to test yourself and kind of a multiple choice way you can go in and do it you
+can answer those questions okay so so that's why we do it that way how do I
+search within a file from the command line it's also by the way the same recipe
+of as as the recipe books you're Riley very famous you know recipe style books
+which are like each section is like a specific task and how to do it and that
+submit a very popularized model starting I believe with for Riley back in the
+90s as a publisher how do I filter out and only certain lines of a file how do
+I edit a file with the official editor for Unix that's right the official
+editor for Unix and Linux we're going to talk about which editor that is it's not
+what you think probably and how do I change a file in place from the command
+line it's called in place editing and at the very end we're going to talk about
+regular expressions and that is plenty to fill two hours okay we are going to
+take our break but you won't notice it because we're going to take a pause in
+the middle but so in case you're wondering I'll just spoiler alert here we
+are not going to cover all of the editing stuff in today so some of that's
+going to spill over to next week and there's one specific very popular
+editor that's not going to be covered today it's not the editor you think but
+but we are going to cover the official Unix editor a few people in the chat
+actually know what I'm talking about and I'm going to get I always get laughed
+at when I cover this because nobody on the internet covers it in fact I would
+challenge you to find a single YouTube video besides mine that actually covers
+the official Unix editor and it's not what you think yeah so everybody's making
+fun guesses okay we'll get to it so let's let's let's kind of keep this up
+here and and so okay so just a reminder if you don't have your your boost
+container up you should have it up if you are just joining us for the first
+time go do the quick start right there's a quick start video it's 40 minutes it's
+the first video on my entire site and if you go there and watch the quick start
+that will get you going then then in order to get started you only have to do
+one thing okay so after you get the quick start video you pull up your terminal
+sure you know how to do that okay and then what also covered in the quick start
+we do this we do podman start dash a y dash a to attach and then boost we named
+it boost you can name it whatever and that's gonna boom that's where we're
+logged in we're logged in as a user on the skill stack container image image
+the container it's a container from the skill stack and all that's covered in
+the quick start so that's what that's the first thing you need right and we'll
+use the commands we did from last week list all the files let's dash a again
+this is all covered here how to change directories how to look at files we
+covered piping and redirection we covered all this is super important that
+you understand standard Aaron standard out make sure you don't skip that you
+need to understand the different streams of data and how that they are modeled by
+a device something okay so that I'm assuming you know all that here we go so
+now it's time to start doing stuff now as you can see I've already got a bunch
+of files here and we are gonna go through all these files just not today so
+we're gonna go into what they are but we need to learn how to look into files
+and move stuff around and then how to minimally edit files before we start
+doing all that customization alright so so let's and we're gonna keep this
+project-based today so we're gonna have some goals like for example the primary
+goal today is gonna be I want to start writing scripts I want to start doing
+things on my terminal right so there's a few things you need to be able to do to
+be able to do that right so and and one of the commands that we did not have and
+I actually just realized I need to add let's see okay so how do I create a new
+directory okay so we already did how do I remove a directory so let's let's make
+sure I didn't cover this I know I know it's rough and but so so we had created
+new file but we don't have had a created directory so let's do that one right
+away and if you don't like how rough and this is I'm sorry that's just how it is
+alright so let's make a directory so let's say I want to make a place to put
+my scripts okay so there's nothing here we don't necessarily want it hidden we
+haven't covered hidden files but let's actually talk about that so how do I hide
+a file or directory you know I don't like that it calls it hide but it is
+depending on operating system it does hide it so the answer to that is pretty
+simple you put a dot in front of it right do we want our scripts directory to be
+hidden no so let's go ahead and make a directory for our scripts now we're
+gonna move this thing later after we learn about getting GitHub but not right
+now so make directory mkdir that's the name okay and then we're going to do mkdir
+and then we're going to put the name we'll just call it scripts okay and now
+we have we do our LS we have that now if I did LS-AL or LL which is a oops sorry
+AL you'll see that we have all these other stuff but now we see the scripts
+right now we haven't gone through what all of this stuff means yet and that's
+we're gonna today we're gonna go through what why is it user and we're gonna go
+through that today but but don't worry so just I'll ask by itself it shows you
+only this stuff that you have that are visible and and then you you have the
+scripts directory in there okay we already know how to change into that
+directory right so CD scripts all right so now we are inside of this directory
+how do we know because when I cd to put it there right and when I want to see
+where I am my pwd and it shows me where I am plus my prompt is also telling me
+that I'm in the scripts directory here you can yeah you can use sheet sometimes
+it doesn't have everything but so so that's how we're gonna go in the
+directory so let's actually put this here so how do I create a new directory and
+we're gonna write it out I'm using you guys this is a good markdown review you
+should be taking notes do you guys have your notes open you should have your
+notes open and be keeping your own notes right we went through notes on the
+first day so open up your your github in another window and get ready to start
+taking notes you should be practicing your markdown so you're writing your own
+textbook your own black book as they used to call it you know we're gonna do
+your thing so I'm gonna put shell here and then let's put so what is the command
+I just did did I do four by the way I have to do four one two three four if you
+don't do four it won't it won't indent it so and you know won't do it properly so
+we're gonna put here we're gonna put how do I create a new directory we're gonna
+put make der right and we'll say name and when it's all caps so this is a
+convention I'm doing the same convention that you see in man pages so man if I do
+man and make docs right I know what am I saying there you go so see this this
+is a I'm using the same conventions for my documentation that you'll find a man
+pages so in man and this this varies across the board people will sometimes do
+you know I put angle brackets and all that kind of jazz no just use the same
+thing that that man pages use manual pages so this is this is anytime you
+have something that isn't isn't you know a variable it can be changed a director
+ease right see directory they use they use all caps to refer to it okay so that
+I'm gonna follow that convention in my documentation and I strongly recommend
+that you follow the same okay as you can see the make der has the command has
+lots of different arguments and you can try those I encourage you to do that
+where again the boost is designed to get you you know so you know what you need
+to know and then show you where to go find it so so and to some degree to do
+it with you so there you go that's the make doc make your command and you know
+we need to change into that directory as so you know and how do we do that you
+already know it how to edit markdown notes from your phone you don't that I
+know of you'd have to you could open it with the web browser but that would be a
+bad idea yeah the editing notes from your phone is hard yeah I'm sorry there's
+no right now we haven't covered anything with regard to that so but if you want to
+try it before it so yeah I mean if you're gonna use third party applications
+take note look taking notes is your deal but I'm just telling you if you don't
+take notes in GitHub you will lose them and you will be sad the whole point of
+you have a backup right and and you should definitely be using markdown to
+take your notes so but if you if you insist on taking notes from your phone
+which I think is I mean the whole point of this is using a terminal which means
+you essentially have you know a machine at your disposal while you're doing this
+then I suggest against taking notes with the phone but if that's what you want to
+do fine all right so we got a scripts directory how do we get into there we
+already did it we did we did the CD scripts here right how do I learn
+information about CD man CD oh there's no man in page information a little bit
+of a review why don't I get any information for CD how what's the other
+ways to get help this is in week one right so we can do help CD and then we
+can get the we can get the information oh no it went off the screen how do I see
+all of it we covered that already pipe to less or more right so there we go
+change the show is working directory okay good good good right the reason for
+what's the difference between help and man covered that already I'm just giving
+you re review questions all right so how do I how do I hide a file one two three
+four say and these guys I might can't I might make these into flashcards so let's
+see give it a period a dot as the first character in name yeah all right so how
+do I rename a file or directory let's do that okay we're gonna go faster because
+we're gonna spend the time on it so if we wanted to create let's let's see here
+let's let's say we we did this what I do with the two dots are by the way went
+up a level right what if I don't like that name what if I want to use a capital
+I don't and you probably shouldn't but what if I did okay it's the MV command so
+the MV command takes whatever its target is and then I don't know did you see that
+I push SC tab yeah get used to doing that it's called tab completion you should
+do that all right I'm gonna put thing here how do I avoid typing long name long
+or complicated names especially ones that have white space in them right tap tab for
+once or twice for tab completion all right this is built by defaults in most
+shells including the one we're using today if it does not work it means it
+hasn't been enabled or hasn't been installed that's not a topic for the
+boost but that is if you want to know how to activate it that would be home
+lab in it or one of our other boosts that we're gonna have okay so that's how
+you do it let's try it I'm just gonna add it keep adding them as we as we
+encounter them this one however needs to go away that one needs to go away there
+we go all right so let me put let me put this what is this week five I'm just
+renaming my notes so I know which one we're on all right so I go back here so
+we want to move it now I put a slash after that that's okay that's just to
+show it's a directory slashes will be ignored if you know if they're not
+relevant so it's okay that it put the slash we put a space and I want to make
+it capital scripts don't need a slash I could but I don't need it and now you
+see that it's been renamed to scripts so practice that practice making a
+directory and renaming it a couple times right now let's actually hide it
+all right how do I do that scripts to dot dot secret scripts all right how about
+that oh no where did it go all right there it is it's there dot secret
+scripts right so we want to be able to see it so dot secret scripts is going to
+be now it's going to be I turn it back to scripts and we've got it we can CD into
+scripts and push tab again so I push tap for everything because let me let me
+show you something where we're okay so let's talk about complicated names right
+especially on Windows and this is another reason that we use git bash in
+fact I am going to use git bash as an example of why you want to learn tap
+completion in bash so I'm about to open up a new window this is a git bash
+window on Windows you can do it with brew you can do a terminal on on Mac
+whatever the reason I'm going to use this is because this is a much more
+likely place for you to find a need for naming so as as you know this is my
+personal streaming PC and the stuff that you're looking at right now are the the
+files that are on my machine and if you can you immediately can see that they
+are Windows like files right they don't look like you know a happy pretty you
+know stuff from from from bash or from Linux and they have you can see the
+extensions at exe's because of Windows and then you see weird stuff like this
+like virtual box you know VMs let's do that again LS pipe to more oh wait
+there's no LS and there's no more because this is Windows let's try less
+alright so there we go this is okay so here are some folders that are in my
+desktop that I just made out of for no reason at all using the graphic you know
+the desktop user interfaces yeah they have spaces in them annoying right well
+check this out watch what happens when I try so I can do LS let's do LS new tab
+tab I did two tabs do you see that I'm gonna do that again again I'm on Windows
+here right occasionally you'll find files that have spaces or weird characters
+in them any character is a valid character except for null inside of a
+file name and you can actually use that to great effect and this is a little bit
+of a spoiler if you're gonna do over-the-wire bandit for hackers because
+they do have files that are named in there that you have a very hard time
+accessing and stuff because they've been named really weird you can actually name
+files control that have control characters in them and sometimes you'll do
+it on accident so so knowing this is super important so if you if you do LS
+you'll see all the files there now if I if I just wanted to list okay I'm gonna
+show you your first glob thing right I want to list all the files that begin
+with new so I list new star okay now we're we're gonna come back to globbing
+in general just this bit but this is gonna list all the files with the with
+new star and as you can see we have the the LS output is a little bit weird
+because it's Windows but we can see we have new dist.vmk we have new space
+folder and the new line in them is fine yes and writing shell scripts that deal
+with this is super interesting because this extra space that's here if you
+don't properly put quotes around it it can really ruin your day it can actually
+make you write really insecure code code that would really break something and I
+have a couple stories about that that I won't share right now about very big
+projects that release production code that did not account for spaces that in
+one case everybody that ran the program it had to run as root and it destroyed
+and a slash of R or some like really important directory file system so you
+understanding this naming convention is these naming stuff is super important
+please don't you know deal please don't ignore this I mean I know it's not
+really official I don't know if we should put a thing how do I avoid typing
+long complicated names as the how do I about safely okay and what I'm gonna put
+safely in there because because seriously when we start scripting you
+will see all the possibilities of really killing things there's a system D yeah
+you know what one I was talking about great hat great had a good guess so so
+anyway so new folder you see but once I want you to see right away is that you
+see that this on Windows instead of it putting a slash after there for some
+reason it decided to put this this colon which means it's a folder and if you
+look on my my system you'll see that is named new folder and you'll see the
+that this is wrapped in single quotes which are safer than double quotes for
+reasons we'll get into later they they don't they don't allow variable
+expansion is the short answer so so but how do I how do I delete that guy right
+what if I what if I just want to delete the second one right so the way to the
+safest way is where batch completion comes in as you can say so well first of
+all let's just list them all so let's say I want to list new tab tab two tabs and
+then it actually lists three different directories we see in bash style it shows
+this one directory it's really hard to tell where the directory ends and begins
+though isn't it because they're all got spaces in them more of a story don't put
+spaces in your names I mean if you can help it it's a really bad idea and god
+can you imagine if I had deleted everything that began with new I would be
+deleting I'd be blowing away a virtual machine image that I have here which
+would kill that virtual machine completely so knowing how to isolate this is
+very important now so the first way to do this is to type a backslash if you type
+a backslash and then a space and then a tab it'll it'll get to the next thing
+okay so spaces and pretty much anything can be backslash escaped from the
+command line and you can just keep going about your way you notice that that
+parentheses is also a special character so it is put a backslash in front now
+the tab if you don't want to remember all of this though just remember to tab
+complete so I do tab twice and I say okay what's the next option well the next
+option is either two or three so if you type it's if I type a two and then I
+type a tab it now has enough to complete the entire name and if I just keep
+typing tab and won't do anything because that's the last one okay that is the
+magic of tab completion now that is a pain in the butt to type if I had had to
+type that and sometimes the names are even longer really I mean sometimes you
+have names that have got you you IDs in them or whatever right and you do not
+want to type that so you want to learn that about tab completion so in this
+case that's new tab tab and then I like oh okay well we want the most space in
+it tab tab and by the way you can't just type space here because that could be
+anything right so it has to be slash space tab tab and it's like oh I want
+tab tab I want to tab tab right and so then it just lists the one right and I
+I'm curious to see but I'm kind of giving you the answer this is how you
+remove a directory and somebody's gonna tell you to not to use another command
+we're not even gonna tell you the other command if you're in twitch and you know
+the other command and you type it please don't right people love to troll you
+about what command to end room and then then then you go do it and you destroy
+your whole computer this is the command the proper command for removing a
+directory and we're gonna get to it in a bit but but so now what oh wow well
+what happened did it remove it I can't tell because it's kind of quietly I don't
+know we're gonna have to go check how do I check so LS new tab tab oh look now we
+just have three and this so obviously is gone and there's no undo there's no
+going into the trash and getting rid of it the recent I didn't show you removing
+and destructive commands yet because I wanted to make sure you understand that
+in Linux with great power comes great responsibility and not only can you
+remove a single file like that and never have any hope of getting it back again
+short of like going to the subsystem on disk and restoring from you know bits in
+the file system which you can do if it as if you're working for you know some
+sort of forensic security firm or something I mean you could do that but
+but for the most part it's gone I mean that it's not zeroed out and it's a
+hacker I feel the obligation to tell you that that the the the stuff that existed
+inside of that file or directory is still there it's just been it just been
+removed from the file system table so that's disk space will be overwritten
+again but I can actually go in there had passwords in there I can go in there and
+find it right so if you've so furthest for the sake of the hackers out there just
+know that removing a thing is not enough you have to zero it out you have to do
+even way more than that but for the sake of a Linux user you understand that
+that's enough okay ZFS rollback I don't know if I would be okay with that unless
+it's an yeah if it says SD then it might be gone yeah there there are ways to get
+to it all the hackers are having fun talking about all the ways to get to
+data that's been deleted deleted right debate you know most people in a class
+like this are not going to tell you that it still exists right but I am because
+there are definitely ways to get that stuff back I have done it many many
+times so anyway so let's go back here so tab completion to to get it how do you
+rename a file directory we already did that one two three four so it's up to you
+to practice it now so move old to the new right and that goes for files that
+goes for files and for and and for directories okay now there is a caveat
+here in fact I'm gonna put a thing here I'm gonna put a thing here yeah I'm
+gonna put an ammunition I'm gonna say warning so I am I'm gonna put a warrant
+ammunition for a warning uh-huh this is not marked on this is mark make docs be
+very careful I'm gonna call this danger actually date when moving and renaming
+since you can easily clobber an existing file or directory instead of renaming now
+this is the time this is the part where some wise guy or wise person is gonna
+say you know you really should teach him how to turn no clobber on and I don't
+want to teach you to become dependent on no clobber because it's not on on most
+systems there there is a setting in bash where you can turn no clobber on and in
+the past I've turned it on the default and then you have to do an extra command
+in order to to clobber existing files it's the default in many systems but not
+always and I would rather you learn in the right way you become like a really
+paranoid person as opposed to just trusting no clobber protect you okay so
+that's that's the answer if you want to know why and and let me show you what I
+mean by that okay so if I if I if I made a new scripts directory right so let's
+let's take a real situation let's direct let's remove our directory all right
+and so there's nothing here and let's pretend like we had started to create you
+know I'm using commands that we already know echo date to the end of my scripts
+file okay so let's say that scripts is a file that's gonna be just all the
+commands that I that I I need to learn or want to make right maybe you saw my
+sunrise watch your eyes maybe you saw sunrise and you want to write your own
+maybe you saw fishes oh come on baby there we go maybe you saw fishes and you
+want to write your own okay so so let's do that echo fishes and we're making a
+list using the commands that we know right now why am I using two angle
+brackets instead of one because I want to see what's here right oops why is it
+not tabbing can't have okay so cat scripts there we go and we see fishes
+date and all that okay so let's so so just a very real scenario you you have
+got you know you can do clear or C is a shortcut and you can see we have the
+scripts file here right so let's say I didn't check and I come in here and I'm
+like mmm I can't wait let's start writing those scripts that I had and you
+forget that you had a list called scripts now make directory is going to
+probably protect us so yep there we go okay so we're lucky with make directory
+we got protected right but but let's say let's say let's like say that we
+already had something else so let's say make their scripts okay so they came in
+we made it scripts and we didn't do an LS so we don't know I'm gonna do an
+anyway but let's let's say let's pretend like we didn't know we had the
+scripts list right and I say oh I don't want the uppercase but you don't remember
+why we made it uppercase in the first place I mean be very this is very
+contrived but anyway so we want to rename it watch this oh can't do it okay
+that's because if they're both once the directory ones a file but now let's do
+this let's make another list let's say touch let's get rid of the directory
+first our under scripts alright so let's say we had let's say we made another
+list or something how about we say this we say touch our reacts scripts right now
+watch I say I want to move our be our to be X scripts to scripts okay and it did
+it and it did not complain that I that is the reason I'm showing you that of
+all of the mistakes that I have made in Linux and Unix over the years the the
+times when I have blown something away that was substantial particularly while
+I was coding in an application with multiple libraries and multiple
+individual files or test cases or something like that of all of the
+things that I have done to blow away code that has not you've been committed
+that is the number one thing that is the number one mistake I make and because
+it's very innocuous it's I mean is that the right word it just it just sneaks up
+on you right now you can set no clover to stop that kind of thing from happening
+and if you want to do that that's fine but I it's so annoying because most of
+the more usually I mean I I do file renaming all the time because I want to
+make a new version of it and I want to copy over and things like that so it's
+so annoying to have to deal with no clover turned on that I turn it off and I
+risk it at you know but the safe the way to protect yourself from that of
+course is to use get and to do get commits as you go and we're not there
+yet we're gonna get there but I want you to just see the danger of this okay so
+if I cat scripts now and city is there and city is there you go yeah innocuous
+means not dangerous yeah what does innocuous mean we're gonna learn how to
+search like this from the command line producing no injury ah that's the wrong
+word I meant insidious yeah it's insidious because it sneaks up on you
+yeah so what does I mean I know what this means yes yeah I'm just showing what I
+don't know her adjective intended for a trap or beguile the yes insidious it
+very insidious we're gonna learn how to search for the command line although
+there it is now you know how to do it you just type a question mark and type it
+in you might want to give it a try if it's kind of fun you won't know what to do
+when you get there you haven't navigated but we are gonna get there
+promise all right so let's go back I think we covered that like probably too
+much right so be very careful learning since you can easily clobber an existing
+power directory don't bother with activating no clobber because it will
+get in your way more than help you just become aware slash paranoid about the
+danger okay and this this can be really this I almost want to show you but
+there you can do this kind of thing and blow away your entire file system so
+that that is not unheard of to do that right so so just be aware I'm gonna leave
+that is as a single I think and I never know whether to do that or not I guess
+I'm gonna go ahead and leave it as a thing all right so so we know how to move
+old stuff to make it new and we're almost out of time on this first hour so
+let's talk about the next stuff here so we know how to make directories and how
+to hide files we know how to rename stuff using move now we haven't got into
+globbin yet how do I safely avoid typing long and complicated names we did that
+how do I move multiple files all right so this is the beginning of globbin and
+I'm actually gonna take a break really quick and I'll come back and we'll do
+globbin you can you envy dash I for interactive that's a good way that's a
+good tip yeah but that consider MV dash I as well I'll put that little pin there
+thank you for mostly I I do not like interactive and I would never put an
+alias for that because that would screw up your scripts so yeah yeah so I am
+sorry I'm gonna take a break really quick here so I can go sneeze and stuff
+I'll be right back okay back to regular schedule programming we were done with
+the talk about killing each other with their clickety-clack mechanical versus
+you know silent keyboards we have a lot of fun over here we do we just went
+through this huge debate about about ergo keyboards versus clickety-clack
+keyboards versus laptops that can go anywhere and I'm just gonna rest my case
+here if you become master if you become a master of ergo keyboard you can't use
+the computer without the ergo keyboard not not the same a fashion you probably
+might be able to so forget about taking a laptop to oh I don't know any business
+meeting or try you know travel job or the coffee shop or anything like that so I
+am really really anti specific keyboard I am really I'm also Gen X which meant
+we grew up in a time when keyboards are you know you have to go to the computer
+and use that keyboard you have to share your computer with the rest of the
+family and if you force them into a Dvorak keyboard or an ergo keyboard you
+know the whole family's gonna come after you so that's my generation this the
+younger generations are all about about you know flexibility and and and
+personal I don't know you know like representing themselves and their
+personality and their keyboards and am I still one fundamental flaw if you do
+that you have to take it with you that means you can't work and on it unless
+you're at it which makes you into a shut-in it's a joke it's a joke but at
+least three people said yeah I feel called out now so I would rather have a
+laptop and then I am another laptop is not optimal but you know what I can use
+it anywhere I can code anywhere I can go from the plane I can go from the
+airport I can code from anywhere right I can go from the boring party which I've
+done I've actually taken my laptop regularly I do this all the time talk
+about white noise I would take my laptop to like a really good band and a bar and
+there'd be like 50 people on a Friday night and I would be sitting there
+coding away something my latest creation or whatever with like a really nice IPA
+right there and I and I would just love the white noise everybody's looking me
+like I was crazy and I was like loving it I was like in the party and I'm I'm
+over in the corner you know on the nice comfy couch vintage you know air a
+couch and it's really great you know the bar and I'm coding away and if I had a
+Ergo keyboard I could not do that all right also sound engineering can't do
+that you can't do that in which I've done right you can't go to you can't anyway
+so so so not a not a not a fan of that oh thank you for the raid head so we were
+just fighting about keepers I'll let you guys fight about keepers later we we
+before we were so really interrupted by me making the break we were working
+on I don't let me remind myself what we were working on we were like renaming
+things we were talking about the multiple file stuff and we were gonna get
+we were getting going on gloving okay so let's do something fun here actually do
+this if you if you have the skill stack boost image you can do this right now
+what is gloving all right hit enter I'm gonna kind of show you how to use this
+now we're so to go down to the to the next you can push space and it will it
+will page down okay so the first the first hit is in computer programming
+glob pattern specify sets of file names and wild card characters for example in
+you special which is what we're talking about the command MV dot txt files moves
+all files with the names ending in dot txt this is this is this is taking a space
+out there's supposed to be a space in there that looks like there was a
+glob in it yet back let's go read that okay so to read it I'm pushing J to go
+down and K to go up okay we're gonna these navigations gonna come back in
+later you're gonna be like what okay so now to follow the link we're gonna push
+L which is right so now we can space we can space I'm doing all this is one hand
+the other hand I wouldn't got coffee as a you know so who needs social all right
+so we're gonna push space and we're gonna go down to it and I in computer
+programming glob pattern specify okay look at all these fancy things so now we
+can read it right specify sets of files with wild card characters for example the
+command MV star otherwise called splat or asterisk I guess if you want dot txt to
+text files moves MV well there you go that's a spoiler alert this is how you
+move multiple files right so you use a use a wild card glob and that will move
+all the files that ended txt in the names of that txt I have a quick story
+about this I was teaching I was teaching a mother a home you know a a woman who
+had raised you know a family for the most part and she want to learn how to
+code and she was getting a lot of crap from the men in her life about not being
+technical and not being it was kind of the sad story actually and she was
+amazing and she was like no I'm gonna learn this stuff and I showed her she
+had no point of reference when it came to directories and file systems may have
+spent mentioned her before and when I showed her how to take all of these
+files and move them all with a single command she insisted that I derail the
+entire stuff that I was going to teach her and teacher everything about the
+command line from that point on because it was so powerful and sure enough as
+soon as you show somebody that you can do all of these things from the command
+line somebody called it magic even tab completion you show tab completion to
+people who don't know about it and they think it's wizardry right and you just now
+you know you know the basic wizardry stuff and moving like the what consider
+what it would take to do that let's let's actually do this example okay so
+this by the way let's just end on the thing a glob is a thing so this moves
+anything let's just do it really quick since we have so this means anything and
+this means exactly one of anything all right and that's really all you need to
+know for now now there's a lot of wild card matching you can do but those are
+only the only two main ones you need to know about right and those actually go
+they do work on different things so so let's say let's remove our scripts
+directory oh you don't know about this one yet let me see this let me let me go
+through and show you this one too how do we do we say remove a file okay so how
+do I remove how do I remove files all right how do I move multiple files and
+how do I remove files so let's let's go ahead and move it for now and put it out
+of the way yeah w3m is good too but link still kicks his ass it does I'll make
+it I'll make that case all day I have it's there's videos on it if you want to
+go watch him we're gonna cover that in very extensive form hi I'm gonna so so
+let's move this so I want to move scripts let's make a few files here so
+first of all we don't care so I'm gonna teach you how to remove a single file so
+to remove a single file one two area oh I can't see because my cameras are all
+right so let's do rm file okay and you can or you could do rm you know you
+could actually do file and then dot dot dot now the dot dot that when you see
+dot dot dot you know you could put file order actually you can't do there but I'm
+not gonna teach you rm dash r after oops I already did I don't want to teach it
+to you yet because it's super dangerous and you shouldn't do it all right how do
+I remove files rm file I know I'm all over but we're gonna do it okay so rm
+scripts tab okay there was no interactive right let's let's let's somebody
+mentioned interactive and if you want to use this fine I never do but if you do
+you do dash I scripts it's like removing empty scripts yes okay so if you want to
+do that that's fine I think it's a waste of time so I don't do that I just make
+sure to be careful and so so here we go I can do things with links that you can't
+even dream of doing I imagine because you've never seen it before I'm not
+trying to be an asshole I'm just telling you the truth I can find stuff in
+milliseconds we're gonna get to that we're gonna get to how to research from
+the command line on the internet people see it all the time now how the hell are
+you doing that that fast we're gonna cover that not today how do I do a
+multiple files globbin okay let's see I tell it let's do this let's say let's do
+this how do I remove files how do I move multiple files okay so how do I remove a
+file how about that how do I move a file rm file there I don't want to teach you
+more than that right now I don't if you want to learn more fine how do you do
+it if you want to learn more about the arm command how do you do it you already
+know tell me how do you look up more about rm say mr. Rob's like denying us
+our learning no I'm not you just I'm just making you go learn on your own so
+that when you screw it up you give no one to blame but yourself don't do the
+rm-rm slash don't do that you just confirm that you're an idiot by putting
+that in a beginner chat we have new people in twitch who love to think
+they're clever by telling you that I'm gonna look I am just gonna tell you
+because some idiot troll who thinks they're funny is gonna show you this
+command right here and I'm actually gonna do it and I'm gonna tell you why
+they're idiots for being for trying to show you like this because they don't
+even know that it doesn't work because they've never done it they're just
+repeating something that somebody else has said all right so let me let me show
+you what I'm talking about okay I'm sorry but I have to go through I have to do
+this all right so here I have to do this every time because we always have an
+idiot who wants to be cute with the beginners and show them how to kick
+kill themselves because they think it's funny and they don't have it if somebody
+done it to them they would have cried it's like that scene from from from
+Guardians of the Galaxy 3 what he's laughing at them after throwing the rock
+ha ha ha and he throws it back to him and it's not funny anymore yeah it's not
+funny when it happens to you okay so so let's do this pod man we just want a
+temporary one a little bit of a little bit of stuff here of pod man are it right
+we just want a temporary one so we're gonna remove it and we're gonna make a
+ghcr.io slash rfx rob slash ws skillset so we're making a brand new one it's not
+even gonna have a name oops run so I'm just making a super temporary one and
+that's why I left this crazy name here because it's gonna go away right we
+learned through pain and this is if you want to have pain okay so this if you
+truly want to test commands that you have are afraid are gonna ruin the
+universe or break things do this do pod man run it rm in fact I'm gonna put this
+in here I'm gonna put this in here right now I'm gonna put this in here right now
+yes how do I create a temporary container just to try dangerous dangerous
+stupid things all right oops all right so we're gonna do it I cannot see I
+really can't right there I can't I know you think well why do you have to see
+you type look I don't edit my videos to make me look good like other streamers
+do I just put up the crap where you get to see it all all hang out pond man dash
+it that man sense for interactive TTY or remove and you don't need a name or
+anything right because you're gonna throw it away so you don't care and then you
+just we've got to run run it right ghcpr.io slash rbx Rob slash WS skill
+stop okay now you'll already have the image on your machine so how do I
+create a temporary just to try dangerous stupid things and that that you can try
+it and then when you exit that how do I create a temporary container sandbox
+will say to try dangerous stupid things how about that does that sound good uh-huh
+okay so so you know it's worth putting it in there this is why we do this live
+like this because people have good in good good insights so so here we go we
+got we got one now that's not it right that is definitely not it now that's
+it why is that it because it's got this crazy number here all right now let's
+okay so take very take very long hard look at what host Iran I am not gonna
+tell you the story about how I took down the corporate mail server by not
+looking at what machine I was on I actually did that in my first three
+months as a system administrator I thought I was sure I thought I was so
+cool because I'd Linux on the laptop on my desktop right another stupid thing
+don't do that I mean I did but you don't need it I had Linux on my laptop I
+thought it was super cool I thought I was going home for the day and so we
+guess what I typed shut down dash H now I thought I was turning my laptop off for
+the day guess what I really turned off right now on containers you'd be safe
+from it right now you can do I think you can do reboot if I remember you don't
+know these commands yet permission denied by the way this is yet another
+reason that we are using a container that has a default you know user so that
+you have that kind of net it's kind of a safety net right and I haven't showed you
+how to get root access to your own container yet because I want you to
+learn how to do it safely before you start blowing things away okay so let me
+show you why that person who told you to do RM-RF which is look it up okay
+let's let's read this command first of all most of the people that tell you to
+do this can't even tell you what it actually means to do it so the dash F
+says to force it that means if there was a dash I it overwrites it right or if
+there was a no-clob or also overwrites it and then they say recursive so that
+means don't only delete this directory but leave everything under it right and
+the reason for that is this okay and I didn't want to teach you this but I guess
+I'm teaching you it anyway I'm gonna do it how do I remove multiple files how do
+I remove a directory and everything under it recursively okay one two three four
+all right so this is what they're trying to have you do right RF directory there
+all right and so this is what these people try to have you do all right
+here we go wait where is it make sure you're on the right thing so let's
+actually try this on this on this this machine let's try let's do something
+like really stupid all right for so first of all let's try the command that
+everybody tries to tell you and I'm gonna tell you why it's so stupid that
+they tell you to do it that's the command everybody says to do oh no can't do
+it this is what this is what the the troll the idiot trolls who try to trick
+beginners don't know because they've never actually tried it they're just
+trying to be cool so just know that you're gonna be cooler than them because
+you're gonna tell them why it doesn't work okay so RM dash RF without preserve
+root doesn't work and hasn't worked for probably more than 10 years so even if
+you did do this is root which you're not supposed to know how to do yet but let's
+say you did do it is rude so do SU dash now I have root what's the password I'm
+not telling you I'm not telling you your own password it's pretty easy to guess
+if you hack into your own container during the boost and you destroy everything
+that you're on you it's not you you're gonna have to make a new one and start
+over but that's good it's good practice right so don't be afraid of it that's
+what you want to do fine so now now I have root so now I have read now I can do
+this crazy-ass command that all the big all the trolls try to tell you to do oh
+no can't do it so so yeah you just you know gave a big old bird to the troll
+who tried to tell you to do that because now you can say well you obviously have
+the command wrong and if you want to be pedantic and fire back at them which you
+probably shouldn't do just walk away and knowing that they have no fucking idea
+what they're doing so then you could do this you can say no preserve root I
+mean preserve let's just see what happens by the way you all want to see this I
+know you do even though it's taking extra time slash all right so if someone's
+gonna tell you this command if you're gonna try to troll somebody then you
+need to make sure they put dash dash no preservative in there won't work let's
+run like an ancient AIX system or something right so now watch and they
+have to have root access uh-oh why is it doing stuff and not coming back what's
+happening mr. Rob mr. Rob what's happening uh-oh it's not coming back why
+want it to stop I'll tell you why because it's in the middle of deleting every
+single file on your entire computer and now it's finally it's like oh no you've
+always wanted to see what that command does right it's all gone now strangely I
+still have a command prompt I just can't do anything now because none of it
+exists it's not there anymore so so everybody wants to know what would
+actually happen if you do there you go now you just tested it why because you're
+using containers look at I'm in this nice happy safe container doing stuff as
+root which you should never do and now I know I can test stuff as root and I
+guess what it doesn't matter that I don't have any I can't even list files
+by the way does anybody know what you can do here there's like a number of
+things you can't do you know see I don't even think it's so so there's actually
+it's kind of fun actually if you want to do this delete everything in your
+container and still try to get around the only thing you can use are bash
+shell built-ins and if you exit this shell you're done because the bash
+command no longer exists so you still have one running shell the moral of the
+story here is even if you deleted your entire operating system that one running
+process that you have still works and believe me if you make a mistake like
+this you are guarding that process with your life because it is the only way for
+you to restore the system if you delete that process and it goes out of memory
+which we're going to do processes next tomorrow or next week or the week after
+that you're done and this is another reason to really keep a sacred connection
+open using something like tmux or something so so I mean it's not there
+right I don't even have the ps command so you don't know about this yet but if
+you go into slash proc I can't even list the stuff that's here damn what can I do
+what can I do how could I do this anyway I have to have a ton of miles inside
+echo is something from bash to keep backups yes people make mistakes so so
+but we don't have any commands here we don't even have the LS command I'm
+trying to think of a thing I could do this a built-in that would work I'm
+getting distracted I'm getting distracted anybody know we should we
+should have we should we should do a thing we should do a thing with this the
+hostname command isn't found oh because so I can't do my prompt yeah in yeah this
+is this is a challenge I know I'm distracting so this is fun we'll see if
+what would you do if you actually delete okay okay fine let's go back so that was
+a fun tangent that was a fun tangent put it somebody put a chapter in the video
+about that tangent ps equals yeah but that's just for the hostname thing we
+still need to figure out I but there's a ton of hackers that are like how the
+hell do I do this now this is the first thing you need to know okay so exit now
+notice how we're still on that machine why right we don't know about this yet
+but you are on you're a user and this is kind of relevant because we are gonna
+be talking about users and groups okay we are gonna do that before we leave
+today and I know we're running out of time we only have about a half an hour
+left so let's do this so yeah I don't I don't I don't guys got a lot of great
+ideas I'm gonna try to stay focused so remember this is a temporary container
+we made just for the purposes of testing out these crazy commands right so I'm
+gonna type exit and boom I'm back on my art brah bet TV which is what I type
+ls to see I'm on my windows machine by the way don't do that command on this
+machine why if you happen to do that command on this machine it will happily
+destroy your windows machine you have to reinstall from scratch so that's why
+they want you to do it so absolutely make sure you know what system you're on
+and and if you don't then you know sucks to be you I mean it really sucks you'll
+never forget that if you actually do it on accident and I have I mean you know
+you've been I've been around for a while and so I've made some really doozy
+mistakes in my day just because they get you going fast on stuff so so and that
+was you know a tangent I didn't want to do but how do I remember everything
+directory into under recursively so we know that the RF is not going to work
+on really important directories and we but the the more important thing is how
+do I remove a directory this is what I really want you to learn okay so you
+should the moral of the story is this don't use RM-RF it's a bad idea most of
+the time you don't need it I'm people are gonna yell at me but you most of the
+time you do not need it they're like why I don't want to use our under our
+under is for wimps right yeah don't do that that doesn't work we already talked
+about this with somebody else is trying to troll us and we just went through a
+whole thing and they just joined us and they think they're being cute they are
+like a dime a dozen on twitch people who think that the RM commands and then
+pretty soon they'll put the the when we talk about processes I'll put the fork
+bomb in there and it's it's not cool just it's not cool okay so this is how you
+actually remove a directory and why why should use that first why should you
+learn how to use our under and I know people people love to like talk shade
+about RM der right they do all the time they like talk shade about RM der all
+the time oh that's a useless command blah blah blah blah the reason you have to
+use our under is because RM doesn't work right RM very strictly speaking we'll
+show you and now you can you can pretend like you know more than 90% of the
+Linux and Unix people out there because you do okay RM is for moving files and
+directories but as you can see it doesn't work on a directory for good
+reason because it's dangerous right you may be if you're removing a directory
+you want to be you want to know what you're doing so use learn to use the
+specific commands now this is going to remove this just fine all right but
+here's what it doesn't do and this is this is super important so let's actually
+make smaller names here foo let's touch a file in there foo some and foo other
+so now we have two files right and by the way if you want to see what those
+files are you can just do foo like that and it'll show you all the files that
+are in there that's one of the convenient uses of find I've also loaded tree
+which does not come with it usually which is a prettier version of just that
+kind of output if you want to do that so and you can see here that we have all
+that stuff so what I'm what I'm trying to tell you is that if I try to arm der
+foo now it's not going to do it it's like no you got stuff in there now what
+is the proper way to do that right like oh in fact let me let me give you a
+more realistic scenario okay so you've got foo some and you're gonna move foo
+some to foo dot hidden all right and you'll go into foo and you'll be like
+so the proper way to do this is to remove each individual file and confirm
+that you want to remove that file using RM this is the right way to do this it
+takes longer but it's the right way to do it and here's the reason unless you
+have thousands of files in there and that you're super confident could be
+removed then most of the time you're gonna want to individually remove or
+move each one of those files and this process that I'm going through doesn't
+just apply to the RM command it replies to get commits or any time that you're
+deleting stuff if you want to save yourself and they will not tell you
+this on the internet all those internet streamers and everybody they won't go
+through this professional workflow with you they will give you you know the
+command and say goodbye but the proper thing to do here is to explicitly in
+your brain make sure that you're deleting the right thing as you do it
+because I guarantee you you're gonna delete something you didn't want to
+delete and you won't be able to get it back unless you do this so burn into
+your brain and explicitly deleting each individual file by itself up to the
+point where you're really really sure and the first time by the way the first
+time you're sure that you can just remove a whole directory I guarantee you
+you're gonna delete something that you didn't want to remove and you're gonna
+be like oh it's not in git oh my god I am I am like totally dead and we're
+learning how to not delete stuff
+yeah yeah yeah that's what you get hex yeah people if you join into the middle
+and don't read the room I'm gonna roast you it's just something I do I love you
+I do I love you but if you if you if you if you jump in and start offering
+advice and haven't even read the room or find out what we're talking about I'm
+gonna roast you because that's like if you do that in IRC chat God help you
+alright so we're in here I know people are like God this guy's mean so so there
+you go LS-A we see there's a hidden file right so so if I come out here and I do
+RM at you right RM foo it's gonna like nope that's a directory oh yeah it's
+horrender foo so we do that I was like it's not empty bullshit it totally is
+empty look LS foo is nothing there LS-A foo oh there's a file still there anyway
+let's do this let's do RM foo slash dot hidden and we're gonna you know do that
+right so now can I do it LS foo LS-A foo we could do find foo all right well
+it doesn't look like there's anything in there let's write again foo all right
+now you know how to do it it's gone okay that has been a rant about why you
+should do RMDurr instead of RM-RF like lazy assholes who end up deleting stuff
+they didn't want to remove including me so don't do it just use RMDurr it's
+annoying I know it's annoying just learn to do it okay it's the same reason you
+should learn to do touch for make new files so you can make sure you're in the
+right place before you open up the I write 20 lines of code and can't save it
+because you're in the wrong place and you don't know how to write it to
+temp foo temporarily and then move it to where you want there are certain things
+that that I'm gonna tell you to do that are gonna save you heartache later even
+though they don't make any sense and are not technically required and that's one
+of them okay so how to remove a directory RMDurr right so I'm gonna put a
+thing here I'm gonna put I'm gonna put an admonition here okay this is an
+admonition note if we put a note let's do note this is not marked down this is
+this is make dog stuff we're gonna put a note here let's say
+prefer RMDurr over over alternatives to force yourself to be sure of each
+individual thing that is being deleted within that directory since RMDurr will
+not remove directories in them what's it what's a hidden directory that most
+commonly will stop a directory from being removed I'll tell you one dot get
+dot get dot get is a hidden directory that's used by get when we get to get
+process management you'll see it and that's one that regularly I'll think
+that I'm cleaning out a repo and that doesn't have anything in it but I want
+to keep the repo history and I don't want to delete it or something and there's
+still a dot get directory in there and you definitely don't want to delete
+that you better know what you're doing with that one all right so how do I
+remove directory without removing it recursively if you really do I'm gonna
+put another note here danger so even though wait all right so even though this
+command does not work on significant system directories like slash it is very
+recursively destructive and should almost never be use use RMDurr instead and
+everyone's gonna tell me that I'm full of it and they're gonna do it anyway well
+now you've been warned you do it it's at your own risk and I told you why okay
+and I'm not gonna judge you if you do it if until you delete delete everything
+and then I'm just gonna laugh all right so how much time I got we got we got about
+half an hour that's fun okay okay so
+dot get how many times have you deleted dot get somebody actually admitted to
+having deleted their dot get directory on accident because they used RM dash RF
+which would be me just telling you just do it all right so anyway this is why
+people who have actual work experience as opposed to media marketing degrees
+should be making more videos and I'm not just talking about me I'm pointing at
+you if you are a professional Linux or Unix user start making YouTube videos in
+your underwear slash pajamas like me because we need to hear from you we
+don't need to hear from yet another person who wants to spend you know two
+hours making the video and zero time actually learning how to do this stuff
+in the video sorry that was harsh I was really harsh so always push as soon as
+you're done oh my god how many times have you done that you like you're just
+deleting stuff around you're like on you're on autopilot you do get pushed
+and you're now you've committed into your cemetery this is why this is why
+commit to main is disabled and why the PR is a mandatory process and I'll get
+these days because once people get used to all these these processes they end up
+not only do they end up deleting stuff but then they commit it to the source
+tree you know and then stuff happens bad things happen okay so let's talk about
+let's talk about users and permissions or you have ZFS file system yeah no no
+no no no live through that live through butter FS and all the others all the
+other attempts to make it to make it good the the proper way to make it good
+is to not be dumb in the first place and I'm talking to me by saving save
+yourself from yourself all right right so let's do this let's do the next one
+so let's talk about we've already done route and user group precious so I'm
+going to give you a whirlwind tour of this thank you for the sub and we're
+gonna we're gonna go through this okay so up until now officially you don't
+know that you have another user on the system okay so this is gonna be very
+hard for me and I want the people in the chat to help me keep it simple it's
+very hard because we have a lot of veterans in the chat who will throw in
+extra extraneous information is going to confuse beginners but I want you to
+pretend like you're talking to someone who's never used the command line before
+who doesn't even know what a user is who is regularly on you know Mac or Windows
+and doesn't even know that there are different users they just get onto the
+system and they log in is they click on a button and they start using the system
+that's the time that's the target user that we have in mind when we're talking
+about this stuff so I'm gonna say things they're gonna be very simplified and
+they're gonna not be complete and they're not gonna be comprehensive and stuff
+deliberately because that's who I'm speaking to and if that's you put your
+ears on and listen if it's not you and you're one of these pedantic you know
+veterans who wants to set me straight just put that aside for a second okay
+because we're gonna be talking to the absolute beginners the absolute
+beginners all all they know is that they've got a user account and they're
+on here now we've talked about what the prompt is before which is review so this
+is the name of the user in this case the name of the user on our default
+container is user right and then we have an at sign which is just a tradition
+that separates the user from the name of the machine that they're on this is the
+host name of the machine this is not really a machine but that is technically
+the host name and if you're wondering with that why that looks like an email
+address is because that's where email addresses came from in fact on multiple
+user systems in the early college days or DARPA days you would have multiple
+machines and they would have different you know extensions on the end here dot
+edu.com or something and this right here referred to the different machines so
+you could be talking referring to a user on a separate machine and you can
+believe it or not yeah you could send chat chat back in 1979 or 82 or something
+like that I mean chat's been around way way way longer than people protect you
+know consider then we have here this is like the end of the prompt and it tells
+you where you're at the current prompt that I have only tells you the active
+current directory you're in until the means that I'm in the home directory and
+we already know about this from PWD then I am in the user home directory now you
+probably already know PWD if you want to do something fun you can come up here and
+do an LS and you can see that LS-AL you can see okay I've got nothing in here
+except for the user directory right so there's only one now a user on a system
+so back in the old days used to have lots of users and if you ever use anything
+for hacking in Carnegie Mellon or these multi-user systems on Bandit there's
+something over the wire you will recognize you'll be able to see a
+multi-user system we are not going to go into detail about multi-user systems
+beyond about five minutes of explanation about what that means because as a user
+you usually don't care right the only reason you do care is for the sake of
+your own safety if you're on a multi-user system which were not for the
+boost so we're not going to go into deep deep stuff there but it's an essential
+that you understand it in order to see these things here and then you can learn
+about you know how to manage users and how to create new users and how to own
+other users elsewhere we're not going to be covering that in the boost I do talk
+about it on Twitch every Christmas I've been doing the bandit and showing
+people how to hack different user accounts but that's but that's not going
+to be part of the boost it's hard for me not to do it so so these user accounts
+as you can see generally get a home directory okay and the home directory
+is copied from something called Etsy skill and another thing we're not going
+to cover officially like why didn't it read everything let's do dash D okay
+a stew dash LD alright so Etsy skill is where contains all of the stuff that any
+new user gets on the system okay that's system administration knowledge for the
+most part but that helps you understand where all these files come from now the
+main reason I'm telling you this is if you accidentally delete any of these
+files on the container obviously you can start a new container but if you if you
+have screwed up one of these files you can go get a fresh copy right so let's
+let's do it shall we so like let's let's delete a file so in fact I'm gonna put
+this in here I'm gonna put a thing in here it's like how do I see how do I
+recover a broken a how do I say this broken or deleted configuration file okay
+that's so the answer to this for you is that you can go into Etsy skill so let's
+say I mean we haven't we haven't we're gonna go into all of these files in
+detail we're gonna explain everything that's in them but I'm gonna tell you
+right away now that we know about move how you can fix that okay so let's say
+let's delete one that that you know what let's let's let's do this safely let's
+do this safely let's let's do our other thing that we learned which is to make
+a temporary container and then we're really gonna beat up thing up okay so
+let's let's do that that's more it's safer it's more safe in fact I have it in my
+history let's push up there let's go run another one so again the dash dash RM
+makes it temporary and we know this is a temporary container because of this
+here right so now we have a temporary container with this you know cool
+prompt and everything and let's just rip at the shreds shall we all right so
+remember I'm on the right container now let's see what happens if I delete the
+directory how about we delete the input RC no let's just let's just randomly
+delete stuff let's delete back we're gonna learn about them but let's do it so
+RM dash bash RC now believe it or not that doesn't affect us why because we
+haven't started up a new a new shell right and the important thing about this
+is that when you delete things they don't affect you until you try to log back
+in but in this temporary container there is no logging back into it right so one
+of the ways to start and this is kind of this is kind of early to do this but
+it's like how do I start a new shell and replace the currently running one this
+is not something I was gonna cover yet and I'm just gonna do it anyway I don't
+care this is how I am I'm very you know out there so you're gonna do exec bash
+L do not forget the dash L all right so that gives you a new shell so we need to
+know that because if we're gonna delete so we have this new shell right but well
+let's pretend like we're logging in exact bash shell and it's still actually
+no it's still use the old one it's still using the old one right that's not
+gonna work we need to we need to break something more all right oh wait I'm on
+skill stack oh see I just did the thing I told you I wasn't gonna do thank God I
+didn't remove anything I do not want to be a poster child for this all right so
+yeah okay I almost did it I almost deleted my skill stack image that would
+have sucked yeah no no no do not source no no no no no don't do that don't do
+that do exec bash national no because all that does is add it to the existing
+one there we go all right so and the reason you need to do that because so so
+that's what happens if you're if your file goes away all right so so look what
+I look what I have here I have no colors where my colors go now the reason you
+don't have any colors is you just deleted your configuration file and but but
+so you remember that user stuff so let's let's actually restore it now I don't
+think have we learned how to copy please tell me we learned how to copy files did
+we not learn how to copy files last week I'm all over the place I'm sorry if you
+don't like this there's other places you can learn it oh wait there's not I thought
+I thought we did copy already I guess not all right well we'll manipulate all
+of this into one file later but so okay so I guess we're gonna have to put in
+here how do I copy copy a file okay so we're gonna use copy copy I could have
+swore we did that file to a new name or you can also copy it new name or
+directory if you it's anything with move that we didn't do I'm gonna just I'm
+gonna I'm gonna we don't know about we also don't know about globbing yet
+because I'm all over the place and we're running out of time right so let's do
+this so not this one we want this guy okay so PWD make sure we're in the right
+place home user right so we're gonna copy Etsy skill dub bash RC to dot now
+what is that you guys remember you need to use the dash L yeah that show the
+crazy login show and it's just it's a much faster way to get everything and
+especially if your bash RC resets all the environment variables and aliases
+like mine does yeah so yeah the dot means the current directory so now we've
+got it it's like but mr. Robert didn't fix it in my my thing is still broke
+exec bash dash L boom yay we're all good we're good to go why because we restored
+a file that was in Etsy scale back okay so that's again that's not something
+that most people are gonna cover but it's a good way to know that if you if you
+want to know what the default is on a system you can go in there and look at
+it now as I said we're gonna go in here and look at all this stuff right and
+there's other things you can break in here that might have different effect you
+know like dirt colors and an exact bash dash L it'll reload it and you don't see
+that until you try to list things so if you try to do dash AL or slash or
+something so you see the colors a little bit different they're not too bad but if
+you wanted to put the intercolors in there you get a copy Etsy scale their
+colors into current actually so I don't even know if it's gonna change the
+colors some of them because there's there's already a default so that might
+not change it oh it did you see it did it change the colors slightly not a lot
+but it did definitely change the colors now what happens when I exit the shell
+my container goes poof right because that's why we left the name a temporary
+name because we are just using that to practice destructive things it's the
+reason we learned about containers that little thing where you spin up a
+temporary container to try things out to trying to do that with a virtual
+machine is possible but it takes phenomenally longer to do that you'd
+have to wait around for the new thing you could stick a snapshot and make a
+copy of it's extremely complicated so just a note there that the reason that
+we're using containers for this kind of level of learning is because of that
+because it's so easy to fire up a new one and try different things out even
+try different distros out right Linux distributions and that is not as easy
+with virtual machines where some machines are powerful and there's lots of
+reasons to use them but that's that's they're a little bit too heavy for this
+so that's why we're using containers this year and every year from now on and
+okay so by the way for example people are mentioning Z shell if you wanted to
+practice Z shell and install it in a container that's something you can do
+okay but right now we're learning bash which is the standard shell on the most
+important Linux distributions on planet Earth Ubuntu and Red Hat don't let
+anybody tell you differently those are the only two distributions you need to
+care about as a beginner because those are the number one and two distributions
+used by the enterprise for actual jobs everything else is cool and fine and
+fun to play with but irrelevant when it comes to getting a job in the
+enterprise so anyway how do I search it from within a file command line let's
+go back to globbing though before we keep doing this true but sad there's a lot
+of people that don't like that that's true and just to be to be fair there was
+a time when you couldn't use Linux without getting fired so times have
+changed who knows maybe sometime your favorite Linux distro will be in the
+enterprise but not today so how do I create a new directory we did that we
+were going to get back to globbing so let's get back how do I create a new
+temporary sandbox we did that how do I move multiple files what's globbing
+okay so we started removing files so we can move them let's go back to that
+particular point all right so we're back in home user well we were talking
+about different users and I feel bad because I kind of split the topic here I
+tell you what let's go back to globbing really quickly I did cover it quickly but
+I want to re hit it and then we'll come back to the user thing okay so let's go
+back now notice I just put CD enter to the there's at least one advanced person
+out there who's been doing CD tilde their whole life and today they just learned
+they can do CD enter and it does the same thing every time on every version of
+Unix and Linux I didn't learn that till I was 40 something I and I've been typing
+that extra tilde every time all that all the total milliseconds I've lost doing
+that so yeah CDs they see you with no argument takes you back home every time
+don't bother typing the tilde it's too hard to type anyway anyway so yeah I
+mean yeah there's there's people who have been doing stuff for a long time this
+is why we do this I I've learned so much from from others and we got a lot of
+little tricks here up firstly too I'll show you later
+this is a dollar home yeah no okay so here we go we got a user we're back in
+our directory and let's talk about moving multiple files okay so let's say
+that we made a couple scripts in fact let's actually write some scripts to
+give you kind of some stuff they could look forward to and we're going to write
+our scripts entirely from the command line yeah we're going to write our
+scripts it's going to be shell scripts right we're going to echo echo hello
+world to we're going to say hello how about this we'll make let's say say
+hello with that and then we're going to write another script from the command
+line world say world right lsl we got our scripts now this is the part where
+you don't know yet but we're going to learn it later so we need to turn them
+into scripts are not right now so schmod plus x is the only schmod command you
+ever need to know as a beginner for now and then we're going to do schmod plus
+x world I could have done that you know in one command in fact I could have done
+it like this yeah have you very careful with that because what happens something
+else is in there so that's our glob we already starting to use our glob stuff
+right now we can actually run them say hello oh it's not running we're getting
+ahead of ourselves but I'm getting ahead of ourselves you need to dot slash to
+say I want to run it right here right and I can do this I want to say say dot
+slash say world and we could do this this is really weird and only does the
+first one what yeah so yeah so the whole point of that though was what we want to
+make it so that we we need a directory called scripts right make directory
+scripts whoops and we're going to move them in there all right so and okay so
+there are the advanced people have fun in the chat so oh man how do I get those
+two files into the scripts directory now I could drag it and drop them with my
+desktop right no don't do that so we're gonna use our move command now you'll
+remember we use the move command to rename a file I mr. Rob it's MV why
+doesn't it rename there's no rename I don't even think there is a command called
+rename there isn't right so move is the rename command and a lot of these
+commands by the way are the same on Windows not all so if you do move if
+you say I wanted to say I want to do the long way to hide away say hello tab
+scripts tab right and then I if I really lazy I push up arrow and say I go back
+here with my arrow keys and I say tab again I get world and now they're both
+there that didn't take too long but there's actually a faster way to do that
+right so I'm gonna move everything in scripts here what is dot dots the current
+directory all right so now it's all here again right and believe me let's do
+this let's do tree all right there's all our files let's do tree so there's our
+I mean as our hidden files do but whatever so they're there okay so what
+if I do want to do the most of those in one command so we're gonna use our we're
+gonna use our our globs right our wildcards so say star scripts and not
+too complicated doesn't tell you anything now by the way what if there was
+already something there you know yeah let's do that all right so let's do that
+let's make a new one so echo hello world to say world all right so now we
+have a new file plus I say world so we make it so we can run it command not
+found oh oh pretend you pretend you don't know this yet all right there okay
+so there we go say world right hello all right so now watch move say world what's
+gonna happen what is gonna happen people what's gonna happen I want you to see
+this because you will do this very happily it just overwrote it now maybe I
+wanted to do that maybe I will have a new version I was like oh I just want to
+put that version in place the other one which is usually the case in my case but
+sometimes it's not and sometimes you forget that you named it the same thing
+so now when I try to run my script scripts slash say world hello world we
+get the other one you never forgive yourself for not knowing that well but
+oh CD path yeah CD path is amazing we're gonna talk about that later but we're
+gonna go through configuration so this everybody should know right so that's
+it all right now what if what if I don't know if I do so so let's try some new
+things okay so let's let's try I mean I don't know let's say date let's put let's
+say we want to put the date a date I'm just having fun here I'm trying to think
+of one that we could do
+invalidate I don't you don't know day yet so let's I'm just trying to make up
+something oh is it dashi no it's not it's format is it I ISO format anyway the
+dates of one command you can do lots of cool things with it and yeah so here's
+here's like here's the date command right so you can put this you know
+different cool things in here what I was trying to do is trying to make a script
+so let's actually let's make two scripts touch I don't know I'm trying to think
+of two and two Tom and and and and tall Tom this is how you know it's not
+scripted I did not prepare for this all right let's say I want to make those I
+don't even know what those are those are those are scripts that we want to have
+go into the script directory they're not really so what let's say I want to let's
+let's say the classic so how how do I make both of them executables at the
+same time shmahd plus X you don't know that but if that was a command I do what
+TT right alright so it's like hmm I could just do that right magical magical now
+they don't have anything in them you can actually run them they're valid scripts
+they just don't do anything and you see I change it was the same time right let's
+say I wanted to change only the one I only wanted to leave the one that's got
+the extra L in it and let's say let's say Tom to top them top them right so let's
+say I want to change only the ones that have four characters right so or I want
+to remove them right so remove and by the way another secret I'm going to put a
+secret here do-do-do-do-do-do-do I say remove a file I'm going to put a secret
+here tip when working with destructive commands that operate on many files try
+ls first to make sure it only affects the files you want another thing I'm not
+going to tell you they're not going to tell you this they don't tell you all
+the ways to avoid getting really screwed up but you now know so so how would I do
+that so I would do ls okay I think that I want to do this all right is that it
+yeah right and if I wanted to see him all on the same line I could do a dash one
+and like doing a select before an update in SQL absolutely absolutely it's just a
+good practice to get into whether it's operating from the command line or using
+SQL databases the idea of seeing what's going to be matched first instead of
+just trusting yourself is a really good habit to get into so so to p.m. I mean
+these are the things they need to keep you employed okay there you know the
+skills will get you the job but the you know there's the checking yourself stuff
+it's gonna skills is what's gonna have you keep the job so so there you go now
+you know that it's gonna delete those two I regularly do this when I'm doing a
+fine command and you don't know this yet or four commands do echo I done this
+this concept of of seeing what it's gonna do first is very very common right so
+if I were gonna do some complicated thing and I I actually sometimes will do
+an echo of the command that I'm actually gonna remove if I wanted to do some
+you know complicated command to everything I'll just you know see what
+the output would be first and something it's cool about this is that I could
+actually just remove the river then it'll do it now you don't know for loops
+yet we're gonna learn that we're gonna be the one-line for loop master of the
+universe before the end of this boost and that with that is the true magic
+as soon as you start seeing four loops and stuff like that on the command line
+that's when you really really really start so that to to leverage the command
+line all right so anyway some enhancing commands alright so so let's go ahead so
+we can actually we already know our LS I can go back up in my history and I'm
+just gonna well you don't know about it yet so we'll do vi mode next later I'm
+coming up I'm going up up up to see here okay so that command I know it was
+safe I can change the LS to an RM and that will remove those two files and
+then do an LS to confirm and those files are now gone okay so with regard to
+globbing the only thing you need to know is the wild card which is a star and the
+single wild card which is a question mark and we have yeah somebody's already
+said how many times do we have to go through this yet another noob has put
+sudo rm-rf slash etsy in the chat I'm telling you the noobs are out in force
+today on twitch they really are it's so funny they come in they don't even read
+the room they don't know we covered it already and then they they think they're
+cute they think they're so funny you know that won't work right and if you
+really want to we really care go back and watch the video where I made fun of
+the last person you suggested that you've done slash in a real sir yeah well
+most servers won't let you do it and I already did a whole video about that so
+go back and watch that if you care lots of people just joining us yeah there are
+lots of them I'm telling you they come up they come out in force they'll think
+they're so cute they they do they think they're so funny they're like the kids
+in Minecraft you like destroy all your stuff and run away until someone does it
+to them and then they're not happy anyway so back to stuff that matters so that's
+how you remove a file how do you we did the complicated names thing we did had a
+rename a file directory move this so the one of the things to know about move
+okay so I'm going to put this in here how how do I move multiple files into a
+single directory this is a different use case from just renaming a file so I'm
+going to make a thing for that and so many people think this is super remedial
+and I apologize but they need to learn it this way okay so we're gonna do SH
+here and now we're gonna move those files so you want to move you know a
+glob or you know you could do like a file or directory right so it's a it's a
+file or a directory I'm doing man page style stuff so my this means one or more
+files are directories into a directory alright so the way that I'm drawing that
+I want you to look it up because when you when you when you look at man and V
+you'll see they just put a bunch of options here and see the dot dot dot that
+means you have multiple options it the source is yeah it says source dot dot dot
+so we could write it that way let's let's actually write it that way yeah let's
+write it that way that's a little bit better so let's do move wait did I kill
+my move I did I'm on four okay here we go so let's say move source and one more
+source is into the directory okay and between CD slash oh yeah that's a huge
+big one so there we go do well as into a single directory so so yeah we have so
+let's say we want to make a new directory we got a scripts directory got
+multiple files in there we'll move our Tom and we want to move those files into
+a new directory right and we can do that yeah yes read man pages that was
+good knowledge yeah okay make directory new scripts okay so now we have two
+directories and we don't have the color we can look actually if you don't want
+to see all that crap you can do LS-AL star scripts right and now if you want
+to get rid of the the the well that's good enough so you can see that they're
+actually that put all the stuff inside of the scripts if you put a deal just
+show you the scripts themselves you can read all about that in man LS and so
+that is rather than showing you the content of it when you list a directory
+by default it'll show you the content of the directory as opposed to the
+directory perms itself which is why I put a D in there and I should probably
+put that into the I know it's taking me a long time so how do I list properties of
+a directory instead of content all right let's do that doo doo doo sh sh and
+we'll do LS-ALD and then the directory name okay so that was a fast one I again
+this recipe approach is going to be easier in your search results to find
+etc all right so let's keep going back yeah yeah and let's go so let's go here
+and we've got scripts so again the goal is to do everything in scripts LS scripts
+into new scripts and we don't have anything in there so we're gonna use our
+glob now some of you know how to do this already right yeah this is going on
+YouTube of course yeah we're starting week zero actually if you want to get
+started right away and you want to skip everything do the quick start and then
+come join us so we're gonna move we're gonna move everything in scripts so check
+yourself what am I gonna put right here start right move everything in scripts
+into everything in new into new scripts now could I have written this out
+individually yes say I could do this too right if I just wanted to move all the
+stuff to say in it I could do it that way right but if I want everything in
+there I do star and then it's going to move it into there now when we do LS
+scripts and we do LS new scripts we see that they're flipped right you do the
+same thing in reverse if you want and and that's you know that's it now let's
+actually let's actually complicate things right so let's put Tom in there let's
+let's put a fool in there all right or more importantly here's it here's a
+really big one oh my god this is gonna be a fun one
+your Christmas we're not gonna use a star star we're not gonna learn star
+star in the booze no too dangerous yeah no not Tom I know so let's do this this
+is very common okay so let's say we I'm gonna let's let's reset let's reset so
+let's put a new scripts okay into the scripts directory I this I cannot tell
+you how many times I've done this this is a very common way to blow away I get
+repo okay so let's pretend let's pretend let's pretend that the scripts
+directory is under git management that means it has a directory in it called
+scripts that dash get very important directory very important directory all
+right doesn't have anything in it right now okay so let's let's let's let's put
+something in there just for fun so you get very important I'm important I am
+important okay nothing there but just just so you get the point right find dot
+oh gosh let's do find scripts actually let's do you find star scripts is that
+gonna work let's do find dash dash name scripts you don't know this yet okay
+anyway so I'm trying to make it LS scripts okay so so oh this is perfect
+this is perfect okay all right this okay so here's the scenario right you are
+making a new get repo you want it to be a nice clean keeper repo and you want to
+take the files from the one repo and put it into a new one all right and so you
+have these two directories that have a get repo in them make directory that we're
+gonna get dead today I guess not so new scripts dot get yeah and we're gonna do
+new scripts dot get don't delete very important okay so let's I'm gonna show
+you all right so yeah yes okay that's what I'm trying to show you okay so so so
+you think you're like nice and safe here right so LS scripts and you forgot to do
+an LS dash AL scripts which would show you that you have other files in there
+right and you do LS dash AL new scripts there's your new scripts there's nothing
+there right so the first thing to take away from this is when in doubt be more
+precise right and also use the LS things to test things out so so in this case
+what would be better I mean right off the bat scripts say star we know we want
+those two specific scripts and we want them in our new scripts that will work I
+don't need to tell you that you already know it right that is not going to grab
+that get but let's say you're lazy and you just do this right and you do new
+get and I want you to see this new scripts and get directories not empty so
+we got saved a little bit thank God now thank God if you had a dash F in there
+when it would not do that would not be happy it's like wait the dot get
+directories not empty I don't want to overlap it right it's like oh shoot okay
+I'm not supposed to do that I don't know let's try with the dash F I don't even
+want to show you this but I think it will still do it no thank God okay good
+well that's good but it is very common to do that so but more likely what would
+happen would be something like this let's say let's say that it in the new
+scripts directory you haven't made it a giveaway but yet alright so we're gonna
+deliberately delete that directory and we're gonna do it the right way if I
+try to remove get what's gonna happen nope can't do it yet so let's this would
+be one of those cases were removed dash RF would work that's super dangerous though
+so let's do this let's remove new scripts dot get and don't delete oh no I just
+deleted it now I can do a rm durr on dot get I'm safe but now watch our move
+command remember that move command we had now yes there is it's called no
+clover but we are not going to use it because it's not on everything and you
+shouldn't become trustworthy of it in my opinion so so we're gonna try to move
+that do the same thing we did before right okay what I just did I cannot tell
+you how many times I've done this I cannot tell you how many times the tennis
+I'm sort of embarrassed it's like oh hey it worked right it didn't work it works
+they worked a little too good right why did it work too good right and so you
+might come in here and do something like this right so then you then you come
+in this is a very common mistake beginners make all the time so you go
+go into new scripts right this is gonna be your new repo and you try to go make
+a new get where you don't know how to do this yet but you're getting it and it's
+like sorry initialize get repository in new scripts dot get right and then you
+go back you go back into your old scripts directory which you think is
+still a repo right and you do get status and it's like there's no get repo you're
+like what did I do what you did is use the star which match the hidden dot get
+repo and now it's been moved and now you just blew it away now thankfully you can
+restore it but if you haven't committed and pushed anything so so the point of
+this is be super careful with what you're gonna move over there right and one
+of the reasons to have a get under get management that I'm kind of doing this
+on purpose because when we get to the get management that's one of the surefire
+ways to see if you've done something wrong and what I mean by that is this so
+I could find I'm it's like we're gonna hit ourselves a little bit so so this is
+in a get repo right and yeah I shall show this is actually the website we're
+working on and it has a dot pages there's no dot get there but if you go up high
+enough you'll see the dot get repo and the point of trying to say that this
+sometimes you want to know if you've actually changed anything so it's just
+kind of a backup so you do get status and that will show me every single file
+that's been modified when it was file modified and if I wanted to see the
+differences I would do get diff and that would show me exactly what was
+changed in every file every thing you do should be managed with git so we still
+need to learn how to edit files and stuff but I just want to take a moment to
+tell you that that's why because that will save you from the kind of disaster
+which I just created by by remuting those files right because we just blew we
+just move that git file away and since I did under new scripts ironically you'll
+still see that inside of here is now very important is the file that we created
+and there's all these extra files that get made for us which you don't need to
+understand right now but you just need to know that they're there okay the
+religion to talk to yes they get religion I mean it's got it's got its
+quirks but you know it's there for us to use so that was kind of a long-winded
+way of of showing you some of the ways to move things around it that that was
+specifically to answer the you know the stuff about whoops exit this that was
+specifically to show you about this how do I move multiple files into a single
+directory that is how you do it now where it says source you know you could do
+instead of source you could do I mean what my source it the source can be either a
+path a name or a glob okay so we should probably put that there can be can be a
+file directory Pat or path to add or a glob okay that's that's the only thing
+take away from that I think we're almost done it we're past time for sure so we
+are not going to make it to manipulating files we did we did we did move
+multiple files we did that yes we did yeah we did that one okay what else we
+got so I think we're gonna be done today that's a lot for you to do I mean I
+covered a bunch of the the removing stuff is super scary that's why I wanted to
+go through it what is the minimum I need about user user permissions to be
+productive I think we're gonna start that next week it's 119 so we are you know
+past time are are we not yeah I think we're past time now so I need to we take
+a pretty big break we'd learn how to delete a broken configuration file let's
+change the whole permissions thing for next week I know you want to do more I
+know you do but I feel like it's probably good for you to do a little bit at a
+time and so we do we copy every a file from the directory and copy from Etsy
+scale yeah so you can copy Etsy scale file to tilde if you want to or to
+wherever your home is and how do I start a new show or place the current one we
+did that have a copy file that we didn't do before and how do we just so I think
+we're gonna have to go ahead and I mean we learned about copying right copy a
+file to a new name it goes without saying that you can actually recursively
+copy so let's do that let's do that and we'll be good how do I recursively copy
+a directory and subdirectories into another so this this let's do this
+recursive copy and we'll be done for today and then we can that's a nice
+happy place to leave and and if there's any things I don't know why I've been
+typing that today it's just user error all right so for this you're gonna say
+source and you can do that same as before and that it's either lowercase
+or a couple or I always have to look it up I don't even like to do this because
+in fact I'm gonna put a note here I am I'm gonna put a note here so note so the
+the main takeaway from this is that this is is not what you think okay so why
+is it doing that all right so this creates new files with new creation
+dates times and ownership if copying from another user so this is super
+important so if you're trying to make a backup this is not a backup there is
+dash a dash a is is the archive so but that I don't know if we want it I don't
+think okay let's let's actually find out is coffee dash a politics I don't think
+it is to do to do I don't think it is I don't think the dash a is politics and
+and it's the politics case or specifications um part of the doble
+bum no cloud or preserve follows the characteristic source path anyway you
+guys can look up the copy command the the R the capital R lowercase R is
+recursively recursively copies directories there are other ways to do this in
+Linux using two stars if you know how to do that but for right now that we want
+to stick with the thing with the Unix is sometimes there's multiple ways to do
+it and you have to find the one that's going to work not only for Linux but
+also Unix so you can learn just the one thing and have it work everywhere I tend
+to use that show our capital R but as you can see they both works in different
+places so we are actually going to do a little experiment here and I I want to go
+test something new yeah politics doesn't have dash a we are going to actually use
+a very for the sake of experimentation we are going to run a busybox an Alpine
+which is using busybox temporary we're going to use a container and we're
+going to go test what Alpine Alpine does not use bash as a shell uses politics
+which is kind of nice because as a Unix distribution and I would call it
+Alpine probably the third most popular containerized distribution and why do
+you care well because it's a good way to test whether you should learn something
+and how you should learn it because if it doesn't exist on Alpine is a good
+chance you want to learn a different way that will work on Alpine and BSD and
+Unix and and everything else right and that's we haven't gotten into politics
+and Linux and Unix history yet really but but the the point is you you only want to
+learn it once and a lot of times the best way to learn it is to learn the way
+that works on all Unix variations as opposed to just one and that's why I'm
+kind of pausing here so so we're actually going to go test this now you know how to
+do all the cool stuff to test something temporarily right run it and and we're
+going to say dash dash rm because we don't want the container to hang around
+later and we're just going to run Alpine now Alpine is a standard distro which
+means it's hosted on Docker hub which means you can don't have to type all
+the extra crap and I already had the image downloaded so I didn't have to
+download it and you can see I have you know this is this is Linux but it's
+Linux modeled after BSD Unix which has no GPLv3 in it by the way one of the
+reasons I really love it and you can so you can see there's a bunch of stuff here
+but the really the thing that we care about is is the is the copy command now
+there are no man pages here because this is a very minimal thing there's is there
+a dash h okay yeah so as you can see copy is just a rename it's a multi call
+binary for busybox they're all the same single binary executable file you
+don't you probably don't care but that's important because that just means that
+depending on how that file has been renamed or relinked it does something
+different it's a pretty cool thing that is used to save on space busybox was made
+back in the days when all of Linux or it was busybox was the first Unix
+distribution to fit on a single floppy disk and and to that I don't I don't
+expect they were ever anticipating the success it has in 2023 because it's so
+small but that makes it very great for using for making really tiny containers
+that feel like Unix or Linux but don't really have Unix or Linux and that's
+what that's what busybox is and I'll find so the reason we're here though is we
+want to see whether we should use dash r or dash a or dash p okay so as you can
+see all of these are supported in busybox in the latest version of busybox
+that does not mean they're pyosix compliant though yes there is no
+bash of course there's no there's only a shell yes so but that's why we're here
+is we want to see if that command is the same so here we see that DPR recursive
+preserve permissions and preserve sim links you don't know that but so this
+really was supposed to be just a really tiny little call out to why you should you
+know not necessarily depend on things this creates new files with creation
+days ownership if copying with you crazy I'm gonna just put use other copy
+argument options when preserving them is important I'm just gonna put a note here
+okay because again you're a beginner you really don't care I feel bad that we
+have already gone so far I've been on discord for a long time yeah so how do I
+recursively copy a sort of every so you can recursively copy the source again the
+source can be a thing and then you need to put a directory now this is another
+way you can really seriously delete things in fact because it will copy it
+all over on to the top of that of that other thing whatever you're copying on
+to right so you know just put a directory here right make sure it's a
+directory another thing that I've done with the MV command before is having a
+whole bunch of things that you want to move into a directory so let's let's do
+that let's do this one how do I recover a book and delete a config file we did
+that where's the move multiple things where's the move multiple things move
+a directory to a source okay so let me show you another one another danger here
+this is why it's taking so long
+danger when moving multiple source sources make sure that Der is a directory
+and not a file I cannot tell you how many times I've seen people be burned by
+this all right so it's same goes with copy but but not as much so so here we
+go yeah we're gonna go to with scoot the copy so let's say we have I want to
+copy all those files and scripts you know they are still are they a new scripts
+okay we want to copy them so copy copy new scripts right and we only want to
+copy the say stuff and then we want to copy that into scripts right and that
+that did it right because it was just the top level stuff I did not it did not
+copy an entire directory but let's say I want to copy the whole directory copy
+new scripts to more scripts copy dash R not specified emitting directory new
+scripts so there it goes it helps you out and you can do the dash R or there's
+capital R to do that right and and now LS more scripts and you'll see everything
+is there LS dash AL more scripts you'll see that it also got the dot get
+directory which it did not do in the first one right so and but I want you
+to notice that these are now they got new timestamps on them stuff like that and
+we'll go into that when we get in this model a bit later but so so that's all
+the stuff that got moved what I was gonna say before let's see if I can show you
+this okay so but now let's let's do the same thing with the move command okay
+let me let me remind you of another way to really screw up your day okay and I've
+done this with SSH actually because SSH uses the same idea of copying to a
+thing and if you forget the colon in an SSH command it will actually just make a
+copy of the thing instead of actually copying the whole recursive directory so
+let's try that now so let's say that we want to do a recursive move so we want
+to move and actually I think move as a dash aren't you I don't another thing
+about move to is that I don't know if I need to put this do we need to put the
+thing about moving across file systems I don't know if we should put that here
+yes I'm gonna put it out here people hit this one all the time too probably not
+okay note that that envy sometimes will not work because the source and
+destination are on different file systems I mean it's just enough right it's
+just a note somebody might run into that it's a very esoteric weird thing but
+it it I remember as a beginner yeah I remember as a beginner going what the
+hell is happening here and then it sometimes it would make a copy I mean
+it's very unlikely anybody's gonna hit that I mean it's very unlikely right I
+am kind of interested though so for example if I do move scripts as shared
+we have a shared mount right so if I do move I'm just curious if I do move
+scripts to slash scripts shared I want to see if it does it nope operation up
+for a minute there you go yeah yeah so that's the reason it went where we haven't
+we haven't done anything with the shared directory yet but that's that's one
+reason it wouldn't work yeah this is file directory damn is it gonna be very
+interesting yeah yes lvg oh my god everyone's rolling their eyes we did
+like a like 20 minutes on it yeah so there's the new scripts right so apparently
+that works so that's interesting yeah so mounted so so so mounts work so if you
+if you're wondering what just happened we haven't talked about it yet but ever
+but the way that we have mounted our container we are sharing a directory with
+a directory that's on the host system and the name of it is called shared and
+that allows us to transfer files back and forth between our host machine you
+know Windows or Mac and and the container itself and so you can move
+things back and forth pretty easily so like if you've downloaded something on
+the internet you can put it into your container by putting it in that directory
+and that's that's what that's for we'll talk more about that a lot later but but
+I wanted to see if move was going to be limited by that which apparently is not
+so that's good to know and we did the we did the recursive move one the thing I
+wanted to show you though is that it's this is actually a very very dangerous
+situation added don't do that yeah I mean yeah so so here we go so we have two
+files here right and let's say we make a new directory called you know I don't
+know say and we want to make a say directory right so we want to move say
+now the proper way to do this would be say you know this is interesting watch
+what happens when you do this because the director is also named say now I do
+that all the time that is not an error that just says I couldn't move the say
+directory into itself but it moved all the other stuff in there right so that's
+fine all right but let's let's do this a different way so let's let's take all
+that stuff out of there and we'll move it back out okay let's remove this
+directory say and let's actually make a file name say all right so so for
+whatever reason let's pretend that we forgot that we accidentally created a
+file maybe because we were just going fast and forgot to do make turns to be
+to touch instead and and then what and then we do move say hello well actually
+let's do let's do say hello and say world just to be very precise and we want
+to move those into the directory say but say it's not a directory what's gonna
+happen anybody want to guess anybody want to guess what's gonna happen so it
+says it's not a directory now we got lucky in that case sometimes it won't do
+that right so let's actually try it with the copy command let's see what let's
+see what the copy command does remember remember that what does the copy command
+do oh it's not a directory damn we're getting protected thank God that was not
+always the case I can promise you so that's good that's good that looks like
+they've added some built-in protections that I that we're not there from before
+there there are definitely ways to to overwrite that and whether you're you
+know whatever just just just be really careful when whenever you're you're
+moving something just make sure it's a directory that's the moral of the story
+and thankfully we got blocked both times today trying to destroy our world here
+you think look like you're doing globs would do it yeah yeah so I don't know
+about this one let's try this using say to say it's got to say it's not a
+directory interesting I mean that's that's I am I'm kind of happy to run
+into that I don't know if that's changed or that's just something I forgot but
+but anyway that's the way that you can really you know make yourself have a
+bad day is not knowing what things are and again as I've said I have this
+problem with the program SCP all the time which there's another command for
+copying between a remote system and a local system and if you forget the
+semicolon at the end you end up just making a local copy that's the name of
+the target destination well when we get into SCP and and SSH those things will
+come up let's see we want to try when people have got some other suggestions
+or MV say H instead of say into Seder well yeah oh there we go there we go
+yeah that killed it didn't it now see that did not do what you were expecting
+right that that made there's just there's just a lot of variations the
+takeaway is very simple make sure you're dealing with what you think you're
+dealing with and you're not always gonna have these pretty colors to show you so
+when you do an LS you're not gonna get all the colors you know I know what is
+a no-color I forget what is I don't even know I don't know what it is
+there's a way to turn color off I'm trying to figure out no color never
+there we go so so you might be on a system it doesn't have color enabled right
+so that would be color equals never in fact my LS command is actually alias to
+color equals auto all the time so why does that matter because let's do it again
+so if I move say to back to say hello right get it back to the way it was and
+I touch a new fall called say and then I LS oh by the way did you see that you
+don't know about that yet our advanced people might want to know this too so if
+you do slash say then it turns off all the aliases and types and it just uses
+the one that at whatever the path is so so in this case it would be this so you
+can just do it if you want to be sure to get the actual binary so so now you
+really don't know right there's really no indication that this is directory or
+not so then you would have to actually do an LS L D and that just gives you the
+current directory so LD star and I'll show you everything in here and let's do
+this so we don't get the color so and so you see you see there that oh that's not
+a directory alright that's really it and I think that's going to be the end for
+today thank you for joining me on YouTube I know that's we've got we went a
+long time again we tend to go a little bit longer than usual but hopefully you've
+made it through it I've been kind of all over the board there but the point here
+is for you to go experiment with everything go play with it I've spent
+more time than I wanted to on how to avert disaster today and I think it's
+worth it honestly it's not the kind of stuff that people normally talk about
+and I've you know created multiple scenarios where you could really screw
+yourself up and so hopefully as you're learning it those things will go into
+your notes somehow and that they'll stick so you don't end up losing your
+job after you get that great job we'll talk to you next week and when we next
+week I can already tell you what's going to be on the docket because we didn't
+get to it today so next week we're going to be doing searching for stuff inside
+of a file and we're going to be starting to edit files and as we go we're going to
+be learning regular expression so it may be that we just learn that and that
+alone how to look into files how to navigate them how to edit files dynamically
+and how to how to you know do do stuff to the files that
+alters them in any way really and to do that through a programmatic method as
+opposed to necessarily using an editor and then we'll slowly move into how to
+use one of those tools from the command line also as an interactive editor and
+and then we'll move into VI which will probably be in two weeks and if you
+think it's just too slow I'm sorry but it's just my style that's how I do it
+hopefully this turns out to be something good for you if you have any
+questions you can go hit the discord up I am going to be answering a couple
+questions from discord right now I'm not going to do it on the stream and I'm
+you know generally here in the discord if you need if you ask question but more
+importantly we have a lot of other people there that to whom you can ask the
+questions and this will get better every year as we continue to go when we got
+your input thank you to our veterans who I gave a lot of crap to who gave us
+input thank you including all of those people who suggested RM-RF at least five
+of you did and and thank you for reminding me how to show people why that
+doesn't matter and we'll see you next week

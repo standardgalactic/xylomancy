@@ -1,0 +1,971 @@
+One trend we've seen a lot in programming in recent years
+is the attempt to replace C.
+And I think that's both wise and terrifying.
+It's wise because C is about 50 years old,
+and being old doesn't make it bad,
+but it has given us five decades to think about what works
+and what doesn't work in programming language design.
+We've got 50 years worth of techniques
+we really ought to be putting into practice.
+And putting them into practice is the terrifying part,
+because C is everywhere.
+You may not write C, but I guarantee you're writing something
+that runs on something that runs C and was written in C.
+It's in the compilation stack for everything we install.
+So if languages like Go and Rust want to become the new C,
+they've really got their work cut out for them.
+All of which makes this week's topic kind of breathtaking.
+We're looking at ZIG.
+It's a language that's not only trying to take on C
+and C++ and Rust and Go for that systems programming crown,
+it's also trying to replace the infrastructure
+that C itself gets built on, things like LLVM.
+So it can hopefully become the best way
+to build systems-level software across all different architectures.
+ZIG ends up being a project with a huge scope.
+And if you're a fan of programming languages,
+there is a lot to chew on this week.
+We cover cross-platform compilation
+to memory management techniques
+to new thoughts in compile-time metaprogramming.
+As well as when you've got these huge long-term ambitions,
+how do you structure an open-source project for long-term funding?
+There is a lot of ground to cover,
+so this is a bit of a longer episode than usual.
+And we best get started.
+I'm your host, Chris Jenkins.
+This is Developer Voices.
+And today's voice is Loris Crowe.
+I'm joined today by Loris Crowe.
+How are you doing out there, Loris?
+Hello. Hi, Chris. Pretty good. Thank you.
+Good. Good. It's good to have you here.
+I always love it when we do a language deep dive
+because I'm a particular fan of the world's programming languages.
+And you're going to tell us all about ZIG,
+which is a language I don't think I've heard of
+until we had Joran Dirk Grief on the show from Tiger Beetle,
+who said they've written a new database in ZIG.
+And I thought, well, we have to do something about ZIG.
+I have to learn about that.
+So let's start here.
+I always think new programming languages come into being
+as a reaction to what's missing in the marketplace, if you like.
+There's a burning reason why ZIG needed to exist.
+Do you think that's true? What's ZIG's raison d'être?
+Right. So I guess a way of answering this question,
+like actually, is maybe to look at how it was created originally.
+So the original creator, Andrew Kelly,
+wanted to make a digital audio workstation software.
+For making electronic music and that kind of thing.
+Exactly.
+And he tried a bunch of different languages,
+and he was unhappy with all the solutions,
+with all the trade-offs that each offered.
+So I think he started with higher level languages
+and then quickly found out that to do real-time audio processing,
+you can't use a language with automated memory management.
+And languages that don't give you precise control over the hardware.
+Yeah.
+Because it's one of the places where we're talking hard real-time.
+Exactly.
+You have to be there on time.
+Yeah.
+And but on the other end of the spectrum,
+at the time, the main languages that did give you
+full control over the machine were like C and C++.
+And each had its own, if you will, baggage of issues,
+which some of it is also up to personal taste.
+But for example, C is very low level,
+but it doesn't have good metaprogramming facilities.
+C macros are very well known for being not particularly good.
+Yeah.
+Yeah.
+They're not much anything string mungent, right?
+Yeah, exactly.
+You mess around with strings and you have a lot of unwanted side effects.
+Oftentimes.
+So it's a food gun.
+That's how we usually think of it.
+Yeah.
+On the other hand, you have C++,
+which I don't know if he actually did attempt to use,
+but in general, C++ exists in a space
+where the language is very powerful.
+It's very complex.
+And it's a type of language where you are heavy with abstractions oftentimes.
+And that kind of detracts from what you're trying to accomplish.
+Or rather, some people can definitely make it work for them.
+And that is their preferred way of programming.
+So that's good.
+But for some other people, C++ doesn't really,
+you know, it doesn't feel good in your hand
+as a tool for some people.
+Yeah.
+And I can see how people, we're not going to start a language war,
+but you can certainly see how people would feel that way about C++.
+Absolutely.
+And to me, you know, this is not really a thing of language war at all.
+Like I can fully appreciate how somebody who likes that way of doing things
+can make it work for them.
+And but on the other hand, like for me personally,
+that doesn't that way of doing things doesn't really click.
+So ultimately, I can totally see how somebody would be productive with C++.
+And I wouldn't.
+So I need a different tool.
+Right.
+And I think that Andrew also shares, generally speaking, this perspective.
+So he wanted to make a language that was low level.
+So they gave you full control over the machine that would be suitable for an audio workstation.
+And that on the other hand, it wouldn't be overly complicated.
+And there's like a sentence that you can you can find in like Ziggs on the website,
+where we say it's one of the first things that you can see on the front page.
+It says focus on debugging your application rather than debugging your programming language knowledge.
+Right.
+Yeah.
+Yeah.
+Okay.
+So that's kind of, I know people any time you write something that's sort of competing
+with C in the low level world, someone says, why not go and why not rust?
+But you, you begin to demarcate those as I'll let you answer it.
+Why is it not go or rust?
+So the reason why it's not rust, I would say is like the answer is very,
+in a very general way, it's kind of the same answer as why not C++?
+I think that rust is another language that likes its own complexity.
+And it gives a ton of power from that for sure.
+But, but the complexity is there.
+And also, when it comes to like giving you full control over the machine rust,
+it's not entirely of that opinion.
+Like rust for good reasons, for safety reasons, rust wants to
+relegate certain things inside unsafe rust, which is a part of rust that you are not supposed to
+use lightly.
+So that means that you will find out their libraries that when choosing between maximum
+performance and safety, they will choose safety probably over performance oftentimes,
+because you do get audited if you have unsafe or not.
+So in general, rust is going for something slightly different than what Z is going for.
+So both in terms of like tradeoffs between performance and safety, but also in terms of
+obstruction.
+And I would argue also like readability in terms of like the complexity,
+because writing abstracted code makes it harder to understand and to read for a consumer.
+When it comes to to Go, I think that Go and Z both share an appreciation for simplicity,
+although Go is not just simple, it's also very minimalistic.
+So I would say that there are like some parallels between Z and Go,
+but we don't have the exact same take on everything.
+And I can get more into detail if you want later.
+But ultimately, Go is not as low level as rust and Z are.
+I am not sure if Go would be the best choice for an Audi workstation, for example,
+or for an operative system, because Go has a runtime, has a garbage collector.
+Also, interoperability with Z is a bit complicated in Go, because well, first of all,
+anything, any language that has a runtime, that makes interoperability with Z
+a little bit more complicated, because you need to give information to the runtime
+of your language to the garbage collector about what's going on with memory.
+And so that sometimes makes things a little bit awkward.
+But with Go specifically, I do think that for the Go team, interoperability with Z
+was never a priority or something that they really liked.
+So Go can call Z functions, for example, but you cannot do the inverse easily.
+So you cannot make a Go function that can be easily called from Z.
+And I think basically this is like a philosophy of the Go team.
+Like they basically said, no, we want to do something different.
+We don't want to do something.
+We don't want people to rely too much on, like we want to be able to consume Z libraries,
+but we don't want to do the inverse.
+If you're in Go land, you use Go.
+I think that's kind of their philosophy there.
+Yeah, yeah, it's like we want to be able to reuse existing Z,
+but we're not intending to live in the same ecosystem quite.
+Yeah, exactly.
+I would say that.
+And you can see that also in a bunch of choices that they made also with how
+compilation works in Go, like in terms of the compiler.
+I think it's a reasonable choice.
+It's a choice.
+It makes sense.
+Very different from what Z is going for.
+Yeah, I don't think we need language wars because there's a huge design space to be
+explored and there's plenty of land for everyone.
+But okay, so that demarks what you want to be.
+What's Z's answer to this set of design constraints?
+I think the most interesting part about the answer to let's say systems programming,
+like lower level programming in general, is to rebuild it from scratch.
+All these other languages that I, well, not all these other languages, but it is common
+to consider kind of like see the bottom layer of abstraction of what you're building.
+So for example, there are programming languages that compile to C code.
+I think NIM is an example of this.
+And Rust itself, Rust doesn't compile to C.
+But for example, Rust depends on the C standard library of the platform that you're targeting.
+So if you're writing a Linux program, like a Rust program that you want to deploy on Linux,
+Rust will use the libc of your Linux distribution.
+With ZIG, the idea instead is to really, really build everything from the bottom up.
+And this is a big scope.
+This is not like for the faint of heart.
+It's a lot of work.
+But it does yield some very good results, like some very good things that you can do
+once you are willing to do that work.
+I would say that the most interesting thing about ZIG is that it really is a language
+that allows you to build for every target from any target, meaning that if you want to target
+not just normal computers, but also very tiny embedded devices, you can do so easily.
+And that's also cross-compliation, because you're compiling on a Linux machine, probably,
+which is going to be maybe x8664, and you're targeting a very tiny ARM V8 embedded device.
+So you're compiling for different architecture there.
+But this is also true from computer to computer.
+So with ZIG, it's a very, it's considered fundamental the ability to build your program for
+macOS, Windows, Linux, from any of those other devices.
+So from Linux to Windows, from Windows to Mac, et cetera.
+That's surprisingly rare for a very nice feature.
+And it doesn't end here, because we can do this for ZIG applications.
+And to be fair, I think that Go can do it for Go, Rust can do it for Rust.
+But they cannot do it for C.
+Well, we can do it also for C and C++.
+So the idea is that if you have a project that has ZIG code in it and also a C dependency,
+not only you can cross-compile the ZIG part, but you can also cross-compile the C part.
+Really?
+Yes.
+And that is, I think, the huge thing.
+And it's so big that actually you can use ZIG as your C, C++ compiler
+when you are trying to cross-compile a Rust, a mixed project between Rust and C or a Go and C one.
+So for example, Go people have been using the ZIG compiler to enable, to complete the,
+to close the circle, to enable complete cross-compilation of C Go programs.
+C Go is basically what you call a project that has both Go and C in it.
+C Go is like a component of their, of the Go compiler.
+That's how they compile in a link to C code.
+So, people having, using Go projects, they are using ZIG to cross-compile.
+And same with Rust.
+Even AWS is using ZIG to cross-compile Rust lambdas for their lambda engines
+because Rust depends on the libc of the target.
+And their machines running lambda functions are running a specific version of Linux with an older
+libc. And you need to be able to target the correct version of the libc to make sure that
+everything runs smoothly.
+Right.
+And that's not something that normally compilers can do.
+And Rust itself, which doesn't concern itself with C compilation at all, certainly cannot do.
+So, they have, there's a package called Cargo ZIG build that allows you to use ZIG to basically
+link against the correct libc version that works on lambda.
+How on earth is that working?
+Are you telling me that ZIG also has a C compiler built in or?
+Yeah, it does.
+It straight up does.
+And Andrew started out trying to build an audio workstation and ended up building a
+language that also includes a C compiler.
+Yeah, pretty much.
+That's legendary.
+Yeah.
+And this is like, I would say we're halfway through the journey because we want to get
+even more hardcore than this.
+So, I mean, if you want, we can change subject.
+Otherwise, I can keep going.
+Oh, I'm fascinated.
+Keep going.
+Yeah.
+Okay.
+So, do you remember when Apple released the M1 architecture, right?
+Yeah.
+They went from Intel to ARM.
+And that was big news because, well, it turned out it's also pretty good CPU,
+like pretty good architecture, Numex, I would say are pretty nice from,
+like, they're powerful.
+They overheat less.
+They're nice.
+So, when Apple released the M1, ZIG was the first compiler that was able to cross-compile
+for M1 from another target, from another machine.
+So, Apple, obviously, when they released, well, not only when they released, but also
+while they were developing the M1, obviously, they had a tooling to compile for the M1.
+But they never released, or rather, when everything came out, they had not released
+any tooling for compiling for M1 from another machine.
+So, you had to buy the new Mac in order to build for the new Mac?
+Exactly, because what you would get was, when you have Mac OS, you get a clang.
+You get a fork of LLVM, which is, I would say it's kind of pretty much LLVM,
+except with, like, private patches that Apple makes specific to their system.
+And when the M1 came out, they had patches specific to the new architecture.
+So, you could compile, obviously, from M1 to M1.
+But LLVM itself, the open-source project, did not support M1 yet, fully.
+And so, you could not get LLVM, like, on Windows or Linux,
+and then use that to compile for Mac OS.
+We were the first ones.
+And that was because not only ZIG is a C compiler, and to be fair,
+the C compiler stuff right now, I would say, at its core, it's not super impressive.
+The idea is that ZIG uses LLVM.
+And LLVM is, like, this library that allows you to...
+It's like a unified framework for optimizing, for generating optimized machine code.
+So, the idea is that your compiler reads the program that it's trying to compile,
+builds a data structure in memory, does semantic analysis,
+all the useful stuff that a language has to do.
+But then the final step is to give some of that information to LLVM,
+which will then take care of selecting which exact instructions to use for the CPU that you're targeting.
+Right. So, it's... I suppose...
+I want to say it's almost a little bit like WebAssembly.
+It's like a very low-level language that's actually going to generate the final machine code.
+Yeah, that's...
+It's possibly a bit of a stretch, but...
+That's... I think that's fair.
+That's what... That's the... That's called the LLVM IR intermediate representation.
+Yeah.
+That's what you create, which is a bit code of some kind and...
+Bite code, sorry, of some kind, kind of like WebAssembly.
+I think that's a fair parallel.
+Yeah. So, we give that to LLVM.
+And since we're already bundling all of LLVM,
+it doesn't take much to also add Clang,
+which is the C compiler that runs on LLVM.
+So, that's what's allowed us to build C.
+There's more than it does, but at its core, it's not super complicated.
+But... But...
+A compiler is just one step necessary to create a final executable.
+There's also a linking page at the end.
+So, the main problem with the new M1 Max was that linking
+needed to be different than it was in the past.
+And the reason why we were the first ones to be able to cross compile
+four and one was because we had our own in-house linker.
+There's a core team member in the project.
+His name is Jacob Konka, and he used to work in Microsoft,
+and we kind of approached him to work...
+Well, I guess he approached himself.
+He wanted to work on linkers.
+I think at Microsoft, he was not working on anything even remotely as exciting.
+And so, he decided to jump ship and join the ZIC project full-time.
+So, we have our own linker, and most of the work is done by him.
+And so, my point here is that by having our own linker,
+we were able to reach, to have a feature even faster than LLVM could.
+And LLVM is considered in general like a very good project, and it is.
+But the point is that we did not consider LLVM the baseline.
+We were willing to get past LLVM and do some of that work ourselves.
+And now, going forward, and this ties back to my point
+that we are only halfway through our journey,
+now going forward, we plan to make LLVM a completely optional component.
+So, that means that we have our own implementation of some of what LLVM does.
+So, we have what we call them backends.
+So, we have our own implementation of what reads the internal representation
+of the compiler, the internal data structures,
+and decides which instructions to output.
+That's a lot of work, because you have to build one of those things
+for each architecture that you want to support.
+So, you want to support X8664?
+That's one implementation.
+Arm32-bit, another.
+Arm64-bit.
+X86, like 32-bit X86, that's another one.
+There's more architectures out there.
+So, for each one, you have to write a specific one,
+and then you have to write another bit based on the OS that you're targeting.
+So, X8664 Windows is a little bit different than X8664 Mac,
+not in terms of the instructions of the program, but the packaging,
+like how an executable is structured,
+all the surrounding metadata, the framing, in a sense.
+And we're doing it.
+Now, the work that we're doing in that regard right now
+is not to replace LLVM in terms of optimizations.
+So, the bulk of what LLVM does
+and what it's considered the state of the art for is optimizations.
+We are not doing that yet.
+What we're doing right now is basically do the work
+so that we can have debug builds, which are not optimized,
+happen without needing LLVM at all.
+That's our starting point.
+But the plan is going forward to basically have a competing optimizing backend.
+So, you will still be able to use LLVM if you want.
+How it's going to happen in practice doesn't matter much.
+I think it's going to happen that you basically will need to get LLVM
+through the package manager.
+So, you will use the ZIG package manager to get LLVM instead of
+getting it bundled in the compiler itself.
+But then you will be able to get an LLVM optimized final executable regardless.
+But we're going to work on our competing version.
+And you will decide which one you like more.
+And over time, if we do a good job, it might even be
+that our competing backend becomes compelling enough
+that people will use that one over LLVM.
+Crikey, you're not kidding about going all the way down to the lowest level, right?
+Yeah, geez.
+Okay, that's...
+What's your timeline for that?
+That's got to be a multi-year project, right?
+100%.
+Yeah, for sure.
+Honestly, I don't know what the timeline is going to be.
+The reality is that the timeline of these things can vary dramatically,
+depending on the amount of talent that you attract.
+One thing that people usually say when we first tell them,
+yeah, we want to get rid of LLVM, they start by saying,
+oh, you're insane.
+You're never going to be able to do it.
+There's a bunch of geniuses that work on LLVM.
+Fair.
+Fine, let's assume that that's right.
+I mean, I'm sure that the people working on LLVM are smart.
+But it's not like they are bound by a blood contract to work on LLVM.
+And if we...
+And working on LLVM, it's a humongous C++ project that takes forever to compile,
+and it's in some ways, it's messy.
+What if we were to be able to present to people working in that field
+another ecosystem where they can research the same exact kind of optimizations
+that they are researching and implementing on LLVM,
+but the compiler, instead of taking four hours to build, it takes 20 seconds.
+I imagine that would be very seductive.
+And I think you're deliberately trying to seduce people over to the zig side,
+which is fair enough.
+And I mean, we already have people in the core team who have pushed access to LLVM.
+So it's not like we are like...
+Well, I don't know anybody who is part of the leadership of LLVM,
+so I wouldn't say we are like insiders.
+But we already know people who do this.
+So there's a potential for both knowledge sharing
+and maybe some more kind of sharing out there.
+Absolutely. And absolutely.
+And if LLVM also ends up benefiting from this, it's great for everybody.
+Sounds like one of those whoever wins, we all win situations.
+Absolutely.
+Okay. This is getting very low level.
+Maybe we should try and pull it back into a user space.
+Love the ambition, though. Absolutely.
+But I do want to get a sense of what it's like to write zig.
+What am I going to find as a programmer?
+What am I going to like?
+What am I going to need to learn?
+Right. So the hardest part about the zig is not zig at all.
+Zig as a language is very, very simple.
+The most complicated part of zig right now is comp time,
+which is the ability to run code at compile time instead of runtime.
+And if you're not used to thinking about the two different lifetimes of your program,
+the two different phases of its life, then you might get a little bit confused about
+what it is that you can do at comp time or what it is that you cannot do at comp time.
+But overall, the core principle is, in my opinion, kind of straightforward,
+where things get complicated is once you get into systems programming more in general.
+So if you were like a JavaScript or a Python developer,
+and you never had in your life to think about stack versus heap,
+or maybe people told you, but like if you're a Python programmer,
+this is something that also happened to me like in university.
+If you do Python and people told you about stack versus heap,
+that's like philosophy to you because that's right.
+You don't have control. Fascinating, but you'll never use this knowledge.
+Exactly, like you don't have control over it and yeah.
+But when you're getting to low level systems program,
+suddenly this becomes a real concern, right? Exactly.
+And so people, so the hardest part is, for example,
+understanding the difference between an array of which of whose length you know,
+statically, like this is going to be a six element array and it's always going to be six,
+or maybe you need up to six slots.
+Maybe at some point in time you use fewer than those,
+so you have like a counter that tells you how many slots you're using,
+but six is the limit.
+So and if you know this statically at compile time,
+then this can be put on the stack.
+And there's some things that you can do with this memory,
+thanks to the knowledge of the fact that it's bounded to six elements.
+Yeah, you know exactly how much memory it's going to need for the whole lifetime of the program.
+Exactly, and that is critical information for the compiler itself.
+Like the language, lower level languages are like designed around these very critical concepts of
+like what you know statically and what you do not know statically.
+So if, for example, instead, you have a program where you ask the user to tell you
+how many items they want to enter and they are allowed to enter 10,000 if they want,
+or more realistically imagine parsing a JSON file,
+like a JSON file can be arbitrarily deeply nested or big in general.
+So at that point you need to concern yourself with heap allocation,
+which again is something that in Python and JavaScript you don't do directly
+because the runtime manages that for you.
+So that's one example. Another example is things that your platform, like APIs that your OS
+operative system gives to you, which people sometimes are used to think about as in terms
+of capabilities that the language gives to them, even though the language can only act as an
+intermediary. So for example, sometimes people ask, how do I get the size of the terminal window
+in ZIG? And the answer is, well, the real question is, how does your OS allow you to get
+that information? And that's going to happen through a syscall of some kind.
+And then I guess the secondary question is, well, has somebody written the boilerplate to access
+that syscall and where is it in the ZIG standard library? So the question of how you do this kind
+of stuff in ZIG or in each specific language, it's not completely wrong. It does make sense.
+But understanding what is the actual API below you can be a little bit annoying,
+especially when the language wants to show you precisely what that is and it's not trying to
+give you a sugared interface that it's overly simplified, because sometimes you do also get
+that in other languages, which might make sense. Like a higher level programming language, it
+makes sense that it doesn't give you necessarily low level access to everything.
+So I would say these are the biggest challenges. People need to learn systems programming. They
+need to have this mindset where they have to think, okay, for another example,
+people sometimes ask, how do I print, call, or text in the terminal? How do you do that in ZIG?
+And the answer is, ZIG doesn't concern itself with this. These are escape codes. It depends
+on which terminal editor you're using and a bunch of other related concerns that really are
+pretty much transparent to ZIG. But people don't have this mindset. So I would say that is the
+hardest part about learning ZIG. And connected to this, there aren't a lot of good learning
+materials in my opinion. So this sounds like the usual kind of young national language problem,
+where maybe there isn't a library for everything yet. So there isn't documentation for everything
+yet. Yeah, for sure. But also, I mean, it's not like ZIG has invented systems programming. So
+it would be nice, right? If there was some good piece of like a good book that taught you
+the core principles without too much fuss. And in fact, there are plenty of books that
+try to teach you these things. It's just that in my experience, most of those that I've seen,
+they tend to conflate C specific stuff with the OS. So for example, you have this book that it's
+trying to teach you systems programming. And it starts by telling you about how the C compilation
+model works. And how that intertwines with like how libraries are certain files are like
+laid out in your system. And this is all real and concrete. And it was especially real and
+concrete and concrete like 40 years ago. But those concepts are like in other things like
+macros and where things are usually in the system library. But those are things that are
+specific to C. So if you're not doing C, a lot of these things are not as timeless as the book
+thinks they are. While instead stock versus heap, that one is much more timeless. So personally,
+I think that we're missing learning materials that can discern between really timeless systems
+programming concepts like stock versus heap versus C isms that are not relevant anymore.
+Yeah, yeah, that's sort of a long life cycle, but not
+mathematically pure, you could almost say. Okay, but so I would like to talk about how the
+C interop works. And maybe this is the way to do it. So if I'm actually looking to get the
+size of a terminal window, am I going to go looking for a sysop call and find I actually
+have to do it through an OSC library? And how's that going to play out when I actually start coding?
+So, well, I guess it depends on the US. Let's assume the US is Linux. Okay, first simplicity.
+So if the US is Linux, you're in luck. Because in Linux, the syscalls are considered a public
+API of the US. So you are not forced to use the C library of your OS. You can invoke the
+syscalls directly. And in the case of ZIG, since we like doing things from scratch,
+you will find in the ZIG standard library that we do implement the syscall, which I think it's
+IO CTL, the syscall that you can use to get that information from the US. So in the case of ZIG,
+so yeah, in the case of Linux, that's how you find that out. But in other platforms, yes,
+you would have to use a C-lib, although we do have also bindings to the C-lib. So in practice,
+you wouldn't have to do everything yourself from scratch. When it comes to like these very
+common things, but let's imagine that instead you want to use like a C library. Okay, let's imagine
+that you want to use, I don't know, SQLite. By the way, SQLite is a perfect example of a very popular
+library used, for example, by Go. There's a lot of Go projects in the bundle SQLite,
+but SQLite is a C project. So that's one major use case of people using ZIG to do cross compilation
+when they also want to bundle SQLite. Anyway, you want to use SQLite. So at its baseline,
+here's what you want to do. The way this stuff works in C is that you have C files that contain
+implementations of things and have header files, which are like files with a .h extension. And
+those files contain definitions. So they do not contain the full implementation. They only contain
+like the signature of a function, for example. Yeah, the original kind of API docs, right?
+Exactly. The original API docs. Is it called OpenAPI, I think? The thing that used to be
+called Swalker, it's basically like it's a system to document like RESTful APIs, right?
+That's kind of the idea, except systems programming. Yeah, so the way this works is that then
+SQLite comes with a bunch of C files and one header file that you are supposed to include
+in your project to get access to the public API. With ZIG, you can do that directly. So in ZIG,
+you can import a C header file and it will work right away. Like you import that and you immediately
+get access to all the definitions in there. Oh, interesting. Okay, so there's no kind of bridging
+file that you have to write? Well, the bridging file, in a sense, gets auto-generated. That's the
+idea. Right, okay. So you don't see this. And actually, if you do want, you can do that manually.
+Like you can take the header file, translate it to see definitions. And in case there's like the
+need to tweak something manually, you can do that if you want. But the happy path, like the most
+common way you will want to do this, is just straight up import the header file and have ZIG do
+that bridging internally. Okay. Then at that point, you can just straight up call all the SQLite
+functions that are defined in there. So you can just like go read the SQLite documentation
+and they will tell you called, I'm making this up. I don't remember how to use SQLite.
+That's going to be maybe SQLite. This is a test of the SQLite header API syntax, don't worry.
+Okay. So there's going to be some kind of SQLite init function. So you just call it and it works.
+There's also a couple other things that ZIG does that help you with the interoperability
+with C. So for example, C uses non-terminated strings a lot. So basically, when you want to
+give to a function a string, you give it a pointer to the beginning of the string. And the pointer
+doesn't carry information about the length. The length will be discovered by the function
+that you're calling by iterating through the string until it encounters a zero character,
+once it like a zero byte. Once it finds a zero byte, it knows that the string is over.
+Modern languages don't like to do that anymore. Modern languages very much prefer something else.
+I'll tell you my age. I can remember when we didn't like to do it at the time.
+So in ZIG, for example, normally a string, it's not just a pointer to the beginning of some data
+without null in the end. But in ZIG, we use slices, which other languages sometimes call
+fat pointers. So what you call the pointer is a pointer, but also a length. So you have both
+informations. And to be fair, sometimes in C, you also have APIs that want a length. No,
+they don't want to discover a null byte at some point, but they want you to pass in a length.
+But those have always to be two separate arguments, two separate values that you
+need to move around in parallel. Anyway, so how does ZIG help with C interpretability? Well,
+string literals in ZIG are null terminated. So basically, when you write, I don't know,
+hello world, and you want to use that string literal in ZIG, that's going to be a pointer
+plus a length. I don't know how long a hello world is. Ten characters, nine characters, whatever.
+Depends whether you include the traditional exclamation mark at the end.
+Okay. So you do have this information, but there's also going to be a null byte
+past the end of the string. So you can take a C, a ZIG string literal and pass it to C
+transparently. No need to do anything else. And it's always going to work.
+And more in general, ZIG does have a bunch of functions in the standard library that allow you
+to deal with null terminated strings, which are not the preferred type of string in ZIG.
+Like you don't treat strings as null terminated normally, but
+null terminated strings are a reality because not only because of C interpretability,
+like in terms of SQLite, but also because of C interpretability with the OS, like
+OS APIs, the lib C, that's C, but also the C's calls often time inherit some C's and some
+like some ways of communicating data that are like mirroring what C does.
+Yeah, unsurprisingly, often the OS is written in C.
+Exactly, because the OS is written in C, because that's maybe how people used to do things at
+the time. And so these things are still there. Yeah. And okay, so to conclude, you have string
+literals. You have a lot of other like operators in ZIG that you can also use with C functions
+very easily, kind of transparently. But just to name one, I think it's really cool,
+you can use defer. So defer is almost the same concept as goes defer. There's like some minor
+differences. But the idea is that basically, if you want to free a resource, while when exiting
+the function, instead of making sure that you call free or like file close, for example,
+like the whatever resource release function you need to call, instead of making sure that
+you copy paste that call at every exit point of your function, what you can do is on one line,
+you open a file. And on the line below, you defer close it. Oh, okay. Yeah. So you have basically
+cleanup that you can put immediately after the creation of the resource. And whenever you leave
+that scope, no matter how you leave it, whenever you leave that scope, that function will be called.
+Yeah, because it's always deeply dissatisfying that you have to remember to stick the close
+call, the free up call at the end, and it just screams this is going to get forgotten one day.
+Yeah, absolutely. So defer saves you from having to be too careful about like branching paths in
+your function. And if you look at it from a maybe it's not as handy as you know, what C++ can do
+with RAI with the structures that run automatically, you don't even have to write defer. But C++
+destructors only work with C++ defer in zig also can be called on C functions. It's completely
+transparent. So there's this funny end result we were basically zig in a sense is better at using
+C libraries than C. Because the same cleanup routine in C would require you maybe to even
+use go to like it's not uncommon for people to use go to and have like a label like a section of
+the function with all the cleanup functions, but it gets really messy. Like I don't think I am able
+to fully convey how messy cleanup can get in C, because it doesn't have defer. I can believe.
+Yeah, absolutely. That's interesting. That's interesting still being in C but building on it
+with new syntax. I have to ask before we leave this particular thread, what about pointers?
+The pointer does pointer arithmetic come into zig pointer arithmetic can come into zig. By the way,
+that's a great point. I was forgetting that's another great improvement overseas that also
+helps beautifully with interpretability. So you can do pointer arithmetic in in zig if you want to,
+because that's what the machine allows you to do. And maybe occasionally some OS API will require
+you to do so. But in general, you do not do pointer arithmetic in zig. And specifically in
+zig you cannot do so in the type system, you are not allowed to do arithmetic on pointers. What you
+have to do is take your pointer, convert it to an integer, which is not like an operation that
+there does anything at runtime. It's just like a type system thing, like you have to be explicit
+about taking a pointer, interpreting it as a number, apply the math to the number,
+and then convert it back to a pointer. So you can do it if you want, or if you need,
+probably if you need, you shouldn't want. But the language is not going to make it easy
+or very comfortable to you. There's a little bit of friction introduced there. And on the flip side,
+it helps identify very quickly where these kind of shenanigans are happening.
+Right. So it's mainly there for the sake of C interop rather than writing zig day to day.
+Exactly. And I mean, we say C interop, but I don't know. There might be other things out there,
+like I'm thinking of firmwares, like your programming tiny embedded device, and you need
+something like this because of the very low level stuff that you're doing, which is not really
+necessarily specific to see anymore. But it's like low, super low level bit fiddling. Maybe
+at that point, you need something like this. But otherwise, you normally don't. And still
+related to pointers, there's another crucial thing. Pointers in C are very underspecified
+in the sense that you see a char star. So you know, it's a pointer. And when you dereference it,
+you get a character. But then the question is, can the pointer be null or not? You don't know.
+Maybe documentation tells you, but you're not sure normally. The second question is,
+okay, am I I'm getting a character at the end of this pointer? Assuming it's not now. Now,
+is there going to be just one character on the other side? Or is this like a string?
+Is this like expected to have another character afterwards and another one afterwards until I
+encounter a null? Is there going to be a null or am I supposed to know how many items to get
+because of another variable? This is not encoded in a type system at all in zig. All of these are
+different type of pointers. So if a pointer can be null, it's an optional pointer. So we do the
+thing that all modern languages are doing where you have like the concept of optional,
+and then you need to unwrap the optional. And we use that to represent more pointers.
+But then we have types for so you have normal zig slices, which are a pointer and a length.
+But then you have a C style pointer that can be that there's going to be a pointer either to one
+item, one specific item. So you're explicitly saying there's going to be one character,
+one chart at the end, not many. Or there's a syntax for saying, no, this is like a pointer to a
+unknown number of characters. So there's specific syntax that is going to tell you,
+yes, this is a pointer to many items, but the pointer itself doesn't tell you how many.
+And then there's a pointer to an unknown number of characters with a null terminator at the end.
+And this is in the type system. So for example, if you by mistake think that you're trying to
+create a string off of another string, and so like you maybe take a tiny slice from the middle
+of the string, and you try to pass it to another application, and you forget that that API is
+expecting an alt terminator at the end, which is not going to be there because you just split
+off like a tiny like two characters from the middle of a string, right? So there's not going to be
+an alt terminator on the other side. The Z-type system will tell you, it will give you a compile
+error because it will tell you, I'm expecting an alt terminated string, but the operation that you,
+like the slicing operation that you did on the other string does not yield an alt terminated
+string. So you will get a compile error right away instead of having your program read random
+garbage and maybe sometimes crash. Yeah, yeah. That's one other question I have to ask you then,
+because I can see right now this appealing to people that need to use C, don't want to use C,
+got into Rust, didn't make friends with the borough checker. Yeah. And now have could find ZIG
+being the ideal place if I want more type safety around C, particularly around strings. Yeah. What
+about memory management? Because that's the other big sticking point. Right. Yeah, agreed.
+So in general, so if we want to talk about ergonomics, what I described earlier,
+like the first statement, that really helps a lot with memory management,
+because you allocate a resource, defer, free it, and you're good to go. You need to remember to
+explicit like malloc free call in ZIG land. Exactly. And to be even more concrete about this,
+ZIG does not have a global allocator. So in C, you have malloc. And malloc is like the allocator.
+And maybe different projects use a different implementation of malloc. There's like a few
+competing implementations. But in ZIG libraries, there's this idea that in C libraries, there's
+this idea that you have malloc coming from the ecosystem that allows you to allocate memory.
+In ZIG, allocators are always passed around explicitly. So if a function wants to allocate,
+it needs to accept an allocator as input. Interesting. Yeah. So this makes it more
+easy, dramatically more easy to audit what it is that's allocating memory or not.
+If a function doesn't accept an allocator, or a data structure that bundles the allocator in it,
+like it's also like, for example, we have an array list, which would be like equivalent of a C++
+vector. So like it's a growable array. When you make an array list, you give to it an allocator.
+And then when you pass around the array list, the array list will be able to allocate because it
+bundles a reference to the allocator inside of it. That's for convenience. But in general,
+you can very quickly audit if a function can allocate or not. Does that help you audit if
+a function is forgetting to deallocate? That by itself, no. What it helps is that the
+doing that is that the what we call the general purpose allocator, the main allocator implementation
+that you find inside of ZIG in the standard library, that allocator in debug mode has leak
+detection. So you cannot check statically if all allocator allocations are freed. Or rather,
+you can't unless you're willing to become Rust. Rust can. With all the limits, they also have
+limits on the type of like memory management strategies that the borrower checker can understand.
+But they can. We can't. But we can instrument the default allocator with checks for leaks
+in the bug builds. So when you run your tests, basically, the allocator will fail the test
+if at the end of it, you have like still memory allocated.
+Okay. And that's default built in part of the tests we don't have to specifically instrument.
+Exactly. You don't have to do anything. That's nice. Yeah. There's another angle to this also,
+which is that it is correct for programs to want to leak memory occasionally. In this sense,
+I'll use the Z compiler itself as an example. So the Z compiler, when built in the bug mode,
+will make sure to free everything. When built in release mode, it will not free
+once it's about to leave. It will not free memory once it's about to close. Because the OS will
+clean up that memory anyway. And there's no point in freeing every single item that you've
+allocated if your program is about to exit. Like making sure to free tiny things makes
+perfect sense when your program is going to use a ton of memory or it's going to be super long
+lived. Like otherwise, it's going to consume more and more memory over time until it eats all
+the available memory and everything explodes. Yeah. But for like, let's say one shot programs,
+kind of like a compiler is like you run utility, you run studio and then it closes.
+Cleaning stuff up at the end is just wasted time. So have you ever used like visual studio?
+Not for so long. Yeah, I can't believe. Yeah.
+Thankfully, I haven't had to use it in a while now. But a few years ago, like seven years ago
+or something, I had to use it consistently. And it drives me nuts that when you close it,
+not only it takes forever to load, that that is already not okay. But when you close it,
+it takes forever to close. Why? Why is it taking forever to close? Because as it's closing,
+it's trying to free and run the destructors of every single component and sub component and
+sub component. I have a vague memory of doing this with Eclipse and just getting into the habit
+of force quitting because who cares? Exactly. Exactly. And Eclipse is another in Java. I think
+it's another language that has destructors. And so kind of makes people want to use them a lot.
+But then there's moments where you actually really in terms of like functionality that you're
+offering to the user, you don't want to do it. Like you just want to close it right away. Yeah.
+So long story short, I made this point because in reality, it is a legitimate behavior to have the
+program in specific circumstances, like memory, if you think about it. Because like for real,
+like the user experience would be generally significantly improved in both Eclipse and
+Visual Studio, if the thing just exited right away, of course, you do want to have a toggle,
+like a flag, to make sure you free all the memory cleanly so that you can guarantee that you do not
+have unwanted leaks. Like Visual Studio, for example, is a long running program in Eclipse.
+So they should not be leaking memory in the normal operations. So it's not. So you still want to be
+able to test for that. There are at least two memory management strategies. One is be very
+careful about what you're using because it's a limited resource. But for the long run,
+you know, whatever memory you're using at the end, you can just drop on the floor, right?
+Exactly. Yeah, yeah, that makes perfect sense. There's one other big thing that you've talked
+about a little bit, but I'm tempted to run over our usual time slots. I'm fascinated by this.
+Go for it. I'm not in a rush, for sure. Good. Okay, so comp time, you talked a bit about that.
+And as an old list programmer, this is a concept that makes sense to me, but I think it's never
+really gone mainstream. So why don't we talk a bit about the separation between runtime programs
+and compile time programs? Sure. So let me tell you about how Zig does this more specifically.
+So comp time in Zig is interesting because
+Zig as a language doesn't have runtime type information. So for example, in JavaScript,
+Python, also in Go, you can ask questions to the program running at runtime about its types.
+C programs, on the other hand, don't have a runtime, and they don't have runtime type
+information. Usually it's not always the case, but usually runtime type information
+tends to go hand in hand with an actual runtime of the language. So for example, in Python,
+you can create new types at runtime. You can do introspection. And so having a runtime that can
+yield those dynamic properties to you usually benefits from having runtime type information.
+C doesn't have those facilities because a struct in C at the end of the day boils down
+to offsets in memory. Oh, the struct is, I don't know, 16 bytes long and eight bytes in,
+and it contains two fields. The first field is at offset zero, and the other one is at offset
+eight. And that's the end of it. So everything else has disappeared.
+But it is useful to be able to inspect types and reason about types at least statically. So
+that's what ZIG does. ZIG does not give you runtime type information, but it does give you
+com time type information. So you are not allowed, you're not able to create new types at runtime,
+but you are able to create new types at compile time by reasoning on other types and the way
+you reason on other types. And then, by the way, this is also what generic does in other languages.
+It's just that this is usually done in other imperative languages. This is usually done with a
+funky declarative syntax and a bunch of diamond brackets where you use diamond brackets to denote
+like the generic type and then to put constraints on it using like some kind of declarative
+syntax. Like I want type T to be, I don't know,
+to conform to interface A or interface B, etc.
+Okay, so you're using, you're saying you're using com time to do things like I want a list of As,
+but now I need to pin it down to be a list of eight bit integers.
+Yeah. Yeah, okay. Because you can, because the idea is that you are creating a new type
+by referring to another existing types, another existing type. And the way you do this in ZIG is
+not via these custom syntax, but by using normal ZIG syntax. So literally a list, for example,
+let's say you want to make a generic list and you want then to be able to make a list of integers,
+a list of characters, whatever. The way you implement this in ZIG is that you create a function
+called list that accepts a type as input, which has to be marked as a com time parameter. So like
+the signature would literally read FN list, open parenthesis, com time T column type. So it's a
+com time parameter named T of type type, you have to pass in a type. And so that could be like integer
+or whatever. And then this function returns another type. And in the function body, you
+create a function, you create a struct, you return a struct definition that places that defines the
+payload field like a struct probably that has the payload field of type P what you passed in,
+which is kind of like generic work. But it's normal procedural Z code that gets executed
+compile time. So for example, you could create like I said, you're making a simple array,
+but the length of that array, you want to be the result of other reasoning, you could create a
+Fibonacci function, run it a com time and say that your array is long the 10th Fibonacci number,
+which I don't know how much it is, but it's not going to be 10. It's going to be your number.
+Right. So you can call normal, run normal Z code, it's going to be interpreted by the compiler
+while compiling. And usually you do have some of that in other languages, it's just not fully
+general purpose, they give you restricted language to specify properties and have they have their
+own special rules. In Z, it's just you run the Z code. And, and the compiler has like a concept
+of a execution quota. So that like, for example, if you make a mistake and you try to make,
+you make an array that is the 1000 Fibonacci number, but your Fibonacci implementation is
+very bad. The compiler after a while is going to tell you I executed like 10,000 loops. And I, and
+since we couldn't come to a conclusion, I gave up. And if you really think this is this is not
+like an infinite loop, then you can pull up that number, like the number of executions before giving
+up. And, and we're going to try again. But so that way basically we, the compiler is how it deals
+with like with infinite loops and undecidable stuff. Yeah. So you're protecting it's people making,
+accidentally making compile time infinitely. Yeah. Yeah. And Alan Turing has opinions on why you
+can't automate that. Yeah, exactly. So and you know what, in our case, I think it's fine in practice
+to solve the indecisibility problem by just giving up, because ultimately, like, you're
+trying to compile a program and you're not willing to sit there forever or up with radical
+long to have it compile. So yeah. Okay. So this raises two natural questions. And the first has
+got to be, what's that like as a, as a programmer is because most of us are used to using like
+diamond brackets for generics. Do you prefer the zigway? Does it feel natural once you get used to
+it? I think it feels insanely natural. Like you mentioned earlier, Lisp, to me, I, by the way,
+I also love Lisp. I've never used Lisp professionally, but like in university, definitely one of my
+favorite subjects. And, and I also loved writing macros in Lisp. And it feels like writing macros
+in Lisp. Or actually, I would say it's even better than writing macros in Lisp. Yeah,
+the spicy opinion. Well, so what I think happens with Lisp is that people say macros in Lisp are
+nice because Lisp is an almost iconic language. So the language itself is the data structure that
+represents it. It's the least the, yeah, it's the world, the small expression that represents it,
+which is fair. But I do think that the, the, the actual truth is that
+by having the program be a data structure, you are naturally, the language is steering you naturally
+towards treating the program as a data structure instead of it being a textual transformation.
+And in fact, you can write macros in Lisp that don't generalize really well, that like make assumptions
+about a specific like argument being, being or not being a list or being or not being quoted,
+for example. In Zig, you are literally, the comp time is more limited than what you can do with
+Lisp macros just to be, to be clear. And that's also kind of by design. It's kind of like of a
+80, 20 thing, like it gives you 80% of the power, but it saves you from the 20% of really
+cursed stuff that people will want to do all the time. Or like, or rather it would 20% of
+the complexity, which does save you from cursed stuff. Yeah. In Zig, what you do is like the,
+when you look at the time, you literally call a function that like you call at type info and
+you pass in a struct. So let's say that you made a struct called named person in person has age
+and name. And then you call type info on person. And what you get back
+is a data structure that contains, like it's another struct that contains all the info about
+that type. Like among other things, it will contain like an array that contains the two fields
+with information about how the field is called, what's the type, etc, etc. And so your metaprogramming
+is always going to look at the program as data and never as syntax. And I think that's the key
+that makes come time weirdly, weirdly natural. Okay. Yeah. Yeah, it does remind me. I mean,
+the frustration with list macros was always that they were untyped and you could really
+cause things to explode in an even more spectacular way than normal lists. Absolutely.
+But the nice thing was that there was absolutely no difference between writing programs that work
+to compile time and run time because it was the same tools, same language, same everything.
+Exactly. And it's the same for Zigg. Because you do use the same syntax. You like, I have an
+example on a blog post that I've wrote, trying to introduce people to the concept of come time.
+And my favorite example in there is this idea that which is actually taken from real life
+experience. I was writing a Redis client for Zigg. And in Redis, you have commands like the
+query language of Redis makes you write commands that are case insensitive. So if you write it
+uppercase or lowercase, it doesn't matter. So at some point in my client, I wanted to recognize
+some of those commands. So I wanted to check for equality between two strings. And my idea was,
+well, to slightly, very slightly improve the performance of the comparison function,
+if I know that the constant string, like the string literal that I hard code in my
+program that I used to check the user provided string against, if I know that that one is always
+going to be uppercase, I can simplify the comparison code ever so slightly. I can just remove one
+branch from the comparison. But now I have, I want to enforce that when you call my equal function,
+you always pass in the first argument, the argument that you're passing,
+like the first argument that you're passing is always going to be uppercase.
+Right. So you want some compile time code to check those strings are correctly written.
+Exactly. Now, imagine trying to do that with diamond brackets stuff. I have no idea if you
+can actually even pull it off. Here's what you do in Zig. In Zig, in the function body,
+you open a comp time block. Well, first of all, you have to mark the first argument as always
+being available at comp time. So people will be forced to give you, it doesn't have to be a string
+literal directly, it can be like a variable name. But ultimately, the value contained in that variable
+needs to be resolvable at comp time. It doesn't need to depend on weird stuff like the network.
+So you open a comp time block, and in there, you have a for loop that loops over the string
+and checks that its character is in the correct range. That's it. That's all you do. Nothing
+weird. You just use the language to check the string character by character. And if you find a
+character that is not in your expected range, so in my case, it was between uppercase A and uppercase
+Z, what you do is that you emit a compile error. And you can emit a compile error that says, well,
+you are supposed to give me an uppercase string and you didn't give me an uppercase string because
+this character is lowercase. You can even be precise and print the string and point out a
+point at the specific character if you want. You can craft the message whichever way you want.
+And that becomes the compile error. And so now, users of your API, not only the constraint is
+enforced, so if they give you a bad string, they will get a compile error. But the compile error
+is also going to be designed by you. So people will get a nice compiler from the compiler that
+will tell them, you're supposed to pass an uppercase string, but you didn't.
+Nice. Yeah, so you can start doing bespoke compiler extensions, and you don't have to
+learn a new language to do it. That's pretty sweet. Okay, that gives me a good sense of the
+footprint of the language. So there's one other big topic I think we should talk about,
+which is, I thought it was really interesting the way that the Zig project is funded,
+right? Because every language, particularly in every open source project, has a problem with
+getting enough work done because you've got to give up your day job if you really want a language
+to take it off. Yeah. And your approach, Zig's approach to funding is fairly novel. Tell me about
+that. So Zig is a 501c3 non-profit foundation, US non-profit foundation, like 501c3 is a
+thing in the US legal system. It's been kind of set up like a charity. Yeah, it's exactly what
+we normally would consider a charity. So it's tax exempt, and you cannot pay dividends. So all
+the money that goes into the organization has to be used to pursue your mission. So basically,
+you have to use the money to run the company. You can take it out and buy a yacht with it or
+whatever I mentioned. Zig is not the only language that has this legal structure. Python,
+I think it's also another 501c3, but not all languages are net. Some other languages are a
+different type of, it's still considered non-profit, but it's a different type of organization and
+which does have to pay taxes. This is what is, usually it's 501c6. It might seem that there's
+not much of a difference between three and six, especially because it's a place where we normally
+in like semantic versioning, we would have like the patch number. So you think, oh, c6c3, whatever,
+it's like, they fixed the bug in there. No, that's a huge difference. We're not always consistent
+with version numbers, but my god, lawyers, they can really change the rules between versions.
+So Zig specifically leaves mainly off of donations. So most of our income comes from people
+donating money to the foundation so that we can move forward with the development of Zig.
+Some money also comes from other things. So it's mainly donations from individuals.
+We do have also a good number of donations from companies, but I think in terms of like,
+if you were to do a pie chart and plot them both, they would, I think, roughly be balanced.
+So we do try actively to keep a balance between our sources of income because we don't want to
+get in a situation where like one entity or like a very small number of individuals end up having
+control basically over the foundation, maybe not directly, right, not legally, but if they control
+the money flow, then ultimately they do control the destiny of the organization.
+Exactly, yes.
+Yeah, and we do want to be able to say no to people. We do have support contracts,
+or rather we have one with Uber because Uber is using Zig to cross compile. They are cross
+compiling, I think, as of today, all their backend services that require cross compilation
+because of ARM servers mainly. So like they wanted a while ago to be able to have ARM servers and
+not just Intel, well, XAD664, and so they use Zig, and now they did the work to actually make
+sure that all their C and C++ stuff cross-compiles correctly. So they have a support contract with
+us, but then again, it's not a huge chunk of our income. And that is mainly when it comes from
+income. So related to this, also, we kind of want to be independent, and we are very serious about
+this. We used to joke that, because people sometimes say, oh, if you want this, your
+language to succeed, you cannot make a successful language unless you are supported by a big tech
+company. And we kind of beg to differ, but also our standard offer is how much money whatever
+big tech company wants to give us in exchange for 0% of the foundation and zero seats in the
+board of directors. But they do get Zig in the end. So they do get something in the end.
+Yeah, yeah, there is some quip pro quo, but no power.
+No power, no control at all, zero, absolute zero. And because we really want to make sure that we,
+like the Zig is a BDFL run project. So also compared to other languages, we basically
+ultimately have Andrew, who is the creator, who acts as like the ultimate decision maker.
+It's not only him, there's a core team, there's people, there's a process which is also very
+public, like you can read proposals to change the language on the GitHub. And discussion happens in
+public and actually anybody can chime in. But for example, it's not a democratic process,
+like if a feature proposal has a huge number of upvotes that counts zero towards the decision
+of whether to include that feature of or not in Zig.
+Right. Yeah, that has some downsides, but usually has great upsides for design consistency.
+Absolutely. And it's absolutely, in my opinion, fundamental if you want to have your language
+stay small, if you don't want it to eventually devolve into a kitchen sink.
+Yeah, that's true.
+And there was a talk by the creator of the Elm programming language recently that I think
+dove into this general concept, I think in a very nice way. Basically, I'm paraphrasing and I'm
+going to oversimplify. The talk is titled The Economics of Programming Languages, I think.
+It's from a strange loop. And, well, it was given a strange loop. I highly recommend it.
+But the bit that I'm interested about was said something along the lines of
+languages that are like 501c6 is like more corporate languages that end up having like
+a bunch of organizations come together into a kind of consortium or like a trade association.
+They basically look at the language as a marketplace. They look at the shared infrastructure
+and all the commerce, all the commerce, all the business that this thing can support.
+So, which is reasonable, right? You look at a language like I don't know C sharp or Java,
+and those languages do enable a certain type of commerce. So, from their perspective, they want
+the commerce to be as much as possible. They want to give the best market to their organization
+members. And so, if an organization member wants something because it helps them do their business,
+you have a strong incentive to say yes. And whoever doesn't need that feature,
+they cannot use it. They can disable it. They don't have to use it, right? So, there's no point
+in saying no to people if your goal is to enable the, have the biggest possible market.
+But as technologies, we know that, well, there's some downsides from that, right? Once your language
+becomes a kitchen sink, then it's like, it's not good over time. So, there's huge value in keeping
+your thing small and consistent. And I think that's what you get by choosing 501c3 over 501c6,
+or rather not going down the path of making your organization like a trade association.
+Yeah. Yeah. It's interesting the thought that that one decision, how you're structured as a company,
+or as a financial organization, will influence how you're designed as a language.
+Yeah. It has huge influence. People, programmers, don't want to think about this stuff. They like
+to think, oh, I just want to focus on the code, which is, it's a sentiment that I can understand.
+Frankly, I would like to only focus on the code. But the hard lesson that I learned is that
+to have the best technology, you have to get right the business side. Like, the business
+side comes first. Every time you make a mistake there, the technology will suffer.
+It will, in the long run, it really matters. In the short term, it doesn't. The long run,
+it has a huge effect. Yeah. Yeah. That's true. Okay. Well, I'm very glad we diverted into comp time,
+but we should probably wrap up and let the listeners go to runtime. How's that for a segue? So,
+yeah, if you, if someone wants to get started with ZIG, I know you have LSP support, you have a
+VS code plugin, you've got all the quality of life things for a new beginner, but where should
+they start learning? My recommendation would be go to the official website, ziglang.org,
+and there there's a learn section. The learn section has like a guide on how to
+download ZIG, install it, and it also links you to some learning resources.
+Personally, among those, the two, actually, the three main ones that I would suggest is,
+as a starting point, the language reference, the documentation that tells you about the language,
+not the Sunday library. That one teaches you specifically about like syntax of the language,
+and it's one page. It's one long page, like it's not an A4 or US letter page, but it's like,
+just one page is not huge, and you don't have to read it all precisely. You can scroll through it,
+but that one gives you baseline understanding of ZIG. Then from there, I would suggest,
+if you don't have like experience with lower level programming and you want like a very
+smooth learning curve, ZIG links is the best starting point, in my opinion. So, ZIG links is
+like a community project where basically you clone the repo and you get a collection of very
+tiny programs that don't compile or that don't behave correctly. And the comments tell you how
+to fix them. So, you go one by one, and the comment will go, oh, this program is supposed to print
+an award, but it doesn't. Fix it, and that's going to be super simple, right? You're going to
+just fix the string literal, but then going forward, the exercises will become very smoothly,
+but they will become harder, and they will require you to understand more of the syntax.
+You know, I think that's how I learned closure. They had a similar thing called,
+I think, the closure cones as like a series of small failing programs that you have to fix,
+and you gradually learn the whole language. It's a lovely way to learn a new language.
+Yeah, ZIG links is very, very, very popular. I would say it's probably the most popular
+piece of educational content in the ZIG ecosystem. And the name ZIG links is also inspired by
+Rustlings, because Rust also has it, the same thing, and they call it Rustling.
+Right, nice. I will link to both of those in the show notes.
+But for now, Loris, thank you very much for joining us. It's a fascinating language with
+almost more scope than C, which I can't believe. It has pretty much all the scope of C.
+It tries to fix all the things that C, for some reason, never wanted to fix. Think about it.
+Why is ZIG able to cross compile C, and a C compiler is not going to be able to give you that
+out of the box? We didn't get into this, but you get a ZIG compiler, and you write Hello World in
+C, and you can compile it from Linux to Windows. Try to do the same with Clang. It's not going to
+work. I'm not even going to try. Yeah, but it's insane. So yeah, the scope is all of C,
+all of the things that C should have done that he didn't do. That's a little bit extra.
+Nice. That's enough to keep us busy for a while. Yeah.
+Loris, thank you very much for joining us. Thank you.
+Thank you, Loris. Since we recorded that conversation, I have been playing around with
+the ZIG links tutorial he mentioned, and yeah, I can confirm it's a nice way to learn.
+I'm also planning to find time to pull out my old Arduino microcontrollers, because I've dabbled
+with kind of embedded hardware in the past. I've never really been happy writing C. I've loved
+using Rust, but it's been a fight to get things to compile onto the embedded hardware. So hopefully,
+ZIG is going to finally make me happy when I'm tinkering with soldering irons and wires and
+LEDs and stuff. In the meantime, I leave you with links to everything we've discussed. They're all
+in the show notes. There is a wealth of information out there about ZIG, how to learn it, what it does,
+extra features we didn't get a chance to cover. And I'll leave you with a funny story. If you
+install ZIG and type ZIG Zen, it will tell you why it exists. I'll let you go and discover that.
+Before you go, please do take the time to give us a like or a share or a rate or a review.
+It is the easiest way to let us know which topics you find most interesting, so we can do more
+episodes on those kinds of topics. And if you haven't already, click subscribe or follow to
+catch future episodes. And until the next episode, I've been your host, Chris Jenkins.
+This has been Developer Voices with Loris Crowe. Thanks for listening.
+Thank you.

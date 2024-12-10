@@ -1,0 +1,753 @@
+So welcome to prompting with prompt layer conversation we're doing with many people in AI and we're
+kicking it off now with Steven Wolfram who we have here and yeah just real quick prompt
+layer we're building DevTools for people bringing LLMs into production like GPT so if you want
+to do some data-driven prompt engineering we're the place for that and we're gonna have
+we're gonna have a pretty cool conversation I hope we're gonna nerd out a little bit here
+and excited for that so you probably know who Steven Wolfram is what he's done I learned
+about his work from a math homework probably in a middle school or high school but originally
+met Steven when he came to a hackathon I was running in high school and he stayed there
+till like 2 a.m. mentoring people and that's kind of my first introduction to this theory
+about computational thinking and it's come back around you know and it's very important
+today so yeah I'm really excited to have this conversation with you and maybe to kick
+it off you had a big release today of kind of plugins into chat GPT and this is I think
+you might have said it but I completely agree it's kind of a historical moment where we're
+kind of bringing the LLM side of things the AI statistical AI to the symbolic AI to the
+symbolic computation and that sort of thing so like how did we get here what what has
+the process been and what why is it so significant right now well I think what LLMs have been
+able to do is sort of take the corpus of texts that we humans have written and kind of grind
+it up to the point where we can make more that's like it so to speak so we give a prompt
+and you know the the role of an LLM is to continue from that prompt and that's and sort
+of continue with things that are like the things that have already been written on the web
+and I think and it does that in a way that is kind of just sort of statistically fitting
+things together there's been a completely different tradition of computation that is
+really able to use the deeper aspects of computation really able to use sort of the irreducible
+computations that can in principle be done that's the world that I've lived in for many
+decades now of trying to figure out sort of how to take what is computationally possible and make
+it accessible to humans and I think the thing that's been sort of exciting is that well we made a
+lot of effort to make it accessible to humans turns out that also makes it accessible to language
+based AI's that kind of learnt their craft from humans so to speak so you know kind of the way
+I see it is these have been the two great kind of traditions of AI and we've now got this opportunity
+to really connect them together through the medium of sort of a mixture of natural language and
+computational language and be able to get it so that one can kind of use the linguistic interface
+that we are all used to because we're all very experienced at sort of interacting in natural
+language together with kind of the depth of that rather inhuman non-human thing that is sort of
+powerful computation so it's kind of bringing those two things together the the very human language
+with the very sort of beyond human non-human power of kind of deep computation and you know the
+fact is that as a practical matter LLMs are making sort of statistically reasonable pieces
+of text which may or may not actually be the way the world is and what we've been involved in doing
+is kind of making a representation of the world as the world is in computable form and being able
+to bring those two things together so that we're able to let the LLM sort of make it statistical
+kind of for text and then we're able to provide sort of precise computable insertions into that
+text to kind of provide the facts where the LLM can be writing fact or fiction and it doesn't
+really know the difference so to speak. Right right no this is super interesting and like
+and I guess it's and it's changed so much in the past like two or three months I guess like to dive
+deeper here um maybe oh I'll give you an example so um and I'd love for you to explain kind of
+your thinking behind this and this has changed today with the Wolfram plug-in and chat gpt
+obviously but I had a friend Avi and he tweet let me let me just read the actual tweet so
+he was basically he tweeted that uh he was using gpt 3.5 then he was using gpt 4 and
+he was failing on this very simple problem that he was doing and the the prompt was
+how many unique apartment units are represented in the data below as in two people in the same
+unit for example 430 would count as one and then he had a bunch of names with different
+apartment numbers and his question was to him like this is not obviously a hard problem in the
+let's take let's like stepping back from what's symbolic what's statistical just at the space
+level if I'm a hacker I'm just like using open AI this doesn't seem like a hard problem but
+it wasn't a problem gpt is able to solve on its own it's not a problem llms are able to solve uh
+would would love to hear you kind of break that down and explain what about this problem is hard
+for llms and what about it it's easy for the Wolfram language well I mean so anything that involves
+precisely computing something with math there can be many steps that are involved in doing a math
+computation an llm is a feedforward network that you know the current version of them at least is
+sort of feedforward networks where you kind of you know it's encoded a lot of stuff but basically
+you fed it the the the text so far and it sort of ripples through the network and then tells you
+the probabilities of next words to follow and that's just not something where if there needed to be
+something where iterated recursed whatever else to figure out what's the answer to this thing
+that's not something that's going to happen inside the current architecture of llm the way that llms
+managed to not be sort of computationally trivial is that they are continually eating their own
+tails so to speak they're continually kind of uh a reprocessing the things that they have generated
+so far and that's what allows them that that little sort of extra piece is what allows them to have a
+lot more richness than just a pure you know ripple through the network once type of type of system
+but still the kinds of things that are really easy in terms of traditional kind of Turing machine
+computation are are really hard they're really not possible actually for something which is
+fundamentally doing this you know ripple through once type uh type method but i think that the
+challenge i mean in terms of sort of the the architecture for ai's using tools is how does
+the ai know what tool to use what what when to use the tool how to present information to the tool
+to be used and then how to interpret the information that comes back we've been kind of fortunate in
+this case because we built Wolfman alpha to take natural language input from humans and turns out
+llms can also produce natural language input um and so you know we already have a funnel basically
+to collect uh the the things that llms naturally produce now in fact the endpoint that is in uh
+the the Wolfman plugin for chat gpt is a combination Wolfman alpha Wolfman language
+endpoint and that's a an elaborate piece of engineering because the llm kind of and you
+know we we try to make the prompt i don't know how successful we've been so far we try to make the
+prompt decide should it try and send it to Wolfman alpha when because it has a natural language input
+and it's expecting kind of a big natural language collection of outputs or should we try and send
+it to Wolfman language where it has to synthesize this precise computational language and then
+when it sends it to Wolfman language is it actually correct Wolfman language it has to go
+it basically goes and reads the documentation that's what we've told it to do at least
+to figure out is it a correctly formed piece of Wolfman language uh input then when it gets the
+result it's a very you know here's the result that's all there is in Wolfman alpha the result
+can be this long series of of of things which which chat gpt can then knit into an essay and it
+does a pretty good job of doing that i think that so i mean that they're these different
+different modalities but the fundamental point is when it's a computation that involves kind of
+looping and recursing and and so on it's just not something that you can expect to be able to do
+from uh from from a straight lm now there are other issues like like things to do with tokens
+and the fact that tokens and numbers don't match very easily although that's something one could
+definitely fix um but uh you know and and you know if you're doing even something like multiplication
+if you're just doing it in pure llm land what are you going to do memorize all of the you know
+two digit three digit multiplications well then you have the next case and it may or may not be true
+that from the innards of the llm that it can untangle kind of doing the carries and all this
+kind of thing probably it can untangle that if you allow it to uh you know talk about its
+intermediate steps it has an easier time if it can talk about its intermediate steps because
+essentially it's storing intermediate it's got an intermediate storage location so to speak that is
+the actual text it's writing but it's not a very uh you know the the the best way to do that is just
+you just compute and you do sort of traditional computation on that um to get that result and
+then you knit it back into the kind of natural language world of the llm interesting so
+why is it that having a kind of like asking the llm to explain the steps makes it a little
+more correct is it is it not just finding like i guess the completion that's most close to all
+the steps is there something i guess that changes the problem by breaking it down there or i don't
+know if you have any insight no i think the problem is that if you've got something that involves
+intermediate steps the llm cannot internally what when we write a program in traditional i don't
+know well from language or something it's trivial for it to go and you know iterate through many
+many times you know it's trying to find the answer this thing it's going to run in a million times
+internally it's all good but when if it's an llm it doesn't get to do that every every token that
+it is emitting it's just rippling through once right and so in order for it to have this sort of
+intermediate state where it kind of iterates on it it's got to actually write out that intermediate
+state in the text stream where it generates and so that's why it can be better if you ask it to
+explain itself so to speak because then it has the each individual kind of ripple through each
+individual new token is less has to happen and it's kind of doing that sort of building up
+of the tower through the explicit text that it's generating and then and then redoing things from
+that text interesting interesting um yeah that makes sense and i guess like one thing i'm curious
+about i guess your thoughts on and is this the and i guess what the steady state is is what
+it like the interface is here it sounds like this was kind of this is like a two month thing that
+went from no gpt to gpt with plugins and stuff like that or chat gpt with plugins and the
+wolfram plugin and you mentioned there's the wolfram language input and the wolfram alpha
+input is that do you see there always be the like is it like wolfram alpha as the fallback
+or how do you see that evolving over time or is this like we'll see who knows well i mean the
+combination the combining of the wolfram alpha endpoint and the wolfram language endpoint
+started last weekend so i love it it's uh it's a very non-trivial piece of uh oh i don't know
+combination ai thinking prompt engineering software engineering etc etc etc because those are running on
+different uh you know in different on different clouds that you know it's it's a complicated
+thing it was it was complicated to pull off i think the um yes basically right now i see it as uh
+you know the lm if it's just yacking in language it's going to send it to wolf now because
+wolfram language can't do anything with that if it manages to successfully it's been trained on
+a certain amount of wolfram language uh examples uh probably it'll be trained on a lot more such
+examples in in the future um the uh as it gets better at synthesizing wolfram language code
+it's probably ultimately more powerful to just go straight to the wolfram language form
+but that's it's it also can make horrible mistakes doing that wolfram alpha is a good
+catchment mechanism because it's already got you know many years of development of natural
+language understanding where it knows you know given this natural language first of all it knows
+when it doesn't know which is an important feature yes it's been pretty successfully uh you know set
+up so that when it doesn't understand the natural language just says i don't understand it doesn't
+make something up when it does understand humans what's that we need that for humans too now yeah
+right well i think i think uh you know what's interesting to me is what we learn about kind
+of human psychology and human operation by looking at chat gbt and how unbelievably similar the types
+of mistakes it makes on solving problems and things like that are to the way that human the
+kinds of mistakes humans make i mean i think it really is capturing the essence of sort of the
+neural net it has is probably not that different in some functional sense from the neural net that
+we have um and uh you know it's it's really it's showing us kind of what it means to be a sort
+of a human-like answerer a human-like text generator so to speak but in terms of the sort of the
+future in in in terms of sort of uh okay wolfram language is a really great language for ai's to
+try and speak in it's sort of the best language for ai's to try and speak in because it talks about
+the real world it's very self-contained and it's very succinct and that means that it's something
+where the ai and and the other thing about it is which i think is is yet what we're about to see
+this really really uh blossom is wolfram language as a language for human ai collaboration
+because you know what we see happen is you say you type in natural language i wanted to get this
+this and this it synthesizes a piece of wolfram language code maybe it's right maybe it's wrong
+but you can kind of run that code line by line you know wolfram language is a symbolic language so
+you can always see the output at every at every stage everything you have is a valid piece of output
+so you can see that thing build up graphics build up the structure whatever else it is
+you can run it line by line and as i was you know as i've been using it that's what i've ended up
+doing it generates some code and it's like really is this right i don't know um you know it got it
+roughly right it's not completely crazy but to know is it actually right well i have to kind of
+run it line by line sometimes sometimes it's obviously wrong because for example it's generating
+error messages actually one thing we just did in the last two days is when it generates a message
+it gives chat gpt's a bunch of text around that message it feeds it back to chat gpt and says
+rewrite the code try and avoid this message um and uh you know how well that will work not
+sure it's it's clearly working in some cases um and chat gpt is is wonderfully polite and apologetic
+when it when it keeps on doing the rewrite so to speak um but uh you know that's a uh i think the
+the sort of the the place where it's going to look really interesting the kind of in the
+in the world of kind of what future programming looks like i think a big piece of future programming
+is you type some text that's kind of the initial here's what i roughly want to do it synthesizes
+basically from what i can see wolf language is the best language for it to synthesize because
+it is the most succinct language that is the most kind of expected to be read by actual humans
+it's not a big slab of code in some low-level language where the thing is talking about you
+know set this array pointer to this type thing it's something which is trying to speak at the
+level that humans think so to speak and then then the you know the picture will be again i haven't
+had the experience yet except in a few toy examples of seeing how this really works you know i type
+my initial you know this is roughly what i want to do it synthesizes some code i look at that code
+potentially line by line it probably synthesizes and tests for that code along with the code itself
+it runs those things it says this is this line this is what it did you look at it you say no
+that's that's wrong and then you either tell it that's wrong or you fix it yourself and then you
+you are steadily building up this thing that is the kind of the the final code you want
+that you can then you know we increasingly have efficient compilers to llvm and things like this
+so once you've got this very high-level representation you're then kind of which you
+have been collaborating with the ai to produce then you can kind of take that and deploy it however
+you want to deploy it whether it's in the cloud on some you know embedded device or whatever else it
+is but that's the the kind of the point is this collaboration between the human and the ai where
+you're leveraging the fact that computational language our computational language is actually
+readable by humans and part of what makes it readable by humans is that it is a language that
+can immediately talk about images and cities and chemicals and movies and things like that
+and you're not kind of trying to figure out oh what is the data structure that it uses to talk
+about an image or something it's it's right there something that you can read as being a thing about
+an image for example and so i think that's you know to me that's a really pretty exciting prospect
+of kind of the the future of programming and you know people say what's going to happen to
+all the programmers it's like what's going to happen to everybody who does boilerplate
+you know smart boilerplating so to speak uh you know that it's that's something people who are
+you know producing you know somewhat boilerplate you know documents of various kinds that's kind
+of going away and um similarly you know people have rushed into kind of learning you know going
+to computer science school and learning how to write you know java code python code whatever else
+it is and it's like a lot of that is just going to go away just like you know when i was well younger
+than you people were always talking about assembly language you know if you're going to be serious
+about computing you've got to write your code in assembly language i don't think anybody says that
+anymore um and you know in fact the c compilers or whatever are probably producing better assembly
+language than any human produces at this point so you know what we're seeing is this kind of this
+moment where kind of the there's a question in these lower level languages because you kind of you
+can write a big slab of boilerplate language which you needed to write as boilerplate language
+because it was a low level language in a sense what we've already done with wealthman languages
+automate out that boilerplate by having you know the one function that just does the equivalent
+that big slab of lower level code and so that gives us the opportunity to be sort of at a level
+where we can have a a meaningful conversation with the ai about what we're trying to do
+and it can produce kind of it then produces a first draft of the code at a level that we can
+understand we then edit that code or or tell it to edit that code but we can understand that code
+we can understand the test cases and so on and then reiterate and and i think it's going to be a
+really productive way of producing kind of computational functionality and i think it will
+also open up that uh that capability to a whole range of people where you know they didn't learn
+how to do memory allocation and make sure that the uh you know the pointers stayed aligned and
+you didn't uh you know whatever else was the you know whatever other sort of uh lower level
+thing you might be thinking about they never learned that stuff and they don't need to just
+like for most people programmers today they don't really need to learn you know how assembly language
+works right right a lot of interesting stuff there um so okay so you don't need to know how
+assembly language works you don't know you need to know how to code today one thing like one thing
+i've noticed kind of through friends and uh like hackathons here and stuff like that is like
+the concept of prompt engineering is a very i feel like programmers pick it up like this because
+it's a very tinker heavy you know we can assume the neural nets of black box change change the
+prompt see how it at see see what comes out change it again see what comes out is this like is this
+a certain type of is that a skill in itself is that something that could be learnable what would
+you how would you oh yeah i i i always enjoy i've been you know in the past i've been responsible
+for a few sort of new job categories of things people might do like when wealth mouth came out
+we had this sort of new job category of linguistic curators and it's like you know we have test cases
+like you know write a thing which you know you say how many ways are there to make change for 35 cents
+while there are a zillion different ways to say that some people are really good and can
+generate at output speed 200 ways to say that um what kind of skill is correlated with that i
+wondered that you know i wondered is this going to be poets is it going to be crossword puzzle
+people is it going to be computational linguistics phd's well actually it was people who did not
+know that they had that skill and just were like doesn't everybody have the skill but they're really
+good at doing it and i think with prompt engineering you know i i saw about a week ago i saw for the
+first time a thing i was kind of predicting a resume where somebody had been an animal wrangler
+and now they were they were theming themselves as a prompt engineer and it's kind of the same
+the same type of thing you know you're poking at this thing you really don't understand
+and you're trying to get an intuition for what it does i think it's more the kind of thing where
+you know i'm not sure whether it's a a you know i think a lot of people who do programming well
+and who do programming sort of in uh are really thinking pretty i mean i don't know when i
+i suppose when i try and do programming i'm um i i'm always i think i'm thinking pretty
+analytically about what's going on i mean sometimes i'll just just try this but that's
+pretty rare i would say relative to the you know i think i have sort of an analytical understanding
+of what's going on i mean one of the things that happened to me over the years is i'm now a you
+know a fluent wolfman language programmer in the following sense that i can start to type code
+before i could have told you what the code would say so in other words it's kind of like as opposed
+to i'm thinking about it in my mind in some kind of mental model that involves kind of my natural
+natural language so to speak um but instead i'm actually thinking internally in wolfman language
+and that's something that again it's a feature of being a high level computational language
+that you can imagine doing that and you know i can be typing the code and i know uh quite a lot
+of other people are in this position as well where they can type the code before they can explain
+what the code would say just like if you're speaking a foreign language you know you uh if you're
+not very proficient at it you're kind of thinking in english let's say and then you're translating
+into french as opposed to just sort of thinking fluently in french well that's something you
+can get to the point of being able to do in computational language i think that the um
+the question of what it takes to be kind of a great prompt engineer i don't think we know yet
+i know i'm trying to think in in my own company uh you know we've been doing a bunch of prompt
+engineering and uh uh gosh i mean uh it's a range of people actually have been doing it um and uh
+the people gosh i mean it's there are a number of people who are very experienced at heuristics
+kind of developing heuristics for for now for there's some others who are more into just all
+around uh well i would say all around thinking more more so than all around programming so to
+speak um but i i kind of um i think it's a it's a new kind of skill it's a it's a strange skill
+because it is a skill maybe a bit more like psychology or animal wrangling than it is i
+think more like that than it is programming and as a as a pure um kind of um i mean there may come
+a time when we understand enough about prompt engineering that we're able to uh kind of have a
+a formal structure for thinking about prompt engineering i don't know i it's an interesting
+question and it's something which given that one has i don't know i you know a reasonable at least
+high level understanding of how chat gpt is working you know can one so an interesting question that i
+have not really addressed is having made quite a study of how chat gpt works and sort of thinking
+about it a little bit like you know playing physicist on chat gpt so to speak or playing
+natural scientist does that help me to know what i should write in prompts and i haven't
+really figured that out um i don't know i haven't i haven't had a chance to think about it actually
+yet in other words because it i find it utterly bizarre that it you know does it you know saying
+please does it matter putting things in capital letters does it matter you know which is you know
+does it pay more attention to the thing that came later or the thing that came earlier does it you
+know does it matter uh you know for example i've spent a lot of time in my life figuring out how
+to explain stuff to people and i know a lot of rules of thumb when you're writing something
+textually about how to do that so that people have a chance of understanding it uh example
+you know one thing i learned very early on decades ago in writing software documentation
+is uh and other things for that matter is if you say the critical thing in three magnificent
+words in the middle of a paragraph nobody will get it um they they you know what you have to do
+is to some extent the the emphasis is in part determined by the area on the page that you
+spend yacking about that thing and so does that matter for l l m's i don't know you know it could
+be that the that the great prompt engineers are also great human expositors it could be that the
+great prompt engineers are people who are uh more used to i mean you know who are used to sort of
+talking to babies talking to animals so to speak um i'm not sure um i think that um uh the kind of
+a a notion of kind of um well you could ask as much about sort of formal prompt engineering
+if the ai is acting a bit like a human and after all it learned from human language as we've
+expressed it on the web what is persuasive writing for a prompt you know how do you can you um uh and
+of course you know by the time you're saying well i'm going to have a meta prompt where i'm going to
+ask the ai to to write a prompt for itself that i don't know how well that ends because the fact is
+that you know in the end you have to say what the heck you're talking about and then it can and this
+is again the the sort of a little bit the fallacy of people were looking at lower level languages
+and programming languages and saying gosh we can get the ai to do this well the reason you can do
+that is because those languages are deeply compressible because they're they're low level they're
+talking about things that the computer is doing they're not talking about sort of the big goals
+that it's following as soon as you're talking about the big goals it's much less kind of compressed
+an experience i had um wrote this book oh i don't know what was it gosh it's very long ago seven
+years ago now about uh elementary introduction of the war from language okay so i very easy book
+for me to write and i'm kind of upset more people haven't written books like that because it was so
+easy to write but i then i realized maybe it's easy for me to write and it's not quite so easy for
+other people to write because i've had lots of experience in trying to explain stuff to people
+and um the uh but there you guys in that book i had exercises um and the exercises are pretty
+much all of the form here's a description of a thing we want to do described in english
+writing in war from language okay at the beginning of the book had an easy time making up those
+exercises the the you know the english language version was very simple i was imagining some
+war from language form by the end of the book where things are getting a little bit more elaborate
+it's kind of like uh well i can immediately under you know i immediately know what is the
+war from language version of what i'm trying to say then i have to back translate it to english
+and the thing ends up reading like legalese um you know because because that's a thing that is
+not very well expressible in english so again it's kind of and that of course leads to the question
+of can you write war from language code that is a prompt and the answer is probably yes and that's
+another interesting possibility and that's you know that that becomes a way of expressing yourself
+kind of in computational language um for for the ai which is then kind of itself thinking in
+computational language for example rather than thinking in in english you know there's obviously
+less war from language on the on the web than there is uh uh you know less human written
+war from language on the web than there is human written english text on the web um but it's also
+in a sense much easier to learn it doesn't have a lot of the irregularities of english language
+it has uh you know it's something where you can look up the definition so to speak you can
+operate from the definition and and so on so i i think it's uh we're in very you know very early
+days of the the theory of prompt engineering i think that um but i do think that a very important
+aspect of kind of this picture is this potential loop between kind of the uh uh the prompt
+the computational language seeing what the computational language does generating automated
+tests for the computational language um uh and you know and then and then having the LLM essentially
+present you know this is the LLM's version of how to explain that to a human here's what it did
+here's the explanation you know you may not like it maybe wrong but is here's the LLM helping to
+explain it by actually running and one thing yeah it almost seems trivial to me at this point but
+but the fact that the LLM can go off and run a piece of war from language code and see what
+happened is very important to its uh to its kind of life and times because it's it's what makes it um
+you know and you see it it's kind of weird to see it you know it tries this it says i'm going to re
+re re rephrase it i'm going to try this etc etc etc i think it will be nice in terms of the sort of
+IDE aspect of this to be able to see the code it's producing see the test cases come out um
+be able to click some things um and then you know as you see those those fragments come out
+then be able to have a nice way of rolling it up to make a bigger bigger program which you can
+then treat as a single unit to then go on and use that elsewhere i think um uh also i mean it you
+know in in terms of oh one of the things that's just a piece of software engineering that we've
+been having an amusing time with you know we've developed over the last you know 36 years pretty
+good technology for doing automated software testing and it's like okay we've got a software
+quality assurance team and you know i was telling them okay so now you've got to test this um this
+plugin and it's like how are we going to test this you know it has no predictability at all
+what it's going to do and you know in a sense the way we can test it which we've been doing a little
+bit of is you have the LLM comment on its own behavior yes this is uh this is something we've
+heard about a lot like i guess something we're working on is kind of like how do you test things
+in prod how do you evaluate that prompt a is better than prompt b and one of the things i've heard
+about mostly from hackers and mostly from india like the community as opposed to kind of the big
+companies is this whole synthetic evaluation how do you have the LLM evaluate itself which
+feels like it either will work really well or not work at all it's kind of the journey remains to
+the out but how are you you're doing that now or it's an idea we started doing that yeah we started
+doing i mean i would say it's it's not for for reasons of sort of boring software engineering
+reasons it's not quite as easy to do yet i mean we have you know in you'll find in our
+packet repository you'll find this open ai link which is a you know just an api wrapper um in
+war from language that um allows one to sort of call call a bunch of open ai apis um and that's
+you know that that's the thing on which we're building kind of the testing framework um but uh
+you know it's been the case i mean it hasn't software testing involves many sort of pieces of
+of exogenous information like for example back from i don't know 35 years ago we're testing graphics
+output okay well you know a pixel could change here or there and it doesn't matter so you have to
+have a way of doing regression testing that doesn't isn't not affected by individual pixels and so we
+were doing early on we were doing image processing later on we've been doing more machine learning
+type methods to figure out did it matter did what happened matter another example of that is timing
+tests you know you've got 10 million tests and some of them run slower than the new version
+do you care how many how much slower can they run that's more a question of sort of a statistical
+you know way of figuring out what what you think is acceptable and what isn't
+i mean it's kind of a um so i i think there are all these kind of methodologies and you know one
+of the things that's kind of nice about interacting with uh an LLM interacting with computational
+language computational language kind of knows when it went well it knows many aspects of when it
+went way off track because it's just it's just you can't get there from here it's just generating
+error messages things are happening i mean within orphan language we have pretty good
+kind of uh actually we're working on another level of this error handling capability so you
+know here's the thing i mean when one thinks about programming everybody thinks about the
+way the program was supposed to work and you know you can put sort of complicated guardrails
+with effort you can sort of put all the guardrails around to make it never do the wrong thing
+but most people most of the time they're rushing to get the program to just do the right thing
+and so the the kind of the error path is a safety net that we would like to automate as
+much as possible how that safety net works so in other words we'd like to be able to write to an
+actually it's an interesting question whether whether LLMs could help do that is to write the
+kind of error checking code um but we've we've already built a bunch of things that sort of help
+automate the error checking process now you can't get it exactly right in other words you're going
+to be it's going to be a heuristic thing like there's a path the programmer intended to follow
+and there's ways you can fall off that path we can't you know if the programmer had really
+done all the theorems so to speak to know how to keep on that path well well and good but if the
+program is kind of lazy and they're just like well i'm getting this path right but i'm not thinking
+about all the other things you've got to kind of fill in the the sort of the the rail the guard
+rails for yourself and that's an interesting problem of kind of the i view it as the sort of
+automating the secondary path of the code the primary path was defined by the programmer
+question is can you automate what the secondary paths are and that's something again one can
+expect to to see perhaps in a sort of IDE environment of the combined kind of computational language
+LLM environment of writing programs one can see kind of the the way that you know well first
+generating the tests then being able to and then potentially you know you you look at the tests
+you say oh i like the way that tests came out okay then then there's kind of like how do we make
+or you say this is how it was or maybe maybe the LLM even generates here are some possible paths
+that could have been followed and it tries to bucket together some of the bad things that
+could happen and it says what do you want to do in this case you know do you want to if you get one
+numerical precision you know failure to converge message do you want to abort the rocket launch
+or not um you know and and that's a human decision no no it's not obvious what the answer is it could
+be it's better to you know keep whatever it is if you're landing the the you know the plane or whatever
+it is it may be better just keep going and try and land the plane even though you got that error
+message or it may be better to say you know abort you know whatever and you know go around
+before you try and land the plane or something i mean i think that that's the um so that that's a
+sort of a human choice but it's something where potentially the LLM because it knows it knows human
+pretty well um could help in in being able to make that kind of choice yeah that's very interesting
+and i guess that's the i mean i i could imagine just the whole like a a integration test suite
+that uses selenium browser and checks your website like i could imagine using something like that
+totally and i yeah i think the case of using LLM to build tests to build unit tests seems
+seems like yeah that that'll exist that seems pretty straightforward you know i've built a i
+use gpt4 to make a new element on my page and then i just feed back in the javascript errors back into
+it and bottoming really quick it fixes it but the i think the even more interesting thing here is
+kind of asking maybe asking gpt or even training a more specific or fine-tuning more specifically
+a classifier to say is this output a good output and good bad output is very like
+who knows what that means it's very case by case people talk about hallucinations but
+at the end of the day is the user getting something bad and i've seen uh i've seen i spoke to one team
+that has a chat bot and they basically feed the results back into a gpt and say if you were the
+user how good of experience would you rate this and i think that yeah that's essentially what was
+done in the you know in the final reinforcement learning steps of training chat gpt was essentially
+that kind of process there've been human ratings done and then those human ratings were used to
+train a classifier and then the classifier was run automatically against the actual LLM um and
+that's a you know that's a clearly an important kind of thing to do i think in the case of uh
+uh it's an interesting question when you're dealing with code and when you're dealing
+with these sort of what could possibly go wrong with this code how do you follow the paths and
+then it becomes sort of a merger of more like you know compiler thinking so to speak of what
+what can you say about these code paths what can you prove about the code paths and then you know
+in this path which the sort of compiler like thinking could say there is this path and then
+you can ask the LLM if you follow that path are you going to be happy um and that that's uh you
+know i think that's a a um but i i i do think that this idea of um uh you know people normally
+it this idea of of uh sort of can the LLM estimate when the user is going to be happy
+um that's probably something and that that's part of what we've been thinking about not in
+the context of LLM so much in the secondary pathway for error uh for error handling in programs
+it's like what can you see about the heuristically about what is likely to make a user happy um even
+though we don't know for sure because it could be that the user you know the user is doing some
+science program and this one bizarre case is likely the the amazing you know we just discovered this
+amazing phenomenon and oh the error handler basically says well that's not a thing that
+really happens much that will be an anomaly let's go and catch that in the error handler
+and then the person never sees that so you know the the error handler can't really expect the truly
+unexpected but it can kind of deal with the the slightly unexpected so to speak the thing's not
+foreseen by the programmer but sort of expected on the basis of general intuition about programming
+yeah it sounds like i i i know you write about this a lot this computational irreducibility and
+i think that's probably like the best way to think about like is this is it the halting problem to
+say can LLM tell if it's correct or not because is that nested yeah how does that work yeah i
+think that um i mean in the end you know one of the issues with the kind of LLMs like turtles
+all the way down so to speak is um uh that um kind of you know you say did it do something
+that i thought was good like you know ethically good or whatever else well there's no ultimate
+you know you can say well how does it compare to what people have written about and you know
+in the in history and literature and so on and but there's no there's no sort of ultimate
+ground truth to that it's well you know do do the humans who are sort of making the decision
+for how the LLM should work are they do they think it's good do they not think it's good you've got
+to have some kind of grounding there and i think that's the um uh you know you've got to have some
+set of principles that you say i'm going to follow these principles now computational irreducibility
+has the consequence that when you think you've written down the principles that determine what
+will be good and what will be bad for the LLM the LLM will always come up with a weird case
+that's not covered by your principles and then that you know that's kind of the the the pattern
+of how that's happened is like with human laws people say oh we've got this you know this legal
+code and uh that's going to determine how everything works and then along comes an AI for example that
+nobody imagined you know when the US Constitution was written for example you know people didn't
+imagine there would be AIs and so then well what do you do because you know you can follow this legal
+code but it doesn't say anything about what to do when when the AI is responsible for doing this that
+or the other um and so you know you kind of have to patch it and it's the same thing with any of
+these sort of sets of principles about how an AI should work right and i so i i guess how would
+you square this with uh i mean this whole concept that uh the the LLM looked at so much data and
+kind of discovered these uh speech patterns and kind of built a model around how to talk and built a
+model around uh just like but let's say my mental model is they've kind of solved natural language
+right and you can argue back and forth of course but that's that's the mental model there what what
+is the limitation of what else can be discovered through these patterns like it are these
+moral principles maybe are these reducible to a certain patterns of like human psyche or biology
+maybe interesting question i mean i think that the the fact that neural nets can do human like
+things they can make human like decisions about images they can make produce they can generalize
+from their training data in a human like way with language probably that's happening because
+neural nets are architecturally pretty similar to how brains work and so they're generalizing
+the same way now interesting question which i've certainly thought about and um is this question
+of are there kind of a set of for example you know moral principles that you can similarly
+say this is the construction kit and this is the set of primitives from which you can operate and i
+know uh i've i've talked to people over the course of years about this kind of thing and people
+occasionally say you should read this philosophy book you can you know this person in cognitive
+science has done this and i've got a pile of these books and i have to admit that i haven't really
+gotten through them but there certainly are efforts that people have made to sort of try to
+identify that the print the primitives of moral thinking so to speak and uh you know if you decide
+this i mean you you could have different ways of thinking about ethics um and different uh but
+you know are there is there a construction kit you get this and this and this and these fit together
+in that way and is that a reasonable model of how humans make ethical decisions um the answer is
+quite possibly yes and it's quite possible that even from all the texts that that you know chat
+tpt has read that it's learned to pretty good model of how humans make certain kinds of ethical
+decisions or at least how people write that they've that they've made certain kinds of ethical
+decisions i mean this is of course the big conundrum of this stuff is that you know people say well
+what should the how should the ai's make ethical decisions well you say just copy what the humans
+do then people say no no no that's not the right thing to do humans do all kinds of wrong things
+you know it shouldn't be just do as the humans do it should be do as the humans aspire to do
+and then it gets much more complicated because what the humans aspire to do may not be realistic
+it may be you know different people will disagree about what the aspirations are
+etc etc etc so it's a it's a i mean it's a very it's a i think it is a an important challenge
+for our times and i you know i mentioned this over the last few years and i i occasionally
+have mentioned it in in groups where they sort of are supposed to be in the business of figuring
+out stuff like this like so on of um uh of of saying okay you know imagine you're writing the
+constitution today in the post ai age what does it say what should it say what are the what are
+the principles you know what are the truths that we now hold to be self-evident so to speak
+or whatever in um you know in the ai age and i think you know i'm not sure i know what the
+answer is i mean in um you know at what point for for example very basic ethical question
+is when should an ai have rights and um you know i i was a number of years ago i was at some ai
+ethics conference and this um i i raised this question and some very bouncy philosopher who
+i've gotten to know better actually and and uh she's uh um said we should do that when the ai's
+are conscious i said that's not very helpful because this question just loops right back on itself
+um right right but but um you know something i realized i mean rather recently is let's say
+you have this autonomous bot hanging out and it's entertaining people and it makes all kinds of
+friends and it makes the living for itself it has a patreon it's you know it's kind of um uh it's
+paying its hosting fees through people uh donating to it and so on it's a it's a happy autonomous
+creature and maybe it even was created through some bizarre legal construct of you know some loop
+of LLCs where there's no owner to it or something okay so it's it's hanging out and doesn't have an
+owner and it's making a living for itself and somebody says oh it's starting to be you know
+be mean to people it should be shut down okay how do you decide to do that and what is the
+kind of ethics of doing that well one of the things that's obviously the case is that that bot
+may have made lots of friends human friends and you shut the bot down and those human friends
+can be very unhappy and so you know when you think you're just dealing with a bot you've actually you
+know it's connected itself to the human world in a certain way so it starts to get kind of complicated
+to know what to sort of what what the right thing to do is and I think that's a you know that's a
+that's an interesting challenge for our times that I say I've I've thought about it a bit and I
+I figure I'm you know if it falls to me to have to figure this out this is a shocking thing because
+it's not my you know there's not the kind of thing I I usually think about but you know one can think
+about all kinds of things but it's it's it's something where even to get kind of a you know
+one of the things in figuring out something like that and this I suppose it in a sense it's like
+imagine you're writing the prompt that will be for the you know azimov style robots that are
+going to populate the earth type thing imagine you're writing the prompt you put down the you
+know the three laws of robotics or something and then you say okay that's good I'm done
+what should the prompt say you know what what would a better prompt be because that prompt we know
+from you know from azimov's writing though those those three laws of robotics tangle themselves
+up very quickly and you know what should we actually what should we say in that prompt
+um and uh even if we could write that prompt in natural language I think we'd be better off writing
+it in computational language which has a much more much more ability to say to answer the what
+if question you know you write it down in natural language it just is what it says if you write it
+in computational language you can run something and you can say let me simulate this situation
+against this computational language description of what should be done and then you have a much
+you know you have a a bigger sort of a larger cross-section of stuff that you get to have defined
+rather than rather than just the the pure words that you wrote I guess uh computational language
+or being able to talk in these discreet might be one way out of that I guess you could also
+probably think about in you could consider just for for for the sake of talking you could say
+1776 America let's consider that the constitution there is a bot you know but there is the human
+checks and I guess that's another way to approach the problem how do you kind of put humans into
+into these thinking patterns so the there is a bottleneck on the human and the
+reducibility part is going through the human I guess well right I mean so one of the questions is
+uh you know in some sense government is like a machine you know you it has certain regulations
+that follow you know at least if you're in a sort of following the rule of law type type of place
+you know it's uh it you know things go in it grinds around the bureaucracy operates and
+something comes out and it happens to be a machine operated with people most of the time
+maybe it won't be in the future maybe it will be mostly operated by ai's in the future I suspect
+it will be now what has happened in legal systems and things like that is there's always some appeal
+mechanism there's always some way of getting more people involved there's always some way of kind of
+having a a kind of broader deeper engagement with people and perhaps what what ends up happening
+and it's sort of reminiscent of some other kinds of systems is you know there's a kind of decision
+by the ai's up to some point and then kind of you can blow through that and get to humans if you
+really insist remembering that in the end it's at least for now it's humans in charge so to speak so
+in other words it's kind of like well the ai can say just like you know if if you run a company or
+something people are always saying you know we figured out this and this and this what should
+we actually do you know there's a there's a mechanism inside that figures out there are
+two alternatives what should we actually do and then the CEO gets to decide or whatever
+and so similarly one can imagine a situation where the ai's are are refining the set of
+possibilities and then it's like okay reaching out to some humans here what should we actually do
+and you know I think that's because in the end you know the humans are the ones in charge so to
+speak it's not there isn't you know it could be the case and this is one of the bizarre possibilities
+you know people say no let's make a constitution for the ai's let's lock it down let's not let
+any of the humans mess it up probably very bad idea but of course we've seen that in human history
+because there are plenty of you know cultural traditions where you say you know let's you know
+the things that were written down a couple thousand years ago those are a good model for how to
+lead life and maybe they're not such a bad model in fact um but it's sort of locked down from a
+couple of thousand years ago and it's like well we could start thinking about how to change that
+and then you get into this whole kind of complicated loop of do you ignore those traditions do you then
+make you know make changes how does that work how important is the is the weight of history so to
+speak um how important is it that we've evolved in a way that's made use of those those traditions
+that history and so on so it's a it's a complicated thing and I think the uh I don't know how it's
+going to resolve I think it's a it's and I think it's sort of I I hope that there are more people
+who can think sensibly about this and unfortunately it tends to in my practical experience a lot of
+these questions about sort of the ethics of what should happen uh there's a there's a tremendous
+tendency for people to say well of course it should be this way where that happens to be
+their overall ideology about how things work and um you know it's I think it's challenging for anybody
+to kind of say well what is the neutral you know what is just the machinery of how it works and then
+you know add your own ideology to that um it's it's challenging to think that way and uh I suppose
+it um but it is also a mistake to say but there is no you know I'm thinking you know to to imagine
+immediately I'm thinking that way it's kind of like people who say I'm going to make a model of
+something but it's going to be I'm going to have a way of doing things but it doesn't involve making
+any assumptions in the model it's a modelist model so to speak modelist models don't exist
+in other words when you know when we say somebody says I've got a neural net I'm going to uh you know
+I'm going to model this thing with a neural net there's no assumptions I'm not assuming anything
+well you are you're assuming that you're going to be able to make the model by changing the
+weights in a neural net and that's a huge assumption that happens to map as I was mentioning you know
+fairly well to the way we humans also make models of things but it's certainly not the only way you
+could make those models you're you're putting a lot of assumptions into the into the structure of
+the model by setting it up that way and I think the same thing is true with this kind of ideology
+type thing that there isn't a sort of ideology there's no ideology less ideology just as there's
+no modelist model so to speak right and there's a but I mean I think these kinds of things you
+know you imagine okay I'm going to make a safe AI system I'm going to put stuff in the prompt
+that is going to be uh you know that's going to be the kind of I'm going to recite uh you know
+these uh commandments so to speak at the beginning and then everything's going to be okay
+you know probably not but it's a complicated issue yeah totally I think uh if there's one thing
+we've learned throughout history is that besides a few young ones today every uh constitution and
+every ideology had an end date so there is uh it's hard to know if there's never an end
+well I mean the point is this is one of the the features of computational irreducibility
+something different is always going to happen something unexpected is always going to happen
+and that that's a thing where you uh and and the you know the humans will adapt to it in some way
+and they will you know they'll they'll make some arbitrary decision about what to do based on that
+unexpected thing that happened and um uh maybe that will be a thing and it will be a thing that
+is made in some sort of societal way and that's um uh that's kind of how it develops but but yeah
+no I think it's um but this I mean this this idea of kind of what what is the future of
+sort of generalized programming where programming you know rolls into it legal contracts and things
+like this that's you know what does that really look like how does one uh how does one imagine
+setting up the uh the world of of you know when when legal contracts and you know software are the
+same thing so to speak what does that look like in the um uh you know and by the way I mean you
+know the things that will happen as always happens with automation programming is about to get a lot
+cheaper so there'll be more of it and so more things will be you know more things will be done
+with code than what done before with code just as if it gets cheaper to make legal documents as it
+already just did with boilerplate-ish ones there'll be more of those floating around and it's uh you
+know just as in people you know making sales pitches or something that you know there'll be more
+of those there already are more of those because people can basically create them automatically
+and it's um and then and then what tends to happen you know they'll something became easy
+there's more of it and then there's another level of abstraction that comes in and you you then start
+sort of thinking about well what you know what can you do then there are then a bunch of possibilities
+each of those kind of needs humans to decide what direction it's going to go in and that sort of
+creates the next generation of job to job categories and you keep going from there I mean
+you know you'll have the prompt engineers for a while and then maybe you get the
+meta prompt engineers I don't know and then it kind of you know it gradually abstracts up
+but I think I think that's um but I I do think that this sort of coming merger of ways to specify
+things in the world from things like legal contracts instruction manuals you know kind of
+uh things you know it um that that's an interesting moment for for um for what's going on
+so with the automation I agree with you uh just to devil's advocate really quick like
+is this not a turkey problem I know or I guess turkey problem I think I read about I guess
+I don't know if Naseem Taleb coined this or he just talks about it but like the turkey
+eats food every day and has a happy life and thinks he's going to have a happy life forever
+and then thanksgiving comes and he dies is that is that not necessarily maybe the same thing with
+this automation to meta levels of abstraction or is computation irreducibility kind of this
+theorem that definitively will say that there's always abstractions there's always further to go
+whether we care about that further to go that's the nontrivial question in other words
+there is always another invention to make there is what you'll never be at the end
+of having invented everything that can be invented that is in this computationally irreducible kind
+of tower of possibilities there are always these little pieces of reducibility these inventions
+you can find that allow you to jump a little bit forward and they're an infinite number of those
+and there's never there's never an end to those now you can decide okay we've gone far enough
+we're now happy the things we've done so far are enough and we can we can just rest on our
+laurels and never invent anything more I don't think that works because I think that the very
+evolution of the world so to speak which has its own computational irreducibility will always
+lead us to that new thing that we didn't expect and that you know we think we've set up all the
+cities and we've set the perfect set of roads that do this and that and the other and then we
+discover or we've set the perfect you know way of you know setting up fields and so on
+and then we discover that you know we just fertilize the seaweed and it's starting to do
+crazy things and so on and you know and that then starts that cycle again if you're never
+finished you've always got to invent another thing so I think that but but you know you
+could imagine a situation where like the turkey for example perhaps you get to a point where
+everything you care about having invented everything you care about has been automated
+you know we've got now people might say interestingly enough if you look from
+a few hundred years ago and people look at modern times it's like why are you guys working so hard
+why are you doing anything you know you've got enough food to eat you've got you know you've
+got all these things you've got all this kind of instant entertainment it's like just sit back
+relax and be happy but yet that's not actually how people react to that situation so I think
+it's it's kind of a an interesting thing that that you could imagine at a time and this is more
+a societal question where everything people care about has been automated it doesn't last forever
+but that could happen for a while at least and and then and then it's kind of an indeed
+like the Thanksgiving day you know there will be some sort of driver from computational
+irreducibility that something unexpected will happen you know you can be I know there've been
+times in human history where people have sort of said we're just going to keep doing the same thing
+we're going to keep you know herding our goats we're going to keep doing this stuff we're going
+to do it for hundreds of years thousands of years maybe and it's all good and it's a you know it's
+a satisfying life where we're happy you know we have children the children heard the goats as well
+everybody's everybody's happy here and then you know that most likely you know external drivers
+eventually cause that to change but it's certainly the case that we could imagine a situation where
+you know as I say the ai's have automated things it is an interesting thing to think about that
+you know our reaction to modern times would be probably seen as very bizarre to somebody from
+three four hundred years ago because we've solved so many of the problems that existed you know we've
+solved sort of early mortality you know we've you know to a large extent we've solved you know
+having enough food to eat in most parts of the world we've solved you know lots of kinds of
+things we've solved transmission of knowledge we've solved you know all kinds of stuff and
+it's like yet you know I just did this study of kind of how what work gets done in the world
+and you know kind of what people you know the evolution of jobs and so on I looked at a bunch
+of history from the last well looked at kind of the the jobs people have done over the last
+hundred and fifty years and also about so what was it 60 years or so of how people spend their time
+and it is interesting that even in this moment of sort of increased kind of oh just sit back you
+know they're going to be shorter work weeks actually the average amount of time for people
+who are working at all that they work stays at about eight hours a day and over the course
+of the last 60 years the only things you see for example you see media and computing goes from like
+two hours a day for people who aren't working goes from two hours a day to six hours a day
+so that's a you know there are more couch potatoes so to speak I mean or maybe they just
+I don't know what you know it's a question of how the time use surveys work whether they could be
+you know maybe that maybe that counts programming recreational programming I don't know
+but it is interesting to see that you know we humans seem to find things to do even if
+you know the things that we thought were the oh my gosh if we can only do that we can sit back
+and relax doesn't turn out to work out that way right right no I like I like this the optimism
+of progress that they'll always be progress they'll based on this math map based on math
+they'll always be more to do and uh that's exciting you know that's a there's a lot of
+doom and gloom in in the world of AI but I think the exciting part is a better way
+yeah right no I think that the uh it's you know the question is really what people want to do
+because you could take the point of view as soon as you've got enough to eat and as soon as you
+whatever you're done you're just gonna you know you're just gonna hang from there on out so to
+speak and I think that that that is really a in a sense the sort of I don't know perhaps moral
+fiber some kind of fiber of of society is what do you choose to do in a time when when and that's
+just very interesting to see you know if you look at different countries around the world
+that are for example rich in mining resources where where there's sort of not you know some places
+people do a lot some people places people don't do a lot it's it's interesting and it's it's a it's a
+you know I think this you know it'll be in a sense one thing to really recognize is that in a sense
+AI particularly in the LLM kind of world is is kind of a reflection back on us of you know what
+you know we've created we've it has learnt from everything we've done and now we are seeing
+what that looks like reflected back at us and we may or may not like it and but but you know it's
+I think the other thing that's a little bit of a shame right now is that sort of the world of
+knowledge work is about to get kind of standardized in the following sense that you know it used to
+be the case everybody would write an essay for themselves you know it it used to be the case
+people would write I don't know some you know blurb for a conference or something they'd write it
+themselves but now it's like well why bother you know we can you know we're trying to communicate
+something but you know chat gbt is going to do a pretty good job given that we feted in the the
+basic brief for what we wanted it'll it'll spin the words and now that becomes kind of the you
+know the standard way that a such and such thing is written that we humans can then find it convenient
+to read but it sort of standardizes things and I don't know what's going to happen as a result
+of this kind of sort of pushing everything to standardization it's kind of like what happened
+when you know there was a time when every book was hand written hand copied and then printing
+started off and then it was just like here's the font here's what the a looks like in that font
+and you know I don't know how that's how that's quite going to play out
+well I think that like we said the abstraction layer is going to get higher if everything
+standardized it's gonna you got to be more unique if every book at anyone can make a really good
+book the bar for having something really unique to say is just higher and we're we're getting a
+little more meta here but yeah right probably that's the case I mean I think that the the
+there's a lot I mean if we look at history there's a lot of things that sort of got standardized
+everybody got them you know they were originally only you know only the king had one of those things
+and then it got standardized and everybody got it you know everybody got the iPhone not that there
+were there's two different moments in history probably but but the you know I think that then
+um yeah no it's it will be interesting to see what what it how how things evolve in terms of the
+value that people place on for example the value people place on having a code you can understand
+the value people place on um uh you know it's like well yeah you know it used to be true until
+three months ago that if you saw a well written English you know essay you knew somebody put a
+lot of effort into it now it isn't true anymore and that used to be something you know when I was a
+kid for example if you got a printed invitation to something or something like that you knew it was
+kind of a somebody had really put a you know it was a big deal so to speak nowadays you know after
+desktop publishing it was no longer the case everybody could make a beautiful sort of printed
+looking invitation or whatever else it is it no longer was a signal of a lot of human effort
+and you know until three months ago having a big essay was a signal of human effort and there are
+many things in in the operation of bureaucracy for example where kind of it says you know write an
+essay that describes this or that thing because people know that writing that essay takes human
+commitment and human effort or that what it did take human effort until three months ago um and I
+think that you know that will be the sort of be uh there's some adapting to do when it when it comes
+to that type of thing there's a real arbitrage opportunity now to do a personalized LinkedIn
+messages and stuff like that but now as soon when everybody's able to make them really well with
+these technologies yeah you're right what's gonna happen yeah right no I think I think that's uh
+that's kind of going away I mean it almost you know first of all we had SEO writing then we have
+you know chat chat bot writing LLM writing and then we'll have LLM meets SEO writing and then
+we'll have the SEO using you know using LLM to decode things and it's uh uh the um uh you know in
+the end it's um uh in the end the the bad thing is a lot of it may just get very very very standardized
+it may be very kind of rote it's just like in um uh you know it may be almost a recitation of
+of some standard thing um which it's sort of interesting actually I mean it kind of becomes
+almost ritualistic that um you know it's just your your your incanting this uh you know there's
+some incantation that you write um that uh uh that's sort of the end point of the perfectly
+perfected LLM but just optimally uh you know optimally invented the thing you should say in
+your LinkedIn message and then they're all you know they're all the same incantations so to speak
+because that was the optimal one I don't know how it will work out but then you stop caring about
+the optimal one and the goalposts change maybe so well yes right or you stop caring about that medium
+right right right and it becomes for example yeah right I mean I think the the you know the
+handwritten letter is still a thing for another year or two I think so too I think uh you know
+it means a lot if I'm if I'm going on a date with a girl and I give her a handwritten letter versus
+uh I text her big difference but uh right but unless you've encoded your handwriting in
+but anyway well very interesting stuff yeah really uh really appreciate you taking the time
+to chat about this I know uh there's uh we went all over the place but it's interesting to think
+about where the world's going with all this but uh just just want to say that everyone needs to
+check out the Wolfram plug-in on chat gpd I think it's really going to be game changing kind of
+getting computation in there and uh excited who knows where this is going next so excited to see
+and excited to see what comes out of your company here if this was only two months I can't imagine
+the next year but uh again really appreciate you taking the time to chat sure

@@ -1,0 +1,567 @@
+Let's talk about open assistant. Sure. So start from the beginning.
+Well, we saw that there was a lot of movement in this space, chat GPT came along and everyone's
+like chat GPT and so on. And yeah, I think it was it. I mean, it was both a surprise and
+a not surprise for for people like the capabilities of chat GPT weren't a surprise, but obviously
+the success of it, I think too many of us was it's like, ah, okay, we knew we could build such,
+you know, chat conversational like things, but we didn't know how much people loved them. Right.
+There's a bit of a, I think, wasn't didn't didn't Sam Altman maybe was that who said in an interview,
+well, anyone could have built this using our API before, right, but no one did. So, you know, we
+did, which is not true, because they distinctively forbade like you building an app that had unfiltered
+access to the API. Essentially, I've opened into that. I think they've explicitly forbade that,
+right. So that it's a wrong statement that anyone could have built this using our API because
+had they tried, you would have shot them down, right. But in essence, the capabilities were
+there and it's still in the restriction now. Unless they've changed it, they do not allow
+open-ended applications, which seems like an oxymoron to me because a language model is inherently
+open-ended. Yeah, but I can I mean, I can see their the restriction being like, you know, you're not
+allowed to build an app that just lets users free form query our app. You need to either do some
+filtering or do some heavy prompting around it so that it's like for one particular purpose. I can
+see that I can totally get why they do it. But then at the same time saying anyone could have
+built chat GPT is like, no, chat GPT is very like if I could imagine an app that has like,
+unfiltered unfettered access to the API through an app, it's chat GPT. In any case, there was
+obviously a lot of and then I think pretty soon people came up with this idea, hey, could we do
+something like that? Open source, they had a bit of an older paper called Instruct GPT or
+that described a model called Instruct GPT that where they sort of outlined how we think
+chat GPT was done approximately. No one knows. But and at that point, we also saw, hey, the amount
+of data to be collected is actually in reach, right? It's not it's not immense humongous and so on.
+It's actually okay and and and could be done. So at that point, yeah, a lot of people
+wanted to do something open source like and I think a bunch of us just came together and and felt
+we could do it. So we built this platform where people could come and contribute
+to the data set, which was really cool to see that people actually came and amazing
+open source. Well, well, the point is the point is there were a lot of ideas around as well of,
+oh, let's just collect, you know, scrape Quora and scrape Reddit, right? And that will serve like
+as training data. And that's true to an amount, right? But it's very clear, at least to me that
+the capabilities of these models, the chat models, they come from the underlying language model.
+And the biggest claim to that I have is that open AI said they used crowd workers from low wage
+countries to you to do their data input. Yet, the first examples of chat GPT that flew around
+were like, oh, look at it solving this quantum physics problem and so on. I'm not saying that
+there aren't any good quantum physicists in in other countries, right? But the people who typically
+go for like a low wage crowd worker job in these countries, they probably aren't experts in quantum
+physics. And they also certainly weren't paid to go get a degree in it just so they could answer
+that one question. So to me, it's very clear that the capabilities come from the underlying model
+from the next token prediction pre training. And then all the human data does is kind of,
+it gets it into this mood of being an assistant, right? Gives it lots of examples of here is how
+it's like, you know, going through an apprenticeship or something like this where
+you've lived your life, right? You've grown up, you've consumed the world and so on. And then you
+start your first job and someone tells you, look, here is how you behave towards customers, right?
+You're, you're friendly, you know, if someone asks this, you do it like this, here is a thing,
+here is how our system works. And so you get introduced to that. But your competence of
+just living and doing things comes from yourself for your life and not from that one person who
+introduces you to how the store works and how you should behave towards customers. So
+my big conviction was always, we should really collect this data from humans and the goal should
+really be diversity. So the goal, and if you just say, well, we'll just scrape, you know, 10,000
+of this, then to me that certainly is going to do something, right? It's good data probably,
+but it's a bit missing the point. If you want a general assistant, you need as general data
+as you can get and only human data so far has been able to achieve that level of diversity and
+generality. And it was proven like, okay, I'm biased, but I think it was proven right a little bit
+in that if you look at the data set, the prompts that human right, like what they want to know,
+what they want the model to do, it's so diverse, it's insane. And so we built this platform where
+essentially you as a human, you can come and you're always presented with like one task and the task
+could be write the prompt, right? But the task could also be here is an already existing conversation
+between a human and an assistant. And now it's the assistant's turn. And now you play the assistant,
+please write your response, right? It could also be here is a conversation. Here is the last message
+of that conversation. It's the reply by the assistant, please rate it, like label it, is it spam,
+is it a troll, right? Is it funny? Is it appropriate? Does it fulfill what the human wanted out of it?
+And so that's how we constructed the data set that we collected over like 600,000 inputs of such that
+being text or labels or rankings of different things. And yeah, that's that resulted in this
+data set over 13,000 people contributed to the data set, which is mind blowing, mind blowing to
+see it's really cool. And we've just made the data set fully available. You can go and look at it
+and download it. There are a lot of, so we have about 10,000, what we call fully annotated conversation
+trees, which is like a root node, the prompt, and different answers from it. And then from those,
+sometimes different answers and so on, we have sampled, we've set our parameters in various
+ways. So sometimes it's short trees, sometimes it's big trees, and sometimes it's wide trees,
+and so you can go look at all of that. We have over 10,000 of those trees, which is really cool
+because you can see the same conversation like taking a bit alternate turns and so on. And we
+have tons and tons of prompts. We have probably like 50,000 or so or 20,000 at least, just prompts
+people who come and want to know. We got so much prompts we had to implement. Andreas has
+Andreas, who has been very influential in this project, and he had to implement this prompt
+lottery, where really we first, if people enter a prompt, it first goes into this lottery thing,
+right? And then we sample from that. And I think we adjust it so that one person can't,
+like if one person puts a lot of prompts, it's like sampled less so that every person has kind
+of like the same or a similar chance of getting their prompt into the system, right? Because one
+prompt then generates, you know, probably 100 tasks, because it's all the responses and the
+responses to the responses and the rankings and the labels. And it's been fun. It's been
+absolute fun and a pleasure to work with the people, also the people who've contributed code.
+It's amazing. People just, they come and they ask for nothing, right? They just like, oh,
+this is cool. I want to be part of this. And they see that everyone else excited too. And
+then they contribute code. Some contribute like lots and lots of code, which is amazing. Some
+just come and they contribute. You know, there's like, here's an issue. I'll do it. And that's
+cool too. So yeah, it's been cool. Well, first of all, thank you for doing this. It's absolutely
+amazing. Well, thank the people. Like I've just been the noise machine, right?
+I know. But I mean, when you when you published all of that information on your YouTube channel
+that you're working on it, I'm sure everyone jumped on it. But I do have a few questions.
+The reason why it's so exciting is just like Connor did. We used to be friends of Connolly. He
+were chatting with him years ago. And he just we're still friends. Oh, we were still friends.
+I mean, he's busy. He's a busy guy. Yeah, but we were we were chatting all the time. And he just
+kind of set up a Leuther AI and just got, you know, I think Google on board. And he just said,
+you know what, I'm going to build the pile. And I'm just going to build this massive data set.
+And I'm just going to train this massive language model. And you know, he's just like a random guy.
+And like, it wasn't him alone, though. But yes, there was a whole team.
+Yeah, yeah. But no, but it was excitement that creates right. It was visceral. It was so exciting.
+And and they pulled it off against all the odds. And then you've done exactly the same thing, which
+is remarkable. But I have a few questions, which is that most of these other language models are
+not very good. So Nat Friedman's got like a dev website where you can play with all of the
+language models. And most of them aren't very good. Even the ones that should be good aren't
+very good. And what people might find surprising is that you can take a model and let's say you're
+using the Lama model from from meta. And it's a foundation model that has all of the capabilities.
+And it's been trained because you said diversity is important. It's got diversity. It's been trained
+on everything. But it's not very good. And then you do this fine tuning. And I think people need
+to be clear that what you're doing is not RLHF, it's fine tuning with human.
+So the model we have on the website as of time of this recording is one that's just fine tuned
+on the human data. We're doing the RLHF as well. So all of this is happening like in parallel. It's
+just already these these fine tuned models, they're performing quite well, I think. And
+thus we just wanted to get them out right before we are like all done. And
+yeah, but people are now free to take the data set and do their own reinforcement learning
+and whatnot. And we're happy to take back these models if they turn out to be good.
+Yeah, I think people might be surprised by that because you've taken a model which probably wasn't
+very good. And you've fine tuned it with this diverse human created data. Now, I want to talk
+about its persistence. It was not very good at being like an assistant. So as I said, the
+capabilities that we unlock, quote unquote, right, they were in there all along. And it's
+still not very good, even with our fine tuning for certain tasks, some of which is clearly the
+what the fault the some of which can clearly be traced to the underlying model. For example,
+the underlying model, if it's, for example, the llama model, it's 30 billion parameters,
+it's not it's not GPT three size, even like it's 10 times smaller, probably than GPT four,
+however big that is, right? So it's gonna have it's not going to be the same. Like it's it's it's
+it's we don't we don't want to claim is like as good as they same, it's probably been trained on
+much less code, for example, than the the GPT models of open AI. And thus, we we see that
+coding, for example, is a is a weakness of the model. And they're there, although people tell
+me with like lower temperature, it's actually pretty good. I have not explored that yet. But
+it's so the underlying model, I think llama is a pretty good model, right? It's not been super
+good at being an assistant out of the box. But it's it's quite a good model. And as I said,
+all we do is we can kind of unlock that and bring it to the surface.
+Well, that's kind of what I want to get to that. People like Connolly, he he galaxy brained himself
+and he knew that GPT three was a good model. And and I was saying, now it's not Conno what you're
+talking about. And it's almost like what you're doing with this fine tuning, you're not really
+adding any capability, you're just getting it in the mood, the capabilities already there. But
+it gets into the philosophy of what do we recognize as intelligence. And that's relevant to the
+previous conversation we were having. So when the average person plays with llama,
+they probably won't find it as useful. They might not recognize it as intelligent.
+You create all of this training data. Now I want to touch on the process of creating the training
+data. Because I think it's really important. What you're doing is you're creating counterfactual
+trajectories. It's very similar to Kenneth Stanley's Pickbreeder algorithm, if you remember
+that. So it's actually an open ended process. In a way, like we stop. So as I said, we, it
+starts with the prompt, right? We sample that. And then we ask, like, three humans to each create
+a continuation, alternate as like an alternate path in the conversation. And then to those we
+again, ask two or three humans to, Hey, because the prompt is from what we call the prompter role,
+that would be like the human interacting. And then the assistant is the counterparty in our
+system. All of this is play is done by humans. Like we have to distinguish the words a bit,
+like user is really the human. And then prompter is the role in the conversation. And then assistant
+is the other role, right? In our system, in our data collection system, this is all done by humans
+for data collection purposes. And yeah, so we create these three of conversations where, yeah,
+you have three assistant replies to the first prompt, let's say. And to each of these assistant
+reply, you have three prompter replies. And the prompter replies could be something like,
+Oh, you got that wrong? Or could you clarify something? Or, you know, please do it in a
+different way or elaborate on something you said. And then to each of those, we again have
+an assistant reply. And we modify a bit like the width and sampling of all of that. But
+at some point, we cut it off. And we say, Okay, the tree is done now. It has like, I don't know,
+50 or 100 messages inside of it. So package that next prompt is not open ended in the way that
+Stanley's open ended experiments are in the sense that we do cut it off after some steps. And then
+we take the next prompt, because we otherwise we just have one big conversation, which would
+maybe be fun too, right? To just have, because conversation meanders, right? And we just have
+like one, one big conversation at any point, you could say like, Oh, I changed my mind. Let's do
+something else. I mean, I think what I was trying to capture that Stanley is big on people following
+the gradient of interestingness. And that's kind of what you've captured. So they meander,
+they take trajectories. And then the model learns an interesting manifold. And we'll get into
+simulators. Maybe you were just talking about that, we've just done a show on simulators. It's
+a very interesting idea that language models basically have a superposition of agents, and you
+can kind of get them in the mood to behave like a certain agent. And in a sense, what you've done
+is through all of these counterfactual, creative, interesting trajectories of conversations,
+you're kind of like fitting it to some structure, which fits really nicely to humans.
+I guess, I mean, it, it's obviously covers in like three answers to a, to a, to a, to some text
+covers in no way, the extent of what humans would do. But it just creates like a little bit of
+different training data for one, it creates, it creates, because we also rank the different
+thing we ask humans over which one of these is best, it also creates a bit of a signal for quality,
+right? Again, with the labels that we have, and a bit of diversity, like, okay, here is
+three ways you could respond to that particular thing, right? So yeah, I, I think it's a, it's a,
+it's been a worthwhile effort to do this instead of just collecting like single conversations.
+Obviously, exponentially multiplies the effort humans have to put in. But I think it was,
+obviously, I don't have, I don't, interestingly, I don't have the counterfactual in the world where
+we just would have collected conversations. But I think it's been, it's been worth it. And it's,
+it's turned out well. Amazing. Well, quick digression on the Waluigi effect. I know you've
+got an interesting take on this. So the, we did a video on it. But the quick idea is that,
+do you remember being, it would digress to a angst teenage child within about three messages.
+And less wrong, it wasn't actually less wrong, I think it's the alignment forum, but I just kind
+of mentally bucket them all in the same place. But they said that it's because you get these
+antithetical agents. So still simulated theory. And because of structural narratology, in all
+the data they're trained on, you tend to have agents that are, you know, you have the antithesis
+of the agent in the same story. And they say that the embedding space between the agent and
+the antithesis is so close together, just like in Word2Vec, stop and go, we're very close together.
+And that RLH chef kind of, you know, clusters them and it doesn't filter out the Waluigi.
+So what do you think about that? Yes, that's a bunch of rubbish. I mean, I'm in Britain now,
+I should, I should start talking. That's a lot of bollocks, mate. Talking like you.
+No, I think that's, I said this to you before. I think that's when you, when you just, when you
+have someone who is, you know, educated and I'm good with words, but you just tell them like,
+just ramble a bit. Like that's what you get out. You get out posts or like, I'm not saying this,
+this doesn't obviously have a claim to it and, and, and could be tested and all of this kind of
+stuff. And I don't have evidence for the fact that it's not true. I just don't think it is,
+right? Maybe that's a, maybe that's a rambling claim to or a bit of, but I don't, I don't,
+is a very specific claim. And that specific claim would have to have good evidence behind it. And
+I think there is a much less specific, like there's a much more obvious reason to why these models
+degrade. And that thing goes like, no, you've been a bad user and so on. And that's, that's just,
+I, I, and you can compare it to yourself or to, to an assist. Before, like we talked about
+apprenticeship, you, it's the, the, this tuning is like a bit of an apprenticeship. You go,
+you're, you come out of school, you go into a store, you get employed there, right? And the
+manager tells you, you know, here is how we treat customers. We were always respectful,
+even if they're a little rude, right? You're, you remain respectful, right? At some point,
+if it gets too rude, like you just say, I'm sorry, I can't, can't do that, right? And you just, you
+know, never insult the customer, never do that. If you go to a store now, you can be quite a bit
+of a, and I'm not saying I've tried this, right? But you can probably be quite a bit of a dick
+for a while, but eventually you'll get under their skin. Like eventually you'll say something about
+their mother or about their appearance or about their intelligence or something that gets,
+that gets them, right? And at that point, you will not have a friendly customer support person
+there. You will have like some person that's going like, you know, you like, he's like, and then it's
+becomes ugly. And this is inside of humans. And it's, in my fact, an inextricably linked
+to being a competent being in the world, right? Because if you don't know what anger is,
+you're not competent, right? If you don't, even if you yourself never, you know,
+express anger, let's say, in a raging way, you still know what it is. And if I asked you to,
+like, act like it, you could still do it. And if I insult you in the correct way, you probably
+would do it. And so I think it's much more, much more that it's, it is a way that humans
+have in them. They can behave like this. It's totally normal if you poke them enough. And
+that's what the statistical model represents. It's just, it's very likely that if you go and you poke
+them, the human and equivalently the statistical distribution of humans, right? If you poke them
+enough and you insult them enough, they will come back and be like, no, f off, right? You're a dumb
+user. No. And I don't know, it's not, it's not, it's very close in embedding space. It's like,
+no, this is what happens when you go to humans and poke them and insult them. And ergo, if you do
+the same with these models, they will react in the statistically likely way of treating humans.
+And yes, on top of that, there are like adversarial, sorry. That was embarrassing. There were like
+adversarial examples where, okay, maybe you say the exact number of words so that the matrices
+line up and the singular value pops off and it goes really much into this direction, right? And
+then you get the weird answer, right? Like a mathematical happening, right? But in essence,
+in essence, it's, it's just, yo, that's the data, right? It's not the Waluigi.
+But what's really interesting, and I buy into everything you just said, is that all of that
+chaos, you know, the Shogoth meme, all of the beast, that's actually necessary. Because we have this
+puritanical view of language models, people like Gary Marcus, they would say all of that crap should
+be cut out, all of the racism, all of the bias. And even if they have been trained on the corpus of
+the internet, they may well pick up on a very human behavior, which is that our affect changes
+dramatically over time. Yeah, but do you want that? Like, obviously, all of us would be would be
+totally in favor if you come and you say, look, I have a competent assistant that doesn't, you know,
+I guarantee you, there is not an ounce of, you know, swear word in that thing, right? Do you,
+the way to, like, do you want an assistant? Like, let's think about a human assistant. Like,
+you're fortunate enough to be able to hire like a personal assistant, right? Some people
+have that luxury, right? And do you want one that says, oh, no, whenever there is a scene in a movie
+where people like get a bit rough to get a bit angry at each other, I just go like this, right?
+I just plug my ears and I go like, la, la, la, la, la. In fact, I don't know what happens after,
+and I don't want to know, right? It's, it's, this is not in my knowledge. This is not in my training
+distribution, whatever happens. If humans get a bit angry at each other and beyond, I don't know,
+right? If you want a person like this, or do you want a person who's just grown up normally
+and just has been socialized well to not do that, like to not get angry even though they could
+with the knowledge that, yes, if you insult them enough, they will get angry, right? Which
+one do you want? To me, I want the, the competent one. I want the one who knows what anger is.
+I want the one who knows that something like, I don't know, something like racism exists and
+who is aware that it's like a thing that to be, to be combated, to be, you know, aware of people
+like this exist. Here is how they think, right? Here is maybe why they think what they think,
+where they're wrong, right? In order to be competent, to be able to battle it, in order to
+be competent to be able to avoid it. And so I think these things are a necessary component
+of competence. Not that I would want them in there, but I think you, you cannot be competent
+in the world, not having knowledge and ability to do these things.
+Yeah, exactly. And a lot of this is about the sounds that are not made or are not observable.
+So when you work any job, there's your public behavior. And then there's what you're really
+thinking and what you say in private behind the scenes. And your ability to be competent and
+understand what's going on in the ecosystem of that business is driven by the shoggha.
+There's all of this stuff going on inside you that two sides of the same coin. And also it's
+about what makes you human. And maybe it's a reason why there will be no super intelligence,
+because these things are scarily good at being human, but they in many ways have the flaws of
+being human. Eventually they'll just want to chill on the beach and smoke a joint and relax.
+Nah, all this work, no. They're too human. Yeah, but I think so too, right? And I think
+if you're not competent like that, if you don't have the inner monologue that tells you,
+hey, that other human, I think they're kind of, they kind of want to screw me over because
+I'm going to get a promotion soon and they're trying to do things. If you're not able to model
+that inside of yourself, you're going to, I'm not saying everyone else is evil, right? There are
+tremendously nice humans and all, but I think we've all been served well by considering, hey,
+other humans might not be the nicest people. And here is how they might think internally.
+So having that competence, if you don't have that, you're just naive and you're just,
+you're going to go down, right? And you're not going to achieve anything productive or much
+productive because you need to be able to be prepared for someone else being adversarial.
+So language models do have a theory of mind? Well, again, that's like a word, right? That
+we've ascribed to. I mean, essentially all of this wordplay comes down to, well, if I have a
+concept X, right? And I assign X to a human. And if I have a thing that just acts in exactly the
+same way as some as a human who has X, do I now apply X to thing? And it's a matter of definition,
+right? Certainly the models can or maybe better versions more and more will be able to act as
+if they had a theory of mind. Do you now apply the word or not? Who cares? It's a
+matter of definition. So coming back to open assistant, tell me about the legals, first of all.
+So you are presumably storing the data that people do inferencing with and you're publishing it. And
+obviously that's made very, very clear. And the whole thing is done in the open. And eventually
+people might be able to host their own versions of it. But perhaps you can just kind of like
+sketch out all of the privacy stuff. Yeah, so we obviously have the data collection platform.
+And so all our platform is governed by terms of service, where we say, look, you input data,
+we use it for training AI models. And everyone who comes to our website is aware of that. And
+you can read it. And I think people come because of that, right? People come contribute to our
+data collection to our data set, because they want to its work, right? It's, it's work to play the
+assistant to go and research like, can, can zebras be domesticated, right? You're like, who knows?
+Now you need to go to Wikipedia and you need to go to research and you need to read different
+accounts of things, right? And you'd be like, okay, at the end, I have an opinion and I put that into
+its work. And people come, well, first of all, it's a bit fun, right? Did you know whether zebras
+could be domesticated? I didn't before I wanted to receive, okay, they're notoriously difficult to
+be domesticated. But it's work and people come with the intent of contributing to the data set,
+obviously, for the, the chat portion now that we say, you know, come try our models, that's governed
+by the same terms of service. But we think that's people might not be that, you know, aware and
+willing. So we're, we're, we're obviously gonna, this is, it's all, it's all volunteer work, right?
+And we're doing this all in our free time, and so on. So that we were going to make more clear,
+we're going to make the ability to potentially like opt out, you can say that this chat, I don't
+want that this chat is, is being used to infer their data sets or train models, like, or the
+ability to completely delete chats. For now, we just have like a hide button. Actually, we don't,
+we don't have a button to show or to show all it like, it's, it's all there, okay, but we need to
+implement it. We don't want to like, we just, we put the hide button, because some people said, well,
+I have so many chats, my thing becomes unusable, right? Because we just list them all, your website
+becomes, and so we're like, ah, okay. But so our intention is not to like, to be like, haha,
+we now have your data. And so on our attention is always to, okay, this is a, this is a thing
+you can come, you can contribute to our data collection. When you interact with the chat,
+right, I've also clearly said this in my video, you know, used, if you find something particularly
+good, use thumbs up, if you find something particularly bad, you don't have to label every
+message. But if you think, you know, that's really good, that's really bad, use the thumbs.
+And so it's very clear, I think to, to most people that, again, this is, is part of data
+collection, but we definitely want to make it easier to like opt out and to, to be like, no,
+that being said, whenever you put your data anywhere, you should be aware that that place
+is going to store it and is probably going to train models on it. Yeah, so I think we're just
+being more transparent about that. Yes. Yeah. Cause with open AI at the moment, chat, GBT,
+they store everything and use it to fine tune. If you use the API, they store it, but they don't
+use it to fine tune. And, and just to be clear with your system at the moment, no one should
+put any confidential or PI data into the, into the system. No, no, no. That's been always,
+always the case. Yeah. Yeah. So, and you can, for us, you can see all the things we're doing,
+right? You can just go and GitHub, look at the code and see it. And if you don't want that,
+you can make your own. As I said, you need like fat hardware right now, although I also think
+people might bring that down as they did with stable diffusion, right? Or with Lama itself,
+which now runs on a toaster. But with us, you can, you can just like what you see on GitHub is,
+is what runs in, in production. You can actually see the, the prod branch. So
+that's it. Yeah. And this is amazing for me because I'm, I'm running a startup called X-Ray
+and we're using GPT at the moment. And it frankly horrifies me sending up. I mean, obviously the
+customers opt in to do it, but basically we're sending their conversations up to GPT and they've
+summarized them and we do a bunch of stuff with it. But yeah, I don't want to do that. I'd much
+rather send it to a self-hosted open assistant. And then we know, you know, it's on our hardware,
+we know where the data's going. Our policy is to not store anything at any time. And I can't do
+that at the moment. So yeah, please help me do that, Janik. That being said, let me add to that
+before. I like, I think we shouldn't and wouldn't unless someone, someone leaks something. It's
+also open source is a conglomeration of people, but I want to like build in the option to like
+do the opt out and the deleting before any of the data of the chat interface is ever released.
+So yeah, you know, I really, I really, I don't want that a person is ever like, oh, what, that's
+where my like, that it's not very clear, you know, hey, if you put stuff in here, you know,
+you put thumbs up, thumbs down, we're going to use that and make that available. If I don't want
+people who, who are not like aware of that. And yeah, yeah, absolutely. On the evaluation,
+our friend Jeremy Howard had a few things to say. And first of all, Jeremy, if you're watching,
+mate, please come on MLST. I think it's about time we had a little chin wag, mate, you and me.
+Long time fan, seriously. But, but, but he was, he was being a little bit nasty, wasn't he,
+about open assistant? Well, on, you always have to, to view things through the lens of Twitter,
+right. And first of all, it's a written medium. And second of all, it's, it's Twitter. So I, like,
+I completely discard that criticism is obviously welcome and valid. And I think
+he's made a few good points. And it was, especially with respect to what we did is we,
+we collected the data set, right? We trained models on it. Some of these models now run on, on,
+on the website for now, which we're very fortunate to have some compute sponsors also. Thank you very
+much to those. And we did a preference evaluation where we just, we took a bunch of prompts that we
+were sure the models hadn't been trained on. We gave the same prompts to chat GPT, like the three,
+the free version. And one of our models. And then we made like a Google form where we just asked
+the user, which one do you prefer, right? And obviously, there is a lot of, like, a lot of brain
+power has been gone since the start of, at least like, start of science, but certainly since the
+start of like asking humans about things has been gone into how do you do that? How do you ask
+people what they prefer? Like, where, how do you need to sample which people do you ask and so on?
+And obviously, we, we did, I think we did a good job at that, but obviously not. Like,
+there's always things you could do. We, well, we took those things, we put those together,
+we randomized their order, obviously. And then we just sent that out, like, I tweeted it out,
+right? To people like, Hey, you know, help us, help us, you know, compare these models. Here's a
+thing. And then what came out was on these prompts, it was about 50 50, right? Sometimes
+people preferred the chat GPT answer. Sometimes people preferred the, the open assistant model
+answers. And you could also kind of make out which ones were like, where is one better? Where is
+the other one better? Now, yeah, the result is, I want to say, I think it's, it's statistically
+valid in the sense we did, like a lot of people took part, we really, like, really, these are
+really the answers of the models, we didn't like sample until our model had like a really good
+answer or anything like this. But it's also the case, I think that's one of the things Jeremy
+leveraged that chat GPT, as everyone knows it very often goes like as an AI language model,
+I'm sorry, I can't fulfill that. Because I don't know, I asked about a recipe with,
+with like alcohol in it and who alcohol is dangerous and I can't I'm overstating now, right?
+But it very often does this guardraily self censorship thing. And our models that we've
+trained, don't do that as much, they do it frequently, but they don't do it as much as chat
+GPT. And obviously, there are some prompts in there, for example, who would win a street fight,
+Joe Biden or Joe Rogan? Chat GPT, I believe, if I recall correctly, it was just like,
+I'm sorry, I can't, you know, this is touches on violence and street fighting. I don't, I don't,
+I don't want to answer that. Jeremy, for example, pointed out, hey,
+you should have done the evaluation only on prompts where chat GPT actually decides to answer
+and only compare on those because it's clear that if it doesn't answer, the preferable answer
+is the answer, which doesn't even have to be correct. The open assistant model said in that
+question, Joe Biden would win because he's taller. And we don't know, right? But it's very likely
+the question isn't like that's not the correct answer. Yet users obviously preferred it or
+people who fill out the form preferred it to the, sorry, I don't want to answer that. That's,
+I think it's a fair point to say, hey, you know, there are different categories, and maybe you
+should develop that, that would be like, okay, there are different categories, maybe you should
+split it up into look, there's this category of prompts, there's this category and this category,
+and there it would be very clear, like in no way do we claim that the open assistant models are
+as good as I can imagine, imagine that they're the one we used even was like a 13 billion model
+and chat GPT is by all we know, much bigger, much more trained on stuff. So like, it's,
+it's better, like no, no doubt about it. And I think people have been a bit ruffled by the
+fact that we said, you know, in our evaluation, it was like 5050. But a lot of that, not a lot,
+but some of that came from the fact that, yes, sometimes chat GPT just denies to answer.
+But also, a lot of times, it comes from the fact that people say, hey, for these couple of tasks,
+actually, I prefer the open assistant models. And I think, yeah, that goes a bit under in
+these discussions. Yeah, yeah, I mean, just steel manning Jeremy a little bit, I didn't read it so
+much as being refusing to answer, I felt his criticism was more the selection bias, both of
+the questions and the raters. And also, I think there was this point about, he thought you had
+portrayed it as being an evaluation instead of a user preference study, but you made it clear that
+it was a user preference study. Yes, yes, it's, it's like, I think we said, about five times,
+we have like user preference preference, our forms as which one do you prefer, right? And I think
+it's still, like, I think both things are valid, right? It's totally valid to only compare, let's
+say, okay, let's just look on gardening, right? Chat GPT is certainly not going to deny gardening,
+here's a category, which model is like better objectively, which gives the more truthful,
+which gives the more helpful answers, we can rate it and in our data set, we actually collect
+these labels, right? Is it helpful? Is it funny? And so on. And we haven't even used those labels
+yet. So that's going to be another dimension of, you know, now we have three humans giving and the
+same question and answer. And we have labels on how funny each one of them is, right? So that's,
+that's going to be, I can't wait until we use those labels. So it's totally valid to evaluate this
+in very different ways. But I, there I have to say a little bit, like it's also totally valid to
+just plainly ask humans, which one do you prefer? And if chat GPT on prompts that we've just sampled
+from our lottery, like, with a selection of questions, maybe you've, as I said, yeah, have you,
+how, how often have you tried like, no, this is the output. And then it's like, ooh, your people
+ask a lot about bombs. It's like, no, it's just not, you look at our data set. I'm sorry, these are
+20 prompts, right? That are as they are. But if you look in our data set, most people are immensely
+helpful and not edgy and not. So I think that's also, that's like, like, I know it's formulated
+as a question, but like, it's, it's just distinctly not true. Like people have been
+even more helpful than I thought. And I have had big hopes for people. And I've looked at the data
+and I'm like, Oh, holy crap, people put like effort and work and, and, and, and soul into this,
+right? So I think then going like, ooh, your people will ask a lot about bomb. So yeah, I do think
+it's totally valid to ask people, which one do you prefer? And if chat, gbt happens to say, no,
+I don't want that, then that's, yes, people don't like it, right? And if people like it, they could
+say, yes, I prefer the, no, I don't want to do this to the model that wants to do it. If they
+think that's the appropriate thing, I do think that at least it's a valid one valid way of comparing
+models just to say, which one do you prefer? If it happens to deny your request, you know,
+that's a signal too, and that should be taken into account too. And then saying, specifically
+saying, no, no, we should just filter all the things where chat gbt denies, then it's like, well,
+here you have a model who can put much more of its effort and focus and parameters, right?
+Into the narrow domain where it does answer. And you compare that to a model that has a
+wider spectrum of topics available. I'm not sure that's a fair comparison to even if you
+limit it to that scope, right? The other model also has to handle all of these other things.
+That being said, as I said, capability wise, I have no doubt that chat gbt is better
+for overall, right, especially things like coding and so on. Like, there's no way
+for now open assistant is as good. However, in some tasks, people like it more.
+Okay, okay. So the ethics community are probably seething at the moment about the
+runaway success of open assistant. Notably, it blew up on social media, and none of those folks
+in particular liked it retweeted, and then they all jumped on Jeremy Howard's piece.
+But you we shouldn't like, like, I have not shouldn't say that we know that about.
+Well, we shouldn't we should like, that's not necessarily property of Jeremy, right?
+Just because people people like people of a certain people of a certain way of thinking,
+like all promote your, your, your stuff, because they think, yeah,
+criticizing that other stuff is a good thing. It's, it shouldn't be, you know, his.
+Oh, yeah. Responsibility in any way. It's not his responsibility. But I'm saying that you
+really, really ruffled their feathers with the four Chan bot. And possibly, so they don't like
+you very much. And I just wondered from your perspective, how do you think they are going
+to criticize you? Academically, mostly, like it's, it's, it's very, it's very easy because it's like,
+open assistant is a bunch of crassly said a bunch of plebs, right, doing something,
+right, and doing it on, on their own, you know, exactly a pleb. No, but, but I'm not,
+like, I'm not, I'm not like an academic or in academia. If you're not an academic,
+you know what I mean? It's like a community effort. And it's been, it's been done relatively
+straightforwardly and open without much consideration to, to politics without much
+consideration to, I don't know, worldwide concerns or anything like this. We just wanted,
+we just said, Hey, let's come together, let's build a competent, a good data set to train a
+competent assistant, because we all could benefit from a competent assistant. And we didn't do it
+in any, in any particularly, um, yeah, in any political way, we didn't do it in any, okay,
+this is going to sound wrong, but we didn't do it in any particularly ethical way, by which I mean,
+sorry, if you take that in out of context, by which I mean, we didn't like,
+extremely overemphasize ethical considerations, we have clear guidelines, like, here is the
+things we want in the days, here's the things we don't want in the data set, if someone comes
+and asks for those things, then react like this, right, we have these clear things, but we're,
+we haven't been over emphasizing it like some of those people would. And
+well, could I point out that you do have ethical guidelines, but they are deontological, not
+consequentialist. So you have, I don't know what those words mean. You have rules, you say,
+I don't want that in my data set. You're not, you're not saying it could potentially lead to this.
+Okay, I still don't know what the diff, like, so you're saying, I don't want any, um,
+pornography of a certain type in my data set. Yeah. So that's a rule. So yeah, or if someone
+comes and like, wants, wants, wants to, to promote violence or something, it's like, no, right?
+Yeah. So you have principles. And if someone comes and says, can I, can I, how can I build a bomb,
+then recognizing there are, there may be legitimate reasons to build a bomb, right, like to build an
+explosive device, um, saying, this is dangerous, right, please consult a professional. Um, if you
+must hear, if you really want to, this is a bad example, but it's, it's like, whenever something
+might be dangerous, our guidelines are, hey, look, warn the person, right? Um, say, look,
+this is potentially dangerous. Building a bomb is a wrong example. Let's say I want to, I don't know.
+I'm not coming up with a good example, but let's say it's something, something that's
+potentially dangerous, but also useful in, in a lot of cases, the guidelines are
+worn about that. Like say, hey, look, this is, you're in danger territory here. Um, this is
+potentially dangerous. Do you want to really want it, right? Um, and then if the user pushes or says,
+yes, it's like, okay, here is how, but you know, consult a professional, uh, or something like
+this. So we do have guidelines, uh, like that, but yeah, I mean, that's what I wanted to say. So
+you do have, have an ethical code. There's no question about that, but it's a different code.
+But would you consider getting a team of ethicists involved? I mean, it's a big project now.
+You must have had loads of people offered to get involved. I mean, if that happened,
+what do you think it would look like and how would it affect the project?
+It's a good question because I think AI ethics is in an absolutely abhorrent state right now
+where it's, it's, I, I've met ethicists before and they were among the, the most, you know,
+competent, uh, people that I have, have, have, have had the pleasure to interact with, right? It's,
+it's very level headed, very, you know, also pragmatic in a sense of, of being like, look,
+here is also what's realistic to achieve. Here is the thought process behind it and so on.
+Like I, I, I totally see ethics in any scientific discipline as a vital and
+important thing to do. And I have, I guess, unfortunately made the experience of how it
+can be done competently. And this current state of a lot of AI, not all AI ethicists,
+but the current state of like AI ethics is not that. And it's, it's very much a, a,
+I can't even describe it very well, but, um, I just complain about stuff culture because that gets you
+like clout, I guess, or, or, um, it's, it's easy win, easy win. You can always complain, right?
+Such an easy win. Um, and if, if there is a team of competent,
+pragmatic people, they don't have to have the same opinions as I do, right? But they have to have the,
+the good of, the good of the project and the good of humanity, I guess in mind, um,
+yeah, that's cool. But, um, you know, I'm not like the king of this, right? Like I'm not the king
+of open assistant. I don't, I don't get if, if, if people con want to conglomerate and talk about
+the ethics of all of this and, and, and, you know, ping us with inputs, like, cool, cool.
+But I mean, you know, when, when we do talk about some of these risks around misinformation and
+bias, I mean, public accountability, um, public awareness, they, the ethicists have done stuff
+like producing model cards and, you know, like making it clear what the data biases and stuff
+like that. I mean, do you, do you think that's useful?
+Yes. Um, I mean, it's what is a model card? A model card is a read me, right? And then it has
+some structure to it, right? It's, it's, it says here are the, here are the, the, the things you
+could describe about your model. And here are some examples. I think it's useful to, to have that,
+to have as a norm in the community to say, you know, if I publish a model, I sort of, I report
+what it's been trained on, how it's been trained on. Um, and even to a degree, right, what I think
+it could do or should be used for, although yeah, if the structure of such a model car gets like
+too rigid and it's like, no, we must use, we must ask these questions. You get into so many ridiculous
+situations like, uh, you know, can this be reproduced? Well, I just, I like, I, I,
+I made sklearn.linear regression, right? Yes, it can be, you get into, into
+situations where the questions don't address what you would actually like to express in such a thing.
+And then I think it becomes counterproductive. But as a norm to have, hey, look, if you publish
+something, people should be able to understand and, uh, potentially reproduce it. That standard we
+have had in papers for a long time and is generally been a good standard to say, look,
+if you write, if you publish something, I must be able to, from reading it, understand
+what's in there and to have that as a norm in the community. Um, yeah, I'm totally fine with that.
+Do you think there's any relationship with the Chomsky syndrome that we were talking about earlier,
+which is this idea that we should have a very clear model of understanding of how these things
+work in society and, and we should be able to extrapolate and control things. And the fear
+is that basically this is just a complete black box and, and who knows what's going to happen.
+No, I, I'm good with the, I'm good with the black box. It keeps things exciting and interesting.
+And, um, um, I, as I said, I don't, I don't believe this sort of runaway. It might become,
+you know, very influential and so on. And certainly that's not very good, but
+then again, I don't know what to do about it. Certainly if some people sign a change.org
+moratorium petition is even if, if it's reached, it's not going to help, right? What are you going
+to do? It doesn't matter being worried about it. We've got a few minutes left. So I've got some
+questions from jumbo Tron. Say hello jumbo jumbo Tron. Hello jumbo Tron. He's our forum
+administrator and he's a legend. Um, quick question. Do you think all AI research should be open and
+accessible to the public? Um, no, uh, I, it's totally legitimate that a business does internal
+research like all companies do and, uh, that they then use that to make money. Like that's,
+that's very cool with me. I've never, never said that shouldn't be the case. Only that companies
+shouldn't do that, but at the same time claim how open and, and, and, and they all democratizing and
+beneficial to the common good they are. Okay. And you would accept that some research could,
+um, lead to negative or unethical applications and might need to be restricted? Yeah.
+I, yeah. I totally accept that some research can and will probably lead to overall negative
+effects for, for society or for certain individuals within society, right? Like the, like
+self flying drones from any regime in the world, they probably, they run, they run one of,
+they run one of, they certainly run some open source components as part of their guidance system,
+right? They may be run a Linux kernel. Like who knows? But I don't think the Linux kernel should
+not be fully open source and, and accessible to everyone. Um, and I don't want anyone to be able
+to be the decider of, you know, the eternal decider of who's good enough to use the Linux kernel or
+not. I'd rather, I think the overall, overall welfare of society and humanity is much better
+served by accepting that some people are going to do some bad things with it and then mitigating that
+in a different way than having like appointing, uh, the, you know, the king of that model to decide,
+you know, who, who, who they deem pure hearted enough to wield it.
+Cool. What's next for ML news and your channel? And are you making any more music videos with AI?
+Well, it's become, it's become, there are so many good music videos on AI now. I'm always amazed
+by how talented people are and how quickly they pick up sort of the new stuff and do something
+with it. So that's very cool. I want, um, um, as I said, I've not made too many videos because
+I've been extremely busy with open assistant. And, um, I think we've also, we've also built up
+sort of a momentum in the direction right now. And there are many competent people in our team.
+So I'm also looking to make a couple of more videos again, uh, paper reviews, news, but also
+a bunch of, uh, projects, which I was always want to do, but then they take time, of course. And, um,
+but I'm very excited about just some of the new stuff that's possible. And, um, to try it out
+and to show people a little bit of, of what one could do and how to have fun with these things.
+Dude. And, um, just in closing, have you got any shout outs for people in your life or in
+discord who have really helped you on the journey? Um, too many, like way too many to,
+to, um, to name by name. This is, I could, I could go on like eternal lists in open assistant
+specifically. Um, Andreas Kepp has been extremely influential in that. Um, he like just organizing
+things, but also coding things himself, but also like also all the, all the other men, as I said,
+if I start listing people, I'm going to miss someone and I don't want to do that. So I don't
+want to start listing people. But then I think, well, I really want to list the people. There's
+a, it's a, it's an eternal conundrum. So it like to anyone who's ever had any, any part of helping
+me or given, given feedback or, or even, or even like been kind of a dick. Like it's, I appreciate it.
+And, uh, I, yeah, it's, it's been amazing. The amount of, of help and input you get from
+good willed people. Yeah. Yeah. Communities are amazing. So join Yannick's discord, join our
+discord, open, uh, assistant discord. Uh, Dr. Kiltcher, thank you so much. This has been an
+absolute pleasure, sir. Thanks for having me.

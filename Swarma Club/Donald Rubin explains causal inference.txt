@@ -1,0 +1,1419 @@
+各位老师同学大家好
+欢迎大家参加今天的讲座活动
+我是主持人杨艾查
+是清华大学的再度博士生
+本次活动有集志和志愿
+社区幅画的
+英国科学设计成员自发组织
+并且有集志提供应应支持
+今天的活动我们非常非常的荣幸
+邀请到了当今世界上
+最具影响力的统计学家
+Dona Ruffin教授
+来为大家介绍英国推荡的工作
+然后为了方便这个讲座
+接下来我都会用英语
+再给大家进行成熟
+各位学生和教授
+从全世界
+然后从社区
+欢迎到今天的活动
+我们很荣幸
+Dona Ruffin
+是世界上最有影响力的统计学家
+来和我们一起
+介绍最重要的设计
+为了解决设计
+和设计专业专业专业
+和设计专业
+一件很极大的歷史
+首先让我 briefly 介绍
+专业专业专业专业
+他是专业专业专业专业专业专业专业专业
+他从1983年
+从1983年
+也设计专业专业专业专业专业
+他也设计专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专�
+专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业专业�
+35,350,000 citations from Google Scholar, and we're also very honored to have three discussant speakers with us. They are Professor Zhou Xiaohua and Zhou Zhou from Peking University. He's the PKIU Chair Professor and the Chair of Department of Health Statistics in Peking University, and Xi Liang Zhao Professor from the Wang Yanan Institute for Studies in Economics, and
+from Xiamen University, and also Professor Chui Peng from Association Professor with tenure in Qinghai University. Now without further ado, let us give a warm applause and welcome to Donald Ruby, and to have him introduce for us the causal inference.
+OK
+So these these slides were created a few months ago. Well, first of all, I want to thank the organizers for inviting me, and I'm very pleased to be able to give this introductory lecture. Another comment that that's relevant today, but that is is not relevant.
+It was not relevant when I made up these slides, is that with within the last week, my coauthors on on a causal paper just got the share the Nobel Prize in Economics.
+Josh Angris, and Guido M. Benz. Just about a week ago, got a Nobel Prize in Economics, basically for work that's completely consistent with this framework that I'm going to describe here.
+And actually both of them gave me phone calls the day that I got the Nobel Prize, because it's an impressive event. So, in addition to being this interpretation of essential concepts and causal inference, I think now it's pretty much become the standard approach, at least in economics and parts of medicine.
+So I think it's the talk is even more relevant than it would have been of, even a few weeks ago.
+OK, so the title is essential concepts for causal inference and randomized experiments and observational studies are remarkable history, and a couple comments about the title.
+So, what I mean by essential concepts is ones that you need, and you get rid of the clutter. So for example, I'm often asked about the graphical approach to to to causal inference, and in many cases, other approaches than the one I'll be describing here, can be useful for communicating ideas, but they're not essential.
+And the sense of essential here is like mathematical sense of essential. So if you leave out a condition in the theorem that makes the condition false without that condition, then that's essential.
+And if you if you add stuff, that's not essential.
+So for example, if you say you have a
+right triangle, and with two sides equal so it's an isosceles right triangle, and you say the twice is the square of the short sides equals the long side.
+It's true, but it has clutter in it because you're putting something in that you don't need because it's any, it's any right triangle for which that's that's true.
+So, and why do I call it a remarkable history. Well, as the idea will be developed here, which you'll, which you'll see, at least from my perspective, is the history of the formal history is very recent.
+So you can trace the intuitive idea of causal inference back for thousands of years, but the formal mathematical history is really in my mind remarkably recent, meaning it's a 20th century idea that's related in some ways to another set of remarkable ideas, having to do with quantum mechanics,
+basically the idea that you can define two things, each of which can be measurable, you can actually observe, but you can't observe them simultaneously.
+And that's the, what I regard as one of the essential ideas of causal inference, as reflected in, especially in the, in the mathematics of the 20th century.
+Okay, next slide.
+So, a prolig to causal inference is is my sort of exposure to what I regard as science.
+As a, as a kid, like, like many kids in in in high school, I was interested in in math and physics, but far more physics than math.
+So when I went to college, I went to Princeton University, which I entered 1961.
+This physics course I, I took with with with a relatively famous physicist named John Wheeler.
+John Wheeler was was a colleague of Albert Einstein's.
+And so they were in the physics department at the same, same time, and he was also well known for his attributed to having made up the name black holes.
+And in fact, he denied that he was giving a lecture at one point in time is describing something that that has so much mass so much gravity, that even light can cannot escape.
+And somebody in the audience is an audience about 200 people, shout out, it's a black hole.
+And according to Wheeler, he tried to find the guy afterwards, but never could.
+So he, he started using the expression became attributed to him.
+Another thing that Wheeler, he was a really kind person and outstanding teacher.
+And, and, and his first problem that he assigned us 1961 was how far can a wild goose fly.
+He was not looking for a precise answer, but he wanted to know how you would try to solve it.
+Well, what are the principles that that that even when you're really in physics understand whether principles of conservation conservation of energy, momentum, these other basic concepts and so the energy was had to be conserved.
+How does a wild goose say up in the air and fly.Well, what he's doing is he's converting energy stored as fat potential energy into kinetic energy to fight gravity pulling him down.
+So he wanted you to think about those those principles.
+Another thing that Wheeler was was known for is he was the PhD advisor of Richard Feynman, the famous US physicist Feynman.
+But, but these were complicated years in 1961, especially for a male in the United States because there was a draft lottery.
+And in order to stay out of the draft, to avoid tromping through the mud, thousands of miles away, you had to stay in school, and so, at that time, if you were going to be in getting a patient in physics, pretty much the job market looked like you, even if you got a PhD, you had to had to be in nuclear physics.
+So, instead, I switched to psychology.
+And I went when I went into psychology at Princeton, there was a guy in Sylvan Tompkins, who was a wonderful professor is also a character named Julian James.
+And then I met in 1964, and became actually very good friends with, especially later when I returned to live in Princeton, and it was became very close friends and talked about lots of ideas, and one of his, his critical ideas was consciousness,
+就是 human beings different from other animals.
+And he wrote a book that was published in the 1970s, called the origin of consciousness in the breakdown of the bicameral mind.
+And this book actually advanced a thesis that consciousness was special to humans.
+Because they had two hemispheres, so all brains have have two hemispheres, but humans developed the art of communicating between the two hemispheres, which are really independent, they're only connected with a gang of nerves at the base of the, of the brain at the top of the spine,
+and they, these two hemispheres communicated almost independently through language, they zapped messages back and forth.
+And so his, his version of consciousness was that people would, we had these two hemispheres talking to each other, almost as if they were.
+And the fact that pre conscious people would, would hear these messages as messages of God's.
+And this was very influential on my, on my thinking and psychology became very interesting to me is all science everything we math mathematics even formal logic is obviously filtered through our brain.
+So could you go back to the, yes, I'm not done with that yet.
+So, so I, when I went to graduate school at Harvard, I started out in psychology, and then I realized that I really wasn't that serious about psychology, and I, and I switched to computer science where I got a master's degree.
+And then I, I actually eventually switched the department of statistics right from my eventual PhD, where my advisor was William Cochran, this wonderful Scottish statistician, very, very down to earth guy, who taught me experimental design in 1968.
+And I thought this was a was a great course, because it had formal experimental design, how you learn about the world, how you learn about what works and what doesn't work in terms of interventions.
+And the other thing about Cochran's course that was I opening for me, it was completely consistent with the science that I learned when I was in physics.
+And one thing about it is there was a clear separation between science, which is the object of inference, and what you do to learn about the science.
+So what you do to learn about science is you intervene in the real world in some way to intervene to measure aspects of science of the world at one point in time.
+So when you intervene, you have to change something, you have to either observe something which you throw photons at it, or something.
+So the, what you try to learn about is, is the object at a point in time, at one instance, and you learn about it through what you observe at a, at a subsequent instance.
+But the, the notation that you use to represent the science at the previous point in time is the same.
+So the science notation for the science doesn't change as you try to learn about it or measure it.
+But the, but the fact of measurement changes the science from the earlier point in time to a later point in time.
+That way of thinking about it is, is missing data always exist.
+We cannot go back in time and undo what we did to measure the science.
+And this was completely consistent with, with two principles in, in, in physics, the well-known Heisenberg uncertainty principle, for example, which says you cannot measure position and momentum at the same point in time.
+It's a choice, they both exist, but you can only measure one with, with, with certainty. And there's another principle that's sometimes confused, which is the observer effect that the act of observation actually changes the world has to do with time.
+So the science at time two is different from the state of science prior to that.
+And, but the, where's the Heisenberg uncertainty principle, it has to do with, with quantum mechanics and uncertainty of being able to measure both things at the same point in time.
+Okay, next slide.
+Now, so my exposure to statistics, when I entered Harvard again was to Cochran, and, and he was a protege of Ronald Fisher.
+And Ronald Fisher had really revolutionized the field of statistics, in fact, started in some real sense, and in 1925, with his book statistical methods of research workers.
+And in the last chapter in that 1925 book, he proposed randomization.
+So if you're trying to learn about what an intervention does, meaning his fertilizer one better than fertilizer two, control fertilizer versus a new fertilizer, or for a variety of seeds of a plant is a new variety better than the old variety.
+You actually should randomize turns out that the idea of randomization, mathematically was in the air at the time.
+So if you read some old student gossip articles in the early 20s, you would say well if you had randomized, then the distribution would be this way.
+So they sort of was in the air at Rothamstead at Rothamstead experimental station, where they were doing studies of different fertilizers and different breeding of plants and animals.
+And the idea of actually randomizing, which you should in thereby you created balance and all treat pre treatment variables in expectation.
+So the fact that it created balance was in these articles, in various expressions, but the Fisher said that I know that's what the mathematics says, but I'm saying you should actually do that.
+You should actually toss coins to assign treatments, and no one had actually done that, but as far as I can find, before there's some debate about this.
+But it will say a little about that in the subsequent slide.
+There was recondite advice at the time that if you had unbalanced covariates, so an important pre treatment variable that was unbalanced between a treatment group and a control group.
+Fisher actually said he would re randomize, now he didn't write that, and I can't find that advice anywhere.So we got a bad randomization, meaning, for example, in the study of hypertensive drugs, where they have males and females.
+If you did complete randomization, it's possible that all the males would get an active treatment, and all the females would get the control treatment.
+Bad advice.Bad randomization.So the advice was from what Fisher wrote, just live with the randomization, because that's what underlie all the mathematics, like the F distributions and T distributions.
+But when I talked to Cochran about what Fisher actually would do, he would re randomize, he would throw away the bad randomized allocation and look for a better one.
+At the time, the theory was was was complicated, because you didn't have the usual symmetry arguments working for you.
+It led to truncated distributions, which the computation was back then impossible, but the theory and application is now being pursued, because the computing is much better than it was.
+It's being pursued in a series of articles I wrote with a former PhD student, and it's being pursued in other words than I'm doing with other people.
+And that's it's being pursued because the computations is, is possible.
+If you, if you did get an acceptable randomization and you were living with it, how would you do the assessment of the was there a causal effect.
+And in here he had this very deep idea that's related to Carol Poppers, the philosopher's idea of science advances by rejecting myth.
+And so what what Fisher did is, he had this this method of inference, where you hypothetically re randomize, you look at the data, put down a null hypothesis and hypothesis that that you don't that you want to prove is wrong.
+This re randomization was a stochastic proof by contradiction so it's not really a proof by contradiction, but you get a probability that you would observe data, which you did observe this extreme, if the null hypothesis were true.
+I think it's a brilliant idea that that led to a sort of a deceptive version of it, because the name and Pearson ideas which are which I think are not nearly as sharp.
+And I think that this proof by contradiction, it can be embedded within a Bayesian framework.
+And I wrote about this in an annals of statistics paper 1984, where I call that a posterior predictive check, or price, or the p value in fact is a posterior predictive p value, or instead of having a sharp null hypothesis,
+I mean by sharp, if there's no missing data anymore, so you can fill in all missing values.
+And, but instead of having a sharp null hypothesis, you can have a stochastic null hypothesis, so it becomes a Bayesian positive predictive p value.
+I wonder, even though he was never formal about the this idea of an alternative hypothesis, because he said, I have never, I have no problem in choosing a test statistic, just do it.
+He clearly understood this site, a non null causal effect, because in this 1918 paper years before 1984, the 1925 book, he has this direct quote.
+If we say this boy has grown tall, he has, because he has been well fed, we are not merely tracing out the cause and effect in the individual instance.
+In this particular case, we're suggesting that he might have quite probably not very well written, might quite probably have been worse fed.
+And in that case, he would have been shorter.So he's comparing the boys height, being well fed, with this hypothetical height, had even poorly fed.
+So he clearly has this idea of the of an alternative hypothesis here, the alternative is being well poorly fed, because the, what's observed as being well fed.
+But he never had any explicit notation, never any mathematical notation for formalizing non null causal effects, despite, I mean, it's very difficult to criticize.
+Fisher's work with respect to distributions under this sharp null hypothesis, tremendous geometric insights, based on symmetry arguments.
+Fisher was was legally blind.
+And so, according to Cochran, he would, when he had a problem, he would, you know, sit down, close his eyes, and think about things, and we have these blasted insights, I guess that, that came into his mind.
+So, how do we get the notation that that was arose in the textbooks in the mid 20th century, like, like in camp time.
+Next slide, that's okay, I mean, these things happen with with with zoom, especially when the, when participants are thousands of miles away.
+So, the notation that was used in in subsequent years to describe in mathematically the situation with about causal effects was actually due to Neyman Jersey Neyman, in his 1923 master's thesis, where he defined written in in in Polish, and this thesis was not translated to English, until
+1990, although because Neyman, by before 1990, was at Berkeley, the notation had had a big influence because Berkeley was the outstanding department of statistics at the time Neyman was was was there.
+So, he defined the estimates, the quantities to be estimated in randomized experiments as functions of potential outcomes for m units.
+In other words, y of zero is the array of potential outcomes under treatment zero, and why one is the array of potential outcomes under an active treatment, labeled here treatment one.
+And Neyman, in 23 was written in Polish, as I said, translated to English in 1990, and I, I made up the phrase potential outcomes, really to stay close to this 1923 paper, where at least the translation of into English of this of this paper in 1990, called the potential yields, where the units of the experiment were the end units were plots of
+land, and the outcomes there were yields of a particular variety of a plant under different fertilizers.
+And so, the treatments there would be the control fertilizer, and treatment one for example would be the active fertilizer.
+And Neyman, actually use this notation, although later, he denigrated, he said, I was, I was just fooling around, I really didn't know what I was doing.
+There are other examples of that in science, we can see people using notation that they really didn't understand the full meaning of fact, actually, you can see that in some of the work on in relativity as well.
+I don't want to get off onto that topic, although I could answer some questions about it. And so, Neyman put down this notation, and implicitly assuming something that I later called, so to stable unit treatment value assumption.
+And all this, this means is that, if I give, if I have a y, which is the outcome for plot i so I indexes the plots, and w indexes the, the different treatments.
+It's a function of i and w. That's all that's that's it's a mean it's a well defined function, so that you have that notation.
+And so, all that the outcome for particular treatment on a particular plot, it's just a function of that plot, and of that treatment, it's not affected by the fertilizers that the other plots got.
+So, for example, this excluded interference between units, for example, if you're doing an agricultural experiment where rain would move one fertilizer on one plot to an adjacent plot.
+So the adjacent plots, not only were affected by the fertilizer they received, but by fertilizers adjacent plots got.
+Agronimus knew this for hundreds of years, but, but this assumption wasn't really formalized until the combination of, of Neyman, and this explicit assumption that I made up, and in the quote said for 1968.
+So, the point is that you cannot observe both of these on any one unit cannot observe both the outcome under under active treatment, and the outcome under control treatment.
+And so, this idea was kind of natural to me, because I grew up with with Heisenberg, that you that just existed, but the Neyman contribution went beyond this notation.
+He evaluated the operating characteristics of procedure procedures, such as estimators over the randomization distribution.
+So he said, okay, I observed this under the, what would be the expectation of the of a statistic, an estimator such as the observed outcomes, the observed potential outcomes under active treatment, minus the observed potential outcomes under control treatment.
+And the statistic being a function of observed values, but now we'll see what I would have observed, under all possible values, and I can derive pro operating characters for such as unbiasedness of this difference in observed sample needs.
+Very important idea which eventually led to all the name and Pearson stuff.
+He also worried about the role of non additive unit level causal effects, an additive unit level causal effect is the difference between why I have zero and why I have one is the same for all I.
+The new fertilizer is better than the old fertilizer by the same amount and all plots and Neyman worried about that in 1923, because he not only defined unbiasedness, but but he eventually defined
+would later would be called confidence intervals. Now, in, in later years, he denied the lack of understanding in 1923, pointing out that the, that the definition of the potential outcomes was an important idea, but he said I really didn't understand the real depth of randomization.
+We're advocated it is Fisher, who advocated randomization actually randomizing plots, not, not name it. Next slide please.
+So comments on these insights. Well, these are 20th century insights at least as, as far as, as, as I can see.
+I've looked a little bit I'm not a really in depth historian like Steve Stigler, my former colleague at the University of Chicago, but I think I can't find any, any corresponding insights in science, where you define an estimate quantities you want to estimate.
+In terms of measurable quantities, which, but these are individually measure, but they cannot be simultaneously measured, measurable even theoretically.
+I really think these are really 20th century insights that were seem to be floating around.
+In Northern Europe at, at the time was was was Fisher really the, the, the first to have these. Well, Steve Stigler likes to point to an American psychologist, philosopher, purse, whose, whose father was a mathematician at Harvard,
+late 19th century, who was writing about unbiasedness from, from taking representative samples, very, very close but as far as I can see, there's no use of the idea of randomization as a base of inference the way, the way Fisher did.
+The way after Fisher proposed randomization in this last chapter of statistical methods for research workers, randomized trials quickly dominated agricultural and animal, animal breeding in the United Kingdom, and became even dominant in the United States in
+agricultural work, more applied work was was was was done, for example by Oscar Kempthorne, Bill Cochran and Gertrude Cox, George box wonder wonderful work by by by box in industrial experiments.
+David Cox, wrote a wonderful textbook 1958 planning experiments, and supporting more mathematical work, almost pure mathematical work was done in the Indian statistics Institute, which is founded by my Helen obis work was done there by R.C.
+Bose, near, see a row who is still going strong in his 100th birthday, he had his 100th birthday, we 100 first, I think, a few weeks ago,
+and subsequently randomized controlled trials, entered Western industry they started doing industrial experiments and at the end of the Second World War, when the, the, the West, the allies had completely sort of destroyed Japan.
+And at the end of World War Two, we sent Edward Deming, the West and Edward Deming to help rebuild Japanese industry, and through the use of quality control in experiments and in randomized experiments.
+So the combination of randomized experiments, and especially with the idea of quality control, Japan has given a Deming medal for quality control, since 1951.
+But the insights that that were exposed in the in this work with randomized trials were really limited at this time to non conscious units, plants, animals, or industrial object, like widgets, you know, various mechanical things that we built or paints,
+they would do experiments on paints for painting the dividing lines in in in roads, for example.
+Next slide.
+The transportation of these insights to randomized controlled trials with conscious units came before the transportation well before the transportation of these insights to non randomized studies.
+Now, in medicine, my understanding is the first randomized experiments were done in the United Kingdom in 1946, the Medical Research Center, and a guy named Sir Bradford Hill on Streptococcus,
+they have antibiotics study of antibiotics, they actually did randomized experiment.
+Another early big randomized experiment was salt vaccine, whereas like thousands of people that was done in 1954, there's actually randomized experiment with conscious units, and they actually use blinding them, the idea that you don't tell the patient,
+or the kid in this case, which vaccine you're getting the the the active vaccine or placebo vaccine.
+And in the 50s and middle eight 50s of the United States Food and Drug Administration, it became almost wedded to the use of randomized experiments.
+And so randomized experiments entered pharmacology. And before this before the 1950s and Paul Meyer was my colleague at the University of Chicago was the main instigator this he really sort of fell in love with with random device experiments.
+And what what what I say falling in love, I think there was an over resilience in adherence to intention to treat principle to estimate the effect of the assignment to treatment, rather the effect of assignment and recede of treatment, which I don't think was very wise.
+So the idea intention to treat is you analyze the data, the way the units got assigned, not what they took.
+I think this is a very relevant comment now, because I view the recent Nobel Prize in economics, which is given to, like co authors, anguished in in bends, and a David card for actually implementing a study in the non randomized interesting inference and the non randomized study.
+The idea of non compliance, because that conscious units have had habit of not agreeing with what they were randomized to not agreeing to doing what they were randomized to do.
+And, and the interesting thing is, but there's no use of these Fisher name and insights, or the notation and non randomized trials. In fact, it wasn't used at all. I think, until I proposed using it in 1974 paper.
+For example, if you look at the 1964 US Surgeon General support report on cigarette smoking and lung cancer, very important study.
+Everything was done by regression.
+In fact, ordinary least squares regression.
+Nothing. No, no use of the insights from from randomized experiments in this giant observational studies. In fact, regression was used everywhere epidemiology economics, social science psychology sociology.
+So they used regression with the potential outcomes, replaced by the observed outcome, with an indicator wi for each unit for which treatment they got.
+So that they would do a regression of the observed value is why I OBS as the observed value for each unit on an indicator variable wi and covariates.
+This notation violates this this principle that I learned when I was a kid that you separate the science from what we do to learn about the science.
+So this why OBS notation would became completely prevalent for dealing with with non randomized data, starting actually in the at the end of the 19th century, we're doing regression.
+You can make a paper by you on how you do this using this observable notation and regression.
+next slide please.
+It turns out this sequence of papers came to be called Reuben causal model to the name Paul Holland, made up in his 1986 Journal of the Rosin of the Jazz American statistical association paper, Reuben causal model, which I certainly propose this model in a paper.
+And then wrote 1974, there's a follow up paper in proceedings in 75 paper and missing data or a, I, I, I called missing data in a randomized experiment should be treated as missing data, even from a Bayesian point of view,
+talked about how randomization inferences basically based on missing data followed up with another publication 1977, and probably the, the, in some sense the most complete paper was in 1978.
+And in the annals of statistics was on Bayesian difference for causal effects.
+And the, the contributions of his paper, I think, some of it were, were beyond what, what Neyman did, but certainly built on, on Neyman's notation, the notation of potential outcomes, define causal effects in all situations, not just in randomized experiments.
+Now, there's the idea that you can separate the science from what you do to learn about the science, says you first define what you're trying to estimate.
+And in an observational study, you're trying to estimate the same thing, you're trying to estimate in a randomized experiment, you just intervening in different ways.
+Neyman, when I, when I had an office next to his at Berkeley, disagreed, he said, No, you can't talk about causal effects without randomization, you have to have randomization, even talk about causal effects, otherwise it's too speculative.
+So instead, Neyman said, Let's talk about the stars.
+Another confusion of his paper was that you needed an assignment mechanism for causal inference.
+So an assignment mechanism is just the generalization of randomization.
+So it's the probability distribution for the treatment indicator, given the covariates and the potential outcomes.
+That's probability of w, given covariates x, and potential outcomes y0, y1, with the general dependence on y0 and y1.
+And I defined unconfounded in, I guess, 74, I think, to be when this assignment mechanism doesn't depend upon the potential outcomes.
+What doesn't depend upon the potential outcomes in randomized controlled trials, because you did the randomization.
+And it was, you couldn't see the potential outcomes, and you didn't use them, and you didn't use any unobserved predictors of potential outcomes.
+For Bayesian inference, I defined this concept called the ignorable, where the assignment mechanism just depends upon observed values, for example, any sequential randomized controlled trials.
+And this potential dependence on yObs, on the observed value as in you doing a play the winner randomization.
+So you randomized the first unit, but after the after the first unit, you change the odds and getting active treatment versus controlled treatment.
+The odds are in favor of the more successful treatment based on the earlier units.
+So here yObs refers to all the observed values of y0 and y1.
+And of course, in Bayesian inference, you have to model the science in addition to the assignment mechanism.
+Now, and I called ignorable, because that factor in the likelihood for the posterior distribution can be ignored to get the same answer.
+So the assignment mechanism creates missing and absurd potential outcomes.
+And I say an artistic touch is needed here, because all models are wrong.
+That's an expression that goes back to George Fox, or before that Von Neumann even said that the real world is much too complex for anything but simplified models.
+So if the math was too hard for Von Neumann, then obviously too hard for mortals.
+So that the idea of models that we use in science are always wrong, they're always too simple.
+I say an artistic touch is needed here, and there's a great Picasso quote.
+I don't know if I have it here, but it's, he's talking about computers.
+And Picasso said computers are worthless, they only give answers.
+And Picasso's point, I think, is a great expression of the field of statistics.
+The thing that makes statistics artistic is you have to posit models.
+And you know these models are wrong, but they're working hypotheses that have to be discovered as you go along.
+Next slide, please.
+So the fundamental problem facing causal inference, which is an expression that I made up in the 1975 paper.
+It's a missing data problem.
+And Paul Holland had a more eloquent way of saying this in his jazz of paper 1986, but it's an expression that I, well, that was in this 75 paper.
+And each unit, and here we have an example with n units, and either a control treatment, zero, or an active treatment one, you get to observe either why one or why zero, you can't observe both.
+And the, and the random assignment of active versus control means a representative sample of why I one will be compared to represents that of why I zero.
+Obvious.
+Well, once you put down the notation, it's obvious notation with the question marks and the checks.
+But you have to have Naaman's notation to do that, and you have to have the idea.
+This notation applies beyond randomized experiments.
+And, and then you have to have the ideas you need a model on this assignment mechanism that creates missing and observed data, in order to draw inference about the missing potential outcomes.
+So I think that that was an important insight.
+And in fact, I think it's the basic fundamental idea behind this year's Nobel Prize in economics, because David Card was actually doing cause inference in a study where an observational study where he had hypothetical
+randomization, he didn't describe it that way, hypothetical randomization of fast food restaurants in New Jersey versus Pennsylvania.
+And he, the hypothetical experiment, again, not said this way, but had to be on his mind, was a coin was tossed to see whether the, with the restaurant was situated in New Jersey, or Pennsylvania, because New Jersey and
+Pennsylvania had different laws, different state laws on the minimum wage.
+And so the units in that experiment with the different fast food restaurants, and the hypothetical randomization was were they in Pennsylvania, or New Jersey, where there were different minimum wage laws, as obviously has important
+economic implications, and which eventually led to David Card's Nobel Prize, and Ingers and Inben's use of these potential outcomes to describe the methods.
+You know, both very generous, I mean, I'm, I'm, I'm sort of jealous of it, but, but it was not, I was not any more mistake for the Nobel Prize to do that, then a mistake in lots of the Nobel Prize had mistakes in the, in the same sense.
+Okay, next slide.
+So it's a mistake to do this regression, use of this regression goes back to the 19th century for causal inference.
+But it's a mistake to regress its observe value, an indicator for which treatment you got in covariates, why is it a mistake, but look at this notation, it loses the potential outcomes, and the key Fisher naming concepts and using the observe value notation.
+And it mixes up this why I've, mixes up the assignment mechanism and the in science.
+And here, my insights, which built on Naaman's insight from the notation is, you want to separate the science here the, the, the wise from what you did to learn about the science the Ws.
+It's critical to the 20th century insights, and here this mix it all up again suppresses these key insights there are no missing data.
+So once you write this down, and you're regressing the observe value of why, on the observed Ws, and the, and the observed covariates.
+What's the estimate.
+Parameters well parameters are always missing, because they're hypothetical. So, but this, this notation for observational, its use in observational became standard and biostatistics economics, epidemiology everywhere, and even great statisticians and epidemiologists,
+for example, Fisher, and I can't talk about these people, I don't have time, but I can find mistakes that Fisher made in dealing with secondary outcomes in randomized experiments.
+He made mistakes. Cochrane made mistakes.Cornfield made mistakes. They confused themselves in observational studies, because they're all using this observed value notation, and talking about doing regressions.
+The cornfield quotation that's on the next slide, I think it's particularly revealing. So next slide please.
+That influence on the way observational studies were quote handle, because there was no design phase, and they're instead confused analysis, and they, and they mixed up association versus causation came muddled.
+The real examples of that is a what's called now a case control study, and cases refer to people with a disease controls refer to people without the disease.
+And I much prefer the terminology case non case, because the control in a case control study is completely different than a control in a randomized experiment control in a randomized experiment is a person who's exposed to the control treatment.
+In this case controls that a case a control is somebody without the disease. So it's very confusing terminology.
+Because with case control studies, use the sampling mechanism is how you drew samples, but they're confounded sampling mechanisms in a case control study are confounded because they by definition, depend upon the observed potential outcomes.
+In other words, what they did they typically, they looked at all the cases, all the people with the disease, and they compared them to non cases, people without the disease.
+So this is what you had to do when you're looking at a rare outcome, you almost had to do it because they're otherwise became too expensive to collect data.
+But here's a quote from cornfield, who's the main epidemiologist on the smoking lung cancer.
+So a direct quote from a paper that he wrote in 1959, we now consider the distinction between the kinds of inferences that can be supported by observational studies is non randomized studies, whether prospective or retrospective.
+So prospective means these case control prospective means you go forward by by looking at smokers and non smokers, whereas a case control looks at lung cancer versus nonline cancer.
+So the prospective studies, or retrospective, and those but they're observational, and those that can be supported by experimental studies that there is, is a distinction seems undeniable, but it's exact nature is elusive.
+And I agree with that at that time it was was elusive, because it didn't become formalized until I did it in 1977, by putting down an assignment mechanism, which embedded these two kinds of studies within one framework and could define what the benefit of randomization was.
+It's, it's unconfoundedness is that the assignment mechanism cannot depend upon potential outcomes, because you did the assignment.
+But in a, in an observational study with a prospective retrospective, this unconfoundedness of the assignment mechanism is an assumption.
+And there's a big difference between how well justified the assumption in a randomized experiment is risk the assumption in an observational study.
+Next slide please.
+Starting conclusions, I mean the starting conclusions on causality, and that's why I hope this was a useful introductory lecture.
+First of all, you should retain the key insights from the past key insights meaning insights from name and Fisher, but issue, get rid of confusion from the past, get rid of the fact that everybody's doing everything by regression, and they're replacing the potential outcomes by the observed outcome and trying
+another important conclusion is to realize that the ideas between randomized controlled trials are extremely recent, people have been talking about causality for thousands of years,
+in which direction should I hunt for food, should I plant this variety or plant that variety, when we came out more an agrarian society.
+But the ideas are extremely recent, these are 20th century ideas.
+Now we should certainly update statistical methods from in both design and analysis to take advantage of modern computing.
+So what I mean by design and modern, you know, take advantage of modern computing, you take the advantage of modern computing to throw away bad randomized allocations.
+Use machine learning ideas to draw thousands of randomized allocations, and then compare balance on zillions of covariates, and understand the geometry behind that, and then throw away the bad allocations.
+And you should encourage mathematical precision, especially in notation and logical flow.
+So I don't care about mathematical precision in these stupid theorems about asymptotic balance and stuff like that.
+Take advantage of modern computing and stay with finite sample methods as much as possible.
+And this precision in thinking and logical flow can have critical consequences in current and challenging applications.
+For example, now in placebo effects, I think one of the really important areas of advancement can be, can build on some of these ideas of placebo effects using this notation of potential outcomes.
+And for which I think this Nobel Prize was recently given.
+Okay, so I think I probably have run out of time, if not more.It's four minutes after 10, as I get.
+So I will let our host say how we should proceed.
+I thought we have the next slide.
+Oh, that's right, the last slide is newer general ideas.
+Okay, so this in here is really this idea propensity score for designing studies both experimental and observational studies, this idea that you, you, you summarize all zillions of covariates by a low dimensional summary.
+So this really is tied to machine learning ideas, and use these both for designing experimental and observational studies.
+So this propensity score idea is due to this paper by Paul Rosenbaum, and I wrote in 1983, that you can design observational studies and propensity scores because they do not, they are not a function of potential outcomes, they can be used in design, much more
+than, than its use as an analysis tool.
+And reranimization experiments to avoid unlucky allocations, and this is an expanded template for observational studies.
+It's another joint paper with a sequence of, of, of papers.
+A really important idea is what I, with Paul Rosen, not Paul, Constantine Fringakis and I called principal stratification, which generalizes this idea of instrumental variables from economics.
+So I, I think this is with principal stratification, I think as, as a basic idea, that's, sort of got the Nobel Prize, and I mean, I'll make the tie there, even though formerly it didn't.
+The principal stratification with, with complications to deal with, with not only non-compliance, which is the instrumental variables setting, but basically,
+in, in Thomas paper, and placebo effects, this is this paper I, I recently wrote, where the, that generalization is, is, is made using, actually this paper says that when you're doing
+randomized experiments is currently done for a, a new drug, for example, the way it's, it's done the placebo controlled trials.
+And the fact that placebo effects, meaning that people think they're getting the active treatment, and that affects the outcome.
+And if you do a placebo controlled randomized trial, and now you approve a drug, when people have a, are taking an approved drug, they know they're getting an active treatment.
+When you fill a prescription form, you, you're not getting a placebo.
+We're treated in practice are getting the placebo effect in addition.
+And what that leads to in practice is higher doses of drug that you, then what you need for the outcome effect, because the effect on the outcome you already getting with the
+placebo effect, when you go to a drugstore and, and, and you, and you fill a prescription.
+So in practice, I think 80 or something like 50 to 60% of drugs as approved by FDA from placebo controlled trials are ratcheted down in the future based on observational data, saying the doses were too high, led to too many side effects.
+The dose in, in, in, in that's approved for practice is the dose that was used in the placebo controlled trials, when giving that dose, the units, the, the patients.
+What you observe is it in addition to the drug effect, you're getting from placebo effect.
+So, the, the, the drug that's being assigned is too high, because it's, it's, it's being assigned to get the effect, the real effect of the drug plus the placebo effect.
+This 2020 paper that I wrote that that's published in Andrews Journal, I believe.
+No, it's, it's the Japanese Journal.
+Cosmos, Schumacher's Journal, actually, is about that, that, that the topic.
+I'm going to have other things to submit to Andrews Journal on this topic, because I think it's a very important topic.
+Okay, I think I'm finally done.
+And thank you for your patience, as we struggle with the slides.
+Thank you so much and sorry for the slides, it's been too excited to see you today.
+Very kind, thank you.
+Okay, so the next part of the, of the seminar will be the photo session.
+Please all the guests to open your camera and then we're going to take a group photo.
+然后请各位同学和老师打开你们电脑前的摄像头,然后录出你们菜来的微笑,我们带大家来合入并合一个影。
+We have like 17 pages of people who are here today, listening to your talk.
+That's nice.
+Yeah, we have like 500 people today.
+That's a lot of people.
+It is, it is.
+We have crowds of guests here.
+Thank you so much for the wonderful talk.
+And also sorry for the slides being stumbling.
+That's okay.
+But, but it's very, very nice to have you here.
+And now let's move on to the discussion session.
+Please turn off all of your cameras.
+I saw a lot of friendly and familiar faces here.
+各位把那个摄像头关上我们稍后会把合影发到那个英国科学设计的情理。
+好的谢谢谢谢请带请各位关上你们的摄像头然后这样我们可以继续接下来的环节。
+好的大家现在可以看到我的共享吗?
+You can't see it.
+And now is the discussion session.
+I'm sorry if my computer is not working really well today.
+And let us welcome the three speakers.
+Let us welcome all three important guests for today's session.
+There will be Professor Zhou Xiaohua.
+I saw your cameras on Andrew Joe and Professor Zhao Xiliang.
+赵老师现在在线吗?
+And Professor Cui Po.
+Okay.
+And then to comment and Rubin's talk and we are going to have an open discussion session.
+So you may you may each one ask questions to Professor Donald Rubin.
+And I'll pass the mic to Professor Zhou Xiaohua from Peking University.
+Yeah hi Don.
+It's nice to hear your talk again.
+Even I heard this talk before by every time I will gain insight from your talk.
+Yeah yeah I think one of the reasons is that I use a limited number of slides.
+And so the talk is always slightly different.
+Yeah anyway this is a very great talk.
+I will just comment a few things.
+And also maybe just discuss a little bit further work actually based on principal strategy ideas.
+I think it's a very important idea.
+And by the way so I have a note down for like over 25 years old friend of mine.
+And actually my research in causal inference actually introduced by Don to me.
+I think I can remember when I was doing post.hover or when that started.
+But one work I had done with Don is about encouragement design.
+I don't know if you remember.
+Andrew your voice is breaking up.
+Oh can you hear me?
+Yeah I can hear you now.
+Yeah I just said look.
+You go ahead.
+My research in causal inference actually introduced you to me about 25 years ago.
+Yes.
+About a study about the randomized encouragement design for flu shot.
+Actually that's a paper we did with Emmons and his students.
+That's right.
+You remember that.
+Yes.
+And then actually that's a great work and then got the award from international Bayesian society.
+Yes that's right.
+So I'm very grateful.
+Actually you are introducing me to the field of the causal inference.
+And then we have done some work.
+So I want to mention a little bit the Ruben framework.
+You call the Ruben causal model.
+I think I like that model.
+Because I think one thing Don probably didn't mention maybe too polite in his talk.
+Is I think Ruben causal model actually clearly distinguished between estimates.
+And estimation.
+I think that's actually very crucial.
+I feel in biostatistics in the medical field.
+So what that means is the estimate is quantity is determined by science.
+So scientific question you want to ask.
+So that is given by estimate which has nothing to do with the model with assumptions.
+I think that should be very clear.
+Because particularly the causal inference became more popular in computer science.
+In artificial intelligence.
+And in other fields.
+But I feel like when I read those papers.
+It's not clear to me what their estimate.
+What they're trying to do.
+They're just through all the jargon which we talk about.
+The mathematics stuff.
+And then the notation really get confused.
+Because our audience mostly actually from the computer science.
+I think the field.
+So I think it's very glad that actually Don you give a talk in this audience.
+It's good.
+Because I think this audience most familiar with the pearls.
+The graphic model.
+I think my understanding is.
+But I think it's good.
+I mean the pearls graphic model.
+I think has their own usage.
+But on the other hand.
+I think we need to clear.
+What are the scientific questions.
+And what are the estimates.
+What estimate is the parameter.
+Which defines scientific questions.
+I think if you don't make that clear.
+Everything will go wrong afterwards.
+Then after you have an estimate.
+So clearly defined.
+And everybody understand.
+Then you talk about estimations.
+So where does the assumption come in.
+Because the estimation.
+Whether you can estimate,
+estimate depending on the data you have.
+You have.
+If you have a randomized trial data.
+Or you have a long compliance.
+Or you have truncation by death.
+So you have to very clear.
+Clearly study the data you have.
+To estimate,
+estimate.
+And then also clearly.
+To make your assumptions.
+Which to make estimable.
+So that's a crucial.
+I think that part of the causal inference.
+To say the parameter you have.
+Is whether it's estimable.
+In other words.
+Is the parameter you have.
+Can be estimated consistently.
+Based on the data you have.
+I think that part.
+I think it's part of the.
+I think the key.
+I mean we don't agree.
+In the causal inference.
+Compared with other fields.
+We don't agree.
+We don't agree.
+But we don't.
+We have to find the.
+We have to find the.
+Some things.
+But we don't.
+But we don't.
+But we don't.
+But we don't.
+But we don't.
+And then the third.
+I think it's important to check your assumptions you made in causal inference.
+And then the third.
+But some something makes sense,
+some something doesn't.
+So if the assumption doesn't make a sense,
+in practice.
+In practice.
+I don't think your causal inference makes any sense.
+So that's I learned from down actually.
+Principal Stratification
+Dunk mentioned just a little bit.
+So actually that's
+He mentioned about the student
+Constructing from caucus actually
+So that's one of the students actually work with us
+We work with me and down on the
+Also we're under my encouragement design
+So we have actually two paper on that area
+So I want to mention
+Based on the principal stratification
+I have done some work actually
+Also motivated by the Dunk's principle
+So why is truncation by this
+How do you make cause of the influence
+When you have a truncation by death
+So what's our problem is
+If you're interested in some parameters
+Like quality of life in five years
+After you take the treatment
+But the people might die
+One year after
+Receive the treatment
+So for the people who die
+What are their outcomes
+So actually that's a very interesting issue
+Right now
+Can you still treat it as a missing data
+Which some people did
+Even they die
+They still missing the quality of life
+Five years after they die
+So that's actually might be a problem
+Because I don't know what the quality of life
+For dead people
+So that's actually the big issue
+So that's actually
+Show the principle of the stratification
+Really work in this setting
+So we have done some work
+To how do you make cause of the influence
+When you have a truncation by death
+So that's actually very important
+Because that one is commonly
+Occure in medical research
+Because for most of the
+Co-hor study
+Large cohort study
+You always have some people who die
+During the study
+So how do you deal with that
+And then they don't maybe have time
+To talk about the truncation by death
+But that's actually the very
+Important applications in medical research
+So that's another area
+I think I also get a lot of attention recently
+Is precision medicine
+To say
+How do you do the cause of the influence
+In precision medicine
+So you might say
+What is a precision medicine
+Probably in this audience may not be familiar
+So precision medicine is like this
+As we know in the medicine
+There is no one drug
+Can treat all patients well
+So the precision medicine
+Sometime also called personalized medicine
+So that means
+You may want to tailor
+Your treatment
+Based on characteristic of the patient
+So maybe let's say
+For the cancer patients
+You may have the chemotherapy
+Or you may have surgery
+But for some people
+It's better to use chemo
+Then other people
+Based on the genetic information
+Of the subject
+So that area actually is called
+Heterogeneous treatment effect
+So that means
+So in the literature
+The talk mentioned
+Mostly focused on
+I think the overall average treatment effect
+To the whole population
+But sometimes
+You might be interested
+Actually the subpopulation
+So we call
+Maybe you want to condition
+And then look at the cause of effect
+In the subgroup
+So they call
+The heterogeneous treatment effect
+But the principle
+Don't just mention about the
+Rubin causal model can still apply
+But you have to do more work
+To make work
+So that's called
+The heterogeneous treatment effect
+Actually I think this is still
+Right open area in medicine
+How do you do that
+How do you do better
+And then
+Particularly when you have
+Observation of data
+Which you have
+So one of the difficulty
+With observational data
+In causal inferences
+Is on major confunders
+So the reason
+I think the card
+And then
+Even got lower prices
+Actually try to use
+Instrument of variable
+To crack for the
+On major confunders
+Which is a cause of late
+And then later on
+I think
+Later on
+I think we call
+The complier average cause of that
+So anyway
+I think
+The causal inference
+Is getting
+More and more popular
+And I think
+The current research
+In causal inference
+How do you do better
+I think
+I think
+I think
+I think
+I think
+I think
+I think
+I think
+I think
+I think
+I think
+I think
+I think
+I think
+I think
+I think
+I think
+Inabout
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+In deep
+所以我的目的是不至於
+讓我另一邊的
+是
+人們還運用國際圖示
+影響支援者的基础
+他們 emperor拿著
+在 fixing the
+作為他們的保障
+這裡 也是要求
+在本來只是
+學他們會放 לה
+已經賑偷整理
+照例來說
+當然
+侍莫 Ou
+沒有
+莫盟
+很 popular in those days in the science to say
+how can you make prediction
+which has some causal property, I think
+and now when I think it needs a lot of work
+to be done, I think that field.
+Yeah, so so
+Professor Joe, we have limited time.
+So I will maybe want to
+downcom a little bit is
+what do you think about the causal predictions?
+Do you have any thought on that?
+No, I should do
+I can say
+one or two minutes now
+I think it's probably easier
+for the audience and for me as well
+instead of trying to remember everybody
+so if I make a comment
+so I very much
+appreciate Andrews comments
+and as he said
+we've known each other for decades
+and have written papers together
+and I think that's your point about
+being precision medicine
+and the problem of
+censoring by death
+I think the
+censoring by death
+I think has been underappreciated
+for years
+and I think the idea of thinking about
+censing
+censing due to death
+as creating a particular principle straight up
+where the always survivors
+the subgroup of people who would survive
+and that's how you try to do a study
+and you want to try to separate
+the outcome of death
+from the outcome of quality of life
+I think with many serious diseases
+that's an important question
+otherwise you sort of get the wrong answer
+so if you want to look at
+the effect of an intervention
+on quality of life
+what do you do with people who died
+well if you just throw them out
+then you can get completely the wrong answer
+especially if the
+if one treatment kills people who are weak
+and then the other treatment looks better
+because it lets them survive
+so it's just
+you've got to
+worry about both outcomes
+the death outcome
+and I think that there's
+a lot of work to be done there
+so I really
+I second Andrew's comment
+that this perspective has a lot
+of things to offer
+current studies
+in medicine
+with those critical attributes
+also the comment about
+precision medicine
+certainly I'm aware that
+the idea of precision medicine
+is especially important when treating patients
+you don't want to treat
+everybody the same
+but one of the ideas
+ofprecision medicine
+is you want to
+obviously you have a different treatment
+for different people
+and there the complication is
+principle strata are only partially identified
+but here's where
+the roleof covariates
+can be really important
+and I think there's a
+probably the most
+maybe the most relevant paper
+is one that
+on this topic
+is one that I wrote with
+for Ricci Mielli and some of her students
+her Italian students
+is here the
+where's this published
+I don't remember right
+right now
+but the idea is
+that you can
+the covariates help to predict
+which principle strata you're in
+and obviously
+in medicine
+the principle
+strata help define
+which treatments work
+for which subgroup of patients
+so I think that's a
+terribly important
+idea
+and maybe I'll stop there to make sure we have time
+because I can always come back at the end
+if there are
+things to say
+actually professor Tsui
+who is also very interested in this question
+professor Tsui
+do you want to make a comment
+yes sure
+hi dom
+this is punctui here
+I'm in the computer science department in Tsinghua University
+actually we are in the same university now
+yes
+I'm sorry there is some problem with my camera
+next time I hope that we can
+we can meet face to face
+my question is that
+actually in the recent years
+you know that there is a very obvious
+trend that in the machine learning community
+many researchers
+especially very
+I mean
+famous researchers in this field
+start to talk about causality
+we need to embrace causality into
+in the machine learning
+actually from the 2016
+we just start to
+to think about
+so what's the limitation
+and what's the problems
+that today's machine learning framework cannot
+solve in the end
+actually we find that
+there are several problems like
+explainability and also
+the stability problem
+I mean the generalization to auto
+distribution and also fairness issues
+actually
+we think that when we trace back
+all of these problems
+the root cause of these problems
+is just
+that in the learning framework
+we didn't
+even try to differentiate
+the causality and also the correlation
+because in the
+big data we just
+absorb a lot of
+spurious correlations in our models
+so that directly leads to these problems
+so
+I just want to
+listen to your
+thoughts and comments on this
+trend and also
+the second question is
+when we try to do this
+when we try to embrace the causality
+into the learning
+some researchers just use
+for example the structure causal model
+and
+we our group actually
+borrow a lot of ideas from the
+rubian causal model the potential outcome framework
+so
+actually we are
+not that confident because we are
+just a halfway
+we stand in
+the machine learning community
+we just a halfway
+with respect to the causal inference community
+so we just want to
+listen to your
+wise from your perspective
+so how can the potential
+rubian causal model
+help in the machine learning
+geosks
+thank you
+sure
+I'll say just a couple sentences
+now about this
+I think one of the critical things
+over the years I've done a variety
+of consulting
+and
+very often the main
+effort is at the front
+meaning at the beginning
+when trying to understand
+exactlywhat the
+就是 being asked to try and
+anger get investigators away
+from talking about very
+s any theoretical things
+that get them to address
+what they can do?
+So if you're talking
+about causal inference
+in machine learning,
+computer science,
+we world,
+what are the collections
+產生區域that you can implement
+I don't want to talk about the theory
+because the theory will follow
+from the question that you're trying to address
+if your eventual answer can't help
+doing what you want it to do
+it's worthless
+so i think that one of
+the important ideasof
+from this 20th century ideasof
+就是你應該試試在你能做的一件事
+所以在 computer science world
+你能做什麼?
+什麼是能在你能進行的解釋?
+現在
+在想這件事
+可以進行的解釋
+在一個 randomize experiment
+什麼是能在你能進行的解釋?
+什麼是能在你能進行的解釋?
+所以
+我認為
+網絡的 experimentation
+是更加困難的
+比以前的 classical
+一個最主要的理由
+每個人都在跟每個人在一起
+是很困難的
+去進行
+non-interfering units
+甚至你能做到的 randomization
+只有一個
+真正的研究
+我已經很關心的
+這件事
+我沒有說過
+但是它要做到
+其實
+其實
+我猜
+它是比較有信心的
+所以我應該不會說太多
+但是它要擔心
+這兩種擔心的
+影響力
+在網上
+那裡
+where the units
+of the quote experimentation
+不太有信心
+所以
+我認為
+在網絡的 experimentation
+是要決定
+首先
+什麼是能做到的
+然後
+如何去解釋
+我認為
+它是很大的
+地區
+如何解釋
+網絡的
+解釋
+網絡的
+解釋
+因為
+網絡的
+網絡的解釋
+是很大大的
+然後
+都不需要
+網絡的解釋
+是在網絡的解釋
+在網絡的解釋
+你要有不同的
+方式
+的解釋
+很多的工作
+都要做到的
+我
+不知道
+你問的
+如果是
+我問的
+那些是我的事
+謝謝
+如果 time allows, we may have more discussions, just to the host, yeah.
+You just mentioned about the treatment and how it is important in the causal inference.
+We actually have Professor Zhao Xiliang who has written one of the most popular textbooks in econometrics
+and talking about the policy treatment and policy impact evaluation.
+So let us welcome Zhang Xiliang to give some comments.
+Well, actually can you send me a title for this book?
+Especially if it's in English.
+Okay, I'm going to send you right now.
+Okay, good.
+Yeah, I would like to see it too.
+Professor Rubin, thank you very much for the great lecture about the history of the Rubin-Collum model.
+Rubin-Collum model is actually the basis for calling for the empirical economics.
+It's usually used random control trial and natural experiment trying to identify color effects in economics, especially in liberal economics,
+which is called the credible revolution in empirical economics by anguish.
+Especially Rubin-Collum model is especially suited to do policy evaluation in economics.
+After implementing our government policy, governments usually want to know the effects of the policy.
+So Rubin-Collum model played a great role in those kinds of research questions.
+Rubin-Collum model can help perform the research question and make the evaluation.
+However, there is another kind of problem in economics.
+That is, we saw an economic phenomenon and we want to find out the causes of the phenomenon or the problem.
+For example, in 2008, it happened a world economic crisis.
+So in this case, I have a question for Rubin is that how Rubin-Collum model played a role in those kind of problems.
+Rubin-Collum model is just like another direction from policy evaluation from manipulation to find out the color effects.
+Rubin-Collum model is just like another direction from policy evaluation from manipulation to find out the color effects.
+Rubin-Collum model is just like another direction from policy evaluation from manipulation to find out the color effects.
+Rubin-Collum model actually arises especially in philosophy.
+So if you look historically at some of the literature on causal inference, a lot of it is devoted to finding the cause of an effect.
+So you got sick what caused that and there is an important distinction between searching for the cause of an effect which is I think really a descriptive question versus the effects of causes.
+In other words, when you think about randomized experiments, what you're randomizing are the causes and then what you can observe are what the effects of those causes, those interventions are.
+But as we look at data, what we see are the current state of affairs and here we are constantly drawn to wondering what caused that effect.
+And in fact, in my mind, one of the revolutions of the 20th century, this experimental revolution and the cause-effect revolution is that's almost an unanswerable question what the cause of an effect is.
+Let me give you a trivial example that they've used for years.
+So somebody dies of lung cancer.
+First person is ah, he died of lung cancer because he smoked two packs of cigarettes a day from the time he was 14 years old.
+And the next person says, well, that's true, but the reason he smoked two packs of cigarettes a day was his parents were both heavy smokers.
+So each of them smoked two packs of cigarettes a day and there were always cigarettes around the house, even when he was a young teenager.
+The other person says, ah, well, that's true, but the reason both of his parents smoked is that their grandparents smoked and they came from the old country and the old country everybody was a smoker.
+So they were smoking all the time, they smoked three packs a day, four packs a day, they're like eating cigarettes.
+In fact, one of the relatives came from Turkey, where everyone smoked unfiltered cigarettes all the time.
+So the real cause was that his grandparents smoked cigarettes and therefore his parents were doomed to smoke cigarettes.
+So the real cause was his grandparents smoking and of course that can go on indefinitely.
+So the, I think one of the revolutions of the 20th century and the idea of experimentation was a change in focus from looking for the cause of something that exists to the effect of causes, the effect of interventions,
+where you can formulate the question and the answer in terms of actual interventions that you can do in terms of an assignment mechanism,
+ideally a randomized assignment so that it's unconfounded or some other,
+but these other questions, the effects, the causes of effects of things, it's descriptive.
+I really think you, they may be hypothetical, may be able to think and I've written about that in various places.
+For example, there was one discussion I wrote, I think with the title, which ifs have causal answers.
+So what kind of question that would be is if I, if I remove the sun from the solar system with the planets still go in their orbits.
+That's one of these causal like questions, but the intervention of removing the sun, we have no idea what that even means.
+So I think it's important when formulating questions in practice for things that you really want to understand,
+is you have to formulate them in the context of what interventions that you can do,
+because then you're trying to choose the intervention that's most favorable to you.
+Does that help in any way, I hope so.
+So that means you have come to some ideas first,
+then you can manipulate it or interface it to find something.
+Correct, and very often the manipulation that you can do,
+you will find that you want to do is you really can't do it.
+And then I think the focus should turn to interventions that you can do,
+because if you're a practical person,
+why should you spend time thinking about something you can't do.
+Right, it's like saying, if I live to 2000 years old,
+when I'm 1000 years old,I will start the study of medicine.
+So why spend time thinking about that,you're not going to live to 1000 years old.
+So why have a debate with other people on what you're going to do when you're 1000 years old.
+It's not worth the effort.
+So you should expend effort thinking about things that can be done.
+Maybe that's too applied for some philosophers,
+but I've come to the conclusion that people spend too much time
+worrying about things that they can't change.
+OK,thank you.
+OK,we actually have also a few questions from the audience
+that they want to hear Professor Rubin's comments.
+Then we'll first answer the audience questions
+and then we'll come back to discussion if we have more time.
+OK,that's fine.
+OK,so the first question is
+what's your opinion about the future development of the potential outcome framework?
+What's your expectation?
+My expectation is it's the correct basic framework,
+but there are all sorts of aspects of the real world
+that it hasn't been modified to address.
+So for example,this idea that Andrew talked about of precision medicine
+I think is an important one because the
+and the role of covariatesI think is underappreciated there
+because if you do randomized experiments,one attitude used to be
+you should pretty much ignore covariates.
+You should do large simple trials,for example.
+And I think that's wrong because in order to do anything precise
+with being precise means,at least to me,is to be able to condition
+on more and more descriptors of individuals.
+So the idea there is you can't just do large simple trials.
+Actually,I'd be interested in hearingwhat Andrew has to say about that
+because there's been an emphasis in recent years
+on doing just large simple experiments
+where you don't worry about enforcing balance on many covariates.
+It's just the simple refers to just complete randomization
+because the basic theoryof Fisher and Neyman
+is averaging over everything.
+But when you actually going down to making decisions,the decisions
+have to be very conditional.
+Andrew,what do you have to say about that?
+Well,I think I will pull wait because the audience
+probably want to hear from you.
+Okay.
+And now if the time allow,I will see if you worry about it.
+So the basic answer is that even in design,we now have the
+computational tools to make designs far moreprecise
+than can be achievedjust by complete randomization.
+And an important aspect of thatis this ideaof re-randomization.
+So you look atzillions of possiblerandomized allocations
+and then you have measuresof marriage,like the difference
+between covariate distributionsin the treatment group
+and the control groupand you throw outall bad allocations
+by using the computerto do that for you.
+And the resultingdistributionsthat you're using
+are not the simple tdistributions and fdistributions
+and chi-square distributions because throwing out bad
+randomizations means you're truncating those distributions.
+And so the distributions are complexmixtures of truncated
+distributions,even asymptotically.
+And so using this general frameworkof potential outcomes,
+the Ruben-Causel model,then you can tryto usethe power
+of modern computingto dothe really tedious job
+of throwing out bad allocations.
+But you first have to define bad allocationsand bad allocations
+will be definedin terms of covariate distributions
+and multivariate covariate distributionsthat are
+really tedious to compute.
+But that's whatcomputers are great atdoingin these
+really tedious computations.They're terrible at thinking.
+Yeah,I agree.I thinkthe re-randomizationcould be a
+potential future research area.
+But on the other hand,I thinkthe re-randomization
+can solvesome bias issues.
+But on the other hand,they createsome difficultyin analysis
+because of the usethroughoutsome data
+and that you have to just for.
+I knowyou have donesome work in that.
+But when the data structurecomplicated,
+so they are going to complicate analysis further.
+Like if you have,let's say,non-general data
+and then you have a missing datain your outcomes
+and then you have a delayin collect outcomes.
+So I'm kindof worriedabout that partto say
+maybe the outcomeis survival time.
+So you can't just wait untilthey die.
+But that's too long.
+But I thinkthe idea isI likethe ideaof a randomization
+but just need to think aboutthe design issue
+and analysis issuehow to balance those two.
+Yes,and whenI thinkabout whyit's
+this re-randomization has becomea more recent idea,
+is again,I said this brieflyin the talk.
+I mean,Fisherwould throw out
+obviously bad randomized allocation.
+He would never live with one whereall the
+good plants got one treatmentand all the bad plants
+got the other treatment.
+In fact,that's whyhe inventedthe analysis of covariance
+in 1935,I thinkhe invented it.
+He had an experiment whereaccordingto the
+complete randomization,the tea bushesin India,
+all the busheswith low yieldin the previous year,
+we'reassigning one treatmentand the oneswith
+good yield in the previous year
+got assigned the other treatment.
+And so he saidwe have to adjustfor that
+using the analysis of covariance.
+But becausehe neverwrote on details,actually
+that's a paperwherehe made some mistakes.
+Not mathematical mistakes,butmental mistakes.
+Fundamental thinking aboutand I think the reason
+why he made those mistakesis he didn't
+he wasn't usingNaman's notation
+for these intermediatepotential outcomes
+which he was
+saying should be adjusted for.
+Okay,thank you.This is really,really helpful,especiallyin
+regardsto the hot topicof a re-normalization recently.It's been
+discussed,so it's very helpfulto hear your comments.
+So the next questionis fromDeng Wufrom
+Wassida University.He was asking
+now the COVID-19 pandemic is getting down
+worldwide.However,it is reportedthat
+the reasonsfor getting down are not clear enough
+even forepidemiological experts.
+So how causal inference methodscan do some more
+intelligence analysisin epidemiology
+that.Sorry.
+Interesting.Okay.Well,I guess
+there arenow a varietyof vaccines
+beingproposedand the
+rulesfor who gets them
+not onlyby country,butwithin a country
+like the United States,the rules varyby state.
+So the 50 states,each of them hassomewhat different
+verdansof that.So I thinkthis
+givesan an opportunity
+becauseof the varietyofinterventions
+beingproposedto actually learn aboutand
+comparedto thedifferent rules.Becausesomeof the rules
+have age limitations.You know,have other
+ruleshave,you have tohave boosterswith
+the same vaccine.The recent stuffin the
+United Statesat leastthat seems to suggestthat
+a boosterfrom anyof the vaccines worksno matter
+what vaccineyou got earlier.So thereI thinkthere are
+a varietyof,I guesswhat would be called
+natural experiments taking placeall overthe
+worldwith respect to COVID.And so
+I'm certainlynot anexpertonfollowing
+and trackingwhat theseinterventions
+are.There certainlyis a varietyof themwhich
+leadsto,I thinkwhat would be callednatural
+experimentswith theassignment mechanismis
+probablynot thatrelatedto theassignment mechanismis
+not reallyrelatedto potential outcomes,which is the
+critical assumption.I thinkrealizingthat's the
+assumption,that's thecritical assumptionto do
+inferenceinnatural experimentsis reallya critical
+idea to keep in mind.I hopethat answers.
+I hopethat answers.Okay.So the next
+the next questionfrom the audienceis fromHeo You Wei.His
+questionis,is theoutputsetof causalityincludedin
+the correlationoutputsetor viceversa?What arethe
+relationships?Would you readthatagain?
+I thinkI understoodthe words,but I may not have
+understoodthe big idea.So readagain please.It's
+theoutputsetof causalityincludedin the
+correlationoutputsetor viceversa?What arethe
+relationships?Outputset.So I guessby
+outputset,that terminologyis not familiar to me,but
+I assume what it meansis theoutputset
+meaning thescientific conclusionsthat are reachedat the
+end of acausal analysis.Is thathow I should
+interpret that?I just wonderifit is
+outcome set.So is theoutcome set methat
+theoutcome set?I don't thinkit'soutcome set,outputset.I
+think they're probablythis personfrom computer science.So the
+computer think aboutinputoutput.So thisis theoutput.So thatmeans theresults
+probably you are right now.So hetalkaboutif Iinterpret
+correctly,is ifyou do thecausal inference,you getthe results.And thenyou dothe
+correlation,notice you getresults.How thoseresults?What'sthe
+relationship betweenthose tworesults?Is thatright?But maybeI
+suggestorganizermove on to the nextquestions.I thinkI see
+a few other.So ifyou wantto rephrase thatin thecomments.So please
+do.That would be fine.Yeah.That would be
+helpful.So the nextquestionis thatdo you thinkcausal learning hasthe
+potential to beappliedin morecomplex control problems
+like robotic arm control?Ifthathow to applycausal learning
+to thehigh dimension space.
+OK.So first with respectto thehigh
+dimensional space,I thinkthatwhen you're dealingwith ahigh
+dimensional space,thefirst thing todois tounderstand
+Euclidean geometry.And
+because there aremany sortofexamples
+where people thinkthatifyou have ahighdimensional covariancethatcreates
+complications,onlyin some senseit does.Ifyou lookatthe
+Euclidean spaceandyouunderstand
+eigenvectorsand eigenvalues,ifyou have
+ahighdimensional spaceof covariancebut onlya few
+treatments,thenwhat happensautomaticallyis
+afterlooking atthefirst principalcomponents,there areno
+you don't have to worryaboutbalancingthingsthatare already
+balanced.So it doesn'tcreatethe same kindofproblem
+asifyou have a highdimensionaloutcome spacewhich leadsto
+likemultiplecomparisons problemswhen tryingto
+look atpvalues orsignificance levels.So
+I'm not...the little bitthatI
+know aboutthe work beingdonein
+morethe machine-learningcomputer scienceisit
+startswith somethingthat'snota complication.So
+we're worryingabout eigenspacesthatwherethere'sno difference.Ifyou
+havehighdimensional covarianceandyou
+sortofordered them,ranked to themin
+importanceandthenyou uselookat the eigenstructure,you find
+itinthe unimportanceasfacesthereareno differences.Now
+that's becauseyou don'thave enoughunits.But
+still you don't have...mechanicallyit'snot
+an issueto be worriedabout.I hopethatadressthe
+questionto some extentat least.Thank you.I think
+you will be helpfulfor him too.So
+the next question isthatifpotential
+outcome framework hassame functionincausalexplainable AIwith SCM.I
+thinkit meansSCM,structural causal model.Okay.
+And sowe
+the question again,please.Ifpotential
+outcome framework havesame functionincausalexplainable AIwith
+structural causal model.
+Well.I thinkit's comparingwith
+POMwith SCM.It's a structural causal model.I
+don't reallyunderstandwhatthosewords mean.Ifyou
+have the questionthatyou're addressing
+formulatedin terms ofpotentialoutcomes.
+Then the next stepis todesign a studyto
+try toaddressthatcausalquestion.And
+the studywillobviouslydependentonwhetherit's
+randomized,turningontheassignment mechanism.You
+knowwhatareyoujustobservingobservational
+data?Areyouactuallydoingan
+experiment?Anddependinguponwhichofthoseyou'redoing,the
+methodofanalysiswillfollowfrom thedesignthatyouused.
+Ibasicallylike
+basianmodels.Ithinkbasianmodelsarewhereeverythingsarea
+randomvariableare therightwaytoderivestatistics.I
+thinkthefundamentalwaytodoabasicanalysis is
+use thebasicidea,theessentialideaoffisherdoingbasic itonthe
+randomizationdistributionorhypotheticaldistributionifyou
+didn'tdo arandomizedexperiment.That'sthefirststep.Andthen
+morecomplex answersaregivenbytheposteriodistribution.I
+don'treallyunderstandalltheseotherwords thataresometimeadded.Likestructural
+orgraphical.Ithinkthosethosedon't
+don'tmean anything to me.So I
+IjustI guessIview a lot of that as clutter.Serve
+oftenselfserving clutterwhichisputin
+paperstojust for selfserving reasons.
+So names are very important when you're expressing either the question or the theory.Okay, let's go to the next question.Is bad allocation cannot truly be measured by covariates?Is there a way to measure randomness beyond using big data covariates?
+So the first part of the question is what we did again.I'm not sure I understood that.
+Bad allocation cannot truly be measured by covariates.Okay, let me respond with a question.Why not?How else would you measure it?
+And he was asking is there a way to measure randomness beyond using big data covariates?
+I don't think so.Becauseranderness refers to a property of what you did.You did random allocation.And everything's an approximation.I mean, how do you draw random numbers?
+You know, in the old days, you took out random table of random numbers and grabbed a haphazard graduate student, asked him to close his eyes, turned to a page in the random table of random numbers and put his finger down.
+If you looked at which pages were drawn, a random page was always in the middle.It was never the first page or the last page.
+Similarly,the number that was drawn on a particular page was never at the very top or the very bottom or in some corner.
+So random was always sort of uniform in some sense.But you have to describe the process by which it's done.And then it's a mathematical assumption after that.
+I think
+I'm not sure.I addressed it all at the end of that question.Could you read the end again?
+It has to do with correlation.
+Is there a way to measure randomness beyond using big data covariates?
+No, these randomness again is a property of a procedure which is all hypothetical.It's a mathematical structure.
+And the way it should be certain implications of a mathematical process,which are mathematical,which are from covariates.
+If I have no covariates at all,how do I even assess where something looks random?
+OK,so the next question is how to understand the success of COVID-19 containment policies in relationship to public health leadership roles through causality statistics?
+Yeah,well,I guess this is like an earlier question.Because different countries have different policies being implemented at different times.
+Presumably,many of the policies are not being decided based on the actual potential outcomes.
+So I think probably the policies under implementation have a lot of natural experimentation in them right now,especially as implemented where there's different states or regions of countries having modifications of policies.
+OK,so this is a very similar question from the first question we responded earlier.So let's go to the next question.
+This will be the last question.What's the role of assignment mechanism in potential outcome and how to design a good RCT?
+OK,so the potential outcomes are how you define the science and the covariates.
+So it's completely,the potential outcomes framework is completely separate from the assignment mechanism whether it's randomized or natural experiment or completely observational.
+So that's one I think of the real contributions that I made in the 1970s was over and over again emphasizing the distinction between the framework for defining causal effects,which is potential outcomes and thinking about them as potential outcomes of interventions.
+So often in trying to make the interventions ones that you could possibly do,and then the assignment mechanism is what you actually did,how you implemented the interventions on different units.
+I think one of the things that Andrew emphasized that's important are these complex designs where you have nesting and clustered randomization.
+And we wrote several papers about those kinds of designs.So,but again,the critical first step is to think what you want to learn about,then formulate that question in terms of potential outcomes.
+And then once you've formulated in terms of potential outcomes,then think very hard about how you do the intervention or hypothetical intervention that would yield some observed potential outcomes and some missing potential outcomes.
+And then my own preference at that point to be build Bayesian models where you get statistics functions of observed data.
+And then at that point,do inference starting with to the extent possible for sharing inference based on randomization distributions or hypothetical randomization distributions and then get more refinement
+from the Bayesian models and more precise answers to more complex questions.
+Ok.Thank you so much for attending this event.If we don't have any more questions.I thought Professor Tsui from earlier had a question he wanted to ask.
+Professor Tsui,do you want to propose a question?
+Do I still have a time?
+Professor Tsui,I just want to take two minutes to echo to Don's question on how can we do intervention in the machine learning and how can I do with interference in our problem.
+Yeah,actually,this is my understanding.So,the goal of the machine learning is actually just to do prediction,right.
+Yeah,yeah.And in the classical setting,actually,we made some quite ideal hypothesis.The hypothesis is the ID,the sample,the training and testing,they are just from the identical distribution.
+And another setting is just the domain adaptation that we train from one distribution and we can test from on the other distribution,but the testing distribution should be known.
+So,either the RID,we call the RID learning or the transfer learning domain adaptation,actually,we just assume that the testing distribution is known.
+So,this is a classical setting.So,under this setting,actually,what the machine learning model is trying to do is just to do the distribution fitting or data fitting,because we know the testing distribution,right.
+So,now,this is actually quite ideal,I mean,assumption,because in the real,in the real applications,we cannot assume that,okay,the testing distribution is known because there are a lot of interventions,there are a lot of distribution shifts in the real applications,right.
+So,now,actually,I think a very fundamental problem in the machine learning community is trying to relax the assumption that the testing distribution is known,okay.
+So,if we don't have the testing distribution,then how can we optimize the model?How can we learn the parameters?So,then we need a new paradigm for the learning.
+So,I think from our understanding,if we don't know the testing distribution,then we need to pursue the true model,the true model that generates the data,right.If we can,we can gather true model,then,of course,no matter how the covariate shifts and how the distribution change,we can make a reasonable prediction,right.
+And the logic is,if we have the true model,actually,for any samples,for any sample,we can perform uniformly good,right,because we can model the true signal and only the noise cannot be modeled,if we have the true model.
+So,we just want to do a reverse engineering,that means,okay,if you change the data distribution,okay,you just change it,there's a kind of intervention,for example,you can reweight all of the training samples to another distribution,if a model can have,I mean,uniformly good performance on all of the
+intervene distributions,for example,you have a multiple sample reweighting strategy,right.And under each strategy,actually,you can get one distribution,but across different distributions,if we can have a good,I mean,prediction performance,that means,okay,the model actually captured the true model.
+So,I think that in the machine learning,maybe one way of intervention is just the sample reweighting,we just intervene the distributions,and then under these distributions,whether we can find out the invariant,I mean,model or invariant structure,and this invariance,I think it's somewhat related to a causal effect,a causal relationship or causal structure.
+This is just our idea,but I'm not just very sure whether this is correct from the causal inference perspective,especially from the perspective ofRubin causal model.
+Right,well,I think what you mean by the true causal model is the true distribution of outcomes given covariance.
+And when the covariance are simple enough,let's say,just define a few strata,then reweighting works.
+But if there is,if the covariance are complex or complicated,I don't want to use complex in the mathematical sense.
+But if they're complicated and you have many outcome variables,I think you have to rely on modeling the y,the outcome given the covariance.
+And the modeling can,and then what you do,because if you have a good model for outcomes given covariance for y given x,then you can predict y at lots of different x values.
+And I think that's the bigger picture,whereas weighting is,you have to have the continuous version of weighting to have the general idea correctly formulated.
+So,I think we're saying the same thing basically,although the words may be slightly different.
+But there has been work done starting in the probably mid 1930s in survey work.
+I think probably the work that's closest to the work that you're talking about in computer science is probably the work on missing data.
+Because here,you'd worry about if the guys who are missing have very different covariate values,you know that you're relying on extrapolation.
+You're relying more and more on some hypothetical model.
+And the weighting,the idea of just weighting units only works when the support for the data are the same for the people who are observed and the people who are missing.
+Or otherwise,the imputation of the missing data won't be very good.
+So,in fact,there was a three volume collection of books that were published,I think 1984 or three,under the National Academy of Sciences,because there was a committee on handling missing data.
+And there are various authors to the three volumes.
+I think I'm one of the co-authors on one of the volumes,but a guy named William Maddow with author on all.
+And I think it's actually because it's true.
+The same problem you're discussing right now,except it was done in the context of large US surveys,mostly.
+The National Examination Survey,with 20,000 or 30,000 people.
+And because this was a design survey,it had certain structures,like it had different sampling units for states,it has a hierarchical level to it.
+So,that literature,I think,is quite relevant,although not the techniques that are being used,because again,the techniques are far more simple minded
+than the ones that can be used today.But I think it's worth looking at,so it's historical interest,and there probably are a variety of interesting ideas.
+Yeah,thank you.Thank you very much.I think this is very constructive comments and inspiring.
+But just now,the signal is not very good,so I will write a email to you and could you please send the survey title to me.
+I will do so.Thank you.Thank you very much.
+Thank you so much.So,it's actually getting very late,almost like 11,18 in China.
+I know you need time to grab lunch as well.Thank you so much for the wonderful,wonderful talk.
+That we're very,very honored and very lucky to have you here tonight.
+Thank you all for the speakers,because I was reading the comments from the Billy Billy,because this room is full,so we have a lot of also broadcasting guests from the website of Billy Billy,and they were commenting on how useful and how helpful those
+response are.So,I guess they contribute a lot to the knowledge,and we are very,very happy and learned a lot tonight.
+I really appreciated the formal discussions and the informal questions.I think they were very helpful generally for trying to clarify these important ideas.
+Thanks again for the invitation.Okay,so last section,I'm going to give a brief introduction about Professor Don's book.
+One second,my,here's what happens every single time I try to share something on my screen.
+Don,I have to say goodbye,because I have a meeting tomorrow where I talk.Okay,let's talk to you,hope to see you back in China.
+I hope,I hope so too.Andrew,good seeing you again.Bye-bye.
+Okay,so can everybody see my screen?I can't see your screen,I can see your face.You can't see me in my screen.I can see your face,but I can't see your screen.You can't see my screen,what happened?
+Okay,let's try again.That's what happens every single time I try to share something.Okay,I see it.It comes.Yes,there's a very long time of time lag.It's jet lagged.Yes.
+Okay.Well,the speed of light is only so fast.Okay,yes.Depending on how many circuits it has to go through,even the speed of light can take time.
+I know we need to take more time.Okay,so I'm going to finish this really fast.We are going to read Professor Donald Rubin's book on causal inference for statistics,social and biomedical sciences,the end introduction.
+This will be a,this is a very classical book to learn about causal inference.So the reading club will start next Sunday every morning,every week.And then we will have students and also scholars sharing the contents of its chapter every single week.
+And then we are also having the coding session to help to replicate the studies in the book.So on the right is the QR code.So if you're interested,please register through the QR code on the right.And again,thank you very much for Rubin.
+好的,我先用中文说一下,就是我们后续会针对 Rubin这本书有一个读书会,我们叫英国科学读书会是由英国社区发起的。
+然后呢会,如果感兴趣的小伙伴可以扫描右方的二维码,然后来加入到我们的读书会来参与我们新一期的这个英国推断的学习。
+OK,So that's all for tonight.Thank you so much.Stay safe and have a good day.
+Thank you very much.
+And again,thank you so much for Rubin.
+Thank you so much.
+Bye bye.
+Bye bye.
+Have a good night.

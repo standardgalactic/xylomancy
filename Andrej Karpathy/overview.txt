@@ -1,0 +1,50 @@
+Processing Overview for Andrej Karpathy
+============================
+Checking Andrej Karpathy/The spelled-out intro to language modeling： building makemore.txt
+1. **Bi-gram Character Level Language Model**: You learned about a language model that predicts the next character in a sequence based on the previous two characters (bi-gram). This model can be trained to understand context and generate coherent text sequences.
+
+2. **Training Methods**: There are two main methods to train this bi-gram language model:
+   - **Frequency Counting**: This method involves counting the frequency of each possible bi-gram in the training corpus and normalizing these counts to predict the next character based on probability.
+   - **Negative Log Likelihood (NLL) Loss Function**: This method uses a neural network to learn the parameters that minimize the negative log likelihood of observed bi-grams in the training data. Regularization is applied to prevent overfitting by encouraging the weights (w) to be zero, leading to uniform predictions.
+
+3. **Sampling from the Model**: After training, you can sample new text sequences from the model by:
+   - Starting with an initial index `ix`.
+   - Converting `ix` into a one-hot encoded vector `x_sync`.
+   - Multiplying this by the learned weights (w) to get logits.
+   - Normalizing the logits to obtain a distribution.
+   - Applying the softmax function to convert the logits into probabilities.
+   - Sampling from this probability distribution to predict the next character and update `ix`.
+
+4. **Evaluation**: The quality of the model can be evaluated using the negative log likelihood loss, which measures how well the predicted distributions match the actual distributions observed in the training data.
+
+5. **Results**: Both training methods result in identical models and produce the same text sequences when sampling, despite their different approaches to learning.
+
+6. **Future Work**: In upcoming videos, the neural network complexity will increase, culminating in the use of transformers, which are state-of-the-art models for language understanding and generation tasks. The underlying principles of training, sampling, and evaluation will remain consistent, but the model's capacity to understand context and generate text will significantly improve.
+
+In summary, you've been introduced to a bi-gram character level language model, learned how to train it using either frequency counts or a neural network with NLL loss, and how to sample from it to generate new text. The model's performance is evaluated via the NLL loss, and future work will involve enhancing the neural network architecture to improve its capabilities further.
+
+Checking Andrej Karpathy/The spelled-out intro to neural networks and backpropagation： building micrograd.txt
+1. **Micrograd Backward Pass for `torch.tensor(10) @ x`:**
+   - The backward pass for the tensor `torch.tensor(10)` (which we'll call `out`) times a matrix `x` involves computing the gradient of the output with respect to the input `x`.
+   - This is done using the chain rule, which in this case is `dout_dw = J @ dJ_dx`, where `J` is the Jacobian matrix of shape `(10, 10)` resulting from the multiplication.
+   - The backward pass for CPU devices can be found in PyTorch's `atens_impl/cpp/micro_operations.cpp` and for GPU devices in `aten/src/ATen/native/cuda/MicroOperationsCuda.cu`.
+   - The relevant code for the backward pass is deep within PyTorch's complex codebase, specifically within binary op kernels when `10` is not actually a binary operation.
+
+2. **Registering a New Function in PyTorch:**
+   - If you want to add a new function (like a polynomial3u) to PyTorch, you can do so by subclassing `torch.autograd.Function` and implementing both the forward and backward passes.
+   - The forward pass should compute the output given an input, while the backward pass should compute the gradient of the output with respect to the input (local gradients).
+   - Once you have implemented both passes, you can register your new function with PyTorch using `torch.register_forward_hook` and `torch.register_backward_hook`.
+   - After registration, your new function can be used alongside all other functions in PyTorch's autograd system, and gradients will automatically propagate through it during backpropagation.
+
+3. **Micrograd vs. PyTorch:**
+   - Micrograd is a simple autograd system that aims to teach the underlying principles of automatic differentiation.
+   - PyTorch's autograd system, while similar in concept, is much more complex due to its extensive features and optimizations for various hardware setups (CPU/GPU).
+
+4. **Further Learning and Engagement:**
+   - The lecturer suggests looking into a discussion forum or group for questions related to this topic.
+   - A follow-up video may be produced to address common questions about micrograd and its backward pass.
+
+5. **Wrap-Up:**
+   - The lecturer encourages viewers to like, subscribe, and engage with the content to help it reach a wider audience.
+   - The lecture concludes with a summary of the backward pass for multiplication in PyTorch's micrograd framework, emphasizing the importance of understanding the chain rule and how to implement it in autograd systems.
+

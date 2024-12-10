@@ -1,0 +1,1715 @@
+Today we're going to talk about PageRank and a lot you're going to see a lot of stuff on
+PageRank.
+This was a key invention that led to the founding of Google in the early 90s and I'm going to
+give you some mathematical foundations.
+I'm also going to talk about extensions like what's called topic specific PageRank
+or SIP ranks for finding similar pages, trust rank, and I will explain how web spamming
+works, how that search engine optimized companies can try to increase the rank so there's a
+continuing battle between search engines and these guys.
+Let me first start, let me give several definitions of PageRank.
+I'm going to start with fluid.
+So there's one to be in this course called intuition and mathematics.
+A lot of intuition, a lot of mathematics do some and I'll give multiple ways of fluid
+algorithm, random walk, and matrix representation all for the same algorithm.
+And then I can use some intuition on matrix seeds and eigenvectors, eigenvalues, which
+maybe you see hopefully you get good intuition here.
+So in a PageRank, there's only one value for each web page.
+So it's a big directed graph on the web pages and each page has a value that is computed
+and intuition is a page that is important, is pointed to by important pages and an important
+page points to important pages.
+So that's recursive.
+That means there's a recursive iterative algorithm.
+First intuition is that it's kind of like a liquid fluid.
+Each web page or node is a container and the links are pipes.
+And you start by putting a little bit of fluid in each of the web pages and then the fluid
+will circulate according to some rules.
+So if you have one liter, then one of our n liters is put in every page and then you
+repeat.
+So there's a link from P to P prime.
+So each page P has links going out and if there's n links going out, maybe there's only
+three links going out, each page, each link will get one third of the fluid.
+So the fluid is divided between that one links and then the next step you look at the links
+coming in and for each incoming link you take the fluid.
+So you see the fluid circulates like that and eventually it converges.
+So here's an example of web pages.
+So there's eight pages here.
+A, B, C, D, E, F, G, H.
+There's each page has one eighth.
+So now the fluid circulates.
+How does it work?
+Well look at page A.
+So page A has D going in, E going in, H going in, F going in, and G going in.
+And so what happens is after one iteration A has one eighth leader which leaves and all
+the n links, the fluid comes in.
+So D has one eighth leader but has two outgoing links.
+So it's divided in one two.
+So you have one 16 coming from D.
+E has also two outgoing links.
+So there's one 16 coming from E.
+H has no outgoing links.
+So everything goes there.
+So this is one eighth.
+That's H.
+F has no outgoing links and G neither.
+So there's both one eighth there.
+That's F and G.
+So the total is three eighths, four eighths.
+This is one half.
+That's after one iteration.
+This is the same for all of them.
+And you keep going until it converges.
+And you can prove it converges which we will do in a little bit.
+And after you keep doing that, you get these numbers.
+So A has four thirteenths.
+B has two thirteenths.
+D has one thirteenth and so on.
+So this is the result of B track.
+It's just this fixed point.
+A is the most important page here.
+And D, H, E, F and G are less important.
+That's the basic idea.
+Of course there's a problem.
+It's not going to work if you do like that.
+So this basic algorithm is nice,
+but it doesn't always work so we have to fix it.
+So let's say we change the graph.
+F points to G and G points to F.
+They don't point to A, they point to each other.
+So what happens now?
+The thing keeps circulating.
+But look, all the fluid that comes in here never goes out.
+You see that?
+It just will accumulate here.
+All the fluid will eventually, this part will empty, zero.
+Everything will eventually come here.
+F and G will each get half.
+F and G will get zero.
+That's not good enough.
+So you think, well, this is a stupid algorithm.
+It's very bad.
+Well, the insight from the smart guys who made Nucleus,
+we can actually fix this problem.
+So you see the problem now.
+You can still use the fluid intuition to fix it.
+Look at the earth.
+Water flows down, right?
+Everything goes into the ocean.
+But why does not everything stay in the ocean?
+Still there's water on the mountains.
+Because there's water also going up.
+This is called up by evaporation.
+So it's kind of circulating.
+So you have lakes in the mountains.
+And that's what they do now from the page rank algorithm.
+You can, the update rule.
+So it's not just what fluid goes in.
+There's also fluid going out.
+So you take the fluid, okay?
+So you make a scale at the end of the day.
+You reduce the fluid in each page by some factor s,
+like 0.9 or something.
+And you add a little bit of fluid,
+1 minus s over N, everywhere.
+So even the page is very low, very low.
+Page rank will get some.
+So it's like a random jump, okay?
+So basically the page rank evaporates from each node.
+And it rains uniformly on all nodes.
+So that means we have now a cycle between all nodes.
+And this fixes the problem, okay?
+Okay?
+So you have the basic update rule extended with scaling.
+So this is the evaporation.
+You can show it in a verges, which we will show in a little while.
+It's matrix computation, which we'll show later.
+And the real scaling factor is some number very close to 1, 0.8, 0.9.
+So that means most of the time the fluid stays on the page,
+but a small percentage of the time it jumps.
+It evaporates, okay?
+And this definition, the fluid definition, is equivalent.
+You can say it's also kind of, you can formulate it as a random walk definition.
+This is maybe more intuitive for humans.
+Let's say you have somebody who is browsing the web randomly.
+I'm looking at a web page, and then I click on the web page.
+So I jump from one page to the other.
+And I keep clicking, and I'm surfing for case steps.
+And then I get bored, and I don't get another page.
+So it's like I'm walking randomly on the network, okay?
+And you walk to case steps.
+And then you jump to some random page, you walk case steps.
+Then you walk, jump, and you walk case steps.
+So this is the walking is exactly the page after K iterations.
+And the jump is the rain with the jumping to random page with probability 1 minus s.
+So it turns out they're equivalent, which we'll see in a minute.
+Okay?
+So this is the basic algorithm.
+It was modified a lot.
+Okay?
+So I won't say so much here because we're going to go into the other slides.
+Search companies will cheat.
+They don't call it cheating.
+They call it search engine optimization, please.
+SEO.
+And if I want to be very high at the Google ranking, I pay SEO companies the money.
+And they will do some magic, and all of a sudden I get very high scores.
+And it works using something called link farms, which we'll explain.
+Okay?
+And also something we mentioned before is advertising.
+So it's the links.
+You also have pay links.
+And Google makes huge money with that.
+Okay?
+So that's an extension.
+Okay?
+So let me now go to the more in-detailed discussion of PageRank.
+So these slides are actually by a colleague of mine called Sarunas Gerzioskas,
+who is, I think, from Lithuania, but he's now in Sweden, KTH.
+So he was very nice to give you these slides, which I modified for you.
+So this goes into a lot of detail.
+Okay?
+On different kind of things for PageRank.
+So first, I want to give you intuition.
+We will go a little bit into the math, matrix representation for random walks,
+the notion of eigenvalues.
+Then I will show the PageRank algorithm, how it works exactly, formally.
+And then we go beyond PageRank.
+How can you search in a more focused way, topic specific,
+or how you can find similar pages, using variation,
+that say I'm looking for movies that are like this movie.
+Okay?
+So, for example, I like a lot the movie Doon,
+and I want to find movies that are like this movie.
+So with SimRank, let me do that.
+So it's similar.
+And the final thing is that I want to talk, I want to explain how the cheaters work.
+This is called web spamming.
+So very quickly, after Google invented the PageRank,
+the company has invented the ways to cheat.
+Okay?
+And this is called link farming.
+So I'll show you exactly how it works.
+And we'll figure out how can you increase the PageRank artificially.
+And then I'll show you some algorithm called TrustRank to go bypass the cheaters.
+Okay?
+So the first part of the talk is more general talk about random walks and matrices.
+So this gives you kind of intuition on the mathematics.
+So I'm going to give you mathematics, but also intuition.
+So the first thing I want to talk about is random walks.
+So here's a graph with vertices, one, two, three, four, five, and edges connected then.
+And I want to do a random walk.
+That means I start somewhere.
+I've got node one.
+I move to a neighboring node with some probability.
+One over d of d.
+So d is the degree of the vertex.
+It's how many links there are.
+So the node one has a degree of two.
+There's one half probability of going on each of those links.
+And then I keep making walk steps.
+And the sequence of this technically is something called a Markov chain.
+I'm not going to give you so much theory, but it's basically a sequence where each step is chosen according to some probability.
+And there's no memory.
+I mean, it doesn't remember where it comes from.
+You just each step, it's there, it makes another jump, but it actually has no memory where it came from.
+So that's called Markov chain.
+Okay.
+So let's say we start at node one.
+So here I make a table.
+So node one here.
+So in the beginning at time zero, I have one probability of being in node one and zero for being everywhere else.
+And then I do one step, but a two-step, three-step.
+And each step, I will do random.
+I will walk randomly according to the links.
+Okay.
+So after one step, see how it works out.
+I will be either at node two or three with probability 50%.
+Okay.
+And then I keep going.
+So the two can go either to one or four.
+And the three can go to one, four, or five.
+So the two, the 0.5, will be split between one and four.
+And the node three, the 50%, will be split between one, four, and five.
+So 16% or 17% for each of them.
+So that gives me this.
+That means there's a 42% chance of being in node one.
+So where does this number come from?
+Well, it means I have a 25% chance coming from node two.
+And a 17% chance of coming from node three.
+And 25 plus 17 is 42.
+That's very quick to pick up.
+Also being in node four, I have a 42%.
+And node five will be one way to get there.
+It's from three because I'm not getting four.
+So there's a one over six, so 17%, rounded to two decimals.
+And the sum of all these is normally going to be one.
+Might be slightly different because of round off error,
+but it's supposed to be one.
+Okay.
+So I keep going.
+You can see now the numbers change.
+After three steps, I will be in these places with these probabilities.
+And I keep going, and I can keep going.
+Four, five, six.
+You see, eventually, it's like they're kind of converging.
+Okay.
+To some value.
+Okay.
+And it will converge.
+So the initial node, I started with node one,
+but of course you can start with more nodes.
+So here's a longer table.
+So start from zero up at the top, and you keep going.
+And it kind of looks like it's converging, right?
+17, 17, 25, 25, 17.
+I would think.
+It seems to be, it smells like it's converging over.
+And it does actually converge.
+And you can prove for any connected, non-by-part,
+bi-directional graph at any starting point,
+the random one converges.
+And now I want you to have intuition on this.
+The graph has to be connected, of course.
+If it's not connected, if it looks like this.
+So let's say the graph looks like this.
+There's two pieces.
+Well, if I start here, I will never get there.
+Okay?
+For example, or if I have a bi-part type graph,
+see if I, depending on if I start here,
+or if I start here, I will converge differently.
+So it's not really converging for any random starting point.
+See here I say any starting point.
+If the graph is not connected,
+then the convergence will be different depending on the starting point, right?
+So it has to be connected.
+So you have to understand intuition is important.
+It has to be connected.
+It has to be non-by-part type.
+Because if it's bi-part type, then you can divide the graph into two pieces.
+If I start here, then I will go here,
+and it will be oscillating forever.
+All the probability will be here, and this will be zero.
+And then it will all be here, and all this will be zero.
+So it's oscillating and not converging.
+So that's why it has to be non-by-part type.
+See that?
+So you have to understand this intuition.
+So it's not just random words that are up.
+Okay?
+So make sure you understand.
+Okay?
+And the unique is only one result.
+Unique stationary means that once you converge, it never changes anymore.
+Okay?
+So this is a kind of iteration, which we call power iteration.
+Okay?
+So this is the final value.
+17, 17, 25, 25, 17.
+What are those numbers mean, actually?
+We can figure it out, what they have to mean.
+We can actually give a formula for this.
+The random walk, so pi is the final set of probabilities.
+And it's stationary, so it's staying the same.
+d of v is the degree, and n is the number of edges.
+Okay?
+In the graph.
+In this graph, 1, 2, 3, 4, 5, 6 edges.
+So 2m is 12.
+So 3 is the degree 3.
+1, 2, 3, and 3 divided by 12 is 1 fourth.
+25%.
+That's the coincidence, huh?
+2 has two outcome edges.
+2 divided by 12 is 1 sixth, which is 0.17.
+Yeah, isn't it?
+So we can prove that this has to be the right value.
+It's actually very easy to prove.
+Okay?
+We can prove that this value is a fixed point.
+That means if you do one more iteration on this value,
+you get the same value.
+So we start with pi, and we will do one iteration giving pi prime.
+Okay?
+So how do you do that?
+The new value is all the in-going links.
+Okay?
+So for node v, we take all the links going from u to v,
+and for each one of those, we have the probability on u
+divided by the degree, 1 over d.
+Okay?
+This one is du over 2m, and the d is cancelled.
+So we get the sum of 1 over 2m,
+the links coming from u to v.
+But how many links are there going from u to v?
+Well, it's exactly the degree of v.
+How many links are going to this node?
+1, 2, 3.
+Okay?
+That means it's the degree of v divided by 2m.
+Pi prime is equal to the pi.
+So you could show that it's the degree divided by 2m.
+Right?
+We need that.
+Now, there's another thing.
+If the graph is deregular.
+So deregular means that all the nodes have the same degree d everywhere.
+If it's like that, of course, then the probability is going to be the same everywhere.
+So uniform means it's the same.
+So if I have three links on every node, it's going to be the same.
+Beautiful.
+Okay?
+That's intuitive, right?
+So you have to get the intuition.
+Okay?
+So this is just some numbers showing how it works.
+So the stationary distribution is proportional to the degree of v.
+The degree is how many links?
+Okay?
+So what does that mean?
+There's intuition.
+Well, it's pretty clear.
+The more neighbors you have, the more chance that people are going to come visit you.
+So the probability is higher.
+See, that's kind of the intuition.
+Okay?
+So you can see how the matrix, the random walk is going to work.
+Now, now let's look at a more numerical, formal representation, a matrix representation.
+We're going to do the same thing now with matrices.
+So here is my graph.
+So I'm going to keep using the same example.
+And there, that matrix called A is the adjacency matrix for this graph.
+What does it mean?
+Well, if you look at the rows, there's five rows and five columns.
+So if there's a link from one to two, that means there's a one in element one, two.
+So the first row, second column.
+So let me show you.
+So this, this link, one, two, means that there's, from row one, there's a link to two here.
+There's also a link from one to three.
+So row one, column three, there's a link here.
+And each row corresponds to one node, the origin, and the column corresponds to the destination.
+Okay?
+So how many ones are there in that graph, in this matrix?
+How many ones?
+You have one, two, three, four, five, six, six edges, huh?
+So how many ones are going to be in there?
+Two times.
+Two times, because of course they go both directions.
+Out of one to two, two to one, so you have twelve.
+There you are.
+See, it's very intuitive, huh?
+So that's the first matrix, called adjacency matrix.
+But now we want another matrix, because we're going with probabilities.
+We have a probability, so we want that to be in the matrix too.
+So first I want to define a special matrix called the diagonal matrix D.
+And each value on the diagonal is one over one over the degree.
+So for the first element, it's one over two, then one over two.
+Node three has three links, so it's one over three.
+Node four has three links, so it's one over three.
+And node five has two links, so it's one over two.
+So why am I introducing this matrix?
+Because it lets me define another matrix, which is called the transition matrix.
+So this one is actually D times A, so what does it mean?
+Instead of ones, I now have probabilities.
+So if I'm in row one, if I'm in node one, there's one half probability I go to two,
+and one half probability I go to three, you see that?
+So in each row, all the elements tell me the probability they go to another one.
+Question?
+Yes, in PageRank we have a directed graph, correct?
+Yes, we will get to that.
+So yes, I'm talking now, I'm directed graph, but we will get to directed graph,
+and you'll see what happens when we get there.
+Interesting stuff, but you have to understand first this piece, this one, huh?
+Yeah, yeah.
+No problem, no problem.
+We get there, and you will see all the neat intuition that comes when the graph becomes directed.
+So here, I'm just giving you intuitions, okay?
+Because eventually we're going to be talking to PageRank,
+and then I want you to understand that stuff, okay?
+So if you're in row two, you can go to row called node one,
+with probability half and a four with probability half.
+If you're in two, you go to one or four, huh?
+See how it works, huh?
+So all the ones in a row are turned into probabilities,
+so the sum of the probabilities for each row is equal to one, huh?
+And this matrix is actually d times eight.
+So there's two matrices that are really important here.
+The adjacency, which gives you the graph,
+and the transition matrix, which gives you the probabilities, okay?
+So formally, a is n by n adjacency matrix of the graph,
+a ij is one if there's a link between nodes i and j,
+and otherwise it's zero, okay?
+Actually, you can say it gives me all the paths that you can do in one hop,
+because you're making one connection, okay, in the adjacency matrix.
+Now let's go do a little bit more intuition,
+and I'll show you and you'll see how neat the matrix representation is.
+Let's say I want to count two hop paths.
+I want to go one, two.
+How many are there?
+From a node, I want to go two hops instead of one.
+You know what's so neat?
+It's just a squared.
+When you do matrix multiplication,
+the a times a, the matrix multiplication,
+gives me the number of two hop paths, okay?
+And a cubed, what does a cubed mean less?
+Well, the number of three hop paths, okay?
+So how does that work?
+Well, I'll give you some intuition.
+Okay, a small technical thing.
+It's actually giving me walks.
+Sorry, I have to be technical about graphs.
+A path is when you don't repeat any vertices,
+both at the marking on the street,
+whereas a walk is like a person walking back and forth,
+so you can actually repeat vertices, okay?
+So actually we're counting walks, to be very technical.
+We're counting walks, okay?
+So how does it work?
+Actually, you have to make a diagram and a figure
+to understand why the matrix multiplication gives you that.
+Okay?
+So let's say I want to do a times a.
+Okay, a times a.
+And here I have a row, row line,
+and here I have a column.
+Okay?
+Okay.
+So, and here I have ones and zeroes of them.
+For example, this is that way,
+and this will give me element i trending up.
+So how does it work?
+So these are, the one means you have one hoppa,
+i to one to center up.
+So how does the multiplication work?
+One times zero plus zero times one plus one times zero plus one times one.
+Well, how does it, what does that mean in terms of hops?
+Here I'm going from i to one,
+and here I'm going from one to j.
+See that?
+So I go from i to one, and then from one to j.
+Then I go from i to two, and from two to j.
+From i to n, n to j.
+So each one of these combinations is going from i to j,
+but the node in the middle is different.
+You see that?
+And it's only going to be one if there's both ones.
+That means if I have a path from i to two and two to j,
+it's going to multiply one times one,
+so it's only one if there's actually a path there,
+or a walk up.
+So if you sum them all,
+it gives me all the possible walks from i to j,
+with two hops.
+And if here, and it keeps going like that,
+if you put the matrix here, which gives you n hops,
+then here you will add one more,
+and you get n plus one.
+Do you see how it works?
+So the matrix multiplication gives you the total number of walks.
+Okay?
+So what if you take the vector now,
+1, 0, 0, 0, 0, and you multiply by a?
+Well, it's like you start.
+Okay?
+You're starting from 1,
+or 0, or 0, or 0, or 0.
+So the number of walks, the one where you start from is 1, 0, 0, 0, 0,
+which gives you by that.
+So basically it tells you how many walks of length one
+that start from node one, ending in node i.
+Okay?
+And you can do multiplication for that.
+See how matrix multiplication is really neat, huh?
+So v a squared, it gives you 2, 0, 0, 2, 1.
+So now we have 2 walks going from node 1 ending up in node 1,
+or 2 walks from node 1 ending up in node 4.
+Okay?
+See what's neat, huh?
+And 3 gives you how many walks of length?
+3.
+And it's all the same.
+I'm always talking about this one, huh?
+So you can see how the matrix really corresponds very nicely to graphs
+and doing things on graphs.
+Okay?
+Okay?
+So far we did the adjacency matrix.
+What about the random walk matrix, the transition matrix?
+That's this one.
+And with the probabilities.
+Okay?
+So this gives you the probability of ending up somewhere.
+Okay?
+So if you start in node 1, the probability of ending in here is one-half.
+The probability of ending in node 4 is zero.
+And you can do squares.
+So for example, if you keep going,
+if you take this vector here and multiply again by m,
+the number you get here is actually the probability that you end up in those nodes
+and you start with node 1.
+It's neat, huh?
+Question?
+No?
+It's okay?
+So you can see how matrices and graphs are very close.
+So this is going to help us understand page rank, okay?
+Okay?
+So we have a random walk on a graph G.
+Now we start to do random walks on that page rank.
+If we go to a node v0 and after t steps, we end up in node vt.
+We move to a neighbor with probability one over the degree.
+Each time we go to a node, if there's multiple paths, we divide evenly, yeah?
+And the chain of random nodes, it's what's called a Markov chain.
+So a Markov chain is a sequence where whenever you make one step,
+you make kind of random choice, some probabilities.
+But you forget everything you did before.
+It only depends on where you are now, so there's no memory, okay?
+So the initial state would be here, so you have probability one being node 1, okay?
+Now you can do multiple steps.
+So after t steps, the probabilities is given by this factor, pt, p0 times m power t.
+So this is matrix exponential, matrix multiplications, huh?
+See how it works?
+No?
+If you're a stickler for doing the m on the left, you have to do transpose, of course.
+That means you have row mixes here at the left.
+That's p2, okay?
+So here we have pt is p0 times m to the t, and we start again with our matrix,
+and we start with the 1, 0, 0, 0, 0, and we do one step.
+So we have probabilities a half and a half for getting there, okay?
+And then keep it doing again, and we keep going.
+And eventually, I mean, it's going to converge.
+Remember, I showed you the table, but we're doing the same thing here, huh?
+So when pt plus 1 is equal to pt, we have reached the stationary distribution.
+So let me call this vector pi, okay?
+It's not 3.4, and I have not chosen this notation,
+but this is what Sylvina says chosen.
+So pi times m is equal to pi stationary.
+When we start with these probabilities, we make a step.
+We end up with the same probabilities, okay?
+See that?
+You remember the notion of eigenvectors.
+Have you seen that?
+Well, this is an eigenvector, either young.
+Remember, every matrices have special vectors called eigenvectors
+that give some property in the matrix.
+So v is an eigenvector of m, and lambda is the eigenvalue
+if v times m is equal to lambda, which is a scalar number times v.
+It's just, well, it's scaling the v.
+So this one is clearly an eigenvector, right?
+Interesting, huh?
+So pt is connected to eigenvectors.
+Pi is an eigenvector of m with eigenvalue lambda equal to 1.
+Okay?
+Okay, so that's the first part.
+Let me go on now.
+Let me go on now by giving you some more intuition
+on eigenvectors and eigenvalues in terms of graphs.
+So eigenvectors and eigenvalues are very useful things,
+but with graphs, they have some really neat properties.
+So remember this, okay?
+This is what we just saw.
+We have Pi as an eigenvector with eigenvalue 1.
+But we can actually say more things, okay?
+There's something called the spectrum of a matrix.
+I'm not sure if you saw that.
+Have you seen that?
+Have you seen that spectrum?
+Yes? Good.
+That means this will be very easy, right?
+So assume now, now I'm going to give you some intuition.
+Assume you have a D regular graph.
+So that's a graph where all the nodes have degree D.
+So there are all three things coming out, for example.
+Okay?
+And now we have A, which is the adjacency matrix for this.
+So A times X, okay?
+So this is just a matrix multiplication of A times vector X
+equal vector Y.
+Okay?
+And an eigenvector, this is refresher.
+An eigenvector is a vector X such that this is equal to some number times that, okay?
+So what happens with degree D?
+Now we're going to connect the eigenvalues, eigenvectors with graphs, okay?
+And graphs, which are these visual topological things.
+Back on the web.
+And matrices, which is just a bunch of numbers.
+How does it connect?
+Suppose all the nodes have degree D and G is connected.
+So it's a D regular graph, huh?
+Okay.
+What are some eigenvalues?
+Well, let's try.
+Let's say we try to vector Y, Y, Y, Y only once, this graph.
+Okay?
+Then A times X will be D, D into all the D's.
+Because each node has three outgoing things, but also three incoming things.
+So the number of ways of going into a node is D.
+So that means D is an eigenvalue.
+So if you have a graph with only degree D, well D is an eigenvalue.
+So eigenvalue is somehow connected with the degree of the graph.
+It's funny, huh?
+Interesting, huh?
+Okay?
+So the vector of all the nodes has an eigenvalue of D, okay?
+This is actually what's called a principal eigenvector.
+But let's look at some other graphs.
+So the D regular graph is a very simple, uniform graph.
+Let's look at some other ones.
+Very interesting, okay?
+In general.
+Now, there's a concept called spectral of a graph.
+So if we have now a matrix A, a JCC that represents the graph.
+V times A is equal to lambda times V.
+Well, if it's a column vector, you can say AV is lambda V.
+Here we have row vectors.
+So if A is a real symmetric matrix, so for non-directed graphs it's symmetric,
+real numbers, then it has n eigenvectors and n eigenvalues.
+And all the eigenvalues are real numbers.
+And you can order them.
+Lambda 1 and lambda 2 up to lambda n.
+That's something you can show.
+And the eigenvectors are orthogonal.
+So they're orthogonal to each other.
+And if G is a D regular graph, then lambda 1 is equal to D.
+Somehow, the degree of the graph is connected to the eigenvalue.
+Okay?
+For a random walk matrix, which is not the degree of D,
+which is a random walk matrix, you have normalized.
+This is the one where the probabilities, the principal eigenvalue is 1.
+Here you have probabilities.
+It's not that JCC, yeah?
+It's probabilities that eigenvalue is 1.
+Okay?
+And this I will skip.
+There is another concept called graph location.
+But we're not using it.
+But Sarunas wants to tell you about it.
+But I'm not going to tell you about it.
+And the set of all the eigenvalues is called the spectra of the graph.
+Okay?
+And it's going to be for the A, the JCC, or the transition probability matrix M,
+or the del matrix, which I'm not talking about.
+And there's a very interesting number called the difference between lambda 1 and lambda 2.
+So lambda 1 is the principal eigenvalue.
+But lambda 2 is also interesting.
+And there's a number where lambda 1 minus lambda 2, which has a name,
+just called the eigengap, or the spectral gap.
+Okay?
+And for n, it's 1 minus lambda 2, because lambda 1 is equal to 1.
+Okay?
+Fine.
+What if the graph is disconnected?
+Okay?
+Now we're going to show some examples to make more pure intuition.
+And that will all help for later when we start thinking of the p-thread.
+Okay?
+What happens if the graph is disconnected?
+Well, lambda 1 is equal to lambda 2.
+That's weird.
+If the graph isn't disconnected, you could actually say something about these two highest eigenvalues.
+Okay?
+So let's see how it works.
+So now I'm going to give you some intuition.
+So let's say we have a graph that's not connected.
+Two components.
+Each one is deregular, just for simplicity.
+So each one has the same number of links.
+So we can have two little triangles.
+So what are some eigenvalues for this?
+Well, for example, if you put 1's on the A,
+and 0's on the B, then you get a vector, right?
+1, 1, 1, 0, 0, 0.
+Or you can put 1's on the B, and 0's on the A, right?
+So if you put 1's on the A, and 0's on the B,
+and you multiply by A, A times x prime here,
+you add up all the degrees.
+So you get d, d, d, d with 0's.
+So that means d is an eigenvalue.
+But you also have another vector, orthogonal, 0's and 1's on the B,
+and it also gives d, d, d, d, d.
+So you have two separate eigenvalues that are the same.
+Okay?
+Notice if the degree would be different for B,
+who would have different value, right?
+You could have d1 and d2.
+But here you have d for both, so they're the same.
+And you can kind of do approximation now.
+So we saw that if you have this, the eigenvalues are the same.
+You have two eigenvalues that are the same.
+Now assume that it's almost, almost disconnected.
+We only have a small number of links here.
+Well, it turns out lambda 1 and lambda 2 will be very close to each other,
+to be approximately 0.
+So you can see that the connectedness is somehow related to the eigenvalues.
+Okay?
+Okay.
+For every connected, known bipartite, undirected graph,
+distribution converges to a limit.
+Okay?
+A unique stationary distribution, pi,
+and it's regular, it's uniform.
+Okay?
+Why connected?
+I mentioned already, yeah?
+The graph has to be connected.
+What happens if it's not connected?
+What happens if it's not connected?
+You see?
+I explained it already.
+It means that you don't have one unique stationary distribution,
+then you can have one or another one.
+Okay?
+What if it's bipartite?
+Then you will have all the probabilities on one side,
+so you can divide the graph into two sides,
+all the probabilities on one side are ground zero,
+the other side is zeros,
+and if you do one step, it all shifts to the other side,
+and you have oscillation.
+There's no convergence.
+Okay?
+And what about directed graphs?
+And now we've got to start going to directed graphs.
+So now you have already some intuition.
+What about directed graphs?
+Okay?
+So here's a directed graph.
+It turns out the directed graph has to be strongly connected.
+Remember, we said what it means, huh?
+That means there is a directed path
+and it knows another.
+What happens if it's not strongly connected?
+Oh, you have to have intuition there.
+So an example of that, in the beginning,
+if it's not strongly connected,
+then they say walks will leak.
+It means that if it's not strongly connected,
+what happens?
+Okay?
+Here's one thing.
+Here's another one.
+Notice this graph here.
+So this one on the left is strongly connected.
+So we're good.
+The right one is also strongly connected.
+No, this one is not strongly connected.
+But this one has another problem.
+It's not...
+You have actually two cycles going like this.
+Okay?
+And this is a property called periodicity.
+Huh?
+A, the graph has to be A periodic.
+So this is kind of generalizing by part-time.
+Done.
+Visits to some node should never be a multiple of some number.
+So here, visits will be multiple of three steps.
+Always.
+Well, if you do that, the whole thing's going to oscillate down.
+Okay?
+So if you do that, the whole thing will oscillate.
+And so it's not going to be convergent.
+So it has to be A periodic.
+If you don't, you're not allowed to have that.
+Okay?
+So the greatest common divisor of the lengths of all the cycles is one.
+So you can see some intuition here about the graph.
+Okay.
+So all of that was kind of preliminary stuff to get your neurons moving.
+And now we can start talking about PageRank.
+Okay?
+So now I'm going to talk about Google PageRank.
+So first, I'll give you a little history of web search.
+So this all started a long time ago in prehistory.
+Another millennium, 1989, okay?
+Which is a long time ago.
+It's really a super long ago.
+It's like the before and then Prince was born or something.
+So here you have the first generation of search.
+So you have people who are making web pages.
+And people want to search them.
+The first generation was manual curation.
+So Yahoo! which started back in those days.
+There was little gnomes or monks sat in an office,
+looking at all the web pages and kind of making directories.
+And I want science.
+I click on science.
+It's trun.
+Okay?
+Yeah, but that's kind of not scalable.
+Okay?
+So then now we have second generation.
+And there was a very nice one called Alfa Vista,
+which you have probably never used, which I used.
+And this was classical information retrieval.
+So basically they look at the text in the pages.
+If there's lots of words on astronomy,
+then it's based on, then it's astronomy, okay?
+And then the indices.
+But this didn't work very well.
+And it was, and it was spammed.
+People did something called term spam.
+It was very easy to cheat from this.
+And then the third generation came,
+and it basically took over.
+This was Google Page Drive.
+Okay?
+So this is the short history of web search.
+Okay?
+So what I'm going to do now is I'm going to explain Google Page Drive.
+And we're going to use all our intuition
+on graphs and matrices and all that stuff
+to really see how to design it and not to make it work.
+Okay?
+But as noticed, it's 3 o'clock, so we'll make a break first.
+Okay?
+Design Page Drive.
+And we're going to use some of the intuition
+before the break.
+Okay?
+So we have a bunch of pages.
+And here we're talking about votes.
+So it's like the fluid that you have votes.
+And you distribute the votes to have no links.
+Okay?
+So if I, if a page J has some votes, r, j,
+and n out of link, each link gets r, j over n.
+Okay?
+So that's here.
+And so pages will vote.
+So the idea is that the more votes you get,
+the more important you are.
+It's not even an election.
+And if your page is important,
+and you have more votes, r, j is more,
+so vote from an important page is more.
+So that's like what we saw before.
+Okay?
+And the importance of a page is the sum of the votes,
+the inlinks, so the other pages that vote for it.
+Okay?
+So this is something we saw, kind of.
+Okay?
+This is actually very similar to random one.
+So we can actually say
+that a Google Page Drive
+is the principal eigenvector
+of the transition matrix of the web graph.
+Okay?
+So you have the web graph,
+which is huge, billions of links.
+So the matrices are very big.
+Okay?
+So we're going to compute this.
+We're going to compute the eigenvector of a matrix,
+which is 10 billion by 10 billion on the side.
+That makes how many elements inside that matrix?
+Well, 10 to the 20th elements in there.
+So that's a lot, right?
+So can you see any issues with that?
+Well, I mean, not so many computers can store 10 to the 20.
+Okay?
+That's one issue.
+But there's more issues.
+So we're trying to make it practical now, aren't we?
+So one issue is the matrix is huge.
+The other issue is, well, remember this diagram?
+This is the structure of the web.
+Well, in order for there to be a unique stationary distribution,
+it has to be a strongly connected component.
+So is this thing a strongly connected component?
+No.
+I mean, there's one inside, but it's not.
+So that's a problem, okay?
+That's another problem.
+It's not strongly connected.
+So it's a directional graph.
+So here, for example.
+So there's two problems.
+So the Google people have some very nice terminology for this.
+So here we have a node which only has inlinks and no outlinks.
+So this one is called a dead end.
+We set dead end.
+And we saw it already before the break.
+So you can say the votes leak out.
+Everything collects there, and there's no, they're not circulating anymore.
+That's one problem.
+Or another issue.
+So here's another graph.
+So this graph has a problem too.
+Can you see what the problem is here?
+So here you have three nodes.
+So the Google people call this a spider trap.
+Something that traps spiders.
+I'm not sure why they call it a spider trap, but it's called a spider trap.
+That's another problem.
+So the votes disappear.
+They all collect there.
+They're no longer circulating.
+And of course it's not strongly connected.
+So again, these are all problems we have to fix.
+Okay?
+So how do we fix it?
+Well, we have to fix the graph.
+We have to make it strongly connected and anchored.
+Those were the two positions.
+Strongly connected and anchored.
+So the solution of Google, okay, this is very similar to the evaporation idea,
+is you make very, very small leaks from every node to every other node.
+So this is the evaporation.
+It means there's a small probability of jumping from any node to any other node.
+But the main graph is still the same.
+So here's your main graph.
+Then you have another graph with very tiny, tiny probabilities.
+But between every node and every node, it's very tiny.
+And you basically sum them together.
+Okay?
+So we have very nice innovation and it turns into that.
+Okay?
+So the idea is that you have a random walk.
+And when you're at a node, you will either follow the link or you will jump.
+So it's basically the evaporation idea.
+Some probability here, if you call it beta, you follow the real link.
+And with 1 minus beta, you just jump to some random page.
+Okay?
+And usually, it's very close to 1.
+That means close to the time, you keep following links.
+But at 1.75 or 10 links, you jump.
+So it's like you walk for 5 steps and you jump.
+So if you're in a spider trap going in a circle,
+after 5 to 10 steps, you will jump out of the spider trap.
+Okay?
+If you go to a dead end, once you're in the dead end, there's no way of getting out.
+So you will immediately jump out.
+So dead end is a little bit special because there's no link going out.
+So the only way to get out is to teleport.
+Okay?
+So if you're at dead end, you're always going to teleport.
+So here's my graph.
+So here's my transition matrix for this graph.
+This graph has maybe problems.
+We don't know.
+Maybe you have spider traps dead ends.
+So we have another graph with very small values.
+Okay?
+Here, they're not so small because you only have 5 nodes.
+But if I have 10 billion nodes, the value of each one of these numbers will be 1 over 10 billion.
+Okay?
+So this is what we call the teleportation matrix.
+So you will combine these two matrices to get a new transition matrix.
+Okay?
+Combine them so you make the sum of them.
+So this one is the matrix as you will do with the probability beta.
+So this is the step.
+And the teleportation, you will do with 1 minus beta.
+Okay?
+And then you combine them.
+Notice you combine them.
+So this one is beta times this one.
+Plus 1 minus beta times this.
+Except here you have 1.
+And not 1 minus beta.
+Well that's because it's a dead end.
+You can't get out.
+Here.
+Here there's nothing here.
+So that means for the dead ends, you have to have an immediate teleport.
+Okay?
+There you have to have an immediate teleport.
+So you have 1 minus beta if these are not all zeros.
+But if it's a zero, you have to get out with probability 1.
+Okay?
+So that gives me this matrix here.
+Notice this one, second row.
+Here it's zeros.
+That means you don't get out.
+Okay?
+Once you're there, you're stuck.
+But you have to give it probabilities that add to 1.
+Okay?
+So that means you have to multiply this teleportation matrix by 1.
+That gives you 1 fourth probability to go with any other.
+No.
+Okay?
+Okay, fine.
+Is it fixed?
+Well if beta is zero, it doesn't work.
+But we assume beta is never going to be zero.
+But there's still other problems to make it really work.
+Okay?
+So you have this huge matrix.
+How does the matrix, the paycheck matrix look if you have 10 billion of pages?
+It's pretty big, huh?
+Dense matrix.
+All the elements are basically non-zero.
+Most of them are non-zero.
+N squared, non-zero elements.
+That's a lot.
+It's not N, it's not the number of nodes times the degree.
+It's N squared.
+So okay, the Google people were scratching their head and saying,
+how do we implement this 10 billion by 10 billion matrix?
+Can you even store it in memory?
+How much memory would you need for that matrix?
+It's a lot, huh?
+Can you store it in memory?
+What do you think?
+Is there a system, even today, that could store a matrix like that?
+No one.
+I mean, 10 billion by 10 billion, that's 10 to the 20th elements.
+Even Google today doesn't have like that kind of storage, okay?
+So the fix is you have to be smart as usual.
+Question?
+Does the universe doesn't contain enough atoms to store the geometry?
+I might, sure.
+Probably if you had a computer the size of the girth you could store it though.
+Because sometimes we say there's 10 to the 76 particles in the universe.
+So yeah, you're fine.
+If you have the universe you can store it though.
+But I don't have the universe in my pocket.
+So I can't store it.
+So the idea is to be a little bit smart.
+The idea is not to add the teleportation to every single number,
+but to kind of keep it separate, okay?
+So here you have this is the computation you're doing, huh?
+You have some vector.
+You multiply by paint, right?
+And you're basically looking for eigenvalue convergence of this thing, huh?
+But you don't want to store this matrix, it's too big.
+So what you do is you keep this one, the original one,
+which does not have all, which has lots of zeros, does not have the teleportation.
+And the teleportation is added only after that.
+So this is like a tax, okay?
+It's basically because it's always the same for every node.
+It doesn't depend on the node.
+That means you could add it in separately, okay?
+So this is like 1 minus theta over n.
+And so in that way you don't actually have to store 10 to the 20 elements.
+The matrix is sparse, okay?
+This matrix, the number of elements is basically similar to the number of edges, okay?
+And so it's much, much less, okay?
+m is what's called a sparse matrix.
+So most of the entries in the m are zeros.
+You can implement it much more efficiently, okay?
+Okay?
+Of course you have to handle the dead ends, okay?
+Be careful with the dead ends because you have to jump out.
+For the dead ends, it's not 1 minus theta.
+You have to be careful because you need to jump out 1 over n for the dead ends, huh?
+Okay?
+And then you get something nice.
+So you get this nice figure.
+Each of the nodes here is proportional to the page rank.
+So b and c are very important.
+And e is not important.
+So what?
+Okay?
+Okay, so that's the basic page rank.
+But once people invent page rank, there's actually lots of extras that people want to do.
+So there's still kind of problems.
+And we'll talk about some of them.
+The first thing is that page rank measures the popularity in general of the page.
+How popular is the page?
+But maybe I'm only interested in stamp collecting.
+And I want to know what is the best page for stamp collecting.
+And I'm not interested in the general popularity.
+Because maybe there's not so many people doing stamp collecting.
+And there's many more people interested in Kalashnikov machine guns than stamps.
+So there would be no stamp pages who had much less popularity.
+So you want maybe a page rank that knows about topics.
+Okay?
+So we'll explain that a little bit.
+And another thing is you can take this.
+You can also have used page rank to find similarities.
+That's important if I, for example, if I'm looking for pictures.
+I'm looking for pictures of trees, for example.
+And I have this very nice palm tree.
+And I want similar pictures.
+You can use a similar algorithm than this to find similarities, similar pages.
+That's nice.
+Okay?
+That's one thing.
+That's making it very specific.
+Another problem is spam.
+Okay?
+It's possible to spam or to cheat on the page rank.
+And this is called web spanning.
+And you can do things like live farms.
+And there's a way around that.
+You have to somehow know what are trusted pages.
+So there's an algorithm called trust rank.
+And finally, the House of Authorities, we, there's two kinds of components, huh?
+There's the pages that are important, but also the pages that link to important pages.
+So page rank only has one measure.
+Okay?
+So that we saw last time.
+But I'm going to talk about these two.
+Topic specific and web spamming.
+So beyond page rank.
+First, topic specific.
+So I have some graph here with the heavy notes and the heavy links and the light links.
+But I'm interested in some kind of topic.
+So I want only to look at the good pages in a particular topic.
+So how do I do that?
+I have to give more influence to pages that are close to some topic.
+And the way to fix that is you change how you teleport.
+Instead of teleporting to any random page, you teleport to pages that are kind of rubbed.
+Okay?
+That have something to do with sports or stamp collecting.
+Okay?
+Now, once you know that you have the teleport set, you change the teleport set.
+You can still use the regular page rank.
+So that works really well for the topic specific.
+Okay?
+Okay?
+Okay?
+How do we get this teleport set?
+Well, there's different ways.
+You can use classic techniques from older search engines.
+You can look at the content of the pages for that.
+Okay?
+You can also look at who is making the query.
+Okay?
+You can look at browsing history.
+Okay?
+Fun type Manchester.
+What do I mean?
+Do I mean football team?
+Or do I mean the city Manchester?
+Well, it depends on my browsing history.
+Maybe.
+Okay?
+So there's many ways to do that kind of stuff.
+Okay?
+And that's how topic specific works.
+Another way you can extend the page rank is measuring similarity or proximity.
+So here's an example.
+Let's say we have this graph here.
+Look at these two notes.
+One and four.
+How close are they?
+Some sets.
+Or seven and one.
+How close is it?
+Because the shortest path is the same.
+One, two.
+But maybe four is closer because there's more paths.
+Maybe four is closer to one than seven.
+Because seven is only one path.
+Okay?
+Multiple two-hub paths.
+Only one path from one to seven.
+Okay?
+So that's one way of extending it.
+So this is called SIM rank.
+So here's another example.
+I have four pictures.
+And I want to show how similar are these pictures.
+So picture one has a house and a tree.
+Picture two has a house and a mountain.
+Picture three has a house and a tree.
+And four has a tree and a mountain.
+So which pictures are similar to picture one?
+How similar is picture one to four?
+Okay?
+Or maybe there's ones that are closer.
+One to three might be closer
+because they're both having a house and a tree.
+So we can use something like a page rank
+to figure that out.
+Okay?
+So this is kind of like topic specific.
+Again, we want to bias the telechord set
+and recapitulate the page rank.
+So it's a kind of variation on page rank.
+So the idea is that the telechord set is the node itself.
+So the node is closest to itself.
+Okay?
+Usually the telechord set is all relevant nodes.
+But here the node is the one closest to itself.
+Okay?
+So that's one way that you modify the page rank.
+You make random walks from a fixed node.
+Okay?
+And then you can do things like
+here's an example with authors, conferences, and tags.
+So articles, authors, people writing articles.
+Well, on this.
+So this you do it for all nodes.
+This is actually used in the website home.
+P interest may be used for recommendation.
+They use something like this.
+Okay?
+So this is also known as page rank with restarts.
+So here's the example with the pictures.
+So what is the most related picture to picture one?
+Okay?
+You have your telechord set which is picture one.
+And you do your random walks with the restart.
+And the result of this is going to be picture three.
+So if you look here, here you have your graph with seven nodes.
+Here you have your transition matrix.
+Okay?
+And now you do the convergence of this.
+Okay?
+And you can see, notice you have two groups.
+You have the pics, the four pics on the top
+and the three attributes on the bottom.
+Okay?
+So you compute the page rank matrix.
+And you can see that here you can do the restart.
+Okay?
+On pic one.
+So from pic one you go one, two, three, four.
+It's like a teleports.
+And here you have the three things on the bottom.
+Okay?
+The result is that pic one and pic three are going to be the closest
+when you converge this.
+Okay?
+That's one way of extending page rank.
+And in this other example, when I add node one,
+you can see that one and four are pretty close,
+point 24, but node seven is farther away,
+point 07.
+Okay?
+So basically doing the page rank with the restart.
+Okay?
+So that gives us three kind of variations of page rank.
+It's a normal page rank, which teleports randomly.
+We have the topic-specific page rank,
+which teleports to pages that are relevant.
+And we have the same rank, which always teleports to the same node
+for finding similar nodes.
+So these are three different ways of using page rank.
+Okay?
+So now the final thing I want to say is web spamming.
+How do you, you can cheat on page rank.
+Okay?
+What is web spamming?
+So web spamming is a deliberate action to boost a web page in rank.
+And there's lots of these,
+web, there's lots of spam pages, okay,
+which are created only to appear your rank results.
+It should not be there.
+So this thing, like I mentioned before,
+has a very simplified name called search engine optimization,
+but it's basically cheating.
+So Google has spent a lot of effort combating this.
+So let me talk a little bit about cheating.
+How do you cheat on the web?
+In the early search engines, how do they work?
+So they crawl the web, they look at all the pages,
+they index the pages,
+and they respond to queries with their pages containing words.
+That's in the olden days, that's no more page rank, okay?
+That's very easy to cheat there.
+How do you measure the importance?
+Well, in the early search engines,
+you look how many times the words are there,
+or what is the header?
+If the header words, okay?
+So of course it's very easy to cheat.
+You do that.
+So as people began to use search engines,
+there were companies that tried to exploit it to cheat.
+So here's an example.
+So I'm selling shirts,
+and I want lots of people to come to my website.
+So I want to pretend that my website is about movies.
+So how do I do that?
+Well, I use a technique.
+For the early search engines, it was pretty easy, okay?
+How do I make my page appear to be about movies?
+It's very easy.
+I add the word movies a thousand times to my page,
+but I make it so it's white so nobody sees it,
+and search engines will see it, yeah?
+And can you also spam on the importance of your page?
+Yeah, this is before Patreon, yeah?
+So this doesn't work anymore now.
+I'm giving it for history.
+But there's also a way to spam Patreon,
+which I explained in a few minutes.
+It's just called link farms, okay?
+In other ways, you run the query movie,
+you see what is the page that came first.
+So that's an important page.
+When you take the text of that page,
+you just copy it into your cheat.
+This is called term spam, okay?
+So Google made a solution to that.
+Instead of using the words in the page,
+use the words in the link to the page,
+which is called the anchor text and the surrounding text.
+So what people say about new,
+and of course, use page rank to measure the importance.
+So with page rank, the short seller doesn't work.
+His technique doesn't work anymore.
+It doesn't matter if the short seller
+puts the word movies in his pages,
+because no movie pages are going to link to this page, okay?
+So he's not going to be ranked high for movies
+or even for shirts.
+But you can cheat on this,
+and this is called link farms, okay?
+Okay, so let's say the short seller,
+he creates 1,000 pages.
+Each of those pages links to the movie page, okay?
+Yeah.
+But those pages are no inlinks.
+That doesn't really work, God.
+Even if he creates a million pages pointing to the shirt page,
+really important movie pages like IMDb,
+there's no way he can beat them, okay?
+But there is a way to beat page rank.
+We span farming, kind of coordinated with that.
+This has been used,
+and it's sometimes called Google bombing,
+a few years ago.
+Now it works too well.
+If when George Bush was president,
+he tied miserable failure in Google,
+he was poised to the biography of George Bush.
+It's nice, isn't it?
+Miserable failure links to Bush,
+and it still does.
+It's called Google bombing.
+So how does that work?
+It's possible to do that, to cheat.
+This is called spam farming.
+It's possible to create a structure in the graph
+that concentrates the page rank of a particular page.
+How does that work?
+So I'll show you the technique.
+So basically it works like this.
+There's three kinds of pages.
+So let's say I'm a spammer.
+I want to cheat.
+I want to increase the page rank to some page.
+So I look at the web,
+and there's three kinds of pages from my interview.
+There's inaccessible pages.
+That's pages owned by other people.
+Most of them are inaccessible.
+Then there's accessible pages.
+These are pages owned by other people,
+but I can add something to the blogs,
+for example, or comments, reviews.
+I can post there.
+So I can put something there,
+even though I'm not the owner.
+It's called accessible pages.
+And finally, there's a small number of pages
+that are owned by me, spammer.
+They're owned pages.
+So I have these three kinds of pages.
+So how can I use this?
+So that's the structure.
+So here's the web.
+This is the whole web.
+And here's the page,
+and I want to increase the page rank of this one.
+So how do I do it?
+Okay.
+I want to maximize the page rank of the team.
+The web has two kinds of pages.
+The green ones, those are the ones
+that I can add something to,
+even though I'm not the owner,
+like their blogs, or I can put a comment,
+or something, okay?
+Then the others are inaccessible.
+I have no control over them.
+Most of them are inaccessible.
+You might have a few pages where you can add,
+but most of them are owned by other people.
+So I can't do anything there.
+Fine.
+So what do I do?
+The first thing I do is I post,
+and as many places as I can,
+links the team.
+I link the team from as many accessible pages as possible.
+That's the first step.
+It's not enough, but it's the first step.
+That will already increase a little bit
+the page rank of the team.
+But that's not enough.
+What I really have to do then,
+is I do another step,
+where I construct what's called a link farm,
+to multiply the page rank of the team.
+So these red pages are my pages,
+so I buy a bunch of machines,
+or I rent machines,
+and I can write anything I want on them.
+This is my link farm.
+The homies write pages.
+And the link farm pages
+will all point to team,
+and team points back to them.
+So it seems kind of weird.
+All these pages are going to point to team,
+and on team I make the link back.
+And that's called the link farm.
+And these red pages are all my...
+So how does this work?
+So this will actually improve my page rank.
+Notice there can be many here.
+Millions, but not billions.
+There could be millions.
+So how can this work?
+So let's make some computations.
+Let's compute the page rank now.
+So let's say there's N pages that are inaccessible.
+N is huge numbers.
+And there's N pages that are owned by me.
+Which is also a big number,
+but much smaller than N.
+Let's say that little x,
+little x in green,
+is the page rank that comes from the accessible pages.
+Okay?
+It's not so big, but there's some numbers.
+And Y is the page rank of page T.
+Now we can compute,
+according to page rank, what it's going to be.
+So first of all,
+what is the rank of one of these pages?
+What is the rank?
+So there's several sources of rank.
+One rank, one source comes from the outlet of T,
+but another one comes from the teleportation.
+Okay?
+So it's like this.
+So each form page has this rank.
+So Y is the rank of T,
+so it's beta Y over M,
+plus 1 minus beta over N.
+See that?
+So it's the page rank coming from T
+and the teleportation rank.
+Okay?
+Okay, let's go on.
+So what is the rank of page T?
+Well, it's the page rank coming from the green pages,
+plus all the page rank.
+These only have one outlet,
+and they're all going to T.
+So it's M times beta,
+and this is the page rank coming from the red pages.
+Beta Y over M plus 1 minus beta over N.
+You also have teleportation to page T.
+So this is a very small one.
+Okay?
+So here we have a nice formula.
+So let's simplify this
+and see what we can learn from it.
+Okay?
+So we can simplify this a little bit.
+So this Y is equal to X,
+plus beta squared Y,
+plus this beta times 1 minus beta
+over M times M over N,
+plus this very small number.
+Okay?
+This number we should remove is too small.
+And then we simplify.
+We have Y at both sides here.
+So it's 1 minus beta squared.
+So Y is equal to X divided by 1 minus beta squared,
+plus this number,
+divided by 1 minus beta squared.
+So it's some constant times M over N.
+So what does that mean?
+Okay?
+So the value of the constant is
+beta over 1 plus beta.
+Okay?
+What can we learn from this?
+What can we learn from this?
+How can we increase now the page rank of Y?
+Notice there is this M factor here.
+By making M large,
+we can make Y as large as we want.
+So independent of everybody else.
+If we put a million pages here,
+we make it large.
+If we want 10 million, it's much bigger.
+You add a number proportional to M.
+So that means the more pages you put in the farm,
+the higher the page rank it gets.
+Okay?
+And that's how these page, these link farms work.
+So how can that work?
+What is really the idea here?
+How is this working?
+Well, it's because these farm pages,
+they all get teleportation is going to that.
+And the more you have of them,
+the bigger fraction of teleportations will go there.
+So the teleportation here,
+1 minus beta over M times M.
+So it depends on the fraction of M over M.
+The bigger the M is,
+the more the teleportation will go there,
+and the more you can increase the page rank.
+And it doesn't matter what anybody else does.
+They do whatever they want.
+If I'm rich enough,
+I just have to create a lot of pages,
+and the teleportation will go there,
+and I can increase that.
+So the search engine optimizers,
+this is what they do.
+Okay?
+The random teleportation,
+all the way to the farm nodes,
+gets concentrated
+and pushed into page T.
+Okay?
+And this is how the linked farms work.
+Okay?
+Actually, you might say,
+yeah, M is still going to be very small compared to M.
+This is true.
+But you don't have to have M be large compared to M.
+It just has to be larger than your competitors.
+So if you're a shirt seller,
+as long as you get higher up than other shirt sellers,
+you're good.
+You're not competing with really popular pages,
+like Amazon or someone.
+You're only competing with other shirt sellers.
+So M doesn't even have to be that large.
+But of course, the shirt sellers will all be paying these companies,
+the search engine optimizers,
+for increasing their rank.
+And the one who pays the most will increase the rank the most.
+Okay?
+So this was a big problem for Google in the early days.
+They have now fixed sort of that problem.
+So a lot of the problem, you see how it works out?
+So a lot of the problem of this has been fixed now.
+This was a big problem in the first decade of the 2000s.
+Really big problem.
+But so Google spent a lot of effort to try to fix this.
+So the algorithm they use now is a secret.
+Nobody knows what it is.
+Okay?
+And does it fix the problem?
+I don't know.
+What do you think?
+Is there still doing people doing search engine optimization?
+Yes.
+They still do it?
+Yeah.
+That means Google is not that successful, right?
+But here's an idea how to fix it.
+This is called trust rank.
+And it's based on concept of what's called spam mass.
+So we want to combat this.
+So this is called linked spam.
+Okay?
+How do you combat this?
+Well, one way is that you know where the spam farms are.
+You blacklist them.
+But of course they're not going to announce themselves publicly.
+Okay?
+So that doesn't always work.
+But the other way would be teleporting only to trusted pages.
+This one here you're teleporting to all these pages.
+Even the farm pages.
+But maybe they're not trusted.
+So somehow you have to find out what are trusted pages.
+And you teleport mostly to them.
+Okay?
+And the idea is it's very rare for a good page, a non-cheating page, to point to a spam page.
+These spam pages tend to be hidden inside linked farms.
+Okay?
+So you change your teleport set again to be not everybody, but trusted pages.
+So it's a gut, a variation of topic specifically.
+Patriotic.
+Okay?
+So you do a trust computation.
+You start from trusted pages, and you compute trust.
+And you split trust across the outline, makes, and the degree of trust.
+So you have some pages trusted there.
+What a new time is, trusted page.
+The degree of trust decreases with the distance.
+So there's some way of distributing trust.
+Okay?
+So this is not that easy.
+Because you can't actually inspect all the pages manually.
+You want to have a lot of pages that are trusted.
+The more, the better.
+But you have to make sure they're trusted.
+So how do you do that?
+Well one way is just page rank itself.
+Usually the top pages produced by page rank are okay.
+Because the link farms, they can't actually push the page up so high.
+Or you have certain domains where you know that it's trusted.
+The .edu domain is universities, for example.
+Or .gov, government pages.
+Art Milston, for example.
+Okay?
+Wow.
+And all pages below the threshold are marked as spam.
+But that's still not really good enough.
+So the way it's done in the trust rank model is we have this concept called spam mass.
+So you start with this green trusted set of pages.
+And you want to say, and this is the page you're looking at.
+And then you're looking at the page rank of this page.
+You want to say, how much of this page rank is coming from spam?
+How much is coming from trusted pages?
+Okay?
+So there's some kind of estimate.
+We don't really know.
+So rp is the page rank of page p.
+rp plus is the page rank of p when you teleport into trusted pages only.
+And then rp minus is the difference between the two.
+And this is called the spam mass.
+How much of the page rank comes from spam pages?
+Okay?
+What fraction of the page rank is coming from spam pages?
+So pages with high spam mass are spam.
+You throw them out.
+Okay?
+So even pages that are not in the trusted set, you can keep them if they have low spam mass.
+Okay?
+So this kind of idea, you have to do this if you want to not be killed by big farms.
+Okay?
+So this is one approach.
+The question, what does Google do today?
+We don't really know except for some people working at Google.
+It's kind of a secret.
+And that helps them, of course, because it's hard to cheat if you don't know the algorithm.
+Okay?
+So let me now just summarize the page rank.
+Page rank is one of many powerful techniques.
+It's a kind of rank block.
+So we looked how that works.
+We represented it with matrices.
+It's the concept of eigenvalue, eigenvectors can help us, okay, understanding it.
+I showed a little bit of the history.
+That is the problems.
+The matrices are very big.
+So how do you handle huge matrices?
+How do you handle topics specific?
+So there's a narrowing to topics specific, teleports to specific topics.
+You can also use it for finding similar nodes.
+And you can spam it.
+So I showed you how linked farms work.
+They can increase the page rank.
+But you can combat that using algorithms such as trust rank to estimate the spam mass.
+And so the linked farms won't kill you.
+Okay?
+So let me end there.
+So that gives you some idea of all of the stuff going on around the page rank.
+So of course the page rank is very important.
+It was a key, key invention.
+It's what made Google rich at base.
+And the step after that was the advertising, the targeted advertising with the generalized second price.
+So that and page rank is what Google made their empire out of.
+Okay.

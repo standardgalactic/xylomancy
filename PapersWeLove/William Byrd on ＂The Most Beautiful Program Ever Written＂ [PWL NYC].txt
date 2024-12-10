@@ -1,0 +1,826 @@
+So I'm Will and I was a middle school teacher and I ran a summer camp and I did all these
+things and then at some point I got a degree in computer science and I worked
+as a Java developer and all this stuff right and then I got fed up with the
+JavaScript and the Java and all that and I went to graduate school at Indiana
+University to work with Dan Friedman who you may have heard of. He's someone who
+wrote a book called The Little Lisper and a revised version called The Little
+Schemer and The Season Schemer. I wrote a book with him called The Reason Schemer
+and I took Dan's class the first semester I was there and a couple
+weeks in to the class Dan showed me a program that changed my life and
+basically I spent the last 12, 13 years trying to understand like these five
+lines of code right and I will spend the rest of my life trying to understand
+the implications of these five lines of code and this is what I like okay so
+some people like writing a hundred thousand line compiler or an operating
+system kernel with two million lines of code or whatever and and that's great
+what I like is sort of going the opposite way I like the three by five card or the
+four by six card and if you're not an American I don't know what that is it's
+a four or something I don't know so it's like a you know three by five card maybe
+a four by six card if you can't fit down the idea on a four by six card then
+think harder that's sort of Dan's philosophy right and ideally you get it
+down to the three by five card and then you write a little book on it and so
+that's that's kind of his his way of thinking and I share a lot of that
+sensibility so what I would like to talk a little bit about today is this
+program that I saw and it just it just floored me and to this day I get nerd
+chills every time I think about right I really get nerd chills and I think you
+know I was nervous about I am nervous about giving giving this talk because
+one of the dangers I think is that when you've been programming for a while and
+I know a lot of people in this audience like no list or they've worked through
+SICP or they've written lots of interpreters and all these sorts of
+things they know something about Lambda calculus after a while you can feel like
+you understand something and that's the most dangerous way of thinking is to
+think you understand something right and that there are no you know kind of kind
+of new tricks in this and basically every time I learn something new about
+computer science or you know every couple years or something like that I like to go
+back and try to think about those things which I learned a long time ago and I'd
+stop thinking about you know because I thought at least you know I've got some
+grasp of this and almost always I'll have a new angle right and for the
+really truly deep ideas computer science or anywhere in the other field you
+know there are many ways of looking at these deep ideas and I'm going to show
+you you know a couple ways of looking at this this program but I'm not kidding
+what I can say that I'm gonna spend the rest of my life trying to understand it
+and there are many other people who've tried to spend you know their careers
+basically understanding aspects of this five line program and you know to give
+you a sort of a reminder of you know a five line program the amount of
+complexity you can fit in there does anyone know about the colats function
+what's the colats function yes this little it's a little function you like
+three and plus one and you know you have like a division by two or something
+like that and you know basically you're trying to figure out if you give an
+integer a positive integer as an input will this operation terminates just got
+some publications additions and divisions right and it's like the tiny
+little program and you know it's like a three line or two line program and the
+best mathematicians in the world have been trying to prove for many decades
+utterly without success that this program always terminates if you give a
+positive integer and Paul Erdisch one of the great mathematicians of all
+time at one point said mathematics is not ready for the colats problem right so
+that's a three line program who's the stumped some of the greatest minds in
+history so I'm talking about like a five line program okay so that should give you
+pause that should give you pause and we all have to have a healthy amount of
+respect for the the three by five card program so anyway the program I'm going
+to talk about is an interpreter for Lisp written in Lisp and it's one of these
+things where if you don't know Lisp and you first see it you're like well I
+what are these parentheses and then after a while you kind of start figuring out
+what is this lambda thing that's that's something to wrap your head around and
+why are there two lambdas like nested what does that mean and you kind of go
+over over these different ideas of time and eventually you kind of get some
+sense you trace through a bunch of programs and all right I kind of get
+some sense of what's going on and then you start modifying the interpreter and
+one of the great things about this program is that there's so many ways to
+change it and explore it and play with it you can add arguments to the
+interpreter you can rewrite the interpreter in a variety of correctness
+preserving transformation styles one program transformation you can apply
+so I'm called continuation passing style which I consider the gateway drug of
+program transformations you know normally you CPS that sucker and then
+from then on you know it's off to the races so you know you CPS an interpreter
+you CPS it twice that gives you delimited continuations and now you're cooking with
+gas you can add a store argument to the interpreter right you can add boxes and
+you could start doing you know mutation and side effects in different ways you
+can do call by value versus call by need versus call by name trivially right you
+can do all sorts of things that are really deep and give you deep insights
+into concepts of programming languages that you'll use you know the rest of your
+career or the rest of your hobby years or whatever and so I don't know of any
+other artifact in all of computer science that packs so many ideas and the
+potential extensions to explore so many different areas as this interpreter and
+in fact you know Alan Kaye says that when he first saw the Lisp interpreter
+written in Lisp at the bottom of page 13 of the Lisp 1.5 manual right it
+changed his life and he realized these are Maxwell's equations of software right
+it's very much the same right down four little equations it helps if you like
+take them from the other mathematicians and physicists and call them that's
+what you said you know you write down the four equations and you put that on
+the three by five card right and then you spend the rest of your life trying to
+understand what those four equations are what the implications are so that's
+very much what this interpreter is and I'm you know I can't I can't do justice
+to it I can only show you a couple of the many aspects of this multi-aspected
+you know beautiful system and many of which you know I feel like I'm a complete
+noob too but I can tell you that they're very interesting things out there so
+for example there's this idea of reflective towers of interpreters we have
+an interpreter interpreting an interpreter interpreting an interpreter
+that parts are ready interesting but when you have infilling deep tower or
+infly tall tower that's when it starts getting fun and in particular it becomes
+especially fun when the interpreter being interpreted by another interpreter
+can reach back up into the interpreter interpreting it and change the semantics
+of itself by changing how the interpreter interpreting it works and this is one of
+the things that Dan Freedman says he refuses to work on because it melted his brain too much
+it's like basically the one thing that he's like he won't he won't touch anymore
+so that's the sort of fun you can have you know it's bad enough having a five or six
+line program but when you have infilling many of them interacting in these ways
+then you can do very interesting things and if you're interested in that sort of thing
+I would point you to the work of Kanichi Asai and also my friend Nara Min gave a
+keynote at Strange Loop a few years ago when she talked about this I think
+she called the talk programming should eat itself and she talked about this
+reflective tower idea okay so that's that's just one aspect you can go deep
+you can go deep that direction if you want I haven't touched that yet
+I want to connect that with the thing I'm going to show you and even the people who do
+this type of very bizarre programming they kind of get scared look on their face
+when they start thinking about the implications so that's that's a good
+that's a good feeling when you know you're scaring the veterans of the lambda calculus
+um so that's yeah so that's something I want to accomplish and there are many many other
+directions you can go program transformation directions different evaluation orders all
+sorts of things and then you can layer a type system on it that kind of thing now you have the
+interpreter and a type inferencer and they share structure and you can have them interact in
+interesting ways and all these sorts of things so just like CPS is the gateway drug of program
+transformations lisp in lisp is the gateway drug of the whole world of programming languages I think
+so what we're going to do is write an interpreter we're going to write the lisp in lisp
+in the way that dan wrote it and paul erdisch the great mathematician had this idea that there was
+a book that god kept that had every beautiful proof in it only the beautiful ones and every
+once in a while he or someone else would come across a particularly elegant and beautiful proof
+is out that's a proof in the book and so we're going to see a program in the book this is the
+program of the book I've written hundreds of interpreters and I've read lots of books on
+interpreters but this to me is the one in the book everything else is a pale limitation all right so
+who here is familiar with s expressions symbolic expressions or some flavor of lisp I can read
+parentheses all right maybe half and half okay well I'll teach you how to do it I'll teach you how
+to do it and some of the things I'm going to show you you know like I said this is jam packed full
+of deep ideas and I can only scratch the surface but even scratching the surface may leave you dizzy
+if that's the case close your eyes lean forward and the room will stop spinning and then as we go on
+you'll be able to hopefully pick up on some of the concepts and ideas and I'll show you some
+stuff at the end that maybe will be surprising to you even if you don't understand all the
+details and the great thing is that once you have some sense of what this is about you will
+be filled with a fiery passion to learn all the rest and I can point you to some some references
+for that or we can talk about it over a milkshake so the first thing I'm gonna do is talk about lists
+let's talk about lists so scheme is a lisp and lisp comes from list processing that's what lisp
+stands for list processing so we're gonna talk about lists and symbols that's the first thing
+we're gonna talk about so let me go ahead and start up trusty shea scheme which is now covered
+under an open source license whoo whoo all right so shea scheme has this thing called the rebel
+and it's pronounced rebel not repo and this you probably are familiar with if you've used
+other languages that have interactivity one of the cool things about a good scheme implementation
+is that even though I'm typing expressions interactively those get compiled on the fly
+directly to machine code actually at least some versions of say shea does an analysis first to
+determine whether or not it's faster to evaluate it or faster to compile and evaluate it so
+this is faster in general than in a lot of systems okay let's write a simple scheme program like five
+five evaluates to five all right uh we don't have to make it evaluate to five but
+let's pretend that we will now what else can we have we can have a list containing five
+and you could see the list is represented by these beautiful parentheses
+we can have a list containing five and six notice that I did not
+defile my program with commas or anything else like that
+we can have a list that contains a list
+what do you think is going to happen more parentheses look at that
+we can go deeper we can go as steep as we want so we have lists we can have lists of lists
+what is another name for a list of lists a tree oh have you ever heard of trees
+right have you heard of this thing called xml this new fangled thing
+do you know what language came before xml what language sgml yes right you have
+you heard of something a beautiful thing called xslt brings joy into your heart
+do you know what the sgml equivalent of xslt was see see who knows the obscure stuff
+dissel has anyone heard of dissel dsssl what is that dynamic style and semantics
+language or whatever something like that you know what dissel was it was lisp it was r4rs scheme
+because if you're going to work on tree structured data what's the right way to work on it a tree
+is an inductively defined data type how do you deal with that recursion that's how you deal with
+trees so lisp is all about recursion and dealing with trees programs most programs represented
+as trees if you're going to have a programming language that can modify programs what better
+way to do it well the we people the hascolars will say they're better ways but anyway don't
+don't listen to them okay so we have lists and things like that by the way if you want to
+learn scheme there's an awesome interactive fiction game by andrew plotkin aka zarf called lists and
+lists where a genie teaches you to program and scheme and you can actually implement logic
+programming inside of that scheme although eventually you'll run out of memory because
+the z machine doesn't have that much space but anyway it's a good exercise so we have lists we
+have lists contain lists which are trees we have numbers which evaluate to themselves there are
+other values like hash t is a representation of truth there is no representation of beauty but
+we have hash f which is a representation of false an interesting fact about scheme is that every
+value in scheme is considered true except for hash f so five is considered true whether or not
+that's beautiful it is open to debate um so we have also this amazing and very deep operator
+called quotation quote quote and that is the topic of a lot of stuff i won't get into but you know
+quote itself this is a very controversial operator how it should behave you know people have created
+entire versions of lisp just based on different notions of quotation but in scheme the way quote
+works is quote of anything gives you back that thing okay so we quoted five we get back five
+we actually don't need to quote five quotes five is something called a self quoting or
+self evaluating literal but we can do things like quote a list we can quote a list of five six
+and we get back to list five six we can quote the empty list which has nothing in it because we
+use quote so much we don't necessarily want to write quote this way we're gonna have a shorthand
+scheme doesn't have a lot of shorthand but this is one of them so we're gonna write
+this quote somewhat like that five six okay this i will allow uh i don't like too much you know
+messing with my symbolic expressions but this won't be okay and then in addition to having
+things like numbers and lists and lists containing lists and true and false values or bullions we
+have an amazing thing called the symbol and if you program in java i'm sorry you don't get symbols
+if you program in many languages you don't get symbols but you do have symbols in in uh scheme
+most lists so we can say milkshake with a quote around and that gives us back milkshake milkshake
+is a symbol it's a symbol it's not a string strings are different symbols are things that
+represent metaphorically objects that we might care about okay this is an atomic value we can't
+tear it apart we can't do anything like that it's just it's a unique thing and it turns out internally
+is fast to compare symbols so we can use symbols to represent interesting data we don't have to say
+oh we're in c and so a milkshake is five or whatever it is right so we can do we can do things
+like this which are classier okay so we have symbols lists we can have symbols inside of
+our lists and things like that we can also make decisions we can do things like ask if a list is
+empty so i say is the empty list null so if i have a list there's friends the thing that comes inside
+the friends first that is basically a function call unless it's something like quote there's
+something called special forms that have special evaluation rules but in this case we're just calling
+a function and the function you can tell is a predicate has a question mark that's it's going
+return true or false okay so we are asking if the input expression evaluates to the empty list
+and it does we can ask if five is null five is not null okay so we can make a function call
+we have notions of predicates we can also build up lists in other ways that i haven't shown yet
+so i show you two ways of lists i can just quote a literal list or i can call a function called
+list three four five i can also build up list-like structures using an operator called cons cons
+reconstruction in fact dan freeman who's my advisor wrote a very famous paper with david
+wise 1976 called con should not evaluate its arguments which was one of the first papers on
+laziness like you have in haskell and there was another paper by henry baker called con should
+not cons its arguments and that's like it must have stayed up all night coming up with that one
+so the typical way to use cons is to con some object onto an existing list so we can cons five
+onto the empty list now we get a list containing five you know and and i can build up chains of
+things using cons so i can con six onto the list to get back from the cons five cons takes two
+arguments and i can build these lists up okay all right so that's cons and we've seen
+like the null test let me show you how to make a choice so i can use something like if
+if five is null then return six otherwise return seven so if has three sub expressions
+we have a test expression what's called the consequent expression and then the alternative
+expression so what would be the value of this expression seven okay all right so that's one
+way to make a choice and there there are other ways another way to make a choice is something
+called conned and the reason i'll use this notation the reason that we have this cond operator cond is
+conditional operator is that it may be that we want to make lots of choices so instead of having
+nested ifs which gets annoying at some point we can do something like this
+okay what do you think this expression will evaluate to eight all right great
+awesome and i'll show you a couple of the things one is you know we can do things like addition
+or multiplication okay so addition is like plus it's actually a function bound to a
+procedure that knows how to do addition we also have multiplication so i go blah
+blah right and so i can deal with big dumps arbitrarily large precision integer so that's
+multiplication and i can also do things like define i can define functions i can define
+all sorts of things i can give a name to something i'll call this i don't know i just had a tarot
+milkshake so define tarot to be quote good there's a symbol and if i type tarot then the variable
+gets looked up in something called an environment and i get back the value of that variable which
+is a symbol good so define just gives a name to some value i can give other sorts of values if i
+want doesn't matter um and another concept is that of a function and the reason or procedure
+technically and the way i create a procedure is with this expression called lambda you type
+it lam bda but i've got this fancy thing that turns it into a symbol and what you do with lambda
+is you have a list of arguments these are the formal parameters to your procedure and then you
+have a body so this is lambda xx is the way it pronounced it and this is just going to return
+its argument the value of this argument so this is the identity function the value of the identity
+function and we've already seen that you can write parentheses and prints present parentheses
+normally mean a procedure call we're not specifically calling it but that's that's the case unless we
+have what's called a special form in the first position like quote or define something like that
+so i am going to apply to apply that the value of that lambda expression which will evaluate
+to a procedure to the expression five five is an expression that evaluates to the value five so we
+are starting to have the notion of expression versus value and i get back five through a mechanism
+that involves a number of steps we evaluate the argument expressions there's something called the
+operator expression the rater and the ran the upper end we evaluate the operator that evaluates to
+procedure of one argument we evaluate the rand expression that evaluates to itself in this case
+and then we perform a procedure application and we apply that procedure to the value of that argument
+and we get back five in this case okay so that's the mechanism that we're going to implement
+and i can of course give a name to a function i can only call it double
+okay so now i have a body that's a little more interesting and i can double my fun
+that doesn't work the haskiller is going to give me grief but i could double five and get
+two in binary so you can double anything you want and i can define all sorts of things so
+i can do things like define define to be five right why is that oh that's a great thing so
+um i can do a lot more than that i can change what lambda means and things like that that's
+where the real fun begins so i'm not going to talk about that that's uh for the next talk but
+i'm going to restart my scheme just saying just saying i could i could fly solo with that one but
+i know how to do it but i'm not gonna do you're not ready yet you're not ready yet
+okay so so now you know scheme okay now you well you're joking or you think you think i'm joking
+but that's basically all you need okay there's one other thing i'm going to talk about or show
+you very quickly that's not technically uh build in the scheme but it's easy to add because scheme
+houses very powerful macro system that allows you to extend the language in different ways
+and so what i'm going to do is i'm going to load a macro for pattern matching something called pmatch
+and this is just one of many systems that allow you to do pattern matching and so basically pmatch
+is similar in spirit to our cond except now we are going to match against an expression so i can say
+we're going to match against list three four and now we can have just like with a cond
+different pattern or different expression or different clauses but now we're going to match
+against the pattern so i could say i have a pattern that matches against list of two arguments
+and these commas i'm not going to really get into the details of what the commas mean syntactically
+but basically you can think that this list of two elements is getting pattern match against
+the list we get back list three four so the x will be associated with or bound to three the y
+will be bound to four and then on the right hand side we can use the those x's and y's and sure
+enough we get back seven okay so that's what pmatch does if you haven't seen pattern matching before
+it's very powerful especially in conjunction with a form of quotation in scheme called quasi
+quotation or back quote that's really what's going on if you know scheme there's an implicit
+back quote here okay and those commas are called unquote all right so now we know
+basically everything we need to write an interpreter so let's do that
+all right so let me go back to my file here so i'll load my pmatch and i can put this code up
+online if people want to see it all right okay so one thing that we need to
+do is you know decide on the name for our interpreter that's the hard part right
+so names are hard what would be a good name for interpreter fits roy
+define fits roy how do you spell that
+all right so we have a name this is our life now and thank you derail this all
+so um well what do you think i should type next
+pmatch almost we're not quite ray the arguments so we need to define a function procedure is
+going to do something so i have to type lambda that's a good thing when in doubt the answer is lambda
+right so we have a lambda expression that's going to take some arguments okay so if we looked at
+our interpreter here when we were writing stuff like plus three four so our our rebel or this is
+basically an evaluator interpreter whatever you want to call it technically it's not an
+interpreter that's a form of of evaluation but it's an evaluator um so if you look over there
+we have an expression coming in and we evaluate the expression to get a value back so we can have
+an expression that's a good name and i'm going to call this eval expression okay fits roy would
+have been fine but this is a val expert it's important as a safety tip to not call that
+argument xp now why would that be yeah because scheme has an exponential function built in
+called xp and if you type you get very interesting errors if you do it wrong so i called expert all
+right uh yeah if you call your function eval hilarity may ensue you can always restart now
+now it's time for pmatch and what are we going to pmatch against well guess what
+we don't have a lot of choice how about expert all right so we're going to pmatch against
+see like writes itself okay so what sort of expressions do we want to have in our language
+how about numbers numbers a good thing to be able to evaluate we had five right that was
+our first scheme program so we're going to have four we're going to evaluate five so the way that
+uh you write that pattern is that comma in will match against anything and i mean anything so
+that's no good we have to add something called a guard where we can add a predicate and so the
+predicate is basically part of this matching process so if the pattern matches against expert
+then additionally the guard has to return a true value that is any other value
+value anything other than the hash f in order for the entire pattern to be considered matching
+and in which case we try the right hand side yes
+we could we could totally use a con here and in that case we could just have you know the
+number question mark of in right so right now it's not really paying for itself it's a lot a lot
+more mechanism than we need but when we start getting the things like lambda that have more
+structure we could do that's a very good question we don't need pmatch okay this should be very clear
+we could do everything with car oh sorry did i talk about car car well we'll talk about car in a
+minute maybe maybe maybe we're gonna avoid talking about car we'll see there's like a historical
+accident that involves some of the names and scheme that have not yet been corrected intentionally
+but we're we don't talk about that so anyway so we're we're gonna use pmatch for reasons
+we'll see in a minute we don't have to so what do you think a number should evaluate to
+itself okay sounds good so we'll just write down in so now we have an interpreter so let's try it
+okay well you know i don't have that much time okay so we're gonna load this thing
+interp.scm okay and now we can test it eval expert and all right someone give me a nice
+expression to evaluate five you're you will go far but that's the wrong answer the right answer is
+quote of five because we want to make sure that whatever expression we pass in is not evaluated
+by scheme a classic error let me show you well our interpreter works so well that we already
+can handle addition wow that's really impressive and if you've written enough interpreters you've
+run into this problem before it's like whoa that's i guess i can turn in my homework early
+okay so that's why we put a quote in front of whatever we're passing in so really quote of five
+all right well maybe we want to have more things than just numbers how about we add
+hmm add one add one is a function in scheme that adds one to its numeric argument so let's
+implement add one so um let me add another clause here and in this case we're actually
+going to match against the list okay so we see list structure and now you start seeing why we're
+using p-match so the expression we expect is an add one expression which has a sub expression
+inside of it this could be arbitrarily complicated this doesn't just have to be a number this could
+be something that evaluates to another such as another call to add one okay all right so what
+do we do now in this case oh yeah add one well where did we get add one from
+scheme we hope it's built in we'll see all right so i'm going to call
+expert inside of e all right so i'm going to use schemes add one to implement add one in my language
+okay that's cool so let's try it
+okay so now let me quote add one
+okay and then i can always do the test like this because otherwise you might accidentally
+you not evaluate the sub expression all right so now we can do add one that's great
+all right and uh i have one called sub one
+all right same thing right all right i should have used copy and paste abstraction well i
+kind of did but okay so you see how this goes that's fine we could add a few other things
+so we could add something like multiplication
+now multiplication is interesting because our version of multiplication is going to take two
+sub expressions ooh you want to need two so now how do we write this thing
+how many recursive calls do we have to make do right well this is like falling off a log
+whoops all right okay so we're going to multiply
+what we get back when you evaluate e1 and e2 and multiply that okay all right uh let's do
+another one how about if so we already told you there's a test and a consequent and an
+alternative so how do we evaluate if any ideas hmm this is tricky using if you're catching on
+all right how about if eval expert of t copy and paste abstraction
+yeah all right there's probably like a copy and paste monad and hash
+so copy and paste abstraction now we have yes great
+uh can we short circuit well for for things like and and or we might want to do short
+circuit evaluation for if we're going to have to evaluate the test but if semantics are that if
+the test is true we will only evaluate the first sub expression otherwise we'll only evaluate
+this sub expression so they won't both be evaluated okay okay now basically this interpreter is pretty
+boring all right it's pretty boring and the reason is we have not gotten to the beautiful part of
+the interpreter the beautiful part of the interpreter has to do with three lines and only three lines
+what are those three lines lambda that's the i told you there's always the answer right
+told you what's the second one it's not lambda what was that apply application and the third one
+not a val not procedure was that not defined not quote oh wow all right stumped y'all
+haha all right we'll figure it out in a minute okay so let's try you know what let's try doing
+hmm let's try doing a val okay so we've already seen the syntax and scheme it's minimalist
+stud say not rococo and basically we have a raider expression an operator expression and
+an operand expression if you read a book and you see raider and ran that's what they mean
+you want to put this line last in your p-match so it doesn't overlap this pattern does not overlap
+with the others this becomes fun when you start doing logic programming where the ordering
+isn't supposed to matter but in this case p-match evaluates in the top down and so we're going to
+put our our application case last all right okay what do we do we know the drill we are going to
+evaluate via copy and paste abstraction the raider and the ran perfect value the raider
+and evaluate the ran
+all right now what do we do with those two arguments two values the raider is supposed
+to evaluate to a procedure some representation of procedure and this is going to evaluate to some
+argument that we're going to call the procedure on so what do we do now apply it how do we apply it
+no lambda doesn't apply but you're right that i got caught up we're gonna use apply
+which is through parentheses right that's it if you blink you'll miss it some people have
+what am i called parentheses blindness and they like just can't see that that is different
+than without those parentheses but they are different there you know there's no mistaking
+the difference in behavior okay so that is our application uh very nice so that's one of our
+three magic operators we also have this thing called lambda so i can match against the lambda
+expression this is where the pattern matching comes in nicely and i can give a name to the
+variable and i can have a body expression okay hmm so something's got to have to happen with the
+lambda oh do you see that x what is x well there's a list containing x but the x itself
+not part of the list what does that mean what is that thing it's an identifier
+and if the x were to appear inside of rand what would that be it's a variable reference
+okay so this is how we have a variable reference and what's the value of the variable x tell me
+don't know yet when will you know
+no at runtime when we've actually done the procedure application that's right we won't
+know until then so if i call the resulting procedure with five as the argument what would
+be the value of x five so we have this idea that if a variable appears in the body at some point
+we may have to look up the value associated with that variable or bound to the variable
+and in order to do that we need some mechanism for variable lookup and the traditional way of doing
+that in this sort of interpreter is called an environment so we are going to write an environment
+passing interpreter okay anytime you hear passing that means that there's going to be an argument
+coming in to our function for the interpreter so you see right now we basically have a calculator
+we have an expression but there's no context of the expression there's no notion of variable
+bindings that may be you know in play at this point so we're going to have to add something else
+this expression or sorry in addition to the expression as an argument so i'm going to add
+an environment and this changes everything all those three magic lines are going to
+in some way be involved with the environment okay so now we have an environment
+and the environment is going to contain somehow associations between variables and values now
+what do you think the third magic line of code is based on what you've seen
+parentheses this is the parentheses line the application cons nope cons is useful but you
+actually don't need it you only need these three lines that's turn complete actually it's amazing
+we can delete all the other junk the other stuff's junk you don't need it you don't need it you only
+need the three lines and i'm serious about that you only need the three lines you know you heard
+this thing called a turning machine this came first lambda calculus came first girdle didn't
+believe church that it was turn complete either turn completeness hadn't been a term yet okay
+we need one more thing no we don't need to find either was it variable lookup that's it that's
+the last piece of magic we got to have a way to look up those variables all right so
+i need a guard because i have my match anything pattern and i am going to represent variables
+as symbols okay because we have symbols and scheme so if we have a pattern which is just
+a symbol by itself right we're gonna say that's a variable and we're gonna look it up how do we
+look up a variable in the environment okay now i have to tell you a piece of information you
+don't know i am going to represent my environment as a procedure of one argument that takes a variable
+so how do i actually look up x in the environment
+i'm not going to evaluate it actually look up x in the environment like that procedure call
+okay this is where it gets kind of weird it's like kind of spartan right
+i mean i'm just like uh got a procedure there's only thing one useful thing a procedure can do
+call it takes one argument give it one argument call a day that's that's it all right so that's
+what we're doing okay great now lambda what are what is lambda gonna do
+ah yes extend the environment it's the magic words the environment extension is the key thing
+here so lambda expression evaluates to what and scheme a procedure okay so we have to have a
+representation of a procedure which you can think of as a delayed computation where we don't have
+enough information to do the computation in the body yet but we're gonna wait until the procedure
+gets called and then some value will be bound to that variable and then we'll be all evaluate the
+body at that point because we'll have the correct context we'll know the variable binding so let's
+go so we have to somehow represent a procedure huh how can we represent a procedure do you think
+lambda there you go 60 percent of the time it works every time
+all right lambda arg that's right we're gonna have an argument coming in what is that arg thing do
+you think what does that correspond to in the three magic lines of code
+not it doesn't correspond to x and this is something we have to be very careful about
+it corresponds to the value of the ran remember the procedure application line and the lambda line
+are intimately connected because we're going to end up doing a procedure call on this lambda
+expression around the value of that lambda expression that's going to evaluate to a scheme
+procedure we're going to call the scheme procedure and pass in the value of the operand
+therefore arg will be bound to the value of operand if we're calling the identity function
+on five ran will be evaluate to five arg will be bound to five okay keep that in mind okay so now
+what i heard was we have to evaluate the body in the extended environment so let's do that
+how do we evaluate the body
+evaluate expert right if only we had a procedure that knew how to evaluate the body well let's
+go writing magic of recursion evaluate the body now we have to feed in an expression or an environment
+and we have to go back and retcon these lines because i don't have environments yet okay
+so we have to have an environment so for these lines down here is kind of boring
+it's just the good old environment okay but up here we need an extended environment
+what is the extension how are we extending the environment
+lambda that's right you laugh it is correct you extend it using lambda
+yeah there's a one-trick pony but it's got a good trick lambda
+why all right this is when the nerd chills start okay that is an environment remember
+we wanted to look something up we called x on the environment well that's the sort of creature
+we're talking about a procedure of one argument we're creating a procedure of one argument that's
+our environment so extended environment so what are we going to do with that environment what's
+going to happen inside if oh wow yeah that's right we have to make a choice if of what oh i didn't
+tell you this part yet if equals well there's this thing called eq huh okay if what is equal what
+two things do we want to compare y and x okay if they are equal then what do we return not x
+arg this is the critical piece and here's the other critical piece what do we do if they don't
+if they aren't equal in we're going to look up and in what do we look up
+y not x y because y is what's coming into that lambda the innermost lambda that innermost
+lambda is an environment extended environment that lambda right there is a procedure so we have
+what's called a higher order representation of environments and procedures in our interpreter
+okay so let me go and fix up my val experts to give them environments see these lines are boring
+because we're not messing with the environment at all it's not interesting at all and you
+could say the application line isn't messing with the environment and that's true with this
+representation of procedures and environments both we change our representation of procedures and
+environments it actually does matter you'll see that if we were to use data structures such as
+lists to represent our environment and procedures then the this application line would have a
+different looking structure basically the work that we're doing up here in the lambda line
+we get put into the application line all right so in theory this should work now
+we'll see if you're all we're paying attention okay eval expert let's try it out okay so add
+one hopefully still works oh all right we didn't pass it in oh i need oh the call was wrong oh very
+close a very clever okay so you're right we need to call a val expert now with an environment
+what does an environment look like lambda yeah again see all you need is lambda
+why okay and what is this environment going to do
+what happens if we look up a variable like x in this environment what should happen error
+means it's not bound okay this environment starts out with nothing down unless we want to put it
+in there so we can do a call to schemes error we can call it look up something like that you know
+unbound all right perfect okay we get back seven i can now look up a variable in the empty environment
+like x and i got my error okay i can go ahead and do something like create a lambda expression
+let me try to lambda xx okay gives me a procedure a scheme procedure representing my
+procedure in my language i can do a procedure application let's see if this works let me
+apply it to five and get back five proof it works i can do something a little more interesting
+lambda applied to lambda so i should get back into any function and i can apply the result of that to
+five okay and then uh there's one ultimate test
+i think we've implemented everything uh oh there's one more thing we need to add
+let me just add one more clause which is zero huh okay so we're gonna add one more clause to see if
+something's equal to zero and we just follow our usual our usual thing all right and i think that
+may be enough now to to do what i was going to show so there's one standard test case
+which tests everything and it's factorial and it is factorial using something called what Dan
+Friedman calls the poor man's y-combinator uh you'll notice we don't have define in our language
+for in our interpreter there's something called let rec to define mutually recursive functions we
+don't have that either uh well we do have lambda and the answer to everything is lambda as we know so
+this code here is factorial you can see this got some function calls and stuff like that but it
+maybe you can believe the math and then that little part up top with a bunch of lambdas uh the part
+of top basically uh is what reaches what's called a fixed point and so you can see in scheme it works
+so let's see if it works in our interpreter i have no idea we'll try it out
+yeah all right awesome well done
+okay so let's look at that interpreter real quick
+and just a couple words about it so the first thing i'll say is that everything except the
+last three lines is an abomination so we are going to remove the abominable code
+bam bam bam bam bam bam that okay this is the three by five card interpreter uh i may have to
+reformat it slightly differently for the screen but um if you have a three by four meter card i
+guess you could fit at this side but you can actually write down at least on a four by six
+card and that is the magic okay this is the key to the universe you have everything here you have
+lexical scope you have higher order functions you have all these sorts of things numbers you don't
+need them you can do church encoding okay uh you don't need if you can encode if as well you
+encode all those things they're kind of nonsense yes they're useful for efficiency and expressiveness
+you don't need them this is all you need it's turning complete came before the turning machine
+this is similar related to sign called the lambda calculus this is a little bit different because
+we're using an environment instead of beta reduction if you're familiar with that but
+similar idea so people would call this the call by value lambda calculus interpreter
+environment passing and you can play all sorts of really interesting games with this
+you can change the representation of the environments and the uh procedures you could
+use data structures you could use lists and pattern matching you can do all sorts of really cool
+things you can add additional arguments just like we added the environment so now we have
+an environment passing interpreter you can add a store as well which contains uh basically the
+current value of of a variable and you can change those values so if you have an environment and
+a store that allows you to do mutation like set bang and scheme you can also add continuations
+you can cps the interpreter do another correctness preserving program transformation cps that gives
+you a representation of the rest of the program at any point as a potentially as a procedure
+and you can just call that continuation anywhere you want and you can implement all sorts of control
+structures if you cps your program twice you have two continuations that gives you to limited
+continuations you can do basically every control structure at that point all sorts of very interesting
+games you can play you can change anyway i'm not going to get into all that but what i recommend
+you do is what dan suggested to all his students and as far as i know i'm the only one who did it
+maybe other people did he said take a four by six card stack of them and spend 45 minutes writing
+this down over and over again till your eyes start bleeding sear it into your brain and your heart
+and you'll never forget it and if you really understand it and you try you know turning the
+crank and doing a bunch of evaluations at some point you'll start to get some idea of the magic but
+all of computation all of the turn complete processes all of you know the notion of computable
+functions are within this code the secrets there you can do things that run forever you know you
+can do all sorts of things they're very interesting you express colas inside of it okay so that is
+sort of like the teaser and you know you can go off to races once you really have this on the brain
+you can do things like change the type of scope you have you can go from what we have here is just
+called lexical scope or static scoping to dynamic scoping by changing how the environment
+variable lookup works and things like that i'm not going to go into all those things if you're
+interested in that there's a book called essentials of programming languages by dan freeman and mitchell
+wan that talks about a lot of these things and there are lots of other resources you can find
+what i want to show you now is what happens when you play these these games in sort of a
+different context so uh this is a paper by john mccarthy called a micromanual for lisp not the
+whole truth and in this he gives the rules for an interpreter okay so you were asking about cons
+well here's your cons this is what cons does and you know he gives gives basically the rules for
+for a lisp evaluator and you know basically he's calling his evaluator value as our val expert
+and you can see that he has these equal signs he's saying that expression is equal to that value
+now equal the notion of equality is actually one of the most subtle notions in all of mathematics
+and logic and computer science anyone who thinks they understand equality is just kind of some
+throwaway idea hasn't thought about it hard enough like homotopy type theory you know all these people
+trying to understand different notions of equality there so it's a very deep topic and one of the
+things that's interesting is that you know we tend to read that equal sign if we're doing programming
+programming languages interpreters compilers stuff like that basically is one directional
+from left to right so we have an expression we evaluate it we write some function that's an
+evaluator we compile it some code that's going to run it and we're going from that expression to
+that value it's not really an equal sign it's like a right hand side arrow if you want to think of it
+that way but what if we took the equal sign seriously what if we seriously so all right well this is
+like an algebra right and what do you do in algebra when you were in you know i'm not talking about like
+the modern algebra i'm talking about like you know when you were in high school or whatever you
+took algebra in high school what sort of things did you do in algebra solve equations you put in
+variables like x and y and z and things like that and you're supposed to figure out what is the value
+of that variable right that makes both sides equal we're gonna do that so i've done some of the heavy
+lifting for you with a bunch of other people we spent like the last 12 years doing it and
+i'm going to show you some of the stuff that we got from it so what we did was we wrote
+and i started this at indiana with dan freedman a bunch of the talented people i'm working right
+now with a whole bunch of the people including like michael ballantine at utah and reg Rosenblatt and
+all these other fine folks we wrote an interpreter in what's called a logic programming language
+okay or a relational programming language that really is what i'd normally call it
+and uh this one doesn't fit on a three by five card but it's not that long actually
+it's what 403 lines but you can fit the three by five card version on here quite nicely and
+actually it looks a lot like the algebra part in fact you can write down the semantics
+you know so here are the three lines we wrote for our interpreter this is how you would write it
+in like an operational semantics sort of mathy and then this is on the right hand side is how you
+would express it in this language called many camera and you can see it's really not much longer
+it's about the about the same length okay so anyway we took the time and wrote this interpreter
+so we wrote something equivalent to a val x but in fact you can see it's called a val expo right
+we even use the same name and so now let me see if i can figure out how to load this thing
+that's the it's always the hard part all right here's the transcript let's see that all right now
+let's go in here and let's see load mk you know it's all fine and good until you have to do things
+like load a file right there's no math for that probably the monad or something junk for that
+anyway let's let's do full interpret all right cool so in this logic programming system called
+mini canron we have the ability to write queries and the queries let us you could think it from a
+sort of database standpoint you can think of it as an algebra standpoint allows us to write down
+um you know things where we want to solve for the values so we have you val expert
+and uh i'm going to evaluate some you know something and get the value of it back let me
+just make sure that worked oh oh expo yeah you think i learned uh incorrect number of arguments
+it probably takes the empty oh i bet it's called a valo yeah i think see if i've gotten a valo
+yeah awesome okay so i i've hidden the environment in this version because i'm just starting out in
+the empty environment that's why we're not seeing an environment we could type it in if we want to
+okay so what's happening here is we have an interpreter written in a somewhat different
+style than what we just wrote we have an evaluator you know and we have an expression just like the
+expressions we were passing in to uh eval expert and correspondingly we have the value so this is
+a little bit different than before in that um we are actually able to specify what the the output
+should be now in this case we are putting in a variable which means we don't know we don't know
+what the value should be in fact if you want to think of from an algebra standpoint you know i'll
+call it x or maybe you know another way to call it would be you know like question mark or something
+right so this is this is an unknown and we're trying to figure out what the value of the unknown
+must be and in this case the value the unknown is five you know the expression five evaluates to five
+great so let's try doing something a little more interesting let's try having a lambda expression
+let's say about lambda xx okay oh that's a big thing you can see that begins with closure
+so closure is one way to represent a procedure so some representation of a procedure i'm not
+going to get into the details of it um but i can apply that uh function
+give myself a little more space i can apply that the uh that procedure to uh five for example
+so the identity function applied to five
+and it gives me back five okay great now uh this so far is just treating it like an interpreter
+uh just just like what we had before and we have all sorts of other things like we have
+the ability to create lists um you know i could uh and we have this cons operator i told you about
+i think we have cons let's see cons a onto the list b yep all right so i can i can build up
+list structures i can do all sorts of things but what i can also do is um play games where
+maybe i don't know the input expression and i know an output so maybe the output is i want
+milkshake all right and now what i want is an expression in scheme that when you evaluate it
+produces the list i want milkshake okay so let's try it quote i want milkshake is one such expression
+how about two oh here is a procedure call a procedure that takes any number of arguments
+whose body is the expression quote i want milkshake applied to no arguments and we can do all sorts
+of uh games like that here's another one like i only do like 10 see if there are any good ones oh
+yeah here's a call to car which gets the first element in the list the car of a list containing
+the list i want milkshakes and uh i can do things like that all right that's fun so uh i work in
+lab of matt might at utah and he has this blog post called 99 ways not to die to say i love you
+in racket so this is like his valentine's day post right it's like a slow valentine's day you
+write this blog post and the um it's 99 expressions in racket or scheme or whatever
+whoops that uh actually evaluate to the list i love you okay so uh let's let's do that so let's
+go ahead back and you know uh come up with a run 99 and say i love you
+and we get all these programs uh so here's one it's called a list with and it has a function
+call inside of it and stuff like that and every one of these i can evaluate in scheme
+and it works just fine all right yeah uh okay so that's kind of fun so let's try another one
+going back to john mccarthy's paper um he has this little uh little note so it's a difficult
+mathematical type exercise find a list e that means a program expression e such that the value
+of e is equal to e what is that called it's a coin so we want to find a program that evaluates to
+itself so how can we write such a query uh yeah well let's let's out of respect to john mccarthy
+call our variable e we want e to evaluate to e all right oh that's a representation of a number
+five evaluates to five that's true let's see who hash t evaluates to hash t that's true
+hash f evaluates to hash f let's see is there's anything let's run for a second oh what is this
+thing oh all right forget those side conditions here's a more interesting looking expression
+and that evaluates to itself oh okay so we can do things like generate coins what else can we do
+well hmm michael ballantyne at this point said we know what if you had a more interesting
+scheme expression that you're evaluating so let's try something a little more
+interesting so let's try doing something like
+writing a program that concatenates to lists and you know don't worry about the syntax here it's
+going to look you know um if you don't know scheme uh you may not read every single thing
+but we're going to append okay and define a function called append that takes two lists l and s
+and is kind of have an if make this a little smaller
+if l is empty then we return s otherwise we're going to cons on the car of l
+to a recursive call to append with the rest of the list that's called the cutter and s okay
+so let rec let's me define a recursive function and now i'm going to have a call to append i'm
+going to say append abc to de and let's see if that works and sure enough it works so it gives
+me abc de in a list because we can actually produce more than one answer so let me show you what that
+would look like what we could do is well actually let me show you something else first so what if
+we put in the answer first we know the answer should be abc de okay so we put in the answer
+and now i can put in that variable thing the question mark anywhere i want so i can put in the
+question mark uh inside this argument so i'm asking what lists when it depended to de
+de gives me abc de so what list should that be abc and sure enough i get that okay i could ask for
+two things maybe i have x and y so i could say i want x and i want y
+there are all sorts of games i could show you with this but i'm i'm just going to show you a
+couple um so now i can i can have two two lists that appended together give me abc de and you
+can see the empty list applied to abc de is one such pair of lists and i can actually ask for
+all such pairs so i can do a run star and now i get all the pairs back and so if you've seen
+logic programming if you've seen languages like prologue or minnecanron um they let you do this
+sort of query but notice we didn't write a logic program we just took a scheme program
+in our interpreter so we're taking the the equal sign seriously we're saying that equality
+really does mean equal and there's no direction to that equal sign we should be able to solve for
+any side okay so let's try one more example we could do something like
+have abc and de and now we say the answer should be abc de and minnecanron responds with some gibberish
+that means that that's consistent um okay so the question is where else could we put a logic
+variable representing something unknown in the code yes yeah all right all right so i don't know
+let me find a target uh how about this s let me put something there i think this is the one with
+my put run star is a bad idea run one is good and sure enough it inferred the s that are removed
+and things like that now at this point we're actually doing program synthesis so we have
+the ability to specify information um in the form of things like the expected input
+and the corresponding expected output and use the semantics of our interpreter that we wrote as
+a relation and logic programming system to do inference do a search basically and do constraint
+solving to try to infer the missing values and those missing values could be the input arguments
+the function the output to the function even code or some mixture thereof we can put variables
+anywhere we want yeah yeah let's try that it's a good question so let's go back to what we had
+like this is it yep let me put it where the append was what do you think i'll get back
+oh sorry i i asked the changes back the question mark hopefully append right everybody start
+what oh did i call it runs oh
+hilarity will ensue that's the answer you expected right
+a procedure that ignores this argument and returns the list a v c d e
+many canons like prove me wrong i defy you to prove me wrong
+so this is the fun for a thing you get into so let's let's try to all right so so many
+canons like the genie right the genie is like tell me your wish i'm ready to go
+so what we're going to do is we're going to create a list of calls to append
+um sorry i don't remember if we have lists or not i think we have lists so we'll have more
+than one test that's right so let's do two tests so one will be like empty list to empty list
+and then in the output we will have a list of expected outputs so we'll have empty list and then
+the list dvc oops try this see if this works yeah now it came up with a pen
+so it was like all right i gotta work for it okay now what are we asked for two
+so it happens i don't know i have no idea oh okay it's what that is case you can't read that
+it's a direct application of a variadic function call with zero arguments which returns the
+procedure of pen it's like okay well you know i'm no dummy i'll keep doing that so uh this
+version is quite slow and if you want to synthesize code for real it can take quite a while um
+but we've been working on a new tool let's see if i can zoom in oh it works today whoa nice
+all right uh there's a tool called barlemann that i've been developing with greg rosinblatt and
+and michael bountine and other people and this tool is basically just an interface it's like a
+i learned a little bit of swift code and i wrote this uh you can see it's beautiful and
+you know basically this is just an interface on what you saw with some optimizations behind
+okay it runs about 10 million times faster than the naive version uh when you're doing
+program synthesis that's important because you're in an exponential space so we are going to uh
+write a pen uh a slightly different way so the code in the upper left is our definition of a pen
+you can see we left we left some parts out right so we left the name of the function out that's this
+comma a that's a mini canron logic variable it's a meta variable you can think of as a whole in
+the program we don't know what that expression is we don't know what the arguments are to lambda
+or how many there are or anything like that and we don't know what the body of the lambda is okay
+so we're going to let our tool come up with that for us and what we're gonna do is just give some
+examples of a pen so i'm gonna append two lists the empty list to the empty list so give me the
+empty list and barlain's gonna think about it and say i've got a solution for you you want a function
+called a pen it's like yes very well that function can take any number of arguments well strictly
+schemes a pen can and it's going to return to the empty list
+right it's a very exciting moment like all right well that's okay i guess how about we have a list
+containing uh two lists list a and list b and we want to get back a b okay well add another test
+oh lucky day you want a function called a pen which takes two arguments and doesn't matter
+what the names are and if the second argument is empty we'll return that why not because that's
+the first test otherwise we'll return to list a b all right well that's getting a little annoying
+so let's introduce a new concept that of the gensom the generated symbol we don't actually care what's
+in that list we just want to make sure that that's not going to appear in the output program as long
+as it doesn't appear in the output program we're happy so we're going to change that oh now we do
+have to do a little more work two arguments null tests on the second argument turn in the second
+argument if it's not all otherwise we have to start doing some operations cars and and conses and
+things like that but we haven't there's no recursive calls it's not going to work so let me try one more
+list of links too you know you can see where this game goes and
+let's think about that
+it's thinking is like all right this is some this is some putting in some work
+oh well it looked like a recursive call that looks perilously close to being correct
+huh it's a little hard to read so i will give it i will use the editor part to fill in some
+concrete names and see what we can get oh that is a pen that's nice it's example-based program
+synthesis furthermore i can do some other things that are interesting like i could add a few more tests
+so i could say append of list a to the empty list should be the empty list and i could say append
+oh uh oh yeah yes yeah garbage in garbage out good call
+oh
+anyone would like a job is a qa tester for barlain okay so uh i wrote some more tests and of course
+barlain could already synthesize it so it's not really necessary but imagine for a second that um
+maybe this program is too hard for barlain to synthesize so instead of having barlain synthesize
+the program from the examples we're going to do test-driven development right that i mean this is
+real test-driven development um so we wrote our tests first and now we're going to write our code
+right so i'm going to call it a pen if i call it like you know you know king cat uh many kind
+rooms like or you're like no wrong computer says no fail all right so let's call it append
+and let's say we're going to take two arguments l and s like before great and we probably want an if
+and a null check on l and you know we can start uh kind of filling in the structure here and uh
+barlain can probably synthesize that fine but let's pretend we're working on something a
+little more complicated and barlain can't do it um so now i'm typing and notice i've got some
+holes in my program so i don't know what those are and those are arbitrary expressions this could
+be you know gigantic right i could have a scheme compiler is a or something it is solving it faster
+because i filled in more uh the current version of barlain sometimes you fill in more and it's like
+really slow because it gets slower so we're working on that but anyway um so let me put in l it's one
+of my arguments so i'm going to think hey l is probably the right one oh barlain's like no computer
+says no that particular test is incompatible with the partially specified program you've written
+so what we can do is write our tests try to use it for synthesis but if it's too slow for synthesis
+we can just use this as an editor and it's constantly in the background taking up all your
+corridors and heating your apartment and desperately trying to prove and this is a proof because
+many cameras a theorem prover that the partially specified code you've written is actually incompatible
+with when your test it doesn't mean your test is wrong maybe your code is wrong maybe they're both
+wrong maybe the semantics for the interpreter underlying barlain is wrong but they're certainly
+inconsistent right um and and i think this this sort of technology is you know getting ready
+at this point to to be practical for at least some use cases i should also point out that
+there are many other people working on program synthesis and there's i think a renaissance
+in that area right now um but i do think that one thing that's interesting is sort of the way
+we're doing synthesis which is by taking that interpreter that i showed you in the beginning
+this beautiful piece of code and looking at the original description of it in those equal signs
+and taking the equal signs seriously we're going back and revisiting this artifact that
+people had an understanding of and we're trying to actually execute you know another way of looking
+at it this relational semantics view and people you know people know relational semantics i mean
+the way that the math was written down is as relations um but the whole point is we've designed
+this language mini-canron to let us encode these relations in a nice way and then did a bunch of
+optimization so when you write an interpreter as a relation you can do this fill-in-the-blank game
+right and there are all sorts of other examples i could show you um with mini-canron there's some
+some really neat things if you're interested in that you might check out the closure conge talk
+that i gave with uh greg rosinblatt um at the con last year's conge and we show off a whole
+bunch of examples of this sort of thing and uh you know we're we're trying to actively improve it
+and explore other ways to do things and we can take things like a a proof checker and turn
+into a theorem prover by making it a relation all sorts of fun games so if this appeals to you
+i'll let me know you might check out the webpage minicanron.org that has a description of of uh
+a lot of the work we've been doing and also i run hangouts on saturdays and sundays an intro
+hangout series and advanced hangout series um to talk about some of these technologies just
+send me an email drop my line hang out we'll get a milkshake and we talk about these things if this
+thing you're interested in you want to actually do some research work on it hacking whatever
+you could probably improve the user interface of barlum and if nothing else right so uh anyway uh
+this is why i think the interpreter that interpreter written in lisp that's higher order is so beautiful
+this is such a beautiful object that not only is it very very dense and an interesting amalgam of
+very important ideas core ideas but you can look at that object from many different standpoints like
+i said that infinite tower of interpreters the meta and or um any number of other ways from
+program transformation standpoint from a relational semantic standpoint and so forth and each time you
+look at that object that like five line core program from a different standpoint it gives you
+it yields some more secrets right in some sense we know everything about the interpreter but in
+some other real sense like i would not have guessed that you could do this sort of thing
+just by taking that program and encoding it in a logic programming language but you can
+turns out you know i think that's really amazing so um that's why i think that's that's a really
+beautiful artifact and and i hope everyone will take the time to really study it and get to know it
+and find their own ways of looking at it and new ways to to consider how that thing works okay thank
+thank you very much
+we have time for like two very short questions and then we have to get out of here so uh we
+have one right in front here real fast if you treat these tests as constraints to the program
+that is trying to guess can you apply like meta constraints can you say like i want this to be
+like a constant time algorithm or i want it to be you know oh end of memory or something like that
+that's a good question so you know part of the issue is how do you specify
+what it is you want the program to do and so one way is with these tests you could also use
+something like types because we won't write type inferences in the same style you can also write
+high-level properties and logic there are a whole bunch of ways you could do it and you could also
+say something about the expected running time or desired running time and so forth we we're not
+at the point where we can do things like talk about the desired running time although it is
+something i'd like to be able to do um and so so no you can't you can't do that yet but one of the
+areas we're very interested in is trying to do more expressiveness the probably the most recent
+thing that we've been playing with this interesting is just uh just yesterday i started um i basically
+wrote a version of this technology where you can take scheme programs look at common patterns and
+scheme in terms very simple and just looking at what the parent is for an expression like
+what you know if you see a define it turns out there's usually a lambda inside of it if you see
+a lambda there's usually an if or a cond inside of it and looking for those sorts of simple patterns
+and specializing the relational interpreter um based on that very very simple knowledge so instead
+of just having the semantics the system also would know a little bit about sort of standard human
+style or things like that and that alone looks like it speeds up synthesis many orders of magnitude
+and we're trying to figure out can we apply that to sort of the optimizations we've already made
+so i think the bottom line is like there's a whole bunch of things that we just haven't explored yet
+but i think it's definitely possible and there are other people in this program synthesis community
+who particularly work on that problem of trying to synthesize programs that have you know different
+expected uh you know running times and things like that this is a very cool problem
+more questions there was a lot to take in i know short um when you gave the example of um coming
+up with the answer a pen yeah um how does it how do you see the search space like how did it know
+to find a pen how did the pen get into the search space well i mean it didn't find a pen first right
+a function that just returns a list um well because we have an interpreter the interpreter
+has a notion of scoping just like we implemented variable lookup we implemented variable lookup in
+that interpreter and the semantics of let rec the binding structure of let rec means that within that
+call you know so the call to append was inside the definition of append so therefore in the
+environment append is there because we define the function and so one of the things that's
+going to try to do the interpreter is going to try to do is look up the variables that are currently
+bound in the environment and try all of those and see if that will help lead to a solution
+anyone else
+no all right thank you so much

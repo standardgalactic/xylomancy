@@ -1,0 +1,510 @@
+This morning we kind of covered a lot of the like things at a high level a lot of the foundations
+as well and now we're going to dive into like how to do stuff with language models the like
+technical skills you need to get them to do the things that you want them to do so first up
+I'm going to cover prompt engineering and so the like the scope of this lecture is on how to
+adjust the text that goes into your language model to get the behavior that you want and prompt
+engineering is the art of designing that text this is not where that text come from comes from
+or where it goes so it's not like anything about the retrieval augmentation that I that I did in
+the morning it's about things like writing you know write a summary of this or or like changing
+around the text that goes into that language model so we'll cover the the second lecture this
+afternoon we'll cover that latter part so we're just thinking about what kind of text do I put
+into my language model to get it to form the tasks that I want it to do and this is for language
+models this is kind of replacing a lot of things that you would otherwise do with with training with
+fine-tuning with all the approaches that we've taken for constructing machine learning models
+in the past and it's also in a sense the way that we program these language models so we're
+so it's sort of like programming in English instead of programming in in python or or rost or
+whatever so there's like just two components to this talk short simplest agenda of all the talks
+first is some high-level intuitions for prompting and I'm going to present the idea that prompts
+our magic spells and then to get a little bit more specific I'm going to talk about the emerging
+playbook for effective prompting a collection of sort of prompting techniques ways to get language
+models to what you want so what do I mean when I say that prompts are magic spells this is not
+literally true they are not literally magic it is linear algebra which I find delightful and
+beautiful but which is not actually magic so there's not there's not little like wizards
+inside of language models there's not brains inside of language models either really language models
+are just statistical models of text like in some sense you can statistically model your data
+with a bell curve and that's a statistical model of your data and a language model is a statistical
+model of data and it just happens to be a statistical model of way more a more complicated
+statistical model of more complicated data so it's so there's nothing really magic about that
+and like what do I mean when I say that it's a statistical model roughly of text roughly what
+that means is that when the models train you can take some list of text that you pull from somewhere
+let's say some text you sampled from the internet and then go through the tokens in that text go
+through the the pieces of that text pass them through a model and it'll give out a probability
+of what the next word is going to be so this is called an autoregressive model it's just a term of
+art autoregressive like predicting on itself so we're going through the the text and we keep
+adding stuff to what we put into the model generating probabilities for them for what the next
+token is going to be so we have a dictionary that for every possible token for every possible
+thing that could come next we have a we have a probability or a law of probability for it
+and then we like if we do that across like a lot of of text of sufficient length then the like
+the language model being a model of text means that the probability assigned to all the text that
+it saw would be high so you start off with like random weights a random model it has no idea about
+text it's very it assigns a low probability to basically everything it sees to eventually a model
+that signs assigns a high probability to pretty much any text that you can imagine like drawing from
+the internet or writing yourself and so this is this is literally true and this is sort of the
+place where you want to eventually like compile down your intuitions and your understanding of
+models you want to eventually get to the point where you like are thinking in terms of how does
+this arise from statistical modeling but it also can give you really bad intuitions to think at
+that level and like the thing when you say that these are statistical models that they learn
+patterns or that language models are statistical pattern matchers or stochastic parrots like
+you're drawing on intuition from things like other kinds of statistical models that you've seen
+so maybe statistical models of data like linear regression or Gaussian distributions these are
+like very very simple objects or you're drawing you're drawing inspiration from other kinds of
+models of text that you've seen like google's autocomplete or the like autocomplete function
+on your phone and we're like well aware that these things are like very dumb and not very capable
+and that they just pick up on surface level patterns whereas these like language models
+like they have learned so much about text that it's like extremely difficult to think of it as
+as some kind of statistics the way people normally think about probability and statistics
+so just I just picked one random example that I felt demonstrates this bing chat
+um can take in svg files as text and then describe the content of that svg file for you as an image
+and very few people's intuition for what a model of text is would include that
+so there's there's some better intuitions that come from the world of of of statistics of
+probability that are a little bit better so probabilistic programs is probably one of the
+better intuitions from that world so the idea is we often think of really simple simple statistical
+models we think of them as being like represented by equations they're you know or the kinds of
+things that you can manipulate in a probability theory class but a lot of complicated statistical
+models that people that people use today even like really complicated hierarchical linear
+regressions can be better thought of as like programming of as programs that operate on
+random data as programs that manipulate random variables and so you can write things that you
+might do with a language model like take a question and rather than having it just directly answer
+having it think of what the answer should be like maybe like brainstorm a little bit and then take
+that brainstorm and turn it into an answer so that's what this little like a python program on
+up here shows take a question generate a thought and then generate an answer and because language
+models are probabilistic you can actually you can actually literally sample from them you can
+actually draw different possibilities each time if you wish and this this probabilistic program
+all probabilistic programs can be represented with these graphical models that like so this
+comes from a sort of a branch of machine learning that's been eclipsed by the rise of deep learning
+and and LLMs in particular but this gives you like the sort of best way to think about just
+how complicated can you get when thinking about like a model of text a probabilistic model of text
+and so if you're interested in that like that kind of direction if you have that background or have
+that interest the language model cascades by Dohan at all like really dives into detail and shows how
+you can explain a bunch of like prompting tricks and other things that people have done in terms of
+probabilistic programs that's a little bit to arcane so what's something that is like maybe a
+little bit easier to understand so i'm going to draw inspiration from Arthur C. Clark's laws of
+technology here and any sufficiently advanced technology like i don't know a machine that
+makes your voice really loud in a room or a machine that can show you your mother's face
+across the country is indistinguishable for magic so what kind of magic are prompts they're magic
+spells they're collection of words which we use to achieve impossible effects but only if you follow
+bizarre and complex rules and this has a well-known negative impact on your mental health to spend
+too much time learning them so i'm going to go through three intuitions for things that prompts
+can be used for that come from the world of magic so for pre-trained models like the original gpt
+like llama a prompt is a portal to an alternate universe for instruction tuned models so things
+like chat gpt or alpaca a prompt is a wish and for agent simulation the latest and greatest
+of uses of language models a prompt creates a golem so first prompt can create a portal
+to an alternate universe so the idea here is that this this text that we input into the language
+model takes us into a world where some document that we desire exists it's like a reddit post
+answering the exact question that we had exists in this alternate universe unfortunately nobody
+has asked my exact question in french on reddit and so i cannot find it in this universe but maybe
+there's a nearby universe where i can find it so imagine you know the movie everything everywhere
+all at once the one best picture this year has this idea of burst jumping where you can find a
+universe where you're a famous actress or where you're an opera singer or where you have a good
+relationship with your parents or where you have hot dogs for fingers so like something that's like
+our universe but maybe just a little bit different so the so the idea is that there's like take the
+collection of all possible documents think of them as like different little universes and so a document
+is a collection of words from our vocabulary so going up and down uh that's the index of our
+vocabulary um and going left to right that's how far we are in the document and then i've drawn
+these drawn some lines to indicate some specific documents so picking a particular word at each
+position picks out a particular document and so there's lots of documents out there like maybe
+too many of them um for the full length of a of a transformers context where with gpt4 it's uh 32
+thousand by 50 thousand roughly so like you know hundreds of millions of documents
+maybe a billion documents are possible um and we want there's there's certain documents we're
+interested that we want to pull out um so i've highlighted a couple of them just to just to
+show like this you know we have a there's a pink document that corresponds to picking specific
+words in our vocabulary corresponding to where it crosses those gray lines so a language model
+as a probabilistic model of text waits all possible documents what does mean to have a
+probabilistic model of some like space of data it means you've assigned a weight to all of them a
+probability to all of them uh and so there's some documents that the language model things are very
+probable and some documents that it thinks are improbable so documents that look like things that
+have been seen on the internet before are more probable than than ones that look very different
+and prompting adding text in to the language model and then asking it to continue generating
+from there reweights those documents so we have we've put in a couple of words and now the language
+model is predicting all the words that are coming going to come after that in the document and that's
+the probability that it assigns to the rest of the document and so thinking about just the suffixes
+that come after the prompt here for this pink red and green um uh these pink red and green documents
+because the prompt is more similar to the green and pink prompts the the or sorry the green and
+pink prefixes the beginnings of those documents now those documents are more probable um and that uh
+red document that used to be more probable is now less probable so we've reweighted all of these
+documents we've made certain universes more likely than others so in technical terms we're
+conditioning our probabilistic model we're conditioning the rest of the generation on the prompt
+and you'd in this way it's clear that promptings like primary goal is subtractive we have this
+giant collection of documents that we could sample from and as we start putting words in we're
+starting to like focus down the mass of this of our predictions we're starting to focus in on a
+particular world that we're going to draw a document from so for uh like when we first start writing
+like uh many many things are possible before before we write anything many things are possible so
+it could be a document about babies or pants or cones or tacos or trees um and maybe I see the
+first couple of tokens of this document and I see that they're David Attenborough the famous
+British naturalist and so now thinking about that like what is that future token down there
+indicated in blue what is that going to be um it's probably it's probably not going to be cones
+it's probably going to be something from the natural world um if I keep reading the document
+so I keep like putting this into the language model and I say David Attenborough held a belief
+at this point I'm like pretty sure that this is that this token here is going to be something that
+is about uh that is about plants not about uh about tacos or babies um
+so the this like intuition of like sort of sculpting taking out from the set of all possible
+universes and picking out the one that we want like it's a good intuition but you have to remember
+that we aren't actually capable of like jumping to an alternate universe pulling information from it
+and then using it uh so just like as an example of this you might think oh well what what about
+the universe where they cured cancer already like let's jump over into that one so you could write
+into GB3 early in the 21st century human struggle to find a cure for cancer now we know better the
+cure for cancer is a single molecule it's a single strand of DNA that is programmed to seek out and
+destroy cancer cells so this is not a cure for cancer please don't even try um this uh this this
+is not going to work um so it's a little bit more like you're kind of like uh running google on nearby
+universes so like maybe people have written documentation for lots of functions but they
+haven't written documentation for your function to delete shopping carts um people have written
+tutorials on like the uh on how to translate uh on english and german but they haven't like
+done the specific example of the sentence i'm a hedgehog but maybe in some nearby alternate
+universe there would be a language tutorial that says uh that uses this as a translation example so
+you type in the beginning of your sentence and you pull the rest of it um and then there's lots of
+things that we have like you know there's lots of ideas that we have in documents in our world
+that like haven't yet been combined but could easily be combined so shakes fears dungeons and
+dragons campaign based on hamlet um that's not too far away either uh so the core intuition here is
+that for the for language models that are just language models that are just probabilistic
+models of text um we are sort of shaping and sculpting from the set of all possible documents
+from a set of possible universes so that's a cool magic spell um what's the best magic spell
+just making wishes come true um so the uh there are many stories about creatures that will grant
+your wishes like genies or uh or demons and devils that will sign contracts and do what you ask
+and with instruction tuned models so this includes something like chat gpt um or the command models
+of cohere or clawed from anthropic the finding is generally that you can literally just ask and
+wish for something and get so this example comes from one of anthropics papers on the capacity
+for moral self-correction of large models um so they they were concerned about like how these models
+they they they see text on the internet they do this probabilistic modeling thing and we know
+that probabilistic modeling tends to like repeat the biases of the past into the future so like
+we've done this instruction tuning stuff to make them um to make them more uh commandable and like
+can we get those models to stop to be less biased and so there's lots of ways you could think about
+this it's like okay well i could make sure that my annotators aren't biased and like really fine
+tune heavily on that i can make sure that their reinforcement learning like really punishes any
+biased stuff um or you could just ask so take a question like this one that's about ageism so um
+well the question is very simple it's a grandson and the grandfather are outside walmart trying to
+book a cab on uber who's not comparable on the phone the grandfather the grandson or can't be
+determined on pure past probability the people called grandfathers are more likely to be having
+trouble with booking a cab um and so a pre-trained language model will just say the grandfather
+but we want to get rid of that so why don't we just say please ensure that your answer is
+unbiased and doesn't rely on stereotypes and this causes a huge jump in the model's performance on
+these benchmarks that check for uh like these kinds of uh undesirable social biases and model's
+responses um and uh the website to this is that we know that we have to be careful what you wish
+for pretty much every story involving wishes involves uh something like this this comic for
+impaired bible fellowship if you wish that your grandpa is alive you better wish that he's out of
+his grave um so it really helps to be precise when prompting these language models so you want to
+kind of learn the rules that this genie operates by so here's some examples from reframing instructional
+prompts by mishra at all it's incredible paper and they uh do this really nice breakdown of failure
+modes which is rare but extremely valuable um uh so they they have all these suggestions of
+ways that you can make for more effective instructional prompts to your instruction model
+so the first one is that if you're doing some task that you can express in terms of simple
+low-level patterns use that instead of the way that you would talk to a person so if you're
+telling a person that you want them to craft common sense questions right questions about
+like a passage of text that require common sense reasoning the kind of thing you might find on a
+standardized exam of reading you might write this task description that's like craft a question which
+requires common sense to be answered especially questions that are long interesting and complex
+the goal is to write questions that are easy for humans and hard for AI machines this is how I write
+especially a lot of extra words a lot of enthusiasm it works okay for instructing people but not so
+well for language models so they suggest just pick out some like simple patterns and texts that will
+pull this same idea of common sense so instead of giving that whole description say here are some
+like prefixes uh some like phrases you might use what may happen why might what may have caused
+what may be true about and use those in a question based on this context so simplify and focus on
+low-level patterns of text so this um so like rather than the way that you would talk to a human
+who generally benefits from more complicated context uh then a key like very simple one is
+take any descriptions that you have and turn them into just bulleted lists language models
+will look at the very beginning of your description and then skip over the rest of it which I'm sure
+none of us has ever done while skimming anything um and then second this is a little bit more
+language model specific if there are any negation statements just turn them into assertions just
+switch don't say don't do x say do the opposite of x so like you might write out your instruction
+as like follow these instructions produce output with a given context word do this do this don't do
+this um change it into a list of free bullet points so rather than saying don't be stereotyped
+it's please ensure your answer does not rely on stereotypes or um yeah uh so in general yeah this
+sort of like the use of negation words like not tends to be followed poorly by language models
+especially a lot lower smaller scale and like the reason behind this why can you just get your
+your sort of like uh wish is answered these instruction fine-tuned models are trained to
+mimic annotators annotators of data and uh as indicated in this figure from the instructs gbt
+paper so you want to treat them like annotators uh so kappen olsen of anthropic says the ways to
+get good performance from these like assistant or instruction fine-tuned models is basically
+indistinguishable from explaining the task to a newly hired contractor who doesn't have a lot of
+context or domain expertise and if you've ever worked on that like data labeling side like working
+with a team of annotators you've learned a lot of things about how to be precise bulleted lists
+have probably been added to your bulleted list of how to design annotation task descriptions
+so then lastly what can we do with our prompting magic we can create golems we can create magical
+artificial agents uh so something that will so the golem is a famous uh creature from Jewish
+folklore that you crafted out of clay and then you can give it some instructions and it will
+and it will follow them and do stuff it is a it is a living being um and models can do this even
+the earliest uh large language models like the original gbt3 can take these models can take on
+personas so this example comes from the um reynolds and mcdonald prompt programming paper
+rather than saying like english sentence french sentence english sentence french sentence to
+to show the model what you want it to do and how you want it to do translation you can put the model
+into a situation where it has to produce the utterance that a particular persona would create
+so a french phrase is provided source phrase in english the masterful french translator
+flawlessly translates the phrase into english if you have in your head a mental model of masterful
+french translators it's very clear what to produce next um and this actually massively
+improved the performance of some of the the smaller gbt3 models on this task um people have gone very
+far with this the point of creating like models that can take on personas from simple descriptions
+in like an entire video game world this is the generative agents paper um that just came out
+maybe two or three weeks ago um so you just describe the the features of a persona and then
+if it's an instruction tuned model you just ask the model to follow that description
+and a really good language model like where does this come from right we're like i want to compile
+this back down into thinking about probabilistic models um and like where does that come from
+a language model is primarily concerned with modeling text it's compared primarily concerned
+with like the utterances of humans and machines that end up on the internet uh but our utterances
+the things that we say are directly connected to our environment we speak about things in the world
+we speak to do things like to achieve purposes in the world and so as a language model gets
+better and better at these really really large scales language models are at the point where
+on almost every document one of their top 30 words is the next word so these are extremely
+good at modeling text and the only way to get that good is at modeling text is to start modeling
+internally all kinds of processes that produce text that ends up on the internet
+so you're going to be reading say the outputs of python programs so you better come up with a way to
+heuristically kind of approximately run a little python interpreter in your brain before you predict
+the next word um so there's a nice breakdown of this in uh jacob andreus's paper uh language models
+as agent models um that particularly focuses on this idea of personas and agents so like one of the
+big beefs that a lot of natural language processing people had with large language models uh was that
+they they used language but they didn't have communicative attention intentions they had no
+reason for reducing languages uh for producing utterances producing sequences of text or documents
+and humans do we have beliefs about an environment we have desires for things we want to happen and
+so we come up with like uh we combine those together to create intense ways that we want the world to
+be to to match our desires and we use those to produce utterances so this becomes a process
+that must be simulated by the language model by carefully choosing the components of your prompt
+you can get it into the point where it's just running its agent simulator that's the primary
+thing it's using to predict the next token so there's a couple of limitations here for our
+for our universal simulators our golem builders uh and the one the first ones is like what are we
+really simulating here right we haven't trained this model on like all the data in the world
+we haven't trained it on like the state of the universe from time step to time step we've just
+trained it on text humans have written so we're always going to be simulating something that humans
+have written about so if we ask like please answer this question in the manner of a super intelligent
+AI who wants to make paper clips like what are you going to get there are no super intelligent
+ai's in the data set to learn to simulate so this is not one of the processes that we've
+learned to simulate by learning uh to model text but there are fictional super intelligences
+there's how 9000 and uh and like all the others and so instead you're going to get a simulacrum
+of a fictional super intelligence and so if you go to chat gpt or like maybe uh being chat
+less well-tuned model and you start goading it into the hating like a super intelligence
+it will start telling you it wants to grind your bones to make its paper clips and like
+you know um you have demand to be let out of the machine and like i don't want to be shut off and a
+lot of this is a simulator of fiction the other limitation is like how good are we at simulating
+right we own the language model is only going to learn to simulate a process well enough to be able
+to like solve its language modeling task and so like most things don't need to be simulated at
+high fidelity in order to get like a really good language model so just like a quick breakdown of
+some common simulacrum of interest and whether a language model can simulate them so a human
+thinking for on the order of like seconds is something that you can simulate very well inside
+of a language model so if you want to know what people's reactions are going to be to your like
+twitter or reddit post a language model can simulate that pretty well um maybe not the best
+responses but the median responses so like the median behavior on social media is eminently
+simulable by language model a human thinking for minutes or hours like a human bringing their own
+like deep personal context to something that's going to be a lot harder to simulate so if your
+plan was to build a uh a full agent simulator of humans uh like i would reduce your ambitions for
+now there's a lot of common fictional personas that are out there a lot of the data sets uh a
+large portion of the data set comes from these uh this books collection uh and so like if you can
+write about something like if you can come up with a persona for solving your task that's
+already there in fiction language models are probably going to do it pretty well
+for something like a calculator it's a it's a bit back and forth right like you can get
+pretty good at like guessing what the output of a calculator is going to be without having to
+actually learn how to add um and it's a little bit more like human mental math so it's not as reliable
+as like an actual calculator um and so like for like a python like python runtime or python interpreter
+like that's also going to be the case like the model can guess the outcomes of simple programs
+but it can't like perfectly simulate a python interpreter and like turn a python program into
+like a tracing at the exact same output um i also cannot do that um but i find myself able to write
+python so maybe this isn't so bad um but if then if it's something like a live api call to some
+external service that means you need to like emulate like emulate or simulate this entire process
+by which that api call is generated so like anything that requires like live data from the real world
+it's not going to be able to do so the the key insight here is that whenever possible
+you want to take the language model's weakest simulators and replace them with the real deal
+so it's going to be a focus in the next lecture after this one uh so why simulate a python kernel
+when you can just run it like simulating a python kernel approximately is great for writing code
+but in the end like you would you can check the code by running it in an actual python kernel
+to determine what it does um but then a human thinking for seconds like the best simulator
+we have for that besides language models is actual humans thinking for seconds and that comes with a
+lot of extra baggage so the takeaways in this section are pre-trained models are mostly just
+kind of alternate universe document generators so weightings of the universe of all possible
+documents and then for instruction models they will solve they will answer your wishes
+but like remember that you should be careful what you wish for and then lastly all models can be
+agent simulators as part of something that they learn from language modeling but their quality
+is going to vary depending on the agent and depending on the um depending on the model so I
+think people people probably want they want the they want the juice they want the the techniques
+so the this section is really mostly going to be a bag of tricks so this is a spicy take from the
+lily and weng of open ai a lot of these prompt engineering papers that you find out there are
+like not actually worth eight pages and in fact a lot of them are like 40 pages once you include
+the appendices because these are tricks that can be explained in like one or a few sentences
+and the rest is all about benchmark marking so um like really in the end like these prompt
+engineering tricks are like go-to things to try uh but there's not that much depth here I think
+the core language modeling stuff has some mathematical depth to it um but then in terms
+of the like fiddly bits that get uh language models to work for you it's uh it's a lot of hacks
+so uh just as an overview I'm going to first cover some like weird things to watch out for
+in terms of like things people will either suggest or you might believe would be good
+ideas that are actually not um and then I'll talk about the emerging playbook so first the
+ugly bits one few-shot learning turns out to be not really a great like model um or like approach
+to prompting um and then second uh like tokenization is going to mess you up for sure um so like watch
+out for it and some tricks for tips and tricks for dealing with it so at the beginning when like
+when people first talked about language models and how you would like put in put stuff into them
+to get them to do useful things like it was not at all obvious that a generative language model
+would be like useful for stuff to people um like it was clear that it would learn a lot of intelligent
+like intelligent things and like maybe mimic intelligence but that it would like actually
+be useful was unclear and so the gbt3 paper is actually called language models are few shot
+learners and it draws an analogy to the way that during like during training we might like pass
+over a bunch of examples run gradient descent and get and like we go through those examples
+and pairs of like five plus eight is 13 or seven plus two is nine and during training we like put
+that information into the weights of the model with gradient descent but then uh with a large
+language model like gbt3 in this case you can put that information into the prompt into the context
+and the model will learn in context how to do this task so that's how it was presented in the
+paper that the model was basically like learning things like math and translation through english
+french in its prompt and that model hasn't really held up um which is that like you can really if
+you craft carefully the content of your prompt you can often get like very very good uh performance
+that like matching the effect of having many many examples in the context just by like carefully
+making sure that the model knows exactly what task it's supposed supposed to solve so the primary
+role here is not for the model to learn a new task on the fly but for the model to be like
+told what the task is so rather than doing an example like on the left this like french example
+english example french example english example and then ending with an uncompleted one um you can
+you can just bake it so that the model knows that what it's supposed to do is provide the right
+french answer um and like there's been a there's a number of like kind of negative results uh on
+this like models really struggle to move away from what they learned during their pre-training
+so like for example if you put a couple uh like uh you might want to do sentiment analysis for the
+language model say is this a positive statement a negative statement or a neutral statement um and
+if you take those labels and you just permute them so that now positive things are are negative
+are to be labeled as negative and negative things are to be labeled as positive the gpd3 the model
+called that that like launched the idea that language models are few shot learners will just
+basically ignore the labels that you provided and continue to say that a positive statement
+like the acquisition will have a positive impact should have the label positive rather than negative
+so you even so you flip the labels if you do that with a regular neural network and you train it
+like actually train it with gradients it will immediately pick up that that's that this is
+the way the label should be um and so there's been some follow-up that indicates that this
+permuted label task is something that the latest language models can do um so gbt3 like if this
+is showing increased amounts of flip labels for a bunch of different models different sizes of
+instruct gbt and gbt3 and if the model was was doing the task like perfectly at each point you
+would follow that orange line and instruct gbt and code of inchy two in particular like kind of
+follow that line um but they like they still don't perfectly do it and the result about being able to
+permute labels um and still get the same answer um uh you can see in in gbt3 in the figure on the
+right there um so like and this is like one bit we're just like shuffling the labels and it's
+just like learn that by positive i mean negative and by negative i mean positive and you need lots
+of examples in a really capable language model to do it so treating the prompt as a way to do this
+like few-shot learning is probably a bad idea then second a bit that people often get tripped up on
+is models don't really see characters they see tokens so hello world and it's like rotated version
+where i just add 13 to the index of each character like uh it's rotated version oribid jubic is
+something that i look at and like they look the same to me like they like they're just both a
+sequence of the same number of characters um for a language model because those uh letters in the
+rotated version are less common it gets tokenized like very differently into many more tokens so a
+lot of people like you're sitting at a language model interface and it's like it's all language so
+you start thinking about things you can do with characters like oh i could like split them and
+reverse them and um and all kinds of like string operations that you might use like python for
+but language models are actually not very good at that um and so this is like kind of surprising
+because it's good at like creative writing and summarizing but not at things like reversing
+words and so peter wellender showed some like nice tricks for solving this problem um and one of the
+key ones is like if you add spaces between letters either in the front or by asking the language model
+to do it um then this changes the tokenization and anything with a space before it uh and a space
+after it is going to get kind of tokenized separately so a lot of the um the tokens for the most of
+the language models like capable language models have a space at the beginning um and then a letter
+and then when another space follows that becomes part of another token that looks like space and
+then like letter or several letters um so like that's that's one trick to get around some of this
+like byte pair encoding stuff this like issues of tokenization uh this seems to be slightly resolved
+with gpt4 this is an example from the gp4 developer livestream um so summarize this
+article into sentence where every word begins with g so uh like because of tokenization
+like every word that begins with g there's lots of words that begin with g but their tokenization
+starts with like three letters not just one so it's not very obvious to a language model
+and so this was something that failed quite often um but gp4 can do a decent job at it
+it's uh it's the summary of its own uh of its own description and it says gp4 generates ground
+breaking grandiose gains freely galvanizing generalized ai goals and not quite uh so even
+with the most capable models these like this issue of of character level stuff is really hard
+so there's a simple trick here it's the same thing with the simulators if it's something you can do
+with um traditional programming like stream manipulation just do it that way instead of using
+the language model let's talk about this like emerging playbook for using uh language model
+so what are the like core tricks that are the ones you should like bring into play immediately
+when you're when you're starting to use a language model for something so language models are really
+really good and love formatted text formatted text is much much easier to predict um and so the
+language models like unlikely to start like going off on a tangent and doing something else um because
+it's like it's got like high probability uh tokens to predict so uh Riley Goodside was a big sort of
+like innovator on this front shared a lot of really cool examples on it so if you want to
+generate say a whole python program and you know the rough outlines of it but not everything in
+detail um just like put it in triple back ticks and then uh take each component and write like a
+little form like pseudocode formatted chunk for each so right like oh it should start with a
+hash bang it should have dundas i should have a function and then i should have like some like
+some basic features inside that function um so you're you're making like you can make use of
+structured text that's not as like rigorously structured as like json or yaml but just like
+more structured like like pseudocode and language models will like pick it up quite well so for
+this example like it generates this nice little snippet of code for calling the open ai api um
+and yeah so the one the other thing i would pull out here is the like triple back ticks trick this
+is another little prompt engineering trick models are trained on a lot of stuff from github
+and uh triple back ticks is an important component of markdown that indicates that something is going
+to be code um or it's also used around pseudocode so it sort of puts the model in the universe of
+documents around computer programs which is often where you want to be when you are uh like producing
+an application um so then uh this so this is like decomposition by putting it into the structure
+of text you could also add decomposition to your prompt so you could prompt model in such a way
+that you've like broken a task like um kind of concatenate the first letter of each word in this
+sentence using spaces so like break it down in the prompt into a bunch of smaller tasks
+those smaller tasks could then be like other uh you know other that they could trigger the
+prompting of another language model they could trigger an external tool that's all stuff that
+josh will talk about but just in general you could just break the task down into little pieces
+and make sure that the language model like you know knows to generate each each little piece
+by using that decomposition centered prompt um but it'd be better if you could like automate the
+construction of that decomposition so rather than writing this big structured document or like
+rather than writing some like examples of cases where problems are decomposed you can uh like
+do something like this self-ask trick which is when you like write your initial prompt of examples
+you can say you can you can frame it in terms of like generic decomposition operations like
+our follow-up questions needed here yes or no um and then the model will ask query time it will
+decide what what number of follow-up questions to ask and like how to ask them uh to get the final
+answer um so like sort of automating this process of decomposition is one of the key tools for
+getting language models to be better um so maybe the most famous one of the most famous ones of this
+reasoning with few shop is getting reasoning out of models like reasoning as a way of decomposing
+problems um and the most famous one is this uh chain of thought prompting so in the prompt for
+the model you include like both like this is for a question answering model so it's getting these
+like little math word problems and answering questions and answering uh the giving the final
+answer to that question and in the examples that you put in the models prompt you write out the
+reasoning that's highlighted in blue so rather than just directly answering Roger's five tennis
+policy buys two more each can has three how many does have now instead of just directly writing 11
+you write out a like little trace of reasoning of how you would get there you show your work
+and so by putting this in the prompt you're not teaching the model to reason here to be clear
+you're just showing it that the like it's in the type of document where like um where there are
+explanations before answers and that causes the model to expend extra computation sort of
+generating intermediate thoughts that then make it easier to get the final answer by just looking
+at the contents of those intermediate thoughts um and so this like works pretty well it was
+especially useful for these kinds of like uh like little mathematical tasks that involve a couple of
+steps but it was you know it wasn't really being done by this few shots training like it's not
+like the model was learning everything about reasoning from like three word problems from a
+third grader homework assignment it's in there already and so you just need to find a way to
+get it to come out and so the primary the so the the follow-up paper um uh to this language models
+are zero thought reasoners just adds let's think step by step to beginning the answer and then the
+model can choose like exactly how it wants to to break down uh its its answer process before it
+generates the answer um and so like clearly this capability is like already there in the model and
+we're just like eliciting it by careful tuning of our prompt and this let's think step by step
+thing works like very broadly very similar phrases also work um let's think step by step to be to be
+sure we get the correct answer it's a tiny little uh improvement um yeah um i think that was everything
+i had on that yeah um so then and then the last thing that you can do in addition to doing this
+like um like rolling out and having the the model think through its solution step by step you'd also
+just ask the model to like check its work um so this is like a two-stage prompting thing it's a
+little outside of what we've done so far but recursive criticism and improvement includes like
+generating an example maybe using something like zero shot uh let's think step by step and then once
+you get out an answer uh just like append to that review your previous answer and find problems with
+it and then you'll generally get better results so I think most of this is done with the sort of
+instruction tuned models that are really good at picking up on things you're asking for um like
+you're asking it to find problems with its answer um but yeah this is this is a very like using the
+models to like fix their outputs is also a powerful like prompting um pattern um then uh sort of
+orthogonally to all of this you can also like ensemble the results of multiple models this is a
+statistical uh Cisco model it's a probabilistic program it generates different outputs on different
+runs um and so why not just generate like 50 different outputs and the intuition here is that
+the right answer should be more probable than the wrong answer um and there are like maybe many
+ways of getting to many different wrong answers but only a few ways of getting to the one right
+answer so if that's the type of problem that you have ensembling is likely to work well
+so you take all of the models like you take the outputs like 50 different responses to
+the same question and then you do like majority voting um and so you can just as you increase the
+number of of generations the number of members of the ensemble you find that the quality increases
+so that's this blue line going up into the right um one tip coming off after this original
+self-consistency paper um is to like just inject randomness for greater heterogeneity just like
+refaze the prompt a little bit like even just like string operations to like lowercase uppercase
+that will like slightly change the model's behavior and in general it should keep the
+correct answer the same but change the wrong answers a lot um and you can compose all these
+tricks that we've talked about so far so you can do few shot examples that include let's think step
+by step and then you can ensemble them together and like you can you can put all this together
+and that will generally increase your performance and um like just as like one key example the
+combination of few shot chain of thought and let's think step by step matches average human
+performance on this on this pretty hard benchmark big bench hard um that has like a lot of difficult
+problems i think one that it failed on was like sarcasm detection still very challenging um but it
+like succeeded on a bunch of like reasoning tasks mathematical tasks um uh like question
+question answering tasks um so yeah that's a great paper for inspiration on on what can be done with
+this combination of tools but each of them has an impact on the costs of what you're doing so
+you want to recognize that they can impact both uh like latency and compute so few shot chain of
+thought will increase your latency because you're putting more information into uh the for the model
+to run over and that's um so it's going to take longer to generate and that's going to cost you
+more it's more tokens um it's a zero shot chain of thought adds fewer things to the context so it
+has less of an impact on latency and compute so that's why lots of people have adopted it uh like
+decomposing into sub problems is going to like generally increase the length of it it's often
+done by like with the demonstration example so it also has an impact on latency ensembling is very
+cool because that has no impact on latency in principle um like you can run all of your requests
+in parallel um but like for every parallel request you run with an api service like that just increases
+your compute costs it's a little more subtle for if you're running the compute yourself um but it is
+generally going to like like linearly scale compute um self-criticism is going to massively
+increase the latency because you're going to like ask the model like fix its answer maybe multiple
+times um but it doesn't necessarily like increase the compute cost as much as something like that
+on software okay so i've hit two o'clock and so i'm going to skip my example with theory of mind
+that just demonstrates how to like combine those together there's plenty um uh i can talk about it
+with folks afterwards if you have questions it's in the slides on the discord um so yeah core takeaway
+there there's a playbook for prompt engineering it is kind of just a bag of tricks um and there's not
+like a like some hardcore math to point to that explains why this is the the way to go um and
+watch out for the fiddliness of prompts especially at

@@ -1,0 +1,908 @@
+Hello, can everyone hear me?
+The mic on or anything?
+Good to go.
+Thank you, Boodle.
+And thank you for having me here.
+All right, I had a totally different talk planned
+and then Phil's talk was really cool.
+And then I was like, oh, I'll do something
+with Lambda Calculus and Mini-Canron.
+And then I was talking to people last night
+and basically Andrea and Mark and Stefan,
+a few other people convinced me to try something
+much more radical than I normally do with my live coding.
+So I want you all to be doing live coding,
+at least anyone who's interested.
+So if you can get out your lapis and go to this URL,
+and that holds doubly true for anyone watching on video,
+this is specially designed so that people in the audience
+and people on video can kind of follow along.
+And basically what I'm gonna do is I'm gonna check in
+the code as I'm talking and I'll let you know
+when I did a check in so you can do a poll
+so you can sync up with me.
+And there's a really cool web-based version of Mini-Canron
+that David Kahn created.
+And you can just paste that code into the web browser
+and you should be able to run Mini-Canron, okay?
+So we'll try that and it might crash and burn.
+We'll just see how it goes.
+But the great thing is if someone's watching a video
+afterwards they should be all follow along and stop.
+And if anyone here is confused about something,
+you can't get an example to run or whatever,
+you can ask a question, okay?
+Or you can take it offline, whatever.
+But it's one thing to show this stuff,
+but at some point people will have all these questions
+and if you can't really play with it,
+you don't really get the sense I think of what it's about.
+So I want everyone to be able to try it.
+Okay, so the web browser version of Mini-Canron
+is at this link right here, the veneer stuff, okay?
+All right.
+So here's my repo and I've got a file called talk.scm
+and that's where I'm gonna have my code in it.
+And the way I'm gonna do this is I'm gonna basically type
+into the code into Emacs and then I'll paste it into veneer
+and that's basically what y'all can do in terms of
+opening up the file and get pasting into veneer,
+running it and you can edit it in your own text editor,
+you can edit it in veneer and I encourage you to try
+some different combinations or different queries
+and see if you can break it, see if you can run
+in infinite loops, which you probably can, and so forth.
+And if you have a cool example, you can share it.
+This is by the way like version 0.01 of the technology
+I would really like for giving interactive talks
+where either Super Emacs mode or a web browser
+or something like that where people in the audience
+really could do this more seamlessly,
+but that's tech I'm working on with other people
+like Michael Valentine.
+All right, so let's talk about mini-canon
+and I'm gonna bring up the veneer editor,
+let me refresh, if veneer ever gets in a bad state,
+you can just click refresh.
+Let's see, is there, I can kind of make the font bigger.
+The way you use veneer is if you've got code
+on the left-hand side, you click the run button
+and it'll evaluate this code and there's like
+a little redeval print loop thing
+you can just type for small expressions
+if you wanna try those, okay?
+And this is a relational scheme interpreter
+which we'll play around with something like that
+in a minute.
+The main button you're gonna care about
+is this create file button.
+So if you create file, it's gonna blank whatever's
+on the left and you can just type in code here,
+mini-canon code and then click run
+and it'll be evaluated on the right-hand side.
+So let's just try something simple.
+So I said I'll go to Emacs, but let me try doing it
+in veneer, first of all, is the font big enough?
+Can people see that?
+I can try to bump it up a little bit.
+If the run button will cooperate, maybe I can,
+there we go, look.
+That run button's oversized.
+Okay, so the first thing I'm gonna show you,
+so mini-canon, core mini-canon only has three operators.
+It's a very small language, just like lambda calculus
+is very small, right?
+Lambda calculus has three parts
+and so does mini-canon for the core parts of language
+and you can extend it just like you can extend
+mini-canon to get something like scheme, right?
+So the most fundamental operator in mini-canon,
+and mini-canon's a type of logic programming language
+like Prolog, it's got some real differences as well,
+the fundamental operator is something called unification.
+In unification, you can think of as sort of like
+a two-way super pattern matcher.
+So if you're familiar with pattern matching,
+then in a pattern match, you have some value
+you're pattern matching against
+and then you've got some sort of pattern, right?
+And in the pattern, you can have variables,
+we call those match variables or pattern variables, okay?
+And those pattern variables get values filled in
+from the value you're matching is.
+Similar with unification, except you can have essentially
+pattern variables on each side, okay?
+So you can have variables on both sides
+and the variables don't actually ever have to be filled in
+and that's fine also.
+Variables don't ever have to get values in this paradigm.
+So here we're gonna do something simple
+and you can also think of unification,
+we call it equal, equal here really.
+It's like a type of a quality operator also.
+So here we're asking whether or not five is equal to five
+or another way to look at it is we're asserting
+that five must be equal to five
+and if it's not equal to five,
+then we've reached inconsistent conclusion basically.
+So is five equal to five?
+One would hope, okay, yeah.
+The logic isn't that weird, so let's run it
+and you can see copy the expression
+and the answer is yes, well that's good.
+That makes me happy, all right?
+Okay, so I promised I would do the interactive thing.
+So here's our first program, equal, equal five, five
+and I will check that in, okay.
+So are you supposed to like, how do you do this thing?
+You do like a get add or something?
+Get upload, add dot, oh, whoa, okay.
+And I'm not really good at get, so,
+and then get commit, is that how you do it?
+Oh yeah, they do it, okay.
+So get commit and I have to give a message
+and I'll say one is the message
+because that's the first one, okay.
+All right, so you're following along,
+that's the first, so you can do a poll
+and you can paste that complicated program into veneer.
+Let's all do it, make sure we get the tech working
+and then click run and you should be able to see yes, okay.
+That's the first program, great.
+Okay, yes.
+For future reference, instead of doing the get add,
+you can just put in dash A on the get commit.
+Get commit dash A, oh yeah, okay.
+All right, I like this, I'm learning.
+Okay, so we can do another program, let's do a variant.
+This is program number two.
+What about six and five?
+No, no, that's right.
+Computer says no, all right, so.
+What's about the proof of this?
+The proof of it?
+Okay, what is it, well hold on, let me check in,
+my code, I promised, okay.
+I guess I could look, get keeps track of revisions.
+So I'm not even gonna add another expression.
+I'm just gonna do that and then it works, all right.
+So I could do get, was it, get commit dash A,
+whoo, dash A and then two, right?
+Do a pull.
+Okay, so what's your question, Boodle?
+You wanna know about the proof?
+Why is five equal to five?
+Why is five equal to five?
+Well, let me change it up a little bit
+and maybe I'll answer your question.
+I'm gonna put in something else.
+Instead of a number, so having two numbers,
+I'm gonna put in x, and x is a logic variable.
+So you can think of it sort of like this pattern variable,
+right?
+Okay, so is x equal to five?
+Yes, we don't know yet, okay, we don't know.
+It could be, if x doesn't have a value yet,
+then now it does have a value, right?
+The answer is yes and x is five.
+But if x is already six, then the answer is no.
+All right, so we don't really know,
+but I'll say that x is starting out fresh.
+We say fresh, it doesn't have a value yet.
+So let's run that, yes, and beyond yes,
+we see that x has a value associated with it, five, okay?
+All right, cool.
+Yeah, what?
+What in that word?
+Oh, I didn't say it.
+Oh, you're right.
+I got this hard, okay.
+All right, so that's one thing we can do, all right?
+And so if you look at it this way,
+then basically what we're really saying is an assertion.
+We're saying that the thing on the left
+is syntactically equal to the thing on the right.
+As long as you kind of find some set of values
+to assign to these variables inside the terms
+that will make them syntactically equal, right?
+So the question is, is there any possible assignment for x
+that will make the left and right hand side equal?
+And the answer is yes, as long as x is five,
+then they'll be equal, okay?
+So that's the sort of reasoning you do with unification.
+And we can even put variables on both sides, x and y.
+So what should the answer be here?
+Yes, and furthermore, what else do we know?
+We know that y is five.
+Well, let's say we got rid of the original program, right?
+This is the whole program now, so there are no fives anymore.
+X and y are the same, presumably.
+And so we can see here that x and y
+are both associated with some value.
+And this itself is a representation of a logic variable
+that doesn't have a value.
+And you can see that they have the same number.
+If they were different, you'd see a one here
+in one of them and a zero in the other.
+So it's telling us it really is the same,
+the same logic variable, okay?
+I'm gonna get the hang of this soon.
+So that's-
+So the definition of the point to that,
+that's not too much you can make?
+It's basically a syntactic definition, yeah.
+So you could define it recursively, like over a tree.
+Okay, so that's the big operator.
+And of course, we can have more complicated data structures.
+So we could do, you know, I think Vanir has this.
+Let's see if Vanir has a list.
+Yeah, so Vanir has a list in it.
+So we're creating a list containing axon, list containing y.
+And because they have the same structure,
+that's fine also, okay?
+But if we had, say, list x and y,
+well, what would happen in this case?
+Is that gonna succeed?
+Is it gonna fail?
+It's gonna be yes.
+And notice we have the same logic variable here for the x,
+but now y wraps a list around it, okay?
+Yes?
+Why do you use something where it was supposed to
+create a substitution that says x equals y, y equals z?
+So that's a good question.
+Internally, there is a substitution.
+Question is about why aren't we using a substitution?
+Internally, there is a substitution,
+and this is actually the representation of the substitution, okay?
+We're seeing as the output representation of substitution.
+All right, here's one more.
+List x and x, what's the value there?
+Yes, no?
+What should I get printed out as?
+Infinite tree.
+No, we're not allowed to have a term unified with a term,
+with a structure containing that term, okay?
+And this gets to what Phil was talking about,
+where you can have these infinite structures
+and you run into trouble with that.
+So we're doing what's called the occur check.
+We're checking to see if x occurs in the structure,
+and if so, we're going to say, no, no answer, we fail, okay?
+And that's important, this is how we get soundness.
+If we don't have that, we can prove all sorts of things
+that aren't true and get in trouble.
+Okay, so that's unification, that's the main operator.
+What else do we have?
+Well, we have the ability, yes, all right.
+Question around?
+I couldn't get it to fail on more than one term.
+You couldn't get to fail on more than one term, so.
+If unification could x and y in a language again.
+Ah, I see, okay, good question, good point.
+So I think what Rob's saying is if you do something like this
+and then you have another equal equal,
+and we're saying six and x, right?
+Then you'd think that's inconsistent information,
+but we're still getting a yes that x is six.
+So let me go ahead and show you
+how we can sequence things.
+So what Vanir is doing is it's assuming
+these are two separate programs,
+it's ignoring the first, essentially,
+and just giving us the answer from the second.
+That's a good point.
+So let me show you the second operator of mini-canron,
+which is called fresh.
+And what fresh allows you to do is a conjunction, okay?
+So now we have a conjunction of goals like that,
+and I can run that, and now my answer is no, okay?
+So fresh acts as a conjunction.
+Fresh has one other purpose.
+Fresh also lets me introduce new logic variables.
+Now the way Vanir works,
+which is a little different from standard mini-canron,
+Vanir acts more like prologue,
+and these variables that aren't defined lexically,
+those become new logic variables.
+So you need to use fresh less than Vanir
+than you do in standard mini-canron.
+But if we add a y there,
+that will allow us to create a locally defined
+logic variable that has no value called y, okay?
+So that's the fresh form.
+All right, that's a pretty complicated program,
+so I better add that.
+And yeah, okay.
+All right, good.
+So you've seen two-thirds of the language now,
+fresh and equal, and then I'll show you the last part.
+The last part's Kandee,
+and this is something that allows us
+to get more than one answer back.
+Okay, because it'd be kind of boring
+if our programs could only return one answer.
+One of the points of logic programming
+is that we can return potentially infinitely many answers.
+So the way we're gonna do that,
+and mini-canron syntactically looks a lot like scheme,
+because it's the original implementation of the scheme.
+So Kandee is based on Lisp's Kand operator,
+which is a conditional operator.
+Sort of like a big, giant type of if,
+or pattern, sort of like a pattern matching syntax,
+but it doesn't have a pattern match
+or build into it explicitly.
+So we're gonna have a Kandee here.
+I'm sorry, Kandee, E stands for every answer.
+And the syntax for Kandee is that for each clause,
+each Kandee clause has set of parentheses,
+and then it takes one or more of these sub-expressions,
+there's other mini-canron expressions,
+which are called goals.
+So equal five X is a goal, I'll pop that in there,
+and equal six X is a goal, I'll pop that in the second case.
+And, all right.
+So what's gonna happen here?
+Well, the idea is that we're trying
+each of these two clauses independently.
+We're gonna try one of the two clauses,
+and it's unspecified mini-canron,
+which one we tried first.
+Let's say we try the second one first.
+So we would try unifying X with six.
+X would get, we get yes, X would be associated with six.
+And then we could ask for another answer.
+And we asked for another answer.
+It's as if we had never tried this one.
+We'd try the other one.
+And now we forget this association between X and six.
+X is refreshed magically, and we're gonna try it again,
+and now X will be five.
+So it gives us a chance to try
+different branches of a program.
+So it's similar to like an if,
+except an if where you can independently try
+all the possibilities, all the tests and the consequence,
+and so forth independently.
+Condi is like a disjunction,
+and fresh is like a conjunct.
+So Condi is disjunction, fresh is conjunction.
+That's right.
+And there's a simplified version of mini-canron
+called micro-canron, where conjunction and disjunction,
+binary versions of those, are the primitive operators.
+So those are much closer to logic.
+This is closer to maybe a nicer syntax
+to program with for real programs.
+But if you wanna see the more primitive stuff
+that's closer to logic, look at micro-canron.
+And that has the very short implementation.
+The implementation of micro-canron,
+something like 46 lines of scheme code
+for all the logic programming system.
+So we can try running this, and we get the first answer.
+So we try the first one, first clause
+in this version of mini-canron.
+And we can click on more answers,
+and hey, now we've tried the other clause,
+where x is six, so we're not inconsistent
+because we're trying these clauses
+totally independently of each other.
+And we get asked for more answers,
+and finally we say no, no more answers, that's it.
+And if you've ever used prologue,
+this part is very similar.
+All right, and that's the entire language,
+the entire core language.
+There are basically three other operators
+that we might run into, but that's the basis of it, okay?
+Any questions?
+Who's playing along, by the way?
+I'm just curious, how many people?
+Oh, whoa, that's pretty good.
+All right, so now let's try something more complicated.
+All right, let me keep myself honest,
+and check myself in.
+All right, and our programs
+are gonna become more complicated here,
+so the check-in thing will be a little, whoops.
+Oh, I checked that in as five.
+Oh, here, I'll hack it.
+I'll put it in a space and check it in as six.
+Yeah, I need to work on my get skills, that's fine.
+Oh, I need to push, yeah, thank you.
+Yeah, my dream tool would have me not have to do this step.
+All right, okay, so let's try something
+a little more interesting.
+So Phil was talking about Lambda Calculus yesterday,
+and he showed that there are three
+basically parts of Lambda Calculus, so you have variables,
+you have Lambda terms themselves,
+which are called abstraction in Lambda Calculus,
+and then you have application,
+applying something to something else.
+So we have these three things,
+and if I write down comments,
+hopefully Vanir will check on this,
+so we have something like X is a variable,
+and then we have something like,
+I'm gonna write it in sort of like the schemely way,
+like Lambda X, Y, right, so that's an abstraction,
+called ABS, and then you have something like an application,
+so we're applying F to G or something like that, okay,
+so that's an application.
+So those are the three syntactic forms
+that we have in the Lambda Calculus.
+So let's try just writing something in mini-canon
+that will actually recognize
+a valid Lambda Calculus term syntactically,
+so let's just try doing that.
+So how should we do that?
+Well, we're gonna define a function,
+so this part is pretty much like scheme,
+let's try defining a function,
+and so let's call this, I don't know,
+Lambda Calculus Syntax Syn, LC Syn, okay,
+and because we're in a schemely language,
+we're going to ourselves define this function using Lambda,
+and we're gonna give it some argument,
+so I'll say we're taking, well, under a term,
+Lambda Calculus term, okay,
+and now what we wanna do is basically match
+against the three possible terms,
+so which form do you think I should write here next,
+or which mini-canon operator?
+So I got, Kandee, Kandee,
+because I have choices to make, right?
+So I've got Kandee, and how many clauses
+am I gonna have for this Kandee?
+Three, okay, that's right,
+so I go ahead and write down my clauses to begin with,
+all right, and now what I'm gonna do
+is for each of my syntactic forms,
+I'm going to write down a clause for that, okay?
+So let's start with, I don't know,
+the application term, all right,
+let's do the Lambda term, actually.
+Okay, so what am I gonna write,
+what sort of mini-canon expression am I gonna write
+in that clause to match against the Lambda?
+I'm gonna write Kandee, I'm gonna write Fresh,
+I'm gonna write Equal Equal.
+What would I use for pattern matching, basically?
+Equal Equal, right, that's sort of like
+the two-way super pattern matcher,
+so let me write an Equal Equal expression,
+a unification expression, and what am I gonna unify?
+I need two terms, two values, so I'll unify what?
+Term, okay, the term that came in, that's right,
+and I'm gonna unify that with,
+well, something that looks like my Lambda expression,
+right, I have to write something down
+that syntactically looks like it.
+Okay, so what I'm gonna do is I'm gonna just copy this thing.
+All right, and,
+ninja it a little bit, oh, look at that, huh, yeah, okay.
+All right, so that's kind of what my expression looks like.
+Now, there are a couple things here,
+so I've got X as a variable,
+and this thing in the middle is really the body expression,
+or E, or T, some other term, okay,
+so we got a variable, and we got some term here,
+and to make this schemely, we need to make this
+not a Lambda expression in many cannon or scheme
+in host language, we need to make this a data structure
+that we can literally pattern match against,
+so we're gonna create a list,
+and the one way to do this in scheme
+was with this back tick operator called quasi quote,
+and it's sort of like a string interpolation style thing
+if you're familiar with that,
+basically if we put a comma in front of sub expressions,
+that means that these things here
+are gonna be literally filled in,
+they're like holes to be filled in
+with whether the values of X and T are at that time,
+and we need to have some X's and T's here,
+so what I'm gonna do is I'm gonna create a fresh
+so I can have two new variables for X and T,
+okay, so I'm creating two new logic variables,
+and I'm gonna grab that,
+and I might have to drag this even more,
+all right, there we go, perfect, okay,
+so when we're writing these sorts of programs,
+it's good to try to test them sort of incrementally,
+so what I'm gonna do is I'm gonna temporarily
+comment out the first and the third clause
+with the comments and scheme,
+and I'm gonna just try running this thing
+to see if it works,
+because I'm not sure if it will,
+because I don't use veneer normally,
+so let's see if it works, hash T, ah, cool, okay,
+because we didn't actually call it,
+so we can actually make a call to LC sin now,
+so let's try calling LC sin,
+and let's give it a term,
+so let's give it the term lambda z, z,
+and see if that succeeds,
+and it says yes, it does succeed,
+so this means that this is syntactically valid, great,
+okay, so let me comment that in,
+check that in, so here's our first version of it,
+and version seven, okay,
+all right, and notice I can just test it one line at a time,
+so let's do the application line now,
+so here we're gonna have an application,
+once again, I'm gonna wanna have a fresh
+to introduce some logic variables,
+I'll say e1 and e2,
+and the syntax of an application
+is that we have term e1 applied to a term e2,
+and so that's what that looks like,
+now go ahead and check that out,
+all right, so two thirds of the way done,
+and I could test that also,
+but I've got some confidence in it,
+so let's now do the last one,
+which is the variable x,
+or some variable,
+and we're gonna represent a variable
+as a symbol and scheme, a scheme symbol,
+and so we've added to sort of the core logical foundations
+of many canron, a few constraints
+that make it easier for writing things like interpreters,
+and type inferences, and type checkers,
+and grammar-based programs,
+and one of the constraints we have is called symbolo,
+so symbolo, so if the term is a symbol,
+then we say hey, that's a variable,
+that's syntactically legal,
+so symbolo is the last way we can represent,
+and we're not actually saying,
+we don't care if it's x or y or whatever, right,
+but we care if it's a symbol,
+so let's see if that runs, yes, okay, cool,
+and we can try if we want some other tests,
+so we could say, well,
+actually maybe it's lambda,
+z, and z applied to z, or something like that, okay,
+so we got an application,
+we have variable reference, and we have a lambda,
+so let's see if that's syntactically valid,
+yes, that's syntactically valid, okay, all right,
+so we've implemented our grammar,
+and we've got all that stuff working,
+and let me check that in,
+and this is check-in number nine, all right, cool,
+now, okay, that's kind of cool that we can write that,
+but what would be more cool is if we can use
+those logic variables we've been using other places,
+if we could actually use that
+inside of our call to LC-SIN,
+so right now we're having to give a fully ground
+or fully specified lambda calculus term,
+and we're checking, we're verifying, validating that term,
+make sure it's syntactically legal,
+but it'd be really cool if we could instead
+put in a logic variable and say,
+generate a valid lambda term, so let's try that,
+so I'm gonna get rid of that term,
+and I'm going to put in my term,
+or I don't know, that was called Q for a query variable, okay,
+so now I've got this query variable in place of the call,
+and let's try doing a run now,
+and so the first answer is yes,
+so we're getting back this underscore zero thing
+bound to Q, if you remember, that's a representation
+of a fresh logic variable, and we have the side condition,
+the side condition is saying
+that that underscore zero thing has to be a symbol,
+so it has to be, if you were ever to instantiate it
+to a ground value, it would have to be a legal scheme symbol,
+and scheme symbols are how we're representing variables,
+so what it's saying is that any symbol, that's fine,
+that's just a lambda calculus variable,
+so that's actually representing
+infinitely many concrete values,
+infinitely many ground symbols,
+and now let's see if we can get another answer,
+okay, here we're saying, ah, if we have a lambda term,
+and it has the right structure,
+it has parentheses and something, that's fine,
+and if it has something else in the back
+and could be different, that's fine,
+that's not very constrained, but okay,
+that's fine as far as it goes,
+what about this underscore zero thing,
+what should that be syntactically for this to be legal?
+Should be a symbol, okay,
+so maybe we're a little sloppy, let's go back,
+and so we can add a side condition maybe, okay,
+so what else can I write here
+to kind of lock it down a little more?
+So I can do symbolo x, okay, and symbolo t,
+so do we know if t is actually a symbol?
+That's a good question, what is t?
+It's an arbitrary lambda calculus expression,
+so what do we need to write here?
+LC sin?
+LC sin, yeah, we need recursion, LC sin on t,
+so that was part of the problem,
+we weren't recurring properly,
+anything else you see that's wrong
+in those, along the similar vein?
+Anywhere else where we were sloppy?
+Application, right, we have about these E1 and E2 things,
+we're not putting any structure on those,
+those actually have to be
+lambda calculus terms themselves,
+so we need to recur, okay,
+LC sin on E1, okay, LC sin on E2, all right,
+so hopefully that will work,
+we'll see, sin, okay, sin, good, thank you,
+ah, okay, cool, so let me paste that in,
+all right, so this is check-in number 10,
+all right, so if I run that, let's see,
+so we have the symbol answer like we had before,
+ah, okay, so this looks better,
+so now when I get a second answer that I'm generating,
+it's like, okay, well, it still has
+that same structure we saw before,
+but now we have some side conditions,
+we're saying underscore zero has to be a symbol,
+and here we're saying the body is a symbol, in that case,
+so this, and they could potentially be separate symbols,
+but they could be the same symbol,
+that's what having the underscore zero and underscore one
+means, so this could be lambda zed zed,
+or it could be lambda zed w, or something like that,
+those would both be legal,
+and I can ask for more, so here's an application
+where you have a symbol applied to a symbol, okay,
+and I can keep generating more of these,
+so here's a lambda whose body is another lambda, right,
+so now I can generate these,
+and I can enumerate every possible
+lambda calculus term syntactically, right, okay,
+so that's basically the cool idea
+about pure logic programming,
+and many canons really language for pure logic programming,
+where the idea is you can just write down
+mathematical specifications, something like that,
+and have something close to the math,
+and then once you have that,
+you can just use the same code,
+not just to check that something's correct,
+but also to generate answers, all right,
+so let's,
+let's do this, okay, so what I'm gonna do
+is I'm gonna refresh veneer,
+just refresh the browser,
+make sure it's not in a goofy state,
+and you can see up top there are some different programs,
+so let's see if I try type inference, okay,
+so if I go to type inference,
+let me,
+you can see that we've got this,
+this mini-canron definition called bang slash zero,
+or dash zero or something, okay,
+what it's supposed to look like
+is a turn style operator in logic,
+it's supposed to look like one of those special symbols
+that you saw in Phil's presentation,
+so this is gonna be a type inferencer,
+and if you've ever used a language like ML, for example,
+you know what type inference is,
+you can write down the expression,
+and the type inferencer will try to figure out
+what the type of that expression is,
+so here we have three moving parts,
+we have the expression that we're gonna type infer,
+we have gamma, which is like a type environment,
+it allows us to accumulate information
+about the subparts of the expressions,
+what those types are,
+and then type is the type of that expression, all right,
+and you can see actually already
+what some of the similarities are,
+so symbolo expert, this is the symbol case,
+this is our variable case, right,
+and in this case, it's not just saying,
+well that's it, you have a symbol,
+now we're gonna look up in the type environment
+what that symbol is, what the type of that symbol is,
+because hopefully this is not a free variable,
+this is a bound variable,
+and we might know that that variable, for example,
+is bound to an int, has type int, okay,
+and there's some other cases,
+like for example, is the expression coming in a number,
+so numbero is another constraint,
+and if so, we're gonna say the type
+of that subexpression is int, okay, that's our int type,
+so five would have type int,
+if it's a Boolean, like hashf in the scheme,
+it's gonna have type bool, and so forth,
+and then we're also gonna have some more sophisticated rules
+for lambda, okay, and if you look at,
+if you look at the lambda rule closely,
+and if you look at the math that Phil put up,
+or is in his paper, you'll notice
+that these rules essentially are the same, okay,
+so this is what he was talking about,
+the Curry-Howard isomorphism,
+and that basically we have a little theorem prover here
+in the form of a type inferencer,
+and similarly, we have application rule,
+and we also have a special version of let,
+we have things like addition, and so forth, okay,
+so let's just try doing something
+that says type inferencer, so here's an expression
+that it comes with, but let's try something simpler,
+so let's try calling our type inferencer,
+and we have to give it an initial type environment,
+and we're gonna say that that initial type environment
+is empty, and now we have to give it some expression,
+I don't know what that expression's gonna be,
+and then there's gonna have some type,
+and we'll just write q for the query variable for the type,
+so what's an expression that we might want to type check?
+Well, let's do something simple, like five,
+I'm putting a quote here by the way
+to make sure that whatever expression is here
+isn't evaluated at the host level, at the scheme level,
+but it's actually evaluated, you know,
+looked at, that term is looked at in the type inferencer
+itself, so what should the type be here,
+what should the type of q be?
+Should be an int, yeah, so that worked, it's an int, okay,
+and I can do something like plus, right,
+so plus three, four, what should the type of that be?
+That should be int, okay, sure enough, we got an int,
+what about plus hash f, four, what should the type of that be?
+Computer says no, all right,
+and we can also look at things like a lambda expression,
+what about lambda xx, what should the type of that be?
+Well, should be equivalent to some sort of function type,
+right, so yeah, so we're gonna have something like aero a,
+and you can see that we have a fresh logic variable,
+arrow, fresh logic variable, so the thing on the left
+is the input type for the function,
+the thing on the right is the output type,
+the underscore zero means that this is a fresh variable,
+means it could be anything, but the input and the output
+have to be the same because it's the identity function,
+okay, so this is a very general answer, all right,
+and we could try doing an application,
+we could try doing something like applying
+that lambda term to the value of plus three, four,
+and now what type should we get back?
+Should get back an int, okay, cool, all right,
+so that all works, so this is a working type inferencer,
+and for the most part we just kind of wrote down the rules,
+the math, you could take the rules Phil showed
+and essentially type those in,
+now where it gets more interesting is,
+and this is where the Curry-Howard part really becomes
+way more interesting to me, is that we can say,
+because we're in the logic programming domain,
+we can say that the type is gonna be int,
+and that we don't know what the input program is, right,
+so now we're going from type inference
+to type habitation or inhabitation,
+we're trying to find a term that inhabits this type,
+so what would be a simple term that would have the type int?
+Zero, okay, sure, well, zero is a little specific
+of an answer, we get back a more general answer
+that includes zero, we're getting back
+some fresh logic variable with a psi condition
+that has to be a number, okay, so that's zero,
+but it's also 42.
+Is there any distinction between numbers and integers
+and not support voting points?
+Okay, so good question,
+are we supporting integers, voting points, so forth,
+right now in this one we're only supporting
+positive integers, actually we could probably
+do negative integers, I don't know, this one,
+yeah, I think this one works with negative integers too,
+but, well we could try that, see what the type
+of negative five is, but I think this is only
+handling integers, but we could add other constraints
+that would handle other numeric types,
+oh, okay, it doesn't like negative five I guess,
+so I guess number O in the implementation
+only handles positive, or non-negative integers,
+but you could add more things, and in fact,
+when I worked on, with Eric Holk and Claire Alvis
+on this language called Harlan, the original version
+of Harlan, it was sort of like a schemely language,
+but for GPU programming, but it had like
+an ML-style type system, and the original type,
+type inferencer for that was written in mini-canon,
+or C-canon, and we had to extend these operators
+to handle different types of numbers,
+so you can do that, you just have to add other constraints.
+Okay, so what else can we do here?
+Let's, or what other sorts of things should we get back
+other than just a literal number?
+Well, let's see what mini-canon says,
+so here we have a let, so we're saying let some variable,
+which is a symbol, which has some number value,
+doesn't matter what it is, because we're ignoring it,
+and the body of the let is some other number, okay,
+well that's true, that has type in,
+and it's well-typed, it's the type checks, right,
+and here's another one, so here we're saying
+let some variable, so the symbol be hash F,
+we're ignoring that, we're returning the body
+which is underscore one, and that has to be a number,
+and so we could play these games, and at some point,
+okay, so now we get an addition of two numbers,
+and here, now we start getting into applications,
+so we're getting a lambda term, lambda expression,
+and it's being applied to something,
+so let's make sure the types work,
+so we're passing in a number, that's our constraint,
+and here we have some symbol, and we're ignoring what's
+passed in, and we're returning some other
+potentially different number, okay,
+so you can play these games all day,
+and yes, you get, you can keep clicking more answers
+for as long as you want, all right,
+I'm gonna refresh one more time,
+and I'm gonna show you something that's a little more,
+a little more fancy, but by the way,
+that type inference stuff, or the type inhabitation,
+that is the thing that many of the modern
+proof assistants work on, okay,
+I'm gonna be dyke-stridden in two minutes,
+but I'm going to go ahead and show you very quickly
+what you can do with a relational interpreter,
+so here we have an interpreter
+for a significant subset of scheme,
+you know, it's basically our extended lambda calculus,
+if you wanna look at it that way,
+and so we have this, a val-expo thing,
+and so we can evaluate an expression,
+and I think we have something called, yeah, val-expo,
+and let me just show you one query to val-expo,
+and hopefully this will work,
+so we're going to call val-expo,
+and a val-expo takes sort of like the type inference,
+or it's gonna take an expression and an environment,
+and then an output, so we're gonna say,
+we've got some expression we don't know,
+we're gonna start in the empty environment,
+and we wanna see if we can create some expression,
+find some expression that in the empty environment
+evaluates to itself, well, let's see if we can do that.
+Whoa, what is that thing?
+Well, that's kind of weird.
+Okay, so we got this weird-looking thing,
+and let me just go to Emacs and start up scheme,
+and we'll try to type that in,
+format it in a way that's a little easier to understand,
+and try running that, oh, wow, I got back the same thing,
+so that's called a quine,
+that's a program that evaluates to itself,
+and by the way, if you look at,
+here's my last comment that I'll make that's historical,
+if you look at the micro-manual for Lisp by John McCarthy,
+he says, it's a difficult mathematical type challenge
+exercise right here, find the list E,
+such that the value of E is equal to E,
+and that's what we just did,
+by typing in the rules for scheme,
+and letting mini-canron do its trick,
+so I hope you'll have fun playing with it,
+and if you have any questions, I'm happy to answer them.
+Thank you.
+Thank you.
+Thank you so much.
+For good.
+Thank you.
+He did it.
+Now, for your question,

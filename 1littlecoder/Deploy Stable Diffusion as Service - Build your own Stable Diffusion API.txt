@@ -1,0 +1,149 @@
+If you want to use table diffusion inside your own application, the most preferred way would be to use it as an API.
+For example, you would host or you would use a stable diffusion API service and then you would call that API from your application and then it would give you a response.
+But if you do not want to use any third party hosting service and you want to use your own server like you want to host the API by yourself,
+this video tutorial is going to tell you the easiest way, probably the easiest way to create a stable diffusion API.
+And I'm going to call this video stable diffusion as a service API. That's what I'm calling it. You can call it whatever you want.
+But if you want to provide stable diffusion as a service for yourself or for somebody else, this video is going to teach you one of the easiest way to do that.
+For that, we are going to use a library called diffusers. We have already covered diffusers on this channel.
+It's a library from Abhishek Thakur where you have got a very simple UI to do certain things like text to image, image to image in painting and a lot more things.
+So now we are going to focus on diffusers just from the API aspect.
+So the first thing that you need to do is you open a Google collab notebook if you want to write it on Google collab or if you have got a GPU, then you can do it on your GPU.
+If you're on Google collab, just make sure that you click on time, select change runtime that will help you select hardware accelerator, which is GPU.
+You need GPU for this. The next step is for you to install diffusers library. Just remember that this is not a USE, it's UZE.
+So diffusers is the right pronunciation. I'm not a native English speaker. So if I make a mistake, please forgive me.
+So pip install diffusers, I'm installing it in the quiet mode and it installs all the required dependencies.
+Once the installation is successful for you to check if the installation is successful, you can use diffusers the command line.
+So the reason why we are using this this bang exclamation symbol is that we are running this as a command line command CLI command line interface.
+So that's why we are calling it like that. So bang diffusers space API space dash dash help. This is going to run.
+If it runs, then you know that you have successfully installed diffusers and it also is going to give you the help.
+Like for example, what are the arguments that you can pass? You can say where do you want to store the output?
+You can say which port you want to run this? You can say where do you want to host this? What is the device that you are using?
+Like for example, is it CUDA? Is it MPS? Is it just the CPU number of workers that you want to run?
+So that gives you the help about how do you run the diffusers API.
+Now before you can invoke the API, you need to set two important environment variables.
+The first environment variable is x to IMG underscore model.
+Depending upon the interface you are using, if you are on Google collab, you can use percentage ENV to set an environment variable.
+But if you are on a different machine, like for example, Mac, then you can use something like this.
+You can say export and you can set the environment variable.
+So depending upon the computer you are on, just make sure that you need to set environmental environment variables.
+So we have to set two environment variables.
+One is x to IMG underscore model.
+The second environment variable that you have to set is device.
+So the first one is going to collect the model.
+So this is where you specify what is that model that you want to download from Hugging Face Model Hub.
+And once you specify this model when the API is invoked, this model gets downloaded from Hugging Face Model Hub.
+This means you can also load custom models, fine-tuned models like let's say analog diffusion,
+proto-gen if it is available on Hugging Face Model Hub.
+So you can use any Hugging Face Model, diffusers compatible model from Hugging Face Model Hub if you specify this here.
+This is the first environment variable.
+The second environment variable is you have to specify the device, whether it is CUDA, whether it is MPS,
+which is for Apple M1 Silicon chip or whether it is CPU, like depending upon the computer that you have got.
+So once you have set these two environment variables, then you are good to proceed.
+If you are going to do text to image or if you are going to do image to image.
+If you are going to do in painting, you have to set another environment variable that you can find in the diffusers GitHub repository.
+Now after you have successfully set this up, the next thing is you can just right away start running diffusers API.
+You have to say diffusers API and give the port in which you want to run.
+If you are like me, you don't have your own GPU, you're running this on Google Collab, then you need to find a way to tunnel this.
+You can use Ngrok if you want, but if you do not want to use Ngrok, that service that I prefer is local tunnel.
+It's completely free.
+It's part of an NPM package that comes installed with Google Collab notebooks.
+So all you have to do is you have to run diffusers API port dash dash port 10,000 and then tunnel that into Internet.
+So we're using this and operator and then say NPX local tunnel port port 10,000.
+So which means first time when you run this thing, it's going to run this diffusers API locally on the Google Collab machine that you have got.
+And next from that particular port 10,000, you're going to tunnel this into a link that is accessible on the Internet.
+And this is the URL where this is accessible for you.
+And as you can see, it has successfully captured the text to image model.
+Just make sure that it has done it.
+Otherwise you might face an error when you invoke the API and make your first API call.
+It wouldn't show you an error when you have the API invoked, but it would show you an error when you have the API call being made.
+And as you can see from this interface, like at least like when you see the swagger UI, this is primarily supported by fast API.
+So kudos to fast API as well as well like the diffusers.
+Once you run this, it's going to start the server process and you're going to get this URL.
+And along with this URL, it's going to download a bunch of models that primarily is related to the model that you have given, which in this case is stability a stable division 2.1.
+So now we are creating an API or we are offering stable division as a service for stable division 2.1 model.
+And this can be used by anyone on the Internet right now.
+This is just a proof of concept when I shut down this Google collaboration or when I finished this video, you would not be able to access it.
+But let's say you have got your own GPU or you've got AWS access.
+Then instead of using a third party service like replicate, you can deploy your own stable division instance and create an API and start using it in your application.
+So that way, you know, you can save costs, do a lot of things.
+So I'm going to click this link.
+Once I click this link, this link is going to take me to a page where it is just going to say hello world.
+This means our API is working fine, but you can just now wonder that where is it.
+So the way you can access the API first documentation is you can give the port and then say docs.
+But because we have already specified the port, I'm going to just say docs.
+But it said docs and that is going to get me to this swagger UI.
+If you're if you're familiar with the API world, you must know that this is a very popular UI.
+This is a place where you can see the documentation, what kind of request body you have to send.
+And you can also try it out live.
+So this is the type of request body you have to send.
+And what are the parameters here?
+You need to send a prompt unit is in negative prompt.
+You can send the scheduler.
+What kind of scheduler?
+The image height, image weight, number of images that you want and the guidance scale and number of steps and seed value.
+You must be already familiar with these parameters if you're familiar with stable division world.
+Otherwise, I would recommend you to watch my other stable division tutorials.
+Now as you have reached the swagger UI, let's try out the UI.
+So I'm going to click this try out try it out button and here I can edit the prompt.
+So I can say kung fu, panda, slurping, noodles, fighting enemies, kung fu style and what else are trending on art station, realistic photo digital art.
+And I can set a seed value that is one, two, three, four, five, six, six, six, six.
+I'm okay with this guidance scale.
+Number of steps looks a little too much for me.
+I'm okay with the number of steps 30 and I'm okay with this scheduler and I'm going to click execute.
+Once I click execute this API endpoint, you can see this API endpoint slash text to image from this URL slash text to image is called with this request body.
+So if you're going to use this, like, for example, you're building a react application, you're building an Android application or iOS application, whatever you're doing it.
+This is how you would ideally make the call after deploying the application.
+This is the endpoint.
+This is the request body, and then it's going to take about like 20 to 30 seconds on Google collab, depending upon the kind of mission that you have got.
+So after it takes that particular amount of time, you would ultimately see the result here.
+So if you have got a successful response, you would get response code 200.
+But if you have different kind of error, you can see other errors.
+While the response is being made, you can also see that we can do image to image.
+We can also do in painting.
+But if you have to do in painting, you have to use a different API.
+You have to use a different model.
+Now the response is successful.
+That's why we have got 200 as a code and we have got the image.
+But to your surprise, it's not actually an image.
+It is something called a base 64 encoding.
+So I'm going to copy this.
+I want to copy this entire thing.
+I want to go to a nice website that actually does base 64 encoding for me.
+So instead of converting it to using program, I'm going to paste the code here, the base 64 string encoded.
+So we're going to decode it.
+So I'm going to put it here and remove the codes, which is not supposed to be part of it.
+And then you can see that we have got a kung fu panda.
+I don't know if it is slurping noodles here.
+It looks like it's slurping the chopstick, but this is this is the image that we have got.
+So now I want to show you that it doesn't not.
+It does not work only on Google collab, but it can also work on any external mission.
+Like if you have got like an app or something.
+So I'm going to show you a demo of how you can use it.
+Like for example, I'm going to copy this entire call.
+Okay, call command.
+I'm going to go to a website called hopscotch.
+I'm going to go to website called hopscotch.
+Click here import call and I'm going to click import call.
+And I can give a different prompt here so I can say a beautiful portrait of a young Chinese girl studio lighting close up short.
+And then in the negative prompts, I can say 3d car comma cartoonish comma blender.
+I think this is good blender.
+And I'm going to stick to the same and I'm going to send the call.
+So once I make the call, once I make the request, this is a post request.
+It's going to take at least 30 to 40 seconds.
+Again, once again, it depends upon the parameters with which you send number of images, number of steps, guidance, scale, all these things matter a lot.
+And we have got it quick.
+So now you have got the image.
+I'm going to copy this again, go back to the service to decode the image.
+I'm going to delete this, paste the new one, remove the quote here and go to the top.
+And once again, remove the quote and you can see that we have got a really beautiful young Chinese woman or Chinese girl.
+And this is created using the diffusers API, which is a stable diffusion API that we ourselves have deployed on Google Collab.
+So that is one of the easiest way how you can deploy stable diffusion or how you can offer stable diffusion as a service and make API calls
+for your own application.
+Give a start to the diffusers repository.
+Kudos to the developer Abhishek Thakur.
+If you have got any question, let me know in the comment section.
+Otherwise, this Google Collab notebook will be linked in the YouTube description.
+You can check it out.
+Thank you so much.
+See you in the next video.
+Happy prompting.

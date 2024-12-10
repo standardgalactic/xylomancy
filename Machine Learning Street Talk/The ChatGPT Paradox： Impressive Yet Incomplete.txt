@@ -1,0 +1,679 @@
+I think large language models, of course, are an entirely new beast that we've never had in AI.
+It's our first broadly knowledgeable system, and even better, we can interact with it in natural language.
+Was it the llama, the first open weights model that spilled out of Facebook meta?
+And there was an explosion of stuff that all happened just in a couple of months,
+because people could experiment with it, and you had hobbyists doing stuff,
+and it was incredible what people were doing, and there was a discussion paper on that about,
+you know, is it safe to open these models and so on?
+It certainly incredibly accelerates the research to have these open weight models available
+and be able to have everybody worldwide work on them.
+We see much bigger collaborations happening now.
+It's purely anecdotal, but my impression is that we have very few single author papers.
+We tend to have papers from multiple institutions working together,
+some corporate and some academic, multiple countries working together.
+That's a big change. It used to be that single author papers were something that could happen in this field,
+but it's pretty rare now.
+What do you think about the state of large language models and chat GPT?
+Well, I think large language models, of course, are an entirely new beast that we've never had in AI.
+For so many years, our AI systems have been narrow and hopefully deep
+in having expertise in a narrow area.
+In fact, when I was a graduate student, we were building the early expert systems
+that claimed to capture the expertise of a human expert in a form that was operational,
+whether it was in medical diagnosis or some kinds of engineering configuration design.
+It was frustration, I think, with the narrowness of those systems
+that as they continued to improve and develop and so on,
+that really led folks to bring up this idea of AGI, artificial general intelligence,
+could we have systems that had generality, that had breadth?
+And now we have systems that have breadth for the very first time.
+It's a new experience for us.
+It's our first broadly knowledgeable system, and even better, we can interact with it in natural language.
+So we can ask you questions and it answers with lovely fluency, possibly even in rhyming couplets.
+And so that's full of surprises.
+I mean, we knew in principle that if you built a good enough language model, it would be able to answer questions,
+but we didn't know that we would actually get a good enough model that could do that.
+And of course, combining that then with instruction tuning and RLHF has given us systems
+that can mostly stay on topic and answer our questions.
+Of course, the problem is that they're still statistical models,
+and so they are much better answering questions for which they had a lot of training data
+and much not so good at rare questions.
+And so, as you know, I'm a big fan of this paper.
+They came out of Thomas Griffith's lab at Princeton called The Embers of Auto-Regression.
+Thomas McCoy was the first author.
+We've had some Thomas Thomas Thomas email conversations that were very confusing.
+And there they show that the performance of the system of LMS, and they were mostly evaluating GPT-4,
+depends on the frequency with which the question appeared in the training data
+and also the frequency with which the answer appeared in the data.
+And so one of their examples is if you ask the system to sort words into ascending alphabetical order,
+it's quite good at it. Well, 75% of the time it succeeds.
+But if you ask for descending alphabetical order, it's much worse.
+I don't remember the exact number, but maybe 25% of the time it gets it right.
+And they look at some other examples, like counting the number of words in a sentence
+or counting the number of letters. It turns out the LMS have sort of favorite numbers
+that don't necessarily correspond with reality.
+But the other thing I think is even more interesting is that they play around with these rotation ciphers.
+Like, I mean, I think while young people today maybe don't know about Rop 13,
+but back in the Usenet days before we had imagery and so on on the web,
+if someone had a sort of content warning or a spoiler warning on something,
+they would encode it with this Rop 13 code,
+which would replace each letter by the letter that was 13 further ahead in the alphabet.
+And then you could apply that same transformation to get back the original text.
+And so GPT-4, it turns out, has had a lot of training data for Rop 13.
+And it can do a pretty good job of encoding and decoding Rop 13,
+but it has a tendency to do what I call auto-correcting the world.
+So they give it what Griffiths and McCoy et al. did was encode things
+where they took an English sentence and replaced one word with a very unlikely word.
+Okay, so now that sentence has low probability according to the language model.
+So when it decodes it, it replaces that unusual word with a more common word.
+And that's what I call auto-correcting the world.
+It's sort of saying the world should have used this word instead.
+And even though sort of algorithmically it's the wrong thing.
+One criticism or, I don't know, maybe an extension of that work would be
+if they had asked it instead to write code to implement Rop 13 and then execute it.
+Because GPG-4 is quite good at simulating a Python interpreter,
+and it's quite good at writing code.
+And we know that training on code and writing code tends to make the models think more systematically.
+And that's kind of interesting because the sort of discipline of writing code
+and if they ran it on an actual Python interpreter, it would be even better.
+It would do the right thing.
+They showed that if you ask it to do like ROT 2 or ROT 10, it's very bad at that
+because it doesn't have much training data.
+But my hypothesis is if they asked it to code it instead, it would work for all N from 1 to 26.
+And so that tells us something interesting I think also about when LLM's output English,
+we are the interpreter for that English.
+And we often read into what it's written more than the model necessarily knows or understands.
+And you could ask, well, does that really matter if it outputs the right answer and we interpret it correctly?
+That's the right answer. Maybe it doesn't.
+But there is somehow a distinction between, I don't know, simulating something and actually doing it.
+Stuart Russell likes to say that when a computer plays chess, it's really playing chess.
+It's simulating playing chess because chess is a sort of logical game.
+But when it's simulating, say, being empathetic or something, it's not empathetic because it's not a human.
+It doesn't really know what these feelings mean.
+It's just using words that are appropriate statistically in those situations.
+So I like to say that large language models, we want them to be a knowledge base.
+We want to be able to ask them questions and have them answer.
+And to some extent, they do that quite well, but they fail a fair amount of the time as well.
+So, you know, in the GPT-4 report, they show results for some of these question-answering problems that are very challenging
+that tend to elicit hallucination.
+And GPT-4 was the first model to do better than 50% on that, but not a whole lot more than 50%.
+And I don't know how any of the newer models are doing, but I doubt that they're doing any better.
+And I think the fundamental problem is that machine learning is a statistical undertaking.
+And so we're not really getting a knowledge base, we're getting a statistical model of a knowledge base.
+And I draw an analogy to the work that happened in machine learning and databases 25 years ago
+when we first started working on what we called statistical relational learning.
+And the idea was that your training data was essentially tuples in a relational database,
+and you could learn things that related, say, a person's age to whether they were a student in a class
+by joining a table about ages with a table about what courses they were enrolled in, things like that.
+And, of course, they were probabilistic inferences, so they weren't correct all the time.
+But it turned out that those statistical models of databases had some useful,
+a lot of actually great application use in database operations.
+So you could use them to do data cleaning to detect that, you know, when someone's age is 5,021,
+that that's probably not a correct age, because that's such a low probability age.
+And you could estimate the sizes of intermediate joins when you're processing a database query.
+You had a pretty good probabilistic idea of how many rows in one table would match rows in another table,
+and then you could estimate the intermediate table size.
+So you could use that then to do query optimization.
+So these were things that are really great for probabilistic models of databases.
+But you would never use a probabilistic model of a database to answer database queries,
+because it would just generate plausible tuples of the tables involved in your RDB,
+rather than actually looking things up.
+And I think that's the same phenomenon we're seeing in large language models,
+is that if they can't find it, the analogy is to a tuple in a database,
+is that they can't find something in their memory, whatever structure that is,
+and we're still trying to understand that.
+They will still generate a high probability sentence or phrase, but it may not correspond to reality.
+And so I think that's one hypothesis for where hallucinations are coming from.
+I think one of the really interesting research challenges right now,
+and we saw some talks on it here at ICML,
+is can we somehow get estimates for the LLMs of their so-called epistemic uncertainty,
+which is their knowledge uncertainty.
+Given a query, do they know the answer, and can they somehow assess that?
+And there have been, I don't know, probably more than a dozen papers published
+just in the last three or four years on trying to assess that,
+and there's a paper that just came out this spring on Archive called the,
+I think it's the LLM polygraph, maybe is what the title is,
+where they evaluate the ability of these uncertainty estimates
+to predict whether the answer is correct or not,
+both for multiple choice questions, but also for open-ended phrases,
+which is, and it's quite tricky to do those evaluations,
+but this team that's been doing it, this is their second release of the results.
+But their methods, all the methods that they evaluate do not evaluate epistemic uncertainty.
+Instead, they evaluate what's called the aleatoric uncertainty,
+which is just the probability distribution over the possible sentences that could be omitted.
+So in particular, several of the methods essentially,
+well, the simplest thing you can do is, out of the LLM,
+you can get the token probability of each token conditioned on all the previous ones,
+you can multiply all those together, and that gives you the probability of the string,
+and if that's low, you can say, well, maybe I shouldn't trust the answer.
+If it's high, you could say, well, maybe I could trust the answer.
+And surprisingly, that's reasonably competitive with the best techniques we have.
+But I say that's aleatoric because it's essentially using the softmax probabilities of the output layer,
+and that is sort of the model's theory of the noise, in some sense,
+the theory of the probability distribution of the data.
+Although, I guess, there are sort of two sources of that variability.
+One is that, we could think of it as, given the prefix,
+people are undecided about what word to use next, and so there's just some word choice.
+So they might use to, or in, or the.
+And those kinds of functional words actually have very low probabilities
+because it's all smeared out across many choices.
+Whereas, if you get a proper noun or something, the model tends to be much more,
+say, this is either the right word or not.
+So one possibility is just that there are multiple ways of saying something.
+And so that's just natural variation, and we might think of that as labeling noise
+versus that there really are multiple possible answers, and the LM is choosing one of those.
+In the second case, probably the LM should say, instead of answering with one,
+it should say, well, I have three different possible answers.
+I don't know which one is correct, but I'll give you all of them.
+Instead, what people do right now is make multiple queries with a temperature above zero
+and then cluster them actually based on semantic implication.
+So they use these natural language inference techniques to say,
+if these two answers basically are saying the same thing, you can infer one from the other,
+then I'll cluster them together, and that gives me some idea
+of how many distinct, semantically distinct answers there are.
+And then I can measure the entropy over those and use that as a measure of uncertainty.
+And that works a little bit better than just the token probabilities,
+because you're now collapsing, merging stuff that are synonyms,
+and you wouldn't want to count those as separate answers.
+And then there's a, the best method, if I remember right,
+is a technique called something like shaping toward relevance.
+It's called SAR, but I can't remember what the A stands for.
+But in any case, they figure out which words are important to the answer
+and down weight their probabilities,
+and otherwise they use the sort of, they reweight the probabilities
+and then compute the probability of the sentence.
+And that was actually the winner for open-ended, you know, question answers.
+So those are all pretty good, but unfortunately, I think it's still,
+these systems would still make a substantial number of mistakes.
+Unfortunately, the metrics don't tell us if we use these as a confidence cutoff
+and said, I refuse to answer if I'm not confident.
+We don't know how much, how much abstention we would have to suffer
+to say get 95% correct answers or 100% correct answers.
+You know, would it, but it looks like from some of the papers
+that we might only be able to answer about 60% of the questions,
+which seems, I don't think the hallucination rates are that high for routine questions,
+maybe for some of those hard benchmarks.
+But so I think we still have a long ways to go to get good enough uncertainty
+quantification in the LLMs to be able to use that uncertainty quantification
+to cut down on hallucination without losing a lot of correct answers as well.
+And part of the reason is we're not measuring the other source of uncertainty,
+this epistemic uncertainty.
+You know, and traditionally in machine learning, you measure epistemic uncertainty
+one of two ways.
+One is you say, given the query, how close is it to the training data?
+That requires that you have access to how many trillions of tokens of training data?
+So you, but you would need to somehow take, I mean, a bit like RAG,
+you would need to, you know, index into the training data and say,
+well, how far away are the training data points?
+If they're far away, I probably don't know the answer.
+And you want to do that in some lovely embedding space, but we know how to do that.
+The trouble is that nobody is making all those training data available really,
+except for the Allen AI Institute.
+And I don't know if anybody's actually tried to do this in practice.
+The other thing that the other standard way of doing it in machine learning is to train an ensemble of models
+and ask, do they agree on the answer or not?
+And if there's a lot of spread in their disagreement, then we say, well, the models don't know.
+I mean, that's the Bayesian idea.
+You have a posterior and it's smeared out.
+You don't answer the question.
+But of course, training one LLM is already so expensive that we can't say train 10 of them and have them vote.
+That's, that's ridiculous.
+So there are a lot of papers that have just come out trying to deal with this question.
+And I haven't had a chance to read them yet.
+So I don't know how well they're doing, but I'm optimistic that say over the next year or two,
+we're going to get much better methods for assessing the epistemic and aleatoric uncertainty of these models.
+And so to the extent that that is the cause of their mistakes, I think we can make big progress on that.
+And that perhaps combined with better prompting and maybe with retrieval augmentation,
+we can make some major inroads on the hallucination problem.
+So that was a long answer.
+I don't even remember what the question was.
+No, no, that was wonderful.
+So that was a beautiful tour de force.
+I'm seeing like a real juxtaposition here between epistemic uncertainty and aleatoric uncertainty.
+So I think you would agree that large language models are kind of pseudo system one.
+And what we need is reasoning.
+And in the old days, we had lots of folks working on AI and they were studying logic, for example,
+and reasoning and formal systems and languages and semantics and all of this kind of stuff.
+And now there's a huge obsession with large language models.
+And a lot of people out there are just saying, and I think they really believe it,
+that these language models at a certain scale would be capable of doing this kind of reasoning.
+What do you think?
+I guess I don't see how the transformer architecture can do that kind of reasoning.
+In fact, I feel like formal reasoning and LM reasoning, or whatever you want to call it, inference,
+have complementary strengths and weaknesses.
+The big problem with formal reasoning is that it is essentially context free.
+The fundamental rule of inference, modus ponens, is also known as discharge the antecedent.
+So if you have A implies B and you know A is true, then you infer B and you forget Y.
+I mean, you can keep a trace, but the point is that you now believe B completely.
+And so it's very easy in a formal system to draw incorrect conclusions if there's any bug in any of the inference rules.
+Just as it's really easy to draw contradictory conclusions and decide that nothing is true
+or everything is true, depending on the structure of the theorem prover.
+And so a big challenge has always been you run a formal reasoning system, you get an answer.
+You need a common sense check.
+Like, does this answer make sense?
+And of course, as humans, we read it and we think, wow, this looks like a bug.
+I got to figure out which rule I messed up on and I bring out my rule debugger.
+But it seems to me LLMs, the beauty of them is that they have this rich, rich context
+and they have the ability to take it all into consideration.
+And so they are not context independent.
+And so I think you can imagine that an LLM might say, okay, I have this reasoning problem that I need to solve.
+Let me emit code in the form of some formal formalism, run a theorem prover, get the answer out,
+and then sanity check it by saying, does this make sense in my context?
+And that would be beautiful.
+And I really love people to explore that possibility.
+I mean, I love the fact that we now have packages like C-Plex and Gurobi that can solve mixed integer problems and SAT problems.
+And so we have really powerful reasoning engines.
+We also have fancier theorem provers or theorem checkers like Lean and so on.
+And I think their skills are complementary.
+I'm really excited also about the work by Talia Ringer and other folks in that community that are using LLMs to generate code and to generate proofs.
+And so you can either generate a proof from which you derive the code with a guarantee of correctness or you generate code and a proof together
+and you check the proof with a formal checker and you can also check the code for things like data flow and control flow and dead code and all these things.
+And I think you have a chance of getting much more reliable software than we get today.
+So I think the real opportunity is to mix the formal with the, I don't know if we call it informal,
+but system one, this kind of, I don't know, intuitive, experience-based, but rich contextual knowledge,
+which we've never really had before in artificial intelligence.
+So I think there's all kinds of exciting things to do in that direction.
+It's interesting how many different configurations there are.
+I mean, you can have system one first and calling into tools and rag, or you could go the other way around.
+I mean, you were saying some interesting stuff in the talk that I just listened to, which is that I know you're very interested in knowledge graphs, for example,
+and building formal cognitive architecture.
+So doing explicit planning and metacognition and reasoning and having common sense knowledge and facts and natural language understanding,
+because language models today, they just do everything all mixed together.
+And a great example is we could use a language model potentially to build a knowledge graph.
+Right.
+Yes.
+So certainly, there was, for a long time, we had this whole sub-discipline of information extraction, right?
+Especially open domain information extraction.
+And one of my favorite projects was Tom Mitchell's NEL project.
+And what they did was they were scraping the web and extracting tuples about things like, you know, the football teams,
+Bayern Munich is in Munich and things like this.
+And so they built over almost a decade of running the system and refactoring it with some human intervention.
+They built a knowledge graph that had something like 80 million triples in it.
+But they were using sort of this old fashioned, simple information extraction, sort of regular expression type patterns and other kinds of patterns.
+With an LLM, you can now ask GPZ-4, you know, read this paragraph and tell me all the facts that are in it.
+And it will do a really good job.
+And you can also say and output them in this formal notation, right?
+So, of course, you still have the problem of truthfulness.
+If you're reading a source that's full of lies, you'll extract a bunch of false facts.
+And so in Mitchell's project, they assumed that if they found enough independent sources for a belief in a triple, they would add it to their knowledge graph.
+But that's less and less likely to be a good strategy.
+And I think there are only a small number of institutions in our society who are responsible for establishing ground truth in some sense.
+Called them the ground truthers.
+They're journalists.
+They are our scientists.
+And maybe judges, I don't know, you know, where do you bring evidence together and try to decide what the truth was?
+But another team of people are the people that do search quality.
+For instance, one of my former students was in the search quality team at Google for quite a while.
+And their whole problem was how do they separate the spam websites from the good websites?
+And, you know, it's an adversarial game between the search engine optimizers and them.
+And so we need that function now more than ever, perhaps, because now we can do, you know, junk generation at scale.
+That would be the big problem with trying to extract knowledge graph from the open literature is, you know, do we trust this stuff?
+I mean, even the scientific literature, we know there's fakery and so on.
+So we need to think about how do we judge this?
+And could we have, I mean, we're getting close to the point, I think, where we can have push button review articles for an area of the literature.
+In fact, at Archive, we suspect we're getting some of those submitted to us.
+It's not quite push button, but where people follow a fairly standard procedure of choosing a set of search terms,
+searching those papers and then asking, you know, chat GPC to summarize them, maybe cluster them into groups and then summarize them.
+And that can be very useful to the research community.
+But again, you have to, there is an opportunity there to ask, well, five different groups have independently found this finding.
+So maybe it's something we can believe.
+The reason I want to put them into knowledge graphs is mostly that you can easily change the knowledge graph.
+I mean, I think the weaknesses of LLMs is that they have all this factual knowledge, but it's burned into weights in ways that are really non-obvious.
+Although we're learning something about that from the unlearning literature that, you know, partly stimulated by the right to be forgotten in Europe,
+that we need to be able to delete a fact from the LLM.
+How can we do that?
+Well, that requires that we figure out where it is somehow and then change the weight.
+So that's kind of interesting.
+But it would be much easier to delete the fact if we knew the fact was only stored in the knowledge graph and we just remove it from the knowledge graph
+and then check that it can't be re-inferred from other things in the knowledge graph.
+It's not trivial.
+And so that, you know, back in, I think in the 80s or maybe early 90s in artificial intelligence, people formalized what a knowledge base was.
+And they said it's an abstract data type that supports two operations, ask and tell.
+And the idea was you could just tell it a bunch of things.
+They envisioned telling it in something like a formal notation.
+And then you could ask it a query also in formal logic.
+And then it would either be able to look up the answer or do reasoning to infer the answer or say, I don't know, right?
+And that was the abstract data type for a knowledge base.
+LLMs are pretty good at the ask.
+But we can't tell them anything except now with retrieval augmentation, we can add new facts to sort of source documents.
+And there are now people working on doing RAG from knowledge graphs.
+And so, and I think that that really is exciting.
+So some of the things that I advocated in that, and then my talk from now sort of two years old are happening.
+They are using LLMs to build knowledge graphs and also extracting them from other sources like WikiData.
+Google has a huge knowledge graph that they've built and then being able to retrieve from them.
+And those are instantly updatable.
+So their challenge there is to make sure that the LLM bases its answer on the knowledge graph and not on its free training knowledge.
+And I am not up to speed right now on what the latest techniques are for trying to architecturally constrain the models to do that.
+But I assume that we'll be able to solve that problem also.
+Very interesting.
+And I really liked what you were saying about establishing truthfulness.
+I mean, I wonder if you could just give me your definition of truth and knowledge.
+Because of course, we have this subjectivity problem, the contradiction problem.
+And of course, you've spoken previously about psych, which was the project to kind of capture that the world's knowledge.
+And could you also just comment on the strengths and weaknesses of RAG?
+Well, yeah, I don't know that I'm an expert in RAG.
+So, you know, the earliest work that was done in RAG was still aimed at building a language model.
+And the idea was, and what they showed there was that the LLM could be much smaller, 10 times smaller if it instead reduced retrieval to pull out relevant phrases and then base the language model on those.
+So, the task was just the pre-training task of predicting the next token, but the prediction was based on retrieval.
+Now, of course, we're more in the instruct situation where we want to ask a query and have it look up the answer, you know, as Bing and now Google are doing.
+And, you know, I think, as I say, I'm out of date.
+But certainly, Percy the Yang and his students did an early evaluation of RAG systems that showed that something like half the time, the answer that they were giving was not supported by the retrieved documents,
+but was instead leakage from the pre-training knowledge.
+And that's fine if it's consistent with the retrieved documents, but we kind of, when it cites a document, we'd like to know that the answer came from that document.
+And unfortunately, I think, yeah, some fraction of the cited documents were not relevant to the answer, which was another failure mode.
+So, I assume that now that Bing has had like a whole year of experience with that, they've probably improved that a lot.
+So, it would be nice for them to give us some numbers on that, or for someone to replicate that study.
+But what I don't really understand now is, you know, mostly RAG has been added post hoc after the LM has been trained, or there's been some, you know, subsequent fine tuning.
+But that first piece of work was using retrieval from the very beginning.
+And just as with tool use, we're finding that we really want to train the model to do tool use, and we want to train the model to do RAG.
+And so, you know, I expect that we'll see systems like that maybe that have been trained from the very beginning, or maybe partway through the pre-training start to give them these tests as well.
+Because otherwise, of course, you risk, when you change the fine tuning, starts to destroy some of the knowledge.
+I mean, I think John Shillman says, you're teaching it to lie.
+It knows this thing from its pre-training, and you're telling it to output something else, and you don't want to sort of confuse the system that way.
+So, yeah.
+So, there are very subtle issues here, I think, about retrieval and tool use and getting all that to work right.
+Very cool.
+What's your thoughts on the current state of, you know, things like archive and publishing and research in the MR space?
+Well, you know, I've been devoting now probably about half of my time is volunteering at archive.
+I've been a moderator of the machine learning category since 1998 when they first started.
+It was very easy in those days.
+Now we get more than 100 submissions a day.
+I think that archive has been part of the rapid cycle time of the field.
+People post their results when they're ready, and we see them long before they appear at ICML or, you know, certainly in a journal article.
+And I think that's a good thing in general, because we don't have the journals and the conferences as gatekeepers.
+We also don't have the quality.
+I mean, one of our sayings in-house at archive is it is not our job to protect your reputation.
+So, if you want to publish something that's wrong and then you have to retract it later, we're not checking, we're not fact-checking things.
+And so, I really encourage people before you put your paper up on archive, get peer review in the sense of have some of your peers review it and give you some honest feedback.
+And of course, I think in a lot of the companies, there are release processes and that kind of thing happens.
+But I think in academic groups, we're often hacking the LaTeX, you know, five hours before the deadline.
+And maybe we're not as disciplined as we should be.
+Yeah, I guess that's my word of warning is that it is kind of unfiltered.
+During the pandemic, we had problems that eventually surfaced, I think, in an article on science and nature that said, you know, there were some very early chest x-ray databases were released that had terrible sampling biases and all kinds of other problems.
+And many papers were written saying, oh, I can diagnose COVID from chest x-rays, but they were really picking up on the fact that, you know, there was some text in the image or people were lying down versus standing up.
+Or they were children versus adults or just all kinds of spurious correlations were being picked up.
+And so we ended up hiring a postdoc to review those papers.
+We actually had to look at those carefully because we're worried about propagating, you know, sort of conspiracy theories or misinformation.
+And whereas we don't have that kind of rule for P equals NP and for some of these other, you know, Riemann conjecture and so on, as the rule is you get one chance to try to prove it.
+And if you decide you're wrong, well, you can submit a revision of that, but you can't submit any more papers with new things.
+So because we do get a lot of crackpots submitting, claiming that they've proved famous, you know, mathematical questions and the physicists have to deal with the perpetual motion papers and things like that.
+And again, we're not there to protect your reputation, and that's what peer review is good for, in my experience, in journals and conferences.
+So I think that peer review has its place, but I also think open science has its place.
+And so maybe the best thing is, yeah, to your own peer review before you submit and then maybe also layering journals on top of archive to say we will collect together a set of papers we think are very nice and kind of certify them as high quality,
+which usually will require the authors to submit revised versions.
+In fact, one of my personal heuristics is, don't read a paper and archive until it's gone through version number two, because usually the authors themselves see a bunch of problems and immediately submit version two, like within a week of version one.
+And so it's a...
+I think don't Google have a feature that they wait five seconds after you press send until it actually goes.
+But if you could change, you know, one or two things about the whole open science project, what would it be?
+You may be alluding to my pins tweet.
+I might be.
+I'm not convinced that PDFs of papers are the ideal interchange form for science.
+When you go into...
+But LLMs may be changing my mind about this.
+But in my pins tweet, I argue for maybe a different idea, which is that we can view the scientific enterprise as trying to build a knowledge base of what we believe is true in an area.
+And a very common pattern in, say, in a paper in machine learning is I'm working on machine learning problem...
+Well-defined machine learning problem X, say positive unlabeled learning.
+And I believe I have a new method that either is better than everything before or is better along some dimension than anything before.
+And I'm evaluating it on these standard benchmarks that everybody else is evaluating on it.
+And you sort of see now, like at papers with code, they kind of try to collect up these papers that are all doing the same thing, which they don't really completely succeed on that.
+But maybe the authors should be going to something that's maybe more like Wikipedia or a knowledge graph and say, I'm working on this problem here.
+And then I add another proposed solution, proposed algorithm, and then I provide my evidence for why I think my algorithm is better than these others.
+And we accumulate that evidence ideally in like a GitHub repo where we can run all the methods against each other against some standard benchmarks and agreed metrics.
+And so, I mean, obviously, as new machine learning problems emerge, this ontology of what are the...
+I mean, we didn't have positive unlabeled learning until, I don't know, 2010 or something as a problem.
+But we had the multiple instance problem back in 1991.
+We had other kinds of weakly labeled data, unsupervised learning of all kinds of flavors.
+And at every meeting, we're seeing new kinds of problems emerge that require new metrics and evaluation methodologies.
+And so, you can imagine having nodes in this graph for all of those kinds of things.
+And when you were coming into a new area, say, as a graduate student, you could see a snapshot of the field without having to...
+Right now, you have to go read all these papers and build this in your head or in your spreadsheet.
+And so, I think there's a lot of repeated work there that is very time consuming.
+So, I don't know if it will be possible.
+I mean, the idea would be, you know, instead of or in addition to writing a paper in English, you would build this graph.
+But somehow, you'd have to be, you know, support the idea that it is citable research and you get credit for it.
+But maybe, I mean, we can...
+We have models of that from Reddit and Wikipedia itself and so on.
+Maybe and, you know, stack exchange.
+So, maybe we could do all of that.
+But now, you know, the counter argument is, now I can just wheel up an LOM and say, you know,
+read the literature on the positive unlabeled data and tell me what the best methods are and what are the different techniques
+and how are they evaluated and I don't know how well it would do.
+But maybe that is the other technique.
+Use our own technology to address that problem.
+Yeah, if only. If only.
+We'll slowly get on to your work in safety engineering.
+But maybe first, I think you retweeted from Emily Torres about OpenAI's work on super alignment.
+I think, is it OpenAI's work or is it Ilya Sootskeva's new startup?
+And I think you were implying that it was a bit misguided in some way.
+Well, I think, I mean, maybe we should come back to the question you'd asked earlier about what is truth.
+I think there obviously are conflicting truths.
+In fact, one of the lessons of the psych project was that they could not build a globally consistent knowledge base.
+It would have contradictions in it.
+And so they, so he had to develop these micro theories that were internally consistent, but not globally consistent.
+And certainly we know that's got to be true.
+We have all these scientific questions.
+We don't know was COVID a lab escape or was it, you know, animal to human transmission in the wild?
+We have evidence in favor of both.
+I think a good system should not give an answer.
+It should instead say, well, here's one hypothesis and here's the evidence that supports it.
+Here's the other hypothesis and here's the evidence that supports it.
+And we don't know the answer.
+And of course, if it was something, there are more things that are more cultural or, or, or ideological.
+And I think it would be clarifying to, to say, well, within this ideological framing, this is what how people would say is important or true.
+And, and then there are these alternative ones.
+So we shouldn't expect the system to give us the truth because how could it know what the truth is?
+We don't know what the truth is.
+So I, I mean, we see this a little bit in community notes on Twitter is that people will say, I think this tweet is misleading.
+And here are sort of trustable citations to sources.
+And then they ask people to rate whether those sources are trustable and so on.
+And so you can imagine building that kind of recursive argument structure and the structure of arguments has been studied in AI and philosophy for a long time.
+So I think there are lots of things we could borrow from there.
+But I guess that doesn't come back to this question of superintelligence, super alignment and so on.
+I mean, I guess partly it is, well, what are the, the values that we want these systems to respect?
+And, and, and I think it takes us into kind of the territory of the three laws of robotics or something like this, right?
+We would like them to not kill us.
+And, and, but subject to that constraint, we would like them to, you know, keep themselves functioning.
+I think it's very difficult to articulate those.
+And, and that brings us into this question of safety, which is a word that is really thrown around a lot.
+You know, I just came from the, the invited speaker who's talking about the EU AI Act, which talks a lot about safety and highly capable systems.
+One of the, and at the same time I've been serving on a National Academy of Sciences study in the US on machine learning for safety critical applications.
+Now the safety critical applications people are coming out of sort of traditional things like aeronautics, automotive, you know, railroads, medical things where the harms we're interested in are loss of life, serious injury, maybe destruction of infrastructure.
+So, so I don't think we have any disagreement that those are harms and that that what's surprising is that society has different tolerances for, say, lives lost per air, air mile traveled versus lives lost per car mile traveled.
+Right. We tolerate a much higher fatality rate for automobiles than we do for aircraft.
+And we might want to ask ourselves why, and if we have automated cars in the future, will we still have such a high tolerance or will we insist that they be much better than we have been.
+I think the, the promise is that they could be much better drivers than we are. They might not be as fun.
+So anyway, traditional safety engineering tries to anticipate all the things that could go wrong. And so they define those as a set of hazards. And so all of the known hazards, you then design your system.
+A hazard can be defined as a region of the state space that you do not want to enter because once you get in there with high probability, something, some harm is going to occur.
+And so then you design a controller to have a margin of safety with respect to all the known hazards.
+A challenge of this is that there are always new hazards that we didn't anticipate. Just as there are always, I've also studied this question of what's called the open category problem in computer vision.
+There's always some new object that you never saw in your training data. My example for self-driving cars is something like the, the one wheel, which is, you know, kind of skateboard with a pretty big wheel in the middle.
+There aren't any one wheels in the ImageNet collection, for instance, because they hadn't been marketed yet in 2009.
+Nor are there many e-bikes because those are new too. But each of these new transportation things that behave slightly differently is used by people differently.
+And a self-driving car needs to detect and be able to predict how people behave on those in order to avoid colliding with them.
+So we think about all the anticipated problems, but then we're always going to have this problem of encountering novelty.
+And one of the reasons that we're even thinking of talking about having self-driving cars is we've had these advances in deep learning that give us much more powerful perceptual systems than we've ever had before on robot cars.
+So we think that we might be able to do this. But, but we're moving from the traditional kind of closed-world robotic application where humans and machines are kept completely separate to a world where the machines and the humans are interacting at high speed
+and with high momentum. And, and, and so it's exceedingly difficult to see how we can engineer those systems.
+So, but, but I think the safety engineering people are making progress in on the machine learning computer vision perception side.
+I think we still have a ways to go because we, our systems still cannot guarantee kind of distribution independent accuracy.
+So we know our accuracy depends on the training distribution. We can bias that training distribution to be particularly enriched around all of the known hazards.
+And that's what the companies are all doing, right? They, they're all building high-fidelity simulators and then being able to use those to simulate all kinds of crazy conditions and use an adversarial active learning to try to drive the system into places where it will fail.
+So they can discover new failure modes. But of course, there, there will still be things that simulators don't know about, like these one-wheels or whatever, whatever the new thing is that would be marketed.
+And so, so I think technical challenges in, in the machine learning and computer vision side are how can we detect that we're looking at something novel that we've never seen before.
+And that requires that, that we have a representation for that novelty.
+And that has been a challenge in computer vision because traditionally we would do something like pre-training on ImageNet and, and hope that, that it had learned enough, it had reached enough representations that it could represent stuff beyond the 1,000 classes that were in the, in the standard ImageNet collection.
+But that's not true. We find that there are lots of things that, that just get aliased on top of existing classes and don't have a distinctive enough representation.
+I'm, I'm hopeful that the foundation model strategy, which says let's train on everything we can, we get so much variation in our training data that we, that the systems will have it, everything will have a representation.
+And so we can see the novelty and, and know that it is an unusual combination of features.
+We have the features, but we have never seen this combination before, as opposed to we don't have the features therefore are blind to the novelty, which, which is what we've observed in, in sort of smaller computer vision applications.
+So maybe, so that, that gives me some optimism, optimism that using sort of notions of epistemic uncertainty, we can say, oh, this is something new I've never seen before.
+And so then the car can behave more cautiously because it doesn't know whether this is just like a, a cloth banner that's blowing in the wind or whether it's some new kind of pedestrian thing.
+It's a, you know, a person in a Halloween costume that it's never seen before and, and it doesn't want to hit them.
+So, so that's one thing. But then I think we need to take seriously the possibility that we need to formally verify our learned models.
+And so there were some more papers here this week on either trying to have new neural network architectures that are easier to verify or improve methods for verification.
+And we're mostly based on the idea that we want to defend against adversarial examples, although I'm not sure that is, I mean, that's kind of robustification, but at the pixel level.
+But I think we also want to have sort of a guarantee that, that the model is well behaved in between the training data points.
+We, you know, we just don't know what those railers do. They can shoot off in weird directions in between data points.
+And so we'd like to bound the, the Lipschitz constant or the second derivative.
+There was a paper here on that and have some confidence that it's not behaving wildly in between our data points.
+And if it is behaving wildly in some region, let's get a new data point there and add it to the training set and pull it down until we can't find any more, you know, points that witness a failure.
+So getting those to scale, I think we're quite a ways away from that.
+But if we could do it, we could get away from this problem that we're vulnerable to distribution shifts.
+And to, because our worst nightmare is that, that, that, that little region of the input space turns out to be hazardous.
+And for some reason, the deployment time, there's a high probability of hitting that point and we don't do, we can't give a guarantee.
+So I don't know, maybe it's a pipe dream, but you know, we can be optimistic.
+I mean, we, presumably we could never do complete certain verification of these machine learning systems, these system one systems.
+I mean, because what's our specification? It is the data points.
+We don't have an independent declarative specification of the system will always be able to tell the difference between a kangaroo and a deer, for instance, which was sort of the famous Volvo example that their deer detector didn't work in Australia.
+But yeah, we can't guarantee that.
+But I think we can give another guarantee, which is that if the system is not confident, it can correctly detect its lack of confidence, right?
+And now we have these quite good probability calibration techniques.
+They are still distribution dependent, but maybe we can come up with a distribution independent notion of calibration and so that the car can know that it's that it doesn't know and become much more cautious, right?
+So it can still behave safely.
+So we don't have to be 100% correct.
+We just, but we do need to be 100% correct about our lack of confidence.
+Yeah.
+Could you give a beautiful example in your recent talk of building a system with Bayesian optimization?
+And you can, you know, model all of the things in a situation, yes, to build situational knowledge.
+And then you can do this adversarial perturbation.
+So you can deliberately put it into strange states and you can reason about that uncertainty.
+And that could presumably be built into self-driving cars or something like that.
+Right.
+Well, in fact, I took those examples from the work that's being done at Wabi, which is a startup in Toronto led by Raquel Ortossum.
+And I think they're doing really beautiful work in that.
+But there are other groups, I mean, pretty much everybody is using some form of Bayesian optimization or surrogate model optimization,
+precisely because it gives you a measure of epistemic uncertainty that you can optimize.
+So you can say, well, what's the most uncertain part of my space?
+Or if you have some notion of risk, what's the riskiest part of my space where I don't have enough data and really focus your sampling there?
+So we have a lot of great tools, I think, that have been developed over the last 10 years and putting them together.
+We can make progress, but we still don't have good enough verification tools that scale, right?
+You also made a comment, because I think a lot of my audience are software engineers.
+It's surprisingly difficult to verify even a piece of software.
+Right.
+Yes.
+Yeah.
+I mean, how would you go about doing that?
+Well, I mean, people hold up examples.
+Okay.
+We can't verify completely, partly because getting a formal spec is so hard itself.
+And we know that most of our specifications aren't even quite correct.
+Most of our systems failures are due to requirements failures.
+So, yeah, so what do we do?
+That maybe moves us.
+Well, let's see.
+I want to take this in two different directions.
+So one thing is, you know, I'm very impressed with what Microsoft has been able to do with device drivers, right?
+You can't prove them correct, but they can use model checking to establish that certain properties are obeyed.
+And so they can ensure that they're deadlock free and some other things, you know, they're probably memory safe using model checking.
+Those are relatively small pieces of code, but they're in, you know, real time, very challenging situations dealing with devices which are notorious for, you know, sending spurious signals in and so on.
+So, you know, one wonders, you know, could the crowd strike, you know, they're evidently not doing any model checking on those.
+It may be harder because a device driver is kind of, you have a pretty good idea what it's supposed to do.
+So you know how to write down properties, but obviously, so maybe, so we can't verify everything, but are there properties we can check?
+And I think the same will be true for machine learning.
+We won't be able to prove everything, but we need to think what might be some useful properties we could verify.
+And do we, you know, maybe we need to form approximations of the full surface that give us sort of upper and lower bounds on its behavior.
+And if those are tight enough, maybe we're confident.
+So the exact decision boundary, maybe, you know, full of millions of little things and we can't verify them all.
+But if we could make much smoother, simpler approximations and verify those, maybe that would be good.
+I don't know, this requires a lot of creativity to figure out what can be done and what can't be.
+I think everybody should read Nancy Levison's book, Engineering a Safer World, because what she says is you don't build a safe system and then deploy it.
+Safety is really a control concept that a system is, we need to be constantly controlling and modifying the system to keep it safe.
+And I think it's very similar to this problem of the unknown unknowns in computer vision and AI in general is the unknown hazards, the unknown failure modes of the engineering system you've built.
+So, you know, David Woods, who's a, you know, longtime sort of human factors person, cites this work that's come out of Caltech on that engineered systems tend to be robust yet fragile.
+And my version of summary of it is for the failure modes we know about, we engineer margins of safety, so we're robust to those things.
+And so we can withstand, you know, we have these Byzantine things we can lose, we have RAID, we can lose, you know, a bunch of disk drives and still function just fine.
+The trouble is they're the unknown failure modes that we didn't know about.
+And when we're designing the system, while we've built margins of safety for the stuff we know about, we then optimize size, weight, power and all these things to try to make it as cheap as possible.
+And that's probably taken us right up against the edge of the feasible region and lurking right on the other side of that feasible region edge is some novel fault that we didn't know about.
+And we don't have any margin of safety on it and it bites us.
+And so we're fragile to the stuff we didn't anticipate, to the unknown things.
+And so I've also read this literature on what are called highly robust human organizations.
+And this is work that came out of sort of organizational psychology and sociology literature in the 1980s, where they, and was kind of the origins for the patient safety movement in operating rooms and pilot training.
+And one of the things that they talk about is organizations that succeed in achieving very high levels of safety have this fundamental belief that there are these unknown failure modes and their main job is to try to detect them before they bite.
+And on what basis can they detect them? Anomalies and near misses.
+So the idea is that sort of the KPI for a safety engineer operating on the ground is every time we have an anomaly, let's try to figure out what it was.
+What was its root cause? Is there some new failure mode that we need to think about and protect against?
+And near misses even more so.
+And of course the idea of a near miss I think is that we have these known hazards and we have our margins of safety.
+And if we intrude inside those margins, which we weren't supposed to do, that means something is out of whack and we should investigate that.
+But there are some other subtleties in the near miss concept that I'd like to encourage AI people to think about.
+In the self-driving cars we see the car might have a rule that says I need to be two meters away from every pedestrian at all times.
+But there are definitely scenarios recorded where the pedestrian was in the crosswalk, he sees the self-driving car coming straight at him and he leaps out of the way.
+And the self-driving car says two meters, I'm good.
+And this is because it is a counterfactual near miss. Had the pedestrian not taken evasive action there would have been a collision.
+And of course other cars also have to take evasive action.
+And so the self-driving car needs to have the sensors and the reasoning to be able to say would it have been a harm if other actors had not acted appropriately.
+And it's tricky because of course if the guy turning left hadn't waited for you to pass, that would have been a collision too.
+But that isn't a near miss we decide. So it's quite subtle.
+But in any case, so this leads back to the idea that when we deploy a safety critical system, we need a whole human organization that's wrapped around it that is constantly looking for new failure modes.
+And then adapting the system. And I think we can build AI tools to help with that.
+So I've been doing a lot of research on anomaly detection and novelty detection.
+I haven't thought much about near misses, but I think we have things to do there.
+Once you find a new failure mode, you have a diagnosis problem to say well what's really causing it.
+And we have researched diagnosis in AI for 40 years and so we have some ideas there.
+They fall back on needing to have a causal model. And of course we've been doing a lot of work on causal AI these days with Udaya Pearl's theory of causality and lots of work happening here in Europe on causality.
+And then we have a repair. So to the extent that repair means we need to retrain our computer vision system or something.
+We know how to do that or we retrain our device controllers.
+So I think we have a lot to offer that current safety things rely on humans to do all those things.
+But maybe we can have a collaboration with humans to maintain the safety of the system.
+You'll still always have the challenge that the better we do our job of maintaining safety, the more the safety crew will be cut by management.
+Because the number one threat to safety is typically budget cuts because management says gee you haven't had a failure for two years.
+Why am I paying all these people who are just sitting around? What are you doing?
+And Nancy Levison documents that these systems tend over time to migrate toward danger because basically a budget cut, staff turnover, training failures.
+And you don't have enough experience with disasters so you become insensitive.
+And so this is really hard but you need to educate management about.
+And we need some way I guess of estimating the cost of the failure and the savings they're getting by having these people around because you don't want to be the next cloud strike.
+It's almost a bad incentive because if you're too good at your job then you'll have your job taken away from you.
+And I completely agree that safety engineering is a living breathing thing and it decays over time.
+There's this open-ended process, there's orchestration, there's humans at diagnosis that needs to keep going on.
+The same thing in things like fraud detection. It's not the number of frauds you detect, it's the number you prevent.
+But how do you measure that?
+Yes, indeed. So final thought, most interesting conversation you've had this week at ICMA.
+One thing I had was I was talking to some guys from Tsinghua and they're trying to figure out how to train LLMs on commodity, like gaming GPUs.
+Because naturally, while they're academics, they don't have budget to buy a bunch of A100s either, but they're also under the embargo from the US and Europe on this.
+So necessity may be the mother of invention that they're working on 8-bit training, large models at 8-bit.
+And if they can succeed, all of us academics will finally be able to start training our own LLMs.
+So I wish them luck and hope that they will open source it once they figure out how to do it.
+Because I think that's been a big challenge for the academics.
+Nonetheless, I'm impressed. We see much bigger collaborations happening now.
+The number of papers, it'd be interesting. It's purely anecdotal, but my impression is that we have very few single-author papers.
+Even relatively few, you know, student plus their advisor papers.
+We tend to have papers from multiple institutions working together, some corporate and some academic, multiple countries working together.
+It's very hard to say, you know, I mean, we see a huge number of Chinese authors, but they're often working with, you know, authors from Europe or the US.
+And of course, we have tons of folks from India also involved in these companies.
+That's a big change. It used to be that single-author papers were something that could happen in this field, but it's pretty rare now.
+Yeah, the days of the gentleman scientist are over.
+Yes, and, you know, I mean, I had a conversation with Jeff Dean about this, and he said, you know, you've just got to give up on this idea that academics can compete and play this game.
+It's over for you guys. And he drew an analogy to when he was a graduate student working in distributed systems, and he said he was basically the last generation of academics that could do distributed systems, PhDs,
+because then Google started doing distributed systems, you know, a couple orders of magnitude bigger than anything any university could do.
+And it just scaled out from there, and he said all the actions switched to the companies.
+I guess I'm still think that there's some really interesting things going on.
+And in particular, you know, when the first, was it the llama, the first open-weights model that was kind of spilled out of Facebook meta.
+And there was an explosion of stuff that all happened just in a couple of months because people could experiment with it and you had hobbyists doing stuff.
+And it was incredible what people were doing.
+And we've also seen this whole thing to be able to run it on all kinds of different devices.
+So, I think that I'm a huge fan of this open source.
+I mean, there's all these debates about the, and there was a discussion paper on that here about, you know, is it safe to open these models and so on.
+It's certainly incredibly accelerates the research to have these open weight models available and be able to have everybody worldwide work on them and even just run them on a Mac, you know.
+Yeah, indeed. I mean, a lot lower and low precision was really helpful for that.
+And that came, that was sort of an instant discovery once those weights were available.
+Yeah, indeed. But do you think there's always going to be a relationship between flops and capabilities?
+I mean, surely the reason why we need academics is we need very smart people working from first principles who deeply understand the topic, not just bigger and bigger GPU clusters.
+I mean, do you think there's space for that?
+Well, I mean, to the extent that I don't think the transformers are the ultimate architecture and that they're super good at this sort of sequence to sequence mapping.
+And so, you know, if you want to change something from XML to JSON, it's fantastic and they can do all these formats.
+You know, so the days of writing little data hacking scripts, which, you know, we used to write so many regular expressions and those are over because you can just ask these systems to do it.
+So they're super good for that. But as we discussed, it's not clear that they're very good for reasoning and the interface with knowledge bases or formal reasoning engines is still not clear.
+And the other system two to system one discussion that we didn't have is, you know, this idea of learning through practice.
+I mean, an awful lot of what reinforcement learning is basically involves you start with a declaratively specified goal and a model of the dynamics of your system and you compile that into a policy that's very low level and goes directly from sensors to actions.
+So that's going from system two sort of explicit reasoning down to system one.
+And so that's been one model of what happens to us, you know, when we learn to ride a bicycle or play an instrument or whatever, we are sort of interpretively executing things painfully slowly and making kinds of mistakes.
+But but over time we become better and better and eventually fully automatic. So we don't even have to think about it and we can do it.
+And so that and one of the advantages of doing it that way is you now have the sort of entire provenance of how you got to these low level system one beliefs from this declarative system two.
+And so that also helps you if you find a bug in your system to spec you can recompile back down to system one.
+So but but it's obvious that we don't learn everything from from reading a recipe and practicing some things we just learned from interacting with the world and they are system one all the way.
+And it's a really interesting question how to mix those.
+And do we make post hoc explanations for why our system one routines work and and you know it's fascinating area but but but it's clear that we we are able to move back and forth between those and and that seems to be a source of our power.
+And so so I don't think just scaling data and scaling the the transformers is is long term feasible because we know for some domains we're going to need exponential amounts of data or even worse.
+And you know you're not going to build a theorem prover by generating all possible proofs.
+On the other hand you're going to you can build a proof of system that outputs you know lean code from a bunch of examples of lean so you know I think it's yeah it's all very confusing right now.
+Professor Dietrich thank you so much for joining us today has been an honor.
+It's been a pleasure.

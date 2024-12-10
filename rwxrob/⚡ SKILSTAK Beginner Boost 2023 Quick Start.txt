@@ -1,0 +1,510 @@
+Hello and welcome to the skill stack beginner boost. This is the quick start
+for the skill stack beginner group is 23. I'm going to show you how to get Linux
+as fast as possible and how to start experimenting with Linux and containers.
+We are not going to be doing a lot of hand-holding in this video. This video is
+designed to catch people up who are coming into the middle of the boost and
+saying I want to keep up but I can't. I don't know how to do all that. What is the
+minimum I have to do to keep up? Also, maybe you just stumbled across this video
+some other way and you want to play around with containers and Linux for the
+first time and you want to know the best way to do it, the fastest way to do it.
+And I truly believe that this is the fastest way to get started with Linux
+and containers on your computer. So that's very important. Let me just talk
+about that for one second. A lot of people will tell you to go to this and
+that cloud service or something like that or SSH into this or connect to that
+to practice and to using Linux. I personally believe that the best tools
+for learning things like Linux and containers are the actual tools themselves.
+That's some simulation of the tool, not some broken emulator. What
+you actually need to do is start getting experience with the actual tool.
+Because if you're going to be a doctor or a surgeon, you're
+going to do surgery and you've been doing it in a simulator the whole time and
+the simulator is different than an actual person and all of a sudden blood is
+everywhere. No. The best way to learn something is to use the thing that you
+have to. Even if it takes you a little bit longer and even if it's a little bit
+more complex. But I have spent years, literally more than a decade, trying to
+come up with the absolute fastest way to get anybody from nine to
+nineteen and older up and running on Linux, on their laptops, on their own
+computers. Without a dependency on the internet, let me tell you, I want to
+think about this. I was teaching a group of 40 people a game development camp and
+their internet was bad. We were trying to use, we were using an
+online service that I won't name. I had to stop and overnight I had to tell
+everybody to install an editor on their machine so that they could
+finish that game development camp because they did not have dependable
+internet. This was a private school. It didn't have dependable internet. So the
+reason that tools for development and for Linux have been made to run locally,
+I'm thinking primarily of Git, the reason that they've been made to run
+locally is because you don't know if you're going to have an internet
+connection. You cannot trust that you're always going to have network
+connectivity to do your development. Maybe the thunder, maybe Lightning's
+going to knock your computer out like mine yesterday or two days ago or maybe
+you're going to be in the airport, you don't have Wi-Fi. There's a million
+reasons why you don't want to limit yourself to internet connectivity to do
+your development. Now, you still want to be able to phone home and check in and
+get the latest or make your changes and share them with others and all that
+stuff when you do have internet, but you don't want to be dependent on it. So
+based on that, this is what I believe is the fastest way to get started with
+Linux on your computer. Okay. And we're surprisingly, if you're coming here to
+see how to install Linux on your laptop and get rid of Windows or Mac, this is
+not the place. That is, by the way, not the fastest way, right? That is actually
+counterintuitive. It's counterproductive and I don't recommend it at all. Most
+Linux is actually used from the terminal in a server. There's a small isolated
+but very loud, noisy internet group of people who use, you know, Linux
+distips on their desktop. We're not talking to those people. Okay. We're
+talking to the people who want to use Linux for work, who want to use Linux
+for as an enabler. We want to use it primarily from the terminal. They're
+going to be using it from containers and Kubernetes and all that stuff. These
+are the people, the people who actually make money with Linux, which don't
+necessarily dependent on the desktop. Very few people, frankly, in the
+enterprise working world use Linux on the desktop or we're even allowed to
+put Linux on the desktop, but a lot of us have to use Linux containers. So
+that's what we're going to do. Okay. So, so the first step here, and I know I'm
+sounding like a YouTuber or more than usual today, but I have to go through
+this really quickly. Just had coffee and I got to get back to work. So the first
+thing to note here is that you're going to get terminal software. You need to
+install some terminal software. We are only talking about Mac and Windows. I
+just told you we're not doing Linux on the desktop, right? So you either have
+a Mac and this goes for Intel or ARM or whatever you want to Mac silicon, right?
+So you're going to go out and just go search for a thing called I term two,
+which, which we'll go do here from the internets. I have a whole bunch of
+things open here. So I term two. It is true that Mac that that Macs come with.
+It is very true that Macs come with a terminal, but that terminal is not very
+good. It's super good. I mean, I've used it for years, but I term two is that much
+better and you'll see how it's going to be better for you later as closer, has
+better integration with Tmux, which we're going to learn later. We're going to talk
+about this today, but it just trust me, I term two is the go to terminal for Mac.
+And so if you have a Mac, then you want to, the first thing you want to do is
+download and install I term two. Okay. We're not going to go through how to do
+that, as I said, but that's what you're going to do for windows. The terminal you
+want is from the windows store. It is called the windows terminal preview and
+make sure you get the preview. The preview. I don't know if this is still true,
+but the Microsoft windows terminal preview was accelerated. It was actually the
+faster of the bunch. You can go to the Microsoft store and install it from
+there. But once again, make sure you get the preview. The preview has the newest
+fastest things in there. The reason you need to get windows terminal preview is
+because windows doesn't come with a good terminal. And it generally speaking has,
+you know, faulty support for Unicode and UTF-8. And you're going to want that
+because everything that's written these days is written in Unicode and UTF-8.
+Those are the encodings that allow emotes, emojis and all kinds of other stuff.
+Chinese characters, stuff like that. So you definitely don't want to use any
+terminal that doesn't have Unicode and UTF-8 support in 2023. So that's what
+this is for. Windows terminal preview is also integrated into, you know, it allows
+you to use many different ways. Shell commands, which are the name of the
+program that runs to support your command line. Okay. So step one, install a
+terminal. You need to go get, for a Mac, you need to get it term two. For windows,
+you need to get terminal preview. Once you get that installed, okay, you can
+start it up. Now you can also customize it if you want. Both of them have
+theming ability. I'm not going to cover that here. If you want my theme, if you
+want my groovbox theme that I like, my particular color preferences, you can go
+look them up from my .files. So that's on github, github.com, rwxrob. I should
+probably go there. Okay, so github.com, rwxrob. This is my own personal .files, not
+all of them are something that you would care to have. But if you do want to, to
+look up the customizations, under install here, I've got, I'm pretty sure it's
+under here. Let me go check. There we go. So I have that Mac, I have the I term, my
+I term two configuration, if you want to use that. And then I also have the windows
+one, windows only stuff terminal. So here is the settings file for my, for my theme
+on the settings there. So if you want to make your thing look exactly like mine,
+you know, colors and everything, you can go, you know, add my settings, .json
+file as your starting file in the right place. And I'll let you research how to
+add those two. You need to learn how to do that anyway. So just if you want to
+customize it, go look for those two things and you can go find my
+customizations under the dot on my rwxrob slash dot slash install and then
+look for that. All right. So, so bash bash is the name of the default Linux shell
+on Red Hat and Ubuntu Linux, which are the most significant Linux distributions
+in the world for use in enterprise. There are lots of other Linux distributions
+and you can go to other channels and fight about why they're better than
+others. There's no debating that, that, that Red Hat, Ubuntu, and then to a
+lesser extent Alpine and busybox are the only Linux distributions that matter
+for enterprise Linux, you know, cloud native development and computing that
+those, Hey, there's our dog. So, so make sure you go and install bash. Now, this
+is a little bit trickier on Windows. What actually Windows is not too
+tricky, but let's do Mac first. So for Mac, you're going to need something
+called brew and Mac brew the missing package manager for Mac. It's called.
+So this is actually a Ruby program. And this is one of the very, very few times
+when I'm going to tell you that it's okay to just run something from the
+command line by copying and pasting it. Okay. So you can see that it says bin
+bash. And that's because I believe I'm pretty sure it already comes with the
+even the newer Macs come with bash, they come with an older version of bash.
+If they don't, but you still need to update it, right? It might be that you
+have to instead of doing bin bash there, you might have to do something
+different, but I'm pretty sure that actually will work. Anyway, you need to
+get brew installed. Okay. brew is the way you're going to be installing things
+on your Mac. Macs are actually under the hood. They're actually BSD Unix
+already, which is really fantastic. It's one of the reasons that people have
+been using Macs for years for developers because it has a very, very strong
+command line game from the, from the get go, right? I'm hesitating on the
+whole bash and thing because Macs, about two years ago, they, they switched
+over the default shell from bash to Z shell. We're not going to fight about
+shells right now. I just told you why we're learning bash. You want to use
+Z shell fine for your interactive shell, but you have to learn bash anyway
+because it is the primary shell language for all development of containers
+and everything else. It, it, it dwarfs everything else. So that's the shell
+that we're going to learn as a script, shell scripting language in this
+skill stack boost that we're going to learn, et cetera. So go ahead and
+install brew. And once you have brew installed, it's pretty easy to install
+bash. In fact, it's pretty easy to install anything. Just do brew install
+bash and that'll, that'll come down and that will update the version of bash
+you have. Next time you start up a terminal, you'll be able to do that. It's
+kind of implied here, by the way, that you will be, you'll be running your
+terminal in order to get a command line in order to, to do these steps, at least
+that one for Mac, right? Now on Windows, Windows, you don't pull up a terminal,
+right? And, and Windows, you're going to install something. I'm going to get
+crap for this, but I'm going to tell you briefly why. Just do it. Okay. So, and
+Windows, you want to go to something called git. If you just do a search for
+git bash or a git dash SCM, you'll find the git SCM.com website. This is the
+standard git distribution for Windows. What's git? Okay. Git is, you know, the
+name behind git hub. Git is the premier tool. It's probably the most famous
+thing Linus Torvalds made who besides Linux, he made Linux. And then the
+second major thing that he made was git. Now, git is used to manage source code
+and knowledge bases and a bunch of other things. It's going to be the basis of
+everything we do in terms of synchronizing our content. So you, we're going
+to learn git, but, but more importantly, we're going to install git SCM or git
+bash onto Windows. And so you click on download for Windows, you get an MSI, you
+know, package thing, you click on it and run it and just go through the install
+and it'll do the right thing. Okay. As soon as you do that, then you can
+actually test it out by opening up Windows preview, which is what I'm running
+here. You can open up Windows preview. And let me see. Where's my thing? Here we go.
+Wait, what? Wait, what? Wait, here we go. All right. So you need to open up
+Windows preview. Where's my, my thing? It might not happen. Okay. So when you
+have, this is my Windows terminal. When you have Windows terminal open up, you
+can click on the plus here and it will open up a new, a new terminal for you.
+Right. So, or you can click on it, the little under down. What is this?
+Dow tilde, I guess. And you can look and see, there's a lot of other things from
+WSL too. You can get a traditional old school prompt. You can get a different
+PowerShell. Those are fine if you need those for Windows, but the one we're
+trying to use is git bash and you can make that your default by changing up
+your settings, which is also the place you go to change your theme. Okay. So play
+around with that for a bit, but make sure that you get it so that when you
+click on the plus, you get a new, you get a new shell. Now your shell, well,
+we'll talk about prompts and what they are, but this looks like Linux, right?
+It's not. Okay. It's important you understand this is not Linux. This is
+Windows and the reason, the main reason, the main reason that we aren't doing
+git bash instead of anything else. Yes. Instead of WSL too, or any of those
+is because git bash is Windows. Let me say it again. Git bash is Windows, right?
+All of the other options are Linux. Git bash is bash on Windows. And let me
+show, let me prove it to you. So, you know, some people say it's old. It's
+nobody uses it anymore. I say, bah humbug. You know, we all use it a lot
+actually. And because what it does is it allows you to do commands like find and
+a bunch of other fantastic things that come with, they're generally associated
+with Linux on Windows without messing up the permissions, which WSL too does.
+I mean, I'm not going to go into it if you want to hear me why I hate it. See
+how these all have EXE at the end? This freaks people out that no Linux the
+first time because they're like, oh my God, that's like, it's just, it's just
+almost, it's almost like if I had bash on my Windows machine because that's what
+it is. Okay. That's what it is. And that's why you want it. You want sometimes
+you want to be able to deal with your Windows, you know, files and stuff from
+the command line using your favorite shell bash. And even if you, if, you
+know, bash is also compatible with POSIX shell and some of the other shells,
+the shell. So, so here you go. You can see that these things, so that's, that's
+the primary justification for using git bash. It'll give you some, the git bash
+can get a little bit interesting when you're using command line options,
+because those options are interpreted by Windows and they don't always look the
+same. I don't know if you saw that, but here we have see users rub, right?
+Instead of seeing C colon lever slash users rub. So you have to make an
+adjustment there. We're not going to talk about that adjustment right now. Just
+get git bash. Okay. And then, and then you can say that you actually have bash
+on your Windows machine. Now that's not enough though, because it's not Linux.
+It's bash, but it's not Linux, right? So it's bash on Windows. And over here,
+when you install bash over here, you actually have bash, but now you have bash
+on BSD Unix or otherwise known as Darwin, which is what's running on Mac. So
+we still don't have Linux. We have to get Linux, right? With true Linux in
+order for us to learn it. So this is the way we, we, we, we do the third thing.
+And then we get another thing. We go to
+podman desktop. Okay. Podman desktop, which is the place to go. I had a problem with
+DNS. Okay. So, so podman desktop. What is this? Okay. Podman desktop is Linux in
+a nutshell. Okay. It is a version of Linux that's running in an emulator on
+Windows. Long story short, modern LXC containers. That means that when you
+hear about cloud and containers and Kubernetes and all that stuff, you're
+implicitly talking about Linux containers. Somebody, a penance person is
+going to say that BSD has, has containers. You don't care. When you hear the
+word containers in 2023, they are talking about specifically LXC Linux
+containers, right? You can, I'm going to say something else is going to blow
+people away. You cannot have a container, a Linux container without Linux. Well,
+Mr. Rob, if we're talking about Windows and Mac, we don't have Linux. How are we
+going to use containers to run Linux without having Linux? And this is where
+things get a little bit weird. All right. So when you download, install podman
+desktop, podman desktop will install and you're like, why not Docker desktop? We're
+not gonna, we'll talk about that in a sec. When you download and install podman
+desktop, you install a Windows application that emulates Linux and
+it'll prompt you to install WSL too. So it'll be faster. WSL too is Windows
+Linux kernel that runs inside of Linux. You can imagine having a Windows
+machine and then have it also run Linux as a program inside of it. It's not
+particularly like that's kind of like next to it. But anyway, so WSL too is
+Linux. All you need to know is you click on download now, you install podman
+desktop. When it asks you, do you want WSL support? You say yes, do you want me
+to install WSL? So you say yes, you accept all of those defaults, you probably
+have to reboot someplace in there. And at the end of the day, you'll have a
+thing called podman desktop that you can use to fire up podman, right? Now we are
+not for the boost, we are not going to use the fancy GUI that they have
+created. We're not going to use that. I'll show you it a little bit. But for the
+most part, the reason we're doing this is because we want podman on the
+command line. And that's why we installed git bash. We're going to use podman
+from the command line as will benefit you on the job as opposed to being
+dependent on some random GUI that may or may not be working or broken or
+anything. And people have reported both with podman desktop and Docker desktop
+that the GUI stuff doesn't necessarily work. But it can give you an absolute
+beginner a sense of what's going on, what a container is, where it lives and all
+that stuff. So download podman desktop, install it, you select the option for
+WSL 2 and go ahead and start playing around with it, right? Then after you
+have that installed, the last thing we're going to put, and that goes for Mac,
+by the way, the reason we did podman desktop is because podman desktop
+supports Windows, it supports Mac, it supports Mac Intel chips, it supports
+Mac with Apple Silicon, it supports everything. And the way it does that is
+something called Kimu, which is an emulator that's come from long pedigree
+of Linux, and it's exactly the same way that Docker desktop does it. And it's
+building on top of that technology. When you are done installing podman
+desktop, you will actually have a container engine, in other words, a
+container machine, I guess, a container engine running inside of a virtual
+machine. And that virtual machine is Linux. Now it's very tiny, so you already
+have your own Linux machine. You might be wondering, well, why don't we just use
+that one? Well, that virtual machine of Linux has been really sized down, and it
+only has one purpose. Its purpose is to allow you to run containers, otherwise
+previously known as Docker containers. We're not going to use Docker. We're not
+going to talk about Docker. We will occasionally pull down a Docker hub
+image. But for the most part, the company that is largely credited for
+inventing the container craze, even though they didn't invent containers,
+they were invented by the Linux community, is now largely irrelevant. And I
+don't want to go into it. You can go do a search for why does Docker suck? And
+you'll see all the reasons that nobody on the planet wants to use Docker
+anymore. And so we are using podman desktop, which comes from the Red Hat
+company, which has got very popular adoption within the enterprise. We
+could debate all day about the ethics of Red Hat and all that. And I mean, I've
+had Red Hat stock since 2002 or something. I think I sold in 2008, which
+was stupid. So get podman desktop, get it to work, and then go to your
+command line. And this is the next step. So once you have podman desktop, we
+need to start seeing if it actually works, right? So once you get there, you
+can go start up your Linux terminal. We'll use a clear command. We're going to
+learn all these commands over the course of the boost. So again, this is get bash
+on Windows. Now you might be on iterm two, and you might have your terminal
+loaded, but get to the terminal and then just just see if podman's there podman
+dash dash help. And you can see and I'm good. This is one of the few times I'm
+going to do this, but I'm going to scroll with my mouse through the through the
+terminal stuff. You haven't learned about pagers and stuff yet. So that's okay. If
+you know him, go ahead, but manage pods containers and images. So in a nutshell,
+an image is kind of like a in in our particular an image is kind of like an
+application with all the files and stuff that it needs frozen into a container
+into into an image that can be shared with other people. And when you run an
+image, it makes a container, which is a single instance of that image. And then
+that that container, you could actually make another one and another one and
+another one, you can have a whole bunch of containers all coming from the same
+image, almost like, you know, that really horrible scene from quantum media where,
+you know, Scott gets turned into all this alternate selves kind of you can think
+of it that way. So so an image is in in this case, the image is we're going to
+use an image that's not just focused on a single application, but that's focused
+on pretty much everything you would want to emulate a Linux desktop distribution.
+Okay. So some of the larger images in the world are they actually contain more or
+less miniature Linux machines. Now they are not Linux machines. Very important.
+That word is not apply here. Right. And the thing to know about containers is that
+all of the containers use the same Linux kernel, but they're protected from one
+another in special ways that we won't get into. Okay. So so when you create an image
+or you use the like a bunch of Linux image, like we're going to do, you're
+actually using your creating containers and all of those containers, they're they
+have separate files. They have separate running processes, but they're all using
+the same kernel on the same host system. They're sharing a kernel. That is the
+fundamental difference between an image and a container and a virtual machine.
+When you have a virtual machine, which we'll hear about, virtual machines
+actually create different instances of the whole kernel and the machine. So you
+could have five different versions of Linux and run those under a virtual
+machine and previous boost. We actually had to install a virtual machine because
+it's, you know, they're heavier. Obviously they are separate machines. So you can
+do things that you can't do on containers, but it's, but this year and going
+forward, we're going to do containers because the goal is to just learn Linux,
+learn the terminal, learn how to use the, how to edit files, learn how to write
+bash commands and all of that can be done with a container, which is lighter
+weight, smaller. It's also fundamental learning. And if you ever want to get into
+cloud or you want to get into Kubernetes or any of that stuff, all of that stuff
+depends on containers. So you have to learn it, right? Do you have to learn how
+to make a Docker file or a container file? Not necessarily right now, but you
+definitely need to know how to download an image, pull an image, they call it and
+use a container. And we have made, I have made a container for you, an image for
+you so that you can get started right away. And I'm going to show you how to use
+that. Okay. So notice how this says podman.exe on my computer. That's because
+podman is actually, in this case, it is an executable that's been compiled to
+run on Windows. And it doesn't look like it because it get bash once again, but
+it's actually running under Windows. All right. And you can read through all the
+commands and see, I'm just going to tell you the, the essential commands you need
+to do to get started. The first command is podman machine start. Okay. You might
+have to do podman machine init upfront. And that's going to, you know, that
+virtual machine we talked about, that's going to start it up, right? You can
+probably see that there's a problem on machine list. If you want this to show
+you all the machines, there is WSL, Windows subsystem for Linux. That's what
+it uses. That's why I installed it on Windows. On a Mac, you don't see that.
+You'll see something, but it won't be that. It'll be Kimu or KVM or something
+like that. But that just shows you that you have a machine. If you forget that
+you have a machine, that you can do podman machine list to see this. This is
+not something that Docker desktop has. So I'm going to show you that. It's very
+common to forget to start up your machine and to try to do all the normal, you
+know, podman Docker commands to go get, to go get an image of stuff. So make
+sure of that. And then to start the machine, if it's not there, you do
+podman machine init, which I'm not going to do. You just do that because you
+don't have a machine. And then the next step is going to be podman machine
+start. And that will start up your machine. So now it'll handle requests to
+pull images and to run them and stuff like that, which we're going to do next.
+Okay, so back to our steps. Where are we? We installed the software. We're now
+we're installed. We've got podman all installed. We can see that it's running
+from our command line. We're not going to use the GUI. We're going to use the
+podman command. And Windows is podman.exe, but we're not using the exe. And
+then Mac is is podman. Okay. And then we're going to pull and run a container
+from the desktop skill stack workspace image. Now, there's a lot in that step.
+But what you fundamentally need to know is all it's going to do is it's going
+to go out to where's my here we go. So we're going to go out to github.com
+rvxrob slash and I don't have a repo for to goes with it yet. So you just go
+over here and click on packages. And I'll put this in the notes. And there it
+is. W s dash skill stack. The W stands for workspace. And you can click on
+this and you can see that here is it tells you the command to use. Now it's
+using Docker just as a note of clarification. As I said, Docker has
+been the go to tool for all of this for more than two decades. So about a
+decade, I'll say. So anywhere you see Docker, you can put podman now. Okay,
+podman is what we're going to use instead of Docker. Some people even
+alias it to it. I wouldn't do that. I would actually use the podman command.
+And this tells you how to get this image and run it. So GHCR is the name
+of the GitHub container registry. That is where we are storing this. Then we
+have the name of my account and then we have the name of the image that we're
+going to pull, right? And the image has all the stuff necessary to do the
+boost. And then which version and latest is the default. If you leave this off,
+that's fine. But you can always add that. And that is the latest version of the
+image. If I make if I push more than one, you could actually go get the
+previous one if you want to. And that won't that won't pull down the entire
+thing, right? Okay, you can actually do this in in in two steps. If you want,
+you can actually just use the run command. But let's go ahead and do the
+pull command. So so you can get back to your your command prompt and you can
+do pod man, pull and then gcgcghcr.io slash rfxrub slash workspace dash
+skill stack. Okay. And this is going to pull down a container with all the
+stuff for the boost. So it'll pull it down. It might work really fast
+because it's already there. Okay, it's already there. And the way you can see
+if it's there is you can do pod man images and you can see all of your
+images. And among the many images I have here is the WS dash skill stack. I
+have a local copy that I use. And then I have the one that I got from the
+remote location. Okay, so you'll probably just have the one. Alright, now we can
+actually run that for the first time and do something with it. Okay. And I
+think actually, let me check something pod man PS dash a, I think I
+already have one call workspace. Yeah, I do. So I'm going to actually go ahead
+and delete that. Actually, no, let's just go ahead and do it. So now now you've
+got your get bash. Now we're going to run our Linux containers. So you do pod
+man, pod man run, right dash it run it. Just remember run it. The I stands for
+interactive, the T stands for TTY or terminal, so that you get an interactive
+thing you can relate to. If you want to not use it after this, you could do dot
+dash rm, but we're going to keep it around because we're going to restart it
+and attach it frequently throughout the boost, right? We want to keep it around.
+And that's not always true with containers, but in our case, we're going to
+do that. So run it and then go, well, what are we going to run? Well, we're going
+to run and you could just probably, I don't know if you could probably just try
+to do WS skill stack, right? You should be able to pull that off now because it's
+local. You now got a copy of a local. If that doesn't work for you, you can go
+ahead and type in the, and I'm using the arrow keys here, you know, the GHCR or
+whatever, right? Okay, so there are a couple of other things to put in here,
+just for fun and to make it clean. So one of them is hostname. We're going to give
+it a hostname. If you want, you can give it a hostname called skill stack. That
+will become this TV thing here. Yours will become, that's what that does. Okay.
+And then we want to give it a consistent name instead of a random name. We don't
+want it to, this is the name of the container itself that's going to create
+from the image. We want that name to be unique. So any unique name, okay, you can
+call it whatever you want. I frequently call mine WS or workspace. You could call
+it, you know, you could call it boost, but you're going to be typing it a lot. So
+let's see if boost is not taken. I don't know if it is or not. We'll try. So once
+again, we have the podman command. We have the run main action, which will run
+that container, which has already been pulled. And by the way, if you haven't
+pulled it, it will pull it at that time. And then we're going to give it a hostname
+skill stack just so that we don't get some random number here instead. We want to
+have that be nice and pretty. And then we have the name boost, which is the way
+we'll refer to the caner to reattach to it later on when we exit after we exit.
+And then we have the name of the local, now local image that we pulled down. This
+image could be the long name if you want to. Thankfully, you don't have to do
+this all the time, but you can. There is actually one last thing that is going to
+help you. Okay. And that is mounting a volume. Okay. So if I'm going to have, go
+ahead and tell you to do this, uh, even if you might not want to do it. So you do
+dash V. And what this is going to do is it's going to share a directory folder
+between the two systems. All right. So we're going to say, we're going to create
+a folder called shared and colon. And we want that to mount into, and this is
+Windows. This is Windows or Mac can use two slashes, but Windows has to have two
+slashes. And we have shared and we want it to be shared, uh, to be also mounted
+into shared, uh, so that we have a shared folder in both systems. Um, if you, uh,
+well, that's, that's good. That's, that should be enough. Uh, there are other
+things you can put. Now that's a lot to memorize. That's why I'm making this
+video, right? But, and you're going to understand what all of those things
+mean by the end of the boost. But this is your, this is your way to run a
+command. You could try to do the same thing by clicking on a bunch of little
+pretty pictures, but this is good for you to know. So once again, Podman run is
+it interactive TTY host name, skill stack, container name boost with a mounted
+volume shared directory is mounted to slash shared in the, in the, in the
+program, uh, in the running container. And then we'll have this WS skill stack
+as the image. Let's try that and see if that works live demo error, creating
+container boost is already in use. Okay. Uh, let me actually go ahead and
+remove that then. So if you don't know this yet, but pretend you do. So we're
+going to delete a big careful doing this. Don't, don't do this, uh, on accident
+because it will lose all your progress. All right. So, but I'm going to go ahead
+and remove one that get it out of the way there. And now I'm going to go run. I'm
+going to, I'm pushing the up arrows to go back and I'm going to run this command.
+Now this, this should run. It uses, okay. So that you see how it just ran right
+away. And you only have to do that command once, uh, for the boost. If you do it
+again, as, as we just tried, if you exit out, it'll get you out, right? If you do
+it again, you'll get the error. I just got, right? Well, don't delete it. You want
+to use it. Okay. So, so how do you attach to a running, uh, uh, so let's go see
+pod man PS dash a, that'll show you all of your stuff. And you can see down here
+is the one you can see by when it was exited and how long ago we got it. Uh,
+this is the container that was made from the, uh, local OSW skill stack. Uh, that
+made, that, that, that made my localhost one. Um, yours might be GHCR.io slash
+artifacts. Rob either way is fine. Okay. And here's the name. So if we clear the
+screen again, now let's go, let's actually attach, reattach to that same
+container. Okay. And, uh, we're going to learn lots of different ways of doing
+this, but the fastest is this pod man start dash a boost. All right. So what
+that does is it takes the stopped, um, a container image that we, that we created
+with the run command and it runs it and then we attach to it. And so now it just
+started up and it's just exactly where we left off. Our commands are here. Fishies
+is here. Uh, sunrises here. Uh, Neo is here. You know, I mean, all these fun
+useless things are there. Uh, the SL train is here. So now you've got Linux. You've
+got it. You've got, you've got a full blown container of Linux. And for our
+purposes, for educational purposes, it's very nice to do this. This is actually
+do things as root too. If you want to get root, you know, you can go SU dash and
+the password is password, P S S W O R D. Uh, just the containers. That's fine. Oh
+no, we're a root now. Right. You can actually do things to your boost container
+and destroy it. And it's fine because you could always go make a new one. Right.
+But you still have to don't do that, but, but eventually you can do that. Right.
+So you could start up another different container from the same image if you
+wanted to get really creative and see what happens when you try to destroy your
+own container. Um, and, but, you know, so that's why we're doing this because
+you're nice and safe. You're isolated. The whole point of containers is to keep
+you protected from the rest of the host operating system. And, and in this case,
+that would be, you know, a WSL Linux virtual machine running on windows. So
+none of those things are going to be affected by, but what you do here,
+including, you know, excessive memory utilization or any of that. That's why
+containers exist. Okay. So this has been a really quick introduction to how to do
+this. As you can see, the default user is user. Uh, but you, I mean, you can do
+anything. You can change your password. If you want to, uh, password, uh, put it
+to a new password, uh, something else as I, uh, oh, you have to have a longer
+password. Okay. But, you know, control C, all those other great things. Oh, I
+don't want any password. Come on. Give me, give me out of here. But I mean, you
+can do it everyone. Just remember if you read, if you don't, if you forget your
+password, you can't get around it. Okay. I mean, you can't, you can't get around
+it. You can't get around it. So if you change your password, you forget you're
+locked out of your own booth, booth container. All right. This has been a
+fast video. Hopefully, um, that's been enough to get you started. Um, but as you
+can see, then every day that we go through to do the boost, uh, you know, we're
+going to be doing batch development. We're going to be doing a VI. Uh, we're
+going to be doing Tmux. We're going to be learning how to search from the
+command line with links. All of that stuff is prepared and ready to go for
+you already. Um, uh, those of you who have started from the beginning of boost
+have built up your own container, but it's actually probably good for you to
+have two containers, one of them that you're using to build up everything and
+one of them that's had everything already finished. It's kind of like the answer
+at the back of the book, right? And you can actually start up, uh, a different
+container if you want to, right? So, and the people in the booth have done this
+and I'm just going to end with this. So you can actually start up, uh, an Ubuntu
+container straight off of the internet that has nothing on it, uh, except for
+Ubuntu, right? And, but that doesn't look like the container that I want.
+There's so many things I have to do to it, right? Well, the boost actually takes
+you through all the steps to take a raw, you know, modern Linux Ubuntu 22.04 LTS,
+uh, you know, container and convert that and build it up into a workspace
+container. And the process of building a workspace container is enough to help
+you learn everything that you really care to know about the terminal and frankly
+containers as a user and as a beginning developer, as a beginning system
+administrator, as a beginning hacker, all of those things. So that is what the
+boost is for. So they get you started and you're ready to go. So you can always,
+you can fire, you can fire up this one. If you wanted to test Kali Linux, you
+could do it. Uh, but if you, if you want to go reattach, you can actually run
+another, uh, yet another, uh, skill stack container if you want to. Um, and you
+could actually have two or three or five or 10, but just don't forget which one
+you're using. But to get back into it again, once again, is a skill stack and
+then you want to do the name of the container, not the image. So now we're
+back into our other thing and we can get going for the rest of the boost.
+Um, I hope that this is what you needed. Um, reading from the comments really
+quickly. Uh, it's been an hour long video and my normal trolls are giving me a
+hard time. Uh, and that's all. Bye.

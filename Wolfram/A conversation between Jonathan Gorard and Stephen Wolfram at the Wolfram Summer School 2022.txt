@@ -1,0 +1,2371 @@
+Our event for the evening is a chat between myself and Jonathan, which might have the
+subtitle of I'm Trying to Understand What Jonathan's Been Up to for the past several
+months, which can sometimes be challenging.
+But I think what I really like to do is talk about some of the things that I know Jonathan's
+been working on, and maybe my kind of mundane questions will help illuminate some of these
+things for everybody.
+So if I understand correctly, you know, people talk about categorifying things.
+And could we say that you are the part of what you're doing is categorifying a multi-computation?
+Would that be a reasonable thing to say, or is that way off base?
+No, I think that's a pretty reasonable way to phrase it.
+I mean, in a sense, one of the reasons I wanted to have this conversation, or I thought it
+would be useful to have this conversation, is I kind of feel as though both of us in
+slightly different ways are trying to kind of investigate, you know, the abstract science
+of multi-computation and its various applications.
+And you know, people often say that sort of category theory is like a mathematical language
+for processes and how processes compose.
+But you know, in the modern world, the standard way that processes get represented is as computations.
+I think in many ways it's more fruitful to just think of it as being a mathematical
+formalism for computations and how they compose.
+And in a sense, you know, ordinary category theory where you just have sequential composition
+is like, I think, is basically akin to classical theory of computation.
+Monoidal category theory where you can do composition both sequentially and in parallel,
+I view as being like the kind of categorification, as you put it, of multi-computation and multi-way
+systems.
+But yeah, and to a great extent, what I'm trying to do right now is make that connection
+a bit more concrete, develop the formalism a bit further, and see how some of the areas
+in which we've been attempting to apply multi-computation so far, like in physics or in chemistry or,
+you know, to foundations of mathematics, how those can be potentially informed by this
+connection to compositionality.
+I'm excited.
+Okay.
+So let's go and do a similar research.
+So first of all, for everybody's benefit, let's just start off by talking about what
+is category theory, what's the, maybe everybody knows that.
+Does everybody, does everybody think they know that here, or some Yorick is saying yes,
+but that's not, that doesn't count.
+I've talked about nothing else for the last couple of weeks.
+Oh, it's not, it's not lecture, right.
+Well, for my benefit, perhaps, can you, can you say what you think, what do you think at
+this point?
+Now that you've studied category theory and the nodal category theory and so on, what
+is the essential idea of category theory?
+Okay.
+So in a sense, the, the, okay, the way I like to think about it is that this, you know,
+the set theoretic picture of mathematics involves, you know, you can ask the question, what is,
+what is a mathematical structure, right?
+You give me some group, what is that group?
+You give me a topological space.
+What is that topological space?
+The set theoretic perspective says, well, we just break it up into pieces.
+We look at, you know, for a topological space.
+We look at its point set or for a group, we look at its group elements and we get some
+notion of identity of that structure from, you know, breaking it up into pieces.
+Category theory, I think, is a more relational, more process theoretic, ultimately more computational
+way of answering the same question that you say, no, instead you, you, you don't want
+to, you know, you don't want to look inside the object, right?
+You don't want to break the group up.
+You don't want to break the topological space up into points or into elements.
+What you do is you say, well, what gives this structure, its identity is how it relates
+to all other structures of the same kind.
+So, you know, what, so if you want to identify a particular group, another way, another way
+you could answer that question, you know, what is that group is you can just say, what
+other groups does it have homomorphisms to?
+What other groups is isomorphic to?
+How does it relate to all other groups in the category of groups?
+And that's effectively the, oh, similarly with topological spaces.
+What other spaces, instead of talking about points and point sets and topologies and
+open sets and things, you could just say, well, what other topological spaces can this
+be continuously deformed into?
+What other spaces can be continuously deformed into this space?
+And if you give essentially, you know, the collection of all continuous functions to
+all other topological spaces of the same kind, the remarkable feature about compositionality
+is it's an equivalent answer to that question, right?
+The same information you get by breaking the topological space up into pieces is, you know,
+is, is also captured by the information about how it can be, you know, continuously deformed
+into other spaces.
+So let's, let's take that apart for a second.
+So let's take a simple example, actually, let's take an unreasonable example.
+Let's talk about Turing machines.
+What is the, what is the category theory view of Turing machines?
+Um, well, okay, so Turing, so one, one thing that's definitely, one, one very interesting
+general feature of category theory is that, and this is really, I mean, more concretized
+in Topos theory, but, you know, we can just stay at ordinary category theory for now.
+Um, that there's, that it makes this kind of, there's this duality or more precisely
+what's called an adjunction between sort of between syntax and semantics, effectively
+between.
+So for, if you give me a formal model of computation, uh, and the, you know, generally people talk
+about this in terms of type theory, but there's no particular reason to talk about it.
+It's just that, that happens to be the approach that was adopted.
+But if you give me some formal model of computation, I can construct a category, which is really
+just a multi-way system that encodes the syntax of that computation, right?
+So, you know, for the case of a Turing machine, I can construct some multi-way system where,
+you know, every, every, every state vertex is a, is a Turing machine state, you know,
+a state of a tape and a state of a head and every evolution edge is some, you know, is
+the application of some Turing machine rule.
+And obviously those, those different threads of Turing machine evolution can compose sequentially
+and they can compose in parallel.
+And that's what gives you kind of the structure of the multi-way evolution graph.
+Um, but there's also a kind of semantic view of what's going on, which is that you can
+talk about this, you know, in the case of Turing machines, you could talk about the partial
+functions that that Turing machine is computing and how they relate to it.
+You know, you can effectively, you can imagine instead a semantics on the category of sets
+and set valued functions.
+And then there's this, there's this very nice relationship where you can define a pair
+of functors that take you from the kind of syntactical category to the semantic category
+and back again.
+Um, and let me try to, you know, I'm sorry, my simple way of thinking about this, okay,
+so in a multi-way system, we have the nodes of the multi-way system are states of Turing
+machines.
+And then there are in some rule, you know, multi-way system, there are multiple possible
+rules that can be applied from every state of the Turing machine to make new states
+of the Turing machine.
+Right.
+So we have this time evolution of Turing machines going in this multi-threaded time evolution
+of Turing machines.
+So that's our standard sort of multi-way story.
+Right.
+Now you say there's a dual picture, which is consider the functions that Turing machines
+compute.
+Right.
+So we have to define a little bit what we mean by what functions a Turing machine computes
+because that's imagining, you know, we've got in this original view of multi-way systems,
+we've got a particular state of the Turing machine as well as to a particular state of
+the Turing machine.
+Right.
+How do we get to, so a function, it means you've got a whole range of possible initial conditions
+for the Turing machine mapping to a certain range of possible final conditions.
+Right.
+Right.
+So we've got a bunch of different dots in the multi-way graph and we've got that kind
+of, you know, how they flow through to a bunch of other dots in the multi-way graph.
+Right.
+So is that the right way to think about it?
+Yes.
+Yeah, absolutely.
+And so in a sense, okay, I mean, we're skipping maybe a head a little bit, but that duality
+between syntax and semantics has a very concrete realization in the context of multi-way systems
+because effectively the semantics is given by branch of graphs and mappings between branch
+of graphs.
+And so maybe Turing machines is a bit of a, is a less nice example to get your head around.
+I mean, so the example I might give that's a bit less sort of mind bending would be something
+like groups.
+Right.
+So you can build a multi-way system, you know, multi-operator system or something that encodes
+the axioms of group theory.
+Right.
+And so you just start from some seed and in principle, every proposition that's true about,
+you know, in universal algebra about group theory will exist as some state vertex in that
+multi-way system.
+But you could.
+You say that very quickly, but I think it's a little bit more, I mean, there's more to
+say that, right?
+Because, because you're saying, well, let's not give up on the Turing machines for a second.
+Okay.
+Because you're, you know, what you're saying is there's this notion, which I like very
+much of this, you know, the function computed by the Turing machines is this mapping of
+this whole collection of possible states, which could be a particular slice captured
+by a branch of graph mapping to another whole slice captured by a branch of graph.
+Right.
+Right.
+Exactly.
+And that the branch of graph to branch of graph mapping you identify as being the function
+defined by the Turing machine as opposed to the kind of, you know, the individual path
+followed, which is the actual, you know, the execution of the Turing machine.
+Right.
+Right.
+And so this is so actually the syntax semantics duality is deeply related to this sort of
+vibration, foliation duality.
+Right.
+So, but I'm not wild about this notion of this term syntax versus semantics because I've
+spent so much of my life in conversation of languages, you know, as semantics as a whole
+bag of other issues, but, but, but in the case of, so what you're saying is we can think
+of this collection of this multi-way collection of Turing machines as being in terms of every
+threat of evolution, we can also think about it by saying, you take all the possible states
+of the Turing machines at a particular post time, and we look at the mapping of that whole
+collection of things onto some future state.
+Okay.
+So actually, I mean, so just on that point, so I agree in some ways, the, you know, using
+the terminology syntax and semantics may be unnecessarily obscure or something, but how
+would you, I mean, so it does seem to me that there is an inherent distinction between,
+you know, you've got some bare metal multi-way system that's just producing a bunch of states.
+There's then some interpretational or encoding step where you say, and this computes such
+and such a function, and how, so how would you, just terminologically, how would you
+distinguish the bare metal multi-way system from the kind of interpreted one?
+Well, when you say interpreted here, we've got this whole giant branch of God, which
+is something that, you know, in our view of the observer is something where the observer
+has to be the thing that's knitted together this whole collection of different, as you're
+putting it, you know, bare metal computations.
+And I suppose the, that concept of an observer to observer, you know, observer state to observer
+state transformation, I mean, for me, that's sort of a new concept, I mean, you know, in
+the sense that I'm not sure that I would associate that with, you know, when I think, okay, let's
+talk about syntax versus semantics as it's described in languages.
+Okay.
+I mean, so the syntax of English is, you know, how do you put the words together?
+The semantics is, what is the, what is the quotes in a meaning of that piece of English?
+Right.
+The problem is people have always had a hard time understanding what an earth in a meaning
+actually is.
+We finally have, you know, language and the whole computational language idea, we now
+have a sort of, for me, I see that as a concretization of what inner meaning actually is, right?
+I don't really quite get what, okay, there are many syntaxes, many ways I can say a sentence,
+which map to the same inner meaning, right?
+And, you know, presumably, and, you know, somewhat obscurely, there can be a sentence that can
+be, have a particular syntax that can be interpreted with many different inner meanings, right?
+Which is semantic ambiguity, yeah, which is, you know, depends on who you are and what,
+where it's said, all this kind of thing.
+Even seeing things as mundane as how the sentence is parenthesized or whatever, right?
+I mean, yeah.
+If you say, you know, I'm doing this, or I'm, you know, I'm doing this and your voice
+goes up at the end, and it's kind of, it's a question for me.
+Right, right.
+It's neither injective nor subjective.
+Yes.
+So these are, these are two separate, and I don't quite see the analogy between kind
+of, kind of the, the syntactic level is an easier to define structural level, the semantic
+level is this thing that's operating above that, that I've always found very hard to
+define.
+I mean, in a sense, that's actually why I brought up the example with groups, because
+I think that, so in, in generally in foundations of mathematics, I'd say the distinction between
+syntax and semantics is slightly better to find because you have this distinction between
+proof theory and model theory, which is quite, you know, quite a hard distinction.
+So the, I know that we disagree on this.
+I mean, the fact is what, one of the questions is, what is mathematics actually about, right?
+And, you know, Hilbert famously said, it might be about tables and chairs.
+It doesn't really matter.
+It's just a formal system where you set up the rules for the formal system and then
+you, you know, prove things from it.
+Whereas other people, like, I guess, who was Poincare, for example, was very much, no,
+it's not just about tables and chairs.
+It's about things we actually imagine are somehow real in some platonic sense.
+Or famously, I mean, that actually influenced Goethele's research, right?
+I mean, he thought showing, for instance, that there existed models that were consistent
+with, with the continuum hypothesis was equivalent to showing it was true, which is only really
+acceptable if you're a Platonist.
+Well, Goethele was very much a Platonist.
+I mean, Goethele as I know.
+Yeah, that's what I'm saying.
+I mean, I've only learned quite recently, you know, that the usual picture of kind of
+the Goethele operation was, you know, there was, there was Hilbert who was trying to define
+this model where, you know, mathematics would all become mechanical.
+You just had to set up the axioms.
+And then as, as Poincare described it critically, he said, you know, you're turning mathematics
+into a thing like this machine I've heard about in Chicago, where, where things going
+up one end and, and what was it, hot dog?
+Yeah, sausages.
+Yeah.
+And that, you know, mathematics is then turned into just this machine where you mechanically
+go from the, from the underlying axioms to everything that might be true.
+And that was kind of the view of mathematics in the first few decades of the 20th century.
+And then, you know, the, the, the usual picture is Goethele came along and said that can't
+be right because there are these undecidable propositions, these things that can't be established
+to find out proofs from by the machine when the machine would never, would never actually
+produce the sausage.
+And the, the, but I think what I, what I recently learned is that, you know, the picture was
+Goethele was operating within this framework of this very mechanical view of mathematics.
+But actually Goethele, you know, he has this one footnote where he says, well, this might
+be true that there are these undeterminable, you know, propositions of things.
+This might be true, but for brains, for human minds, things might work differently.
+And I think what I've only learned recently, maybe other people knew this all along, is
+that Goethele really had a very platonic view of mathematics that there really is an underlying
+to mathematics, and that all of this stuff with Hilbert's, you know, axiomatic framework
+and formalism and so on, was merely an attempt to kind of provide a sort of a sort of a set
+of mechanical accesses to that, but there was something different and fundamentally different
+underneath.
+And so he thought that by showing that this sort of formalistic wrapper was going to blow
+itself up, that that would establish that there really was something underneath that
+simple type sets.
+So I have a couple of comments on that.
+I mean, one is, so there's a version of that argument, which is, I mean, it attributes
+it to Goethele, but which is kind of made a little bit more, maybe a little bit phrased
+a bit more eloquently in some of Roger Penrose's writings, where he also defends the Platonist
+position, but essentially using a modification of that Goetheleian argument, which is that
+both, as far as I can tell, both Goethele and Penrose have the same kind of philosophical
+interpretation of Goethele's second incompleteness there in the statement that you can't prove
+the consistency of piano arithmetic from within piano arithmetic itself.
+So essentially a version of the argument, okay, there's a lazy version and there's a
+slightly more sophisticated version, the lazy version of the argument is, oh, but we can
+see, clearly we can see that arithmetic is consistent, and therefore we must be doing
+some process that's not captured by this formal specification of the machine that's doing
+the proving. A more interesting version of that argument is you say, well, one of the
+things that theorem tells you is that, in effect, there's now this whole infinite hierarchy
+of arithmetics, because if you have some, if you have piano arithmetic, you can always
+construct a stronger system, which is piano arithmetic plus the axiom that piano arithmetic
+is consistent, or that axiom system plus the axiom that that system is consistent and so
+on. And so the argument goes, well, for any attempt you make to kind of form it, to box
+mathematics in, to formalize it in some in some finitary deterministic way, there's always
+some way that it's going to be able to break out of it again, which again is kind of viewed
+as a defense of the platonic view. I mean, I know you are aware of this, and I know we've
+discussed this in some detail, maybe it's worth saying just in case it kind of wasn't clear
+to other people, that one of the things that comes out of, well, NKS, and I'd say more
+recently from the physics project, I mean, you have notes in the foundations of mathematics
+section of the, whatever the principle of computational equivalence chapter of NKS, this
+effect. But, you know, this distinction between, you know, the sort of girdle view of Platonism,
+the Hilbert view of formalism, the sort of Russell whitehead view of logicism, etc. But
+those distinctions kind of evaporate when you start to think about, well, science and
+mathematics in more explicitly computational terms, in no small part because, you know, if
+you take something like the Wolfram model, right, it's in its most abstract form, it's
+just a collection of rewriting operations on, you know, hypergraphs or collections of
+elements. And those elements have no intrinsic meaning, they're just purely symbolic, right?
+And I realize you have this kind of term Ems to kind of sort of refer to this in, yeah,
+in the more, in the more.
+It's now being captured in a fine science fiction novel that somebody is writing.
+Right.
+So it's, so it's real.
+Right. But so, if, you know, if that is a good model for, for science and for physics,
+one is confronted with the, with the realization, you know, so Hilbert may famously defended
+this formalist position by saying that, you know, mathematics is nothing more than this,
+this meaningless game played with meaningless symbols on bits of paper. But if we now have
+to confront the possibility that, you know, our universe is a meaningless game played
+with meaningless symbols on what presumably not bits of paper, but on, on some as yet
+undefined substrates, then you're forced into this rather awkward philosophical position
+of either you have to afford physical and mathematical objects the same degree of ontological,
+you know, substance, or you have to kind of argue that this is a, this is the wrong way
+to view, you know, the structure of reality.
+And so, so, you know, in a sense, it, it, when taken to its logical conclusion, I'd
+argue, and I suspect you'd argue too, that is, you know, it really means that formalism,
+that Hilbert's version of formalism also implies a version of Platonism.
+I suppose you could say that. I mean, my, my argument would be kind of forced to a position
+where if we say we exist, we also have to say mathematics exists.
+Right. Or physical objects exist or, you know, whatever.
+Right. Yes.
+Either, either, yeah, either nothing exists or mathematics has to exist.
+Right. I have to fundamentally exist as a, as a, as a sort of a thing that you can kind
+of, it's not something where you're just defining it formally. It's, it's a, it's an inevitable
+existing thing, so to speak. But I think we, we, we, we kind of,
+Yeah. Sorry. Sorry.
+Yeah. The point I was going to make in really, you, you were, you were disagreeing with my
+statement that the distinction between proof theory and model theory is, is, is, is rigid.
+Whether, whether we can have an, you know, in our imagination, whether the integers are a real
+thing, whether the integers are merely a, maybe you should go on with your.
+Well, all I was going to say was that, you know, so you can imagine, take this back to
+something more concrete and computational, you could imagine having two different kinds
+of multi-way system, right? You can imagine having multi-way systems that are effectively
+multi-way operator systems based on the group axioms. And you could also have imagined having
+a multi-way system where every state vertex is a group and every evolution edges is say a
+homomorphism. And that would be so in the, yeah, in the, in the sort of, in this adjunctive
+relationship in category theory between type theory and models for type theory, you would
+call the first thing, the syntactical category in the second thing, the categorical semantics.
+And the interesting thing is that you can generate one from the other, right? So there's a,
+there's a, there's a pair of left and right adjoint functions that take you from, I mean,
+again, the standard way you describe it is that you've got, you've got a category that represents
+a type theory in which every object is a, is essentially a type environment and every morphism
+is a kind of, you know, a replacement of, as a substitution, as a replacement of variables.
+And then you've also got this other category, which is like the actual semantic thing where,
+where, you know, the objects are groups and the morphisms are homomorphisms or something.
+And you can, and there's, yeah, there's a, there's a sort of procedure that will freely
+generate, say, the semantic category from the syntactical one, and you get this thing called
+a walking model. And so there's, it's a fairly, I mean, it's, there's a lot more that needs to be
+kind of concretized, but it's a fairly well developed sort of idea. Yeah. This is interesting.
+And okay, so, you know, on one picture here is you've got a multi-way system where every node
+is a whole group. Yeah. And every edge is something that, that connects that group to a
+group to which it is homomorphic. Yeah. Okay. That's thing number one. That's your sort of
+semantic level version. Now you've got a level where the individual elements are what are, are,
+how are you constructing your syntactic level thing? What are, what are the pieces of the
+multi-way system in that case? Well, so for the case of an, so this is an algebraic, you know,
+group theory is an algebraic theory, which kind of what it means to be an algebraic theory is that
+you just, you have some binary operation and you have equation rules. So probably, right, right.
+But, but you should, but generally words that are quantified, right? They're not, they're not
+specific words in some model of a group. They are universal algebraic statements.
+And so when you say statements, okay, just, just by clarification, right? So, you know,
+groups, you can, you can, I mean, this is something in that metamathematics piece I, I did,
+you know, was something that held it up for a year and a half was, was the, the sort of
+messy correspondence between a theorem being something which is this word, this set of symbols,
+is equivalent to this other set of symbols versus a theorem which says this set of symbols is
+equivalent to this set of symbols and deriving another equivalence from that first equivalence.
+Right. Those two things are not fundamentally different. One is just applying rules to,
+to elements and the other is applying rules to rules effectively. Right. They're not fundamentally
+different, but I, I'm just to clarify, maybe it doesn't matter. But this is why I brought up the
+thing about algebraic theory. So I, so in an algebraic theory, I would argue the most natural
+representations have every state, every state vertex be an equation and have every evolution
+edge be an application of some, you know, some equation or a one way application of some
+of the equation or rule. Whereas in more general non algebraic theories, it makes more sense to
+have each, have each state vertex be a proposition and then have the evolution edges effectively
+be one way implications. Fine. But what you're saying is you've got an equation that says a dot
+b equals b dot a dot a or something. Right. And then you have a transformation which turns that
+equation, which potentially is another equation applied to that equation, which when you substitute
+one equation into the other, and you get the result, you know, b dot b equals a dot a or something.
+Right. Right. And that's okay. So we've got, we've got this notion. So in the token event
+graph formalism, for example, we will be saying that these tokens are equations and that the
+typical sort of rule of evolution, the law of inference, rule of inference is two
+equational tokens, equation tokens, kind of mixed together. And one is substituted into the other
+and you get a new equation out. Right. Is that the kind of picture that that term? Right. Right.
+Something like that. Okay, fine. And so then in effect, what you're that sort of syntactical
+multi, I mean, again, we may want to go over proof theoretic multiway system is essentially
+defining it's, as with as any multiway evolution graph is, it's defining some partial order on
+the state vertices. And that partial order is essentially telling you what you can, what you
+can deduce from what, right? You've got, you know, if, if a proceeds b, then it means you can derive
+b from a. It's a little bit more complicated in this case, where you're applying, you know,
+whether two equations coming in, they get mixed together and make one equation out,
+because things are going to do reverse and these equations get reversible and so on.
+Right. But that's why that's, you know, in effect, your state equivalence function has to
+like take into account these things like paramodulation, but, you know, that deal with
+things like rule orientation. Well, right. I mean, what you're saying there is, when you take
+one equation and you apply it to another equation, there are a bunch of weird little pieces of knitting
+that you can do as you apply one equation to the other. And that, you know, substitution by
+substitution, you know, co substitution, paramodulation, which is, I think, I think it's
+the same as by substitution, but I'm not sure. The, you know, these are all just complicated
+things about which variable is replaced and et cetera, et cetera, et cetera. But, but okay,
+but we've got something where we have theorems effectively in the system that are derived from
+other theorems. Right. Right. And you've got some path of theorem derivations. And that's,
+that's view number one. And you're saying view number two is you take a, you're taking a thing
+that's formed from a collection of theorems so that for which a group is a thing for which a
+bunch of theorems are true. But okay, crucially though, a specific group, I mean, what distinguishes
+doing group theory in relation to a particular group from just doing universal algebra, right,
+and just proving statements about groups in general. Well, the, the, the key difference is
+that for a concrete, for a specific instance of a concrete group, there will be additional
+theorems that are true about that group, which are not true for the, in the universal algebraic
+case. So effectively what you're doing, one way you can think about it is that you're taking this
+partial order that your syntax multi ways is your, your proof theoretic multi-way system
+defines and you're, you're making it more like a total order, right? You're, you're introducing
+new orderings between states that were not true in the existing multi-way system. So,
+another thing you could say is of all of those relations which were there, only some subset
+of them are now considered true for this group. So you're taking a slice out of this whole
+complicated network of, of, of theorems. There's some bag of those theorems that's true for the group.
+Well, no, but every theorem that's true about in universal algebra is obviously going to be true
+for any specific group. So it's more that it's not that you're removing some theorems, it's that
+you're, you're effectively introducing new ones. Right. There are additional theorems which are
+true. Right. You're saying and those. And so it's, so the, and so the, you can make the analogy to
+relativity when, you know, you've got the conformal structure or the causal structure of space time
+that is kind of a universal thing. And then individual observers impose new, you know, so
+a particular observer can introduce new causal, you know, new chronological relationships
+between space like separated events. Well, in particular, they can choose. This is something
+that, right, right. Which is to say, and the point is that in the degenerate case, as you,
+as you approach the speed of light in the relativity case, your partial, your space
+time partial order becomes a total order, right? That's the sort of, that's the, that's the degenerate
+case. So one way you can think about boosts is that it's a way of taking this partial order
+and making it more like a total order. Let's walk through the total order. So you're saying
+that normally you have a bunch of events happening in space time, right? And if you are, the claim
+is, if you're a photon, you, there is only a, if you're, let's walk through this. So, so, you know,
+normally there are things that happen in different places in the universe. And you get to define
+whether, you know, what counts as simultaneity, what was, you know, noon on Earth, noon on Mars,
+when were these things relative to each other? Right. Now, I think you're claiming that if you're
+a photon, you don't get to do that. Well, photons have no notion of space, right? That's, that's,
+that's the basic point. Well, all time. Right. So, you know, so as, you know, what does it mean
+to say that you're undergoing a time dilation or length contraction? What it means is that
+effectively your anti chains are getting shorter and your chains are getting longer. And if you
+take that process to its, to its conclusion, eventually everything is just a chain. So the,
+so the maximum boost is the case where your space time becomes totally orbit.
+Let's, okay. So your claim is when you're using up all your computation on, on kind of
+ongoing as fast as possible, you, you don't get to move at all in space is the basic plan.
+Something like that. Yeah. You, you, everything is still not quite internalizing that, but, but,
+okay. But, but so, all right. So now you're going to tell us what the animal is that math,
+math, math. Well, so as I say, I mean, just abstractly, all that you're doing is you're
+taking a partial order and you know, by, by, by foliating it by constructing these equivalence
+classes, you're just introducing new, you know, new relations that didn't exist before,
+which is what happens when you define a model in, in, in a, in a mathematical theory. So one
+way that you could think about a model is that it's taking this proof theoretical,
+this proof theoretic multi-way system and it's foliating it in such a way that you introduce
+these new, these new, these new relations that didn't exist, that exist only as a consequence
+of the model you've chosen. Yes. Okay. And so, and that's essentially the branch of graph story,
+right? That's, that's now you're viewing the multi-way system in terms of its,
+in terms of its branchial decomposition for some reference frame. And so that leads to this rather
+interesting realization that essentially this duality that exists in, in category theory between,
+I know you don't like syntax and semantics, but you know, proof, proof theory, model theory or
+whatever, the syntactical category in the, in its, in its, in its sort of compositional semantics,
+that's really just a special case of this duality between looking at a multi-way system in terms of
+its multi-way evolution graph and looking at it in terms of its decomposition in the branchial
+graphs, right? We know that they encode essentially the same information, except the branchial graph
+also has this additional thing about, you know, its observer dependent. And that's really the,
+and that's, that's what model theory is about. And then, for instance, something like the first
+incompleteness theorem just becomes a statement that, you know, one way you could phrase, you
+can phrase the first incompleteness theorem is that, you know, in any formal system that's
+sufficient to encode piano, it's sufficiently strong that it can encode piano arithmetic,
+there will be propositions that are true in some models and false in others. And so, that becomes
+essentially a statement that, you know, if you make, again, going back to the relativity analogy,
+that's equivalent to the state, or analogous to the statement that there can exist space-like
+separated events where, you know, A proceeds, B in one reference frame, B proceeds, A in a different
+one. So, effectively, the first incompleteness theorem becomes a statement of gauge, essentially
+a statement of gauge freedom, which is- Although the other piece to that has to be something about
+how they're infinite-length paths, so how does the infinite-length path story and the non-finance
+approves, how does that come into that version of thinking about things, that there exist different
+models? Why is it the case that- I mean, it must be something about how you can always find a
+different model, which has the stiffened ordering, and that must be related to the fact that there
+are infinite potential proof paths. Right, I mean, so in a sense, if there's an infinite proof path
+between two propositions, or two state vertices, then for any finite size of multi-way system that
+you compute, they're going to be treated as unrelated by the order. And so, yeah, eventually,
+if you could take some infinite limit of the multi-way system, they would no longer form an
+anti-chain. But the point is that for any finite length of computation, you still have that gauge
+freedom to choose one to proceed the other in any way you like. Well, you're saying that you might be
+another way to say this is, you think you've got a valid model, but actually, if you were to go long
+enough in the multi-way graph, your model would blow up because the thing wouldn't actually be
+consistent anymore, that you could take that as an anti-chain. Right, no, it wouldn't actually be
+an anti-chain. It wouldn't actually, for people who don't know this, it wouldn't go, anti-chains just
+means you have a partially ordered set. Things, you know, you're saying something precedes something,
+there's a chain, which goes, you know, A precedes, B precedes, C, and so on. An anti-chain is just
+the transversal of that, where you're saying what doesn't have a particular ordering that it needs
+to, what doesn't have its ordering defined? What can be sort of at the same time as something else?
+Maybe there's a clearer way to say that. That was a bit of an upskirt. It's basically the
+transversal to a chain. You know, a chain is what has to precede what, and an anti-chain is what
+doesn't have its ordering defined for it. Right, right. It's the stuff you have freedom to choose,
+you know, the precedence relation for. Right, okay, so let's come back to this group's thing.
+So you're saying you've got, well, maybe the general point, that is that, you know, you can look at
+branchial evolution, or you can look at the underlying essentially temporal evolution. I mean,
+in a sense, it's the spatial slices evolving to spatial slices, or it's the individual sort of
+threads of time evolving. Right. And which you are going to interpret as foliation versus
+vibrations in, you know, all sorts of systems. Right, right. Which is quite lovely. But again,
+you're about to say the interpretation of the speed of light, of the infinite boost
+in mathematics. I know you've had a, you've had a version of this for a while. What's the,
+if we imagine in mathematics, we've got, you know, these different models that we can take,
+and they correspond to these different, different foliations. And then we've got this extreme model
+where, you know, where you've tipped things to the point where there are no anti-chains. Right.
+So, so it's, it's formally the opposite of, you know, a free structure, right? So in,
+ordinarily in mathematics, you would say, if you, if you talk about, say, a free group or a
+free ring or a free whatever, what you mean is, you know, this structure contains no additional
+relations beyond just what is imposed by the axioms of the theory. So that's the analog of,
+like, you know, of the rest frame. Right. You just, you know, there are no additional
+relations beyond just what the syntax of the theory implies. The infinite boost case, which,
+for which I'm not, I don't want to claim it doesn't exist. I'm not aware of any standard
+terminology for this in mathematics. It's kind of the maximally restricted version of the structure.
+It's, it's, it's far away from being a free structure as you can get. It's introducing all
+possible, you know, obviously there, there are, there's not just, there isn't a unique maximally
+restricted structure, right? Because there are many different directions in which you can apply
+your boosts, so to speak. So is it something for which all theorems are true?
+Uh, I mean, a free one is something for which there are few theorems. No theorems are true beyond
+the, you know, beyond what's implied by the axioms of group theory.
+So, so maybe this, this extreme case is sort of all possible theorems are true.
+Except, well, except it can't be all possible theorems, right? I mean, it would still be consistent.
+You'd still want it to be a consistent theory.
+Yes, but it's still the case that you're adding an infinite collection of relations.
+Right, right.
+I think you're, I'm just asking, can you briefly explain why that is well defined?
+Why the, the sort of...
+The opposite, so your infinite proofs, objects, whatever you call it, why is that well defined?
+No, no, I'm not, I'm not, I'm not claiming that it's well defined.
+Okay, yeah, but yeah, in fact, that's what, that's the point I was making about, you know,
+just like with boosts, there are, you know, infinitely many directions you can apply your boosted.
+It's just, yeah, effectively you're somehow maximizing, you know, it's some sort of optimization
+problem where you're maximizing the number of theorems that are true about this particular
+structure. And I, yeah, I don't think that's...
+Let's nail that down a little bit more carefully.
+This seems interesting.
+So, so what's the analog, I mean, the free group, free, any algebraic structure,
+just, I mean, what's the simplest case, what is the simplest case?
+Simplest case is there are no relations.
+Right, so in, in group presentation theory has, you know, your presentation has generators,
+but no relations, right?
+So it's just a freely generated group.
+No, I understand, forget the group part.
+If we just have something where pure binary operator is just hanging out and doesn't have
+any particular relations at all, that, that's the case, the free case there.
+It's a free magma, I think.
+Okay, okay.
+So, so in that case, is that what a magma is?
+I can't remember.
+Yeah, I think that's, I think Magma had some...
+Magmas have closure and nothing else, I think is the, as I, if I recall.
+Okay, all right, but so, so it's just this thing that's got a binary operator
+but there are no relations that are true.
+So it's free version has no theorems, I think.
+Maybe it has a theorem that A equals A.
+And maybe that's, maybe that's something to do with this closure property.
+Or the thing is equal to identical things.
+Well, yeah, I mean, there are things that are true just...
+So, I mean, this is an effect of what paramodulation is about
+in an equational theorem proving.
+It's about, there are certain statements that are just structurally true by the,
+by the nature of equality being an equivalence relation.
+So A equals A, it's reflexive.
+If A equals B and B equals C, then A equals C and that kind of stuff.
+So the free, free, free case is just identical things or equals identical things.
+Nothing else is true.
+Well, and as you have the standard properties of an equivalence relation, right?
+You have transitivity and...
+Well, but that's not going to say very much.
+I mean, transitivity is just saying the identical thing equals the identical thing
+equals the identical thing.
+It's not saying A equals B, B equals C, therefore A equals C,
+which is the usual transitivity relation.
+There isn't any such relation because it's only saying identical things
+are the same as identical things, isn't it?
+Why?
+Well, if there are no relations, if there are absolutely no relations,
+all you can do...
+Then you may not be able to distinguish.
+Yeah, yeah.
+That's what you're saying.
+Yeah, okay.
+Okay, so now that's the absolutely free limit.
+Now, what's the, what's the take that and start adding relations?
+So the relations you're going to add are expression equals expression.
+Right.
+Impossible expressions.
+So eventually, the thing will be gummed up to the point where,
+first of all, it thought everything was free floating and it was,
+had no relations to anything else.
+And then eventually it just makes a single big blob where everything is equal.
+Right.
+So then the end result, the, so you're saying the boosted thing
+is an everything equals everything type situation.
+Yes.
+So that's saying that, in a sense, there's no, what is that really saying?
+From a proof theory point of view, that says that everything,
+everything is connected to everything.
+You've got this giant, your multi-way graph is just this,
+what is it?
+Just every node, it's a complete graph.
+Every node is connected to every other.
+True or false, true or false?
+Right.
+I mean, yeah, normally you'd want it to be consistent.
+So in particular, you shouldn't have, in the, yeah, you shouldn't have cycles where you can...
+But what is consistency, the universal algebra?
+Isn't that a different story?
+I mean, you can't, in other words, the notion of consistency
+is a different thing from the South Braque theories.
+The notion of true and false doesn't enter as such.
+I mean, a group, true is not an element of a group.
+No.
+You know, the group just has words.
+And so, but I think, okay, so what, what, what you're saying is,
+I mean, the basic point, ignoring the true, false,
+and claiming you can ignore when you're thinking about things out of Braque,
+what, what you're saying is, is that the, in the extreme boost,
+the extreme model is the model where you've poured in every possible group relation, for example.
+And therefore, everything equals everything.
+And so, how should we think about that?
+How should we think about that?
+What the heck is that?
+That's a, you know, as you get closer to that limit,
+okay, for, is that the same thing as saying that for a photon, time never passes?
+Well, it's suddenly related, right?
+I mean, I think it is, because, because for a photon,
+it sees the whole history of the universe.
+And, you know, it, you know, for a photon that was emitted,
+you know, 100,000 years off the beginning of the universe,
+and we just catch it in the cosmic microwave background for, as far as it was concerned,
+it was just emitted.
+And we just, you know, ended its time in that, in that random detector.
+But, but so, so what this is saying, I think is that, that, okay, so time never passes for a photon,
+because it, or it is, it is seeing in some sense, the whole history of the universe.
+In one moment of its time, it's seeing the whole history of the universe.
+So similarly, in this completely connected, you know, algebraic system,
+in one relation, it is seeing every part of the algebraic system.
+But does that, I think that's right.
+So in other words, time in, in the algebraic system, we can think of time as being proof steps,
+right?
+And what this is saying is, there are no, no, in, in, you can get to everything in one proof step,
+just as in the photon, you can get to everything in one moment of time.
+Okay.
+So, okay, I'm not sure where we're going, but that was, that was actually very interesting,
+that the, the correspondence between, between sort of the infinite boost in mathematics becomes,
+I mean, what is our interpretation of that, the infinite boost in mathematics is that
+everything is instantly true, I think, that I, I'm not sure if that's so,
+just like everything, you've, okay, anyway, I'm, I'm distracting because the original prompt was,
+so you're a category for multi computation, right, right.
+So I want to, but, but you were, you were making point about mathematics, which I think I did railed.
+Sure. Oh, by the way, so Tarius, did you, did you have your hand raised?
+Yes.
+Right, right. And for the particular case of groups, I think Dugan has already
+pointed out in the chat that it's, it's the, you know, up to naturalisomorphism,
+it's the trivial group, right, because everything, if everything's equal to everything,
+then everything's equal to the identity. So it's
+Probably the relationship doesn't mean that everything is related to everything,
+because one relation with a useful structure, the other relation with another structure.
+And these structures, they don't, they don't bother to put each other,
+but the things of all, the set of all things you can get must be something among the things
+that categorize that's what the groups of a particular order.
+I don't think so. Once you, once you start in enough relations,
+it's just going to relate everything to everything, doesn't it?
+Right. I mean, you can, you can run this experiment, if you run multiway group and
+you just add more and more relations, the, the state's graph will become more and more connected.
+Yeah. So what I'm saying is that when you go for some free relationships, they don't have to hold,
+so to speak, if something is equal to one relation, doesn't have to be equal to the other
+relations. It's just the three groups, different groups. We have some morphic structures.
+I want to come back to the, the, the, this correspondence between the multiway system,
+where it is theorems, where the nodes of theorems and where the nodes of groups.
+Right. Because you've, that, that's what you, in some sense, maybe that's at the heart of this
+notion of categorification is that you made the statement that the original multiway system,
+it might be the case that nodes are theorems and then you can make a correspondence between that
+and I don't understand this, so I'm trying to understand this. You can make a correspondence
+between that and a multiway system where the nodes are whole groups. Right. Right. Okay. So
+can you explain that? So, so the first multiway system is just the universal relations about
+groups. It contains all the universal relations about groups. Right. And now you say, what is the
+correspondence between that? Given that, you're saying, I mean, each blob in the thing which
+has particular groups has had additional relations thrown into it. So each blob could be labeled
+by its additional relations. Right. That's true. Yes. So again, this is, this is why it relates
+to the duality between multiway evolution graphs and branchial graphs. So the, so the multiway
+view of what's going on is you define, you know, you take some multiway evolution graph,
+you define a model, it produces a sequence of branch like hyperset, you know, essentially a
+sequence of branchial graphs. Then you could, you could imagine treating that sequence of
+branchial graphs as a single thread in some other multiway system that's acting, it's
+effectively acting on branchial graphs. But you can also consider, you know, that's just one
+possible sort of foliation of the original multiway system. There are many, many different
+foliations. I'm confused already at that point. In order to get from the original
+giant, you've got this multiway system, it represents all possible things, all possible
+theorems you can derive from pure group theory. Okay. Now you take a branchial graph out of that.
+It's a slice across the whole multiway system at some time step, basically. Yes. Okay. So now I
+don't understand the statement that you're taking, that those branchial graphs can be rolled up into
+single nubs, because that branchial graph extends over the whole space, doesn't it? Of course. But
+that's why it's a different multiway system that you're constructing. Right. I mean, again, it's
+analogous to the power set construction in something like in non-deterministic computation.
+Right. When you, when you convert a non-deterministic finite automaton to a deterministic one,
+you're just, you're defining the deterministic finite automaton as acting on the sets of
+permissible states of the non-deterministic one. Okay. In the same way, you can, you can compress
+any multiway system into a single way system that's acting on the branchial graphs of the
+original multiway system. That's the generalization of the power set construction. Okay. So let me
+go through that for a second. Okay. So you have this multiway graph, and you can say,
+I can summarize what happens in this multiway graph by just taking these spatial slices,
+which are the branchial graphs, and there is a single way story, because it is just one thing
+goes to, you know, one, you start at the beginning, you have a branchial graph that slices across
+the whole multiway system, goes to another branchial graph and so on. But if I'm understanding
+correctly, you're saying, but actually there's another thing I could do, which is instead of
+looking at that single way evolution of one branchial graph with that, in this particular
+affiliation of one branchial graph to that branchial graph, I could consider all possible
+affiliations. Right. And that is a different encoding of the multiway graph, which is the
+mapping from all, you know, a branchial graph as defined by some weird foliation. Right. And all
+possible, you know, you make a branchial graph with that weird foliation, it will map to another
+branchial graph and another weird foliation and another weird transversal slicing. And then you
+can make problem from. Okay. So this is okay. So this leads to the question of there's a function
+that like Nick wrote, and maybe you have a version of this function as well. This will simply take
+a multiway graph and turn it into this dual branchial, well, maybe, maybe not. Maybe it
+isn't this function. I'm not sure. But so it should be the case that you could write a function,
+take a multiway graph and simply turn it into its corresponding branchial multiway graph.
+Yes, I do. I do. Yeah. I have such a function. I have code that does that. Yeah. Okay. So what
+is that? I never thought about that function before. I think maybe I already did in some other
+world or situation, but okay. So what you're saying is, but now how do you parameterize
+these weird affiliations? Are they parameterized by adding relations? In a mathematical sense,
+you can presumably parameterize them by saying what relations you add. Right, exactly. In effect,
+what, you know, what's new, what new orderings between state vertices are you introducing,
+which is another way of saying what relations are you adding? So by ordering between state
+vertices, normally it will be a slice where you've got simultaneity, so to speak, defined like this,
+but sometimes you want to, you want to have your simultaneity so that you go up, right,
+turn what was previously a time-like connection into, what was previously a space-like connection
+into a time-like connection? Something like that. I mean, yeah, the point is that, you know,
+that the rest frame is like the free case and then anything that's not the rest frame is going to
+introduce new relations. Or anything which has a gravitational field, effectively, because it's
+bumpy. Yes. But it doesn't even, I mean, even inertial, like, non-gravitational frames will
+introduce new relations. Yes, I agree. Okay, so then what we've got is this duality, what a nice
+object, this duality between the pure multiray graph and this all possible variations thing,
+where each possible transversal in the multiray graph is a broad-shell graph, which can be rolled
+up into a single node of the branch-shell multiray graph. Right. And my claim is that that conversion
+of one multiray system to another is the kind of concretization of this functor that takes you
+from the syntactical category to the semantic one, the categorical semantics. And there's a
+sense in which this has been studied, there's one area that I'm aware of in which this
+functorial relationship has been studied quite extensively, and that's in quantum field,
+in functorial and topological quantum field there. I mean, I don't know if that's worth.
+Okay, yeah, sure. Let me just absorb this big idea before we get on to the next one.
+Okay. Okay, so just, I mean, the notion here, let's just try to say the same idea in a bunch
+of different ways, just to understand it better. Sure. So, I mean, the, you know, the original idea
+is we've got, you know, just a plain multiray graph, and which could be represented, let's say
+it's a string substitution multiray graph. Okay. And now we're going to make its branch-shell
+multiray graph. Right. What is the interpretation of the branch-shell multiray graph in terms of
+the string of writing? What are the nodes of the branch-shell multiray graph in a string
+writing system? Is that obvious? Well, they're collections of strings that have,
+each node is a family of strings with certain ancestry relationships in the original multiray
+system. Yeah, I understand that point. I mean, it's a branch-shell graph, but the question is,
+is there a different way to say it? And just to say, in other words, in the case of,
+in the case that you've interpreted in terms of group theory, one can say every node is indexed
+by a collection of additional relations for the group. Right. So, oh, I see. And in the,
+it's the same thing. I mean, yes, string of writing is just monoid theory. Right. Right. So,
+so what you're saying is that, so, so the, so the original system is like the free monoid generated
+by the axioms that you, you gave it, but you can also have restricted, you can also have
+restricted monoids. So here's a way to say, the way to say it is the original graph has all these
+different, let's say it's a, it's a, it's a graph where you derive in strings from strings and so
+on. And you, you know, every, every node is a, is a theorem. What you're saying is, in the original
+graph, you've just got theorem to theorem to theorem to theorem, every, every node is a theorem.
+In the other graph, you have bags of theorems. You, you said it actually, the subset power set
+construction. Right. Every, every node is a, is an element of the power set of possible theorems
+from the previous graph. Right. But it's more general than the power set construction because
+it's branchial and therefore also encodes ancestry information. That's the sense of which it's a
+generalization of the, of the NFA DFA conversion. Let's just go through both of those pieces.
+Okay. So the first statement is that you have this original graph that has a bunch of, you know,
+it's essentially theorem to theorem to theorem. And there's a little bit of fuzziness there for me
+because of this thing about theorems and token event graphs versus theorems as pods. And I don't
+quite understand that, but let's, let's set that aside for a second. I mean, that's considered a
+technical detail now. Okay. So then you're saying the first thing we want to do is instead of
+thinking about it as this, you know, graph of theorem to theorem to theorem, we say it is a
+big bag of theorems here that evolve to a big bag of theorems here. Right. It's the branchial,
+but there's additional structure in this bag. It's not just a bag of these theorems. It's a,
+it's a collection of these theorems that are branchially where we know the branchial relations
+between those theorems. Right. Why does it matter that we know the branchial relations? Is that
+important for reconstructing this branchial multivariate graph? So probably, so in the
+metamathematics case, possibly not. I don't, I actually don't know, but one case in which it's
+very important is in, as I said, the sort of the QFT case. Okay. Well, that's, that's, I think we've
+absorbed, anybody have any comments or questions or about this? I understood something. At least
+things coming up on Zoom. Okay, it's Dugan's comment, which I saw knows a symbolic
+sentence is Nick is asking if this dual branchial multivariate graph is the union of path graphs
+made by all possible affiliations with branchial graphs as dual states. I think that's true.
+I think that's a good summary.
+Branchial multivariate graph is a union of path graphs
+made from all possible affiliations. Right. Because, because, because each,
+each foliation is a path graph. It forms a path graph. And so you just take a union, right?
+Just like the same way that we do, you know, multi-colonial. That's correct. That's correct.
+Because that's saying that it's a, the path graph is a single way system. Yep. You've got by, by
+branchial. By doing the power set of construction. Right. This is a nice subject. Okay. All right.
+Now, now we prime to jump into a corner field. Well, I mean, sorry, I'm not bringing up the
+QFT thing to be obscure. I'm actually bringing it up because I think it's, it's the area where this
+is, where this is most concretized. I understand. I'm all for it. I'm just, I'm just, I was just
+pausing for a second. That's, you know, like a digestion. Okay. All right. Let's go into corner
+field there. Okay. So, yeah, as I know, we've discovered, we've discussed quite recently,
+but maybe to rehash a little bit, there's a sort of, okay, you know,
+one, in ordinary quantum mechanics, one has this, this, this duality between the Schrodinger and
+Heisenberg pictures, right? You've got the Schrodinger, which is the Schrodinger picture,
+which is kind of time evolution oriented. And you've got the Heisenberg picture,
+which is sort of observable oriented. And we know that there's a, there's a way, in fact, again,
+in category theory, there's an explicit functor that lets you, that encodes the passage from
+one picture to the other. So there's a general. Can we just, can we just hover on that for a
+second? Let's think about a quantum circuit. Yep. In a quantum circuit, you're, let's walk
+through what is the Schrodinger picture for a quantum circuit? Well, the quantum circuits
+are a Schrodinger picture, right? So what is the Heisenberg version of the quantum circuit?
+The Heisenberg version would be something like, so the, the, if you imagine the measurement step
+at the end of your quantum, that actually maps things onto real, you know, eigenstates with,
+with, you know, with, with, with probabilities. If you imagine that was sort of progressing
+through time rather than the unitary operators. So, you know, ordinarily in a quantum circuit,
+you've got a sequence of unitary operators, these gates, and, you know, tensor products of them.
+And then right at the end, you do this Hermitian measurement step. If instead you had a time
+evolution of those measurement operators, rather than of the unitary operators, that would be a
+kind of Heisenberg analog of a quantum circuit. Well, in one way quantum computing,
+that's, that's what's done, right? So, so in, in one way quantum computing, what you do is you
+set up some, some big maximally entangled resource state, and then you effectively just do local
+measurements on bits of that state. And then at the end, you've got some results. And so it's a
+sort of, yeah, it's a version where your, your circuit has the, has time evolution of, of measurement
+gates rather than the kind of unitary gates. Let's remind ourselves just in terms of ordinary
+quantum calculus. The Schrodinger picture is kind of the, the, you know, you have the wave function
+and the wave function is evolving and changing what it is. Whereas in the Heisenberg picture,
+you have an observable operator, like position operator or something, and you are imagining
+that that evolves with time. Right, right, exactly. And, and so, but, but in terms of, let me see,
+so in terms of S matrices and S matrix, which in quantum mechanics gives you this mapping
+from the initial states to the final states, that is a very Schrodinger picture story.
+Absolutely, yes. Right, so what is the, what is the Heisenberg picture analog of the S matrix?
+Right, okay. So, well, there is a, mathematically, it's what's called a local net, a local net of
+monoids. Oh boy, okay. That's why I never heard of these things, right? I used to do particle
+physics. They were, they required submerging to the categorical marsh. Well, actually, I mean,
+that's, that's a purely algebraic thing, right? I mean, so, because mathematically, all that's
+happening is, you know, in the, basically in the Schrodinger picture, you're, you, what you care
+about are linear transformations of vector spaces and, you know, the effect of vector spaces and
+isomorphisms. Whereas in the Heisenberg picture, what you care about are endomorphisms and their
+isomorphisms. Endomorphisms of observables to observables somehow. Yeah. I mean, the, the
+algebra of observables is an algebra of endomorphism. You know, each observable is an endomorphism on
+your, on your space of states. Okay, so I want to come back because I understood S matrices years ago
+as, you know, the basic idea of an S matrix, which shows up a little bit, it's even in chemistry,
+chemical reactions, things like that, is you've got an initial stateless system, you know, you've
+got the state vector of, that represents the different possible configurations in the system,
+you have a giant matrix that tells you what the new state vector is going to. Right, right. So,
+the point I was going to make was that you've got, so the, all the S matrix is formally is, is, you
+know, you've got two vector spaces and you want to ask what's the linear transformation between
+that kind of all the S matrix is really encoding. And then, yeah, the analogous thing is you've got
+two endomorphism algebras and you want to know how do I map from one to the other. And then there's
+this, yeah, this, this local net construction, which I don't claim to understand particularly
+well, but it's used in, in, in algebraic quantum field theory.
+You probably know what the, in, in, in S matrix theory, for quantum field theory, does anybody
+know, because, you know, the S matrix maps a particle, an incoming collection of particles
+come in for infinity, they interact, they go out to infinity, the S matrix represents the translation
+between the amplitude of the incoming particles, the amplitude of the outgoing particles.
+What is the observables analog of that whole thing? Is there a picture of that? I have no
+idea what the, the observables must be the correlation functions between the particles.
+So this must be a, that must be the sort of mundane particle for this version of this
+is some kind of statement about correlation functions and some, some mapping. Okay, so that
+your, that sounds plausible. Right. So I mean, so what it must be is that the correlation functions
+of the initial correlation functions as well. No, it's not initial and final.
+It's a mapping between collections of correlation functions.
+Right. Funky. Okay. And what is the, remind me, the interaction picture is some intermediate
+version of this. Right, exactly, exactly. So, so, so, so part of the evolution is taken on by this,
+by this, effectively the states in your, in your Herbert space, part of the evolution is taken
+on by the, by the endomorphism, by the observables. Okay, so we've roughly got this picture where,
+I mean, for me, as a mundane particle physicist, it's kind of the, you know,
+initial state to final state versus correlation functions to correlation, you know,
+collections of correlation functions to collections of correlation functions.
+Right, right. Okay. That sounds reasonable. Okay. So that's the, you know,
+Schrodinger versus Heisenberg picture, you think. Right. Okay. So now, now, so now explain that
+you're going to explain algebraic versus, right, right. So, so functorial field theory is essentially
+the Schrodinger picture, but in the more general, you know, QFT context. So now you've, you've got
+some spacetime, you've got some manifold. And you can imagine take, you can imagine looking at
+co-dimension one, you know, slices, effectively space, like space like hypersurfaces in that manifold.
+Or branch shell graphs, which are, which are, you know, branch shell slices are co-dimension one.
+Oh, but crucially, we're in spacetime right now. Right. So this is, this is, these are, these would
+be fullyations of a causal graph rather than of a multi-way system. Okay. Okay. At least for now,
+they will become branch shell graphs in a moment. But so, all right. So you look at these co-dimensional
+one slices, and then you want, and then effectively you want to compute a, an S-match. So, you know,
+you've got these two manifolds, say they're, you know, in four dimensions, these would be three
+dimensional space like hypersurfaces. And then you want to, you want to connect them along their
+boundaries. You want to define some co-borderism between them. Right. Let's get the original picture.
+So we've got, we imagine a causal graph that represents the evolution history of the universe.
+And then we imagine a foliation of that causal graph that represents a, essentially a spacelike
+hypersurface that has, and you're saying that, that spacelike hypersurface is, has a three-manifold,
+has a three-dimensional manifold, that is that spacelike hypersurface. And look at three dimensions
+in the case of an ordinary three-plus one-dimensional space. Right. And so if you, if you have two of
+those, if you have an initial and final hypersurface, then you could imagine gluing the boundaries
+together in some way, right? These are infinite. Well, okay. These are not necessarily. They don't
+have to be infinite. No. So there's some big blob of space. Yeah. And if, and if they are infinite,
+then they, then, you know, they inherit the boundary structure of the spacetime they're embedded.
+There's a blob of space. It's the shape of a, you know, it's some drum that's in some particular
+shape. You have another blob of space. It's a drum in another shape. Right. Now, which boundaries
+are you going together? Well, I mean, you're gluing the entire boundary of one to the entire
+boundary of the other. I mean, that's, that's what the co-boarders and relationship is.
+Yeah, I understand that. Why, why do you want to do that? Well, because ultimately what you want to
+do is compute an S matrix for, you know, if the, if the first thing is your initial configuration,
+the last hypersurface is your final configuration, and you want, you want to define an S matrix for
+a process of a given shape. By shape, you mean you're conforming the boundaries of these things?
+Right, right. And so, so the, so the possible shapes of field theoretic processes are given by
+the possible co-boarders of those manifolds. So, okay, so we've got these manifolds. This is,
+this is a quantum gravity story. This is not a, this is not a quantum field theory. So it's about,
+this is about, it's both quantum gravity and, but also on a more mundane level,
+just topological quantum field theory, which is kind of, I mean, you described this as a causal
+graph. Whereas, I mean, doesn't it have to be a multi-way graph to get to quantum stuff?
+Well, yes, we'll see that in a moment. Yes. Okay, but first of all, we've got one manifold,
+and we've got another manifold that is from a later slice of a causal graph.
+Right. And you're saying, co-boardism is this idea of being able to, you know,
+knit these things together so that their boundaries agree. Right. And, and then you're asking,
+you're saying, there is some, what are you computing about the, the interior,
+is somehow one is evolving to the other. Right, exactly. And you want to know the
+amplitude associated with that evolution. Okay, but I don't know how amplitude comes into this yet.
+Well, okay. So, right. So, so now, now if you imagine it as a quantum mechanical thing,
+so now these are effectively multi-way causal graphs. And so you've got, so you've got multiple,
+you know, hyperserve, multiple space like hyperservices distributed in branch-shell space,
+if you're connecting those boundaries, and you want to know what's the amplitude associated with
+that collection of evolution pods. But why are we not doing this purely in the multi-way graph?
+So we have the multirate graph, we have a branch-shell graph here from the multi-way graph,
+we have another branch-shell graph here, we look at the co-boardism of the multi-
+branch-shell graphs. What does that correspond to? Isn't that an ordinary quantum mechanical
+amplitude? Yes, yes. Okay, close to a quantum field theoretical. Right, right. Because the whole,
+the whole thing that distinguishes QM from QFT is that you have to, you also have to take the
+causal structure into account with the QF, you know, you have to take some spatial structure,
+some, right, to genuinely believe in spatial structure. Right, right. Because the difference,
+I mean, the, okay. Yeah, in a sense, somehow, you know, general relativity is the approximation
+you get when you ignore the multi-way structure and you just look at hypergraph evolution.
+Quantum mechanics is what you get if you ignore the hypergraph structure and you just do,
+look at the multi-way evolution. That's so beautiful. I mean, that's, that's the,
+one of the main kind of punchlines of the whole physics project. Right. And QFT quantum
+gravity is some mix of the two. Right. QFT being the more structured case. Right, right. So, okay,
+you know, this relates to a question that was asked by one of the summer cap kids about,
+what is the rural analog quantum computing? So you didn't get that. This is the question of,
+if quantum computing is following the different paths of the multi-way graph, what happens if
+you follow different paths of the rural multi-way graph? And what is the, you know, is there a way
+of accessing rural quantum computing, so to speak? Yeah, I mean, I don't know. There isn't really a,
+at least in my mind, there isn't really a sharp distinction between an ordinary multi-way system
+and a rural multi-way system. Right. It all comes down to how you encode the parameter,
+you know, the original parameter space of your rules. Yes. And so, you know, you could imagine,
+for instance, building a quantum circuit that used, you know, you could, you could have two
+different circuit, you know, you could have Clifford plus T gates, and you could also have,
+you know, you know, something that includes, that's just stabilized the quantum mechanics
+with some different gate sets or something. And then you could imagine merging those two and
+building some quantum circuit that combines both. And in some encoding, that's like,
+that's an allegation of a rural multi-way system. Sorry, I'm not convinced there's that sharp a
+divide. Well, but maybe the ultimate divide, which is not unrelated to some of the things you're
+talking about, is you've got a whole factory of gates. You've got all possible. You apply all
+possible unitary transformations. Right. The question is, is that a realizable thing? That is,
+is there a way of, I mean, you know, we, we try with quantum computing, people are making this
+big effort to kind of constrain what kind of physical processes can happen. Maybe the statement
+of the rural limits is you allow all these physical processes to happen. It's not just
+these particular ones, you're constrained to happen. Right. So in a sense, the rural,
+yeah, but this is the answer that the rural, you know, the rural analog of quantum computing
+is just all possible physics happens and you must pick your answer out of the all possible
+things that happened. In other words, unlike, well, except that's not, that's not quite true,
+because that's not how it works in ordinary quantum computing. Well, in ordinary quantum computing,
+you have to knit your answer. Yeah, you have to, you have to get things to interfere in a way that,
+so I mean, ultimately, I think it ends up being an observer theoretic, you know, the final step
+ends up being an observer theoretic thing. It's not, you're selecting the answer from some God's
+eye picture. It's you, you know, you actually have to sculpt some reference frame that picks
+the answer out for you. Right. All right. Let's go back from the rural limits of quantum
+computers, which I think would be, you know, if basically the basic theory of these things is
+first it goes branch ill, then it goes really, and then that's the end. So is quantum computing
+speed real or is it an illusion? I'm pretty sure it's an illusion. But I mean, I'm pretty sure
+that the observer, you know, that the knitting together of things, and maybe we'll maybe even
+some of the things John is talking about right now will help clarify that, that the, you know,
+the extent to which, I mean, when you think about your observer, observables versus Schrodinger picture,
+the basic idea of quantum computing has to be that in the Schrodinger type picture, you know,
+okay, my, a version of what you can say about quantum computing speedup is the Schrodinger
+picture is enough. The measurement doesn't matter. Whereas there's a different picture
+that you could take that, you know, not less the question is, is that, is that sufficient?
+Is the Schrodinger piece sufficient? Or does the measurement, you know, does the measurement
+actually take effort? And I think this duality with these observables might actually tell you
+something about that. What do you think? Yes, yeah, I mean, I mean, in effect, Paul's question is a
+question of branchial cosmology, right? What you're asking is, in a sense, what is the value of omega,
+but for branchial expansion rather than from for spatial expansion? And because that will
+effectively factor into the question of, can your branch, can branchial space expand rapidly enough
+that the forward time evolution speedup exceeds the slowdown you get from having to,
+you know, to actually apply the observation process? Yeah, I mean, I think this is like,
+okay, the claim would be quantum computing is the analog and branchial space of something like
+perpetual motion. So, you know, the reason that there's, you know, there is in fact perpetual
+motion physical space, and it has to do with the expansion of the universe. That is, you can get,
+you know, and it's, you know, if you have a big wire, a big, big spring connects two galaxies,
+that are distant galaxies in the universe, that spring will get more and more attention in it
+as a result of the expansion of the universe. I mean, at least if the spring isn't too big,
+it doesn't affect the expansion of the universe and so on. But that sense in which you can,
+you can get energy, like energy is not conserved in full cosmology. And I don't do cosmologists
+I haven't really followed the recent stories of energy conservation and cosmology. I mean,
+it's basically there isn't a Hamiltonian formulation in which energy is truly concerned.
+Right, no. No, no. That hasn't changed. That hasn't changed. Well, I mean,
+resolving that question is equivalent to resolving strong cosmic censorship in some form.
+Explain that. Well, because being able to write down, so we don't even know whether there exists
+a Hamiltonian formulation of GR that's applicable to our universe, right? That's really what the
+strong cosmic censorship conjecture is. And explain that in terms of, remind me,
+what is the strong cosmic censorship versus weak? Okay, so the strong weak cosmic censorship of both
+statements about effectively whether GR is a, whether you can, whether you can pose the
+Einstein field equations as a well posed initial value problem, you know, essentially as a well
+posed system of hyperbolic PDEs, weak cosmic censorship is a kind of local version of that,
+which says that you can't, that you can't have, you know, C1 future in extendable regions of
+space time that effectively correspond to naked singularities, right? Strong cosmic censorship
+is a global version of that statement that effectively says you could define, you know,
+that the evolution of the universe is in at least relativistically is determined by some
+initial Cauchy data defined at, you know, at some t equals zero point. So let's just unpack
+this for a second. So you're saying in the case of weak cosmic censorship, if we've formed, let's
+talk about it just in terms of black holes, we, we, you know, or space time singularities as in
+the curvature tensor goes to infinity type thing. Right, right. But so I mean, the cosmic censorship
+conjectures are really statements about hyperbolic analysis, right? So analytically what's happening
+is, well, what does it mean for a hyperbolic system of equations to become ill-posed? Well,
+it means your characteristic lines intersect, right? And in general relativity, the characteristic
+lines have a very direct physical interpretation, which is that they are the paths taken by
+time like rays, right? They're the normal vectors to your space like hypersurfers.
+They're where light goes in space time. Right. I mean, yeah. Right. And so those, your hypers,
+and when you think about that geometrically as those light rays being normal vectors to your
+space like hypersurfers, you realize they can only intersect if the space like hypersurfers is
+intersect. And so, and that's exactly what happens in a singularity, right? So singularity is a place
+where characteristic lines converge and so the field equations become ill-posed there.
+But, and the weak cosmic censorship conjecture says, okay, well, that's fine because they're cloaked in
+this, in this, you know, those singularity regions are cloaked in this event horizon,
+which means that although, you know, technically your theory becomes ill-posed, you know, there is
+a region where you can't see one future extend your time like curves. It's okay because they're
+kind of, they're sealed off from the rest of the universe. Strong cosmic, so that's really a statement
+about black holes in the event horizon. Strong cosmic censorship conjecture is a statement at the
+level of the entire universe, whether that happens at a global scale rather than just at a local
+scale. Well, but so the strong version does not have a, does not have the event horizon.
+A strong version doesn't really say anything about black holes, right? It's, it's, it's,
+it's whether the singularity is whether, I mean, it's like if you have fluid dynamics and you look
+at the future evolution of the nanostome equations, do you ever get infinite velocity, infinite density
+regions of the nanostome equations? Right, right. I mean, concretely here, it's a consequence of the
+fact that even though it's one of those necessary but not sufficient things, right, you're, you're,
+if you have a singularity, it forces your characteristic lines to intersect, but the
+characteristic lines can intersect without forming a singularity. And that's really the case with
+this, which the strong sense of conjecture is addressing. And so effectively those conjectures,
+we know there are space times which they fail, but they're saying, you know, for physically
+reasonable space times given by some, some energy conditions that the, you know, these things should
+be true. And so having a well posed, hyperbolic, Hamiltonian formulation of GR is predicated in
+some sense on, on the, on the conspicuous conjecture being true. So, so we, like, we can't even
+really address the question of, of energy conservation. If space time kind of self-destructs,
+assessing the total energy of space time doesn't really matter. So, so, okay, so, so then that's,
+that's the case of, so, you know, the issue is in Braunschild space, what is the corresponding
+rate of expansion? And so the, the, the claim would have to be quantum computing, as Jonathan was
+saying, basically that if the rate of Braunschild expansion is high enough, then you might be able
+to get something by basically doing the equivalent of the perpetual motion machine in physical space
+time, but in Braunschild space. Right. But the place, the thing you brought up, which is this
+connection to, you know, sort of vector spaces and isomorphisms versus endomorphism, algebraism,
+the other isomorphism. I mean, the, the, the place where those things connect to Paul's question
+is, you know, in what sense is it that the multi-way evolution graph models, you know,
+linear transformations models the Schrodinger picture and what sense is the Braunschild
+graphs model endomorphisms and they model the Heisenberg picture? Well, the reason is because
+ultimately it comes down to something as simple as the evolution edges in the multi-way evolution
+picture are directed and in the Braunschild graph, they're not. So in particular, when you, when you
+reverse everything, which is the analog of a Hermitian adjoint, that's the analog of taking
+your conjugate transpose. In the multi-way evolution graph, time goes backwards. So that's
+like unitary evolution. In the Braunschild graph, it remains the same. So that's the analog of,
+of, of Hermiticity. So in effect, it's the, the, the, the, the, it's in that sense, we can say the
+Braunschild graphs are sort of modeling, endomorphism, algebras of some kind. And so then in effect,
+Paul's question is, you know, you've got this apparent speed up that comes from the fact that
+you can do many, you know, in the same amount of time, you can do many, many more linear
+transformations because your Braunschild graph is expanding. But eventually you're going to have to
+apply those, those, you know, you're going to have to apply those endomorphisms. You're going to have
+to perform those observations that collapse. Anytime you've got a pair of states connected by a
+Braunschild edge, you've got to collapse those back to one state eventually. And it's not clear,
+a priori, because it depends on the structure of the multi-way system, whether the slowdown from
+having to do those observations of collapsing things along Braunschild edges is going to outweigh
+the speed up you've got from being able to do the things in parallel in the first place. And that's
+ultimately the question of whether, you know, true quantum speed up is possible.
+But in these terms, we should be able to figure this out. I mean, that is, what characteristics,
+I'm looking at Yorick, because he's thought about multi-way graphs in this kind of way.
+The question is, under what circumstances does the number of parallel threads
+outweigh, because what you're asking is, how many, you know, can you have a bunch of parallel
+threads in the multi-way graph that do not require so much knitting in the Braunschild
+graph to get them all back together again? And you might think, every time you have a parallel,
+every time you have a branch in the multi-way graph, that's going to lead to one piece of knitting
+in the Braunschild graph that's going to require, so every time you have a pair of
+parallel edges, that is one piece of knitting that you have to do. So the question is, when,
+you know, is it the case that what you have is just a whole cascade of loose ends,
+which you then have to knit together, and where the amount of knitting you have to do is simply
+proportional to the number of loose ends. If the amount of knitting is proportional to the
+number of loose ends, then quantum computing is toast, because that necessarily will just be
+the same work. You have to do the same work to knit the things together, as you would have had
+to do to just follow it pass separately. So can I rephrase that as the question being,
+whether it is physical to have rules that collapse a large number of parallel threats
+and introduce a bunch of Braunschild edges in one single step, which such rules exist, right?
+The question is if they are physical, or if they have physical interpretations. Is that
+the correct reason? I'd say that it's more like, is the number of rules that you'd need to introduce
+in order to collapse things down to a single state comparable to the number of evolution
+edges that you've gained by doing the computation of parallel in the first place?
+But this question about the number of new rules you have to introduce, this is an observer theory
+story. That's a question of whether the observer has, I mean, we don't yet know how to think about
+a good metamodal observer. I don't yet know that. And so the question is, is there a
+you know, in that metamodal, could you get a boatload of, I don't know, it seems like
+as soon as you physicalize the observer, you'll never be able to win. Because those rules,
+if you have to enumerate all these separate rules, those all have to be sort of,
+my intuition is those have to be separately physicalized. My guess is that in the end,
+it's just going to be exactly the same. That it's just going to be that you can do this
+quantum computing. And it's the, you know, one of them is thinking about, in fact, it's exactly
+the description that Jonathan is giving of this foliation versus vibration story, because one
+of them is going to be, you know, the classical evolution is just you follow a single fiber.
+And the quantum evolution is you're going foliation, foliation, foliation slice to foliation
+slice. And in the end, you know, a foliation slice doesn't give you an answer, you have to
+compress the foliation slice. And the story will be, it's just going to take you exactly the same
+effort to do the measurement, as it's going to take you to do the original classical computation.
+Right. My guess. Right. And so it's a reformulation. So in a sense,
+from that point of view, quantum mechanics is a mere reformulation of classical, you know,
+at the commutational level, quantum computing is a mere reformulation of classical computation
+that will be the basic statement. Right. Well, it's another one of those power set constructions,
+right? In a sense, which I mean, so, you know, classic classical simulation of quantum computation
+is, you know, essentially, what is something like this, right? It's the, it's the, you know,
+do it evolving the branchial graphs directly rather than evolving the whole multi-layer system.
+Yeah, right. So I give a restructuring on factorial versus algebraic.
+I was also going to, sorry, things that we're now, whatever, several tangents deep. I do on the,
+on the metamodelling of observers thing. So I know we've previously discussed Robin Gandy's
+PhD thesis and how it kind of missed the point of a lot of, it was Robin Gandy's PhD thesis,
+because I was trying to figure out what Robin's, Robin Gandy's handwriting looked like. Right.
+Because I had this random sheet of paper. Okay, this is a, this isn't a relevant story, but
+I wrote about this in some posts that I wrote, but a former high school teacher of mine
+was a friend of Alan Turing's. And somehow when Alan, when Alan Turing died,
+this former high school teacher of mine got a bunch of books from Alan Turing.
+When my former high school teacher died, he gave those books to, well, various places,
+but including one was to another former high school teacher of mine with the instructions,
+give this book to sort of, it may have been basically to give this book to me, but it was
+to give this book to a very case. So eventually I get this book, which is actually a copy of
+Dirac's quantum mechanics in German. Okay, just slightly obscure, because after all,
+Turing was English, but anyway, he had Dirac's quantum mechanics in German. So I'm literally
+sitting there, this person just handed me this book. And I thought, you know, it's an interesting
+old book, I should just flip through the pages. So I flipped through the pages and what should
+happen, but a piece of paper flutters out. And a piece of paper had on it, a bunch of
+combinators meets lambda calculus, which is pretty weird for a book about quantum mechanics.
+And so then I went on to sort of hunt of, you know, who wrote this piece of paper,
+and that was an adventure. And was it Alan Turing's handwriting? Was it whose handwriting was it?
+And I consulted with this person, I know who's a forensic handwriting specialist and all sorts
+of other things, who said, and she immediately said, it's not Alan Turing's handwriting,
+and gave a whole bunch of personality analysis of why I couldn't, but that's a,
+that's a sort of a different story. But anyway, the end result was eventually this was tracked down
+to, oh my gosh, what's his name? Oh my gosh, the executor of Gandhi's will. So basically, the
+Gandhi was the executive of Turing's will. Robin Gandhi was the executive of Turing's will.
+And this person in Wales was the executive of Robin Gandhi's will. Anyway, we tracked all these
+various people down. And in the end, bottom line was the piece of paper in the book was written
+by Robin Gandhi, who had somehow had this book for some intermediate period of time. Therefore,
+that is a very, very shaggy story. But that's why I looked at Robin Gandhi's p2 thesis was because
+it had handwritten stuff for Robin Gandhi. That was sort of definitively his.
+And it's why I spent two afternoons grubbing around the archive center of King's College,
+Cambridge, taking photographs of Richard Bevan Braithwaite's collected correspondence.
+Right. Turned out and then, right. Okay, so, so.
+And interviewing people at Heffers, as I recall.
+Oh, yeah, that was another one. There was also a bookmark in this book. And the bookmark came
+from Heffers, which is a bookstore in Cambridge. And the bookmark question was how old was the
+bookmark? And the bookmark had a phone number on it. And it was a phone number that, you know,
+British phone numbers gradually got longer over time, as these things do when, you know,
+when commentarily you need that. And so this was a particular length of phone number.
+Turned out that bookmark had been used for like 40, 50 years or something. They've been using the
+same bookmark, which kind of might tell you something about British businesses of that time
+for something like this. But yeah, and we also tracked down Champanel, who was another candidate.
+Champanel was a, was a friend of, I was a friend of Turin's famous for the Champanel number,
+which is the number 0, 0.12345678910111213, which is the number that has the property.
+It's a normal number. Anyway, Champanel was also involved in chess machines and things,
+but later became a well-known economist, it turns out. And anyway, so we tracked down some
+handwriting samples. I don't know whether you're involved in that part, the handwriting samples
+of Champanel. Because I've now had multiple pieces of email from people asking me things
+about Champanel and handwriting samples. So who knows, it's, it's, one gets tangled up in these
+historical stories. They're, you know, they lead to things like people saying, you know,
+I am the granddaughter of famous scientist X. And in our attic, we have many boxes of interesting
+notes from, you know, the grandfather or the great grandfather. And I have a great urge to go
+look at these boxes in many cases, but it takes a bunch of time. Anyway, this is,
+I'm sorry, that was, it was, it was the only, like, on the ground detective story I've ever been
+directly involved in. Right. It's not, not as dramatic, probably, as the Schoenkel story,
+which we digress. Sorry. The point I was going to make was that, so one of the, so most of
+Gandhi's PhD thesis is pretty boring. But the, the, the second half of it actually has a bunch,
+has a couple of interesting ideas. And one of the interesting ideas was that he was, I mean,
+he didn't quite, he didn't formulate it in these terms, but my reading of what he was trying to
+do, which is quite interesting, it was, he was essentially trying to construct a formal model
+analogous to a Turing machine that would take in effectively data and output scientific
+hypotheses. And so he was trying to construct, I mean, he was trying to do it in the language
+of type theory, which I think was completely sort of inappropriate as a choice of mathematical
+formalism. But he was really trying to construct what I would now characterize as being a meta
+model of the observer. And the interesting thing is, because of this known connection between
+sort of type theory and categorical semantics, I have a suspicion that the meta model of the
+observer that at least I've been implicitly using in terms of branchial completion has
+a formulation in terms of Gandhi's original formalism. So what would you output? So, okay,
+if the output is, you know, it's just like people say, you know, mathematicians are machines for
+turning coffee in the theorems or something. This is a machine for turning scientific data
+into hypotheses about, into scientific laws, which is, I mean, kind of that's the story of
+statistics. That's the story of the scientific of science in general, is turning of experimental
+science, natural, experimental science, shouldn't say natural science, natural science.
+Which also the story of, I mean, more abstractly, it's the story of cryptanalysis, right? You're
+given the output, you're just given the output or partial output of some computational system,
+if you're asking what rules generated it. Yes. I mean, so, okay, but so you're saying,
+in that picture, you're saying, did Gandhi make progress on having some, so
+we've parametrized the use that generated. So we're saying the system, since we can now
+represent everything in terms of computation, the thing, the output is just a program.
+Right. I see. So the basic point is, it's a code versus data story. And normally the code makes
+the data, but this is the case where the data is making code. Right. Right. Oh yeah, that's
+interesting. So that's basically the theory of, so that's a core way to think about observer theory,
+is that whereas a turning machine turns code into data, basically, an observer has to turn
+data into code. Interesting idea. Right. Okay. And it's, I mean, it's one of the reasons why,
+in a sense, things like combinators are interesting because they, you know,
+they don't have that distinction. Yeah, the code versus data. Right. Right. Well,
+not as well as language. That's true. That's true. There's a, there's a, based on, yeah,
+there's a programming language theory for that, a theory term for that, isn't it? It's like,
+unimodular or something. It's not unimodular, but no, it's, it's someone's
+meta-circuit. Okay. But, okay. So what you're saying is, given data emit, you know,
+what's the formulation in terms of combinators? You would say, given,
+what is the representation? See, the problem is, it's not obvious what the model actually does.
+And maybe that's related to your kind of model's idea and what, how you knit things together
+branchially. Right. Right. But I mean, for instance, one concretization of that is,
+you're given the causal semantics for a combinator evaluation. Can you reconstruct
+what the combinator was? Well, okay. Here's a simpler version of that. You're given,
+you're given a collection of combinator expressions. Can you generate a single
+combinator expression on whose multi-way graph, those combinator expressions occur?
+Right. Which is to say that you've got essentially a branchial, but you can think of that as a
+branchial graph of combinator expressions. And you're asking, is there a, you know,
+is there a, is there a generator that produces that, that branchial graph? Which you could also
+think of in terms of your branchial to branchial evolution. Is there a branchial graph that
+generates that branchial graph? Or you could say, is there a, you know, is there, is there an
+underlying sort of Schrodinger picture, you know, multi-way generator that, you know,
+multi-way thing that generates that? Right. Okay. That's interesting. So, so back.
+Yeah. Sorry. Robin Gandhi tangent, probably not, not necessary.
+No, no, that was very interesting. I mean, the, you know, code to data, data to code,
+that's really quite an interesting way to think about. Right. And I think this model of, you know,
+can you make a, a combinator, which has a specified set of combinators as it's multi,
+as its branchial thing? I mean, see, that's, that's a very interesting thing for another reason,
+which is we've been interested in what does it mean to do multi-computational universality.
+And so this is an interpretation of that, which is to say, you know, find a computation
+where on the branchial graph, you have certain kinds of things generate. That's very different
+from the, from the question of, you know, if you're doing an NP computation, right, that's,
+there's probably a term for that. Maybe there is, maybe there isn't a computational complexity
+theory. Normally an NP computation, it's like there are many possible branches. And the question is,
+is there a winner? Is there a single branch that's the winner? So this is the question of,
+is there a, of all the branches, do you get a certain set if you look across all the branches?
+Is there a name for that in computational complexity theory? Anybody know? I mean, it's,
+it's one that I'm aware of. I mean, because that's, that's, I think, a different concept.
+Although, although again, I mean, in relation to the, in terms of the relationship to, to multi-computational
+universality, I again have to stress that I have concerns about the syntax semantics distinction,
+right? Because, you know, you're, you're making a statement about what, you know, for instance,
+what specific combinator expressions were produced on a given branch like hypersurface. But that's
+not, that's not the important thing from a universality point of view, right? It's not,
+it's not important, you know, saying that a system is universal is not equivalent to saying that it
+generates all, you know, combinator expressions of a particular kind or something. Right, right,
+right. Exactly. What universality is, is more of, you have to have an encoding of, of what the
+combinator expressions mean. And then, you know, it has to be, you know, the, the, that, the combinator
+evaluation has to be a, has to be subjective onto that encoding, but not subjective onto the actual
+syntax. Let me give you an outrageous version of this. Question is, can you, on the Braunschild
+graph, reconstruct the time history of an arbitrary chart machine? Right, right. That's a version,
+that's a definition of multi, multi-computational universality, right? A bizarre idea. So that's
+turning a time series into a Braunschild series. Right. So that's saying, you know, normally, and
+if you go long enough, can you reproduce an arbitrary long time history of the Turing machine
+in the Braunschild direction? So what is that like? That's like in, I mean, in the ADS-CFT world
+of that correspondence. What else is that like? That's like saying, I mean, that is, in fact,
+that's reconstructing light rays from, from, you know, spatial structure or something.
+Yeah, something like that. Right. But that's a good, that's a good case. I mean, of looking at
+term, you know, can you, that's the thing I could actually do experiments on is, is there a Braunschild
+correspondence for that term? You know, Braunschild history reconstruction. Right. Are we, are we,
+are we, are we now ready to start back? Yeah, I forget what we were saying. Yes. All right,
+that's, I was, I was on the first line of explaining what an FQFT is. Right. So, you know,
+you, you've got this co-borderism between these space like hypersurfaces. And then the point is,
+you know, when you, when you go multi-way, so to speak, now you associate to the, to the two
+initial, you know, co-dimension one surfaces, you now got some space of states, right? You've got
+some vector space that's the space of quantum states. And, you know, in the multi-way system,
+that's going to be some, some branch, you know, some collection of, of state vertices in some,
+in some Braunschild graph. And then your, your co-borderism, but the connect to them is some
+linear transformation, right? And that's the thing that's encoded by your S matrix. The S matrix
+is concretely the linear transformation that takes you from one vector space to the other.
+Yep. But the, but, and that's effectively what FQFT is all about. So in, in functorial quantum field
+theory, you know, the, the, the core ideas go back to the, the so-called sewing laws that
+effectively encode the locality of time evolution in terms of functoriality, right? So you, so
+ordering quantum field theory has a time evolution given by the path integral.
+Right. That is just like what you're saying. It maps one quantum state to another quantum state.
+Right. And those quantum states can be thought of as correspondents of Braunschild graphs.
+Right. And so. So ordering quantum field theory with the path integral just does that.
+Right. So in trying to come up, in trying to nail down a mathematically precise version of what,
+what the path integral is, Michael LaTea made an initial proposition, which was then slightly
+refined by Graham Siegel for the case of topological field theories. But the idea was,
+you know, one principle that your path integral is absolutely satisfied as locality of time
+evolution. In other words, if you've got, if you've got, you know, if you've got a co-borderism
+sigma, and you, you know, you take the path integral for that co-borderism, but that co-borderism
+can be, can be decomposed into a, into a disjoint union of, you know, sigma one and sigma two,
+it should, then the path integral for sigma should be equal to the sum of the path integral
+for sigma one and sigma two. Sum? Not product? Well, I mean, I'm using sum in the, I mean,
+it would be a direct sum or, or a semi direct product or whatever, depending on, depending
+on exactly how you, I would, I would realise. And you've got paths in sigma one, and they
+lead into paths of sigma two. And each one has a, has a, I see, if you're doing it in terms of the
+actual amplitudes in quantum field theory of your product. Right. And in terms of, I see, in terms
+of the paths, this is sum of paths. Right. Right. Okay. By the way, just for my historical
+information, that must have post-dated my interaction with Michael LaTea and my
+paying attention to quantum field theory. When was that? Uh, well, the, the Atea Segal
+paper, the one that I'm aware, well, the one by Segal at least is, is from 1986, I think,
+where he formalises the sewing axioms. That's, that's, that's, that's post, post your high-energy
+phase. Okay. So these axioms then have this, have certain properties for these cobaltisms.
+Right. Well, I mean, so the, the really beautiful thing, the reason why, you know,
+TQFT got so deeply connected to category theory was this realisation that, well, what the
+sewing axioms really say is equivalent to the statement of functoriality, right? Functoriality
+is the statement that, you know, uh, if you, if you, that, uh, that your functor, your mapping
+between categories respects composition. So F of, you know, if, if F, big F is your functor and
+you've got morphisms A and B, F of A compose B is F of A compose F of B. Well, now, if your,
+if your time evolution is a functor, then the, then functoriality is precisely the statement of
+locality. Let's go through this. I, I think I understand this. Right.
+The, the, so, you know, in a standard category set up, one of the key aspects of category
+theory is this compositionality idea. But if you can go, if you have a mapping, you know,
+A and a amount of morphism, A and a morphism B, then you also have a morphism A compose B.
+Right. Uh, yeah. So it's, so long as they share, you know, domain and co-domain in, in the obvious
+way. Right. But okay. But then the idea of a functor is you've got this series of mappings
+that are these morphisms and a functor says you might have parallel sort of in two different
+categories. You have parallel, you know, chains of morphisms and the functor takes you from one
+category to another. And this statement is that the structure of the morphisms in one category
+are preserved by the functor, you know, in the structure of the morphisms in the other category.
+Right. Right. Exactly. So now, so now let's, let's, um, uh, let's understand what that means
+in terms of, of these, um, of the statement that the, the full co-bordism path into little
+Sigma is decomposable into Sigma one and Sigma, any decomposition. So Sigma one and Sigma two,
+you can think of as morphisms or no, those are fun. No. So, okay. So, so what's really going on is,
+okay, you've got two categories here. Right. There's the, there's the category of manifolds and
+their co-bordisms. Right. So, so effectively the objects are manifolds. The, uh, the morphisms are
+co-bordisms between those manifolds. And there's also a tensor product. There's also a monoidal
+structure, which is just disjoint unions of manifolds and co-bordisms. Um, so you've got this one
+symmetric monoidal category of, which is called boards of just, you know,
+end dimensional co-bordisms. And you've got some other symmetric monoidal categories, some other
+category equipped with a tensor product structure, which is the category of vector spaces. Right.
+So, so each object is a vector space or some Hilbert space in the finite dimensional case.
+Um, and, uh, yeah, each morphism is some of the near transformation. And there's also a tensor
+product, which is just the usual tensor product of Hilbert spaces. Um, and then, so in a sense,
+abstractly, what the quantum field theory is, is a functor that takes you from one to the other.
+Right. It's the thing that, that takes the specification in terms of space time of your,
+of your process shape and maps it to an S matrix. Right. That's what that functor is encoding,
+the passage from, from one to the other. Hold on. Hold on. So, so you're saying the S matrix is this
+mapping this linear algebra type thing, mapping from this vector space to another vector space.
+Right. And, and so. But then you also, on the other side, you've got this picture of hyper,
+you know, manifolds and, and, and co-bordisms. And so in a sense, you, so, you know, what,
+what do you want from a quantum field theory? Well, somehow what you want to some machine that
+you give me a pair, you give me an incoming space like hypersurface, an outgoing space like hypersurface,
+some, some process that connects them. And I want to be able to crank some handle and get out an S
+matrix. And that's what that functor is doing. Right. So there's some symmetric monoidal functor
+from this category of co-bordisms to this category of vector spaces. So another thing to say is,
+in a sense of quantum field theory, in quantum mechanics, psi, you know, the wave function
+gives you, you know, you given an X and psi of X returns an amplitude. Right. And that's, that's
+what it's, that's its role. A field operator, given, given a given field operator tells you for
+how to think about this, it tells you the whole occupation, a whole stack of occupation numbers
+for any given point. What is the field operator? What's the, because this is, this is what you're
+talking about, is your, your vector space thing, the, the instantaneous moments inside the operation
+of the S matrix are a series of states of the field operator. Right. But what is that? What is
+that? What is, how do we think about the field operator? What's the, gosh, it's a long time
+since I thought about this. The field operator takes, I mean, the whole point of a quantum field
+and quantum mechanics, we just have one analogy. And it is the amplitude in an electron. What is
+the amplitude that the electron is this position of that position? In quantum field theory, it's a
+stack of things in the Fox space, where you're saying there can be one electron, two electrons,
+three electrons, et cetera. And at each point in space, the field operator tells you what the,
+what the essentially amplitudes of every possible number of particles at that point are. So, so
+this is, so this now is asking you, so that's the microscopic version of the, of the S matrix
+at the moment in time. Right. So how does that, how does that? Well, I mean, it's, it's important
+to know, so far everything I've said is just quantum mechanical will make it field theoretic in a moment.
+Right. So, so that, yeah, this, this locality of time, you know, the, the locality of time
+evolution that you want from your path integral is now just a statement that this functor is a
+functor, right? That if you, that when you, when you take disjoint unions of manifolds and
+co-borderisms, they map to essentially just matrix products in the, you know, in the category of
+vector spaces and linear, linear, there's a factorial correspondence between the, the, the, the sort
+of the partial, a little piece of co-borderism evolution, so to speak. Right. A little piece
+of vector space evolution. Right. And so you can split it, you can split them up however you, you
+know, as much as you like, right? That's what the locality is saying. That you could say, you know,
+the, the steps in this co-borderism evolution are one step and then multiplied by another step.
+And that's like two pieces of an S matrix, the initial S matrix, the final S1 and S2. And then
+you just take a matrix product. Right. Exactly. And this is the same as the sigma 1, sigma 2
+successor relation. Right. Right. But the important point here, though, is that we've, we've, in doing,
+in constructing that, we've already assumed effectively a default time slicing. Right. We've
+assumed, we've assumed a gauge choice in, in how we've broken up the co-borderism, you know,
+between these two. Whereas we don't even know how that works in the S matrices because that,
+because in the S matrices, if we thought about that in terms of Feynman diagrams,
+we'd be having a bunch of particle lines and then we'd be deciding in this, in fact, it's kind of
+amusing that the Feynman diagram is itself a graph and you could imagine essentially
+foliating the Feynman diagram graph just as you could imagine foliating this whole effect.
+Well, you know, not, not to seem like too much of like a category salesman, but that, that's not,
+that's actually not so much of a coincidence when you appreciate the compositional structure of what's
+happening. A Feynman diagram is a string diagram for the, for the symmetric monoidal category of
+vector spaces and their isomorphisms. Right. Which kind of makes sense when you think about it.
+Right. Right. Right. Okay. But yeah. So, so, and obviously we don't know how to do this in general,
+because in a sense, if we knew how to do this in general, we'd have solved quantum gravity.
+But we know that, you know, in order to get quantum field theory, you at least have to consider some,
+you have to mod out by gauge choices in some sense, right? And so this is why these, so, so, you know,
+in a sense quantum mechanics is like the one category case where you've already assigned,
+you predestined your, your time slicing, but then you could imagine having higher morphisms. You
+could imagine having, if you imagine several different possible time slicing in your co-borderism
+category and then gauge transformations being higher morphisms between them, then you get some,
+some n category of co-borderisms and some n category of vector spaces. And, and, and then, and that's,
+so, so in a sense, this is, this is one of the reasons why I think this is such a mathematically
+beautiful formulation, because in a sense quantum mechanics is the one category case,
+quantum field theory is the n category case, and then the hope would be that quantum gravity is some
+infinity category case, right? Right, well let's go through that claim. So you're basically saying
+quantum mechanics has this, has a specific time evolution independent of spatial gauge choices.
+Right, right. And what you're saying is, although, although I claim there is another kind of gauge
+choice, which is this branchial gauge choice, which we'll come to in a minute, maybe.
+Right, well precisely, but, but that functor, the, the functor between those two higher categories
+is the thing that maps you from a spacelot, you know, from a spacetime gauge choice to a
+branchial gauge choice. I see, that's your point. Okay, all right. So that's my point.
+Okay, so let's, let's, so what you're saying is, in the, I say it's kind of nice, but the,
+so, so on the one side, we have a bunch of these co-borderisms between these different layers in
+this causal graph type thing. Right. And then, then we've got, and we've got either one seek,
+one finish, which means one co-dimension one sequence of these space like hypersurfaces,
+that corresponds to a particular evolution. And that's, that's, it sounds classical, but it's
+actually a quantum, a particular quantum evolution. Right. Right. Okay. So another possibility is that
+we pick different choices for those, for that foliage, we can pick an infinite number of different
+choices of that foliage. The mapping between filiations is a, is, is a, is a gauge choice mapping.
+And that's, you know, that's, that's making gauge changes. And those correspond to a different
+kind of morph, a different, I guess, what is that? That's, that's again, that's a, that's a,
+is that another function? Is that just a, no, that's, that's a higher morphism.
+Right. Okay. It's a higher morphism. So it's a morphism between morphisms. So, plus, yeah. So
+in the multi-way picture, right, you could imagine, you've got some multi-way system,
+each path is, is a different gauge choice. But you could also imagine,
+in, you know, rather than just like, sort of somehow imposing from the outside that, you know,
+you pop from this path to the other to, to make a gauge choice, you could imagine having an explicit
+rule that lets you map from one path to another. And those are, those are effectively higher morphisms.
+So in mathematics, those are proof to proof transformations, which is something that
+you were working on, but I think more work needs to be done on.
+Yeah, no, absolutely. But, but I mean, so for the case of multi-way systems, the work that,
+well, particularly Xerxes has done, but also myself and Hatem have kind of helped out a little bit
+with, is, you know, essentially looking at that question, how do you define higher morphisms,
+higher homotopes and so on, in kind of arbitrary, in arbitrary multi-way systems. And so in the,
+yeah, in the field theory case, those higher morphisms have a pretty tangible interpretation
+as essentially gauge choices, right? Right. So just, just, or gauge transformation, sorry.
+The, I mean, you know, proof to proof transformations as things like you have one
+proof, can you find a simpler proof? Can you, can you simplify that proof? That's, that's a,
+which is a concept, a sort of higher level symbolic map, you know, symbolic computation
+concept, rather than just, can you simplify this algebraic answer? Can you simplify the proof that
+led to this algebraic answer? Anyway, so, okay, so we've got, on the one hand, we've got these,
+these higher morphisms, and you say that we are mapping those higher morphisms to higher
+morphisms on the S-matrix side, which correspond to different cuts in, in the, oh boy, this is,
+the, you know, there used to be these things, this is fine, but there's the sense called these
+Kutkowski, Kutkowski, Kutkowski rules, I think, which are in fact probably the same as cuts
+in the, in, in, in, in proof theory, which is just really ironic. You know, one of them is just
+named after a person. And, okay, in any case, so the idea is you've got a Feynman diagram that
+represents all of these different possible, and, and when you, you can say, I've got the beginning
+of my S-matrix, is one part of the Feynman diagram, I've got the end of the S-matrix,
+another part of the Feynman diagram, and I can make an arbitrary slice between those two. I've
+got a bunch of loose electrons and photons and things going through, and I can decide to make
+that cut after the, you know, after the electron and positron annihilate or before, and those are
+different possible choices of essentially sort of, what the heck are those called? In Feynman diagrams,
+those are the, that, that kind of factoring, boy, that was studied in QCD back in the day.
+Yeah, okay, that is, it's clear what that means. You have a Feynman diagram, and you can slice it
+at some point, and then, you know, as you knit those things together, you have a bunch of complicated
+integrals to actually evaluate the Feynman diagram, but it's clear you can, you can conceptually
+sort of slice it in that way. Okay, so, so what, so now what happens? Right, I mean, yeah, and so,
+as I say, if you, if you restrict only effectively to the gauge choices that correspond to Lorentz
+boosts, then you get some N-categor, you get some restricted kind of N-category, and that
+models quantum field theory, at least that would be the claim. But then if you, yeah, okay, so you're
+saying, you're saying on the, on the, if you restrict the gauge choices that you're making on
+the co-borderism thing, to only what Lorentz transformation is you're saying? Well, or Poincaré
+transformation, you know. All right, as opposed to general authoristic general differing morphisms.
+Right, exactly, exactly. So, so effectively, you, yeah, you've got one class of high morphisms
+that's just modding out by the Poincaré group, or some connected component to the Poincaré group,
+and you've got another that's modding out by the full conformal group, or the full differing
+morphism group of spacetime. So, QFT corresponds to the former case, which is a restriction of
+the latter, and the claim would be that full quantum gravity would correspond to the latter case.
+In the case where you just described, where you just have Lorentz transformations,
+you're saying you just sold me this thing about Feynman diagrams, or I sold myself
+about Feynman diagrams, and that, but in that case, the slicing of the Feynman diagrams,
+in the case of general differing morphism, what, oh, I see. It's just, you can stretch it topologically,
+any topological transformation of the Feynman diagram is permitted, whereas, you know,
+the ordinary transformation is you can just, you are only allowed to affect.
+I think it's more complicated than that, because I think the particle states change.
+In other words, I mean, what happens when you go into, you know, non-trivial spacetime is this
+notion of particle states, which was just, you know, the electron, where the electron propagator,
+the electron propagator changes, because you're redefining, you know, you're redefining the
+particle states, you're redefining, you know, even in a boosted, even in an accelerated frame,
+you're redefining particle states. So, how does that, I mean, and, you know, there isn't really
+a good generalization that I'm aware of, of, I mean, you can do, I mean, like the original
+Hawking effect is associated with doing Feynman diagrams, basically, very simple Feynman diagrams,
+where the propagators are in a curved spacetime. Right, right. But the, yeah, I mean,
+QFT in curved spacetime is pretty well solved, except for the back reaction, right?
+Which is otherwise known as the effect of gravity on a proofing, which is
+otherwise known as the main story of quantum gravity. Right, of course, I mean, this, yeah.
+Right, but so what you're saying is, I see, so maybe the point is that you're saying that
+there also have to be graviton lines in Feynman diagrams, and then the traditional stuff all
+goes to help, because, I mean, the back reaction, in a Feynman diagram, back reaction has to be
+represented by the effects of gravity on other particles, which is otherwise known as graviton,
+you know, right, graviton lines. Okay, but so, all right, so we've understood a little bit about
+the correspondence. You were going to make some other points about this correspondence between,
+between, I mean, this, actually, I have a question about the correspondence to quantum,
+to ordinary quantum field theory from this, from this multivariate graph there. So one,
+one important question, one important practical question is, can we find a better way to do numerical
+quantum field theory? Because numerical quantum field theory, the only way that's known right now
+is last gauge theory, that is gauge theory requires this rotation to be put in space,
+that's a big mess. Right. And so the question is, would this correspondence between the
+multivariate graph on the one hand, and Feynman diagrams, S matrices on the other hand,
+one might think that one could use that to use the pure multivariate graph as a way to do, you
+know, computations, do we know if that works? I don't think we know if that works. I mean,
+one way that you could do, okay, certainly one way you could do relativistic quantum mechanics,
+which takes you most of the way there would be, so if you've got a multivariate evolution graph,
+right, that's the kind of model of a monoidal one category, if you then add in the causal edges,
+so you get a multivariate causal graph, evolution causal graph, I should say, that's
+effectively a weak form of two category. And in a sense, so relativistic, so whereas we know how
+to pretty much know how to do ordinary quantum mechanics over, you know, over sort of over the
+one category, over the multivariate system, if we could do an analogous thing for that weak two
+category for multivariate evolution causal graphs, that would be that presumably correspond to
+relativistic quantum mechanics. How would we see that? So I mean, let's say, how would we get like
+the Dirac equation out of that? I mean, how would we see the difference between getting the Schrodinger
+equation and getting the Dirac equation? Well, so we know, okay, as we discussed the other day,
+there's a there's a sort of standard way you can get something like the Klein-Gordon equation in a
+causal graph, right, or in a multivariate causal graph. What you were saying by putting weights
+on the causal graph? Yes, but also, I mean, that's one way you can get it. You can also,
+I mean, that's essentially, that's one of the approaches that's developed in causal set theory,
+right, because you define it, you take it, you define it to Lambert operator by essentially
+equipping the causal set with a bunch of, you know, every element is associated with some
+scale of value, and then you just sum over causal layers. But you could also think of the causal
+graph as intrinsically defining a differential operator, which is just for people's benefit.
+I mean, so the issue is, you know, normally a causal graph is just a thing with nodes,
+but you can always put values on those nodes, and then the thing becomes more like a partial
+differential, you know, more like a, we should call it a finite graph as opposed to finite elements,
+a finite graph approximation to a partial differential equation.
+So, in that finite graph approximation, one would eventually, the point that I was making is that
+there's a limit that, in which that finite graph approximation limits to a kind of equation,
+to the massive, massive or massless? I believe the massless is the, I may be wrong on this,
+I believe the massless case is the only one where it's known. There is an ansatz for the
+massive form, I don't know if that's been proven to be correct. Okay, I mean, in a sense, this is
+going to be obvious because this is essentially a form of the wave equation. Right, right. Which is,
+and it works on the causal graph because the characteristic lines of the wave equation are
+just this criss-cross thing, I think. Right, right. Anyway, so what one would expect, I
+assume, is if you did the associated thing on the multi-way evolution causal graph, so now you've
+got two classes of edges, you've got causal and evolution, then some mixture of the Schrodinger
+operator and the Klein-Gordon operator would give you a Dirac operator on this structure.
+Of course, with the Dirac operator, we need, you know, to spend a half, which we don't yet
+understand. Right, right. But that might be some square root of some, I mean, that would be very
+nice. In fact, that's a good point that just as, if it is true, if it is true that the
+Klein-Gordon operator comes by having these sort of criss-crossing diamonds in the multi-way graph.
+Right, then commutation of your field operators that gives you spin zero, for instance,
+is essentially merging of branch pairs in the multi-way system. Right, that means the Dirac
+operator, which is the square root of that, would naturally be a single branch, which is what we
+guessed ages ago. Just curious. The correspondence between fermions and bosons. So that would be,
+so that's actually worth working out, whether that, because that would mean that
+in a very literal sense, the Dirac, you know, fermions and square root of bosons,
+because they are the things that come from single branches in the multi-way graph.
+Right. Okay, so how many more things can we solve here? That's a good piece. So, okay, but
+let's see, you were, I think you still had to explain this functorial one of your theory,
+which you'd explained as being this notion of this cowardism. Right, right. And then you were
+going to explain maybe also algebraic quantity. Right, so the point is that in addition to associating
+a space of states, you could also, to each hypersurface, you could also associate an
+endomorphism algebra, right? You could also associate some algebra of observables.
+Right, and that's not so obvious how that actually works to me. I mean, that is, that is,
+you've got this, so the algebra of observables, as I was sort of yacking before about correlation
+functions, I don't really understand. Given a graph, I mean, the algebra, I don't see this,
+because I mean, the unitary evolution, I clearly understand, it's just you go, you follow the
+edges, you go from this to this to this. Right, right. In the case of observables,
+is the algebra of observables, is it something as simple as you're looking at the relationship
+of edges and the branch of graph or something? Right, well, exactly, I mean, so, okay,
+exactly correlation. Right, right, right. And the reason they correspond to endomorphisms is
+because they're the things along which you can complete, right? So if you want to perform
+observations, those are the observations you are able to perform.
+I think that's right. But notably, the point is, and I was wondering about this, I mean,
+there's this statistical mechanics, there's cluster expansions of things. And I wonder,
+I wondered this, because I wondered this in connection with Matt's project about,
+from whenever it was. 2020. Yeah, right, about hard sphere gases, because I wondered whether
+there was a, what the interpretation of the branch of graph, and I guess that the interpretation
+of the branch of graph is one of these cluster expansions. And that's sounding more convincing.
+Okay, so anyway, so what you're saying is the branch of graph represents, maybe the branch
+of graph represents the collection of correlation functions is essentially an encoding just like
+it's an entangled map. It's also a correlation function map. Right. And, okay, so then, then,
+so, you know, because in effect, each state is some eigenstate, right? And then, and then
+every branch of it, one way you can think about it is it's one possible projection that you can
+perform of an eigenstate onto another. Yeah, which is otherwise known as a central correlation.
+Right, no, I'm agreeing. That's nice. Okay. All right, so anyway, so we've now,
+we've got this endomorphism, whatever, endomorphism collection of endomorphisms between operators.
+Right. Okay. So, which is otherwise known as a branch of graph, branch of graph.
+Right, right. And so, so the, you know, the original white man axioms for axiomatic
+quantum field theory and the more modern kind of hog, I think more modern, not particularly modern,
+but the slightly more refined version of the hard Kessler axioms for algebraic QFT,
+those are effectively describing the same field theory, but at the level of the endomorphism
+algebras and their isomorphisms, rather than the level of the vector spaces of states,
+and their linear transformations. And so, the statement that these two pictures are dual,
+that Schrodinger and Heisenberg are dual, is stating that effectively the multi-way
+evolution graph and the sequence of branch of graphs are encoding the same multi-way evolution.
+And that one can be reconstructed from the other. Right, right.
+In the AQFT, just a modern question, does the A stand for axiomatic or algebraic?
+Algebraic, because both are axiomatic, right? Both FQFT and AQFT are axiomatic field theories,
+there are just two perspectives on it. But the hard axioms were not stated in terms of
+observables originally. No. Stated in terms of asymptotic states and field operations.
+Right, right. The hard Kessler formulation is a modern refinement, but although, as we discussed
+the other day, there is a, there is a pretty direct way of obtaining the statements about
+asymptotic states from, from those axioms, you know, from the, from the modern formulation.
+The branch of surface evolution versus path evolution duality. I guess we are considering
+equivalence classes of multi-way systems up to renaming the single states, right? Because the
+the only way we can say they are describing the same process is structurally, right?
+Right. Yes, that's true. Yes, but so, so, okay, so, so what's the conclusion? The conclusion is
+that there's this nice correspondence between branchial evolution and, and temporal evolution,
+basically. Right, right. And so, I mean, one of the exciting things is that, so, as I say, this,
+the reason I got interested in this was actually not so much because I was interested in field
+theory, although that's obviously interesting in its own right, but more because this seemed to be
+the case of this, you know, I think what we can now reasonably think of is this functorial
+transformation between multi-way vibrations and multi-way foliations. There's, there's,
+this was the case where that functorial relationship seemed to have been explored to the greatest
+depth, because for instance, in some of the work of O's Schreiber and other people who are doing
+kind of higher gauge theory stuff, there is a very concrete construction of this functor that takes you
+from endomorphism algebras and their isomorphisms to vector spaces and their isomorphisms.
+So, okay, just, just, we should probably, that's, I've gone for ages and ages, but,
+I mean, let's just zoom out from there. Okay, so we've got this categorical, this correspondence
+that between, I mean, this is, what's interesting about this is, this is the same
+story as ADS, CFT, it's the same thing as, you know, AF, AQFT versus FQFT, it's the same thing as
+Heisenberg versus Schrodinger. These are just, this is just some sort of fundamental duality
+that exists across lots of kinds of systems. Right. So the, what else can we figure out?
+And it's also the thing between multi-theorem theory. Right, right, I think so. And these are all,
+all equivalent dualities. So what other dualities might that be like that?
+Well, I mean, this is actually something I wanted to ask you about, because in a sense, so
+we, I think both of us for various reasons are getting interested in this question of,
+you know, how can these multi-way, you know, how can the formalism of multi-computation,
+for instance, be applied to chemical reaction networks or, you know, ecological systems in
+biology and so on. And in those situations, I think a lot of those correspondence, I mean,
+presumably if multi-way systems are a good model, then those dualities should also exist,
+but I don't think we know their interpretation in those kinds of areas.
+Right. I think the Branschel graph, I mean, the story in chemistry, for example,
+the story of the Branschel graph.
+It's just what ambient chemicals are around in a particular moment of time, right? That's the...
+Yeah. I mean, the story of causal graphs is the thing which is less clear in chemistry. I mean,
+chemistry, people don't talk so much about causal graphs. They talk nearly about what chemical,
+you know, they talk about chemicals making chemicals. They don't talk about the causation
+of one reaction, having an effect on another reaction.
+Right. Although, I mean, again, as I think I mentioned the other day, it's like in a very
+minimal case of this, you could just say... So, you know, imagine you have a multi-way system that
+is just encoding stoichiometry, right? So, you just know populations of certain chemical species,
+but you don't know anything. There's no other kind of reactivity rules encoded.
+They're just interacting in ways that sort of algebraically permitted. Well, if you start from
+the assumption that everything's a kind of uniform pressure and temperature and so on,
+then in a sense, the causal structure of that stoichiometric multi-way system
+is telling you about the energies of particular chemical species, right? How many previous times
+of these things interact? You know, how many times is this thing bounced off that thing?
+How many times are these things interacted? And so then you can start to develop a pretty
+minimal model of something like activation kinetics just in terms of causal structure.
+That's a place where, I think, even in conventional chemistry, there is...
+Well, I mean, because of every reaction, there's a change of energy, and you're saying the causal
+graph is measuring the change of... You can do energy bookkeeping using causal structure even,
+you know, even in a multi-way system where there's no information about that.
+It's sort of a shame, though, that in the world of correspondences that the... Or maybe it isn't...
+Maybe... Gosh, that would be terrible. The density of causal edges, which in physics
+corresponds to energy density, is also energy density in chemistry.
+Right. But at a completely different scale.
+Yes, a completely different scale. It sounds like in this interpretation that is what's being said.
+Well, I mean, so actually, again, I'm going to necessarily be a bit more speculative because
+these are areas I don't really know anything about. But so, you know, one thing I've become
+interested in recently is, so for instance, when you're looking at... When you're modeling
+either chemical reaction networks or biological systems as multi-way systems, you know, there is
+a very multi-way-like approach that's already been adopted in kind of mathematical formalizations of
+these things, which is PetriNets. And we know, as we know, PetriNets are effectively token event
+graph. I would argue more precisely, they are their local multi-way systems in which the token,
+you know, the PetriNet tokens are tokens, and the transition firings are event firings in some
+global multi-way system. Although PetriNets have de-duplicated all... I mean, a minimal...
+Well... A ordinary PetriNet de-duplicated the tokens.
+Right, right. But not in, for instance, the colored case that Paul is interested in.
+Or, I mean, there are other... There are things like whole grain PetriNets and
+SigmaNets and so on, which have a slightly more sophisticated semantics.
+I wonder for years what the second matter is.
+I'm not sure I can reasonably explain it.
+I was talking 100, but eventually it might show up.
+Or at least not in a reasonable timeframe. But no, I mean, they're effectively like PetriNets,
+but with a different de-duplification semantics and a different execution semantics. That's
+the basic idea. But the point I was making was, okay, so in kind of very... If you take something like
+either chemical reactions or ecology, you know, ecology, it's pretty standard in very minimal
+mathematical models to use essentially a kind of mass activation law. That's effectively what
+things like the logical Volterra equations do. That's what the... That's what the
+exponential growth model does, et cetera. But we know that that's a bad model for things like
+macromolecules and chemistry for things like enzymes. We also know it's a bad model for
+population species. Because, for instance, in predator prey models, you get predator satiation
+and that kind of stuff. And so... Wait, wait, wait. You're saying, I mean, PetriNets were originally
+invented by Carl Adam Petri as a... He was a high school kid as a way of modern chemical reactions.
+That's the... And... I'm not even sure. Was he... Was he... He was like... Was he younger than that?
+He was 13 or eight, or some ridiculously early age. Was he in high school by that point?
+I think I might have been middle school. Maybe middle school. I don't know, depending on the
+German divisions between... I don't know whether they happened. It's very... I mean, it must be
+strange to have the really the only thing that you're known for. You know, he has some long
+distinguished academic career and the only thing he's really known for is this thing he invented
+when he was like 13. Well, it turns out, I was reading, you know, he has an autobiography. And
+it turns out I had thought that, you know, and also I exchanged some letters with him, actually,
+which were quite odd. And so I was really kind of confused about what this whole story was.
+But the fact is that this thing he invented early, you know, he went through and as computer
+systems became important, he kind of applied Petri Nets to computer systems and that became
+the whole story. Right. Chemistry application of Petri Nets kind of fell away very quickly.
+Right. But now the chemistry applications back, because the Petri Nets, you know, says you have
+these tokens, they accumulate, so to speak, and then you can have a firing, a thing that happens,
+an event that happens, that is like, you have to have, you know, I know nothing about chemistry,
+you have to have two hydrogens and an oxygen or something, and then you can make water.
+Right. You need both of those tokens, you know, all of those tokens to have the event of making
+water, so to speak. Right, right. Anyway, so the point I was making, yeah, I mean, there's a pretty
+standard approach to setting up that formalism in chemistry where you essentially say, you know,
+we've got some, we've got some set of chemical species, you've got some function that maps that's
+that set of species to the natural numbers that tells you essentially, like, how many of such
+and such a molecule is there, you construct some, some directed graph that where every vertex is labeled
+by, you know, by a function, by what's called the chemical complex, which is that function.
+And then there's, yeah, there's a direct way of mapping those graphs onto Petri Nets and back again.
+But the point I was making was, so, you know, ordinarily rate laws are not encoded in Petri
+Nets, right? That's something you have to encode subsequently. You have to place some kind of
+weighting on each edge. And similarly, I mean, that's kind of true with the multi-way system,
+right? You can use the kind of trivial, when you, you know, when you construct a multi-way
+semantics for these Petri Nets, you can use the kind of trivial path weighting. But you could
+also imagine having a multi-way system where there's, where there's a different kind of function
+that tells you about what the pathways should be. And that's really the same as what's going on with
+rate laws. The point I was making, though, is that so, you know, the, in traditional mathematical
+models, we've used pretty terrible rate laws, you know, things like logical Volterra used essentially
+these mass laws that assume that, you know, right, right, which is kind of, which is kind
+of assuming that biological species act like, you know, idealized gas molecules or something,
+where there's, you know, but, but what you want is, you know, for instance, there's,
+is it called the my, I should remember this name. It's like the mykylus, uh, Merton model. There's
+some trivial modification you can make to the mass law that's used in, that's like the most popular
+model of enzyme kinetics. That's like a kind of satiation version of that, which can also be
+applied to population dynamics to model predecessor satiation. Oh, no, I mean, it's, it's just a mass
+activation law, but with like a denominator that kind of induces a decay effectively.
+Anyway, so the, the point I'm making, though, is that my suspicion, which I have some
+technical, you know, I have some formal evidence for, but it would be nice to get more,
+is that, is that in general, those kinds of, those different activation models
+effectively correspond to different functions that you can apply to the causal structure
+of the associated global multiway system. So for instance, you know, statements about
+thermodynamic equilibrium and chemistry, I suspect effectively correspond to statements
+about causal cyclicity in the, you know, when you, when you equip the global multiway system
+with some causal semantics, if it becomes possible, you know, thermodynamic equilibrium is equivalent
+to the statement that there's, you know, that your chemical reaction kind of go in both directions
+with, with equal, you know, with, with, with some kind of, yeah.
+Well, let's see.
+And then, go ahead.
+And then yes. And then, and then so things like the, the activation kinetics that I was talking
+about earlier in relation to like a stoichiometric multiway system, that would be again a very
+simple kind of use of the causal structure where you're just using causal edges to essentially
+book keep information about energy. But one could imagine defining kind of arbitrarily
+sophisticated functions over the causal structure that would correspond to presumably
+different kind of activation models, different energetic models.
+Well, I mean, look, in general, the plain multiway graph, I mean, it's, it's kind of reminiscent of,
+you know, the sort of capacity and information theory versus Shannon information and so on.
+It's the unweighted, it's the what can happen versus with what weighted happens.
+Right.
+And in our traditional multiway graphs, there is no weighting except pathway to.
+Right.
+And so what you're saying is, you could, in effect, what I'm, okay, very concretely what
+I'm trying to say is that you could imagine in the multiway system specification,
+there being another kind of function that, that selects pathways based on information
+about the causal history of that path.
+Yes.
+Well, let's think about that for a second.
+So I mean, the most naive thing is you've got a node in the multiway graph that has
+certain pathways coming into it.
+And you could imagine one thing you could do is you could take, take the outgoing pathway to
+some function of the incoming pathways, just at the pure multivariate level,
+getting anything about causal stuff.
+Yeah.
+And then you could ask, you could equally well have in the causal graph, you could also have
+this kind of weighting theory where a particular event, if it is caused by a couple of other events,
+has some weighting, some path weighting of its outgoing edge that is some function of the
+pathways of the incoming edges.
+Right.
+Right.
+And to the, and the point I'm making with, in relation to those different models of kind of
+rate laws and like, like the Michaelis, Merton model is, you know, if you want to model something
+like predator satiation, then what does that work?
+What satiation?
+Oh, satiation.
+Satiation.
+It doesn't, it doesn't even talk.
+You're, you're, you're one of the few people I expect to be able to understand my accent.
+Why are we having this communication problem?
+Satiation.
+But no, so, you know, if you just have the pure multi-way structure, it's hard to encode that.
+Whereas, you know, what you want to be able to do is say effectively, if this, you know, if this
+lion has eaten 20 gazelles in the last day, it probably doesn't want to eat another gazelle.
+And that's really a statement about causal history.
+And so, you know, my kind of, and my abstract statement is that these different activation
+models are just different functions you can apply to the causal history of paths.
+Right.
+Right.
+But, but I mean, I'm not sure that that's the, I mean, that saturation idea is not,
+not sure that's the most important idea, but maybe it is.
+No, but it's one example of where, because in effect, if you just have a multi-way system
+that's doing ordinary, something like ordinary petri net semantics, just, you know,
+just transitions fire when they can fire.
+That's just like the mass law.
+Right.
+And so, so I'm saying, if you, if you want to have more realistic rate laws,
+Mads, and who is an actual chemist has a.
+My question is some functions, connecting some species with some other species.
+Is it like a function that tells you, you know, start with some chemical that will
+end up with some other chemicals?
+What are, can you clarify more, what do you mean by those functions?
+What are those functions?
+Right.
+Okay.
+So, so we got, we've got two different levels of stuff going on here.
+Right.
+So, so in terms of just the ordinary multi-way semantics or the ordinary petri net semantics,
+yeah, exactly.
+It's, so you've got, I mean, it's coming, it's going back to like the, the statement
+about axioms and free structures, right?
+In a sense, the free algebraic structure of chemistry is stoichiometry, right?
+Where you just, things have to balance.
+And so, so in that case, every token in your global multi-way system or in your petri
+net is labeled with some chemical species.
+And then, and then there are, there are just simple rules that are imposed axiomatically
+that say that transitions can fire as long as they preserve the numbers of those chemical
+species.
+You can then define a more sophisticated function that restricts that more
+based on, yeah, exactly as you say, some statement of the form, these things can come
+in, these things can go out, but, you know, but this class of chemical reaction is not
+permitted for some other reason.
+Then the point that I'm making is, well, you can have situations where, you know,
+chemical reactions are only, the transitions can fire only in certain situations where
+those situations are not just a question of, you know, do we have the requisite tokens?
+But for instance, is, do we have the right temperature?
+Is the right, is that, you know, do we have the right energy conditions?
+And my speculative claim is that in general, those activation conditions can be encoded as
+questions, essentially queries of the causal history of those tokens, right?
+If you, if you can know how many other tokens is that token interacted with, how many other
+things is it bounced off, you know, what is its complete causal ancestry, then my, my
+conjecture would be that gives you all the information you need to be able to, to, to
+encode kind of arbitrary activation conditions.
+Sorry, more than that.
+I mean, in other words, the actual, actual models will not need to know the complete
+history of all meals of the land.
+Right, right.
+It would be some coarse-grained thing.
+John, sorry.
+Just to, to, to, to increase that, that last point that you made.
+You're saying that the sort of coarse-grained thermodynamic variables can be read off as
+a causal history of the individual events, is that the claim?
+I think that's the idea.
+I mean, and we see that in, for instance, as you say, in maths projects, right?
+Where you can infer essentially temperature, when you've got causal graphs generated by
+hard-sphere gas collisions, you can read off things like temperature just from causal structure.
+And if that's a more general principle, which I think we think we believe it is, then.
+Right, so then we have to figure out what's the angle of the boosts and reference frames
+and event horizons and so on.
+We know some of those things for chemistry.
+But, yeah.
+Well, you know, coarse-graining, but it's very basic, obviously, a statistical mechanics,
+but not the whole presentation process.
+So what is the true definition, like, you know, when that transition happens?
+We are, we are talking about coarse-graining in a much more abstracted, yeah.
+But the level, what do you mean by coarse-graining?
+It's a general concept.
+I mean, coarse-graining and statistical mechanics is part of this observer theory story.
+That is, you know, the molecules bounce around as the molecules bounce around,
+but we observe only certain aspects of what's happening with these molecules.
+One of the key observations back from MKS times is that the reason the second law of thermodynamics
+works is because the only coarse-graining we can do are computationally bounded coarse-graining.
+And the underlying system is generating computationally irreducible behavior.
+And that's why we believe in the second law of thermodynamics.
+So, by the way, I mean, in terms of history of statistical mechanics,
+the history of statistical mechanics is, you know, Boltzmann originally had this idea of
+entropy and all this kind of stuff, but then there's this kind of bug
+that you really have to do coarse-grained entropy.
+Otherwise, it's always entropy zero because it's a unique state.
+And the question is, what's about coarse-graining, you know, Gibbs in the 1920s, 1930s,
+kind of terrified this notion of coarse-graining,
+but not how you would do coarse-graining.
+And so I think the thing that I understood in the 1990s was this fact that, you know,
+you can think about coarse-graining as a computational process.
+And when you think about that, you actually can nail down what is a valid coarse-graining.
+Nobody had been able to do that before.
+This idea of what is a valid coarse-graining in the books of, you know,
+my favorite is a book about statistical physics,
+which proves Boltzmann's H theorem, the theorem that entropy increases with time,
+which is based on some statistical argument about my calculations.
+And it says, at the end of that, at the end of the section, it says,
+you know, it proves that the H decreases entropy increases with time.
+And it says, but you can run this whole derivation in reverse,
+which means that entropy would decrease with time.
+The last sentence is, this point is often puzzling to the student.
+It's been puzzling to everybody.
+It was puzzling to everybody from Boltzmann on.
+I think that that's finally resolved by thinking about this computational boundary
+of this observer's story.
+And it's, I mean, and by the way, the reason you can do those proofs both way around,
+both ways around, just a statistical mechanics fact is that in the proof,
+you assume that molecules are uncorrelated before they collide.
+But the fact that they're uncorrelated before they collide,
+once they've collided necessarily, they're correlated because they just had a collision.
+And that's probably not unrelated to things that we have to think about for chemistry.
+Right.
+I mean, and some of this is not figured out.
+And by the way, when we talk about entropy and entanglement entropy and all these kinds of things,
+it's all, there are all kinds of issues that come up about what kind of coarse-graining we're dealing
+with what, when you talk about entanglement entropy, it's like, what is the set of things
+that you are constraining to say that you're talking about?
+And then how many states are consistent with that?
+I mean, so in the context of multi-computation, or at least in the stuff that I'm talking about
+in relation to global multi-way systems, coarse-graining has a very precise meaning,
+which is just that it's the state equivalence function that you use.
+Right.
+So, you know, in ordinary multi-way systems, you could imagine, if you're doing
+graph rewriting, you could imagine treating every pair of graphs where same Q returns
+false as being distinct.
+But for most cases where you want to do graph rewriting,
+that's not particularly useful.
+You want to merge based on a coarser criterion, which is graph isomorphism.
+Right.
+And so your state equivalence function is not same Q, it's isomorphic graph Q.
+And so those are two rather trivial examples of essentially coarse-graining functions.
+And the point with the observer theory is that one's defining a much stricter and therefore
+much coarser potential class of coarse-graining, because we don't expect physically realistic
+observers to be able to do actual isomorphism distinction.
+They're distinguishing something that's much coarser, that's more like at the level of
+thermodynamic variables.
+I have a question, one comment.
+The question is why is this concept that reversing the process would increase the
+because we know, for example, parts of the equation are good equations, like
+or we can keep the heat equation that time reversal is not equivalent to the entropy.
+The heat equation is at a higher level.
+The heat equation.
+Yeah, the heat equation is a parabolic equation.
+It is at a higher level of description.
+I mean, this is at the level of molecular dynamics where every molecular collision is
+reversible.
+And so what the H theorem is doing is trying to say, based on just looking at a collection
+of reversible collisions, what is the conclusion for the entropy as measured in terms of the
+number of states consistent with the system.
+By the time you're at the heat equation, you've already got, you've already assumed the answer.
+But even in the state of course, when the system
+improves in some time of uncertainty, we build approach to the range level.
+That's even a perfect solution.
+Yeah, but that argument, we're off topic here.
+That argument goes, we'll self-destruct because you end up with, as soon as you're talking about,
+you're making assumptions about the range of initial states.
+And that's going to end up being something which is essentially about state preparation.
+It's a little bit different.
+Course screening affects state preparation, as well as state observation.
+And what you're saying there is, it's just like state preparation version of the
+problem of the second row of thermodynamics is, is there a way that we can arrange the
+molecules of gas in this row?
+So that they'll all go to one corner in a minute, right?
+And, you know, we argue we can't do that.
+And it's the same statement as the, what's that?
+I think that's not the main point.
+The main point is, do the computation, you know, actually do the computation to figure
+out how to get those molecules to arrange themselves so that they will go to that corner.
+That's irreducibly difficult.
+And by the way, if you succeed in doing that, you're going to be able to do that.
+Irreducibly difficult.
+And by the way, if you succeed in doing that, go down to the level of the atoms of space
+and figure out how they're going to arrange themselves.
+And then you can travel faster than light.
+I do think, okay, I do think Soteris raises an interesting point though, right?
+Which is so, I mean, to rehash the kind of NKS explanation, which I know is, you know,
+itself a kind of rehashing of earlier stuff that you've done on statistical
+properties of CAs and things.
+But, you know, so if one views second law of thermodynamics as being essentially a cryptographic
+or cryptanalytic statement, right, that essentially, even if you have perfect
+reversibility, because of computational irreducibility, the action of the system
+can effectively encrypt details of the initial conditions to an arbitrary extent.
+Therefore, turning that on its head, if you as an observer are computationally bounded,
+then you're only ever going to be able to talk about equivalence classes of initial
+conditions and equivalence classes of, you know, possible evolutions and so on,
+which is the course-graining point.
+So, Soteris, do you then bring up the point about, well, what if your course-graining themselves
+have an element of uncertainty to them?
+Which is, I think, a kind of meta version of the observer theory question, which is,
+the observer is computationally bounded, but they don't know how computationally
+bounded they are.
+What conclusions can they draw?
+Which I think is quite an interesting question.
+Okay, yeah, that's a reasonable question.
+I mean, right, maybe we've almost exhausted the set of things we can talk about here.
+Is there any other, I mean, another thing that I'm, I mean, wouldn't you prefer to wrap up
+or continue this another time?
+I have one other thing, one other weird comment I want to make about chemistry,
+in case that's very reasonable, which is, so one thing that, one place where I think
+weirdly there's a very direct connection to some very abstract pieces of mathematical physics
+is, so this issue, this question about chemistry and reactions between species and so on
+turns out to be very, very mathematically similar to the question of d-brains in
+b-mode topological string theories, which is something I don't understand the physics of
+in any sense, but mathematically what's going on is, you've got, you know, these
+d-brain things, which are just objects in some triangulated derived category,
+and they can affect-
+Where did the category come from, the things in string theory?
+Right, right, as I say, I don't know what they correspond to in string theory.
+I'm also not entirely convinced that string theorists know what they correspond to in
+string theory, but they, you know, as I say, mathematically you can treat them as objects
+in this category that's effectively like a, well, it's a triangulated category, which means
+it's kind of, you take some infinity category and you kind of collapse it down to a one category
+in a way that you have some nice properties of the homotopy fibers, but-
+It's just, my understanding is a string is this, you know, one-dimensional thing that
+traces out a world sheet over time, and string theory is the story of, you know,
+is variational principles on that world sheet.
+Right, right, and to the point is in a topological string theory that we're back to the functorial
+QFT case, right? The initial and final strings are your, are like the initial and final states in
+the FQFT, and the world sheet is the co-borders in relation between them.
+So again, they naturally define some category.
+So now in the d-brain case, what's happening is instead of this one-dimensional string,
+you've got some high-dimensional brain.
+Yeah, high-dimensional brain.
+And so all that's happening is that you're looking at this, you know, relation, which is,
+as you're describing, co-orders of relation between the initial d-brain and the final d-brain.
+Exactly.
+And okay.
+Yeah, so they form objects in this, yeah, in this triangulation.
+In all these categories.
+It's it's co-orders between these d-brains.
+But anyway, so these d-brains can merge and they can split in various ways, right?
+And so in particular, so they can merge into effectively something like a direct sum of d-brains,
+but it's a direct sum with interaction that's kind of a bit like a semi-direct product.
+Like a string field theory.
+Yeah.
+Like you're having, the whole point of string field theory is that you have all these different
+ways in which the strings can split and join.
+You have this, instead of having this, you know, plain surface that is the world sheet,
+you have this thing with all kinds of holes in it and so on.
+Right.
+And I assume there's a topological version of that, which I don't really understand,
+which is a topological quantum field theory related to string theory.
+Exactly.
+Well, that's what topological string theory is.
+Oh, okay.
+So, and so, yeah, anyway, so then there are specific, and okay, mathematically those,
+you know, if you've got, you know, d-brain A and it splits into a sort of direct sum with
+interaction of d-brains B and C, mathematically in the derived triangulated category,
+although that corresponds to a homotopy, essentially a homotopy fiber sequence of
+B to A to C. And so, then there's a set of purely mathematical principles,
+which I think are called the bridgeland conditions on that category, that tell you
+effectively what, you know, what, which reactions are not permissible, right, you know,
+in which situations will you get using, in which situations will you get splitting,
+etc. And you can associate various different triangulated categories with different sets
+of bridgeland conditions. And formally, it looks very, very similar to essentially this
+description of like, you know, what chemical, what reactions between chemical species are
+and are not permitted. And if that's true, that's quite interesting because now,
+suddenly a lot of that, you know, the mathematical apparatus that we were talking about earlier
+that comes a lot of it from topological field theory, where you can actually talk quite explicitly
+about this duality between multiway fibers and foliations, you can now wheel that in and
+essentially solve a whole bunch of or translate a whole bunch of these concepts in chemistry
+to the same formalism. So there's a weird kind of, I don't know, I have this, you know, I think,
+you know, Feynman diagrams are also not completely unlike chemistry. But what you're,
+what you're dealing with here is something which where, you know, the in string field theory,
+you could imagine a Feynman diagram like representation of string field theory.
+Right, right. And so this is, this is something, although it is a little bit more complicated
+because in, you know, in Feynman diagrams are a story of particles. And these things are a story
+of more general objects that aren't just localized things moving one dimensionally through time.
+Right. And so that's a more, you know, so that's a generalization of that. Now, whether, whether
+in chemistry, there's, it's a meaningful thing to have these more extended objects in, in, in
+in space time, I mean, I would imagine a molecular biology, it might be. A molecular biology might,
+you know, it could be that a molecular biology, I mean, it matters that molecules are big in
+molecular biology. But as most of the time in ordinary chemistry, gas phase chemistry, for example,
+it doesn't matter how big the molecules are, they just, you know, molecules just float around
+freely and never so often they collide. The collision frequency is comparatively low. The
+the inter in solid state chemistry, you know, they're just locked in place and they only know
+that the liquid state is the reason that that's why, you know, that's why the, you know, the
+airport security people are concerned about people bringing large amounts of liquid. That's why
+coming through reactions happen in a significant way, because there's enough density to have
+significant chemical reactions and not some. And so, so the liquid state case is, let's see,
+what was I going to say? I lost my train of thought.
+I have a person on the boat, given this new paradigm to do science,
+what are the potential physical phenomena or physical systems that we might be able to see
+a clear distinction between conventional science and this new paradigm of your scientific
+project. Do you think that in your future you play an experiment and one can say,
+you know, this is the new thing that this approach that is not explained at all by the
+conventional science. I mean, look, the most, the most immediately applicable one will be a
+formalism for practical multi-competition. That is, you know, distributed computing,
+which has been hard, that hopefully this formalism will give us a way to think about that,
+that makes it much easier to understand and much more accessible to humans. I mean, then,
+then there are a whole list of other areas between, you know, economics, chemistry,
+molecular biology, immunology, linguistics, machine learning, neuroscience. I don't, I'm
+counting my fingers, but I don't actually know the number that we've enumerated so far, but
+each one of these fields for different evolutionary biology, each one of these fields
+for different reasons, it looks promising that one could use this kind of multi-computation
+approach and potentially derive, I mean, the main thing that's going to happen is that in the world
+of computational paradigms, one's face-to-face, you know, one's face-to-face with computational
+energy services limits what one can say. In the case of multi-computation plus observers,
+the right kind of observer can find general laws. The only problem is what kind of observer is that?
+And for example, let's say in economics, or for that matter, in chemistry or microbiology,
+it could be the case that the observer that we have normally been using is one that can't find
+a global law, but there is an observer that maybe some other kind of observer that measures,
+you know, different kinds of things in economics or neuroscience or whatever,
+that other kind of observer can find global laws. And that other kind of observer, it could be
+that you just go right out and measure such and such a weird thing in economic systems and say,
+my gosh, you know, the economists who've been trying to find global laws for years and everybody
+thinks that, or many people think they haven't really found anything, maybe, you know, as soon
+as you measure some different bizarre thing that you could measure in a virtual world, you could
+measure some detailed thing about correlations between, you know, amounts of money when here
+and there, suddenly boom, there'll be a global law. That's the type of thing that I think will happen.
+So, okay, in relation to your question about, you know, potential experiments and things like that,
+so I think it's important to make a distinction between sort of paradigms and theories,
+or metamodels and theories, or however you want to formulate that. I mean, so in a sense, it's
+very directly analogous to the distinction between a formal model of computation and a specific
+computation, right? So, in a sense, a scientific theory is like a specific computation. It predicts
+that the output of such and such a thing will be x. And if the output is not x, then your theory is
+falsified. And that's kind of, so individual specific computations and classes of computations,
+that's what the whole, you know, Popperian, Cuny and et cetera philosophy was kind of set up to deal
+with. With something like multi-computation, or even with the original formalism of the physics
+project, I don't think we were ever talking about theories at that level, right? We, this is a formal,
+this is a formal model of, I mean, in a very concrete sense, multi-computation,
+hypergraphoretic, all these things are formal models of computation. They are,
+they are a kind of space within which you can embed theories. They are not themselves theories.
+Okay, so, but there is an important, so there is a sense in which you could sort of imagine
+falsifying a paradigm, but it's, it's, it's, the distinction is much less sharp than it is for,
+you know, for ordinary theories. It's, because it's ultimately one of aesthetics, right? So,
+in a sense, you know, what's actually happening is you've got these computations that, that are,
+that correspond to your models. And you've got the computations that correspond, we think to,
+you know, processes, actual processes that occur in the universe. And the problem, the basic problem
+of theoretical science and observational science is to essentially define some kind of encoding
+function, some intermediate computation that lets you translate between abstract computational
+states of your model and concrete, you know, physical natural states of the system you're
+trying to, you're trying to construct the model of. And so then the, the strength of a paradigm lies,
+I would argue, in the simplicity of its encoding functions. A good paradigm is one way you can
+write down encoding functions that have very minimal algorithmic or computational complexity.
+And a bad one is one where the encoding functions have to be extremely convoluted and contrived.
+And so in a sense, you could imagine falsifying the multi-computational paradigm if you could
+find an example of some system where, yeah, of course, because of, because of universality and
+so on, it's possible to, to construct some, some simulation of it if your encoding function is
+allowed to be arbitrarily weird and contrived. But, you know, if it were the case that, for instance,
+you know, with the physics model, you can, you know, you can reproduce general relativity,
+you can reproduce quantum mechanics, you can reproduce quantum field theory very naturally,
+as it appears, maybe the case. But, you know, to be able to reproduce the mass of the muon
+or something, you know, you require some, some big 100,000 line program. That's, that's a sign
+that that's, you know, that's, that's a, it's not a falsification, but it's a weak point of the
+paradigm. And so it's, as I think, ultimately, it's, it's a, your question is one that requires
+in the end a kind of aesthetic judgment rather than there's, there's no sharp
+distinction, I'd say, when you're, when you're reasoning at the level of entire models of,
+you know, rather than at the level of specific theories.
+But it's also like the question of, you know, could calculus be wrong?
+The answer is it's not, that's not the right type of question, because calculus is just this formal
+setup. And, you know, calculus could be irrelevant to things in physics or things in the world,
+but it can't be just wrong. So it's, I mean, that is, you know,
+Right, but that comes back to the encoding function thing, right? I mean, so calculus,
+as far as we can tell, is a sort of universal paradigm for doing that. You know, in principle,
+you could do combinatorics with calculus. If you, you know, if you set up some weird combination
+of step functions and used integrals to count things and whatever, but it would be horrible,
+like no one wanted to do that. In fact, the encoding function would be really, really
+complicated. You could do set areas. Right, exactly. Yeah. Yeah. So it's some, yeah. Right.
+But why would you? I don't want to talk about the paradox, like
+It is an interesting question, whether a paradigm can have paradoxes and whether that
+is a sign of what, what the heck that's a sign of. See, I would argue paradoxes, again, they,
+they live at the level of the interpretation. They live at the level of the encoding. They don't
+live at the level of the underlying model I would claim.
+Well, I mean, there's an interesting question of whether the Rouliat is self interpreting.
+What's that? Well, so, so if one makes this distinction between computations and the kind
+of interpretation of the encoding of their semantics, does, does the Rouliat contain its own
+encoding function? And, you know, and the answer, and the answer, sorry, some levels, yes,
+but it depends on what the observer picks out. In other words, it formally contains
+what the observer does just as any universal computer formally contains the encoding of,
+you know, any coding of that universal computer. Right, but it's not necessarily instantiated.
+Yes, one would assume, sorry, Mads had some interjection, which I didn't hear.
+Yeah. Sorry.
+Well, because again, if you go back to proof theory, you know, so, so, so Banak Tosky
+is about a specific model of, of general topology. It's about a model in which, well, ultimately,
+well, I mean,
+measure theory is topology with an additional function, but anyway, but
+we know, so it's all I'm saying. Yeah, it's based on a proof. I think the place where your confusion
+may be coming in is that the, the, it's based on a proof theoretic thing, right, which is the fact
+that if you allow axiom of choice, you can have, as you say, non-measurable sets. And one of the
+consequences of that is, you know, if you have uncountable choice, I should say, that you can
+have the Banak Tosky paradox be true. But it's a paradox. The paradox makes reference to particular
+balls, right? It makes it makes reference to an actual semantic mathematical structure. It's not
+a proof theoretic statement. So again, I maintain the paradox exists at the level of encoding.
+It's not, it doesn't exist at the level of proof theory, right? Similarly, Russell's paradox
+is a statement about a set. It's about a model of set theory. It's, you know, it's, it's, it's,
+it's, it's generated by a proof theoretic problem with set theory. But the way that the paradox is
+actually formulated involves you having some kind of semantic interpretation to the underlying
+term. Let's take a favorite paradox. Should we take Russell's paradox or should we take the
+Banak Tosky, which is, which is the like one term? Well, Banak Tosky is based on a much more
+sophisticated formal system. Okay. So I think it's probably easier to analyze the simpler case.
+But, okay. So, so can you, can you,
+can you please be a better example?
+Right. Maybe these guys should, should comment because, yeah.
+If I understand Jonathan correctly, then aren't we essentially making the statement that if you
+have one Wolfram model where relativity holds but something, some cosmological thing contradicts
+itself. So it cannot be a physical model. That's not evidence against Wolfram models in general as
+formalism. Whereas, whereas if all Wolfram models had the shortcoming that they couldn't predict
+something in reasonable effort, and you would need to add lots of unnecessary complexity,
+that would be a criticism against the paradigm itself or the, or the, or the, or the, or the,
+yeah. And I think it's the exact same thing with, I don't know that we've created that.
+No, no, I mean, and it's the same thing with topics is calculus useful.
+And, and no, it seemed to be for the last 200 years.
+You know, that's some,
+actually a much more straightforward question that we've kind of entered somewhat of basic
+which is nothing mind is asking, you know, will multi-competition be proved wrong or not?
+He's asking, you know, can this overall paradigm, you know, will that lead to us
+positing new theories that could be, you know, confirmed with empirical or experimental, you
+know, evidence? That's going to be true. I mean, with economics, for instance, we have some global
+law of economics, you know, we could actually test that out. And if it's right, then we'll do very
+well. I mean, or whoever tries that, we've also got laws of mathematics that we're talking about,
+which, you know, I mean, look, with molecular computing, if molecular computing works well,
+which have some, you know, we understand how it works, we should be able to make a molecular
+computer, for instance, with physics. I mean, you know, this is something that we want to do
+with the institutes. We want to actually bring in an experimentalist. We have the design experiments
+that we think can actually verify. Yeah, it's really a shame. There's so many
+experimenters that contacted me and said, you know, just tell us particle accelerators, telescopes,
+you name it, you know, what should we do to justify some graphs that give us excuses to run?
+Well, yes, give us new new experiments to run. But but I think, you know, that that's why several
+projects of the summer school have to do with things about, you know, photon propagation through
+fractional dimensional space and things like this, because that's where we can tell some, you know,
+some, you know, person with a telescope, so to speak, go look for this absolutely bizarre
+form of gravitational lensing. And that will be something you couldn't possibly have seen
+in an interdimensional space, for example, that will be a nice nice effect.
+There are three things that we can do. One is we can build up the overall paradigm.
+We can also do what Jonathan was suggesting, which is there are existing theories, we see how
+we would model those theories, we can apply, you know, fancy stuff. We can do kind of Occam's razor,
+you know, comparisons of our, our, how we model or model it. And we should also have new theories.
+And those will be tested experimentally. But also when what we do relates to things like technology,
+like distributed computing, I mean, solving problems in the industry as well as a perfectly
+valid, you know, kind of experiment, those might think as well. So all three, you know,
+building new paradigms, you know, preparing our models with other theories and doing new stuff.
+I was also interested in some of the kinds of science that we might have things to say about
+are not really natural science. They're things like economics, linguistics,
+you know, areas, you know, metamathematics, these are areas that are not traditional
+natural science. So the areas where the, it's observations rather than experiments. Same
+with the illusion of biology as observations, rather than experiments. So it's a little bit
+of a different thing, you know, the, a Popperian model of, of how science works is exceptionally
+narrow. And, you know, it's really a very physics-based idea, the experimental physics-based idea.
+I'm reminded of it when I worked at the Institute for Advanced Study, there was this older
+physicist there who was, I would not say a great friend of mine, but who, when he first was in
+the stronghold, when he first come to the Institute, he was telling a story. He had done,
+Metka Goedl, who was there. And this guy who explained with great enthusiasm, all the stuff
+about how he was studying star clusters and all these kinds of things. And Goedl had said,
+that's very nice young man, but I do not believe in natural science. So you can see the, the platonic,
+you know, view of, I mean, that's interesting. He says, he doesn't believe in natural science,
+because he has this ultimately platonic view of everything. And that, that term, so.
+Yes.
+Henrosian Trialism as opposed to Cartesian Dualism.
+Do we really have motion and there's like some coordination with Goliad? I mean,
+part of those pockets aren't going to correspond to anything in our world whatsoever, right? But if,
+but if it seems as though we are kind of, we have authority over our domain and the Goliad,
+and that seems quite solid, then people will have to take some leap of faith that you can also use
+the paradigm to explore things beyond what we have access to. But if we don't have any authority
+over our domain, then this, it will all seem to be somewhat speculative. If we do, then someone
+will have some faith that this applies more generally, which actually will make it very
+interesting. I'm going to try, I'm going to interpret Satyrus's comment as a conjecture that
+Plato's form of the good is actually a veiled reference to the Goliad.
+It's how we illuminate all other computational structures.
+Yeah, right.
+Nice. I mean, this is in there.
+I mean, in addition to Plato, we go to the theologians and all this kind of thing. There's,
+there's a, but I mean, this whole point about, you know, the role of science and the role of us
+in science is interesting because in a sense, it could be the case that to make progress in science,
+we simply have to understand ourselves more because that's the story of, you know, if the
+Goliad is just out there and to know what the science as we perceive it is, we have to understand
+more about how we do the perceiving as much as we, you know, as we have to look outwards into
+kind of natural world. I'm going to disagree with you there a little bit. I mean, as we've
+discussed before, and I think has come up in other conversations, I mean, my view of this is more like
+you have, you as the, as the scientists have complete freedom on where you place the computational
+burden, right? The traditional case that, you know, as you discussed in NKS of like, you know,
+you assume the observer is infinitely computationally sophisticated relative to the system they're
+observing, that effectively corresponds to the situation where, you know, if you like, the
+observer's computation doesn't matter at all. And all of the dynamics is going on the, in the
+computation of the system. The Goliad picture is, you know, in a sense, the system is doing some,
+some trivial thing, trivial in the sense that it has basically no algorithmic complexity,
+it's just, it's just all possible computations occurring in parallel. And all of the burden
+has shifted onto the observer and how they encode things. But I would argue that, you know, in a
+sense, is that you have freedom to choose either of those extremes or anywhere in the middle. And
+so I don't think it'll ultimately be the case that if you make that selection that you'll end up
+being forced to learn more, you know, to encode yourself as an observer to a greater or a lesser
+extent than you initially had to to begin with. No, but I think the point is that, that if we were
+sort of utterly trivial observers, the fact that we are observers as we are means that our sampling,
+you know, we are taking a certain burden in your picture as observers and the burden that we are
+taking is causing us to perceive things the way that we perceive things. Yes. If we were taking a
+different burden, if we were different from the way we are, we would perceive different things.
+And so to know what we are going to perceive, we have to know some characterization of how we
+are, so to speak, which is not something that science usually discusses. Well, it actually has
+discussed many times, right, to know, you know, relative to the results of being realistic about
+simultaneous quantum archives, the results of being realistic about, well, some kind of measurement
+thing. Right. You know, so it isn't the case that science has never had to confront this thing
+about what observers are like. I think what we realize is in this really odd picture is that
+there's a much more of a spotlight back on what we like as observers. But again, I would say that's
+really the kind of whole algorithmic complexity aesthetic encoding thing, right? My conjecture
+would be that, yes, general relativity and quantum mechanics are elegantly formulated if you are
+realistic about the limitations of the observer, which we agree upon. But, you know, the counterclaim
+would be that there would be scientific theories which are observationally isomorphic to general
+relativity and quantum mechanics, which assume nothing about the nature of the observer, but
+which are much more contrived to specify. Yeah, it's just a churn. Right. It's all good. I mean,
+you know, then you have everything. I mean, then you can construct everything. It's just not, it's
+an observer of immense complexity that's needed to go and, you know, go and construct the churning
+machine that constructs the universe, so to speak. It's just a churning machine. It's all good.
+Should have been the subtitle 10k. Well, I think that the, I mean, this question about
+rural jumps and what happens, you know, we live where we are in rural space, what it's like
+elsewhere in rural space. This is why this is why I keep on obsessing about this animal
+communication stuff, which might seem, might seem relevant, but that's, you know, that's a case where
+we actually have a different place in rural space, so to speak. And, you know, I don't know, I, it's
+some, I mean, the other example is in rheology, where we're just jumping to some random place
+in the rouliad and where we have no current, you know, and I'm curious in this, in this whole
+categorical view of things, right, to what extent, where does the observer picture come in, come into
+this categorical view? I mean, in other words, where does the observer enter the categorical
+view? And if we jump, if we jump not through hyperspace, which is old science fiction,
+we jump through rural space and we land somewhere, maybe that's what really,
+really science fiction story, which I haven't yet read, is about jumping through rural space
+to somewhere else. But anyway, if we, if we jump through rural space to somewhere else,
+we land in this utterly alien, you know, world that is not described in the same way that our
+world is described, can we still have category theory? Right. I mean, in some sense, that functoriality
+is a version of bad idea, right? Functoriality is a version of rural translation. You're saying,
+you know, the semantic interpretation of everything we're dealing with is completely
+different, but the underlying compositional structure of our computation is preserved.
+And that's, you know, that's at least one form of rural translation. But, and then
+on a potentially more interesting level, you know, one way that you can reason towards the
+Ruliard, so to speak, is, you know, you take this model of multi-way systems as sort of,
+as monoidal categories, and these completion, these towers of completion procedures, which you
+can do to effectively populate an entire rural space, you can encode as is discussed in, in,
+stuff by, by Xerxes myself and Hatham, you can encode the, you can encode those completions
+as the introduction of these higher homotopies or these higher cat, these higher morphisms and so
+on. And so eventually, you know, you, you reach some point where in the end, you obtain
+some infinity category that is the sort of full Ruliard multi-way system. And then I don't know
+whether it's the hyper Ruliard or the ordinary Ruliard or something. There's, there's then a
+classifying space of those Ruliard multi-way systems, which is given by some infinity one
+top-offs. And then the, the role of the observer is that they are some sort of principle by which
+you can take that, either the, the initial infinity category or that infinity one top-offs,
+and you vibrate it in some particular way in such a way that the, you know, the multi-way
+systems or Ruliard multi-way systems that you, you obtain by, by, by taking some global section
+inherit some nice features of the overall infinity category or infinity one top-offs. For instance,
+something like spatiality is, it would be a common form of inheritance.
+So what you're basically saying is what fibers of aliens are likely to be understandable.
+Right. So, so you're asking the question of what, I mean, this is the setting question
+basically is in, in the expanse of rural space, you know, where are we likely to find,
+you know, aliens that we can understand? And how dense is the set of aliens that we can
+understand in rural space? And is it a set of measures zero in some sense in rural space
+of, of aliens that we can understand relative to not, and you're saying you're describing
+this, this selection in this infinity one top-offs so to speak of things that have certain
+properties like spatiality. Right. That. So, so, okay, so prove whether, whether the,
+whether the set of aliens we can understand is a set of measures zero.
+Well, so my hypothesis about that again is getting very speculative. It's similar to the
+speculations about chemistry is that essentially, okay, you know, my, my philosophical perspective
+on that question is that, you know, you, you need, that there's, that beyond us, if there's,
+if there, if you're outside a very narrow domain of shared cultural experience, communication is,
+is impossible because it's, you know, it's, it's essentially the computational equivalence thing,
+right. It's indistinguishable from essentially thermodynamic noise. And my hypothesis, my
+operative hypothesis has been when thinking about this, that essentially a way you can
+encode shared cultural history is through the causal structure of the rural multiway system.
+Right. So effectively, so the fibers over which you can have effective communication are those
+that have sufficient shared causal history in the event structure. And if you've got fibers that
+are completely causally disconnected, then communication becomes theoretically impossible
+for essentially reasons that are, those are not the similar to, you know, sort of event horizon
+type arguments. Right. This is the same in rural space because there's a rural graph just like
+there's a branch of graph. And you're saying that the, you know, you're distant in rural space.
+Right. Right. And that, and there's a certain level of distance beyond which, you know,
+essentially your, your, your, your past causal ancestor is far enough away that, you know,
+communication comes back. Right. That would be one possibility that you're actually
+in disconnected regions of rural space. And then you're totally toast. And the aliens in
+disconnected regions of rural space are truly, truly gone. Right. Truly separated. But I, but I
+think this, let's see. Yeah, I was just going to comment, just a side cultural comment. I mean,
+for some reason, this is the year of growth. It seems like, you know, everybody's talking about
+growth. You know, there was an article in New Yorker, there's this person who might not be
+writing a novel that has a big growth, like character and so on. And I'm trying to understand
+why, you know, and that's, that's the world infinity categories and things like this.
+And I'm just trying to understand from it. Sorry. So you're talking about what?
+Alexander growth and growth and deek. Alexander growth and deek.
+And part-time wizard.
+I'm probably pronouncing it. Can anybody pronounce growth and deek in it?
+Closer. I'm just wondering whether some of his thinking about the infinity category infinity
+good boy and so on. What more can we mine? Well, that's the comment I was making about
+spatiality, right, as you know. So in effect, Grotendijk had this idea that, you know, one kind
+of abstract model you can give for topological spaces that doesn't require you knowing anything
+about points or whatever, is to model them as infinity categories. And the reason for that
+actually is very interesting. I mean, it's kind of intuitive when you, I mean, it sounds really
+weird and abstract. It's kind of intuitive when you think about it in the right way,
+which is what you're saying is, you know, okay, so you've got some topological space,
+you can look at paths in that space and you can look at, you can look at homotopies between those
+paths and you can construct then a homotopy space where the points in the homotopy space are paths
+in the original space and the paths in the homotopy space are homotopies in the original space.
+And then you can construct its homotopy space and so on, you get this large tower. And in this,
+in the categorical interpretation of what's going on now, you know, points are just objects,
+paths are just morphisms. Now this is, this gives you a way of constructing an arbitrary
+infinity category. And we know that for homotopy spaces, there's at least a large class of cases
+in which if you know the infinity homotopy space, you know, the infinite limit of this,
+of this picture, that then the structure of that infinite, the infinite limit of these,
+of this homotopy tower determines that once you get to the infinite limit, something really
+rather remarkable happens where the structure of that space determines the structure of all
+the spaces in the hierarchy below it, at least up to weak homotopy equivalents. And so then
+basically took that and took that, took that idea. So if you construct the infinity category,
+that is the infinity homotopy space for some topological space, it determines everything
+that you as a topologist might reasonably care about, about not just the original space, but also
+all of its higher homotopy spaces. He took that idea and he just like took it to its logical
+conclusion. He said, well, maybe not just, it's not just the case that every topological space is
+modeled by an infinity category, but maybe every infinity category can be thought of as a model
+of a topological space. And so maybe an abstract definition of what a topological space is up to
+weak homotopy equivalents is that it's an infinity category of some description, which then motivated
+a lot of this work on trying to classify infinity categories and infinity group points and all
+this kind of stuff. And so in the, you know, in the, in the, in the rural picture, and this again is
+an insight that's really originally due to, due to the successes, but you know, one question you
+can ask is why do, why do so many of the structures that we encounter in the physics project, like
+causal graphs, hypergraphs, multi-way systems, et cetera, have spatial interpretations as
+Lorentzian manifold, Ramanian manifolds, projective Hilbert spaces, et cetera. And one perspective
+on that, which is the kind of cognitive perspective is that you've got this really adds that, that
+is the, has the structure, the formal structure of an infinity category. So it is, it is naturally
+spatial. It is naturally a topological structure. Then you take an appropriate global section. And
+if you take those sections sufficiently judiciously, then those sections effectively inherit spatial
+structure from the Rulliad. And so, so one reason why we have one possible explanation why, for why
+we have spatiality in physics is that it's all, it's spatiality that's being inherited from the
+infinity groupoid structure of, of the Rulliad. Although observers like us, I mean, I, I claim
+that spatiality is a feature observed by observers like us. Right. Well, I agree, but that's where
+the phrase up to we come ought to be equivalence comes in. Right. So, so, so the, so the spatiality,
+so up to we come ought to be equivalence is really a statement about a observer course
+grade. Yeah. Right. Which is also a statement about computational boundaries of observers.
+Right. And so we come ought to be equivalence is, it's all the same, same story. Yep. And so,
+you know, we observe space because, yeah. So I mean, you know, there's this, I'm just so curious
+to understand, you know, something, you know, in a sense, the growth of knowledge is a growth,
+is an expansion of real space. And I'm sort of impatient to jump to a different place in
+real space and understand what's out there. And as, as seen by, but, but of course, then we have a
+problem of communication between, you know, it's, I have to say, I'm reminded of sadly,
+a thing in the 1950s, when people are first talking about cybernetics, okay,
+there's this big proceedings and so on. And there's one of the, one of the core articles
+is called communication between the same and the insane, which is kind of a, you know,
+could be a version of this kind of familial thing. In those days, the notion of these things
+were a bit different. All right, we should probably wrap up many, many, many things that
+could be followed up, but we can go to the next one. Thanks very much.

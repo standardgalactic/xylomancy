@@ -1,0 +1,252 @@
+What's the connection between a dripping faucet, the Mandelbrot set, a population of
+rabbits, thermal convection in a fluid, and the firing of neurons in your brain?
+It's this one simple equation.
+This video is sponsored by Fast Hosts, who are offering UK viewers the chance to win a
+trip to South by Southwest if they can answer my question at the end of this video, so stay
+tuned for that.
+Let's say you want to model a population of rabbits.
+If you have X rabbits this year, how many rabbits will you have next year?
+Well, the simplest model I can imagine is where we just multiply by some number, the
+growth rate R, which could be say 2, and this would mean the population would double every
+year.
+And the problem with that is it means the number of rabbits would grow exponentially
+forever.
+So I can add the term 1 minus X to represent the constraints of the environment.
+And here I'm imagining the population X is a percentage of the theoretical maximum.
+So it goes from 0 to 1.
+And as it approaches that maximum, then this term goes to 0, and that constrains the population.
+So this is the logistic map.
+Xn plus 1 is the population next year, and Xn is the population this year.
+And if you graph the population next year versus the population this year, you see it
+is just an inverted parabola.
+It's the simplest equation you can make that has a negative feedback loop.
+The bigger the population gets over here, the smaller it'll be the following year.
+So let's try an example.
+Let's say we're dealing with a particularly active group of rabbits.
+So r equals 2.6.
+And then let's pick a starting population of 40% of the maximum, so 0.4.
+And then times 1 minus 0.4.
+And we get 0.624.
+So the population increased in the first year.
+But what we're really interested in is the long-term behavior of this population.
+So we can put this population back into the equation.
+And to speed things up, you can actually type 2.6 times answer times 1 minus answer.
+Get 0.61.
+So the population dropped a little.
+Hit it again.
+0.619.
+0.613.
+0.617.
+0.615.
+0.616.
+0.615.
+And if I keep hitting Enter here, you see that the population doesn't really change.
+It has stabilized, which matches what we see in the wild.
+Populations often remain the same as long as births and deaths are balanced.
+Now I want to make a graph of this iteration.
+You can see here that it's reached an equilibrium value of 0.615.
+Now what would happen if I changed the initial population?
+I'm just going to move this slider here.
+And what you see is the first few years change, but the equilibrium population remains the
+same.
+So we can basically ignore the initial population.
+So what I'm really interested in is how does this equilibrium population vary depending
+on R, the growth rate?
+Well, as you can see, if I lower the growth rate, the equilibrium population decreases.
+That makes sense.
+And in fact, if R goes below 1, well then the population drops and eventually goes extinct.
+So what I want to do is make another graph where on the x-axis I have R, the growth rate,
+and on the y-axis I'm plotting the equilibrium population, the population you get after many,
+many, many generations.
+Okay, for low values of R, we see the populations always go extinct.
+So the equilibrium value is 0.
+But once R hits 1, the population stabilizes onto a constant value.
+And the higher R is, the higher the equilibrium population.
+So far, so good.
+But now comes the weird part.
+Once R passes 3, the graph splits in two.
+Why?
+What's happening?
+Well, no matter how many times you iterate the equation, it never settles onto a single
+constant value.
+Instead, it oscillates back and forth between two values.
+One year the population is higher, the next year lower, and then the cycle repeats.
+The cyclic nature of populations is observed in nature too.
+One year there might be more rabbits, and then fewer the next year, and more again the
+year after.
+As R continues to increase, the fork spreads apart, and then each one splits again.
+Now instead of oscillating back and forth between two values, populations go through
+a four-year cycle before repeating.
+Since the length of the cycle, or period, has doubled, these are known as period doubling
+bifurcations.
+And as R increases further, there are more period doubling bifurcations.
+They come faster and faster, leading to cycles of 8, 16, 32, 64, and then at R equals 3.57
+chaos.
+The population never settles down at all.
+It bounces around as if at random.
+In fact, this equation provided one of the first methods of generating random numbers
+on computers.
+It was a way to get something unpredictable from a deterministic machine.
+There is no pattern here, no repeating.
+Of course, if you did know the exact initial conditions, you could calculate the values
+exactly, so they are considered only pseudo-random numbers.
+Now you might expect the equation to be chaotic from here on out, but as R increases, order
+returns.
+There are these windows of stable periodic behavior amid the chaos.
+For example, at R equals 3.83, there is a stable cycle with a period of 3 years.
+And as R continues to increase, it splits into 6, 12, 24, and so on before returning
+to chaos.
+In fact, this one equation contains periods of every length, 37, 51, 1,052, whatever you
+like if you just have the right value of R.
+Looking at this bifurcation diagram, you may notice that it looks like a fractal.
+The large-scale features look to be repeated on smaller and smaller scales.
+And sure enough, if you zoom in, you see that it is, in fact, a fractal.
+Arguably the most famous fractal is the Mandelbrot set.
+The plot twist here is that the bifurcation diagram is actually part of the Mandelbrot
+set.
+How does that work?
+Well, quick recap on the Mandelbrot set.
+It is based on this iterated equation.
+So the way it works is you pick a number C, any number in the complex plane, and then
+start with Z equals 0, and then iterate this equation over and over again.
+If it blows up to infinity, well then the number C is not part of the set.
+But if this number remains finite after unlimited iterations, well then it is part of the Mandelbrot
+set.
+Let's try, for example, C equals 1.
+So we've got 0 squared plus 1 equals 1, then 1 squared plus 1 equals 2, 2 squared plus
+1 equals 5, 5 squared plus 1 equals 26.
+So pretty quickly you can see that with C equals 1, this equation is going to blow up.
+So the number 1 is not part of the Mandelbrot set.
+What if we try C equals negative 1?
+Well then we've got 0 squared minus 1 equals negative 1, negative 1 squared minus 1 equals
+0, and so we're back to 0 squared minus 1 equals negative 1.
+So we see that this function is going to keep oscillating back and forth between negative
+1 and 0, and so it'll remain finite, and so C equals negative 1 is part of the Mandelbrot
+set.
+Now normally when you see pictures of the Mandelbrot set, it just shows you the boundary
+between the numbers that cause this iterated equation to remain finite and those that cause
+it to blow up.
+But it doesn't really show you how these numbers stay finite.
+So what we've done here is actually iterated that equation thousands of times and then
+plotted on the z-axis the value that that iteration actually takes.
+So if we look from the side, what you'll actually see is the bifurcation diagram.
+It is part of this Mandelbrot set.
+So what's really going on here?
+Well what this is showing us is that all of the numbers in the main cardioid, they end
+up stabilizing onto a single constant value.
+But the numbers in this main bulb, well they end up oscillating back and forth between two
+values, and in this bulb, they end up oscillating between four values, they've got a period
+of four, and then eight, and then sixteen, thirty-two, and so on, and then you hit the
+chaotic part.
+The chaotic part of the bifurcation diagram happens out here on what's called the needle
+of the Mandelbrot set, where the Mandelbrot set gets really thin, and you can see this
+medallion here that looks like a smaller version of the entire Mandelbrot set, well that corresponds
+to the window of stability in the bifurcation plot with a period of three.
+Now the bifurcation diagram only exists on the real line, because we only put real numbers
+into our equation, but all of these bulbs off of the main cardioid, well they also have
+periodic cycles of for example three, or four, or five, and so you see these repeated ghostly
+images if we look in the z-axis, effectively they're oscillating between these values as
+well.
+Personally, I find this extraordinarily beautiful, but if you're more practically minded you
+may be asking, but does this equation actually model populations of animals?
+And the answer is yes, particularly in the controlled environment scientists have set
+up in labs.
+But what I find even more amazing is how this one simple equation applies to a huge range
+of totally unrelated areas of science.
+The first major experimental confirmation came from a fluid dynamicist named Libchaber.
+He created a small rectangular box with mercury inside, and he used a small temperature gradient
+to induce convection, just two counter rotating cylinders of fluid inside his box, that's
+all the box was large enough for.
+And of course he couldn't look in and see what the fluid was doing, so he measured the
+temperature using a probe in the top, and what he saw was a regular spike, a periodic
+spike in the temperature.
+It's like when the logistic equation converges on a single value.
+But as he increased the temperature gradient, a wobble developed on those rolling cylinders
+at half the original frequency.
+The spikes in temperature were no longer the same height, instead they went back and forth
+between two different heights.
+He had achieved period two, and as he continued to increase the temperature, he saw period
+doubling again.
+Now he had four different temperatures before the cycle repeated, and then eight.
+This was a pretty spectacular confirmation of the theory, in a beautifully crafted experiment.
+But this was only the beginning.
+Scientists have studied the response of our eyes and salamander eyes to flickering lights,
+and what they find is a period doubling, that once the light reaches a certain rate of flickering,
+our eyes only respond to every other flicker.
+It's amazing in these papers to see the bifurcation diagram emerge, albeit a bit fuzzy because
+it comes from real-world data.
+In another study, scientists gave rabbits a drug that sent their hearts into fibrillation.
+I guess they felt there were too many rabbits out there.
+I mean, if you don't know what fibrillation is, it's where your heart beats in an incredibly
+irregular way and doesn't really pump any blood, so if you don't fix it, you die.
+But what they found was, on the path to fibrillation, they found the period doubling route to chaos.
+The rabbit started out with a periodic beat, and then it went into a two-cycle, two beats
+close together, and then a four-cycle, four different beats before it repeated again,
+and eventually a periodic behavior.
+Now what was really cool about this study was they monitored the heart in real time and
+used chaos theory to determine when to apply electrical shocks to the heart to return it
+to periodicity, and they were able to do that successfully.
+So they used chaos to control a heart and figure out a smarter way to deliver electric
+shocks to set it beating normally again.
+That's pretty amazing.
+And then there is the issue of the dripping faucet.
+Most of us, of course, think of dripping faucets as very regular periodic objects, but a lot
+of research has gone into finding that once the flow rate increases a little bit, you
+get period doubling.
+So now the drips come two at a time, dip, dip, dip, dip, and eventually from a dripping
+faucet you can get chaotic behavior just by adjusting the flow rate.
+And you think, like, what really is a faucet?
+Well there's constant pressure water and a constant size aperture, and yet what you're
+getting is chaotic dripping.
+So this is a really easy chaotic system you can experiment with at home.
+Go open a tap just a little bit and see if you can get a periodic dripping in your house.
+The bifurcation diagram pops up in so many different places that it starts to feel spooky.
+Now I want to tell you something that will make it seem even spookier.
+There was this physicist, Mitchell Feigenbaum, who was looking at when the bifurcations occur.
+He divided the width of each bifurcation section by the next one, and he found that ratio closed
+in on this number, 4.669, which is now called the Feigenbaum constant.
+The bifurcations come faster and faster, but in a ratio that approaches this fixed value.
+And no one knows where this constant comes from.
+It doesn't seem to relate to any other known physical constant.
+So it is itself a fundamental constant of nature.
+What's even crazier is that it doesn't have to be the particular form of the equation I
+showed you earlier.
+Any equation that has a single hump, if you iterate it the way that we have, so you could
+use xn plus 1 equals sine x, for example.
+If you iterate that one again and again and again, you will also see bifurcations.
+Not only that, but the ratio of when those bifurcations occur will have the same scaling,
+4.669.
+Any single hump function iterated will give you that fundamental constant.
+So why is this?
+Well it's referred to as universality, because there seems to be something fundamental and
+very universal about this process, this type of equation, and that constant value.
+In 1976, the biologist Robert May wrote a paper in Nature about this very equation.
+It sparked a revolution in people looking into this stuff.
+I mean that paper has been cited thousands of times.
+And in the paper he makes this plea that we should teach students about this simple equation,
+because it gives you a new intuition for ways in which simple things, simple equations,
+can create very complex behaviors.
+And I still think that today we don't really teach this way.
+I mean, we teach simple equations and simple outcomes because those are the easy things
+to do and those are the things that make sense.
+We're not going to throw chaos at students, but maybe we should.
+Maybe we should throw at least a little bit, which is why I've been so excited about chaos
+and I'm so excited about this equation because, you know, how did I get to be 37 years old
+without hearing of the Feigenbaum constant?
+Ever since I read James Gleek's book, Chaos, I have wanted to make videos on this topic
+and now I'm finally getting around to it.
+And hopefully I'm doing this topic justice because I find it incredibly fascinating and
+I hope you do too.
+Now, if you are also in the UK, you can win two tickets to South by Southwest, including flights and accommodation.
+If you can answer my techie test question, which is,
+which research organization created the first website?
+If you can answer that question, then enter the competition by clicking the link in the description.
+And you could be going to South by Southwest,
+and you could be going to South by Southwest,
+and you could be going to South by Southwest,
+and you could be going to South by Southwest,
+courtesy of Fast Hosts.
+Their data centers are based alongside their offices in the UK.
+So whether you go for a lightweight web hosting package or a fully fledged,
+dedicated box, you can talk to their expert support teams 24-7.
+So I want to thank Fast Hosts for supporting Veritasium and I want to thank you for watching.

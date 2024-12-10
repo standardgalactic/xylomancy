@@ -1,0 +1,233 @@
+Hello, welcome to the fifth video, our introduction to constraint logic programming through PyCAD.
+This will be the last video in the series.
+The topic of this video is constraint solving.
+Only tasks involve combinational search, and any combinational search problem can be formulated
+as a constraint satisfaction problem, CSP in short.
+A CSP consists of a set of variables, each of which has a domain, and a set of constraints
+among the variables, and optionally an objective function.
+A solution to a CSP is a valuation of variables that satisfies all the constraints and optimizes
+the objective function if it exists.
+So let's take a look at this toy problem, a crypt arithmetic puzzle, send plus more
+equals money.
+So giving the digits, giving the letters, we want to assign each digit, a unique letter,
+a unique digit such that the equation holds, send plus more equals money.
+Alright, let's write a program in PyCAD to solve this problem.
+Alright, the first thing you need to do is you need to import a module.
+There are four constraint modules in PyCAD.
+Let's import CP.
+You need to generate the variables.
+In this case, you need to have a CSP module.
+In this case, the module is quite obvious.
+So what do we do?
+We use a variable for each letter.
+So let's say VS equals S, send more, okay, these are the letters.
+And then we need to declare the domain, declare the domain for each of the variables.
+So this is 0 to 9.
+And then we need to write the constraints.
+So of course, send as a four-digit integer, the leading digit cannot be 0.
+So S not equal 0.
+So this is a built-in.
+So this one, this not equal is a built-in.
+This means not unifiable.
+This is a built-in used for terms, for constraints.
+So we use this operator, sharp, and then this not equal symbol.
+And also same to the more, okay, M is a leading digit, it cannot be 0.
+And then we write the equation, send plus, and all the digits, okay, all the digits are
+different.
+All right, so we use this global constraint or different, so VS.
+And then we write the equation, okay, send, okay, as a weighted sum, send has a power,
+okay, it is 1000, okay, so 1000 times S plus times E.
+And times N, and times D, okay, so this is a send plus more, M, O, and R, more.
+And equals money, all right, so equals, again, this equality, this is for constraint, okay,
+so this is sharp equal, means equality constraint, all right, equals the money, all right, so
+this is 10,000, and money, and money, and E, and money, and E, and money.
+Okay, so this is the constraint, right, so, and then, okay, the last thing of the generating
+the constraints, okay, we want to label the variables with the values, okay, by using
+this built in, so VS.
+And then we output, okay, output the values, let's just print, all right, all right, so
+send plus more equals money, all right, so now, okay, we can run the program, so let's say,
+send more, okay, it's good, all right, so this is a solution, yeah, this is a solution, okay,
+so, okay, there are several modules in case you want to use a different server, okay,
+instead of using CP server, you can use a set, okay, set, a set server, okay, a set server,
+there is a set compiler, which compiles all the constraints, okay, to set to conjunctive normal
+form, and then it calls a set server to solve it, and you can also use this one called MIP,
+MIP, okay, mixed integer programming server, this MIP server actually supports not only
+integer variables, but also real, okay, real, real values. MIP server, in order to use a MIP
+server, you need to install MIP server, okay, so actually in my computer, I have two MIP servers
+installed, the Groovy server, and also the CBC server, all right, you can also use SMT, okay,
+this is SMT server, it has a connection to Z3 and the CV4 servers, but I have to say for finite
+domain constraints, SMT servers are not so competitive, all right, good, so that's our first example,
+all right, the next example I want to show you is, okay, you know, every called a satisfiability
+problem, okay, I have this problem set, PR, all right, so the satisfiability problem is,
+okay, giving a set of variables and a boolean formula, okay, and the problem
+amounts to finding a check if the formula is satisfiable or not, and if it is satisfiable,
+okay, then find a solution, find a solution assignment for the variables, so this is one
+example of the satisfiability problem, so in this example, there are four variables,
+and all the variables are boolean, boolean variables are treated as integer variables,
+zero, one, integer variables, and then, okay, there are these operators, okay, see these, okay,
+operators, this is for implication, and then this is for logic or this is for negation,
+and this for equivalence, okay, this is for logic and, so this is a formula, and then it's
+usually solved, okay, and then print out the value, all right, let's take a look at another,
+this is, okay, the very first problem that was found to be an NP-complete problem, all right,
+so let's take a look at another problem called a maximum click problem, so this is a click,
+all right, so give me a graph, okay, so in our case, a graph is represented as
+a adjacency matrix, okay, so the entry is one, if there is an H, okay, let's say vertex one,
+to vertex two, there is an H, yeah, and the entry is zero, okay, if the two vertices are not connected,
+all right, so what do we do, again, so we use set-solver, basically for this type of problems,
+set-solver is the most competitive, so for zero one, integer programming problems,
+okay, the set-solver is the fastest, so, okay, we get the graph, okay, so this is a number of
+vertices in the graph, and then we create a list of variables, basically for each vertex,
+we create one variable, and all the variables are Boolean, okay, so that means there are zero one
+integer variables, and then we use this for each, for each, this is like a loop, okay, it takes
+iterators and conditions, okay, in this example, there were two iterators, okay, so U, okay, is over
+this range, and V is in this range, basically, okay, there's four each iterates over all pairs,
+okay, all pairs of vertices, okay, so this graph is undirected, so I assume it is undirected,
+so all possible pairs, so if the vertex, this vertex U is in a click, okay, that means the
+variable, this vars U is one, and also vertex V is in a click, all right, this is one, okay, then,
+okay, this U and V must be connected, okay, then that means the entry, GUV must be one, okay,
+and this is the optimization problem, okay, we want to find a maximum click, okay, so we want to
+find an assignment that maximizes this total sum, all right, so this is another example,
+next, let's consider another famous NP-complete problem called a vertex cover problem,
+again, okay, giving a graph, okay, we want to find a set of vertices that covers all the edges
+in a graph, okay, so it is very similar to the previous click, maximum click problem,
+so for each vertex, we use a variable, okay, it is 01, right, and then for each pair of vertices,
+okay, so what do we do? If this pair has an H, yeah, if it has an H, then this H must be covered,
+okay, that means either, okay, U is in the set, okay, or V is in the set, okay, we want to
+find a minimum set, okay, that covers the graph, okay, so we want to minimize, okay, the sum of the
+variables, so that is a vertex cover problem, all right, next one is called a Hamilton cycle
+problem, HCP, so give me a graph, okay, this one is a directed graph, okay, giving a directed graph,
+we want to, okay, find a Hamilton cycle, okay, in the graph, so first, okay, how to represent a
+directed graph, okay, we use domain variables to represent a graph, all right, so basically for each
+vertex, okay, we have a variable, we have a variable, this is like a adjacent list
+representation of a graph, so V1, so that means from vertex one, okay, there is an H, okay,
+1, 2 is an H, 1, 5 is an H, okay, 1, 6 is an H, so this is, these domain variables
+represent the giving graph, okay, and there is a built-in constraint called a circuit,
+circuit, okay, this one is true if, okay, the assignment forms a Hamilton cycle, all right,
+so we just use this, all right, so this modeling is easy, and then we find the variable, okay,
+find a Hamilton cycle problem, find a Hamilton cycle and print it out, all right, next problem is called
+subset sum problem, okay, subset sum, all right, it is another well-known NP-complete problem,
+okay, giving a set of integers, okay, let's say this is a set of integers, okay, and a
+Tucket number, a Tucket number, okay, what do we want to do, okay, we want to find a subset,
+okay, find a subset whose sum, okay, equals the Tucket number, okay, so this, well, basically
+this modeling for each number, okay, we use a Boolean variable, okay, if the variable is
+one, okay, that means, okay, the number is in the set, all right, otherwise, okay, it is not in the set,
+and we use this constraint, okay, to say, okay, there's b times the element, okay, we use a zip,
+so basically for each variable and each integer, all right, so each variable and integer, okay, so
+what do we do, okay, for each pair in the zip list, okay, so we add this term,
+add this term, and the total, okay, the total equals the Tucket, okay, and in this example,
+we use the MIP-solver, okay, actually for this type of small problems, it doesn't make much
+difference, okay, which solver you use doesn't make much difference, okay, so in my computer,
+the CBC MIP-solver is installed, and then you can tell the system or use CBC solver, okay, as
+a solver option, okay, this is, all right, let's consider another example, okay, called
+metric square, okay, this is another famous example,
+metric square, so giving a grid, okay, in this case, it is a four by four grid,
+all right, so what we want to do, we want to assign a unique integer to each cell,
+okay, each square, each square, okay, to assign an integer from this domain to each cell, such that,
+okay, every row, every column, and also two of this diagonal, okay, the primary diagonal,
+and the secondary diagonal, okay, all have the same sum, okay, in this case, okay, sums to 34,
+so, all right, we use this, so all the entries are, okay, what do we do, so we have a two-dimensional
+array, and all the entries, okay, are variables, and the variables have this domain from 1 to 16,
+and all the variables are different, right, all right, we use this VARs, okay, VARs to get,
+because all different expects a list of variables, and so what do we do, we use this function VARs,
+okay, VARs takes a term, and it returns a list of variables in the term, so,
+and then we write the constraints, okay, so for each i in this range, what do we do, okay,
+every row, yeah, every row, okay, has this sum, okay, so the row i has this sum, and the column i
+has this sum, and then we write the primary diagonal, the primary diagonal, and the secondary
+diagonal, okay, and in this example, we use CP, for this example, actually CP, the CP server
+provides several modeling, okay, we call labeling strategies, all right, for this example, all right,
+we use this ff called ff, first fill principle, well, basically it selects domain, the smallest
+domain first, and then prints out the value, so we could run this, or you can see the difference,
+okay, you can see magic square, okay, and also let's measure the time, all right, well, actually
+this is pretty fast, okay, the CP server is pretty fast, okay, you can change it to square,
+I think this is not hot enough, all right, so the problem is still a toy problem, okay, so
+all right, now we use set, set server, okay, use set server,
+and let's see the time, well, it takes a little bit longer, okay, why, because set servers are not,
+normally not good at handling numbers, but this one is okay, okay, in general,
+well, set servers, actually, I have found that the set server outperforms the CP server, okay,
+in general case, so if you have time, okay, unless you, unless the time limit is really,
+really small, all right, the CP server, all the problem is really small, or you have some
+problem specific labeling strategies, okay, otherwise the set server is pretty efficient,
+all right, the next example is called a sudoku puzzle, okay, sudoku, that's a very famous
+puzzle, a lot of people, okay, play it for the sudoku, so this one giving a grade, again,
+giving a grade, okay, so in this case, it depends on the size of the grade, and let's say
+this is 25 by 25 grade, so what do we want to do, we want to assign the numbers, yeah,
+numbers from one to 25, okay, to the, to the sales, okay, such that, okay, every row has
+different numbers, every column has different numbers, and also every small square, okay,
+this is a small square, in this case, every five by five, okay, every five by five small squares,
+also have, also has different numbers, so, and modeling, okay, what do we do, okay, we first
+fetch this array, this is a grid, basically, there are prefilled entries, prefilled entries,
+and the underscores are blanks, okay, these are the blanks, and the server will fill in the blanks,
+so the domain of the variables is from one, okay, to n, and then we write the constraints,
+so for each row, and for each row, okay, all the numbers in the row are different,
+and for each column, and all the numbers in the column are different, all right, so what do we do,
+how to get the column, how to get the column, we use this to comprehension,
+to retrieve all the entries, okay, in column, in this column, okay, so for each row in this,
+and we get, okay, row column, and then we get the small square, okay, all the small squares
+constrain the entries of each of the small squares, okay, the dimension of the small square
+is this, okay, so keeping n, so if n is 25, then m is five, and then we write this, okay, for each
+of the small squares, okay, basically this row column, this is a starting row number, and starting
+column number of each of the small square, and then we, okay, get all the entries in the small
+square, again, using this comprehension, and then we say, okay, all the small squares are different,
+and then it's off, all right, this one uses a set, actually set is extremely efficient, okay,
+for a problem like a sudoku, okay, so well you see this is 25 by 25, it's a pretty hard problem,
+all right, you see this sudoku, again, time, measure the time, oops, something is wrong,
+oh, sudoku, okay, I don't think I did a good preparation,
+oh, sorry, this one is not supposed to be there, so let's run it again, sudoku, okay, it came out
+instantly, okay, well you could try other solvers, so in general for a problem, okay, normally you
+don't know which solver performs the best, so what do you need to do, you need to do experiment,
+all right, well since in pocket, okay, you can write the same model and experiment with
+different solvers, okay, what do you need to do, you just need to input a different model, okay,
+so you can switch from one solver to another solver, seamlessly, all right, let's consider
+one more problem, okay, this is called an inquins problem, inquins, okay, this is a very famous
+problem, inquins, okay, so giving originally it is 8 by 8, so 8 by 8 is not interesting,
+computational interesting, because it's a search space is not big enough for experiment,
+so in general it's aim by aim, okay, so giving an aim by aim grid, okay, you want to put aim
+in queen pieces on the board, such that, okay, no two queens attack each other, okay, you know
+in chess how the queen piece moves, the queen basically combines the movement of the rock
+and the movement of the bishop, so a queen can move horizontally, vertically, and diagonally,
+okay, so that means, okay, two queens attack each other if two queens are placed in the same
+row, the same column, or the same diagonal, all right, so here is, we have two different models
+for this, okay, one is, this is, all right, so what do we do, okay, for each, well let's say for each
+row we use a variable, okay, we use one variable, Q, so there are aim, aim, aim rows, so we use aim
+variables, and all the variables, okay, each of the variables gives a column number, yeah, column
+number, so that means Q1 gives a column number of the first queen, and Q2 gives a column number
+of the second queen, and so on, all right, so now we need to write the constraints, okay, no two queens
+are in the same column, so Qi for each pair, ij, and Qi, okay, not equal, okay, Qj, and also
+not in the same diagonal, yeah, okay, not in, not in a diagonal that is parallel to the primary
+diagonal, okay, so this one, use this constraint, and not in a diagonal that is parallel to the
+secondary diagonal, and then, okay, so this is the constraint, and then we use FF, actually for
+this one, the first pair, first pair principle, this FF labeling strategy works very well,
+and we can say, okay, try queens, all right, so by default it solves 100 queens, all right,
+comes out instantly, and then we can try 1000 queens, all right, so 1000, wait, maybe it takes
+several seconds, or it's still, oh, okay, so it takes 10 seconds, about 10 seconds, all right,
+so 1000 queens, all right, let's consider another model, all right, this is, we call,
+okay, in this model, so for each sale, we use a variable, a boolean variable,
+good, so the boolean variable, if the variable is zero, that means there's no queen, okay, put on
+that sale, if the variable is one, that means, okay, there is a queen, okay, at that sale,
+and so then we create aim by aim, okay, in square variables, and all the variables are boolean,
+and then we write the constraints, all right, so for each, okay, also for, of course, for this type
+of problems, then we should use set, all right, CP solvers, okay, in general are not good at dealing
+with zero one variables, all right, so for, we make sure, okay, each row has exactly one queen,
+okay, and each column has exactly one queen, okay, and then we also, okay, constrain the diagonal,
+diagonal, for this diagonals, these are all the diagonals that are parallel to the,
+parallel to the secondary, yeah, to the parallel to the secondary diagonal,
+and for each of these diagonal, okay, we retrieve all the entries, okay, the sum of these variables
+is less than or equal to one, yeah, and the same to the diagonals that are parallel to the primary
+diagonal, okay, so, and each diagonal, okay, the number of queens placed in that diagonal
+is less than or equal to one, all right, good, all right, so I have shown you several examples,
+okay, basically, it is, this pie cadet has good modeling capability, okay, because of the availability
+of the language constructs, such as arrays, okay, loops for each loops, and the list of
+comprehensions, okay, actually, and also there are several solvers available, so you can pick the
+best solver that suits your problem, all right, so I have, in this video lectures, okay, I have
+introduced you at the pie cadet system, okay, and I talked about the functional programming,
+logic programming, using pattern matching rules, and I talked about recursive programming,
+and dynamic programming, and in this video, I talked about constant programming,
+well, I don't think this is comprehensive, but I think you are ready to explore,
+and you are ready to write programs to solve problems, and for, you know, details, for the
+details, okay, you can take a look at the user's guide, and you can also, okay, there is a book
+available, published several years ago, on constant solving and planning with pie cadet,
+and that's also a good resource, and I want to point you to another source, that is
+Hakan Kajestran's page, pie cad page, and Hakan has written more than 1,000 programs,
+and probably, okay, when you come to a problem, okay, very likely, and he has already solved it,
+okay, I mean, if it's a popular problem, all right, so that is the end of this video,
+and also the end of this series, okay, thank you very much for watching.

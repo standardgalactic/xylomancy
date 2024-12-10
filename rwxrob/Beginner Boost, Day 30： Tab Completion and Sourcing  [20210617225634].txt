@@ -1,0 +1,756 @@
+all right at least we're having fun here all right are we still having fun
+hopefully we're having fun it took me a whole of three minutes to get my acting
+gear get everything going together I have you guys in the chat over here if you
+have something to say please say it don't worry about anything being on the
+screen if you want to if you're still concerned about that make sure to put
+an exclamation point in front of that all right so get connected to your boost
+container if you haven't done that yet if you don't know how to do it pause right
+now go back and watch the early days about how to do that today we're going
+to be talking about tab completion how to you know source other code inside of
+code which is really important today and the day of cloud native where
+everything is sourced in order to get tab completion which is why I put them
+together in the same day and CD path which is this mysterious you know not
+very well-known thing about bash that allows you to CD into directories
+without them being like right there and it's it's kind of behavior you're
+probably used to seeing people with fish or Z shell use you can do it you can do
+it bash you just have to know to set it up and you have to do it carefully so
+we're gonna do those things today we have a lot to cover we're not gonna cover
+the regular path but I think it's his whole day tomorrow that's a big deal
+handling the executable path where everything runs so we'll do that in one
+day by itself okay so let's go ahead and get set up here start up our doctor
+container so Docker was it start dash AI that means attach and interactive and
+then we're gonna attach to what we're gonna attach to we'll attach to boost I
+name mine boost right so there we go now we got to go back into my user as you
+space dash why dash why dash people why dash a little bit of a quiz why did I
+put dash there nobody wants to take me on that one because we want to have an
+interactive experience right we want an interactive shell not just if you don't
+do that it won't it won't it won't do weird things like I in fact I don't think
+it will even pull in the bash recipe let's try let's try it because we have a
+container who cares right now I did it okay but okay so here's one so it it did
+not it's kept us in slash instead of making us in the home directory it seems
+like I ran the other bash recipe stuff though so whatever but you always want
+to use the dash when you're when you're joined okay so now what well we got
+ourselves in here and we've been editing on I mean this this series this mini
+series within boost is all about configuration getting yourself ready on
+your terminal and we're going through it kind of slowly but oh well so here we've
+got we did we did functions yesterday we did prompts a couple days back go watch
+those videos I'm not gonna watch them now we did aliases I messed with my aliases
+all day today and today we're gonna do completion we're gonna do tab completion
+now as you know tab completion is already a thing oh wow I have polycrated with
+36 people I'm gonna take a moment out to say hi to our friends from diabolic but
+we are in the middle of a video so welcome welcome Raiders please you know
+have fun we're talking about let's just a recap we're talking about tab
+completion we're talking about CD path and we're talking about sourcing code and
+why you would want to do that okay so the first one I want to talk about is
+actually described completely in the man page you're like wait are you telling
+me to go read the man page yes that's what I'm telling you I'm telling you RT
+fancy man page okay RT FM it's like it's something we've been saying since the
+dawn of time in the Unix world so read the fancy manual all right and now
+because you've got colors you can like see all these really great colors here
+because why because we did our little colorization go back and watch a couple
+days back all right so if you want to read all there is to know literally the
+Bible on programmable completion in bash type slash and search for programmable
+completion boom see comparable completion come on keep keep hitting go I'm
+hitting end to go to the next one and and and and and and and and and and and and
+and oh there's a good one all right so we're gonna come back to this we come
+back to this thing right here this complete thing this this complete thing
+as your friend I promise about completion tab completion is one of these
+mysteries it would just take for granted when we use the shell all the time
+everybody loves it and appreciates it and we generally just want it to work
+we don't want to spend time thinking about it I get it and that's why we go
+for things like oh my z shell or you know or fish which has it built in and
+stuff but you actually once you understand how easy it is to use and
+program and put it into your code and we might have time to do that today I don't
+know we'll see I might give you a little a few little lines in your bash code to
+make your own code do its own shell completion yeah and it carries it inside
+of the script it's one of the coolest things about the way bash does completion
+I think these shoulders as well but I'm not familiar so I mean okay so here this
+whole entire section is on completion all right and you can set up your own
+rules about it everything but the probably the easiest one is complete that
+fc and spoiler I'm gonna give you that one later so what is tab completion in
+the first place I probably put that in my in my in my boost thing so what the
+fuck a fart what the freak is tab completion so completion is very simply
+when you hit tab it's like all the rage now by the way because of this code in
+IntelliSense so tab completion is when is when oh crap because I swore you
+unfollowed me I'm so sorry all right so tab completion is when you do this okay
+so I want to go see where I am right now I'm in this like path right does it look
+like there's anything like scripts in this directory no right so I want to tab
+into something that I know so I'm gonna cd space I'm like well what can I
+possibly cd into I don't know I see all the stuff there so I hit tab which is
+this crazy little mark up here you see that and cd okay so the cd what tab tab
+I had to hit it two times because if you just hit it once it's like I don't know so
+if you hit it twice if you if you if you okay wait let me do it again so if you do
+one words you do s it's like okay I'm gonna give you all the stuff that you
+could possibly want that is with s you hit s tab tab and it's like here's all
+the stuff that completes the letter s that I know of let me ask a question how
+many of those things are in the current directory none none of them are none of
+those things are in the current directory how on earth mr. Rob are you
+able to cd into things that are not even in the current directory cd path all
+right and we're gonna get there today too so so I'm gonna so the just to show
+you what tab is right so as soon as I pushed s and then I pushed tab again s
+c tab and that gets me if I provide enough to disambiguate I guess is the
+word the match and it will give you it will give you the whole thing and you
+just do that I see people all the time particularly beginners I see
+beginners it like that tap they're tapping out an entire like 12 word you
+know file name that somebody you know didn't pick a good name for I'm like oh
+my god you just not to do that stop just tab it's particularly if you're if you're
+gonna be doing like competitive hacking and stuff like that you really tab is
+your best friend I mean it's like your best friend people always ask me as
+soon as I say this well why aren't you using tab completion when you edit in vi
+huh and I'm like oh you've got me on that probably mostly because I can find
+stuff using my text-based browser in less than a second that I get full
+information for instead of tab completion so I am not a big fan of
+co-completion so that's why but you can be you know you're not me you can do
+whatever you want so let's say I want to go into my scripts directory up there's
+no script directory so we'll go into dot and if I hit tab again it's like well
+this gives me the all the other stuff that's inside of here so I go this and
+I go to cd and scripts okay where else do we see so that that that that took me
+quite a ways away right how do you go back right dash takes me back now but
+tab completion pops up all over the place I mean really it really does so
+for example kubernetes you guys know docker and kubernetes right you should
+by now so docker docker tab tab there's all the different commands you can do
+with docker and that's very nice because if I had to look up all the commands I
+might do man docker you know I read through it all or it says you want to
+do docker help have to read read read read read I really just want to know what
+I can possibly type or so you can type docker tab tab and if you've done it
+right you can do d tab tab and it will do the right thing mine doesn't cuz I
+broke it damn I'm kind of fix mine maybe I'll fix it tonight okay so yeah so
+docker has got completion set up for it and my my d alias for it does not it
+might be because it's an alias actually maybe it's just because I haven't
+haven't done the extra stuff or that so we're gonna that's a lots of coverage
+tonight we're gonna finish we have 30 minutes left or so to cover all that and
+and again the purpose of the boost is to help you see what you may not have heard
+or know you're not considered and what you need to know it's not so much to show
+you everything it's more about setting on the right path and saying okay now
+go study for another hour or two and and figured out play with it right so I'm
+not here to show you everything okay I think he's saying that every week let's
+get on to our our thing here so what I'm trying to show you those that
+completions and everything it's it's it's all over you'd be surprised there
+there you can do completion if anybody everybody ever use Google and done
+completion on navigate results so I didn't know about that yeah sometimes you
+can do can you do three I don't think you can do you must be on Z show or
+something do you know I'm not sure of that you got me curious though and
+you know says indeed if you do three you can actually do no three three doesn't
+work for me yeah I must be a show yeah yeah that's a Z show thing that I'm I
+don't particularly care for again I'm not it I'm not against Z shell I seriously
+consider it for a day I even use it for full day but it's not the default so why
+would I change if it is a default go ahead and use it on Mac or whatever you
+know not a problem but the stuff I'm going to talk to you about completion
+today does not relate to Z shell so it's a bash thing you're gonna have to go
+make your own video about Z shell okay and and again I'm not slamming on Z
+shell people I just just don't like it don't need it and there that's all all
+right so you know what tab completion is let's actually start by first of all if
+do you guys have to have completion enabled everybody should have to have
+completion enabled by default on bash that should be already on right it is
+one of the things however that I believe it was in the original profile let's
+let's check so so look at that you can just tab tab and it'll say there's 603
+different possible commands these are all the possible commands I can that's
+pretty cool I've never seen that before I have never I have never had that work
+usually I'm on a system where there's so many things installed but it because
+this container is so sparse it actually gave me the option it's like there are
+603 possible commands you could execute right now including these guys which are
+actually commands isn't that fun this is actually a command we talked about that
+in the shell scripting thing so these are all the things I can possibly do
+right now display out that yes I want to see them all give me all of them even
+even put it in more that's a pretty damn cool you know what that's great I
+like that I don't think I knew about that like let's say you're trying to look for
+the name of a command and you don't want to go into the script directory and look
+around maybe you just want to like scroll through the completion you know I'll
+put that in the tips yeah uh-huh yeah yeah yeah yeah use tab how about that I
+don't know use use tab to see all possible commands how about that to page
+now if you're just starting out oh god I you know that might be a really great
+helper for you you know I mean thank God I actually I'm gonna start doing that
+myself sometimes I forget the name of my commands you know that I've written or
+or something else so it might be a good a good time to see that sometimes you
+might think well I didn't know that was a command that said that you know that
+kind of thing so so that's kind of cool anyway so if you let's say let's do all
+the commands to start with L L tab tab okay we got last last is the last person
+was on the system we have let that's a programming syntax from kit from bash
+it's not we have ln who that's creating sim links have less LDD which is the
+symbolic linker for compiling stuff after you compile it this LZ oh LZ compare
+LZ diff this like encryption stuff God this is I could just have fun learning
+by just studying all these things and by the way this is one serious way you
+can write half of the command and complete it with with tab like but yeah
+Python yeah yeah you can actually do that too yeah that's what we're doing right
+now so you could do py tab tab I don't know Python here is there any parole
+over here yes there's parole is there Ock yes we shall not fight about that
+right now there's our apt commands right so if you want to get all those and it
+used to be that they were put together oh here's another one this is a real
+oh my god I forgot to talk about this use get I don't know what to say about
+this I just gonna put get get is a great example but we haven't done yet so you
+won't appreciate it so this is kind of mandatory in the cloud native world I
+already told you like Docker Docker tab tab right gives you all the kid whoops
+oh and I'm darker installed the docker tab tab okay there's all this thing watch
+Kubernetes tab tab I broke I just broke it today I did you look at my
+commits story my life Kubernetes I have to fix that no cube control cube come on
+Rob all right here we go tab tab there's all the commands for Kubernetes all
+right you're welcome so they come on all the other stuff that we can that we can
+try that with oh get get is really really great so like let's say you're in
+here right get you can do get tab tab like look at all the commands get has
+built in I've actually think it is probably like the grandfather of the
+sort of monolith composite command that has some commands that you can tab out
+of and and I mean there's so many cool things here you know you can do work
+tree and then type help and go it gives you all the help for that okay that's
+cool maybe I could do help work tree about that I'll just help have always
+want to show you get has completion for specific things a very context specific
+completion get help add oh okay so it gives you all the stuff on add have a
+that all right so but this is what I was gonna say so if you wanted to say so
+let's say I wanted to like I don't know change into a branch or something right
+so I go get switch tab tab and it gives a special branch from last night if you
+do tab tab it shows you what branches if you go into something so one of the
+things you get a lot this is that I did not know this until I did on accident so
+let's say you're you're you're like you you're messing with files so go into my
+scripts directory status right so let's say I had changed some things in here you
+can do this you can do you can do get commit tab tab and it will only display
+the files that have changed yeah it will only display the files of the change
+that's how intelligence is completion is and I God knows I love completion in
+fact that reminds me I'm gonna I'm gonna I'm gonna plug for my command box tab
+complete which used to be command tab I built a whole library and go for
+building tab completion into your own programs command tab in go to build own
+completions all right so we'll talk about that later I just don't want for it
+right so exit eggs oopsie what am I doing that's what we're asking ourselves
+Rob all right so we're back in Docker and what does that have to do with
+anything okay so I wanted to cover completion because the next topic
+sourcing is primarily related to completion these days these days so and
+you know that let me let me explain that so all that time completion stuff
+there's really nothing to put in your we're gonna do a little script at the
+end don't worry there's you know what let's do it let's do it let's do it let's
+do it it's an easy one you want to do an easy one do we have time all right let
+me ask you let me ask you what do you think would be easier to understand I
+can show you how other programs output code that sets up the completion rules
+and then put that in your bachelor C or I can show you how to build a simple
+completion for yourself in a shell script is like a five line shell script
+and then and then just use that to say okay remember that and now this other
+one here it's not five lines it's 500 lines but it's the same thing I think
+I'm gonna do that one was everybody okay with that so I mean you're like
+whatever but but I I do want to show you this so that means we're gonna be
+writing a little code right now so get out your you know your VI or and we're
+gonna write some code all right so let's do this let's create a simple actually
+know use complete dash see foo foo to complete foo and I'm gonna teach you and
+I guarantee you there's people in here by probably written batch completion who
+did not know about this I did not know about this until 2019 and I told you I
+was looking around at it and then when I found out about it I immediately wanted
+to write a bunch of stuff to use it to build completion into scripts all right
+and this probably the one of the more useful things from this video so I'm
+gonna focus on those you're like well what does that even mean okay so the
+first thing we need to do is we need to put it in we need to we need to add you
+nothing gets completed until you do that command and if you wanted you can do
+help complete and and this will tell you all the completion stuff that's here
+and it will show you what kind of completion you have your options and
+all that you might need to pipe that to more so this really verbose section it's
+really hard to make sense of it in fact I don't have any hours I've spent
+pouring over this section even back in the day to try to set up you know the
+basic completion that you would find out but there's one option that gets
+overlooked all the time and I personally believe it's the most powerful one of
+all especially in 2021 and it's called dash c command and what it says is that
+whatever this command name is that will be run every time you push tab so if you
+push tab twice and on a particular command you have to set up so you know
+it maps to the name of a command that's what this is okay but when you push tab
+it says it looks through the command completion list and by the way if you
+want to see what those are you can do I think it's just complete oh my god I
+have any that's impossible there we go see so if you just type complete try this
+right now that's I'm glad I looked yeah that's this I'm so happy we did this as
+containers I really am okay so so you can say use complete dash just complete to
+view all completion rules okay so that's gonna give you you know a lot and unless
+you're on a container with no completion like I am I think we actually I think we
+have to install completion I think we might get burned on this so I don't know
+if we're gonna be able to keep them to the time we might actually get burned on
+this because I think you actually have to install some batch completion libraries
+I remember doing that from the workspace in the workspace container but we're
+gonna find out so but normally where's it so right here yeah so this is kind of
+thing and these are all these things so this says this means the complete dash
+F means run this function so that's normally how completion is done as with
+functions these days if this is done right so it says run the long opt function
+and a lot of some of these functions here are pre-built functions that are
+designed to to help you like this will complete all the long options if you
+want you might want to know all those but what some of the ones that are not
+well known and you'll notice these are mine dash C and dash CPDF and let me
+give you an example of one that I built okay so and that might be faster than
+than doing it so this is I wrote this a long time ago before I was a big fan of
+tests I'm a much bigger fan of tests these days so what this script does and
+it's the script is a PDF script let me give it to you really quick give PDF so
+that way you can go look at it if you want on your own what this script does
+and I'll show you this one if we run out of time rather than try to build one
+from scratch is it says okay we have one function here and the only functions
+job is to list to list all of the PDFs and we talked about fine I'm not gonna
+unpack that for you but what this does if I run it like this is it runs it it
+lists all of the stuff so and it's actually a command down here so this
+has two commands list and usage so I can do L the PDF list and you'll see it
+lists all my PDFs almost everyone I've paid for okay so why so what is this
+can I even do so if I do PDF and I say hmm I think it starts with Linux LI tab
+nope L tab okay there's all my learning stuff learning web design okay L E A R
+and tab web design tab enter and it opens up my PDF and I can zoom through it
+and do my searching and read it and everything pretty cool huh it's a fun
+little script if I don't get around to writing another independent script you
+can just use that one because I think we're about to run out of time so that
+that's the power of tab completion and I don't want to rob you of the
+experimentation on your own so let's let's go back to this one let me show
+you the source of this so you see PDF let's look at it okay so again it took
+but here's something else it takes PDF list now you see how it listed all the
+things right I can do PDF usage that color scheme needs to die I did that so
+long ago there is a good there is a really good example of when you should
+not use 256 colors and you should use the minimal system colors instead go back
+and watch the colors day when we had a colors day and I said it's usually better
+to use these simpler colors because they will jive with your color scheme no
+matter what it is if you use the two of the six colors it will force it to be
+exactly that depending on what your color scheme is so that's why these are
+like leftover from like Elf Lord or whatever they're so ugly anyway so I
+had this little usage thing but see watch if I do PDF tab tab I get all these
+possible things right why so let's let's deconstruct how the PDF function works
+and not functions command so the first thing we test to see if we have a PDF
+directory we know we just exit and we got these functions we usage which is
+Prince usage you saw that and fine now all fine does is it starts in the PDF
+directory which is set up in my in my bash RC for this system and it goes in
+there it starts there and it says show me every single path with the NZ up PDF
+and execute base name which we now know if we don't need to do anymore right
+remember the old bash stuff so I could probably update that excuse me actually
+this isn't bash this isn't this is a positive that's why okay so here's the
+magic the paying attention this is where the magic happens if you don't know the
+shell script go back pause the video go back and learn and then come back here
+okay it's not that hard and we covered it so this says do I have a comp line
+environment variable and if you recall in our bash for C file there is no sign
+of a comp line anywhere in there and that's because the comp line environment
+variable is not set unless you hit tab if you hit tab what happens is it looks
+through the tab completion table that I just showed you and it finds if it can
+complete anything if it can't it says well do you want to print every possible
+thing you say yes but in this case I would have put PDF right and hit tab and
+because I had tab it's like oh I got PDF right here I got it in my thing you said
+you wanted me to run this program so I'm going to run your program PDF which
+happens to be the same one we're completing see where I see what I'm
+getting with that I'm going to run the same program that is going to run to
+also use the completion and so what this effectively does is it puts any code you
+write whether it's a shell script or a go lang code running command box prompt
+or or anything anything it takes whatever code you run and it runs it in
+two different modes it runs it in completion mode or it runs it in actual
+mode like do the work right and the way you detect completion mode is you check
+it in bash I haven't figured out it's on z-shelf somebody figures out please send
+me a note because I wouldn't want it to put this in a command box for a while so
+if if you detect and you can do one thing do you have a comp line if there's a
+comp line then that says oh okay you're not really running this program right
+now you're you're running the program just to find out what it can do and and
+that and the way you do that is you give the you know one one command one
+possibility per line you just print it out that's it that's it in fact you can
+test this entire thing by just setting it so you can do comp underscore line
+equals and it's kind of weird because you have to stamp you have to simulate
+what was typed right so you can do PDF space I right and and then a semi-colon
+and then and then we'll actually type the PDF command and and that was weird oh
+I wait wait wait I forgot so if I if I enter the PDF command by itself it
+actually goes into the directory I think so I know this is kind of weird that I
+didn't do it I probably have to export yeah I did I had I had to export it so so
+yeah so watch this I can test it by doing this I can say K here and I as the
+knowledge I can say let's see what starts with Java right refollowed Java
+there it is there so you see what I'm saying so I'm trying to restate this as
+simply as possible can't you just pipe it using grep pipe what all the
+possibilities so so what I did actually with PDF is a little bit special so
+let's actually let's let's make a simpler one maybe that'll help you and
+maybe you don't want to just do this but there's a couple things the main
+simple thing I want to say is check for comp line and if it's set parse the
+comp line however you want like we've talked about on delimited data we had a
+whole day on that and then find the last thing and complete it so the comp line
+the comp line literally contains everything on the command line that was
+executed before tab was hit and then you can do all the manipulation to the
+thing you want to now there that's all I want you to remember I will say this
+there are a ton of other environment variables and ways to help you with
+completion and functions and all this stuff the rest of all the information in
+in help you know in help complete or in the man page is all about all of the
+other ways to help you through the hassle and I actually prefer and this is
+this might sound like heresy to some people I prefer to take control of my
+own completion and the reason that's so cool is it doesn't have to be just show
+you can do this with go you can do this with Python you can do this with C you
+can do this rust so this means that you could actually complete anything using
+the language you love you don't have to write another stupid shell script that's
+520 lines long that's like from Cobra why just to do the completion for your
+program and then store it in Etsy completion and manage it in a package
+install no in fact the entire basis of command box which used to be command tab
+is that all the rules for the completion of that go utility now travel with the
+binary they don't have to be managed separately all I have is one binary that
+I can download and anybody can use it instantly the only thing they have to
+add to their shell is complete dash capital C foo foo that kind of thing to
+complete it and that's it and that says okay this command takes care of its own
+completion it doesn't depend on any of the other completion functions to be on
+it it doesn't even really depend on a lot of the completion libraries to be
+installed it does it does have to have bash completion enabled but it doesn't
+have to depend on all the other stuff and in the you know like sort of sparse
+container world where you want less is more this kind of thing is really
+valuable and that's why I made command box it just takes this thing and it just
+just just kind of just really plays on it and builds on it it actually allows you
+to embed documentation and man pages and stuff in your in your in your command is
+the same time along with completion so it's all kind of there and so let's
+actually do one we have eight minutes left and has it going Leo has it going
+Billy you can do the semicolon semicolon is fine it's the same sub shell
+Billy and that works in politics the other way doesn't work in bash so so let's
+go back to I mean I think that's enough for you to do this but if you let me
+let me give you a piece of homework here so your homework and since I only have
+seven or eight minutes left your homework here is to write a command that
+completes itself that's all write a command that completes itself and and so
+like what it will do is it will do its own its own completion so like if you
+did so like you know food well let's say what's one and a half that I did this
+already so is that that tab tab well that's not set right now I don't think
+that's that lol there's no set on there set tab tab nope complete dash see set
+that I can't remember if I built completion into that we'll see unsupported
+now I don't have completion in or yet so you can do it I have tons of examples
+of this if you want to see a pearl example of this let's see I think my
+twitch command has it in there I don't know we're gonna see I can't remember I
+know let's see what was the pearl one that I did that has it was it open well
+the PDF one has it I have tons of them that have it and different forms and
+different languages so it's all it's all in my repo there if you want to look I'm
+trying to remember there was one I did recently I can't find it
+danger I don't know it what's I'm gonna say something get crap parole it's giving
+you give me a one quick second I'll find it KN of course has it but that's I
+haven't updated in a while a while oh pomo has it so pomo tab tab fellow tab
+tab that's it that that one uses command tab that gives you all the different
+options as a go version there is a pearl one though and I'm trying to find it for
+you I can't remember I can't remember what I which one I called it as I was
+prototyping something what was it you guys remember I was first saving something
+in parole and people were complaining as X underscore fraud actually if I if I
+search for all my X underscores in here I'll find it get crap X underscore oh oh
+right right right right oh right my workspace thing oh yeah I totally forgot
+about that duh so my workspace manager so yeah that's it so give WS I mean even
+if you don't use this is a very this is a this is a pearl script so I wanted to
+give you some other options so this is a this this was actually kind of I'm kind
+of proud of this one so this one automatically takes any subroutine that
+begins with X underscore and makes it complete without doing anything else you
+just have to add it so and I wrote a whole bunch of documentation on this this
+was a pro prototype it's going to be a go lang program later but I wanted to
+give you some other language examples so here here let's see if I can find the
+completion section on here there you go check that this this is all you need for
+completion right here so if the environment has come flying then set up
+your completions and then print them all out and this is just this is just
+going through all the completions it's just going through this is looking for
+all the the namespace this for the simple table and pearl that's probably not
+what you want to do for your first one nor go but there are some in here that
+are also I believe that the YouTube one has it oh I think yep okay so YT tab tab
+yeah so that one has it so there's another one it doesn't work right now
+but it'll give you an idea of how to do the completion okay we only have five
+minutes left so I'm gonna check I'm gonna say this last five minutes to talk
+about CD path and I expect you to have a lot of fun with completion if you have
+questions about it come let me know and ultimately though what you'll end up in
+your batch or see and I'll show you mine is you'll start to see this all right
+you'll start to see the stuff like this stuff here all right now I know this is
+all on a single line this see how it says complete that see you guys can
+decipher that code on your own right so these are all commands for which I have
+built completion and I have a standard I always make a build seven make file I'm
+kind of against make files I think they're unnecessary usually shell script
+do the same thing it's just simpler right so I I know how to do make well
+there's no like them in case you're wondering and then so you just do this
+and so this is turn on all the completion for all those things didn't
+have to bring anything else with me however so there's two other parts of
+this video I am gonna go over a little bit apologize so the other part of this
+video is how do you use other people's completion all right now you will see
+people say this completion with eval and I'm gonna tell you I I think that
+that's pretty damn dangerous and and I learned this relatively recently from
+the Kubernetes team why should eval be avoided in bash and we've talked about
+the evals of eval a lot of times when you see completion code people will ask
+you to put an eval in here and so the another way to write this this gh thing
+would have been so like pandoc pandoc has built-in completion that's pretty
+damn cool so pandoc you can do this I love that pandoc has its own so all right
+let me slow down so these things here are commands that have their own
+completion built into them but that they don't they don't actually do the
+completion instead of doing the completion as you could have done with
+just dash c like I've done or what they use command by average grand box instead
+of doing that they make it a point to print out a bunch of shell and I mean a
+lot of shell look at this one this Kubernetes and Docker and all these are
+all used in this thing called Cobra which I detest because of this and so if
+you do completion bash I mean the bash code is not even good so this will print
+out we have so many lines that is let's do it temp foo with three foos all right
+so this this code gets spewed why they put a comment in here I have no idea I
+mean okay I have to put I have to calm down for a second okay I'm about to talk
+about something it's one of my biggest pet peeves of the modern era and not
+just mine and Zelensky and a bunch of other people who have actually written
+extensive blogs about what is becoming one of the biggest abuses of our bash
+or seas that we've ever known because why because completion and by the way at
+the core of the whole thing is the library for go called Cobra that is my
+nemesis and I wish to take down I'm joking okay I'm sure I mean obviously
+that the people who made it were amazing people but it's horrible anyway what does
+it have you do they would have you in an earlier time they would have you take all
+of those lines of code let's see how many there are okay okay can we just pause
+for one freaking second and look at this all right take a breath Rob take a
+breath Rob there's only 32 seconds left I'm about to tell you why Cobra is the
+devil it's the devil it is the devil it's the devil devil devil devil this is
+for one completion library one who is to blame for this not to make it not to
+mention all of the unword wrapped I mean it's actually not even good show code
+it's actually crap show code I've gone through it it's completely insecure
+there's like I don't what are we doing with that haha well wait till I show you
+and then you will share my anger when you do this in the early days but when
+that when this stuff first came out they wanted you to do this they wanted you to
+do eval they wanted you to do eval this this is what they originally told you
+to do and so this this and I mean this is I only have a few projects that use
+this in here right this method and you can tell what that goes and then and then
+some genius discovered that you can do this which is a bash ism that says the
+same thing and so now now instead of so this is actually using source instead of
+eval I think it's slightly more efficient to do this this is pretty
+complicated you're gonna need to pause the video and look at this for a long
+time and know what happens but let me tell you what it's doing first of all it
+finds out to see if I have a gh and there's other ways of doing that but
+this says if I have a gh then go to the pain of typing in effectively every one
+of the lines that comes out of this all right so she'll just count them up so
+let's let's see how many lines are in this one so you know my bash RC is
+pretty small right my bash RC is pretty small guess how big it just got so when
+you start to see your bash RC crawl to a halt you blame cobra and everybody else
+uses this approach because you know better they could have used complete
+that she and then all that work themselves in their own code when their
+code is run instead they forced you forced you they didn't give you an
+option they forced you to put it in your bash RC otherwise you don't get
+completion sucks to be you that is unethical to the end's degree I have I
+cannot I'm trying really hard to stay rational about how I talk about this
+because it pisses me off it pisses me off that some organization and project
+thought it was a good idea to stuff 14 fucking thousand lines in my bash RC
+without asking me just so that I can get bash RC completion and to tell it to
+eval all that and just trust them and that their shell scripting or abilities
+are just as good as anybody on my production system all right I think
+that's that's my one F bomb for my my stream but I tell you what it's deserved
+it's deserved it's deserved it got me so mad that I followed my mantra and said
+don't get mad get busy and I created command box to fight it and command box
+is not done yet it was command tab for a year as an alpha project and I'm now
+honing in on this particular one but here it is if you want to go read it
+it's get rdbx rob slash command box a composite commander built like busy box
+with the importables and completion and no dashes and all kinds of great stuff if
+you want to be a part of that revolution I can really use some help on that
+project there's many many things I need I need people to do the website any
+people to do the docs everything all right so so I'm just I'm gonna do the
+gh1 just just do the gh1 for fun okay shall we so we're gonna this is this is
+the one from github let's see how they did see how they how they turned out I'm
+not doing it right learn to use your computer up guess what you want
+all right so what who wants to bet me that is exactly the same number almost
+exactly the same number as as the other one oh no so the gh1 thankfully is only
+3,368 but it's the same crappy shellcode you know why Cobra Cobra is the plot of
+the fault to blame in here and so I'm gonna show you I gotta show you this
+Kubernetes one is just phenomenal I just cannot believe it I feel like I did
+something wrong I honestly I don't believe how big that is a 14,000 line
+file how can you possibly think it's okay to create a 14,000 line file for my
+my cube control options I mean I mean seriously what what how do you come off
+how do you come off thinking that I look there it is I did I just attested it
+14,000 lines just to get your shitty batch completion all right so let's go
+that's not just okay so that's two of them right and Zelinsky who wrote a
+beautiful blog on this I wish I had it available he just was screaming about
+this because he's got several of these and you started adding them up let's
+add up how many lines so let's see 14,000 plus 4,000 so what we're at like
+20,000 lines yeah let's do this one let's do pandoc bash completion okay so
+let's see what that one's about should we should we do this I mean this is fun
+I mean I'm way past my time just forget it I'm just I the world needs to know the
+world needs so about this stuff so we can we could do something about it because
+this is just like sick and wrong I mean it's literally sick and wrong to do this
+this is homegrown completion in Haskell from Pat from the from these guys
+great great project pandoc I really love it so let's see what they do let's see
+how they come in shall we so temp pandoc complete 83 total lines oh pandoc
+thank you so much for that I love you pandoc what a great project all right so
+let's let's go let's do some more here let's look here so there's my cube
+control wait oh do we try docker mm-hmm docker has one I just don't have it up
+here right now I actually don't think I think dockers is you think you have to
+install the file yeah I think you do it doesn't have completion no it doesn't
+yeah it doesn't docker it has a separate completion file that has to be
+installed and you have to install as part of the package that's that's
+traditional and that's how people normally do it and by the way that's fine
+right because why because then you know it's someplace else I that's better
+than forcing me to stick a 14,000 line file in my bash RC and have it run
+every time now I'm gonna I'm gonna I'm gonna roll this back just a tad the
+response to this and I've read a blog or two about this is you don't have to do
+this I mean that's that's how they do it on their main home page that's what they
+tell you to do but if you do enough searching if you do enough searching
+they will tell you that you can do that you can generate the file and you can
+put the file in your bash completion which is under you know Etsy or whatever
+but then you kind of have to know about how flash completion works and stuff and
+you're basically at that point you're doing things the package manager should
+have done when you installed it yeah so so you know if if you're gonna do that
+the one way to get to solve this is to go through the extreme hassle of because
+if they come out with that as soon as they come out with a new version you have
+to do the work yourself of taking it out and putting it in the other place at
+least the Docker install script does all of that for you and I maybe there's
+something in and keep control that I've not found so far but I'm gonna tell you
+for being like the world's leading most used project on planet Earth by cloud
+native professionals all the DevOps people all the Kubernetes people have
+to use it and forcing all those people to put 14,000 lines in their bash RC
+essentially is just wrong and they'll say well people who know better I won't
+do that I'm fine but you know I'm working with beginners here and I'm just
+trying to tell you to watch out for the perils of this stuff there is a way to
+get around it it's believe it or not on modern systems it's not that slow but
+it's it's you know it's annoying this line right here is something that I
+stole so if you do complete here and you do grep right so if you want to make a
+shortcut cube CTL right so if you want to make a shortcut then what you can do
+is you can copy that exact line and then change this one here to be your
+shortcut and that's what I did here and that's how come I get cube dash KK dash
+dash whoops mine's not working right now but for what reason I do not know I
+think it's probably because I I did a exit bash right sometimes it screws it up
+I don't know there's something going on with the way that source it doesn't work
+properly after the second resourcing I don't know so but it that is that is the
+way to do it kind kind has the same thing so kind and why Q let's go see
+kind if you're doing local stuff I just want to see this completion bash I'm
+sorry guys I know you're just just chomping at the bit to see how much
+this one has I bet you it's pretty high though no it's not because it's a tiny
+little thing 24 oh wait I did it wrong oh wait did I get the pandak one wrong
+too did either pandak or wrong did anybody not catch me I spelled it wrong
+right yeah now this is legit man that's a legit completion so that that was
+stats and pandak I'm impressed so come kind is it complete or completion thank
+you completion temp kind complete 1159 lines why you need that much I have no
+idea why Q shell completion let's try one more a lot of these use the same
+library and some of them just have more options shell-completion bash I have a
+feeling it's gonna be big because maybe not I don't know let's see completion
+bash why Q's a why Q's got some problems I actually been finding several
+problems with like you I want to love it but it's got problems 624 that's not too
+bad it's talking about separating mash into multiple files so let's let's talk
+about that since that is related to sourcing okay those who know me know I
+was doing that until two weeks ago so up until up until two weeks ago I had
+taken my my shell script and and because I have a pretty large one and I had
+broken it out into sections and and at one point I even did it so that I had
+some ending in dot bashing dot sh and I actually wrote a Z shell RC and a bash
+RC and the Z shell RC sourced all of the Z shell compatible stuff and the bash
+RC would source all the bash compatible stuff and then there was this middle to
+ground where stuff would work with both of them aliases and things and and I
+actually completed that it got all working and it really really slowed my
+login down because it it had to source every one of these you know 17 to 20 or
+so scripts that I had that individual files that I had separately broken out
+now the original intent by the way was that I would do that to get it all
+working and then I would paste it all back together through a script or
+something and then I would have a single file version of the same thing and
+which you can do you know you can you can do that as well and so you know at
+one point I had before that I actually had a build script for my bash RC so I'd
+have everything all managed separately in my github right and then I would run a
+build script and it would have to do that and I hated that let me tell you
+why I hated that because I couldn't just go edit the file I couldn't just go
+tweak the file and commit it I had to tweak the file build it run a new shell
+or you know load it and everything the reason I thought that that was a good
+idea was because I wanted to isolate those lines and debug certain sections of
+the of a rather large bash RC and I didn't want the whole thing to fail just
+because of one line error right so I still think that there's a valid approach
+to doing that if you want to do that and Z shell of course has plugins for this
+kind of stuff but I want to tell you something I have gone completely back
+to a single file for one reason I want that file to be portable I can take my
+bash RC file anywhere and and that includes and I know this sounds crazy
+but that one or two random times where I don't want to set up a persistent
+mountain Kubernetes and I want to exec into a strict system and I want to be
+able and I don't want to mount a scratch drive on NFS or GPFS or whatever and and
+I just want to exec into the pod and I want my shell and I just want to know I
+know that that's not best practice but those few times that I actually want to
+get on another system and I want my bash RC with me I can now copy it with one
+command you know if you're a Kubernetes person is you know it's it's kcp you
+know whatever VMRC bash RC to the to the destination and boom you get it you
+get that so I can now copy two files my VMRC and my bash RC to any node in the
+clutter to any pod in the cluster that I'm working on at any time and I even
+though it's infameral it's going to go away and stuff right which is yet another
+reason to not make it such a big deal and and so then I just scp you know I
+just I just you know case-based cp the file over scp the over and I get maximum
+portability not everyone is going to have that requirement by the way that is
+also the primary argument for learning vi because I'm on that system so I have a
+Docker file right now I'm working on the Jupyter Hub portal and so yeah so I've
+I've been like I've been working on a Jupyter Hub portal right now and I need
+to get on that system sometimes and it sometimes is too much of a hassle you
+know it's actually not that hard to just remake an image every once in a while so
+I'll put in my Docker file you know I'll put I'll put them in there and it's a
+line I literally put a note it says delete this line before a production and
+that will put them on the system and and it will put it doesn't have tmux on it
+because I use tmux from the host then you know the bit my base host and then and
+so I so you know what yes I could mount a volume and all that stuff it's a little
+bit more complicated to do that in Kubernetes than it is Docker and if
+you're in working in Kubernetes you know having the I just on there to just tweak
+a few things and then copy and paste those changes into your main Docker file
+or your main configuration file that you're storing in your own get a repo
+locally and then just rebuild the image at that little iteration of work of work
+it's not too big a deal to do and so for that reason you know having having a
+single portable of MRC and that will work with our plugins by the way this is
+another reason never to touch any of them don't unless you don't unless you
+want to have a different version of the of them that works on a remote system
+you know the reason you learn vi is because of this you want portability it
+is the best text editor it's not an IDE if you want to turn vi into an IDE fine
+then use it as an IDE on one system and just be happy and use your Lua plugins
+and your alpha software and and use your whatever you know maybe try emacs maybe
+just be code it's a completely different working situation I can't install the
+as code on this remote system I just want to edit a file really quick and
+there's no vi so I've spoken a lot about this but this is this this is relevant
+to the question of sourcing the file and so how do you source a file let me make
+sure I cover that so the source of file and positives it's dot it's just loan
+dot which is really easy to miss if you want to be more precise you can put the
+word source in here because it's bash the source is only supported in case shell
+and bash and company it's not supported in in posits but this is a bash or C
+file so using bash is fine if you want to learn the extra syntax for bash and
+we talked about that during the shell scripting days okay so this says go
+ahead and source all that stuff and as we counted there's at least oh I would
+say 20 30 25 30 lines of code that are executed in my bash or C because of this
+right now these things over here how many of them are there 1 2 3 4 5 6 7 8 9 10
+so even say I did it really good let's say I had maybe a thousand lines for each
+one maybe might be 500 I don't they're all all of that completion is built into
+the command it's built into the command and I'm telling you you can build your
+own completion into a command now it does get a little tricky if you want it to
+fail over to completing all the files in the file system but there are functions
+that you can call when that's the case and you can still write your own to do
+all of that so the only other thing I'm I think I'm gonna push it out today I'm
+not gonna go ahead with this has been a good conversation we're gonna push CD
+path out and we'll talk about CD path more tomorrow when we talk about path
+path and where to get my bash her seat in my it's in the show notes it's in my
+boost stuff there yeah here it's in get a
+artifics rob slash dot artifics rob slash dot and on get up if you want my if
+you want to go through mine and believe me I learned all this by looking at
+other people's bash receives no shame at all looking through mine or or anybody
+else's stuff here you know exchange notes in the discord and IRC puts your
+stuff out there it's kind of a rite of passage for you to study somebody else's
+bash RC files or files in general and then create your own and and constantly
+be adding to them for the first 20 years I'm not kidding for the first 20 years
+there were lines in my bash RC that I had no idea what they did particularly in
+the shop the shell options area and honestly it was only until about the
+last five to ten years that I really spent the time to understand every single
+thing in there and you know you can make the case that you shouldn't be putting
+anything in your bash or see that you don't understand and that's tougher
+beginner I get it but but but you know so you make that call and have fun with
+it and dear dear exploration okay so we're gonna say tab completion and
+sourcing will be this the topic for today by the way sourcing is what we're
+doing in our bash receive file but we did not cover that during the shell
+scripting time I don't think you can go back if you want watch the shell
+scripting days in the beginning of the boost we had to as I said before I'm
+super happy about we had to learn to shell script before we could do our
+bash receive so we spent a week on that I don't remember how thoroughly I
+covered sourcing back then but but this is another way to basically import other
+files it's not importing you know if you've been Python or any other language
+that's not what it is it when you source it it like it's as if it typed it at
+that spot and everything is very sequential as I said over and over again
+shell is just basically sending command after command line after line one at a
+time to the interpreter as it comes in it's not doing any pre-compilation or
+any of that stuff I think bash is maybe maybe done more with compiling the whole
+thing but for the most part it's executing things one line at a time and
+that includes sourcing something so it sources all those one line at a time
+that sounds about right for me to end here did anybody else have any last
+minute questions before we go yesterday I convinced my friend to switch from
+Linux from Windows to Linux as Eddie says that's phenomenal I mean there you
+can do Windows and Linux I do it every day you know with WSL too what else we
+got Dutchie thanks for that link to my RC files I've converted you to FII and
+bash I used to use Neo of him and all my Z shell you know I love you I love you
+please don't take any offense at my attacking your horrible technology
+choices I'm joking I'm joking they're uninformed I'm not trying to be mean if
+you can use whatever you want honestly honestly and the people that make this
+stuff are good people please I have to say that because people get offended
+let's see it's nice to hear the experience of someone else who tried
+these things I was thinking about it and and was thinking about it and explained
+to me why I shouldn't yeah a lot of people will tell you stuff man their
+YouTube is full of opinions and very few actually no it's full of conclusions
+without how they led up to the conclusion usually because of time it's
+just it's shorter to just tell you something sucks or something's great and
+and and then nobody wants to hear the lead up to that it to hear the
+explanation so I appreciate that comment yep anyway yeah you talked about the
+separating a batch of separate files uses comp gen it I think it probably does
+use comp gen zero I think it probably does yeah that's that's right I'm glad
+you mentioned that so Zebra mentions a tool called comp gen and I'm gonna put
+that in here consider comp gen to create completion shell I'll put that in
+just for your consideration there are tools out there to help you generate
+completion code based on stuff I believe actually the I don't know please I have
+no knowledge on this topic I believe that Z shell does a lot of that
+automatically so it's doing I know that fish does a lot of inspection of your
+of your options and everything using get-up syntax which I'm about to blow out
+of the water because command box has no dashes they're forbidden so because you
+can't speak them into my phone how can I speak command line arguments into my
+finding like why would you use your terminal from your phone slack slack
+has everybody thinking it's everybody using the command line I don't even know
+it all those slack bots are just command line interfaces to software the world
+the future is conversational for a lot of people and that means interfaces and
+cooling command line interfaces that are speakable and that's the another
+fundamental goal of the command box project so what else we got I think
+that's it again thank you so much let's see try the code in the top if you don't
+know all right I'm gonna go just to just to note you know give me a follow on
+github slash rvx rob sub and all that jazz if you feel inclined you know
+sponsorships and subs and all that stuff sir help me keeps me motivated
+nothing more I I'm not the kind of guy to really bring this up and I've set
+myself a goal I'm at least going to mention it during every video at the
+end just so people I mean I know a lot of good well-meaning people just forget so
+if there's anything you want to do to support me even if it's just retweeting
+and I don't care just you know take a moment and spread the love hopefully
+that will help other people avoid a the perils of this and we can get come
+together and you know end the reign of the fourteen thousand bash completion
+file only only through open source right scratch your own itch fix your own
+problems don't get mad get busy I have to tell myself that every day bye

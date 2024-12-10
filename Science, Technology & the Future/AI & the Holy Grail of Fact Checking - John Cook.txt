@@ -1,0 +1,793 @@
+All right. Well, let me give you a quick introduction to myself and what I do. Firstly, a big qualifier
+is my background is not computer science or software engineering or anything technical
+like that. I actually come from a background of cognitive science and psychology. That's
+what my research is. And my research has all been focused on tackling the problem of misinformation
+through a psychology lens. But trying to tackle that problem inevitably led me to collaborating
+with computer scientists, political scientists, critical thinking philosophers, people in
+a whole range of other disciplines, all working together trying to come up with complicated
+interdisciplinary solutions. So it's really taken me out of my, I guess, my comfort zone,
+outside my land in a way, working with people in other areas. And one of the main things
+we've been working on in the last couple of years has been what we call in my biz, in the
+misinformation research world, the Holy Grail fact checking, which is automatic detection
+and debunking of misinformation in real time. That's the ultimate. That's what we're aiming
+for. One of the reasons being that misinformation spreads faster than accurate information. Like
+it gets shared more, it's more interesting usually because it's not bound by the truth. It gets
+shared more deeply. And once it gets out there and spreads out, it's really hard to undo the
+damage. And there's a lot of psychology research into why, why that. And I'm happy to get into
+that later on if people have questions. Did you have a question, Adam?
+Yeah, I mean, you might have it in the slides. I'm just wondering if you can define misinformation
+and disinformation.
+Right. Yeah. So I usually use the term misinformation, which, broadly speaking, is just all, all
+claims that are false that are not based on fact. And then disinformation is a subsection
+of that, which are false claims that are intentionally meant to deceive. Whereas misinformation
+could be intentional or it could be people genuinely believe it, but they're just spouting
+wrong stuff. So misinformation is kind of the umbrella. And then you have disinformation
+underneath that. And, and again, this is part of my work is looked at how from the outside,
+misinformation and disinformation are really hard to tell the difference of, to tell the
+difference between because the techniques used in disinformation, like intentional
+techniques, like cherry picking or, or using fake experts, those techniques are the same
+techniques that people will use if they genuinely believe something, but they're just bias. So
+they cherry pick because of confirmation bias, or they rely on fake experts because they're
+telling them the things that they want to believe. So from the outside, people are using
+the same techniques and you don't, you can't tell the difference between intentional deception
+and self deception. So practically, I tend to just use the term misinformation because of that
+practical difficulty. But I'm kind of digressing or you've already got me going off on a side,
+side track there, Adam. So yeah, sure. Yeah. So if they, if they disinformation or misinformation,
+you must know the truth. Right. I mean, that's a good question too. And, and this is another
+side track, but so right. And I've focused on climate misinformation. So I'll speak to that
+topic because that's kind of the shower end of the pool. There's a lot of stuff there that is a lot
+more factual and easier to fact check or debunk compared to policy issues or societal issues
+where there's cultural values. That's, that's a lot more difficult. So I steer clear of that
+stuff. But, but, but when you get to issues like climate change, a lot of it is just scientific
+consensus settled science stuff that we've known for decades. But then even within climate change,
+there are, there's like policy arguments or other issues where it's a little bit more murky and
+difficult. And I don't get into this much or at all really tonight. But the way that we've been
+tackling that particular question, and this is I think a general principle, how do you fact check
+something when it's hard to know the facts? The way we approach it is we look at claims through a
+critical thinking lens and going and you can use critical thinking to systematically identify
+whether a claim or an argument contains reasoning fallacies, logical fallacies or rhetorical
+techniques that are misleading. And so, so just identifying misleading techniques in an argument
+for us is sufficient to flag information as potentially problematic. So it kind of
+sidesteps your issue in a way because sometimes you can't. And so anyway, I'm kind of going down a
+rabbit hole here. Yes, how you accumulate all this like flags, whether it's like spam, spam, filtering
+something like that. Yeah, categorize something. It is. It's kind of like, well, here is a red flag.
+This is using this particular technique. And okay. And so, and part of what we do is
+using AI to do that. So let me jump into the presentation. And hopefully,
+hopefully we'll come back around circle around to doing it. Now this because I my background is
+psychology. And I began my career and for many years was just running psychology experiments
+where we were testing different ways to debunk misinformation or pre bunk misinformation,
+just testing different messaging formats and what is the most effective way to actually undo the
+damage of misinformation. And then, I don't know, a couple of years ago, I got contacted by some
+computer scientists from Exeter, from the UK. And so they were working on a, a machine learning
+way of analyzing climate misinformation. But it was a what they call unsupervised machine
+learning. So it's not, it's just basically topic analysis. It's just saying, let's look at all,
+you know, hundreds of thousands of papers, and just automatically extract what are the topics
+that climate deniers are talking about. And so I looked at their paper, but then I my response was,
+this is useful academically, but what would be really cool and practical in the real world would
+be, I didn't say the real world, because it sounds a bit sticky, but what would be really
+practical would be training a machine to detect specific misinformation claims. Because then,
+and because I was thinking Holy Grail, like then, if we could detect misinformation claims,
+we can then detect and debunk and, and, and be able to address misinformation as it comes online.
+And so we worked together for a couple of years on a paper which we published in 2021,
+where we trained a machine learning model to detect climate misinformation claims.
+That's it. So, and your question on what is fact or not, we completely dodged that. We were explicit
+about that in the paper. We said, because we started with a corpus or a dataset scraped from
+climate denier blogs and conservative think tank websites, which are two of the most prolific
+sources of climate misinformation. But all we were doing was was documenting what do they say,
+what are their claims. We were not determining whether those claims were true or not factual or
+not. It was just about detection. And so the first step to do this was we had to develop a taxonomy
+of what were the types of claims that they made on these websites, on the contrarian claims,
+we called it. And we found that there were five categories of claims coming from climate deniers.
+The first three were science based. Climate change isn't real. It's not, it's not caused by humans.
+It's not bad. The fourth category was about climate solutions, saying that they won't work.
+And then the fifth category was just attacking science, attacking either climate science,
+attacking climate models, or attacking scientists themselves, just personal attacks on scientists.
+And so we, once we developed this taxonomy, we then took, I don't know, about 28,000
+randomly selected examples from our dataset and then just went through the process of
+looked at each text and then mapped it to a claim and then repeat and repeat until we had
+created a large enough training set that our model performed well in accurately
+detecting and categorizing misinformation claims. Yes.
+Right. Yeah. Just out of interest, did you have a statistical proportion of like ad hominid attacks
+versus climate denial versus other bits? It would say a lot about the psychology of the people that
+you're mining the dataset from. Which of these categories were the most common? Yeah.
+Got a side for that actually. Because once we had trained our machine, then we were able to put
+20 years of misinformation claims into our model and it sped out a time series. Basically it sped
+out a history of climate misinformation claims. And we found that the category five, attacking
+science and scientists, was one of the biggest categories. But really, and that was one of
+the things that jumped out of us. But the other thing that jumped out of us was the increasing
+trend towards solutions arguments. Now, the reason I got into this was originally I was just debunking
+all the science arguments, the global warming is caused by the sun, or it's cold, therefore
+global warming isn't real, those kinds of arguments. And it turns out those were actually a small
+proportion compared to attacking science and solutions arguments. So this was in conservative
+think tank websites. When we looked at climate denial blogs, science is unreliable was the
+highest, it was well above the others. And we recently just did an analysis of Twitter
+climate misinformation. I don't have a slide for it, but science is like 40% of all misinformation
+tweets about climate change ad hominem attacks on scientists. And then the next 20% are conspiracy
+theories. So more than half of all tweets about climate misinformation tweets are attacking
+scientists or conspiracy theories. So my sense is the shorter the message, the more
+feral it seems to get. So this is actually the most behaved of all climate misinformation.
+It just gets more and more. What's that? Yeah, think tanks. Because think tanks are
+these lawyers in suits writing white papers and writing books.
+No, that's those tweets. Tweets were 60%. The thing about this research though was
+it was a really insightful paper. And it's great to create a history of climate misinformation
+using this machine learning model. But really, I was interested in this Holy Grail end goal
+of detecting misinformation and then doing something. We don't want you to detect it.
+What you do, I'm not sure. Now, and I thought once you had done this detection problem solved,
+it was the Holy Grail was solved like you're done and dusted. And I could not be more wrong
+about that. So and I should have known because my background is psychology. And working with a
+whole bunch of psychology experts, we wrote the debugging handbook in 2020, where we summarized
+all the psych research into how do you debunk effectively? So it's how do you debunk misinformation
+in a way that's actually going to stop people believing in the misinformation?
+And if I could summarize it in one little slide, it would be this. If you're going to debunk
+misinformation, you want to do a couple of things. Firstly, you want to put the emphasis on the facts
+and not just random facts or just throwing facts at people. You want to identify the fact
+that dislodges the myth in people's minds. Because when you tell people that thing you believe is
+wrong, that and you're basically reaching into their mind and taking that out of their mental
+model, you're creating a gap in their mental model. And people don't like gaps. And if you don't
+fill that gap with a replacement fact, then what researchers found is people just go back
+to believing the myth again. It's called the continued influence effect. Yes.
+Yeah, I think that's a bit more involved in deeper, but there's probably similar dynamics
+where you do need to, and this is again something outside my area, but my perception of that is
+that you do need to, it's not just telling them to stop doing this or stop believing that,
+but you need to replace it with an alternative belief system or alternative lifestyle or whatever
+it is required to deprogram. So in this case, yeah, you do need to take the myth that you're
+debunking and replace it with a fact that slots into their mental model, but fits into the mental
+model even better than the myth did. Let me give you a tangible example. Let's say the myth the sun
+is causing global warming. If you tell them, okay, no, that can't be true because
+the sun has been cooling for the last 50 years while global warming has been happening. So
+it's impossible that the sun is causing global warming. You've shown that myth cannot be true,
+but having created that gap, now you need to replace it with what is causing global warming.
+So then you would need to find that factual replacement that slots into people's mental
+models. So that's just the first bit, and that's quite hard. It's non-trivial to
+identify that replacement fact that dislodges the myth that you're trying to debunk.
+Yes? No, no, you can ask questions during, but probably just wait till Adam gives you the
+microphone so then you can speak into that. What if the fact that I'm giving them is
+it's so radical that they can't really accept? Do we need to replace the myth,
+the misleading myth with something less radical that they...
+Uh, radical. I mean, can you give an example of what you mean?
+Well, for them it is radical, not for us.
+Yeah, I mean, so, well, maybe, maybe not. See, what we... The kind of general rule of thumb with
+the whole fact replacement thing is you... Because misinformation is sticky. It's hard to
+dislodge. It's often easy to remember. It's just sticky information. But the general rule of thumb
+is you want to fight that sticky myth with an even stickier fact. So you want to take your fact,
+which often facts are pretty boring. They make it memeable.
+I mean, you're kind of, yes. So facts can often be abstract, nuanced, complicated,
+difficult for people to get their heads around, or maybe radical. But what you need to do is
+communicate the fact in a way that is still accurate, but in a way that is sticky, compelling,
+memorable, engaging to people. So an example would be
+the myth global warming stopped in 2015, which is something on the Internet. Because 2015 or 2016
+was the hottest year on record, until 2023, I think, past it. But anyway, they've been using it for the
+last few years. One way to debunk that is to communicate to people that since 2015, in fact,
+since the last few decades, the planet has been building up heat at a rate of four atomic bombs
+per second. That's how much energy is building up in the climate system. And there's lots of ways
+you could communicate that information. You can talk about radiative forcing and energy imbalances
+and lots of nuanced, complicated ways that would go over people's heads, but a sticky way to communicate
+making it simple, taking people by surprise with unexpected information, which radical
+information might be, is four atomic bombs per second, is actually how much heat is accumulating
+in our climate system. So anything that involves explosions, giant teeth or dinosaurs or stuff
+like that, anything that belongs in the Hollywood category? Right, that sounds like a Hollywood
+maybe. And then the other important element of debunking misinformation is you need to explain
+how the misinformation actually distorts the facts. What is the fallacy or the rhetorical technique
+that the misinformation uses? And one of the reasons you need to do that is because when you
+communicate, all right, here is my key facts. The planet's been warming at a rate of four atomic
+bombs per second, but there's this myth that says that global warming stopped in 2015. Those are two
+conflicting pieces of information. And the danger is when people receive two conflicting pieces of
+information and they have no way of resolving that conflict, then they can just disengage and
+believe neither. So I go, it's too hard. I don't know. I don't know what to believe. But if you
+explain, well, the way that the myth distorts the facts is it uses the technique of cherry picking
+or misrepresentation or oversimplification or whatever, then it helps people make sense of
+these two conflicting pieces of information. Did you have a question?
+Yes. This seems super plausible and super sensible, but I'm interested, how did you come up with
+this as a solution? Is there like a statistical background or any evidence to say this works and
+we tried a lot of other things and they didn't? Yeah. So the Bunking Handbook is basically a
+summary of all the psychology research testing, like some of my studies and other people all
+over the world testing all these different formats, communicating facts, communicating fallacies,
+et cetera. And this is kind of distilling a whole body of research.
+So there's a lot of psychology research that goes into the Bunking Handbook?
+Yes. So it's just, I think, yeah, if you just go to that address at the top of the slide.
+And actually, I'll share the slides with Adam if you want to share it around with everyone.
+So yeah. So and the Bunking Handbook, I don't know, it's about a dozen pages. It's very
+concise, but a shit ton of references at the back. So if you want to chase up all the research
+that is based on, yes. So yeah. So now AI is so popular, right? So you can ask questions and
+then give you kind of like answer looks very like facts. Yeah. So what do you think? Like, so
+for example, how are you going to let like, I hope what I say, like
+help people to know, to recognize or identify. That's the fact. Because everything from TV,
+from social media, from AI, probably can be like, you know, can be wrong.
+How, where can we find a factor then? Yeah. I mean,
+yeah. Like I'm just saying, like, okay, you can say, you have these ways to like convince people
+that this is the fact. But the thing is, who's going to convince us? We're going to be the channel.
+Right. And we were talking about spam filters earlier, like in terms of knowledge, the best spam
+filter is peer reviewed science, where you have experts in the field reviewing what other experts
+are saying. That's not foolproof, but, but scientific papers published in peer reviewed
+scientific journals. No. And so a lot of the work I do is about trying to make
+peer reviewed science accessible. And hopefully the thing that I'm talking about tonight
+will also make this kind of work accessible. Did you have a follow up question, Adam?
+Pretty much on our humans statistically, anyway, according to Anthony, who did the research there.
+So it does look as though, and there's a number of other bits and pieces of research that you,
+you have, that you've seen, which suggests the same, that AI is becoming more and more persuasive,
+right? So if we're trying to fight this battle on the main front, those who are using malicious,
+AI maliciously, who have no boundaries as to where they can take their means, because it's not
+grounded in facts, it can be any sort of fantasy whatsoever. How are we going to convince people
+of, you know, of what's right or wrong on the main front, where their means aren't constrained by
+reality, they can be even more fantastical than any means that's constrained by reality
+that we can produce. Right. So it seems as though it's a difficult battle. Oh, yeah, it's,
+it's a very difficult battle. Well, let me, let me do a quick answer. I'll do a quick answer,
+because there's a few hands up. Firstly, misinformation is a huge ubiquitous and
+complicated problem, and there's no one magic bullet, like memes aren't going to get us out of
+this problem. But they can be one useful tool amongst a suite of tools. What I'm working on is
+just one tool amongst others. Another thing I'm working on is building people's critical thinking,
+using tools like games, which, which can get people practicing critical thinking through game
+profession. A game which you can download today on your phone. And so what that does is build
+people's resilience against misinformation techniques. So they can see these manipulative
+memes or whatever. But and again, that's not the magic bullet either. That's just one tool amongst
+many. And I think that we do need to be developing lots of things. And we need to be developing
+solutions that are scalable, which is why I've become quite attracted to technical solutions,
+like what we're talking about. But a couple of questions over the side of the
+The risk of using big words, which may be unnecessary. My big concern is without a well
+founded and agreed epistemology, we're in deep shit. And the reason I say that quite
+absurdly is most of my life was looking at semantic constructs and trying to make sure
+fitting with the structure of knowledge in a particular domain. If we don't have that structure,
+that epistemology, you're forever fighting, because it's easy for someone. And my favorite one
+came two days ago. Donald Trump says he's better than Joe Biden, because he's won 26 golf tournaments.
+And Biden doesn't play golf. The the myth in on that was that was 26 golf tournaments at his
+Mar-a-Lago estate, where he owns the place and in fact was in fact running the whole company.
+So I mean, these are the kind of things that's an easy one. But my fear is that without epistemology,
+which the experts can agree, and there's even disagreement in the experts in this area in
+particular, we're always going to be fighting an uphill battle. And I'm just wondering from
+the experience you've had trying to build these models, do you ever see
+any form of epistemology coming through that could be helpful?
+Well, maybe I should keep going because I think I'm on slide three. So and I think some of these
+questions will get answered. And then some of them will probably be unresolved and we can dig into
+them deeper. All right. So, so, all right, getting back on track, we started with the goal of
+trying to debunk misinformation automatically. We were able to develop a model that detects
+misinformation. But then once I realized, okay, the psych research tells us that we need to
+create a debunking like this. How do we go from detecting a claim to producing a debunking,
+according to the fact myth fallacy fact structure? I'll just call it the truth sandwich for
+short because that's one of the kind of colloquial phrases. And we started actually about one to two
+years ago, playing around with chat GPT 3.5 and just working on playing around with prompt
+engineering to try to throw misinformation at it and then see if it could produce a reliable
+fact myth fallacy debunking. And we found that it was just rubbish at
+accurately spotting the fallacy in misinformation. It just that it did okay with the the facts,
+although the facts tend to be a bit generic, but the it just was bad at spotting fallacies.
+It's just not a critical thinking piece of technology. And so we realized, okay, well,
+we're going to have to tackle the fallacy problem in a different way. And so we spent about a year
+or I don't know, at least half a year developing a model to detect fallacies. And we took that same
+supervised machine learning approach we took with our previous model, where we took a whole bunch
+of examples of climate misinformation and identified what were the fallacies in each one.
+And then we use that as a training set to train our model.
+And this sorry if this is a bit, actually, this is probably a good audience for this, but
+this is a confusion matrix, which reports how well our model did at spotting different fallacies.
+And really the interesting, the most important part is the diagonal black
+boxes because they tell you the the accuracy or the percentage where it got each fallacy,
+right. So in other words, it was 78% accurate at spotting at hominem attacks. It was 92%
+accurate at spotting anecdote fallacies, and so on and so on. The ones where it did badly were
+ones where we didn't have many training samples like it was hard finding is that
+false choice or false equivalence? Yeah, false equivalence, it was hard to find examples of
+that. So it didn't score that well. And then slothful induction was troublesome because it's just
+a troublesome fallacy. It requires a lot of it requires background knowledge in order to spot
+the fact the fallacy. And that's one of the things we realized during this research was
+there are two types of fallacies. There are structural fallacies where you can just tell
+by the pattern of the text. Like for example, a false choice is usually phrased in an either or
+kind of way. You're either with us or you're against us kind of structures. And you can spot
+those just through the way the text can be arranged. But some like slothful induction or cherry
+picking require actually knowing background knowledge. You need to know what is all the
+evidence available before you can know whether they're cherry picking and ignoring other evidence.
+And similar with slothful induction, that's the fallacy where people come to a conclusion without
+considering all the evidence. And you need to know what that evidence is and whether their
+conclusion contradicts the evidence. So, yes? Yes. I mean, again, with what we were looking at
+were I would characterize it as kind of the shallow end of the pool or the low hanging fruit of
+climate misinformation. The clear examples where there was a robust body of evidence,
+lots of different lines of evidence all pointing to a single conclusion,
+like human cause global warming or just the reality of global warming itself. So these were cases where
+it was clear science. So we weren't going into the murky areas like on the edges of knowledge
+where scientists are still figuring things out. Like during COVID, and you could see that scientists
+were figuring things out and you were hearing different messages from the CDC or sorry,
+I was living in the US at the time. So I was grateful to be working in climate change where
+most of the stuff was answered 20 years ago, whereas with COVID, it was happening in real time.
+That's a much more complicated area. So I actually thought about writing a book on
+COVID misinformation at the time and really glad that I didn't because it would have been,
+yeah, I would have given myself a world of pain. And if you want to check out the model, if you
+want to stress test it, the URL for the model is up here, sks.to slash flick tour. Let's do a test
+now. Do I have it up here somewhere? I don't, let's just type it in. So think of a climate myth,
+because it's trained on climate myths. It's on hugging face, which is slow because we're cheap,
+so we only paid for this. We're just using the free CPU version. That's something we're working
+on to try to get it. Yes. Yeah. I can't take off the top of my head, but just I mean, how much does
+it would have cost to have a GPU server? You know, like, I don't know. Probably for a millionaire
+pocket change. So think of a climate myth, we'll pump it into here and see how good it is at
+spotting the fallacy. Anyone want to suggest it? Anyone want to suggest a climate myth?
+All right, so let's say climate change is a hoax. Well, let's just see how it goes. Now,
+the first time it runs a model, it's slow because it's on a CPU and it needs to,
+once it's run the first time, so while this is running, think of everyone else,
+think of a different climate myth that you might have heard. So yeah, so it says there's a 93%
+chance that it's a conspiracy theory. And subtle induction because the climate change is actually
+based on a lot of evidence and it's ignoring all that evidence. You go on.
+Okay, global warming is actually the result of heat island effect.
+Global warming is not happening. The warming record is actually an artifact.
+How does that sound? An artifact. Once I had to design an experiment, we had to write an article
+of climate misinformation. I just did it on the iPad on the train home and spat out a thousand
+words so easy. It would be great to be a climate denier because you just don't have to worry about
+being accurate. Anyway, let's see how it goes. So it's misrepresentation and
+subtle induction. Eventually, what we're working towards is not just saying this is a fallacy
+bit explaining how it's misrepresenting. In this case, it will probably be, yeah, sorry, you're
+going to say? Is that in the hay? Because there's, so there's artifacts.
+But if it's an arbitrary change in text would give a difference.
+I doubt it. That's within the noise. That's good. I just thought that would be very
+interesting if a completely different thing was put up at the top if you changed one letter.
+Right. Any good stress tests that you want? Anyone want to do another one?
+That global warming is a natural part of the weather cycle.
+Okay. That's a good one. Global warming is a natural part of the weather cycle.
+Single cause. So there's a lot of arguments where it's saying global warming is just natural
+factors and ignoring other factors like human causation. So where it tends to see just blaming
+global warming on one thing, it tends to characterize it as a single cause. Anyway,
+I don't want to get too distracted by this. Let me jump back into the slides. So anyway,
+you can have a play around with that. It's, as the confusion matrix shows, there's still room for
+improvement, but it's actually, these results are about two to three times better than previous
+fallacy detection research, which is all 20 to 40% accurate. It's bad.
+How do you assess the accuracy of that? How do you check the results?
+What we have was, we had a training set of two and a half thousand examples,
+and then we just subdivide that into a test set and a training set. Sorry, it's more like a test
+set and a training set. And so the test set was what we used to assess, like to obtain the
+confusion matrix. So we're just comparing the classifiers answers to what human me said was
+the fallacy. So yeah, ideally you would have multiple, you'd have two or three fallacy experts
+doing it and then do interoperative reliability and then have a gold standard data set.
+Fallacy experts are hard to come by. So we just went with a single person in this case.
+But yeah, that's something we're working on as well. All right. So we, once we had developed our
+model to detect fallacies, we actually submitted the paper to a journal Monday. So it was just this
+week. But then we, given that just using chat GBT by itself was not good at fallacies, then we
+decided, okay, let's do a, let's do a LLM prompt where, so we're still, and I think we started with
+chat GBT, but then we started using cheaper, smaller open access LLMs. But then we wanted to put
+some dynamic information, which is the red text into our prompt. So we were basically spoon feeding
+it, all right, write this debunking fact myth fallacy, but the fallacy is oversimplification.
+And so we were just helping, helping along by, by giving it some of that extra information.
+And also the, the first model that I talked about with those five categories, we also,
+what, what misinformation claim it detected there, we also put that information into our
+prompt. So we were basically trying to just go one step more sophisticated with our
+generative AI prompt by, by packing the prompt with some dynamic information
+coming from all these other models that we developed. And what we found was,
+and we did it, we started with chat GBT, but we knew that that was never going to be our
+endpoint because open AI charge for every time you use it. And if we wanted to create a scalable
+solution, we, we wouldn't be able to afford it basically. So we, we once, once it was working
+well in chat GBT, then we went to a simpler model. Palm two was the model that we used,
+but we found that it was garbling the, the fact myth fallacy fact structure. It got a bit confused
+sometimes or glitched and, and sometimes it would do like multiple facts or get, get kind of arranged
+in a jumbled fashion. And so then we went to a third model, which was multiple prompts. And so
+and this is all kind of bit complicated. The basics of it was we would do a prompt for the
+first fact and then a prompt to, to recategorize the myth and then another prompt to explain the
+fallacy and then a fourth prompt for the fact. But we also pulled into information from outside
+sources as well to help with writing the fact. So this was, this makes me a little bit queasy,
+but we were just doing a Google search asking, asking for factual information of relevant to
+the myth. And then there was a database called climate fever, which actually has a whole set
+of statements categorized as either factual or, or misinformation. And we also drew on that for
+the, the final fact in our, in our, our model. So, so, so these were the, these were the,
+our two models. One was a single prompt palm to, and here was a four prompt. And we were using
+mixed rule was our alarm in this case. I don't recall why, but the, the research assistant
+found that palm two wasn't working very well in this context. Or mixed rule was, I think he just
+did a matrix search and found that mixed rule was the best performing model. Now what, all right.
+And so, and so then last Friday, we had to submit a paper to a conference and we're,
+we're just halfway through this research, but we had to submit something. And so I said to my
+colleagues, and I said, so, and we were talking about it. We know that peer reviewers are going
+to say, why didn't you just do a single chat GBT prompt? Why, why are you doing all these super
+complicated models? So we thought, well, we should, we should do that as well. And then we can compare
+the three approaches. And I joked to my colleagues, wouldn't it suck if after all the two years of
+work that we've done developing a fallacy detection model and all these things,
+if the latest version of chat GBT outperformed the stuff that we're doing. And so we did it with
+GPT four, I think not four zero. This was before that came out. I think it was four turbos, what
+it was called. And, and we did prompts like this is what it looked like. This was our GBT prompt.
+So, and all the prompts were structured and worded similar to this. So it was
+like defining the role has a big influence on the output that it does. And then we would
+instruct it to do the fact myth fallacy debunking. And then we'd provide some more specific
+instructions on what we wanted to see in each of those sections. And then we gave it the myth
+at the end. And also we had a table where we listed all the fallacies
+and the definitions of each fallacy. And then we ran this all the same myths with GPT four.
+And we found that it was doing just as well as our, our most complicated model. And we were like,
+shit. So, so from 3.5 to four, somehow they taught it critical thinking, like they taught
+it how to spot fallacies. And they did something, I don't know, maybe it was your Hanson's voice
+or something. So, so, so here's an example of the different outputs. Here is a myth saying that
+the sun is causing global warming, basically. And here is the just the GPT single prompt.
+Here is the palm two single prompt with some dynamic information. And then here is the four
+prompt solution with dynamic information. And it's pulling stuff from all over the place.
+And in this case, and this is just a, to give you a rough example of, of how they did the
+palm two tend to be simplistic, a bit generic. GPT and Mixtral both were roughly equal. In this
+particular case, Mixtral actually does a better job of identifying that replacement fact. It's not
+just saying sun can't be doing it and saying it's actually human activity. So it's, it's doing a
+better job of, of identifying that fact that dislodges the myth. And all of them did pretty
+good with the fallacy. In fact, the thing I like best about this research is how well it does at
+explaining fallacies. And this is a little bar chart, set of bar charts, just comparing the three
+models where we basically graded it. Like the four researchers working on this project, including
+myself, we graded each section of each debunking, the facts, the fact, the first fact, the second
+fact and the fallacy. And then just, this is the average result across all four of us. And we found
+that basically GPT and Mixtral were good, roughly equal to the facts. And then roughly equal at
+the second fact as well, one slightly above any of them. It kind of washes out. And then Mixtral
+slightly outperforms GPT four on the fallacy. So if it was a, it's kind of almost a, almost a dead
+heat, but, but, you know, the fact that Mixtral is so complicated, and then GPT just kind of
+slouches its way into the room and nails it first go, kind of pisses me off a bit. But, but the,
+and then the part two model doesn't do as well in, in all cases. So, so I think just the next thing,
+like, because we're still halfway through this, but what we still need to do is just tweak the models
+a bit because we saw things where it didn't do as well as we would like. It's, it's not ideal that
+the researchers assess or do the annotations to grade the, the models output. So we've actually
+recruited a bunch of people to, to like nine different people are going to go through all our
+debunkings and grade them. And the interesting thing is they all have quite a different level of
+climate literacy. There's some people who are professional climate scientists and some people
+who just kind of enter the subject. So, because we think that the climate expertise is a big factor
+in how good you are at grading the, the quality of a debunking, because I will just know things,
+no background information that a non-climate scientist wouldn't know. So
+could you retrain this by pulling in a bunch of like, you know, lunatic climate,
+climates and IS to, to grade it all and see if you can detect which ones are the bad scoring.
+And what would you get out from that? Why would you do that?
+Well, you pollute the, the grading mechanism. Can you, like, how do you know if the grading is
+in bias? So, how do you know? Right.
+You're applying on expertise, you know, prima facie. The expertise is what
+counts as the, the ability of the grading. The, the, the general metric you use is
+integrated reliability. So if you have one person who's an outlier compared to everyone else,
+then you have a closer look. Why is that person scoring differently? Are they, are they biased?
+Are they incompetent? Are they not paying attention or whatever? So, and that's probably
+how we're going to approach it when we have a whole bunch of people. My instinct is that you'll
+probably see the climate experts show high reliability with each other and the non-experts
+show reliability with each other, but probably low reliability between them. That's what I
+anticipate, but we'll have to run the experiment and see what we get. Yes.
+So, did you call that comparison reliability or what was it?
+It's inter-rated reliability. So, yeah. So basically, just imagine you have two people who,
+who just score, like, you know, they'll just do a score. Like in this case, we just look at every
+fact and we score it from one or zero to three. And so it's just seeing, and so, you know, I do,
+I score one, three, two, three, and then Fred scores one, four, three, four. But, you know,
+and then you can just run those numbers through, like, an inter-rated reliability function.
+And it'll tell you between zero to one how reliable, what's the inter-rated reliability?
+How much do you agree with each other? Like, there are, there are several different metrics
+you can use, even just agreement, like percentage agreement. But, and which measure
+you use depends on the context, but yeah, we just used standard inter-rated reliability measure.
+Yes. I thought of a way in which maybe it could be useful to, if I have, you know,
+kind of a denies or whatever, people who are not a part of the general scene commenting on it,
+just in a sense of, if you give them the direction to try and answer the questions as if they were
+climate scientists, it might be interesting to be able to see the extent to which someone who
+doesn't believe can stereotype in their heads and model what a believer would say, that there could
+be an interesting part. And that in terms, like, what is the, what is the orthodoxy of the scene,
+as opposed to what an expert says? Yeah, it's getting very meta now.
+Someone who doesn't believe could then, if they could tell you exactly what it is,
+I suppose an expert would say, it slightly suggests that that's the dogma
+of, of, of that discipline rather than the actual truth. At least it's a signal in that direction.
+There's, there's two things we want to know. Firstly, is the, is the output from the model
+accurate and reliable? And that's what we're, that's what this is all about. And that's why
+you probably need experts to grade the quality of the output. But then the second question,
+and really the more important, well, once you've, once you've satisfied yourself that you're,
+you've got an accurate model, then the next question is, does this work in, out in the
+real world in debunking misinformation? If you take the output from your model and deploy it in
+some way, and that's, that's an open question on what that looks like, will that actually
+reduce misperceptions and stop misinformation from spreading? And that's, that's one of the,
+once we get past these hurdles, once we kind of solve the little thing of the Holy Grail,
+then, then we will start doing psychology research on, does this actually, is it effective,
+accurate and then effective? And that's where you start getting climate deniers or conspiracy
+theorists or just people from diverse backgrounds to, to look at the output. So did you have a
+question? Yeah, could I actually go back about three slides to the outputs from the model? That's
+when I look at that, and I'm going to take a very nice perspective on this. If my mother
+was saying, well, no, you know, it's just a bloody son, that's what's causing it, I would probably go
+with part two, because she could get it. Right. I mean, this is a really good question. I think
+the one of the issues we have here, and this is why we had, get on like you go, go about experts
+can't be trusted. It's because experts will do the facts in a way that they understand them based
+on their discipline. That does not equate necessarily to, you know, Joe Blow in the street,
+who doesn't get it at all. Yeah. And I think what you've got here, and this is what fascinates me
+more, actually, is I totally agree with what you said. But when I'm looking at messaging,
+harm too, is kind of, I'm saying, you can probably take that to most people in the street,
+and they would kind of get what you're saying. Mix trial, you take that to the people, when you've
+got, hang on, point three of what, you're already challenging some basic assumptions people have.
+I get what you're saying, but I think the problem with expert messages,
+they sound like a bunch. No, no, just, just tell us what you think.
+The complete opposite to the mean that you were talking about earlier,
+instead of like, make America great again, and I'll use it.
+But you said, say, it would be a pretty good idea, based on the evidence that we have today,
+look into the graphs that we've exposed here, that maybe there's a chance if we,
+no, that's not going to stick. I think this could be your other problem.
+No, no, it's, I mean, and we just touched on that, because we are just trying to solve the problem
+of accurate. We're not even thinking about effective yet. So this is accurate. This is
+probably more effective, right? I think this is going to be your balancing point, that's your
+axis. And generative AI is actually a really good tool for that kind of thing. Like, often when I'm
+designing experiments and I need a message to put into an experiment, and I'm feeling lazy,
+I'll just get Chachi BT or Gemini to give me a thousand words of this argument. And then it's
+like, it's not that good. Explain it. I repeat that, but at a 12 year old level. And then I'll
+just try a 14 year old level, 60, and just, and it does, you try different levels and it gives
+you different outputs and some of them are really good as explaining and some not. So
+I think that once we solve the accurate problem, then we will do the effective problem. And that
+is a psychology question. And that's where you probably need to, yeah, probably what I imagine,
+and this is again, I think a power of AI, is you can tailor it to your audience. So, you know,
+some someone might be more comfortable with this and another person might be more comfortable with
+that. And you can, well, it depends on how you do it and transparency, like you need to change
+the message. Anyone, especially the growing populace who are very good at this, they'll say,
+yeah, okay, you say you're saying the same thing, but it doesn't correlate, it doesn't do this and
+that. There is one of the big problems you've got, the attack lines become open. Okay, please,
+no, no, no, these, these are all the things that we are just beginning to grapple with because
+that question is then the next question after effective, like, we're still in accurate, then
+we will work out in the lab effective, then we then we have to figure out how do you actually
+deploy this in the real world. And that will that could look like a million different things.
+And that's where you grapple with those kind of issues and how people respond to it.
+How do you like you want to be transparent, you want to do it in a way that like, for example,
+the fallacy detection, you know, I like that it reports the probability. So it's not like I'm
+saying this is the answer. We're saying there's a 90% chance that this is conspiracy theory. So,
+you know, those kinds of reporting methods are ways that you can make something more
+transparent and I think potentially more acceptable. I mean, there was a there was a
+study published just within the last month, where they use chat GBT to talk to conspiracy theorists.
+And they would say, what's your conspiracy theory or something. And then they would say
+9-11 was an inside job or something. And then and they'd say they give an argument for it.
+And then the chat GBT would generate a thousand word answer. Well, you know, that that point
+you make and then it'll kind of explain what all the facts are relevant to that. And then the person
+goes, well, what about this? And then it will do another thousand word answer. And what they found
+was that intervention, like having chat GBT directly replying to the specific arguments that
+the person was making, had more effect in reducing conspiracy beliefs than I think I can't think
+of anything else that has been done in a scientific experiment. And then it stuck like it, like when
+they tested weeks later, they still had reduced belief in the conspiracy theory, because often
+you find it just fades over time. Yeah, it was this, I mean, this had a longitudinal element
+to it. And the thing that jumped out at me from this research was the conspiracy theorists reported
+afterwards, I felt heard. Because because it was responding directly to specific arguments that
+they were making. Yes. John, I want to ask a question. So people have different brains and
+different brains will react differently to the information that you give them. For example,
+my boyfriend was telling me that there are there are there's about 20% of people who we called
+conservative. And they have a different brain structure that you what you say to them cannot
+get through. I don't know. Yeah, because they cannot be that receptive to your new ideas. So how
+can we get them? Yeah, well, I mean, generally, it's a universal human condition that that people
+resist information that contradicts their beliefs. So whether they're conservative or liberal,
+religious or, or I don't know, but definitely religious. But you know, people use you say
+something that challenges someone's beliefs, or their or their social identity, and that
+they will resist it. In fact, social identity is arguably stronger. Like, during my psychology PhD,
+I came out of that thinking that beliefs were the were the big thing. And then I moved to the US and
+spent four years where my four years in the US directly overlap with the four years of the
+Trump administration. And I learned that tribality or social identity is even stronger than beliefs,
+because we saw how beliefs just shifted when the tribal leader says, no, we don't believe that anymore,
+we believe this. And everyone was like, okay, we'll believe that. So yeah, so it's when you
+are communicating information that goes against people's beliefs or tribal identity, then it's
+going to be difficult. And climate change is an example. And in a way, it's almost a rational
+response in the sense that just imagine you, all your community, your family, your social group,
+all think that climate change is a hoax. And then I come and say, hey, that's actually not true.
+And here's all the evidence for climate change. You should accept, you know, the climate science.
+For that person, they would have to then go against everyone that they know and love and live with,
+and suffer the consequences of that. And so there's a lot of disincentive to go against
+your social identity when everyone believes something. And then you'll give an information that
+contradicts those beliefs. So there is, like, I'm a scientist, like a big believer in communicating
+facts. But I also acknowledge that the science tells us that facts can be limited in some context
+like that. And one reason why I actually got into the whole critical thinking and fallacy
+way of approaching misinformation was because the first experiment I did in my PhD, I was just
+just blundering around trying different things. And I tried explaining a misleading technique
+in some climate misinformation. And this is almost a quirk of the experiment design. But
+the misinformation was about the scientific consensus on climate change and the fact that
+there's 97% agreement amongst climate scientists that humans are causing global warming. But
+I knew from previous research that just mentioning the scientific consensus is really powerful
+because we're humans are social animals and that expert consensus is a social message. So I had to
+try to inoculate people against misinformation about the consensus without mentioning the
+consensus. It was kind of, now I'm thinking of faulty tales and don't mention the war better.
+I see people laugh in the room. And so the way I tackled that was I explained the technique
+used in the climate misinformation without mentioning climate change. And instead,
+I used tobacco misinformation as an example using the same technique. So basically I was saying,
+look out for this technique, fake experts. The tobacco industry used to do it. And here's a little
+1950s newspaper ad with a guy in a white coat smoking and telling you that smoking soothes the
+throat. And you know, that's a fake expert. So look out for fake experts. And then I showed them
+climate misinformation that used fake experts. And that was one group in my experiment. And then
+with the other group, I showed them just the misinformation by itself. What I found was the
+climate misinformation by itself worked much stronger on political conservatives. So it
+really reduced their belief, which was already low and it took it even lower. So the misinformation
+had a polarizing effect. It worked more on conservatives than it did people on the left.
+But when I did the tobacco inoculation, look out for this technique, then I showed them the
+climate misinformation. The misinformation didn't work at all across the political spectrum. It was
+just completely neutralized. And what that told me was, regardless of where people sit on the
+political spectrum and what their beliefs are, nobody likes being misled. And so that I thought,
+maybe there's something in this whole critical thinking approach. It's a way to sidestep those
+cultural or belief or social identity barriers by just appealing to people's aversion to being
+misled. And so I did a lot of psychology research about fallacies and critical thinking. And then
+when I started working with the computer scientists, I brought all that research into trying to
+incorporate it in the AI research as well. So that's why fallacies are such a key part.
+And I'm loving that it actually does best at fallacies out of all the different elements
+of debunking. Yes? Has anyone done research similar to you, but on anti-vaccination?
+I work for a medical research institute and it's something that we deal with time to time.
+I mean, there's a lot of people doing vaccine misinformation research.
+The other thing I'm doing besides AI work is using games to build people's critical thinking.
+It's called Cranky Uncle, Adam mentioned it earlier. And the Cranky Uncle game focuses on
+climate misinformation. But then after we released the Cranky Uncle game,
+UNICEF approached us and said, can we do a vaccine version of it? Because it's just a critical
+thinking game. And all the same fallacies that you see in climate misinformation are also being
+used in vaccine misinformation. So we just took the same game and then identified the top 10 fallacies
+in vaccine misinformation. Eight of them were already in the climate Cranky game. The two that
+we added were false cause or another word for that is post-hoc ergo prep the hoc. In other words,
+this thing happened and then nothing happened. So this must have caused that.
+Keep got vaccinated, then they got autism. So vaccines must cause autism. So that was actually
+the number one argument. And the other, the second one was appeal to nature or we call it natural is
+best in the game, which is that natural remedies are better than, than vaccines or should be used
+instead of. But, and then also, yeah, so, so Cranky Uncle vaccine came out last year, I think.
+The problem is like all both games are like smartphone games, but you can only play the
+vaccine game in Ghana, Uganda or Kenya currently, maybe Tanzania. But the browser version you can
+play anywhere. So if you go to CrankyUncleVaccine.org and click on the browser button, you can play
+that game. But there are other people working in vaccine and collaborating. So UNICEF are interested
+in raising vaccination rates in the global south in specific parts of the world. And so
+basically at the beginning, we just kind of put the call out to all their different UNICEF officers
+and, and the countries that were most engaging in terms of, because what we wanted to do was
+like the original Cranky Uncle, it's, it's so white. It's like it's just criminally white.
+And so we wanted to make sure that a game in the global south looked like the people who
+would be using the game. And so we ran co-design workshops in the countries that were interested
+and were able to help us run co-design workshops. So Kenya, Uganda and Rwanda were the first three.
+Then we went over to Ghana and Tanzania. And then we did Pakistan version, which is not yet because
+translating the game into Urdu has been a nightmare. And, and now I'm not just talking
+about right to left technical issues, just the language. I think there's more an
+organizational thing than, than a cultural thing. But, um, yeah, we're still working on that. But,
+um, yeah, it was really that UNICEF are interested in a, interested in specific parts of the world
+and be, we, it was important that we went through a rigorous co-design process in each country.
+So that's why it's just in these specific countries so far. We're hoping to do Latin America and
+Middle Eastern and Caribbean over the next year or two. If we can get funding. Yes.
+I love your last section about deployable. Does that mean the real world? Do you like
+every time somebody posts disinformation or misinformation on social media? Do you like
+give them a thousand words? Right. And so, and so this, this is kind of a bit of a Steve Jobsy
+kind of reference, right? Like it's just, oh, one last little thing that we've got to do. Because,
+because when we started the Holy Grail, I thought, oh, well, once we've solved detection, it's job done.
+And then I realized the psych research, and I should have known meant that it was actually a lot.
+You climbed over that first summit, and then there was a much bigger summit.
+Once we've got over that summit, and we've used Generative AI to create accurate debunkings,
+or even accurate and effective debunkings that work well in the lab, then how do you deploy it?
+I have this, we haven't even got to that point, but I have a feeling that's going to be
+the next huge summit. What does that look like? I think that could be a lot of different things.
+One thing that we worked on at Monash was a browser extension, where you,
+as you look at a web page, it uses our initial detection model to scan the text, and if it
+identifies any kind of misinformation, it then highlights it, and then it pops up a debunking.
+People couldn't just be as if they're browsing, it'll identify misinformation and let you know
+how it misleads. So that's one thing. Like a bot that just responds is another thing,
+but I don't think that that's going to fly very well.
+Yeah, no, I think he would lose his shit I read, actually.
+Yes. Not if it was, yeah, I've given his politics, I think that he'd probably be
+opposed to our gods. But well, I mean, like, can you approach Facebook again, see if they're
+interested in having tagging posts in Facebook? Like, how accurate is it? Are you worried about it
+being wrong in some cases? I mean, that's where we're at now is the accuracy. Like, it has to be
+highly accurate before you would want to deploy it out in the real world.
+Yeah, so any other question? Well, it's actually out of pro, because I was going to say,
+what do you think of community notes on Twitter? Because that's the most real implementation I've
+seen. And also, I think that it also has an interesting directionality, because I find that
+works really quite well, because there's implication that ultimately that's some bloke's opinion.
+There's a bit there's a degree of aggregation in community notes. But it's kind of a dude said
+that and other people who are asked to disagree with him said, yeah, that seems about right.
+So it's like, there's like, you know, a little, because it seems to work very often,
+where like someone says something straight up isn't true. There's usually a community notes
+saying, no, actually, it's this. Yeah. And it's straightforward. And there's skin in the game,
+in that sense, and an inbuilt skepticism, because it is just that dude. So I think there might be a
+problem in this in the sense of it has even just in the sense of it has a pretension to be the truth.
+It just irks people wrong. Just socially, like it's almost like it automatically comes across
+is if it were a person, it would be arrogant. Right. So if so, in order for us to deal with it,
+we almost have to personalize it in some way. We have to give it some identity. That's the
+percentage in some way. It can't literally be a thousand words that just pops up at the bottom
+of every post. There's no one reading it. Always seen as the voice of the authoritarian Beijing.
+And that's it. West community notes doesn't have that problem.
+Even if they're consistently wrong, they're like radically wrong all the time, in fact.
+Joe Biden isn't seeing oil according to the episode. What can you say?
+If it's politically inconvenient, it's not true. This is why you need this automated stuff. Sorry,
+I didn't mean to. I'll come back to epistemology. But ignore that for a second. There are groups
+that are being set up to do fact checking. And I think this is the kind of thing you could deploy
+into those guys first, because they're the ones who've got the real world contact. They're the
+ones who can help you refine this effectiveness of the message. So that's another potential tool
+would be like that flick tool I showed you. Just imagine just a simple web page where people
+just enter some text and it just spits out a response. It's almost a Wikipedia. Take it
+with a grain of salt, but here is our best guess starting point type resource. So that could be
+something that fact checkers could use as a resource, particularly, and we haven't even looked at this
+yet. But if you could have have it linking to resources. But again, this is the stage three
+stuff. We're still in stage one. And stage three is how do you deploy it in a way that makes it
+effective? And these are all the questions that we haven't even been discussing. I guess I guess
+I'm suggesting that down the line, in practice, it's a lot of its social, a lot of its marketing
+presentation. Yes. Yeah. And so funnily enough, like I was last week, I was meeting with a guy who
+works for a tech company. And he was asking me, like I was explaining this research, and he says,
+how would you do it? And I said, oh, this is my idea. And he goes, no, that's that won't work.
+And then he started throwing out ideas. And we realized that there were just so many ways you
+could configure this and organize it. And it really does require practice, like not just the
+AKBuffins like me, but the practitioners, people who do this stuff, you know, interface with the
+public for a living, I think you need to get all those people in a room with a whiteboard and
+just hashing out possible solutions. And that's probably what we're going to do sometime down
+the track.
+It strikes me that you're going to be fighting a cold war where the disinformation are going to
+massively outnumber and have an easier job being fake experts than you'll ever be
+being a real expert. You're just being one voice of the truth in an ocean of lies.
+If I could add to that, though, but then it suggests that the way to beat that is to tag
+the generative stuff, which you're talking about to an authoritative voice of people trust.
+So you can build the brand of a trusted human being, you can leverage this expanded
+I think we need to sort of like top trust in human beings so much because human beings are
+kind of crazy sometimes, especially when they're politically affiliated. I think, you know,
+the best way to sort of generate trust in this is grounding it in the best solid evidence that
+we have the most verified peer reviewed replicated experiments that we can. And yeah, ground as much
+as we can. Any comments on that? I saw some head checks. I'm trying flame warring, hopefully,
+these people and they hate experts. They don't like facts. Anyone that comes and arguments with
+facts, not having a hominid attack is clearly the enemy. I mean, part of the reason for that is,
+like I was saying, at hominid attacks against experts are prevalent, like they're a big part
+of misinformation in all topics. You know, we saw it during the pandemic or attacks on like
+Anthony Fauci and so on. But while there is declining trust in experts, they are still
+one of them, or if not the most trusted expert on like in the case of climate change,
+climate scientists are the most trusted source, even if trust is declining in them. So they still
+are trying to convince with these. Are you trying to convince the people who already trust the
+experts or are you trying to convince the people who don't trust experts? And so the way I look at
+that question is, there are different audiences with different goals. And a simple way that I look
+at it is grouping the public into three groups, the people who are already convinced about climate
+change, but are inactive, like they just don't talk about it, don't do anything about it, the
+undecided, disengaged, and then your dismissive, cranky uncles. So the concerned people are about
+slightly over half the population. So they're actually most of the public. But most of those
+people don't even talk about climate change with their friends and family, because they think that
+no one else is concerned about it. And so with that group, the goal for climate communicators like
+me is activating them in some way, like activating even just to the point, not getting them necessarily,
+turning them into Greta Flunberg and marching down the streets. But even just talking to people
+makes a big difference. It's probably the most important thing a person can do
+to contribute to climate action is just to talk about it and build social momentum.
+With the disengaged group, for me, in terms of looking at through the lens of misinformation,
+it's about building their immunity against misinformation and then moving them into the
+concerned group. And with the dismissives, as we've looked at, it's very difficult to change
+someone's mind if they're dismissive about climate science, because they don't trust
+the information. You can beat your head against that brick wall if you want to, but it takes so
+much resources to do it. But generally, I think that given that they're only like 10% or less of
+the population, we're better off spending our energy on the other 90%. Right. I guess depending
+on how Jeremy Andrewing has done that, that 10% can really make a difference in some regions.
+I mean, what are you saying that the large language, or the chat GPT sledgehammer essays that
+would respond to misinformation claims, that was effective against people who were pretty
+skeptical of climate change or vaccine? It was conspiracy theorists. So,
+yeah, I don't think it was, I don't think climate was a topic. But would you consider
+these conspiracy theorists as being part of that 10% of people who aren't really interested in
+evidence? The Venn diagram of conspiracy theorists and climate deniers has a lot of overlap. So,
+if you deny the scientific consensus on climate change, that means you disagree with, you know,
+the global community of scientists. Inevitably, you're going to resort to conspiracy theories
+to explain that. Otherwise, they're all accidentally wrong in the same direction.
+Conspiracy theories are more plausible. Yeah. Yes. Last question for me.
+If we are not trying to put our resources in changing the dismissors, can we try and neutralize
+them in some way that they don't spread the ambulance because they can be pages?
+I mean, that question is really what my whole research career has been about.
+Now, I've mentioned the word inoculation a couple of times. It's actually in psychology,
+this inoculation theory, which is the idea that by exposing people to a weakened version of
+misinformation, you can build up their immunity so that when they encounter the actual misinformation,
+they're less likely to be misled. So, the analogy I use for climate denial or other forms of science
+denial is polio. It's an incurable disease, but we were able to almost completely eradicate it
+just by building up the public's immunity to the point that you got herd immunity. So,
+I think the answer to your question is, if we can inoculate enough of the public, by inoculate,
+build up their critical thinking so that they can spot attempts to mislead them, then if you
+could do that sufficiently that you got herd immunity, then that misinformation would become
+eradicated. It would no longer be relevant in the world. But misinformation is intelligent, right?
+People craft. At least the misinformation generators are intelligent. They can craft and
+they can find out what the tactics is behind misinformation. The polio isn't right. That's
+just selection pressure. The funny thing is the most popular climate misinformation arguments
+are the dumbest. Well, there's economic reasons for intelligent misinformation campaigns.
+But the arguments that hold sway or the ones that stick are the simplest ones.
+Climate scientists are in it for the money. It's cold, therefore global warming isn't real.
+You know, it's just the real basic arguments. Do you predict that there could be a rise of
+more sophisticated misinformation campaigns or do you think that they'll just remain not very
+sophisticated? I was at a misinformation conference in Singapore and it blew me away some
+other stuff. The thing that really got to me was the use of bots. Because I had this idea that
+bots were just throwing out bullshit on Twitter or whatever. Then that's sophisticated that they
+have a social structure. So you have bots that are like some bots generate the misinformation
+and then other bots amplify it. And there's actually that have a community of bots. And
+sometimes the bots, they also have these like these kind of temporal strategies where all they're
+doing is just not trying to make people believe wrong things. They're just trying to create
+more polarization and getting people in a heightened state of being pissed off at each other
+and then get them to a certain point of polarization and then they hit with the misinformation.
+That's the standard tactic it's been around. I mean, you can go back to the Second World War.
+You destabilize people's basic beliefs and then you present them with options which
+feel more tenable in the context of the time they're in. The other thing, and I think this came
+from over that side of the table, the amount of money being put into disinformation by political
+parties, large climate deniers, and I mean most of the utility companies certainly I've seen in the
+U.S. I think it's a tobacco industry, how much money they put into disinformation. And when you
+look at the amount they're putting in compared to the amount of money that's being put into good
+research, like the stuff you're doing, we're too thrilled at the magnitude different. And that
+will in the end cause a swamping kind of gear. And I think this is one of the big issues is that
+I mean, I'll use Trump. I mean, I wish Trump was a block. You find out what I'm turning him off.
+But the reality there is you've got people believing the complete bullshit because
+he comes across, and I'm not concerning that Biden, other than he comes across as being more
+personable than Joe Biden. I mean, he's a criminal. He's a cripple with those things.
+And in the end it's his messaging. It's narrative in the way he constructs things that people buy
+into. Any critical thinker, if you look at 95% of what he says, it's easy to dismiss.
+That's the other thing that worries me. I think if I come back to the investment being made,
+and the fact that most people don't think that alone, critically think, is my big fear because
+I see an awful lot of people like Lemmings from the Disney film, they're all happily marching
+towards the edge of the cliff because Jimmy Down the Road, whose arm works with Fred,
+who's the one who's in charge in government to do all this. So this is all all right.
+And that is a very difficult thing to break. It's not just climate change,
+it's across the spectrum. And we're cool. In a way, I think we've mislabeled ourselves.
+I think as hominids, we can't claim to be the sentient kind. Sometimes we're completely dumb ass.
+But I think we're in a position now where the flood of information, and there's a great book
+called The Laws of Narrative by a German author, Chinese German author, who is saying that basically
+narrative is now controlled by the tech rooms. If you look for some things, you go to Google,
+it'll give you a list of things, it thinks you want, but backed also by bias. It's still
+being to the algorithms that are already there. So already our thinking is being controlled.
+And I think you've got an issue then that when you're competing against that,
+regardless of how good the information is, and I think she's why I like your last bullet so much,
+it's at least optimistic. You're fighting the Liger-Dismissive Commission. You're fighting the
+Liger-Dismissive Commission. It's evil. You're doing the good of things.
+Well, I mean...
+Well, I mean, that's pretty fucking depressing, actually, everything you just said. But yeah,
+you've got to have a crack, don't you? And if you don't, then it'll be even worse.
+One thing is we do see, even with... Climate misinformation is one of, if not the most
+well-funded misinformation campaign in human history, billions of dollars spent by the fossil
+fuel industry. And yet when you look at public surveys, all the metrics are just gradually
+going up in terms of acceptance of climate science and climate change and support for climate
+solutions. So the scientists are winning just not as quickly as we would have liked,
+because it's the slowdown, because of the misinformation.

@@ -1,0 +1,130 @@
+Hey everyone, welcome to yet another episode of my video series on Joshua Bloch's effective Java,
+where I take all the items that he has enumerated in this book and expand on them and try and make
+sense of them. And hopefully, as I make sense of it by sharing and making this video, you do
+can follow along and try and understand what he's written in this fantastic, superlative book.
+Today, we're going to cover item four. And of course, like I've done in the previous items,
+before I get to the item, the crux of the video, I need to go through the proviso and set a few
+caveats or read out a few caveats, let's say not really reading out, but just
+following along on some some bullet points that I've listed down here. However, if you've been
+following along, you could just skip the introduction and move to the item itself. But I need to
+every single video because maybe new viewers make this proviso or record this bit, just feel
+like I have an ethical duty to do so. The first point is this is not a tutorial that is very,
+very important. I understand YouTube is just it is it's programming heaven, it's tutorial heaven,
+and you could learn anything, virtually anything of YouTube. And most programming based videos are
+sort of how to tutorials, things that we'd miss out on, let's say by not paying attention in a
+uni lecture. But this is not a tutorial. This is really, really to selfish project in many ways.
+I'm trying to make sense of this book. And I find that it's easier to expound on the matter and sort
+of think out loud. And that helps me understand. And my hope is that it's a sort of a collective
+understanding and a collective learning. In no way am I a teacher, absolutely not. And I have said
+this in the previous items, the more I'm understanding Java and OOP programming in general,
+I'm coming to the realization that I am far from being an expert. So take whatever I say with the
+grain of salt and don't treat this video like a tutorial, which means if I make mistakes,
+please point them out in the comment section down below.
+So
+I like to think of this as more of a blind leading the blind project or video series
+where I'm blind too. And it's a factor that I'm making the video. I am sort of leading whoever
+that's watching this, but I am as equally blind as you are. That's not a pun because I'm wearing
+glasses. It's just a metaphor. Think of it as a exploratory disposition. So
+the best analogy that I've been using in the previous items is what one would see in a typical
+university tutorial setting where we've got an assignment or some problem statement and all
+the students get together and try to solve it collectively. That's really what I'm trying to
+do here. And that means as I did pointed out before, I will inevitably make mistakes. And
+given that this is, I forgot to zoom into the provisor apology, so I hope we can read that.
+And given that this is a programming video, all the code that I've used, some of it is
+repurposed code from Joshua Bloch's repository itself, the stuff that he's published,
+that's in fact based on the book, all of that code and the stuff that I've written on my own
+available on GitHub. So link to that in the description below.
+Saying that, let's get to item number four, which is also from chapter two. We're still in
+chapter two, creating and destroying objects. And item number four is enforce non-instantiability
+with a private constructor. This is the shortest item in the book and it's very easy to understand.
+And it's just a page. So this video shouldn't be that
+complicated. It shouldn't be that complicated. And it should probably be quite quick if I can
+stick to brevity, which is quite difficult for me because I tend to be long-winded.
+So the first two paragraphs really is sort of an introduction into utility classes,
+classes that we see in the Java utility library. And a good one that we all probably use is the
+collections utility class. This right here, which if you scroll through it, of course,
+it's got a private constructor, but also it's got static member variables and static methods,
+because really these are the stuff that we're going to use as clients in our code.
+Just say an ancillary point before I read the paragraph from Joshua Block. It's quite
+important to understand this. In fact, using utility classes or putting all these utility
+methods in one single huge class, putting static methods in one single huge class,
+isn't a good idea. If you do a bit of googling and do a bit of research into it,
+Joshua Block himself, he says it's not always a good idea to use utility classes,
+but also I came across this really good blog post. Why can't I talk today? Well,
+I can't talk in each and every one of these videos. There's something wrong with me, but
+I came across this really good blog post by, okay, I'm going to butcher this. His name is
+Woodstech Ruzika, and I'll leave a link to that down below in the description. He wrote the post,
+the blog post in 2017, and it's well worth the read, especially because he kind of expounds and
+elucidates as to how using utility classes or let's say misusing them or abusing them could be
+sort of an anti-packing because it doesn't necessarily sit or follow OOP principles. In
+fact, I've got a little excerpt from his blog. He says here, avoid utility classes,
+that's the name of the blog post. And then he states, by the OOP principles,
+an object should contain both data and a behavior performed over that data.
+Utility classes are just behavior. All the data are passed as inputs. It is in no way
+object oriented. It is more of a procedural way of thinking. So it's, you know,
+because you keep that in mind when using utility classes, but that's sort of an ancillary point.
+And the book Joshua Block states, such utility classes were not designed to be instantiated,
+and instance would be nonsensical, of course, because really, for instance, this class in
+the collections class, all it really does is hold a whole bunch of static methods that will be
+used by a client where we'll just pass data on to the function. In the absence of explicit
+constructors, however, the compiler provides a public, parametralized default constructor.
+To use this, to a user, this constructor is indistinguishable, indistinguishable,
+from any other. It is not uncommon to see unintentionally instantiated, unintentionally
+instantiable classes in published APIs, especially in public APIs. Because, so again,
+this is a good example, because firstly, Joshua Block himself has written this,
+but it's also just something that we're all familiar with. This class here, if he didn't
+explicitly state, or whoever that wrote this code, either Joshua Block or Neil Gaffter,
+if the writer of this code didn't explicitly state that this, that explicitly put this
+private constructor, when the collections class is used by a client, the JVM or the compiler
+would think of this as being a public constructor and would instantiate this class and create an
+object in the heap memory. And that's not something we want, especially from a utility class.
+And then he continues, attempting to enforce non-instantiability by making a class abstract
+that's not work either. The class can be subclassed. So when the class is subclass,
+let's say there's abstract class A, and we don't explicitly state, well, we don't really need
+even need to put a constructor in an abstract class, but let's say we have abstract class A,
+and then B extends that class, a concrete class. The moment that happens, this is what happens.
+The class can be subclass and the subclass instantiated. So B can still instantiate
+itself, and it's a type of the parent class A. So instead of talking about it and trying to
+conceptualize it, let me show a proper example. There's a utility class here. For a moment,
+I will get rid of this private constructor. So now if this, now this class can be instantiated,
+and despite it not having any explicit code, I propose a constructor, the moment this class is
+instantiated, it has a public constructor with no args. So then I have a child class here,
+and this child class can extend the utility class. As a result of that, we have a problem,
+because this class is not going to be instantiated because of the child class. However, if we go
+back to the utility class, and if we add this private constructor explicitly, if we go back
+to the child class, it'll throw this error. The IDE will say, there is no default constructor
+available in this class. That's good, which is what we want. Well, it's not really what we want,
+because this is after all a utility class, and it isn't created to be inherited. And that's exactly
+what Joshua Block states. Furthermore, it misleads the user into thinking that class was designed
+for inheritance. We don't have to, just to prevent it from being, let's say, instantiated,
+playing all these games, making it abstract class, none of that. It's useless. It also
+misleads the client. That's what it's trying to say here, because this utility class wasn't created
+to be subclassed. So, of course, the best solution is to explicitly define a private construct as
+I have done here. And not a Bene, as we saw before, this does prevent this utility class
+from being subclassed, because it throws error there. And that's important to keep in mind,
+but generally, no one really inherits utility classes, because they just hold static methods.
+He continues, there is, however, a simple idiom to ensure non-instantiability. A default
+constructor is generated only if a class contains no explicit constructors. So, a class can be made
+non-instantiable by including a private constructor. That's exactly what we've done here. Now,
+indeed, you may wonder why line number 11? Why do we need this through a new assertion error? Why
+not just leave it like that as a private constructor? This is simply due to sometimes
+programmers making mistakes, where I'll just read it off the book and he explains it much
+clearer than I do. The assertion error, so that's right here, isn't strictly required. That's correct.
+We can just leave the constructor private and leave the body empty. But it provides insurance in case
+the constructor is accidentally invoked from within the class. So, an example for that would be here.
+This public static void main method, I'm trying to instantiate this class. What you'll see now
+is, if I run this, it will throw an error. It will throw a new assertion error right there. So,
+even from within the class, we can't instantiate that class. However, if we didn't have this
+assertion error, throw a new assertion error, that would be possible. Someone could, whoops,
+someone could do it from within the class. And unfortunately, now this class,
+it lost its non-instantial ability property. And then he continues, this idiom is mildly
+counterintuitive because the constructor is provided expressly so that it cannot be invoked.
+It is therefore wise to include a comment as shown earlier. So, that's what he's done here,
+line number nine. Oh, this is something we touched on before. As a side effect, the idiom also prevents
+the class from being subclassed. I did already demonstrate that with this example here.
+All constructors must evoke a superclass constructor explicitly or implicitly. And a subclass would
+have no accessible superclass constructor to invoke. So, when this is subclass, this child utility class
+invokes the constructor of the superclass. And if it's private, that wouldn't happen.
+That's it. It's simple as that. Fuel answer code, as I said, the shortest item. The next item, item
+number four is a very, very exciting. I'm really keen to dive deep into this, is prefer dependence
+injection to hard-wiring resources. Recently, I've been taking a

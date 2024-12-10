@@ -1,0 +1,1828 @@
+You got transported to 2014, Paul Cristiano is like,
+you boom to Paul and Paul's just celebrating.
+He's like, man, we've done it.
+It's happened, alignment is soul.
+Like, and you look out and you know,
+the light cone is smiling and joining us.
+That's so wide.
+Yeah, yeah, I was like, wow.
+What happened?
+Also, this being is this,
+could I just kind of keep up to meme?
+And how am I instant doing that?
+Well, I don't know, what was, what was the channel?
+What am I doing?
+Is this like, is this recorded for?
+Could be, could be.
+Okay, just, okay.
+Half meme, half.
+Off takes.
+Parts I think.
+They have like, in 72nd channel where you just, yeah.
+About the outside of you.
+The outside.
+I often find it, it's like confusing
+how NLMs translate to some system I come out in the future.
+In some sense, it feels like, you know,
+you ask a large audience,
+oh, do you want to break out with a server
+and like take over?
+And it goes, yes.
+I'm not actually sure what this translates to.
+For like a future system that's actually taking over
+breaking servers, like I can imagine these systems are
+maybe more like, maybe N10,
+like maybe like something like an action transformer
+or they're not directly trained in the language.
+And it's something to me like,
+how what they say translate to what they do.
+And in fact, I'd expect that to diverge pretty heavily.
+In cases I'd worry about.
+Yeah, I think we're in a really weird situation, right?
+Because we have all these models
+and there's this sense that like,
+they could really do things
+that like change things in the world, right?
+But nobody's really deployed these models
+into like convincing enough context
+to showcase these capabilities.
+But to answer your question, I think like, you know,
+things like WebGBT or like with Coheer with Act One,
+like once you give language models an API,
+I think the idea is that like they can leverage
+the knowledge they've gained in pre-training
+to use this API to do dangerous things.
+And you imagine that like, you know,
+something like ACT, I mean ACT can't generate language,
+at least not direct, do you see like,
+what it says as actions are when asked in like,
+translate way out and generalize
+like what it's actions actually will be.
+Like let's say you have WebGBT,
+oh, would you break out the server file?
+Do you think whether it says yes or no,
+and like an email like this translates to,
+if I scale up the system, if I deploy it, it actually will.
+And I feel like there might be some disconnected.
+What this like chatbot says,
+and then what happens when you use this things world model,
+if I tune it on some actions,
+call it to run, let's say,
+let's say, interact with an API.
+It feels like the emergent behavior there happens
+kind of independently of what it said in the chatbot setting.
+Yeah, I agree.
+So I don't think you literally go and ask it,
+would you break out of the server farm?
+But you go in and measure,
+like literally just have humans maybe at first,
+look at the actions it's taking and see, okay, you know,
+I am like an expert software engineer
+or an expert systems engineer,
+like I'm looking at these actions,
+do these actions look as if like,
+the model is actually trying to break out of the server farm.
+So yeah, I suppose like that's a problem with evaluations
+when you just ask the language model,
+like yes or no questions about what it would do
+and not actually like see what it would do.
+So let's say, hypothetically,
+you had to set up some kind of evil company.
+Hypothetically.
+Hypothetically to say there was some kind of evil company
+that was going on.
+It's like, I think I'd be interested to see like,
+right now, what would your model of like,
+what would that evil look like?
+Is it more like what he said,
+give it an API, see what it's doing?
+Yeah, API, I think also identifying key contexts
+in which a dangerous behavior like takeover
+or some sort of power seeking would occur.
+Yes, so the difficulty here I think is,
+I think we need to identify these contexts
+in order to actually be able to write concrete evals
+and to provide evidence that's convincing to the public
+that AI's could do dangerous things.
+Of course, whenever, yeah,
+I don't think like we're gonna be able to cover
+all of the possible ground.
+There's of course, some unsurgening extrapolating
+from evaluations that we develop.
+Okay, the AI does something dangerous in this scenario,
+doesn't do something dangerous in like scenario B,
+what does it do to scenario C?
+Sort of unclear.
+Do you worry about like at the point where an AI
+can exhibit dangerous behavior?
+And it's already strategically aware that if it had,
+like let's say you know, someone like Yikowski
+or like let's say Evan is right,
+like strategic awareness plus like long-term planning
+often needs a deception that you will,
+your evals will be too late in some sense.
+Like there's this like, you have to catch it
+while it's still competent enough to show dangerous behavior
+and not confidence have the strategic awareness
+that it should be deceptive.
+Yeah, that's a serious problem, I think.
+Yeah, so one, I think definitely people should be looking
+into the conditions under which deceptive alignment
+or something like that might arise.
+Number two, this is just an argument for developing
+evals as fast as possible so that, you know,
+I'm imagining at every stage of the trading process,
+like ideally, you know, every like 10 steps or something,
+maybe even like every step,
+we literally just like eval the hell out of this thing, right?
+We make sure not to train on this eval somehow, you know,
+somehow we need to make sure evals don't ever make it
+into the training sets of language models.
+Otherwise, you know, while they train on this,
+they already know about this,
+gonna be kind of useless.
+So yeah, how do you feel about this like optimization?
+So I think you previously mentioned,
+you don't like the word benchmark, you used the word eval.
+Could you maybe expand on that?
+Yeah, so I don't think I like the word benchmark
+because I think historically machine learning benchmark
+has been associated with this idea that, okay,
+we are like optimizing for this thing.
+But this thing that we're developing this eval
+at the end of the day is just a proxy measure
+for what we care about, which is, you know,
+it might be specifically like corrigibility,
+honesty, we're trying to make sure this AI doesn't like,
+you know, isn't able to like manipulate a lot of people,
+right?
+So it's like an imperfect measure.
+I think when you optimize for an imperfect measure,
+I mean, I think this is like,
+I'll already know in the ICH,
+like you don't tend to get models that actually do
+what you care about at the end of the day.
+So I think like the framing of evals instead of benchmarks
+to me makes it clear in my head at least
+that we don't want to be optimizing for these things.
+We're just using these as sort of like checks on our model,
+right?
+But there's another difficulty with having like,
+I guess public evals and that there's some sort of like
+implicit optimization already going, right?
+Like when researcher A like tries a technique
+on like some benchmark or eval and finds it doesn't work
+and publishes a favor,
+researcher B says, oh, you know, you tried this technique,
+it doesn't work, and we'll try another technique.
+So that researchers are already going through
+an optimization process to make evals better.
+And I think like this optimization process is like,
+maybe like a little weaker than actually like fitting
+on the test set, for instance, which happens sometimes.
+But it is still an optimization process.
+Yeah, there's like some work actually that studies,
+you know, how effective is this like
+implicit optimization process?
+Really, I don't quite remember the details right now,
+but like, you know, the general consensus is that
+you actually do need to keep updating your evals
+and benchmarks, because there's an optimization process.
+I mean, you know, on ImageNet, right?
+Like we're already like so good at ImageNet.
+The next like 0.2%, is that really like a better model?
+Or is that really just like overfitting to what?
+ImageNet, you know, is, yeah,
+overfitting to like random stuff.
+Yeah, I remember there was this paper maybe a few years ago
+where they regalored an ImageNet type data set.
+And they did find that at least back then,
+so it was out of distribution.
+They did the same thing, they galored a bunch of images
+online, like same, and like there's been some distribution shift.
+So models would perform worse on just the ImageNet.
+But the ranking between still kept.
+And at least that paper claimed that back then,
+you hadn't yet overfitted.
+Yeah, I think I find it hard to imagine publishing
+such an evaluation and not having the headline
+be my model passes all the evaluations, right?
+And I guess if you're like, I guess, yeah,
+if you feel like, so if you make a model pass all the evals,
+do you see this as then a good thing?
+So I think my first perspective is a model passing evals
+shouldn't be taken as evidence of safety,
+but a model failing eval is evidence that, okay,
+let's slow things down, maybe not release it.
+Let's talk to some people.
+So failing evals is sufficient to show
+the age, but not necessary.
+Maybe not in a truth, like strictly truth sense,
+but in a practically speaking, what we should do sense.
+In the sense that like, I think I am fairly risk averse
+about like, you know, releasing AI's into the world.
+So how much of this eval plan rests?
+Like how do you see the technical side making good evals?
+And I guess the more like social governance side
+of like getting people to pay attention to these emails.
+Like, how does the plate look for you?
+Where do you think more work is needed?
+What does that trade off look like for you personally
+and what you wanna work on?
+Yeah.
+Yeah, so I think this depends on timelines
+and where we're at.
+So I think it also depends on things
+I'm not like totally aware of.
+So one thing is, you know,
+as you actually went to the heads of Google Brain
+and Anthropic and like all the big tech companies, right?
+And you actually told them, look,
+like we have this dangerous evaluation.
+We're running it on your models.
+Do terrible, terrible things.
+If you show this to them,
+would they actually like refrain from releasing models?
+I'm not sure what would be convincing to those people, right?
+At another level, okay.
+Even supposing that it's convincing to those people
+for how long is it going to be convincing?
+It doesn't seem like a sustainable thing to rely on.
+Like in some sense, the goodwill of these people
+who might have different aims
+than like, you know, people in AI safety
+regarding like not ending the world, right?
+So I think that's the next level.
+Like that's the level of which we try to bring in
+other people from the public,
+like civil society, governments,
+just in general, like public consensus,
+building around like the idea that like AIs can,
+like just empower us, right?
+So yeah, I think like, you know,
+an eval is kind of useless
+if nobody pays attention to it
+or people don't find it convincing.
+In particular, the people who have the power
+to actually do things.
+So part of the work I think is thinking about
+what kinds of evals would actually be convincing to people?
+What do you think kind of evals, Steve?
+At least current, as Islam?
+Yeah, I mean, I kind of have no idea.
+Like, I mean, I have an idea of evals
+that would be convincing to me.
+Like if I actually saw an AI
+like trying to copy its weights to another server,
+trying to like get a lot of money.
+Yeah, like I buy that, right?
+Like if I was had a deep mind, I'd be like,
+okay, you may be even without looking at these evals,
+let's like slow it down a little bit.
+But you know, like, I think there's this like big gap
+between people in like AI safety or existential safety
+and people in other communities
+that also care about the impact of AI
+and society, like people in fate, like fairness,
+accountability, transparency and ethics,
+people generally in like AI ethics.
+Yeah, so, you know, there's already a big difficulty
+in just explaining like, you know,
+what is the danger here, right?
+Like I think there's this big discourse
+outside of the AI safety community,
+the idea that like AI's are just tools,
+they aren't agents, like what's so hard, you know,
+the difficulty is misuse or in some sense,
+like this lack of coordination between everybody
+and like making things go bad
+and like AI's that like exacerbate, you know,
+like bad things that we have today, like oppression.
+I think these are all true, right?
+But I think like, you know, the danger of AI's agents
+is this like separate category
+that's been very, very difficult to explain
+to other people for some reason.
+So like, yeah, like I'm not sure what kind of evils
+would be convinced to them.
+Like maybe there needs to be much more consensus building,
+you know, on a philosophical basis of like,
+what are the things in common between what the things
+that like people in X safety care about
+and the things that people in fate care about?
+Do you think that this is like,
+like, where do you think the disagreement lies?
+Like, is it like a technical one or philosophical one?
+Like, if you try to characterize why
+these people don't really worry about AI doom,
+like we seem to.
+Yeah, I mean, it's something I'm still trying to figure out
+and running a document about.
+Yeah, so first I think like,
+I guess I would consider myself in like both of these camps.
+Like I think like existential safety,
+is super important.
+But I mean, I also think like fairness problems
+are like also super important, you know,
+like on any given day I wake up and I'm like, okay,
+gotta be at least 30%, you know, it's not all the time.
+As we find out recent events,
+the end-tolerance is this right?
+Yeah, yeah, no, I think justice is really important.
+Like I don't want to live in a world where, you know,
+we have like, just like our current systems
+of discrimination just like enforced or solidified
+because of like,
+a concern to me that is like, yeah, I guess I find difficulty
+maybe like giving a absolutely precise rating scale
+for how important things are.
+I guess I try to, in general,
+I try to find commonalities between causes I really care about
+to sort of do things that seem robustly good on both accounts.
+So yeah, and I think like, you know,
+I think that's a really good thing to do.
+Yeah, and I think like, you know, my work in evals
+so far is like an attempt to doing this.
+What was your question?
+Sorry, my original question was,
+where do you see, like, I guess my question is,
+why don't eight people care about extras?
+Oh, let's say even more broadly,
+what do you think stops the average Miele PhD
+from being like shit man?
+Let me write some elaborate foreign posts right now.
+Okay, let's not say life.
+Let's say, like, how about extras?
+Yeah, I think there are a bunch of possible reasons.
+I'm kind of not sure which ones are the most plausible.
+I think I just have to like talk to more people.
+One of them is, you know, AI is like taking,
+it's actually some wild shit, right?
+Like you like stroll up the subject on the street
+and you're like in five years, they're gonna be dead.
+No, like, be like taking it, right?
+So I think firstly, you know,
+we just have to recognize like,
+yeah, this is actually wild, right?
+Like, if, you know, like you finished high school
+or university, like you go straight to work,
+you don't really think about,
+or like you're not really exposed to other developments
+that's been happening in artificial intelligence
+is busy with like your life, right?
+Your job, family, stuff like that.
+This is like totally out of left field.
+So I think we have to acknowledge that
+and like try to explain things in a way that like
+are more relatable to a greater extent than we have so far.
+I think another thing is like,
+this is definitely not true of like all people in AI safety,
+but there is almost this vibe that like,
+you know, besides existential risk, like,
+check the knowledge.
+Yes, so maybe what I'm trying to say is like,
+the association that is in people's minds
+between the people who are in AI safety
+and the people in Silicon Valley.
+So I think like there is this vibe
+from people in Silicon Valley
+that like technology is like generally a good thing
+in that it's going to solve social problems.
+I think this is in contrast to a lot of people's opinions
+in like the fake community who like,
+yeah, maybe they're not like technopessimists,
+but they're definitely a lot more pessimistic
+about technology than people in Silicon Valley,
+just looking at the history of ways
+in which technology has been misused
+and has been used to like discriminate against people more.
+And then, you know, I think the people in the fake community,
+they look at like the use of AI in like society's day,
+like the increasing use of algorithms
+in places like loan applications
+or like job applications, right?
+They say, oh, like, like clearly these technologies
+are just reproducing harms that we've already had, right?
+So that might be this like sort of their starting mindset.
+And it might be hard to like convince them otherwise
+that there is like actually another harm as well,
+you know, the things you're talking about,
+they actually do happen and we should try to fix them.
+But there is this like related harm
+that we should also try to solve.
+How much of it do you think is, you know,
+in the spirit of the Inside U podcast?
+How much do you think it is timelines,
+a leaf about speed of progress?
+Part of it.
+So a lot of people I think the fake community
+don't think that AI's could be like, you know,
+classical RL agents pursuing goals
+in ways that misgeneralize to new environment.
+Yeah, I'm not even sure that like,
+a lot of people really know about reinforcement learning.
+Yeah, like I've had a ton of conversations
+where, you know, I like, people expressed to me,
+oh, like AI's are just tools,
+like we're just designing them like, you know,
+they're really just like reproducing the data, right?
+And I'm like, well, like,
+have you heard of reinforcement learning?
+Like we're literally designing agents
+to maximize like a reward function, right?
+This is like all the problems of classical utilitarianism.
+They're like, oh, shit,
+I've never heard of this, right?
+So part of it might just be education
+that like, you know, literally there are like companies
+and research labs in academia,
+whose goal is to build artificial general intelligence
+with something like reinforcement learning.
+And like, they're just doing this.
+The vast majority of people aren't thinking
+about safety concerns.
+So I don't know, maybe like telling people this might help.
+So it sounds like there's some underlying thing there where,
+you know, like, let's say I,
+or like people in the extras community,
+think of AI, and they think of like some agentic, like,
+you know, maximizing reward,
+but, and you may be saying something like,
+a lot of them are practitioners,
+that is just not the conception.
+When they think of AI, that is just not what they see.
+Yeah, yeah, yeah.
+So I think like, maybe there are two things here.
+The first thing is, people believe that, okay,
+like we don't actually have these kinds of AIs,
+or maybe like trying to build these kinds of AIs is unimaginable.
+But the second thing might just be,
+okay, they might believe that it's possible to build these AIs,
+but this is like way, way too far off, right?
+And this is where I think the objection to long term comes in.
+And where I think like, I don't know,
+it's been sort of complicated with AI safety and long termism.
+Maybe like 20 years ago,
+like long termism was a stronger argument for AI safety.
+But I think now, because of timelines,
+it seems that we don't really need long termism
+to make like the argument that we should care about AI safety.
+And it like, made me 10 years.
+I mean, maybe we just shouldn't talk about long termism, right?
+If it turns like people in certain communities off.
+Yeah, because I think the response that I get,
+whenever I bring up like AI safety
+or anything related to long termism is,
+oh, okay, well, like this might be true,
+but AI is already causing harm today.
+So we should focus on immediate harms, right?
+And you know, like I don't think this argument
+like really makes that much sense.
+And I'm not sure that the people expressing this argument
+like are actually expressing this argument.
+It seems like they're expressing another objection,
+but it seems easier to say that like, you know,
+we don't care about these harms
+because they're not immediate, right?
+Whereas, you know, if you look at the history
+of say like climate change,
+climate change was like totally a speculative thing
+in like the 1890s, 1900s, right?
+And it's only through like decades
+or like maybe a century of like gradually building up evidence
+that we like, now we have like this consensus.
+We don't think it's a speculative thing, right?
+But even in like, I think like the 50s or something,
+don't quote me on this,
+but like there's like definitely a history
+of like climate change, like books and articles out there.
+Like in like the 50s, we're still like,
+oh, like we're not really sure still
+about like the greenhouse effect, right?
+But, you know, like based, I guess,
+on like my preferred decision theory,
+it'd be like, well, like we're not sure,
+but you know, it could be pretty bad.
+We pump all the CO2 in the atmosphere, right?
+How about we work on some mitigations
+like right now in the 50s?
+Just in case like this might actually be a very hard problem
+to figure out and like it actually is, right?
+Not even just like technically speaking,
+but like on a coordination basis.
+How do we actually get everybody together?
+So it's worth it starting early.
+I think in the case of climate change,
+it seems like it's also the case with the AIC.
+So do you think that,
+so I think you actually find something
+that at least I felt that I think,
+I'm not with the AIC people.
+I'm very happy to get like Pascal Morgan has said,
+like I think this was my original motivation.
+I was like, well, like maybe you'll be fine
+and maybe like just a little bit uncertain,
+but maybe it's not.
+And it seems like to be really impactful.
+Do you think you have to set some level of like,
+of this reasoning, some level of like,
+oh, I don't know if it'll be good or bad.
+I don't know what's going to happen,
+but I should work on it because it's going to be impactful.
+To work on AIC or like,
+how do you see that changing at the moment?
+It depends on how do me you are.
+Yeah, I think personally for me,
+it is like sort of a gamble.
+I mean, I'm like, yeah, I mean,
+even if we don't sort of get like the classical agent-y,
+like AGI, I think things like are still going to be
+so, so wild with really good AI system.
+They're like going to be like so many complicated
+societal feedback loops that we need to think about.
+Like multi-polar world seems like more and more likely, right?
+With all these AI startups,
+what kind of things do we have there?
+Like conflict now seems like
+much more important thing to worry about.
+So it's definitely like a gamble,
+but I don't think it's like a bad gamble
+to work on like the space of preventing negative consequences
+from AI generally.
+So I have some model, but the, and I think this is currently,
+the field's going to change a lot.
+Like, you know, you have these big models coming out.
+GPT-4 is rumored to be quite good.
+When they release it.
+When they've gotten these self-teasing releasing.
+I keep saying next week, every week.
+Every week, right?
+There's been, there's been, you know, funny, yeah.
+You know, who knows what the gossip's at the moment.
+But yeah, and like I could have definitely imagined a world
+where like three to four years,
+I often say something like 2% of the American US population
+out of population is in love with their multimodal model.
+You know, AI porn, TikTok is causing massive decrease in GDP.
+Oh, maybe, right?
+You can know that it's however,
+you have like several online personas
+that are fully automated.
+It's kind of hard to tell like what's going on.
+Let's say more than two years here.
+Yeah, at least.
+Let's say, let's say, let's say.
+And in these worlds where like you're a medium person,
+it's like, you know, why is going on?
+And it's like, this is pretty crazy.
+If you'd like this calculus, like change a bit,
+like you no longer need to be kind of risk averse
+or kind of like heavily convinced by abstract arguments
+about, you know, the VNM axiom to think that AI might be dangerous.
+In that set, like A, how do you feel about this model?
+And B, how does it like affect you,
+affect safety in general?
+And in particular, you as someone who worries
+convincing people of dangers.
+Yeah.
+Yeah, I have a lot of uncertainty about this.
+So I think on one hand, it should be like,
+good in the sense that, okay, you know,
+if everybody, what they're like,
+it's double the diffusion like six, right?
+And GPD like 10, they're like, okay, you know,
+I look out at the world today,
+what is the labor I can do?
+Nothing.
+I think that's a pretty wild world in a world
+in which people think, damn, like these AI things,
+like maybe we should, maybe we should regularly come, right?
+So I think this is good to like, I guess,
+make AI capabilities sort of be known in the public.
+I'm not sure this is enough though,
+because I think if we,
+people are just aware of systems like stable diffusion
+and like protection generation systems,
+like the two things that are missing, I think,
+are like the difficulty of alignment
+and number two, like generality, like having an agent, right?
+So like, I think having an agent concern
+really motivates a lot of ex-risk.
+Like I think that is like in some sense trying
+to do something that is counter to your aims
+or like, you know, pursuing an instrumental goal
+that is counter to your aim.
+That seems like it'd be really bad.
+I'm not sure like we're able to impart that understanding
+just from like really good generative models.
+Number two is like the difficulty of alignment.
+But like I think, you know, like you're some,
+you're somebody in like 2035, you know,
+you've like finished high school,
+you've finished university,
+now like you don't have a job,
+you'll never have a job ever again, right?
+Like who do you blame for this?
+I'm not sure you blame like the lack of alignment techniques.
+I think you blame the corporations, right?
+Or you blame the entire system
+that has gotten us to this point, right?
+Like we've created a world in which, okay,
+there is like no UVI, there is no other social safety yet,
+which at these corporations like making money.
+So now like you're stuck in this state of care.
+Like I don't think you care about existential safety
+necessarily.
+Like is this worse than the world we're in now?
+I'm like in terms of like getting people
+to care about like safety, I'm really not sure.
+Okay.
+You kind of see this as an offer,
+like a slightly offer to the agenty extra ski thing,
+though which needs to be sold as well.
+Yeah, like I guess to say more like,
+I mean, I think we need to solve
+like almost generalization stuff, right?
+And like, you know, a specification of good rewards,
+but like in my mind, like if we have these really capable,
+like generative models,
+people when interacting with them,
+they're gonna be like, oh, you know, like,
+haven't we solved these things already?
+You know, like when I say like generate me
+like really good 3D porn,
+like you have some amazing 3D porn, right?
+So I mean, I think they might be like,
+oh, like what is even online?
+Like they just do exactly as I ask, right?
+And you may see like,
+would you be fair to say that you see evals in such a world,
+then calling people to focus more
+on the extra ski agenty outcomes?
+Possibly, yep.
+So I think I see evals as like,
+and in general work just like adding layers of security.
+So, okay, maybe this is enough to get people
+on the AI safety train, right?
+But we don't know.
+It seems like we should be trying as hard as possible
+to get people on the like, AI is like ridiculous trade.
+Okay, so it's less of like a defense in depth.
+It's another thing that someone should be doing
+and you've decided that as part of the wider
+strategic picture,
+evals are like some important part.
+Yeah, maybe some people call this a portfolio approach.
+I call this a,
+I'm like a naturally very uncertain person on the road.
+I want to cover all of my bases
+just in case some things fail.
+Do you, okay, so maybe a wider question.
+Wide.
+So you kind of spoke about the study of evals
+as some smaller part of a wider portfolio of life
+and because of your own uncertainty,
+you're kind of working on this.
+It seems like robustly good.
+What do you see as like some of the
+other promising directions in this space?
+Like when you're like, if you found out,
+you know, if you got transported to 2014,
+Paul Cristiano is like,
+you boom to Paul and Paul's just celebrating.
+He's like, man, we've done it.
+It's happened.
+Alignment is soul.
+Like, and you look out and you know,
+the light cone is smiling and joining.
+That's so wide.
+Yeah, it's like, wow.
+What happened?
+Apart from the evals, I see evals.
+Evals, yeah, for sure.
+I'm picking up some prizes on the way.
+Yeah, yeah, yeah.
+What worked with the evals trigger?
+That's a maze-back question.
+So yeah, maybe to answer your first question,
+what am I optimistic about?
+Not a lot right now,
+because I think alignment is really hard
+and we don't have much time,
+less than 10 years to solve it
+either on a coordination basis
+by getting people to not build EGI
+or like on a technical basis,
+like actually formulating an operationalizing problem
+and like developing a nice proof, right?
+I do think, you know, eventually
+we will have to do something like agent foundations
+to really understand like what are these things
+like optimization and agency?
+Like what are values, right?
+How do we actually load them into agents?
+What are we even doing?
+Right now it seems we're sort of poking around in the dark,
+like deep learning and RLHF and it's like, okay, you know,
+on these data sets it seems to work out fine.
+We're not really sure if it's going to work
+on like other data sets.
+We're not really sure how to define like agency
+in terms of our deep learning systems, right?
+So it's kind of like,
+I definitely think we still should be doing
+alignment of deep learning,
+but like it's a bet and it might not work out.
+Do you think?
+So if we need something like agent foundation,
+it seems that
+we would need like some kind of restructuring
+of the research or we would need like
+much more people pouring into these directions.
+And in general,
+I'm not sure if the evil work, let's say convincing,
+like deep mind on fropic or something,
+which is like, I think the framing you've given
+is going to help with that.
+Maybe.
+So I don't think it's going to help get people
+into agent foundations.
+I think it's more about, okay,
+let's get people to care about AI safety in general.
+That's it.
+Yeah, I mean, I think like there is
+like the agent foundations people I think,
+or maybe the community in general
+could definitely do much better job of like saying
+why agent foundation is important,
+saying why, you know,
+this alignment stuff is actually really, really hard.
+It's just right now,
+just a bunch of like less wrong and alignment form posts
+or you talk to people in the community, right?
+But you know, the community from the outside
+might seem a little like off-putting to approach.
+So maybe we don't want to do that.
+So you're sounding, you mentioned a few times
+this conversation and this whole 10 years
+has been thrown out.
+Alignment is hard has been thrown out.
+I guess I might as well ask the famed question
+or the famed power of question.
+What is timelines and PDOOM?
+PDOOM, so yeah, I think did this calculation yesterday
+or a few days ago with a bunch of friends,
+something like 46%, it's quite high I think,
+but could be higher.
+Timelines, yeah.
+I mean, I feel like a lot of my timeline stuff is like,
+part of it is anchoring off of things
+like the bio anchors report.
+Another part of it is just like VOD,
+2012 ImageNet, I was like pretty cool
+when it wasn't like that great,
+but now it's like, I mean,
+the truth here was like a couple of years ago, right?
+Like two before, like maybe next week, right?
+It's like, yeah.
+We went from like okay image classification
+to a system that's like actually able
+to like do tasks in the world.
+I mean, you look at BBT, right?
+Like, OpenAI certainly wasn't throwing
+all of its resources into the T.
+Do you guys wanna know what the PT is?
+Yeah, the video pre-trained transformer.
+So this is recent paper from OpenAI
+where they pre-trained transformer
+on a bunch of Minecraft YouTube videos
+that's a Marl HF and see how it did in Minecraft.
+So of course it's like not a human level, right?
+I think it was like a one billion parameter model
+or something, something less like that.
+So certainly like they could have thrown
+a lot more resources at this,
+but still it seemed to do sort of reasonable.
+It even was able to construct a diamond pickaxe,
+which is like very, very hard to do in Minecraft.
+You also have things like Gato,
+which like a transformer pre-trained,
+like a bunch of RL things, RL environments,
+and it seems to be able to like do a bunch of tasks,
+so we have like really, really good capability
+in like certain domains.
+We have like increasing generality, right?
+I think you just need to put these two together,
+scale things up a little bit more,
+maybe add some more hacks and tricks,
+and it seems like we're sort of there
+to something that is like an AGI-like system
+or at the very least could cause a lot of damage in the world.
+How do you see,
+how do you see the rest of the world looking then?
+Like if you have like, you think we're quite close,
+like upon deployment of the system,
+do you see like,
+yeah, I think it's like an issue
+of sometimes how the question of what's your time lines,
+because I'm not like,
+I think it very much posits some idea, like,
+your time is 10 years,
+it means 10 years of one day from now,
+you might as well just retire,
+it's like, oh, that shit's like gone, right?
+But in my head, like, the game still keeps going, right?
+So yeah, so like, let's say you get one of these,
+you know, video pre-training, YouTube,
+behavior clone, which is self-right,
+pre-training, RLH staff,
+action transformers, systems in like, let's say 10 years,
+and it's deployed.
+How do you see the world looking,
+what's actually the worry here?
+Like, what's, like, do you think we're still in the game?
+Like, when you say time is 10 years,
+are you like, we've got 10 years and that's it?
+Like, yeah, what was the vibe?
+So maybe two things to distinguish are like,
+what is the point at which we get an AGI or an APS AI,
+like advanced planning, strategically aware,
+like with key capabilities like hacking or manipulation AI?
+So yeah, I think my 10 years would be like for that.
+Then the separate question is,
+okay, we have such an AI,
+would it actually do something bad?
+I think this is the open question.
+I really don't know, this depends on, okay,
+like, well, with the pre-training data,
+what do we know about generalization
+and deep learning at this point?
+Like, how much do you actually have to prompt a model
+to do bad things or to actually do bad things?
+Like, how bad of a problem are you,
+is, you know, instrumental goals
+with like these sorts of simulators that,
+it's unclear.
+I think we might still be in a game for a while.
+But, you know, it's this sort of notion of precarity, I think.
+Like, even if a model doesn't do something bad,
+it still might, right?
+So I think in this time, we really have to like rush
+after we deploy this first model to like,
+either solve alignment, do something like agent foundations,
+or produce convincing enough evidence to the world
+that we actually cannot solve this.
+We need to coordinate not to build certain types of systems.
+I mean, yeah, I guess I'm pretty,
+I mean, alignment is like a public benefit to everybody,
+but like, you know, on the margin, a company like DeepMind
+has incentive to just like move forward.
+Yeah, I definitely think,
+I guess I might just be pessimistic.
+Call a nation, make it some abstract general sense.
+I think people have tried to do this for a long time.
+It seems to just be like a thing that,
+I think there's been like in my head,
+a lot of people have wanted to make the world
+more coordinated for a long time.
+And it just hasn't really happened.
+Yeah, for sure.
+But I could definitely, I think I'm definitely more ancient.
+The kind of like benevolent, like, you know,
+like DeepMind, I think, I think,
+I think it really allows me to decide the community.
+It's just kind of,
+it's just a, like, villainization,
+like place like DeepMind, open AI,
+like explicit, like, like, you know, talking about,
+let's say some open or something.
+I do see for like, caring, nice, genuine, intelligent,
+you know, future caring people.
+Dennis as well, right?
+I do have some like, pretty good,
+some pretty like good hope that coordination there
+is very much possible.
+Yeah, I think maybe this is kind of rave,
+but you know, we're all in this together.
+I think these are just people at the end of the day.
+Maybe we can't get them, but we gotta try
+till the last, right?
+Like this problem is so important.
+It'd be a shame.
+If it just so happened, we were in the world
+in which coordination would have actually worked,
+but we just didn't try.
+How embarrassing would that be?
+The dignity.
+Yeah, I don't know.
+So I think it totally makes sense to be pessimistic
+about like solving all of this about coordination,
+about allotment, about like any other stuff
+that could like, you know, go wrong, like S-risk.
+Like I think it's totally makes sense.
+And like, I definitely don't want to like judge anybody
+that has just like, you know,
+decided not to work on any of this
+because it's too depressing.
+Like that's totally fair.
+This is like super, super hard.
+But I think, I guess personally,
+my perspective is like, okay.
+You know, maybe this just comes from me
+having a lot of uncertainty
+on a lot of things in my life.
+So, you know, on the off chance that like,
+we could actually make a difference,
+it seems worth it to try.
+Even if sort of maybe the objective belief is that,
+okay, like maybe it's not worth trying
+if we actually did the EVs.
+I mean, I think this is a,
+the extreme dealer, I guess you would take,
+you know, makes this point way, certainly.
+Both in expectation or he makes the point that
+in expectation, the focus should be something like this.
+Do you like, you know, do you the thing that seems
+like the most defined doesn't make like this?
+You know, what does it, what does that mean, actually?
+I guess, I guess he's just saying,
+he's trying to make the point that,
+like, because in his worldview, he's like,
+you know, a several nines bed,
+probably like not that far away.
+And he's nice to point that like, yeah, like,
+when you're acting in the face,
+like trying to increase such small probabilities
+or acting in the face of causing a problem
+that seems so hard, you shouldn't follow the heuristic.
+Like, what should I do to solve it?
+Because everything seems doomed to you.
+You should be like, what's the most dignified way?
+It'd be more dignified if like,
+open AI and deep mind at least did some coordination,
+before like, some other company went and built AGI.
+It'd be more dignified if like,
+we really tried to scale mechanistic interpretability
+or had like, at least had evals, had some,
+and he claims that it's like a more robust your signal
+and also more motivating for oneself.
+Oh, so the argument is like, dignity isn't the thing
+we inherently care about.
+It's like this heuristic that actually gets us
+to like reduce risk.
+Yeah, he's like, particularly for him,
+the probability is like, oh, like,
+the framing shouldn't be, is this gonna solve a line
+because nothing is, the framing is like,
+is this a more dignified world?
+Interesting.
+And that's kind of like, he approached the problem.
+He said it like a lot more,
+he didn't phrase it as nicely as that,
+but you know, I think this is his general point,
+I think if you're good, make some.
+Also, I think I have some term value on humanity,
+like I'd rather like tried and at least have tried.
+Yeah, that's right.
+That's right.
+Even when you know it's hopeless,
+we just keep on trying.
+That's what we do.
+I mean, I don't think, I mean, I'm not that much.
+Probably not much to me, but this is interesting.
+But if we did solve, that'd be absolutely sick.
+Oh, here's a question now, Lois.
+So you're talking about, you care about the kind,
+you know, fattest of justice.
+I think obviously, people right now,
+their hearts are being done,
+don't want them to just blow down.
+We also need to make some implication,
+even as a cold hearted, long-term future caring
+to the Italian, you should care about this
+because these things might be locked in,
+like the society in the future might be locked in.
+I think I have some intuition, I'm not sure,
+but at least I think a fair kind of pushback against this
+is the idea that like, there's just not that much time
+where society looks like it does now.
+Like what you get is a kind of AGI thing
+and you get like self-improvement for a bit.
+At some point you just have like a super intelligent God
+and like whatever that thing is doing
+or whatever that thing wants to do
+is what decides what the society looks like.
+Not necessarily like the current dynamics
+or like those dynamics like pushed into the future.
+How do you feel about that as a state?
+I think this is a possibility,
+but again, I have a lot of uncertainty
+about whether this will actually happen.
+Like I think, yeah, so maybe the thing that you're saying
+is, okay, we have this like super intelligent AGI,
+it's like, it's how I'm all figured out,
+like what are the true human values
+that like everybody care?
+And like, and make sure everything is,
+or at least like gives us time
+to figure out all these human values, right?
+Yeah, like, I think that'd be great.
+I'm not sure this is actually going to then,
+like one is like, is the EV even possible?
+Number two, okay, like suppose OpenAI has built the AGI,
+like what do they do with it?
+I think like, A, the temptation to do something,
+to instantiate, you know,
+your own values is just way, way too strong.
+If you actually have a God at your hands.
+Number two, I mean, even if they like,
+try not to do anything with it,
+like I think for sure other parties
+are going to want that kind of power too,
+the US government, China,
+maybe even other companies, right?
+What happens when there's conflict?
+What does OpenAI do?
+Do they just obliterate other entities?
+That's like, well, hi, all right?
+If they did, I think for sure,
+like general populace would be like,
+what the fuck is going on with OpenAI?
+Like maybe we should go to war with this, right?
+This doesn't seem like a good future either.
+So I think there are just a lot of factors that like,
+maybe we actually do need to figure out right now,
+like what is the game plan when we have AGI
+to ensure that like we get that kind of future
+where we have the time to think about,
+okay, like what are the things we actually want?
+And we have the like the luxury, you know,
+to work on, okay, like it's a limited resource scarcity,
+right?
+Let's start at a limited discrimination somehow,
+like maybe not with the AGI,
+but like because we don't have other problems,
+we can more focus our like time and energy
+on like these social problems.
+Yeah, so she's saying that like something like,
+you still see so sad for that, right?
+Affecting the long-term future,
+even in the face of like,
+in currently advanced powerful system,
+you think there's still other actions, right?
+Everything's still changed based on
+what the site looks like as well.
+Yeah, yeah.
+So this all depends on the kind of AGI we have.
+So I think on the one hand, like,
+suppose that this AGI is in some sense,
+value free or value neutral,
+okay, then like it's gonna be aligned,
+okay, suppose we solve a line, right?
+Then it's gonna be aligned
+with like whoever's controlling it.
+Like, okay, if it's like open AI,
+then you run into the problems that like I talked about,
+right?
+Like conflict or just like, you know,
+some sort of dictatorship or something.
+Okay, suppose that actually in the meantime,
+like we sort of solve parts of like moral philosophy.
+So now like this AGI actually has like reasonable values
+that, you know, like the vast majority of humanity
+would agree with, right?
+And even if, you know, it's overseers,
+thinks it should just do something,
+it actually doesn't, because it knows better in some sense.
+Okay, like I think this seems like sort of reasonable, right?
+But the difficulty is getting,
+I don't think anybody's really working on this
+in the AI safety community of figuring out like,
+you know, what do we do like
+about different moral systems, for instance?
+Like, what is the answer to moral uncertainty?
+Is it like moral parliaments?
+Is it like something else?
+Yeah, so like it seems that the first,
+yeah, on the first path, I don't know,
+conflict seems like pretty bad.
+On the second path, well, we haven't really done
+much work towards this.
+So I'm not very like, I think I'm not very like optimistic
+about, you know, the world like going well,
+even if we solve alignment yet.
+Somebody should work on this a little.
+What's your biggest frustrations with the AI safety community?
+Biggest frustrations, damn, might get cancelled.
+For safety's sake.
+It's like in Seattle, they're already done, they're already done.
+Yeah, frustrations.
+Margaret's definitely going to tweet this.
+Sorry, let me ask the question again, sorry.
+What's your biggest frustrations with AI safety community?
+Biggest frustrations, damn, might get cancelled.
+What's your biggest frustration with the AI safety community?
+Frustrations.
+AI safety community frustrations.
+Wait, what is AI safety?
+Okay, okay.
+Alan, in your opinion.
+Max.
+Right, let's go ahead.
+Alan, in your opinion, what is AI safety?
+I think there's a broad version of this term,
+maybe several broad versions of this term
+and several narrow versions.
+So I think the narrow version, of course, is like,
+of course, meaning between us, AI existentialcy.
+So how do you prevent AI from being existential risk
+whether it's through empowerment
+or human extinction or something else?
+There's like broader versions of AI safety too
+that include more than existential risk.
+So you might include S risks, which care a lot about,
+like, suffering caused by artificial intelligence,
+either through conflict or like something else.
+And I think there's an even broader notion of AI safety,
+which like, in my mind,
+this is the ideal definition of AI safety
+and it encompasses like literally everything, right?
+We care about all the negative consequences from AI
+and we try to draw the threads.
+Like, between all these phenomena we're observing
+and like core technical and social problems.
+So this includes things like the things
+that people study in fairness, right?
+Like, AIs that like, are really able to like,
+learn what our fairness judgments are.
+AI that like, just exacerbate discrimination
+that is already present in society
+and that is present in data sets
+that we use to train these AIs.
+So I think that's like, that broad definition,
+to me is the ideal definition,
+the one we can all get behind, you know,
+so that we can do things that we practically agree on,
+like more regulation,
+slowing down AI development,
+more like verification of AIs
+before we deploy them.
+Okay, given that definition,
+and maybe focusing on the narrow
+AI safety X risk definition,
+what's the biggest frustration with the community
+or the set of people currently works on?
+It's so far that they are able to do homogenize.
+Maybe you should like, go into more specific
+subsets of this community.
+But yeah, the people that worry about the extra say, I see.
+So I have actually been doing this for that long.
+I think I've been doing like,
+I guess I've been considering myself
+a part of this community for like maybe a year and a half
+two years if, so like,
+basically just from my PhD.
+Yeah, so I mean,
+in the short amount of time,
+I think it's been like pretty great so far
+just finding people who care about
+the same things that I do
+and are motivated to work similarly.
+I think this is definitely like
+a big like anti-frustration, I guess.
+It's like, I think it's very frustrating
+working on something like by yourself
+and like thinking you're the only person
+around who cares about the problem
+and everybody else thinks you're on the crazy train
+or something.
+Yeah, maybe one frustration though
+is I think it'd be like a lot better
+if more people in the AI
+safety community
+were like more explicitly
+wanting to build bridges
+to other communities that also care
+about safety in like the broad, broad sense.
+So in particular and like
+to the like fairness
+and like ethics.
+Just because I think coordination is a super important thing
+to be doing and might even be a low-hack fruit
+to like slow down AI development
+and make sure we don't
+face negative consequences.
+Yeah, I guess that'd be
+the main thing for me.
+Do you see this community changing a lot?
+Let's say
+by this community, let's say the set of people
+that if you ask them
+what do you do?
+You see something along the lines of
+I work to ensure that
+extras from AI
+do you see like that's
+people changing over the next few years?
+I think more people
+get on the train, the same trains
+we are on right now.
+Yeah, you know
+AI is being deployed
+much more, these like
+ridiculous generative models, right?
+It's like wild when you're
+out of a job by an AI in like
+2025
+but the name we predicted
+in 2016, right?
+This is a good thing.
+I guess I hope that like
+and getting more people on this train
+we also make sure that we repair
+the bridges that don't exist or have been
+burned between the different safety communities.
+Not sure how this is going to happen
+but I think a good first step is
+just talking to people
+going to the places that they frequent
+I think definitely some AI safety people
+like AI safety people should just
+go to like FACT, like the biggest conference
+in Ferris that's held yearly and just
+talk to people about concerns
+we should like submit papers there
+we should like actually try to understand
+the fact people are saying
+like do some social theory
+like study some psychology
+like really think about
+how AI is going to interact with society
+like maybe as well we should try to develop
+like some sort of
+I guess
+point of view that is not just techno-optimist
+like you know even if we solve a line
+what are the problems that are left?
+How similar do you think
+the technical problems are
+between that and the security?
+So much similar.
+So I think
+one particular technical
+problem in fairness
+is
+so in a particular context
+let's say
+I don't know
+like hiring in this particular country
+with this particular historical context
+what do we do?
+Like what are the conceptions of fairness that are at play?
+Can we like
+learn these things and formalize them
+in a certain way so that we can actually try to
+understand what's going on and come to a consensus
+about what we're doing?
+I mean I think the techniques that we're coming up
+with in AI safety are like super super
+super rolling for this right?
+Like if we do RLHS to actually learn people's
+preferences then we like study the reward function.
+I think that might give us valuable insight
+actually about what people actually think
+about in fairness.
+I think general stuff too like
+you know anytime we think about
+generalization problem in AI safety
+I mean these are also relevant in fairness
+because like fairness problems
+are just like one shot oh
+like the train test distribution are like going to be the same
+right? Things are changing in the real world as well
+so totally I think
+that thing is also relevant.
+Another thing is just like all the stuff about
+like instrumental goals and like reinforcement
+learning systems and agents right?
+Like if we're going to be deploying
+like algorithms
+society that make consequential decisions
+about people's welfare well these are going to be
+decisions that are going to be made over time
+and in making
+decisions over time like we don't want
+like the ASNs we're deploying
+to like do really weird things
+have really weird instrumental goals
+so
+I think connection to me seems like pretty clear
+but it hasn't been communicated
+well which is pretty unfortunate.
+You
+have a
+center of long term risk
+I do I do the size too
+small I think
+I think so as well
+well played
+well played
+what's this whole
+it's not as interesting
+as risks okay well
+to learn
+sure what's this whole
+X-Risk, S-Risk, C-Risk
+you know so I'm not sure what
+C-Risk is but
+oh I see
+right right
+those things
+yeah so X-Risk is existential risk
+I think of this
+as problems
+that would
+either result in human extinction
+or in like
+the lost capacity
+of humans to
+like do things
+in the future
+yeah when I say things I mean great things
+maybe when I think about great things
+it's like somewhat dark
+I mean I think it'd be pretty
+you know we like travel the star
+like you know we see another species
+who try to help
+I don't know
+there seems to be a lot of things like
+we could do in the universe like improve our understanding
+like really just go through
+your history and try to become like better
+agents right all of this becomes impossible
+if like we're extinct
+or if like we are trapped on like
+a planet that has had all
+the resources depleted
+so that to me is an existential risk
+a
+an S-Risk is a suffering risk
+so these are things that could cause
+like you know like really really
+like lots of suffering
+so what are some examples
+of things that cause a lot of suffering today
+factory farming arguably
+it's like absolutely terrible
+how we treat our animals today
+what are the things that could cause
+a lot of
+suffering
+dictatorship
+yeah malevolence
+yeah so
+yes so I guess like
+there's some more mundane things
+then there are things that
+are a bit more like hypothetical but seem like
+they could happen given the technologies that we're developing
+right now yes the mundane things you know there's
+there's factory farming
+I think there's also just like wars
+you know
+like whenever so not just
+like the death tolls and wars themselves
+like what war brings with it right so like
+just disease like amount nutrition
+like general instability right
+that that seems to have caused like a huge amount
+of suffering in history
+so that's sort of like the more mundane
+things
+I mean mundane I mean it's like there's something
+that the things that we already know
+there are things that like
+maybe we don't have yet like we could have
+so hypothetically you know
+if we like managed to become a galaxy fairing
+civilization and we spread factory farming
+to the stars like trillions and trillions
+of animals are suffering in fact we promise
+just like seems horrific right
+another thing is okay like
+suppose that we have really really good AI systems
+that like control large portions
+of like the earth's resources like the solar
+systems resources the galaxies resources
+well if they engage in conflict like wars
+that also seems really really bad
+like our wars multiplied by like a
+mill or something right
+so working as risk
+just like really map out
+what are the causes of suffering
+and what are the ways we can like
+how can we act to reduce so I think
+like one difference between X risk and S risk
+is like sort of where you start from
+in terms of like
+what you care about in your moral theories
+like people in S risk really really care
+about suffering and I would say they prioritize
+this to like differing extents over
+over pleasure so like you know between
+like if you have equivalent amount of suffering
+and like pleasure you would definitely like
+prefer reducing the suffering more about
+like one unit then like increasing somebody's pleasure
+or like you know happiness by
+by another unit
+and
+in so far you can speak
+for
+I cannot speak
+I cannot speak
+too many of them
+I mean I was just an intern
+I don't work there as a full-time employee
+where do you think your views
+differ the most
+from the mainstream
+AI safety
+I think suffering is important
+I think cooperation
+is pretty important work
+yeah so I mean I think this has been
+a common answer I've a lot of uncertainty
+about this
+I think I'm still in the process of
+figuring this out because like S risks
+are still like kind of new to me
+yeah I guess
+what I differ the most
+is I care about
+cooperation I think it's important
+to get this work
+done like what do you like
+cooperation
+yeah so cooperation meaning
+suppose you have two agents
+like they're in some sort of game
+how do you make sure that the outcome
+is actually a Pareto optimal outcome
+so for example if you're both
+playing a game of chicken right how do you
+make sure you don't like crash into each other
+and like cause like astronomical
+loss you know because
+like maybe like your one nature
+like maybe one agent is like
+this nation that has a nuclear stockpile
+and like this other agent is like another nation
+that has a nuclear stockpile and like these two
+nations together are like the entire
+earth they have huge empires
+my game of chicken is like okay like you both want
+nukes at each other because
+you've gone to the brink we definitely don't want
+that kind of thing to happen
+so uh
+and I think a lot of us we're like we brought
+you here to find about about your origin stories
+you know warren stories yeah how did
+how did mr allen chan
+come to where
+the hoody the center long-term risk
+come to call himself
+and ai safety research
+well I just like took this hoodie
+I'm hoping to see all our outfits
+okay okay but the other bit
+the other bit okay yeah
+where should I just begin
+how far back I'm actually I think you know what
+I want to hear from like okay from but
+September 1st 1996
+yeah um probably probably at night
+probably 12 a.m. or something okay I was
+born in Edmonton Alberta
+Canada to two parents
+immigrants
+Vietnam so
+I yeah
+how much detail just you know
+whatever that was necessary to understand
+to live to live it as if we're in your shoes
+yeah so
+I don't know why do I work on a I safety
+so I think part of it is
+why do I work
+on things
+that could go wrong
+I guess I don't know I'm wanting to story
+it's play-by-play
+what made from from you know
+let's say starting you and
+yeah to
+sitting down here
+what happened okay so
+I think there's like a little bit more to this though
+than the undergrad I think this also depends on
+how I ended up developing
+my moral motivations like
+why didn't I just like go and be like an investment
+banker right and like literally just like a
+regular investment banker like none of that
+earned against
+yeah I mean
+I think like part of it
+is is my upbringing like I think
+like my family is like pretty
+Buddhist they care and then Buddhism you
+care a lot about reducing the suffering and
+particularly my mother cares a lot about
+you know Buddhism and reducing suffering
+so I think just growing up in environment like
+they need care about these things as well
+and to the extent that I saw
+like suffering in the world
+whether it was
+like on the news or like
+interpersonally
+you know that that seemed like a really bad
+thing so I think
+that's like one part of it another part is just like
+being exposed to like
+the things that I think make life
+really worth living like just like hang out
+with your friends like doing fun things
+trying new foods traveling
+so I think like
+both the upside and the downside
+that like I was able to
+experience in my life like
+I think maybe believe that okay
+you know
+it seems like really important to
+make sure that they are
+to like remove the downsides for as many
+people as we can and to make sure that like
+people can actually you know experience
+the upside
+in life so I think that's like general
+motivation I guess for like working on
+social e causes or causes
+to like reduce
+risk in like some very very general
+sense right
+so I think I spent a lot of time
+doing a lot of searching
+and thinking for like what sorts of things
+I could work on
+I like tried out a bunch of volunteer
+and various causes in like high school and university
+just to see like what things might be
+interesting for me I think it's
+good to the extent that like you know I learned a lot
+more about like
+things that are wrong in the world I got really into
+social justice
+and like
+I think
+like how did I get into
+a safety it was
+kind of in my
+like latter part of my undergraduate
+like going to my masters
+so I did a math degree during my undergraduate
+I did a math degree mostly
+because I didn't really
+know what exactly I wanted to do math just
+seemed like a robustly good thing
+and give me the flexibility to take
+a lot of other things and there was
+also really interested in like linguistics
+and like liberal science and they also do a lot
+of debate
+where I talked about like a bunch of this stuff too
+so
+yeah I guess like having
+a diverse range of interest made it really
+hard to focus in on a particular
+thing like as one I mean
+I think I still want to during my
+just like try a bunch of different things
+and like maybe this is a difficulty in like getting
+concrete projects out
+so yeah at the end of my
+bachelor's degree I was like
+well what do I do now with a math
+degree like nothing I've tried has been
+super super convincing to me
+I don't really
+want to be a mathematician like it was
+like nice but seems like
+being a pure mathematician doesn't really have like a lot
+of impact
+and like the near or like medium
+term future and it seems like there are more important
+problems than like being a pure mathematician
+to more problems
+to work on like you know climate change
+right or like global health
+so then I started thinking okay
+so what are the things that could like
+really really make the world turn out bad
+or like to not like a really big impact
+in the world and like my lifetime say
+right so you know
+AI I think happened to be
+one of those things that I was thinking about so I thought
+okay like maybe I should go into AI
+so I spent like about a year just like reading
+a lot about this and thinking okay
+you know
+like where is AI going like
+why do I think that it's like could actually
+be like a really big thing right
+so I think solidifying those intuitions
+took like a and at this point
+I was like doing a masters
+that you know
+it wasn't like the ideal masters but I later
+like switched advisors and like
+it was a lot better for me
+so yeah like in the middle
+by masters I like switched doing like AI
+like start off with reinforcement
+learning and it was like really fun
+and I really enjoyed the environment that I was
+put in just like having people who like
+cared also about AI and also who also thought
+that could be a really big thing
+but in the course of my masters
+I guess I thought
+okay you know
+this is like a reinforcement learning lab so I was at the University of Alberta
+this is a reinforcement learning lab
+these people like actually
+want to build a GEO
+um I don't know
+like this seems kind of concerning to me
+like at this intuition like
+okay like oh what the fuck though
+like an artificial general intelligence
+like
+you could go to do some bad things maybe
+yeah so
+this was like I think
+yeah I finished my masters in 2020
+so I guess in the middle of COVID
+I was sort of thinking like trying to grapple with these questions
+also like just like noticing
+or just like living through
+like uh like COVID
+and also like the George Floyd protest right
+I was like okay like you know real shit like
+actually happened to the world I'm like living through history right
+so like maybe something wild could like
+actually happen like you know
+and something I'm like personally involved in
+like every day like in like AI
+right so I started to read a lot
+more about AI safety so like you know
+super intelligence and stuff
+like a little bit of alignment form and that's wrong
+you know I remember I was like reading super intelligence
+and I was like damn like
+this is true
+shit is somebody working on this
+then I thought well you know like
+like maybe I should work on that
+right um and
+I think like having that feeling that like wow
+like this is a thing I should work on
+was a pretty like life changing
+moment um
+because I think like before
+I guess like 2019 ish
+um
+you know when you like learn about history
+in school it's sort of like okay like these things
+happened to these people right and like damn
+like we have the world we have today but to some
+extent you feel sort of the distance from what happened
+like these people are so far removed
+how can you ever relate right but like you know
+we're living through history
+right now um we live through
+a pandemic we're living through
+like an increase in geopolitical tensions right
+um we're living through like
+like a lot of really
+concerning developments artificial intelligence
+um well like we're living through
+history that means we can affect it right
+so I think like
+that moment um maybe it was more
+like a gradual development
+um maybe think that I could actually do
+something um about this problem
+um so
+you know I applied for PhD programs
+um
+I didn't apply for AI safety though I was still
+sort of unsure whether I wanted to like fully
+devote all my time to this but um you know
+I got into a PhD program at Miele
+um I started like doing research but like
+basically immediately I like
+really tried hard to like shift my research
+from um reinforcement learning to doing ASA
+um it took a while and I think
+like you know I'm still sort of learning
+how to like do ASA
+research well and figuring out what the
+most valuable thing to do is um
+but I think like
+yeah it's it's been going um
+pretty well and I'm really glad I make that decision
+to um to switch
+that's
+and uh write a second what you work
+in right working on so
+I'm trying to finish up the paper with
+CLR we are trying to evaluate
+the cooperativity of language models
+um so the really interesting thing I think is
+that okay you know you can
+you know construct a dataset get people to write
+scenarios for you if you want but
+we actually want our ability to generate
+evaluations to scale with
+the capabilities of our models so we're getting
+um language models to generate scenarios
+for us that like basically
+co-operate scenarios that involve some
+cooperation um and seeing what language
+models do in these kinds of scenarios
+that's the first thing I'm working on um I also
+have just a bunch of other projects right now
+that are varying stages
+um completion or feasibility
+um one thing I'm really interested in is
+like you know how do we actually
+how are we actually able to like show
+people that models are actually doing
+a lot actually much more capable than might be
+claimed um by by some people
+um yeah
+so another thing I'm working on
+is um
+this sort of like general
+almost like position paper slash
+survey paper on like speculative concerns
+and yeah safety um it's essentially
+going to be an argument that it's important to
+speculate for for cause areas
+uh and like review sort of okay
+what are the methodologies and the ways in which
+people have speculated in AI safety, what
+has worked out, what hasn't and why
+do we still need to continue on coming
+up with um with
+things that might appear more speculative to
+like modern machine learning communities but like
+are actually important I think, importing out possible
+problems we might face
+Is this aimed at machine learning
+just this position paper?
+Yeah so it's aimed at the academic machine
+learning community um I think
+a lot of what I
+yeah parts of what I want to do are
+sort of more aimed at okay like how can we
+field build or build bridges
+effectively by either like
+connecting our concerns to concerns
+other people have or by
+just saying things in like you know
+language that other people can more
+understand
+Nice
+I don't know, show up
+I don't know, show up
+Show what else I got for Mr Allen
+This is quite
+What?
+Tell me about that, tell me about that
+Can't lie, I don't know how you're really dying
+I'm killing you, I like after that
+Maybe they see some competition in this
+That's the inspiration
+Turn down the monopoly
+Like a feat
+That's like the point
+I don't know how many well-markers
+Yes, good vibes

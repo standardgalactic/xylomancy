@@ -1,0 +1,807 @@
+So welcome to this week's lecture.
+So seminar structure.
+Next week there'll be some linear combination of Georg and Geordie and the constant is yet
+to be determined.
+The week after, so after next week we move into the talks from experts.
+So we've been trying to give you background and then the experts will tell us what's
+really going on.
+So I'm really excited by the lineup.
+So Adam, so Wagner has done some amazing work using reinforcement learning to construct
+counter examples in graph theory.
+If you want to prepare for his talk, the paper is really beautifully written.
+Bandad Hossini works on graph methods.
+So we'll see a bit of graph neural nets today and we'll see more in his talk.
+Carlos Simpson is talking on a kind of archetypal garden of how to use machine learning and
+mathematical proof.
+And I think that that's extremely interesting.
+And then there's another three talks lined up after that, taking us to the end of semester.
+And the other thing I wanted to point out is Joel has been doing an amazing job with
+the toe labs.
+If you've been taking part in the tutorials, you'll be aware of this.
+But if you're watching online and you just want to muck around with something, they're
+really great and I'm hoping that they provide a good resource.
+So we'll hope to keep these going for the expert talks so you can play with some of
+Adam's ideas, play with some of Bumdud's ideas, etc.
+So again, the seminar principles.
+Today we'll be about geometric deep learning and geometric deep learning is very much the
+question of how do you incorporate symmetry into a learning problem.
+But before we go into that, I just want to recall the notion of an inductive bias, which
+is a very important notion in machine learning.
+So what's going on here?
+So it's very common situation in maths that you have some problem and you know or suspect
+something about the solution.
+So a basic example would be something like we expect the solution to be smooth or we
+hope the solution is smooth.
+The solution should satisfy conservation of energy, for example, there'll be some differential
+equation that the solution should satisfy.
+The solution should be invariant under a group.
+So this occurs all the time in physics.
+The solution might be locally determined, the counter example, so also we might be looking
+for a counter example, we might suspect something about the counter example.
+So the fancy names for this are inductive bias or prior.
+So inductive bias just means something that you know about the problem a priori before
+starting to solve it.
+And it's very important to remember what inductive biases there are in a problem.
+So how does one imagine that one has some inductive bias?
+So for example, the solution might be smooth.
+So this is related very much to regularization.
+So in this was Gayog's talk last week.
+So for example, he talked about this Gaussian kernel, which very much encourages functions
+that have Fourier modes that aren't wiggling around too quickly, that are smooth in a very
+strong sense.
+Solution should satisfy conservation of energy, this might be another example of regularization.
+There's also these fascinating things, if you want to have a Google called physically
+informed neural nets.
+So here you don't require the solution to satisfy some differential equation, but you
+add the differential equation to the cost function.
+And so it encourages the solution to satisfy a differential equation.
+Problem should be, the solution should be invariant under, so this is today.
+That's the subject of today.
+The solution might be locally determined.
+So this is like examples might be CNNs or LSTN.
+So we expect, for example, small part areas of small parts of an image to play an important
+role initially.
+And the counter example is probably highly connected.
+I included this example because this is an example where I've got no idea how to put
+this kind of information into a network.
+And this was definitely my experience with DeepMind in that often, so the movement from
+an inductive bias to the neural net design is art rather than science.
+So several times with the DeepMind team, I said, oh, I know this about the solution.
+And they said, we have absolutely no idea how to incorporate this into the model.
+And I think that one should be aware that this is often a big issue.
+So yeah, one should just be aware that it's very important to have some kind of inductive
+bias and be aware of it, but you might not know what to do with it.
+And this is just the same slide that very similar to things that Georg has been saying.
+You have the capacity of a model, roughly speaking, how many parameters it has.
+And there is this playoff between simplicity and expressivity.
+So a lot of parameters means you can express, for example, any function, but training may
+be infeasible.
+You might have hundreds of billions of parameters, and it's less interpretable.
+And so there's often sweet spots in this trade-off.
+OK, so today what I'm talking about is symmetry in neural networks.
+And I'm really extremely happy to give this talk because it's been kind of a revelation
+for me.
+So I began with this book, Geometric Deep Learning, by Bronstein Bruner Cohen and Petar
+Velichkovich, who I work with on the DeepMind project.
+And Gayog pointed out this group, Equivariant Convolutional Networks, and Petar recently
+just pointed out the steerable CNNs.
+And it's very interesting, very interesting subject.
+And I think it's a really remarkable example.
+So in physics, we often see this phenomenon where just knowing some kind of symmetry is
+present has enormous effects on your ability to solve a problem or formulate a model or
+something like that.
+So there's this extraordinary paper.
+I think it's by gross called Symmetry in Physical Laws, which I found really inspiring.
+And I find this
+equivariance in convolutional neural nets to be a kind of similar story.
+It's like it seems so innocent to require some kind of invariance and yet it essentially
+determines your entire architecture.
+It's really remarkable.
+So never underestimate symmetry.
+I had this on the on my web page for about 10 years as the first thing that you read.
+So I want to review what kind of vanilla CNN is.
+And then so I'll first just remember what a CNN is and then we'll view a CNN through
+the language of group theory.
+And I want to try to convince you that three basic principles already basically determine
+CNN architecture.
+So so here's my image in the top right.
+So this is a grayscale image.
+I'm assuming that it is on a square.
+So I have a fixed width and a fixed height, a fixed number of pixels wide, a fixed number
+of pixels high.
+And I have my pixel value is given by a real valued function.
+So for example, this pixel value might be between zero and two hundred and fifty five.
+And what I'm looking for is some function from this is called a peer.
+So I'm calling this a periodic image because I'm kind of wrapping the top, you know, the
+physicists would say I'm compactifying on the tourists.
+And, you know, I sound very fancy when I say that.
+But we're just simplifying our situation by imagining that our image is on the tourists.
+And there's it just simplifies the group theoretic discussion in a second.
+And there's no genuine need to do this.
+So we're seeking some function from periodic images, i.e.
+functions on this grid to the real numbers, which are, for example, positive on tigers
+and negative on non-tigers is a classic.
+And a machine learning problem.
+And also the problem on which machine learning has been wildly successful.
+And we do this in the following way.
+So we have several layers.
+And typically these layers will consist of other periodic images, perhaps at lower scales.
+So when in the first two layers of this neural net, I'm assuming that my periodic
+image is the same scale.
+And then in the third layer, I'm assuming that the periodic image has dropped in scale
+somewhat.
+So I'm this H is assumed to H prime is assumed to divide H.
+So what one should think about this problem?
+So this problem, this seek, so we're seeking a function from here to here.
+And this function is going to be highly nonlinear.
+So it's a nonlinear function on this big vector space.
+And I guess one of the points of machine learning is that learning a highly nonlinear function
+on a high dimensional vector space is a very difficult task.
+And we get enormous amount of mileage out of viewing it as composed of out of rather
+simple functions.
+So the simple functions that we use are convolutions.
+So this might be like we might have some kind of filter here, the filter.
+And this might be, for example, eight minus one, minus one, minus one, minus one, minus
+one, minus one, minus one, and this particular filter, we point wise multiply with our image
+and then sum up the result.
+And so this particular filter would have the effect that on areas of blank color, we would
+get a very low value, but on out on edges, we would get a high value.
+So it would be have a kind of outlining effect.
+So this is an example of something that we might convolve with that's applying this filter
+can be rephrased as a convolution.
+And what we do, so we convolve, and then we apply apply a value.
+And then we convolve and we apply a value.
+And then we do an operation called pooling that I'll basically ignore here, which might
+be you look at a grid of pixels and take the maximum amount.
+So this will take you down to a smaller image.
+And then finally, at the end, you might do some fully connected layers.
+And the point of all this is that we don't we specify this architecture at the beginning,
+and we specify all the values at the beginning, but we learn the convolutions.
+That's the important point, we learn these filters.
+Okay, so that was meant to just be a review.
+Now I want to look at this through the language of group here.
+So this is just a direct copy of the previous architecture.
+So Z mod h squared, sorry, Z mod hz squared is a group.
+So it's Z mod hz times Z mod hz.
+Very simple, a billion group.
+And as with any group, it acts on functions on that group.
+So if I have a function on my group, what I can do is translate my group around and
+I get a new function.
+And convolving by a single, so when I translate around by my group, this is the same thing
+as convolving with a delta function on my group.
+So on my group, I can consider the function that's just one at a particular group element
+and zero elsewhere.
+And convolving with that element is the same thing as translating by that group element.
+And so any any convolution is a linear combination of these convolution with a single with a delta
+function.
+And so this is gamma equivalent.
+So another way, so in the Abelian case, kind of nothing, nothing matters in terms of orders.
+You know, when I wrote g dot f of x equals f of g plus x, it doesn't matter whether I
+whether I write x plus g or x minus g.
+But in the non Abelian case, I'd have to have an inverse.
+And in the non Abelian case, I would kind of think about convolutions as maybe acting
+from the right or something like that.
+And it's a general fact that the, if we look at functions on a group, then the equivalent
+maps from functions on a group to functions on a group are the same thing as functions
+on that group acting by a convolution.
+And that's what I, that's what I say here.
+So the equivalent maps from functions on the group to functions on the group are simply
+functions on the group.
+And this is true for any gamma is very basic representation theory, if you will.
+So remember that I hate questions and any question will involve a horror show.
+So please don't ask any questions.
+So what are the basic observations about this?
+So we want often in these problems, we want a gamma invariant answer.
+So if we move our picture of a cat around, if we translate around, the answer should
+still be cat.
+This is one of the reasons that I assumed a periodic, periodic image.
+That's very important.
+Another point is that, so there's another classic machine learning task, which is called
+image segmentation, which asks us to say, where are the two eyes in this picture?
+Or you know, when your phone, for example, tells you where the head of the people, people,
+this is an example of image segmentation.
+Now if you think about what this task is, this is not invariant, it's equivalent.
+This means that if I move the image, my, my prediction should move in the same way.
+So we often want a gamma invariant answer or a gamma equivariant answer.
+Convolution and value are gamma equivariant.
+And for simplicity, I'm ignoring pooling layers, but we can definitely add them into discussion.
+But I feel like the, the guts of this business really is exposed when we ignore pooling.
+So I'm going to do that from now on.
+So, so convolution is equivariant and, and value is equivariate.
+So we have our image, we have a whole bunch of real numbers.
+If we translate and then set some of those numbers to zero, that's the same thing as
+setting some of those numbers to zero and then translate.
+Locality, yeah, no, any activation function would be accurate.
+But as we'll discuss in a second, it's really essential that these are permutation
+representations for an active activation function to be equivariate.
+So, so we have requirement one, we want a gamma invariant answer.
+Requirement two is that every stuff, everything going on in this network should be gamma equivariate.
+Requirement three is locality.
+So what this says, often in, you know, if you look apparently at the early layers of
+the brain in the visual cortex, what happens is local.
+And so, and it's very natural to also impose this in a CNN.
+So we, our filters are supported around the identity initially.
+And then later on, we let them grow out through pooling and potentially fully connected layers.
+So an actual CNN, we wouldn't require, we wouldn't look at periodic images.
+And what we would do is pat around the edge to make all our images the same size, for example.
+And we would only have, the same principles would be there, but we wouldn't have a kind
+of full symmetry that only makes sense to shift pictures a little bit.
+But what I find remarkable here, and it's kind of a simple thing is that gamma invariants,
+gamma equivariants and locality basically tell me what I have to do in my neural net.
+So if you assume that you should compose it out of simple functions and if you fix
+value, then everything else is basically specified, which is remarkable, which seems
+to me to be remarkable.
+And what I want to explain soon is that there's kind of nothing special about this particular
+group that this would actually tell us how to make predictions on any space on which
+a group acts transitively.
+So let me just emphasize one extremely important point from a implementation point of view.
+Okay, so just for completeness, Gail asked here whether value was specific for it being
+equivariant, and the response was no, any nonlinear activation function would be fine
+at this point, as long as our representation is a permutation representation.
+And what Stefan asked was in this particular picture here, you know, for completeness,
+if we translated this little cat, we'd have half the cat's head over here and half the
+cat's head over here.
+And the question was, you know, how does an actual CNN in real life do this?
+And basically, you know, we don't enforce that full equivariance, we only allow kind
+of small translations within some bounded region.
+So kind of partial symmetry.
+Thank you very much for the reminder.
+So this is very important from a basic implementation point of view.
+Imagine on the left hand side, we have two, this is a layer of our neural net, and so
+we have L1 inputs and L2 outputs, single layer.
+So now, if you think about the number of parameters, it's L1 times L2.
+So if it's easy to find a picture, for example, with 10 million pixels in it, and if we do
+one layer, then that's whatever 10 million squared is, I'm not a physicist, I don't
+know what 10 million squared is.
+Okay, so some enormous number that I can probably never actually train on a computer.
+If we're doing, so here I have a first layer of a convolutional neural net in one-dimensional,
+in one-dimension, so here are my inputs.
+And locality says that my filter only affects neighbouring points, so that's why I have
+these three parameters, x, y, and z.
+And equivalence says that these x, y, and z are the same across the whole thing.
+So no matter how big this layer is, it just depends on three parameters.
+So I should emphasise this is one piece of the first layer, so up here, this would be
+one of these pieces, so I could expect to have potentially 20 of these pieces or something,
+and still 20 times 3 is a lot smaller than 10 million squared.
+I'm enough of a physicist to know that inequality.
+Okay, so now I want to explain a blueprint for learning on a general homogeneous space
+for a group.
+So we have our group, and I'm typically thinking about a finite group or a league group like
+SO3 or something like that.
+So gamma was z mod h z squared before.
+And x is a transitive gamma set, so this just means that gamma acts transitively on x, but
+in the category of, in the category of differential manifolds, this would mean that I have a manifold
+with a continuous action of my, or a smooth action of my league group.
+And in any situation in which this makes sense, we have that x is just the same thing as gamma
+mod a single stabiliser.
+And what we want to do is learn an invariant.
+So I'll stick to the invariant case, but notice that we might also want to make an
+equivariant prediction function from functions on x to r.
+Now very basic representation theoretic observation, or maybe so basic, but it's not yet representation
+theory is that because our action is transitive, there is only one linear or at most one linear
+map from functions on x to r that is invariant, namely like summing over my finite set or
+integrating or so.
+I found this kind of illustrative because this tells you, for example, in the image
+classification task, you're definitely looking for a nonlinear function because a linear
+function would be like averaging over pixel values.
+And this is the kind of silliest thing that one could imagine.
+So we're looking for some invariant function.
+And here's the blueprint.
+So we fix a transitive gamma set.
+This is where we want to make the prediction.
+And then our architecture consists of a whole lot of choices of transitive gamma sets.
+And basically I think one way to think about these transitive gamma sets is so the invariant
+prediction says that you want to take, so any gamma has an important transitive gamma
+set, namely one point.
+And this is where we want our prediction to end up.
+And then if you look at classical CNNs, you want your sets to kind of slowly get smaller
+in some sense until you reach the prediction.
+So you can think about these transitive gamma sets as slowly decreasing in size, if that
+makes sense.
+And this is all we do.
+So we consider some equivariant maps, so convolution.
+So this should be a gamma equivariant linear map.
+And then we do a ReLU and then we do another one and then we do a ReLU and then we do another
+one.
+And we want to train across the parameters of gamma equivariant linear maps.
+Yeah, and probably this is a point of it.
+But this whole space is R.
+So if gamma has a metric or similar, we might want convolution supported near the identity.
+Now this is the most important point.
+And I think that this has kind of been missed in the machine learning literature.
+There's something very basic in representation theory, which I call the double coset formula.
+People might call it Hecker Algebra.
+There's many different names for it.
+So we're asking, what is such a map?
+So because any transitive set is simply gamma mod H or gamma mod H prime, we want to know
+what this home space is.
+And the formula says that homomorphisms from such a function space to such a function space
+are simply functions on double cosets.
+Now there's many different ways to understand this formula.
+If you're in the world of finite groups, this is a very nice exercise.
+If you're in the world of compact league groups, it's a significantly more difficult exercise.
+But I just want you to accept this formula as a kind of beautiful thing in the world.
+And we'll see it's very useful.
+And if you want to know more about it, I'm very happy to talk more about this formula.
+But this is a kind of, I don't know, very useful formula in many different situations.
+So this is telling us what the possible space of convolutions is.
+So here's an example.
+Imagine that we're learning on a sphere.
+So we have a nice sphere here.
+And we have SO3.
+So this is orthogonal three by three matrices of determinant one.
+So these are these transformations.
+So it acts on the sphere and S2 is a transitive space.
+I can move any point on the sphere to another point on the sphere of iron orthogonal transformation.
+What is the stabilizer of single point?
+It's those rotations in the axis that point determines through the origin.
+So S2 is SO3 mod S1.
+Now imagine that we want to learn on the sphere.
+So we want to have some image on the sphere, some function on the sphere, and we want to
+say it's a cat or something.
+You might ask, I don't generally see pictures of cats on spheres.
+This is my answer to that.
+Okay, this is a beautiful article in Quanta.
+So this is the cosmic background radiation.
+Absolutely extraordinary thing from around about 2003, where we see the early, what the
+universe looked at early on, and we do this by basically going around the world and looking
+out into space.
+And so it's an archetypal example of an image on a sphere.
+So Sam has a question.
+I just want to admire this picture for 10 more seconds.
+So I'm told that you can see the fluctuations of quantum field theory in this picture.
+So this is a very early universe.
+So it's when the universe was very small and you expect the behavior to be given by the
+laws of the very small.
+And I'm told that you can see evidence of quantum field theory in this picture that
+totally blows my mind.
+Okay, so Sam's question for discrete, finely generated gamma could support near the identity
+be regarded as having some sort of choice of generator.
+That's a really good question.
+I was thinking about what the support nearly up near the identity kind of means.
+So in the example of the CNN, we have this discrete group, which has no, no really convincing
+metric on it, but it is embedded in S1 times S1 that does have a good metric on it.
+And so for groups that come with some embedding, we can put a metric on them.
+But I also think that that's a good suggestion if you have some kind of, what's that distance
+you're talking about?
+It's like kind of distance in the Cayley graph might also be a decent measure of locality.
+I also want to try to explain in a second that for a non-Abelian group locality is less
+important.
+So, so the building blocks.
+So what are the homogeneous spaces for SO3?
+So this is an elite group.
+So I can ask what are the dimensions of the subgroups of SO3.
+So there's a whole lot of interesting finite subgroups of SO3.
+For example, the symmetries of the icosahedron form a very interesting subgroup of SO3.
+And then you have the two sphere and RP2, and then you have a point and that's it.
+So our building blocks are rather restricted, which is interesting.
+And also I would say that we, if you're employing some kind of practicality in building your
+model, you don't want complicated things like SO3 modified subgroup.
+So and RP2 and S2 are very, very similar, you know, one is just a two-fold cover of
+the other.
+And so I would advocate building a building a network which just involves functions on
+spheres and functions on a point.
+So this is the proposal for a blueprint for learning on the sphere.
+And also I am aware that it's very difficult for a computer to understand a function on
+S2.
+But this is meant to be some kind of blueprint that you then try to interpret.
+And sometimes, you know, to have the idea of what you're doing very clearly in your
+head is very useful when you come to implementing something.
+Here we have h equals h prime, exactly.
+So I'll go through the double coset formula in two examples now.
+So the point, the problem here, which Gayog is pointing out.
+So Gayog was asking which subgroup are we using the double coset formula in here?
+I just want to first say why we're using the double coset formula.
+We want to know what are these maps?
+What are our possible SO3 equivariant convolutions here?
+So what are the SO3 equivariant convolutions?
+So this is the double coset formula again.
+This is our friend.
+Okay, I'm just specializing the double coset formula for SO3.
+So that made the formula much less easy to read, so I'll delete it again.
+Okay, so what does this say?
+Let's first do a silly example.
+What are the homomorphisms from SO3 mod S1, i.e. S2 to SO3 mod SO3, namely a point?
+So I said as an exercise in very great generality, the only such function is given essentially
+by integrating over your space up to a scalar.
+So let's see it pop out of the double coset formula.
+So SO3 mod SO3 is a point.
+Yep, so we've got functions on a point.
+What's more interesting, so this is a kind of silly example, what's more interesting
+is what are the rest of the layers?
+You know, so just to emphasize here, this is telling us that even though this is an enormous
+vector space, there's only one scalar possibility of maps here.
+So this belongs to R, this belongs to R, and this belongs to R.
+So now, ignore the integral bit at the moment, just look at this.
+So what are the SO3-equivariant homomorphisms from functions on S2 to functions on S2?
+They're functions on, by our double coset formula, S1 mod SO3 mod S1.
+So that's the same thing as S1 mod S2.
+So I take S2, and I have S1 rotating it around, and then I quotient that out.
+And representatives for that quotient space are just an interval stretching from one pole to the other.
+So functions on that interval.
+So what the hell are these intertwiners?
+So I should say that such an element inside here is called an intertwiner.
+So intertwiner is synonymous with SO3-equivariant linear map.
+So I can look at, one way to understand these things is to try to look at delta function.
+So a delta function at the identity at this base point is just the identity.
+A delta function at this end is the antipode.
+But what the hell is going on in the middle?
+You're seeking a continuous family of operators which interpolates between the identity and the antipode.
+It looks like a tough ask, but there's a really beautiful thing you can do,
+which is you consider the following operator on function.
+So I have a function on the two sphere.
+So this is in S2.
+And now, and I have a gamma, and I can consider a new function which at a point x is given by the integral
+around a loop of my original function at distance gamma from my point.
+This is a way of producing a new function.
+So I've told you how to take a function S2, get a new function on S2.
+And it's a beautiful thought exercise that this is invariant.
+This is equivariant.
+So if I move my function and then do this operation,
+that's the same thing as doing this operation and then moving my function.
+So these are these intertwiners.
+So that's the answer for what all these maps are.
+And of course, that's still an infinite dimensional vector space,
+but compared to functions on, like if you're just thinking about linear maps here,
+that's something like functions on S2 times S2.
+So it's like a four dimensional, roughly speaking.
+And it's kind of remarkable that just employing this equivariant massively cuts down the number of parameters.
+And of course, you can make this whole picture even richer using spherical harmonics.
+And there's like incredibly nice functions to put in here,
+projecting to the irreducible representations inside functions on S2, etc.
+I should have said very, very much earlier, like for me, fun is just,
+firstly, it's to remind us that we're having fun.
+Secondly, it's just some kind of class of functions.
+And when I'm talking about the sphere, I'm probably talking about L2 functions.
+When I'm talking about a discrete set, I'm just talking about any function, etc.
+So, yeah, the point is that when we have a non-Abelian gamma, there's a big reduction in parameters.
+So, in the CNN slide, there was this equivariant plus locality drastic with the user's number of parameters.
+And here I'm kind of saying that equivariant plus non-Abelian drastically reduces number of parameters,
+which is interesting.
+So, my task for myself, and if you have any ideas, I'd love to hear it,
+is find an interesting learning problem where the symmetries are an interesting non-Abelian group.
+What's a learning problem where the symmetries are naturally SL2, FQ or something like that,
+or, you know, some interesting groups.
+So, a lot of the groups that show up in machine learning are very much related to
+three-dimensional space or two-dimensional space.
+So, like P4, which consists of all translations and 90-degree rotation shows up a lot and stuff like that.
+But it would be lovely to inject some really interesting groups into this.
+Oh, GL2, yeah, GL2 would be great.
+Yeah, that's it.
+So, Stefan just suggested learning on hyperbolic space and that's a great, great suggestion.
+I didn't think of that.
+I had SL2, sorry, yeah, so learning on.
+Okay, there's enormous possibilities here that I think are very interesting.
+So, let's just go back to CNNs.
+So, the question is basically like, what the hell's going on?
+So, let's imagine.
+So, I'll try to explain what the hell's going on and then we can have a short break.
+So, let's say that we're trying to do image processing.
+So, we're Z mod HZ squared.
+We have functions on this.
+And then, we want to have a layer of our neural net.
+So, typically, one layer of our neural net might be like this.
+One piece of one layer of our neural net might look like this.
+So now, what's the dimension of this space?
+The dimension is H squared, namely the number of points in this set.
+And what's the dimension of this space?
+The dimension, whoops, the dimension is H squared.
+Okay, so now, if I were doing a fully connected neural net, I would have H squared basis vectors here, H squared basis vectors here, and then I would have an H squared times H squared matrix.
+I would have an enormous matrix of size H to the 4, and each of those parameters I have to train.
+What do I do in CNNs?
+I say, I want this matrix to be invariant.
+That already cuts down the number of parameters from H to the 4 back down to H squared.
+And then I say, I want this matrix to satisfy locality.
+And that cuts down my number of parameters from H squared to 9.
+So, Harini is asking, basically, like, why do you restrict the parameters to this extent?
+So, I would say that there's two reasons for this.
+So, these are inductive priors.
+So, they're not, there's something that I believe is true about the solution.
+They're not something that, like, is definitely true about the solution.
+There's some category of practicality.
+I want to build a model that works.
+I can't train a hundred billion parameters, but I can train, you know, a hundred or a thousand fine.
+And the inductive priors in this are invariance.
+Namely, I can see you, I can still see you.
+Yeah, that's, you know, like, you're still there.
+Like, that's invariance.
+Yeah.
+And the other thing is locality.
+And I think locality makes a lot of sense.
+If you look at this room, I don't think the first thing that happens in my brain is, I think, oh, I'm in Caslaw 273.
+What happens first is I go, oh, edge, corner, chair, person, stairs, light, looks like a lecture hall, Sydney, probably Caslaw 273.
+Yeah.
+And so, that's invariance, that's locality.
+And these are our inductive priors.
+And these inductive priors massively cut down the parameters.
+And then from then we're cooking on gas and we can get these models that actually work.
+No, but it's again, like changing the group is again inductive priors.
+So, for example, like, you know, have you been upside down and you look and it's actually much harder to recognize stuff.
+So, the idea that we satisfy this invariance is much less well established than the idea that we satisfy this invariance.
+And then we want to bake in that symmetry exactly.
+Yeah.
+I don't know if you really want rotations.
+So, like a classic pre-training task in image recognition is to recognize whether your image is upside down or not.
+So, you know, that's a classically non-invariant thing under rotation by 180.
+But there's, there's situations like, you know, in an MRI scan or something where it really, you know, you really want that invariance.
+That's when you should bake it into the model.
+If you go back to our friend L2 of S2 is a great exercise.
+So, the Laplacian.
+Okay, so the Casimir gives you the Laplacian on the sphere.
+And the Eigen spaces for the Laplacian are the spherical harmonics.
+So the Casimir is acting everywhere in this whole big diagram, committing with everything and splitting it up into irreducible.
+It's not so much locality.
+It's the fact that SO3 is, maybe I can write.
+So, you know, L2 of S2 is a topological direct sum of L gamma, where gamma is
+the spherical harmonics.
+And the Casimir is providing this decomposition.
+So it's breaking, breaking up this space.
+So the Casimir on each one of these acts by a different scalar.
+And it's the Casimir aka the Laplacian, acts on each of these.
+You know, this is something like the restriction of degree gamma or gamma over 2 polynomials.
+And so you have this totally canonical decomposition of this space of functions and everything, wherever I had this picture, everything here is respecting this decomposition.
+All the linear maps respecting this decomposition.
+And roughly speaking, you can kind of think about, like, you know, if you take your function here and do a Fourier expansion of it, then you get a whole lot of quantities.
+And those quantities are giving you the, you get a whole lot of scalars and those scalars are basically telling you how it acts on each one of these.
+Okay, so this is just super interesting for me, but maybe more technical.
+So I want to go in the second half I want to go over why permutation representations I want to go over something called deep sets.
+And then I want to go over graph neural nets.
+So, one question that is very natural to ask as a representation theorist is why.
+So, if you take functions on a set on a gamma set, this is called a permutation representation.
+And it's called a permutation representation because if you look at the matrices that represent your elements, they're permutation matrices.
+And in our first class in representation theory, the first representations we see a permutation, but then we quickly convince our students that we should break up permutation representations into irreducible representations and that's really interesting.
+So why am I insisting that we have permutation representations everywhere.
+And so I found that this charming little lemma which I didn't find in the literature, which is if you have a representation of gamma which is assumed finite.
+I'm not quite sure what the analog of this for a league group is.
+Then we. So, once we have the we can choose a basis for it.
+And once we have a basis we can ask is really gamma equivalent.
+So gamma equivalent value takes our vector which now that we have a basis is just a sequence of real numbers, and the ones that are negative it sets a zero and the ones that are positive it keeps.
+So is this gamma equivalent.
+If our representation is just permuting our coordinates around. It's easy to see that it's gamma equivalent.
+But that's if and only if.
+If you want to have a gamma equivalent value with respect to some basis you have to be permutation with respect to that basis.
+Now this is something that has been exciting me a lot over the last few days, and is having a hell of a lot of fun with is basically like piecewise linear representation theory.
+So what you could imagine is you have these layers and they all break up into irreducible representations.
+And if you include an irreducible into a permutation representation do a radio and then project back, you get a piecewise linear and the morphism, equivariate and the morphism of your representation.
+And so what you could imagine is networks in which you have irreducible representations together with equivariate non linearities.
+So my impression is that this is extremely interesting and I've already learned like basic things about representations that I didn't know from thinking about this.
+So if you're interested in this.
+Ask me but it's kind of much more specialized so I'm not going to talk about it today.
+So let's, I want to do another example of our blueprint.
+So, one way of seeing this is just first think about this.
+We have a whole lot of points, and they're unordered, and they have a whole lot of information attached to them for example, you can imagine all of the citizens of Sydney, and they're labeled by their age and how much tax they paid last year.
+So I've got a two dimensional vector associated to every person in Sydney.
+Now one way of viewing this data set is as a point cloud.
+So what I have is an enormous in this, you know, age and tax example I just have R2 and I have an enormous number of points in R2.
+And I want to make some qualitative statements so a basic statement that I could make is some kind of like center of mass statement, like the average age of people in Sydney is blah.
+That would be a kind of boring measurement, but a much more interesting measurement would be there's this kind of weird hole in this data, for example.
+And a particular age and a particular taxes, you know, not paid in some region or something like that that would be a much more interesting statement you can make about this data analysis and there's about this data and this is one of this one of the.
+This is related to this very interesting subject called persistent homology, which I know next to nothing about.
+But we have a point cloud. So we want to make a prediction based on this point cloud. And so this is an equivalent prediction task.
+We have so.
+So here we have our D to the end. So here are our end different points.
+And we want to learn some function.
+You know, like is there a big hole in this data or something like that.
+And it's, it's convenient to swap the indices. So if you think about how SN acts here.
+It acts like I have a whole packet of numbers.
+And then it permutes them around, but it's more useful to view this from the, from the point of every variance as one packet of numbers like age that's being commuted around and one packet of numbers like how much tax was paid being commuted around.
+And so I'll do this innocent rewriting.
+But I'm just pointing this out so it doesn't confuse the hell out of you on the next slide.
+So we want to make an SN invariant prediction.
+So basically we have in the language of representation theory we have a whole lot of copies of the most basic permutation representation of SN, namely SN acts acting on functions on an end set.
+And we want to make an SN invariant prediction.
+We want to do some basic representation theory, which I almost certainly learned from Andrew at some point in about 30 or something.
+So we take functions from one up to n functions on the set one up to n.
+So this is a permutation representation of SN, and we take the trivial representation.
+So this is where every permutation just acts by the identity.
+So here's a whole lot of homomorphism formulas. So this is before I was saying what are the arrows in my neural net here I'm working them out explicitly.
+What's what parameters there are.
+So home from the trivial representation of the trivial representation this is the same thing as home from R to R. This is R times the identity home from end to one.
+This is another instance of this statement that on a permutation representation the only invariant measurement you can make is essentially summing up your entries.
+That's that home back the other way.
+Here if we look at the image of one, we want some vector we want some function, which is invariant under SN, I want this function to take the same value everywhere, which is alpha.
+Now, a little bit trickier.
+Little bit like, you know, this would be a second week exercise in representations of symmetric group or something is that home from the trivial that from this permutation representation to itself is two dimensional and it's spanned by the identity and the map that sums up the coordinates and and takes that
+sum and multiplies it by the constant function.
+Now, exercise deduce this from the double costate formula. All of these formulas are very easy concept consequences of the double costate formula. Why is that the case.
+Do it. If you're a student you should do this. And if you're a student and not already obviously you should do this.
+So, I, this is deep set architecture so you can look at say here's pay Z here's paper from 2017. And to me as a non machine learning person it looks a bit mystifying but this is just another instance of our blueprint.
+So, here's our input.
+So this would be our three three dimensional point cloud input.
+So we have three parameters per point.
+Now we do SN equilibrium maps, and we sprinkle around ends and ones these are our building blocks.
+And note how crazily this reduces the number of parameters for an large end. So, here, if we had no assumption of SN equity variance, this would be an n squared space of parameters, you know and n could easily be a million or something.
+But now because we want this to be SN equity variant, we've just got to two possibilities.
+Here we've got one possibility here we've got one possibility here we've got one possibility, etc. So this allows us to make enormous networks involving, you know, hundreds of billion, you know, billion dimensional things with few parameters.
+And that is deep set architecture. And it's, I think it's state of the art in terms of point cloud prediction.
+Okay graph neural nets.
+If there's no questions.
+They come from everywhere in mathematics.
+They come in many forms and variants.
+So,
+I just want you to keep in mind that graph here is a very loose term it might be a director graph it might be a digraph a director graph.
+The edges might be colored the vertices might be colored. The edges might be weighted the vertices might be weighted the vertices might have 10 parameters associated to them.
+And then there's graph graphs. So that's graphs where we have, like, an edge neat can connect more than what more than to two vertices etc so told plethora of things called graphs.
+And just want to emphasize that there's many ways so graphs everywhere in mathematics but once you start thinking about them they're even more everywhere, because there's a whole lot of stuff that wasn't obviously a graph initially and then you can make it a graph.
+You might say well, you know, graph theory is one dimensional topology and I'm a sophisticated eight dimensional topologist and I only care about eight dimensional manifolds.
+But if you take a compact eight dimensional manifold you can choose a point cloud on it.
+And you'll get a graph and that graph tells you enormous amounts about that eight manifold.
+So we have a simplicial complex. You know, for me, like graphs are just one dimensional simplicial complexes. And so I said to Peta, oh we should be sophisticated and learn on simplicial complexes and he said, Well, a simplicial complex is just a graph journey.
+You know, here's my triangle here are my edges, and here are my vertices. It's a colored, a simplicial complex is a colored vertex colored graph. Okay, of a special form.
+For example, this is from Georg so if we have a data set, and it's somehow embedded in a space that we can get a natural metric graph out of it.
+By looking at distances between vertices we might include the coordinates here, we might do some funny function applied to this, these links etc.
+So graphs are everywhere. And graph neural net seem to be an incredibly powerful flexible way of dealing with data so I think the graph neural nets have kind of really genuine like CNN's the thing that's that we stare at as mathematicians and think, how could we make something
+like this that would help us in mathematics. But I think that graphs are actually a thing that will help us in mathematics all the time. So that's very worthwhile thinking about.
+So what the graph neural nets do an example, we might want to learn a function on graph so an example would be a function which is learn planarity.
+Okay, so this outputs a positive number if it's planar and negative number if it's not planar so that would be a prediction task on graphs.
+We also might want to know for example the oiler characteristic of the graph. That would be another example of a prediction task.
+An important example, kind of more like image, like generalized image recognition is producing some learning some function from functions on graph star.
+So you might think that. So, you might repackage CNN's as being a grid, and then an image is the same thing as avert function on the vertices of this grid.
+The very important thing is that, like, there's many many incredibly interesting for example embedding problems of graphs so you give me a graph and I want to put it in some space in an interesting way.
+And one way of doing that would be to provide coordinates of where I want to put the vertices of that graph.
+And so that would be an example of learning a function from graphs to functions on the vertices of a graph.
+The second way from this is that anything to do with graphs graph neural nets.
+Useful for as long as it's not like an NP hard problem on graphs of which there are plenty. Yeah, so graph neural nets aren't going to help you solve something like is there a Hamiltonian circuit or something like that.
+So what's the basic idea. So imagine that I give you a graph and you want to learn on it.
+It's going to be difficult as far as I can work out to work out the automorphism of a group of a graph. So this is something that people spend many many years thinking about from an algorithmic point of view.
+And so I might not know what global symmetries are present. So what I was talking about before does not apply.
+Or that just like most graphs have no symmetry whatsoever.
+Right.
+So Gaston is asking what do you mean by hard.
+So,
+I mean, yeah, maybe, maybe like NP or something like that.
+I just want I like in my mind there's there's stuff on graphs which is useful and maybe not so crazily difficult like like embedding your graph in a nice way or something like that and then there's a whole lot of like seemingly innocent problems on graphs that are extremely hard.
+Like embedding a graph in provably the nice the best way or something like that or finding an Hamiltonian circuit or stuff like that.
+So in graph land it's easy to wander into an intractable problem.
+But there's also a whole lot of useful stuff that can be done. So, so there's plenty of local symmetry in graphs. So around every vertex we have a symmetric group of symmetry.
+And also we have a metric.
+So you can imagine processes which are symmetric and kind of diffuse on the graph and that's what a graph neural net is. So I'll quickly go over the architecture.
+So this is an important slide.
+So, here's my graph.
+As part of my architecture I fix n1, n2, n3.
+And of course, I'm just telling you one possible variant of like 1000 different possibilities of building graph neural net.
+But once you've seen one of them then the other ones make a lot more sense.
+So we fix these n1. And then what we do is each of our layers is a sum over the vertices of that particular R in one.
+Okay, so, you know, in a vanilla neural net we just fix dimensions. Here we fix dimensions at every vertex.
+So that's this.
+And so in this particular case my, my neural net looks like this so I have
+So here I have some linear map. Here I have a ReLU. Here I have a linear map ReLU.
+And then a fully connected layer.
+Okay, so what do I do, basically, I train self and neighbor maps.
+Here's the formula down here. So I'm, I'm telling you what phi x of v.
+So here's my, my layer which is phi.
+And I wanted to find you this map.
+And in order to do that I can tell you this map evaluated at a particular vertex.
+So that this might be vertex v.
+And what I'm saying in order to get that answer, what you do is you take this self map times whatever I've got here, plus all of these neighbor maps.
+So roughly speaking, in my second layer something here has a term that comes from here together with terms that come from the three neighbors.
+So it's a very natural, it's called a message pass.
+And as usual, si is something like is affine linear.
+Okay, so s1 is an n1 times n2 matrix plus an n2 vector.
+Okay, so each of these, so this is, yes, thank you, Brian.
+This should be an s2.
+Yeah, so that's very important that.
+So this is an another example of an inductive prior, sorry, inductive bias or a prior.
+So what we're saying is that we want these n1, these n1s, sorry, Stefan asked, should all these n1s be the same.
+And the answer is, in general, yes.
+So we want, for example, the n1s that talk to this guy from here and from here to be the same n1s that talk to this guy from here here again.
+So the n1s are the same.
+So if you imagine this matrix here, it looks like something like s1, s1, s1, s1 down the diagonal.
+So this is in off diagonal places given by the adjacency matrix, you know, something like this.
+So inside this space of like n1 times vertices times n2 times vertices so this is what my big matrix would look like.
+I'm saying like it should be blocked diagonal and a whole lot of blocks should be the same.
+So this is a strong inductive bias to assume.
+Now, if I'm honest, you know, we might have seven, let's say two different colors on our vertices, and then we would train
+the maps that preserve the color of vertices, neighbor maps that change the color from red to blue, neighbor maps that change the color from blue to red, etc.
+So there's a zillion variants, but in the basic vanilla version of a neural net, we assume all the n1s are the same and all the s1s are the same.
+So this one's, I'll give the diagonal term of this s1, s1, etc.
+So it's a very complicated slide, but it's a simple idea, I think.
+So we do that for a number of times.
+And then we evaluate or in the situation where we're trying to learn, for example, and embedding or something like that, we wouldn't do the final layer.
+We've got some coordinates on our vertices and we're happy.
+Another classic example of a task might be you want to divide your vertices into two classes.
+And so then you would, you do all your layers and then you would say at the end, this is a real number and then you would self max that and then that would be the probability that your vertex is in or out of this class.
+Okay.
+And also there's, you know, a million variants often the neighbor term is weighted by one over the degree of the vertex.
+And that's what I set up there, it's affine maps.
+Okay, so that's the architecture, and we'll have some fun playing with this architecture in the Colab tomorrow.
+So many variants are possible for digraphs, digraphs you might think that you only train a forward map, but generally you don't you train a forward map and a back with map.
+Back forward and backwards neighbor maps.
+If graph has edge coloring you can train message passing for every color of the edge vertex coloring similarly.
+You might also have a couple of global parameters hanging around, and in every step, your global parameters speak to the parameters on the graph and are spoken to by parameters from the graph in some way which is probably nothing to do with the n ones and the s ones.
+These are some nice examples imagine that I consider this diagram here.
+If you look at what a graph neural net does on this digraph it exactly mimic CNNs without pulling layer.
+So, you know, it's not, it's not an exaggeration to say that CNNs are a subset of giant graph neural nets.
+And if you kind of unpack this definition for deeps for a complete graph, you basically get deep sets.
+And that is all for today. So, thank you very much. And yeah, if there's any questions, please ask.
+So gayle guys can question or just ask and to the question of Dr. Betsy first.
+I wonder if by adding linear maps between vertices of the graph and making the whole architecture commutative kind of criminal net has any ml interpretation.
+Yeah, so I totally agree that when you look at neural net architectures, it looks very much like river varieties and things that we study in representation theory.
+However, one really can't underestimate the effect of this value of like, so if you think about like just a classic feed forward vanilla neural net.
+We don't have the relues we understand totally what happens by basically near algebra.
+But when we add the relues, we can suddenly approximate any function on a compact set. So, and we, we have absolutely no idea of what happens inside the, the neural net so yeah I find the quiver language like very useful to think to think about but one shouldn't underestimate.
+So, Gail asked, what have graph neural nets been used for.
+And my understanding is that, like, I don't know like, let's say half of Facebook and 75% of Twitter is graph neural nets, because you've got all these like connection graphs and social networks and stuff like that.
+And graph neural nets were like the absolute center thing that we used with deep mind to on this work on cash on the polynomials.
+My understanding is that graph neural nets are kind of taking over neural net world in terms of, they're very flexible. They're very powerful.
+There are tasks where, for example, CNN would involve like a drastic change of architecture.
+In graph neural nets, you can just like add a vertex or something like that so they're very flexible powerful framework for machine learning, as far as I can make out.
+Sam Yates asked for discrete valued problem, could we pick other group rings say with some choice of analogous really like function.
+Perhaps that's an intimidating prospect for me because I wouldn't know how to train and things like that.
+So, my very vague understanding so there's this kind of revolution in the last kind of three four years given by transformers.
+And my understanding of that is like, basically like a graph neural net hooked on to an LSTM.
+Like the graph neural net kind of decides where to look back in the sentence and things like that so.
+But I'm not directly aware of any recurrent technologies used directly with graph neural nets.
+What another thing the graph neural nets are very useful for which is kind of counterintuitive is like predicting graph structure so you have data, and you want to, and you want to predict which edges exist.
+You want to predict social relationships or something like that. And my understanding is that you, you start off with a complete graph and run a graph neural net, and your graph kind of learns a probability of discarding an edge.
+And that's very, very powerful.
+So it's intuitive and intuitive but graph neural nets can learn graphs which I think is awesome.
+I think I think like learning graphs is like learning graphs is a really difficult problem in machine learning.
+And yeah, of course, so it's going to be, yeah, it's an intimidating problem that all entries to know.
+Yeah, so that's a really good question. So what kind of problems and why can be addressed with graph neural nets.
+My understanding is that very recently there's been kind of benchmarking so there's been like a list of 50 problems and some some attempt to decide, you know what what can various classes of graph neural net algorithms do and what they can't do.
+My very rough picture as as a graph neural net Greenhorn is that anything that you can kind of decide by a finite like a small amount of walking around your graph.
+And if you if you're extremely smart and you're allowed to walk around your graph a little bit and you can already make a decision, then that's something that you could solve.
+So something like detecting planarity or detecting a three cycle or something. This is something that you can solve. But if it involves exploring the whole graph, particularly potentially in many, many different iterations, for example, finding a Hamiltonian cycle or something.
+It's not going to work.
+She'll have said the piecewise linear representation. Can you say a bit more about it.
+Sure. So how about I will answer Joel's question and then maybe I can say something about it but I'll give other people a chance to leave because it's somewhat specialised.
+So a part of Adam salt by those work was learning graphs learning good people to a particular conjecture for instance so we might hear about learning graphs in a few weeks. Yes, exactly.
+So salt Wagner's work is using reinforcement learning to produce interesting graphs. Okay, so now we'll declare it over and anybody that's interested in this piecewise linear business can stick around.
+I think this is super beautiful and I will just explain it briefly.
+Let's just consider the following silly examples so we're looking at the SN acting on S3 acting on our three or permutation representation.
+Now, we know that our three decomposes canonically as not plus.
+And that is the set of vectors in our three.
+Such that the sum of the lambda I is zero.
+And Triv is the set of times 111.
+And this decomposition is completely canonical.
+So now you can ask the following like just kind of totally naive question.
+If we go from that into our three.
+And then apply value.
+Go to our three back down to that.
+The composition is an S3 equivalent.
+PL and the morphism.
+IE in the category of piecewise linear maps from this vector space to itself that a S3 equivalent, this is a PL and the morphism.
+And what is it.
+Beautiful so basically what you do is inside.
+So here's not so we divide up.
+Not.
+So just for people that don't do this every day that is the symmetries of the triangle.
+Embedded inside our three.
+Okay, so we just take an equilateral triangle and we take symmetries of the equilateral triangle.
+So now.
+There's three regions here.
+And what happens, so the six regions there's the blue regions and the red regions.
+And the blue regions get squashed.
+And the red regions get kind of expanded out.
+So these get squashed.
+And these get expanded.
+And I don't know this is just like a very beautiful basic like PL and morphism of a representation that I've never encountered before in my life.
+And you can start having fun like what is this.
+Or not inside our in.
+And, you know, this is a nice exercise.
+Yeah, so that one of the things that I find really interesting is that home.
+PL from any representation to our.
+Is interesting.
+Okay, so example is that home from.
+PL from the sign representation to our contains the absolute value map.
+Like this is for this is the sign representation of s to sign representation in general effect.
+But home from the trivial representation PL.
+This is not equal to any irrep.
+Not equal to retrieve zero.
+And I kind of feel like this is telling us something remarkable that about kind of how equivariance kind of flows through a neural net.
+So, this is still very speculative but what I feel like is that you have some kind of measure of complexity.
+Like, at the start you have all all irreps.
+And then at the end you have the trivial.
+And then you have the maps in the in the neural net so you have linear.
+And then you have PL and then you have linear.
+And these PL maps have a definite sense of direction like, you know, once we get through the trivial representation we can never get out of it again.
+And, like, I don't know this seems to explain some some very interesting aspects of neural nets but just exciting stuff that I've been thinking about last week so very unbaked.
+So maybe when it's baked.
+I can talk more about it.
+So thanks. Are the blue rays there inside the reflecting hyperplanes.
+This is alpha one and this is alpha two.
+So no, oh yeah the so the reflecting hyperplanes would be like this.
+And this and this.
+Thanks everyone, I think we'll stop now.
+Thank you.

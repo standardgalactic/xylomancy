@@ -1,0 +1,1053 @@
+So we're not an AGI company.
+We're not interested in building digital gods.
+I'm interested in making this technology
+deliver on the promise it has made
+and solve real world problems.
+Today, we are in Toronto.
+We're in Coheir's office in Toronto.
+We've been invited to their build day here in Toronto.
+They're running these in four cities.
+So in Toronto, in San Francisco, in New York, and London.
+And we're gonna be capturing the events here in Toronto
+and in London next week.
+So a couple of weeks ago, you've probably heard about this.
+Coheir absolutely shocked the market.
+They released a new set of models called Commandar.
+And these models are particularly good
+for retrieval augmented generation.
+Now, we interviewed Patrick Lewis last year
+in the London offices.
+And Patrick invented retrieval augmented generation.
+He wrote the original paper on it.
+It's a really powerful technology
+because it allows you to ground language models.
+Retrieval augmented generation
+is kind of a general term these days.
+It refers to having a generator,
+a model that generates stuff.
+Usually it's text and augmenting it.
+Are you giving it some stuff
+that's not just the kind of usual thing
+that you would put into a large language model
+to make it better at its task?
+And you're gonna find that augmentation
+from a retrieval database.
+So they're often used in situations
+where you have a large language model or a chat bot
+and you wanna give it extra knowledge that you have
+that's external to the chat bot.
+And so that retrieval augmented generation paradigm
+is about how to hook up and get the large language model
+or the AI to leverage that unstructured knowledge
+that you have via retrieval to better do your tasks,
+your knowledge intensive or your knowledge based tasks.
+Today we're going to be speaking with Nick Frost,
+one of the co-founders of Cohear.
+Enjoy.
+Yeah, so I met Aiden while I was at Google Brain
+working as a research engineer.
+Aiden was an intern actually at the time.
+That's where he was working on the Transformers paper,
+which is the paper that kind of kicked off this whole thing.
+So I met him there working in Jeff Hinton's lab
+at the Toronto office.
+And I had met Ivan actually while I was a student at U of T.
+And Aiden had also met Ivan at U of T.
+But Aiden and I didn't meet there.
+So yeah, bit of a serendipity, but yeah.
+What was it like working with Hinton?
+I really, really enjoyed working with Jeff Hinton.
+He's where I learned how to,
+it's like from him that I learned how to do research.
+He kind of taught me everything I know
+about machine learning and about research in general.
+Yeah, so I was really, really lucky
+to get to work with him for those years.
+Yeah, I can only imagine, that's amazing.
+And I also hear that you're in a band.
+Yeah.
+Tell me about that.
+Yeah, so I sing in an indie pop rock band called Good Kid.
+Yeah, what kind of music is it?
+It's indie pop rock.
+So we're like somewhere between the strokes
+and panic at the disco.
+Interesting, interesting.
+So how is Co here differentiated
+from other players in the space?
+Yeah, the space has heated up a lot recently.
+So there's a lot of players,
+but we've kind of carved out a niche for ourselves
+by being focused on real world enterprise business solutions.
+So we're not an AGI company.
+We're not interested in building digital gods.
+I'm interested in making this technology
+like deliver on the promises it has made
+and solve real world problems.
+So we as a company stay focused on that.
+Can you go into a little bit more details?
+So what do you mean by, does AGI imply
+that it's magic and it's generalizable
+and it can do everything?
+And are you saying Co here is building
+more pragmatic specialized solutions?
+Yeah, so I think what a company says
+that they're interested in, they're going after AGI,
+they're describing a technology that does not exist yet.
+They're describing some future world
+in which there are computers that you treat as a person
+or that go even beyond the capabilities of a person
+and are, you know, there's sci-fi visions
+of artificial super intelligence and all these things.
+If a company says they're going after AGI,
+they're saying that's what they're trying to build.
+I actually, it's unclear to me
+that the technology we have now will get us there.
+I don't really care about that.
+I'm interested and Co here is interested
+in making large language models useful for businesses.
+So like that's what we're focused on.
+I mean, do you think AGI could exist
+or do you think it's just not possible?
+I think it's possible.
+I see no reason why it couldn't.
+I'm not a dualist.
+I think we might be able to create, you know,
+some representation of a human mind
+that is, that functions as one.
+I don't think we've done that with transformers at all.
+I don't think we've made transformers
+or nowhere close to the, to a human mind.
+Okay, but if it could exist, would it be a good thing?
+And why would it not be interesting?
+I'm not sure if it would be a good thing.
+Yeah, I'm not sure.
+I think that's a really interesting conversation.
+I think there's a lot of people
+who think it wouldn't be a good thing.
+I think there's a lot of people
+who think it would be a good thing.
+I don't know.
+I think we're not close to that at all.
+And so I like to think about those things
+from a philosophical perspective,
+but when it comes to running a business,
+I'm really interested in making the technology useful
+to solve these real business problems.
+And I like philosophical debates,
+but I like being grounded in reality a lot more.
+So that's what we're focused on here.
+Absolutely.
+Well, maybe we'll go philosophical a bit later.
+Yeah, happy to, yeah.
+Cohere has just made incredible waves with Command R.
+Can you tell us about that?
+Yeah, yeah.
+So we recently released two new models,
+Command R and Command R Plus.
+They're similar from the same model family.
+We just have one that's bigger and one that's smaller.
+They're particularly good at multilingual,
+retrieval augmented generation and tool use.
+Those are kind of the things we went after.
+We've open sourced the weights
+and they're available on a bunch of the cloud providers.
+So if you're a builder,
+I encourage you to download the weights,
+try it out yourself, try it out on our platform.
+If you're in an enterprise,
+try it out on whatever cloud provider you're working with.
+They're really good at, yeah,
+they're really good at real world problems.
+And out of those features that you mentioned,
+is there a particular standout feature
+that you feel perhaps has the potential to be really big?
+Yeah, I think all three do.
+If I had to pick one out of the three,
+I think retrieval augmented generation
+is the most exciting.
+I think, I mean, people talk about hallucinations
+in language models a lot.
+I'm sure your listeners are familiar.
+But for those who are not,
+hallucination in a language model
+is when you ask it a question
+and it writes something that is not true.
+It writes something that you,
+isn't based on your view of the world.
+I don't really like the term hallucination
+because it implies that there's something
+the model can do that isn't hallucinate.
+But really, all large language models do on their own
+is hallucinate.
+It just so happens that sometimes
+that hallucination lines up with how the world is.
+But that's kind of a fundamental issue.
+So we've trained our models
+to instead of just being good at memorizing facts
+that go out of date or that change or something,
+we've trained them to be really good at
+taking relevant information
+and answering based on those things
+and providing citations so you know where it got that answer.
+So that's, I think that addresses this fundamental issue.
+Now you can get a language model as an interface
+into some external source of truth
+rather than relying on the internal memory
+and weights of that model.
+I agree.
+I think there's a problem with anthropomorphization
+which is that there's no kind of explanation
+of why the information is there.
+It's still interpretive,
+but it seems, you know, better to me
+to at least have these citations there.
+So it's clear why the model said what it did.
+100%.
+Yeah, so our model is particularly good at being like,
+here's a bunch of documents.
+Here's what I wrote.
+This part of this sentence came from this document.
+This part of this sentence came from that document.
+And so you can check and see where it got
+its source of information.
+Yeah, yeah, that's very interesting.
+Yeah, because these models, they mimic language
+so incredibly well that when you just see,
+you know, generated text,
+the temptation is to ascribe agency and personhood.
+I think a lot of the difficulties people have been having
+with large language models comes from
+personifying the model to be doing one thing
+and treating it like it's doing that
+when in reality it's doing something quite different.
+So I really like the retrieval augmented generation stuff
+of our models because I think it addresses
+that fundamental problem.
+Yeah, I mean, reflecting on, you know,
+RAG and the maturity landscape, I mean,
+how is it changing the way we are building applications?
+Oh, I think it's changing a lot.
+Yeah, I think it's making,
+I think it's making models a lot more usable.
+When you've set the whole system up, you know,
+you use cohere embeddings that are multilingual,
+cohere re-rank to improve the search results
+and then you feed in those relevant information
+to the generative model,
+you can actually start to use that at production scale.
+You can actually start to, you know,
+put in your company's internal documentation
+and get a real answer
+instead of something that the model just made up.
+Interesting.
+So we're at one of your build days.
+You're running four build days in four cities
+and we're here in Toronto
+and there's about 80 developers here.
+Tell me about the day
+and who are you speaking to today?
+Yeah, the build days are something new for us.
+We haven't done these before,
+but the first one went really well.
+This one's going very well
+and I'm really excited for the next two.
+Yes, we have a whole bunch of people
+from like a variety of backgrounds actually.
+Some really experienced like long-time ML engineers,
+some more recent,
+but they're all on the second floor right now
+working with our new models
+and working with our open source chat toolkit building.
+Well, I don't know what they're building yet.
+They just started,
+but I'll be excited to see what they build in the end.
+Yeah, yeah, it's so interesting
+because I think there's a last mile problem
+in building applications with language models.
+It's easy to put a demo together.
+It's very impressive,
+but there's still a hell of a lot of software engineering,
+good old fashioned engineering that needs to happen
+and just building that developer awareness
+I think is really, really important.
+But given that there is still a,
+let's say a 5% robustness problem,
+what kind of general guidance are you giving to developers?
+Is it a case that there are general rules
+or is it quite specific?
+Yeah, well, I think if you're building an application
+that's like a chat interface to do something,
+I think it's really good practice
+to use the citations in the UI that our model provides
+because that really does increase trust, right?
+Like if you can see where the information came from,
+then you can know, okay, I'm relying on this.
+This is good information that the model had.
+So you mentioned there's a last mile problem.
+I think there are, there's a few.
+One of them was building out good user interfaces
+to use large language models.
+So one of the things that they're working on
+is our chat toolkit.
+This is like a whole full featured chat interface
+that we just open sourced.
+So now we have something called the Cohere Toolkit.
+You can deploy that locally, you can deploy it.
+It's all set up for Docker and everything.
+So you can deploy in your own environment
+a chat interface using our models with citations,
+with RAG, with tool use even, Python interpreter,
+like all of these extra bells and whistles.
+And that has already gone a long way
+in setting people up to build new products with this tech.
+I'm really excited about the evolution of RAG.
+So tool use is fascinating.
+And I think in the future,
+it could be generalized to just discovering,
+you know, microservices, you know,
+just doing flexible semantics and so on.
+But what's the evolution there?
+Like what kind of tool use are you seeing now
+and where do you think it's going?
+Yeah, so right now, so, sorry, just for,
+yeah, so tool use is kind of a new thing
+people are interested in LLMs
+and it's where instead of just getting the model
+to write some text, you get it to use some tool
+to like write a query for that tool
+and then based on the result of that tool,
+which is externally computed, give you an answer.
+So retrieval augmented generation
+is like kind of the first example of this.
+Like the tool is a search.
+And so you get the model to write a search query,
+do the search based on those documents,
+answer the question, provide citations.
+That's like one tool.
+Another tool we have in our tool kit is like,
+is a calculator.
+So you can get the model to write a mathematical expression,
+execute the mathematical expression,
+give you an answer based on that.
+That's one thing language models are notoriously bad at math
+as you would expect them to be given that they learn
+by repetition and reading from examples.
+It's really hard to learn math by memorizing
+every math equation you ever see.
+So yeah, so they're really bad at that.
+So we can augment that by giving them access
+to a calculator and then answering the question
+based on the output of the calculator.
+Those are two kind of simple examples.
+And third one that we've added into tool kit recently
+is Python.
+So you can use code as a tool itself.
+The input to that tool is a bunch of code.
+The output is the output of that code.
+And that kind of opens it up to everything.
+So where does it go from there?
+I think you start combining those.
+So one thing in the tool kit you can also do
+is turn on search as a tool and Python as a tool
+and turn on multi-step.
+So now you can ask a question like,
+create a graph of the height of the five tallest pyramids.
+And first it will find one of the five tallest pyramids,
+what are their heights?
+And then it will use Python to create a graph to do that.
+So you can see how chaining those things together,
+you could get to a world where you kind of arrive
+at a computer, maybe the screen is blank,
+and you just say, do this.
+And then it figures out how to call various things.
+If it doesn't know how to do it, maybe a Google search
+is at first, finds an API, builds you a front end
+to interact with that API.
+We can get to a point where language really
+can be the default interface between you and a computer.
+I think that's really exciting.
+That's fascinating, because I'm interested in how this
+is going to kind of evolve over time.
+So as I understand it right now,
+Code here has an incredibly sophisticated toolkit
+which generates prompts, which constrains the model.
+And we can solve problems, because even if we run this thing
+non-interactively, it's going to work reliably.
+It's going to do what we need it to do.
+But when the tools become more open-ended,
+so let's say it's generating code to do something,
+and people might be building these
+agentic metaprogramming systems and so on,
+then it feels like it's harder and harder
+to run it unsupervised.
+What does that look like?
+Yeah, so I mean, you can think of this in the same way
+you think of like game AI or something,
+like chess, I mean sitting in front of these chess boards,
+you can think of it as the same chess AI or Go AI.
+Like there's a branching factor to these things, right?
+Like one of the reasons why the algorithms
+that beat chess were so different
+than the algorithms that beat Go is because in chess,
+there's what an average of like 80 moves
+or something you can make per move.
+And in Go, there's an average of like 200.
+So we had to completely redesign the computer systems
+that were used to create AI for both of those games
+simply because the branching factor is bigger.
+And if you're gonna, you know,
+every time you're gonna make a move,
+there's 200 possible moves to make.
+I don't know what the branching factor
+for writing Python is, but it's probably pretty big, right?
+So I think like as you start to do multi-step
+and do more open-ended tools,
+it certainly requires more supervision and more correction.
+In the same way that, you know,
+if you're asking a person to do a simple task,
+that's one step, you probably don't need to supervise them,
+they can probably do it.
+But if you're asking somebody to do a task
+that requires many, many, many steps,
+you might wanna check in on them every now and again.
+Yeah.
+Yeah, I mean, the way I think about this
+is it's to do with like the divergence of semantics
+and understanding, because I'm really excited
+about, you know, agentic systems, for example.
+And the problem at the moment is every single step,
+it diverges, so it's moving away from the thing
+that I wanted it to do.
+Yeah.
+And I guess you could solve this one of two ways.
+I mean, you know, maybe if we made it understand better,
+we could trust it to, you know,
+work in these divergent flows
+and it would still end up doing what we want it to do.
+Well, I think here's where we're gonna get into
+some of the like non-AGI things.
+Like, I don't love the term agents,
+although it has been widely adopted,
+you know, agent workflows or something.
+I don't love it.
+I don't like applying agency to a sequence model.
+I think that's actually kind of misleading.
+I think I like to use the term multi-step tool use,
+because when you say something like that,
+you can imagine how the problem you're trying to tackle
+is fundamentally a sequence modeling problem.
+Like you have some sequence of calls,
+you've trained a model, a probabilistic auto regressive
+model on those sequences, and we're gonna try
+to make the model better and better and better at that.
+You're not gonna get agency out of that.
+It's not gonna suddenly get agency.
+And it's always gonna be constrained
+by the data that it has been trained on.
+So I don't think these models in a few years
+will get to a place where you can say something like,
+hey, LLM, run my business for me.
+Like that's not gonna happen.
+That it's too open-ended.
+The branching factor's too big.
+It requires too much about the real world.
+There's not gonna have been data that represents that use case.
+It's just not gonna work.
+But I do think we could get to a point
+where lots of little things throughout running a business
+could be automated by a language model.
+You could say, hey, read these documents
+and make a report that tells me this information.
+Like that could probably be done by multi-step tool use.
+So you could say, hey, look at these customer requests
+and respond to them with these particular things
+if this happened or something.
+Like you could start to chain things like that together.
+Yeah, I think part of the issue with agency
+is people think that it's just a thing which acts.
+And I love the definition.
+I mean, there's actually many definitions
+on the Stanford Encyclopedia of Philosophy.
+Let's say a system with preferences, with goals,
+with intentionality, something which is trying
+to affect the system around it to achieve its preferred states.
+And what's to say that a system couldn't have that?
+It seems to me that the missing component is the understanding.
+I agree that it doesn't have volition
+because we tell it what to do.
+We tell it what the preference is.
+It doesn't infer the preferences.
+But let's say, here's a thing that is aligned with us.
+It has the same intentions as we do as CEOs or something
+like that.
+Why couldn't that be an agent?
+I mean, I think, yeah, this is going
+to get down to a philosophical discussion on what
+the definition of agent is.
+And I think we can have an LLM that
+can, based on training data, figure out what tool to call.
+We can have it figure out how to use multiple tools in sequence
+or perhaps even create sub-agents to accomplish goals.
+Like, we could do all of that.
+And I think we will.
+But fundamentally, these models are still based off training data.
+They still work on things that they
+have seen before for the most part.
+And that means they're never going
+to be as robust as you or I are.
+We are doing something very different than an LLM is doing,
+even when we're trying to solve the same tasks.
+And so I think that means there are going
+to be some things that LLMs are very good at.
+Like, I use this graph example where
+I ask it to go make a graph of the five tallest
+pyramids in the world.
+You know, that would actually take me a while.
+Like, I would have to Google search it, find it.
+I'd have to remember how to use Matplotlib,
+or I'd have to remember how to use Google Sheets or something.
+It would take a little bit.
+But you can use our model to do that in a second now,
+in a few.
+So there are things that it's going to be very good at.
+But the things about operating in the real world,
+operating with the complexities and intricacies
+of interpersonal dynamics that come up
+when you're running a business, those are probably not
+things you're going to get from a training data set.
+And so I don't think these models are going to extend to that.
+Yeah.
+There's also this thing that, contrary to Nick Bostrom,
+I think intelligence is about goal dynamism.
+Part of agency is about the ability
+to dynamically change your goals.
+And having an agent that is explicitly
+told to do one thing can't be intelligent by definition.
+I mean, I think that's another thing.
+All of these complicated debates are just
+like, well, it depends on what you mean by intelligent.
+And I think it's some ways those debates, they're interesting,
+but they don't really help you get to the bottom of it.
+I think what helps me get to the bottom of it
+and understanding where this technology is going
+is going back to what it does.
+And what it does is probabilistically,
+based on a huge training data set,
+write a sequence of tokens.
+Yes.
+That's what it does.
+That's not what you're doing.
+You're doing something very different.
+And so these are obviously these two things,
+these two technologies, a human brain and a large language
+model, are going to be very different.
+Lots of people have used the analogy before,
+but it's similar to artificial flight.
+We have planes, which are incredible,
+and can carry huge amounts of weight,
+massively long distances.
+But they're not the wings of a hummingbird.
+They can't hover in one place.
+They can't dynamically change.
+They're very different technologies.
+Planes are super useful and are a truly incredible feat
+of engineering and are a fundamental part
+of our lives these days.
+So we created artificial flight.
+It just ended up being very different than biological flight.
+And so it's particularly good at some things
+and not good at others.
+Absolutely.
+There's this kind of narrative coming from Silicon Valley
+that LLMs are general.
+And I think it serves as a useful fiction, in my opinion.
+But I believe that these models are more
+specialized than people realize.
+And with that in mind, I mean, is there
+a future where we might see specialized versions of LLMs?
+Or do you think there'll always be
+this idea of a foundation model that is general?
+So I think that they are really general when
+you look at the history of machine learning.
+So when I first started doing machine learning research,
+if you wanted to solve any task, the best way to solve it
+was to create a data set for that task,
+train a model on that data set, use the model for that one
+task and that one task alone.
+That was where things started.
+Then in image recognition, shortly thereafter,
+it turned out that you could actually
+have a general purpose image recognition model,
+and then you could fine tune it on your particular data set
+or something.
+And that was helpful.
+We're now in a place where if you take a really big transformer
+and you have a language task you want to solve,
+you might actually get better results
+by just prompting that general purpose language model
+than you would on fine tuning a model based
+on examples of your task.
+That's a really interesting outcome.
+I think that has to do with the perception
+of the narrowness of language.
+We think of language tasks as being very constrained.
+I can imagine a task of reading a document,
+reading a quarterly earnings report,
+and extracting sentiment and the revenue or something.
+You might think that's pretty constrained.
+But when you actually look at the way people write earnings
+reports, that they're all over the place.
+They use different terms of phrase.
+It's very difficult to get a data set that captures
+that and that alone.
+So you're probably better taking a general purpose transformer
+and prompting it a few times, and you
+might get better results out of that.
+So they're general in that sense.
+I don't think they're general in the way you and I are general.
+I don't think they are as robust as that.
+And so there are going to be things
+that they don't extrapolate to and some fundamental limitations
+of where this technology can go.
+But that doesn't mean I don't think they're massively useful.
+And their general purpose enough that if you have a language
+problem, you should probably be using a transformer
+to solve it.
+And that will probably get you the best results.
+Yeah, a couple of thoughts on this.
+I mean, first of all, language might not
+be as general as we think.
+And also, there's the benchmarks problem.
+Maybe you can comment on that.
+But it's possible that there's some of these models,
+as you could say, are cheating because they're kind of training
+on the test set.
+And so writers in the New York Times or whatever,
+they say, oh, these things can pass the bar exam.
+They can pass SATs and so on.
+And they're not really passing.
+But the thing is, they are general,
+for the reasons you just said.
+They really are general.
+So what is it?
+Well, it's a very, this, as with most things,
+the answer is somewhere in between.
+The answer is somewhere, they are general,
+but they're not general the way you are general.
+So yeah, benchmarks has become a real problem
+in language modeling.
+And that, over the course of the history of this company
+and this technology in general, like every year,
+there's been a new benchmark that people have cared about.
+So in our first year, the benchmark
+that everybody cared about was LM1B,
+which was measuring a model's ability
+to generate news from 2012.
+That was the benchmark that everybody used.
+After that, it was something called Heliswag,
+which was your ability to come up with the ending
+of weird sentences about where cups were
+and odd kind of things.
+More recently, it's been MMLU,
+which is a series of multiple choice questions
+involving some surprisingly specific things.
+It turns out there's a lot of questions in there
+about Sigmund Freud's theories.
+We use all of these as proxies to understand
+how good a model is.
+And like, they give you some intuition,
+but they're by no, they're easily cheated.
+And normally not at all correlated
+with what people wanna use the model for.
+Like everybody's measuring MMLU.
+Nobody building an application with a language model
+is giving it MMLU-like questions, right?
+Like that's actually not useful.
+We don't need a language model
+to answer weird multiple choice questions.
+We need it to help us with our work.
+We need it to structure unstructured documents.
+We need it to call tools based on the input from a user.
+And like, none of those are really captured
+by the benchmarks that exist today.
+Would Co here ever verticalize
+or do you expect customers to build derivative
+or fine-tune models on top?
+So I think our objective has been,
+yeah, to build these general purpose models
+tailored specifically for business.
+A lot of people talk about like,
+oh, you know, should we make a financial model
+or a medical model or something?
+I think actually the way to do that
+is to use retrieval augmented generation.
+So we're not gonna try to train a model
+that memorizes all the facts about medicine.
+We're gonna make it generally good at language.
+And if you want it to know facts about medicine,
+you can give it documents
+in the retrieval augmented generation system.
+And it can answer it based on that.
+Can you contrast RAG with having a really long context
+and just putting everything in there or more in there?
+Yeah, yeah.
+So we've expanded our context.
+When our context window is now 128K
+for the Command R plus release.
+Yeah, these things are different.
+So a retrieval augmented generation system,
+I think when I say that word,
+a lot of people think like a whole search thing,
+where you first you generate a query with that query,
+you find some relevant documents,
+you then use an embedding model to measure similarity,
+you use a re-rank model to refine that,
+then you put that back into the prompt
+and you might say, well,
+can't we just put all those documents
+into the prompt and answer directly
+without any of the embed or anything?
+I would still call that a retrieval augmented generation.
+It's just that your retrieval is really broad.
+You're saying all of these documents
+put them into the context window.
+No matter how big your context window gets,
+you're probably gonna have in a production setting
+more documents than fit.
+Like that might not be true if you're building like,
+you know, I built retrieval augmented generation systems
+for like little games,
+where I like give it a bunch of lore
+or like a backstory and I answer questions on that.
+There yeah, now I don't need to do embedding
+or re-rank anymore,
+I just like put it into the prompt
+and answer the question.
+But when we're looking at, you know,
+real world production business usage,
+it's like answer this question from all of case law
+or answer this question based on an in person's entire,
+you know, history or something like any of these huge things
+that really quickly go over your context window.
+Fascinating.
+I can imagine a world where let's say in the future,
+you know, we've got 10 million context window
+or something like that.
+And folks using cohere,
+it just kind of remembers everything that you've ever done.
+So, you know, all of your previous interactions
+are in there.
+And so you get this kind of divergence
+where everyone has a different state.
+So rather than starting with a blank slate
+where everyone starts from the beginning,
+it has, you know, what did I buy for shopping last week
+and where I went all the day last year and so on.
+And my gut intuition is that model would be kind of weird
+and constrained and quite hard to benchmark.
+I mean, what do you think?
+Yeah, yeah, I mean, I think that would get pretty weird.
+I think the bench, I think the obsession
+with metrics and benchmarking right now
+is like a local minimum.
+Like I think the obsession with that is because we don't,
+this technology is still so exciting
+and it's being talked about all the time.
+And it has yet to really deliver on that promise.
+Like I'm starting to see a bunch of people use LLMs
+as part of their daily workflow and part of their life.
+But a lot of people still don't.
+A lot of people have seen this technology
+as like a cool oddity and then moved on.
+It hasn't impacted the way we use computers,
+the way the internet did, the way the touchscreen did,
+the way the mobile phone did.
+Like any of those, the way databases did, I guess.
+Like any of those things, those technologies,
+they became like inseparable from the way we use technology
+and we use computers.
+Large language models, I think will do that
+but have yet to do it.
+And now, like there's benchmarks for touchscreens.
+Could you name me one?
+Right?
+Yeah, no, like it's not relevant anymore, right?
+Like you just use the thing.
+And there's like benchmarks for phones,
+but like, as a consumer, you just kind of decide
+which one you think is best and you use it.
+I think that the obsession with like leaderboards
+and benchmarks exists because the technology
+hasn't landed yet.
+It hasn't delivered on its promise.
+And when it does, we're not gonna be worrying about like,
+well, hey, does your model, you know,
+is it great at memorizing facts about Freud's theories
+in a multiple choice setting?
+You're gonna be like, well, does this one
+help me solve my problem?
+Like it does, great, cool, that's it.
+That's what it's good to see.
+But then the question is, has the technology landed?
+So, I mean, I've got a bit of an intuition
+looking at some of the benchmarks.
+I mean, you know, the benchmarks are broken,
+but there's also things like the LLM arena,
+which I think is very interesting,
+which you can talk to.
+But it appears, I mean, like the models
+are all in the similar ballpark now.
+Does that mean it's saturating?
+Or do you think that, you know,
+if we put 10X more into data and training,
+you know, we could still see a huge improvement?
+I think that's an interesting question.
+I think on some of the like benchmarks,
+like not the, you know, we're saturating
+because people are training on the test set.
+So there's some saturation going on there.
+I think in the ELO ranking, I think that's a really,
+that's a much more interesting benchmark to me.
+I think that one's quite interesting.
+I think the shortcoming of the ELO ranking
+is that what people want to use LLMs for
+in business applications is mostly not idle chit chat.
+It's mostly not asking it a brain teaser
+and seeing if it gets it.
+It's mostly work, like work automation
+or, you know, augmenting systems that are in place already
+to handle a bunch of, you know,
+complex language processes or something.
+So the ELO ranking is cool,
+but you have to remember it's measuring not
+how useful is this model gonna be for my business.
+It's measuring how good is it to chit chat with.
+And those are correlated.
+They certainly like a model that is, you know,
+language models that are really good conversationalists
+are often really good work courses as well.
+So it's a decent one, but it has a shortcomings as well.
+I think there's still room to grow.
+Like I think these models are gonna get a lot better
+over the next few years.
+How I think that's gonna look like
+is the stuff we were talking about earlier,
+you know, multi-hot tool use and integrating with systems
+that are, you know, external to the LLMs.
+I think that stuff's just gonna get more
+and more and more reliable.
+I don't know if we're gonna make a model
+that's, you know, even better to chit chat with on ELO,
+but I know that we're gonna make a model
+that is more useful.
+Yeah, even if it wasn't chit chat,
+if it was something better than that,
+you could argue that the benchmark
+is still kind of human parasitic and human limited
+because it's limited by the ability of humans
+to kind of recognize something has been better.
+I'll give you chess as an example.
+So, you know, in chess, there are roughly 30
+kind of skill flaws where according to ELO,
+one person in the floor above will be at the person,
+you know, 100 ELO points below 95% of the time.
+So there's a massive dynamic range of skill in chess.
+And I don't think there is such a high dynamic range
+of skill in humans.
+And of course, chess is one skill.
+You know, we have a whole, you know,
+like a whole nine yards of skill.
+But then what you were saying before is interesting,
+which is that there's a kind of good enough thing, right?
+You know, like when it reaches maturity,
+then at some point it's like the iPhone 15,
+like it's good enough.
+Yeah, yeah, that's interesting.
+Yeah, yeah, I think we're off,
+I think the tech's gonna get a lot better
+in the next little bit.
+So I don't think like,
+I'm excited for our next model release,
+like we're cooking up some exciting things.
+I don't think we'd saturate it on that,
+but I do think that a person's ability to look at a model
+and say this one's better than that one
+based on my brief conversations with it,
+yeah, those don't really reflect the business use cases
+that people are making.
+And we've seen, I mean, a bunch of research
+has come out on this recently showing the effect
+that preambles have on ELO ranking,
+showing the slight formatting changes,
+make a huge difference in people's perception
+of how good the model is.
+All of those things kind of show the brittleness
+of that ranking.
+I imagine as time goes on,
+we'll get better at making the ranking as well.
+So hopefully we can have one that reflects like,
+hey, this is, like we want the ranking to say,
+if you're gonna solve a business problem,
+you're gonna use a model to do something within your work,
+this one's gonna solve it for you,
+this one's gonna solve it for you, this one's not.
+Like that's what we'd like to get to.
+And we're not really there either.
+So I expect the models to get better
+and hopefully the way we evaluate them
+to get better as well.
+Yeah, it's interesting the comment you made
+about almost human adversarial example
+is that you kind of like change a couple of things
+and humans see it completely differently.
+I'm interested, you probably can't talk too much
+about this, but how is Cohid differentiated
+in terms of like your data acquisition pipeline
+and how you kind of like get all of the data
+prepared for the language model?
+Yeah, well, I don't know the way
+other companies are getting their data.
+So it's hard to talk about the ways
+in which it's differentiated.
+I know that we make a point of getting data
+where we can do so reasonably.
+And we make a point of getting data
+where we're confident in its usage.
+So that's, I mean, that comes from our focus
+on business enterprise.
+So we do like data indemnifications
+if you're using our model, we can indemnify you against that.
+And that comes from our belief
+in our principled approach to data acquisition.
+Yeah, I'm a huge fan of Sarah, of course.
+She runs Cohid for AI.
+And the ethical question is really, really big here
+because I know you folks have done so much around
+like the multilingual model,
+looking at low resource languages and stuff like that.
+But it gets to the point
+when you're playing the SOTA chasing game,
+you almost, do you take a principled stand and say,
+oh no, we actually want to have fairer models
+even though some of our headline metrics
+might not look better.
+I mean, where do you kind of think about that?
+Yeah, I mean, it comes from, yeah, having,
+it comes from trying to make a model
+that can be deployed anywhere
+and that any business can be confident
+deploying and using.
+Like that's, if our objective is to make
+a useful thing for businesses,
+then how we handle data like falls out of that naturally.
+Right, like that, yeah.
+We're not really building custom machine learning models
+anymore, the data science function as a role.
+It rose to prominence around 2017
+and loads of folks building custom models.
+And it feels to me that now
+there's more of a software engineering focus,
+there's this like, let's use foundation models,
+let's do LLM ops.
+Is that a fair assessment
+or do you still think there is huge,
+like importance of data science?
+Well, I mean, look, the time period you're talking about
+like 2017, 2018, when people were a bunch of ML engineers
+making custom models,
+they weren't doing languages in modality, right?
+They were doing, like predictions of a,
+you know, like of image classification
+or they were doing predictions of outcomes
+based on numeric features or something.
+Like, and none of that has changed.
+Like that's all still happening.
+Everybody who was doing that,
+they're still doing it in some form.
+It's just that a whole new thing has opened up of like,
+oh, you have a language problem to solve?
+Cool, a transformer or a large language model
+can help you solve that.
+So I think all of those things
+are still probably ongoing.
+We just don't talk about them as much anymore.
+But how would you contrast them?
+Because it feels like a difference in kind.
+So one feels more like software engineering.
+And it feels more like composing,
+you know, like in software, you compose modules together.
+There's still a whole bunch of metrics around it.
+So you could argue it's a similar mindset,
+but it feels like in those days, it was different.
+It felt like R&D.
+It just, it felt different.
+Now it feels more like it's just something.
+Yeah, well, I would, I would,
+I would imagine that actually it always feels
+like software engineering.
+And that even when we're thinking back of the days
+of like 2018 when somebody at some company
+was told to train a neural net
+to predict click-through rates of something,
+the challenging problems in getting that running
+was software engineering.
+You know, in the end, it was like, oh, cool,
+I'm gonna do some feature engineering for a bit.
+And then I'm gonna spend a long time figuring
+how to get this system ready in production
+and like actually working.
+So I think now it's a lot of the same stuff.
+You spend some time figuring out how to get a good prompt.
+You spend some time looking at which models
+particularly good at your task.
+And then you spend time as a regular software engineer
+building out the infrastructure to actually run it.
+So yeah, I bet they're not that dissimilar.
+I mean, I agree with you.
+So I always thought of software engineering
+as being hugely important to get people into production.
+But there was this kind of impedance mismatch.
+So you would, you know, the data scientists
+would build the model and then you'd hand over
+to the ML engineer and you build this DevOps pipeline.
+And it was always like super brittle
+because you know, what happens when the model changes?
+And now the difference, it seems to me that
+a software engineer on their own can do the whole thing.
+Hmm, yeah, I mean, I think now that we're all
+back-ending our stuff based on a pre-made model,
+yeah, it does mean that you don't need to do,
+you're not doing feature engineering,
+you're doing a little prompt tuning,
+you're doing some prompt engineering.
+But that's a thing, you know, that's,
+you're not taking some weird,
+you know, you're not applying some weird function
+to a numeric value and noticing that if you apply
+this function, that's a better feature than this one,
+you're just toying with language a little bit.
+And that's a thing that's a lot more accessible.
+Yeah, amazing.
+Is there anything else you want to talk about?
+I wanna shout out our open source release of the toolkit
+so that any of your developers
+if they're building chat interfaces,
+like I highly recommend that they try out our,
+check out our GitHub and use the cohere toolkit
+for building chat interfaces with tool use,
+multi-hop tool use, including things like
+Python interpreter and web search,
+so like try that out and check out the new command,
+our plus model, it's really great.
+I use it a lot, it's my go-to these days.
+It's amazing.
+Yeah, and it's good that, yeah,
+tool use, retrieval augmented generation
+and multi-linguality.
+Nick, it's been an absolute honor to have you on,
+thank you so much.
+Yeah, thanks so much for having me,
+I really enjoyed the conversation.
+Amazing.
+Thank you.

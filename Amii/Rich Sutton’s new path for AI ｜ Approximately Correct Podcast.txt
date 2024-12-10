@@ -1,0 +1,607 @@
+Let me tell you what I really feel about.
+Please.
+I thought I was being honest.
+Rich, thank you very much for joining us here on Approximately Correct.
+We're very pleased to have you here.
+Thank you, Scott.
+It's my pleasure to be here.
+We've been wanting to have you on for a while, so it's great to have you.
+We've talked about reinforcement learning a few times on the podcast already,
+but we're interested to hear about what exactly about that reinforcement learning setting was appealing to you.
+Why did you start working on this?
+Well, I was always interested in systems that interact with the world and learn from that,
+and that's all that reinforcement learning is to me.
+I mean, you have to have a goal, which we formalize as a reward,
+but it's kind of surprising that if you look into AI when I started in the 70s
+and all throughout this time, there really isn't that much that's about, you know,
+a system interacting with the world and learning from it and having a goal.
+And even in the early days of cybernetics and throughout pattern recognition and supervised learning,
+those systems don't have a goal.
+They're just trying to pick up on a pattern, which is important.
+An important part of intelligence, but it's not interacting with the world to have a goal.
+And so that always seemed like it was kind of missing.
+You know, there wasn't reinforcement learning when I started.
+We had to make it because there wasn't anyone doing it.
+And was there a particular moment for you that you kind of remember having that feeling of,
+oh, I think this is, I want to look to this goal-oriented direction?
+Yeah, it was a gradual moment when we just studied all the different things that people had studied,
+like pattern recognition, like control theory, all these things, you know,
+it kept looking, where are we going to find the one where you're trying to do something?
+And, you know, there was bandits.
+There were always bandits.
+Bandits where, you know, you kept doing action until you get to the most reward.
+But that was as close as it came.
+And they didn't have something that says, oh, I remember I should do this and this situation and that situation.
+And in order to get my goal.
+Bandits, you just do one thing over and over again.
+Right, it's fundamentally stateless.
+Yeah, that's right. It's stateless.
+Why do you think it started that way? Why was it all focused on prediction?
+Well, it didn't.
+My reading of the history is it didn't really start that way.
+I think they began, they wanted to do interacting to achieve a goal.
+And then they fell slid back into pattern recognition.
+Because pattern recognition is just clear and simple.
+And then they gradually kind of forgot about it.
+Like, some of the very earliest things, 1954, like Farley and Clark, they talked about having a trial and error.
+And then it gradually became supervised learning.
+We got clearer path forward.
+It was a clear path, yeah.
+And there's always been the case.
+I'm sorry to start so far back.
+No, it's fun.
+It's important to build a foundation.
+And it's also one of the nice things about having you on is that you remember.
+You remember those things.
+Let's move forward, though.
+What are the things you're thinking about in the context of reinforcement learning today?
+What interests you about reinforcement learning right now?
+The only way to describe it is not to talk about reinforcement learning.
+We have to talk about all the AI.
+And what's happening in AI and what's not happening in AI?
+What needs to happen?
+I'm still thinking AI is interacting with the world to achieve a goal.
+And I guess that means we're talking about reinforcement learning.
+But if you just interact with the world to achieve a goal,
+then you've got to make a model of the world.
+You've got to have a goal.
+You've got to model the world at multiple timescales.
+You've got to learn what are the right structures and right features and concepts to understand the world.
+And I didn't say, you know, where we start, which is what you have to do things.
+You have to try things and see what works, which is where reinforcement learning starts.
+I would say that over the years, we have developed good methods for linear mappings.
+If you want to learn a linear relationship, then we're fine.
+We can learn online.
+We can learn continually.
+Could you give an example of one of those linear relationships that would work really well?
+So all the algorithms are actually defined for the linear case and for the nonlinear case.
+You have linear TD lambda, nonlinear TD lambda, Q learning.
+You have both linear and, you know, it started as linear versions.
+And the linear versions learn rapidly and they can adapt as the world changes.
+But they can't learn nonlinear mappings.
+They can't learn an exclusive or they can't learn new features.
+So 1986, we found backprop and we started to be able to learn nonlinear mappings.
+But it was like a devil's choice or whatever.
+When we had to learn, we wanted to learn nonlinear things.
+We had to give up the ability to change rapidly and to learn continually.
+I mean, did you have to?
+I don't think you should have to, but the methods that were first found were not able to learn continually.
+And they were so exciting and powerful.
+They were able to learn nonlinear things that, you know, we were not dissatisfied
+to give up the continual learning in return for being able to learn nonlinear maps.
+That was a good trade-off.
+And, you know, it was a good trade-off, but we've kept on too long.
+And more than that, somehow the, I feel the aesthetics of the field has changed
+and the field wants to focus on what they can do
+instead of noticing what they can't do.
+What do you think that is?
+So it's just that simple.
+You know, we can do certain things and so we could work on those.
+So all of deep learning is all about, hey, what can we do with, you know, take a data set
+and we learn from it and then we freeze our learned system
+and we just play it in the world, chat GDP doesn't learn at all,
+but it is highly learned to construct it.
+And so, yeah, we've done the language.
+It's an amazing accomplishment, but we had to give up something that can learn
+to use language as it's going during use, during normal operation.
+It's a test of the researcher.
+Does he want to see what we can't do and try to work on that,
+or does he see what we can do and go further with that?
+That's the problem of looking under the street lamp, right?
+Like, I've lost my keys and I'll look under the street lamp
+because that's where I can see, even though that might not be where the keys are.
+Anyway, you know, I think it's fine to do all different things,
+but I think the important observation is that the field has overwhelmingly gone in one direction,
+gone towards, and so much so that you're strongly discouraged
+by, oh, there's something we can't do.
+They say, well, yeah, but we can do all these other things, so don't criticize us.
+I see that as a big effect.
+In the early days, machine learning, it was much more open.
+Oh, this is interesting.
+And then, at some point, deep learning or the field went to a stage where,
+unless you're doing something complicated, at least like Atari, you can't publish.
+You know, you have some new idea.
+Well, how does it work on a big problem?
+Right.
+And I think it's gradually easy off.
+I think there's more interested in what we can't do.
+And the whole thing like continual learning is exactly the thing that's more acceptable to work on now.
+So maybe I'll get you to decide, like, what is continual learning?
+What does that mean?
+Continual learning just means that you continue to learn
+rather than learning in the factory and then being frozen when you go out into the world.
+I see.
+Sometimes they try to search for, well, what's, if we have continual learning,
+and that's almost the normal one, what should be the abnormal one?
+The abnormal one, I don't know, I'm trying calling it transient learning.
+So what deep learning does is transient learning.
+You know, we learn in a special phase, and then you're done learning, you never learn again.
+That's transient learning.
+That's the unusual one.
+Episodic learning.
+Episodic learning.
+Well, I can't do that because reinforcement learning uses episode in a very particular way.
+Can't get past that.
+I mean, it does kind of strike me as so reasonable.
+I mean, like, when you think of, like, how we learn,
+I don't go home and forget everything that I've done whenever I get new information.
+Most times.
+Bad day, maybe.
+So I guess I'm kind of curious, like, why was that not sort of the default from the start?
+I think it's just, it was the default from the start.
+Just in recent decades, we've gotten to this group thing where we all think in a particular way.
+Yeah.
+So I like to think about it in, you know, what are we trying to produce?
+Are we trying to produce a system that is fixed and behaves really good?
+Our final product, will it be something that can continue to learn?
+As it can encounter new things and learn about them?
+You know, when you come in each day to work, do you think, oh, I'm really good.
+I just have to do the same thing?
+Or do you think, you know, the reason they're paying me something is because I can adapt to what happens
+and I can be flexible and learn new things?
+Yeah, most days.
+I don't know.
+They're both important.
+Yeah.
+But with that adaptability, all this seems really important to me, part of intelligence.
+Is intelligence a policy?
+Or is intelligence a ability to adapt to whatever happens?
+So what are the challenges when it comes to trying to build these systems that can learn continually?
+Okay.
+So this is the first question you asked me.
+You asked me, like, what is the exciting thing to do now?
+Yeah.
+And I went into my spiel.
+The field has gone off and done this straight off.
+So they can do nonlinear things, but only if they give up continual.
+That's the way the field has gone very strongly.
+It's done great success with it.
+I don't begrudge that at all.
+I do begrudge it that they don't leave space for working on the other.
+But I'm a successful academic and I'm old and I can do whatever I want.
+So I'm going to work on what I actually think is the most important, even if no one else thinks it is important.
+So I think it's time, well, it's a long past time for someone to figure out how you can do continual nonlinear learning.
+And my opinion, there's actually no reason they should be opposite to each other at all.
+So I'm doing it in a particular way, focusing on online learning and a single task.
+Just like the world is gradually changing and you have to keep following it and learn in that setting.
+You just want to fill in this gap.
+You should be able to do nonlinear learning and you'll still be fully continual.
+So why can't we?
+What's the hope?
+Well, I think we just haven't tried.
+Yeah.
+But what are the technical things that are standing between you and someone else?
+Well, so we've created all these specialized things to make transient learning work pretty well.
+Okay.
+So replay buffers.
+Right.
+And the way we do normalization and early stopping, we have developed this huge technology and techniques for making the transient learning work.
+And so that inhibits doing the continual learning from networks because, well, you're not going to do very well on ImageDead.
+ImageDead is a standard benchmark and it's meant for the transient case.
+You're not going to do very well on Atari right away because we've developed all these customized methods to make Atari work pretty well with transient learning methods.
+It's both the methods are different and the problems are different.
+You can't just step in and do better on the standard problems because all the standard problems are designed for the transient case.
+So it almost sounds like you're kind of saying it's time to maybe just like take a step back and look at the wider picture rather than these narrow fixes to...
+Absolutely.
+You can also talk it the other way.
+People will realize how important it is.
+That just means it's going to be all more, you know, a bigger result when it's worked out.
+It's good, not bad to be a contrarian if you can afford it.
+As I say, I'm lucky I can work what I want and it's okay.
+Let me tell you what I really feel about it.
+Please thought I was being honest.
+I thought other people were going to do this.
+You know, when I was in a PhD student, my brother's student, Charles Anderson, also a student, Vanny Bartow, he did, you know, the nonlinear parts.
+I'm going to work on the reinforcement learning specifics part.
+Then we'll put them together and it'll be good.
+And then I'm just disappointed.
+It's 40 years later and those guys haven't figured it out.
+Instead, the nonlinear stuff went off and did offline transient learning and they didn't give me methods.
+They didn't give me methods that I could use to learn the policies, to learn the value functions, to learn the models of the world, the transition models of the world.
+And they didn't figure out representation learning.
+They didn't figure out, oh, let's figure out what are the right representations for the world, the ones that are going to generalize well and let me learn fast.
+Now it's absolutely the bottleneck for going forward in reinforcement learning, and I would say in AI, we don't have methods that can learn continually.
+Except for the linear case.
+And we don't have methods that can find good representations.
+We always have to fight against arrogance because arrogance hurts your ability to see truth.
+But what I'm saying is kind of arrogant.
+I'm saying, you know, I gave these guys 40 years to figure it out and they didn't do it.
+No, I'm going to have to do it.
+That's sort of what I'm saying, which is extremely arrogant.
+At least the second part, that I'm just going to be able to do it in a couple of years or whatever.
+I mean, I haven't been thinking about it for a long time, and I really wish I didn't have to do it.
+It's such a shame.
+Well, they have, I mean, they've set some of the groundwork, right?
+Like the work that they've done isn't completely useless.
+It will help you.
+I feel maybe you're being, maybe you're being accurately nice, but I feel like it's not, it's not the groundwork.
+It's actually away from the solution.
+It makes it harder to do the right thing because they're not saying, oh, this is a problem that we need to solve.
+They say, we don't, we're, we've done it.
+The back prop paper is about learning representations.
+They considered that to the solution to the problem of how you learn representations.
+But shouldn't a representation be general and useful in many situations?
+And then whatever you need to do, you learn a linear mapping on top of it?
+Yeah, I'm good with that.
+I think they think that back prop learns good representations.
+Ah, okay.
+I also resisted that.
+And I don't think so.
+Ah, okay.
+Interesting.
+So if they say that they have, then it makes it harder for someone to go along and say, well, this is an unsolved problem.
+I'm going to work on it.
+They say, oh, no, no.
+Back prop did that.
+And if you're going to work on it, you'd better work, you know, right next to back prop and show you're better than it.
+So what's wrong with representation?
+What aren't they doing?
+So this back prop is just gradient descent.
+There's nothing in gradient descent which will drive the learning system to find features that generalize well.
+It just finds features that solve the existing problem well.
+So it's not a problem with back prop.
+It's a problem with the goal, the loss function that back prop is solving.
+It's a problem with gradient descent.
+Ah.
+Gradient descent is just the objective.
+It's just the objective.
+Yeah.
+It's a problem with the objective.
+Right.
+The objective.
+So it sounds like a lot of the work is not even, is just convincing people that we don't have the right solution.
+Okay.
+You could do that.
+This is a way to lose.
+You know, you say, oh, no one's worrying on this.
+I got, first I got to convince people that this is the right thing to do and then I'll work on it.
+You know, but no, you'll spend all your time convincing people and you'll never actually work on it.
+And so you'll never actually succeed at it.
+And everyone else will say, oh, look, you know, he says we need to do it, but he's not getting anywhere.
+You know, it's a good way to lose is to spend your time trying to convince other people that they should do what you think is important.
+Okay.
+So what's the alternative?
+You just do the important thing.
+It's hard.
+Yeah.
+You have to be a contrarian and actually do it.
+You have to do it.
+I mean, you can spend some time convincing, trying to convince other people.
+And you have to, if you hope to get published, but...
+I mean, in some ways, this is what our friends in the nonlinear setting did, right?
+They ignored everyone for a good decade or so while they all told them that, you know,
+there was nothing principled about what they were doing.
+Everybody was in love with their principle statistical machine learning and they kept plugging it away.
+Yep.
+But they always had good results.
+They always had something to point to that was in dance.
+Always, always is too strong.
+I remember a time, my early grad school years, there was certainly a lot of noise around deep learning.
+And yeah, and also people still thinking it was silly.
+Yep.
+But maybe we might give them a bit of credit for sticking with it.
+It's the story of, you know, the wilderness.
+Neural networks had their decade in the wilderness and Nolan thought it was good.
+And so I guess I'm sort of saying continual learning has had its decade in the wilderness
+and now it's starting to be acceptable.
+Oh, that's good.
+And it's a little all come back.
+All these problems with science are self-correcting.
+Wow.
+I mean, are they...
+It takes a person to decide, right?
+Science itself is the people in it, right?
+So it's only self-correcting if somebody decides.
+And it can take a long time.
+Yeah.
+Over what time frame?
+Yeah.
+So we've talked a lot about the...
+I want to do...
+You want to do...
+I want to do that these are the decades when we are going to figure out how the mic works.
+Okay.
+And I'm so happy that it's plural decades.
+Well, I think we should strive for like, you know, 2030.
+Yeah.
+And knowing that we probably won't succeed.
+But you have to.
+You have to try.
+And when you say succeed, like what...
+Understand how the mind works.
+Understand how a system can learn by trial and error, just by trying different things
+and learn...
+Make a transition model of the world so we can understand the world.
+It can find these fulcrums of decision-making.
+You know, should I go to this talk or that talk?
+Should I go to the washroom?
+Should I take a sip of tea?
+All these, you know, are...
+You have to find those choices.
+The low-level choices are there, but you have to find the meaningful choices in your life.
+Right.
+So all that involves in a model.
+So it's not too much to ask that we learn by trial and error.
+And also that we make a model of our world and are able to use that model at the plant.
+Like, that's the set of things that I think make up a mind.
+I think also a uniquely human property is the ability to have multiple goals at the same time.
+I have many things on the go.
+I could bore you to tears with all of the things that I'm currently working on, right?
+You know, we all have all of our things that we're doing.
+We have families.
+We have careers.
+We have, you know, friends.
+We have hobbies.
+All of these things.
+And they layer on top of each other.
+And every day we decide what our goals are.
+What will be the thing we do today.
+Sometimes it moves us towards a bigger goal.
+Sometimes it's just Sunday and it doesn't matter.
+Yeah.
+And you have to find that balance to keep, like sometimes like a host of cards.
+But then I think of like animals.
+Like what's an animal's goal?
+They're just, there is perhaps less to the complexity of a goal.
+They're also less often about some sort of internal reward, right?
+I don't disagree with you.
+But I think it's both true that there's only one goal and there are lots of goals.
+So I do believe in the reward hypothesis that everything, all goal-seeking can be well thought of as understanding the maximization of a single scalar externally received signal.
+Oh.
+Yeah.
+As part of achieving that, we pose many sub-problems for ourselves.
+Like I have the sub-problem of how I could pick up my tea and get it to my mouth successfully without spilling it and everything else.
+All these things are sub-problems that are really useful for us to solve as part of achieving the overall goal.
+So I think the sub-tasks, sub-problems are a solution method for the single overall problem.
+So that lets me have both.
+And I have one goal and yet I also have that the mind of the agent is full of, oh, will this let me do that?
+Will this let me do that?
+I've got to learn all these separate things and learn the solutions to each one.
+And then I'll make my life will be full of, oh, I'll decide to work on that goal for a while and that'll drive me to end up in some place and then I can work on another goal.
+So you think at the level of goals as sub-problems and all these different goals.
+And sort of like creating those sub-goals.
+Creating them, absolutely.
+Posing, you pose them for yourself.
+PhD, I want to get a PhD.
+I want to get tenure.
+So in that case, what would be the singular goal that those are all sub-goals of?
+Well, the singular goal is going to be reward.
+We don't really know what people's rewards are, but it's like pleasure and pain and maybe people's attitude towards you,
+the respect from other people.
+So the amazing claim of the reward hypothesis is that there's one tiny little scalar juice that you're trying to maximize.
+And then out of that low level, it's a low level thing.
+It's, listen, a number coming into your mind at each moment in time.
+It's computed in a hypothalamus.
+And out of that comes like, you know, I want to raise a family.
+I want to have a career where I'm a successful research scientist, you know?
+So out of that totally non-abstract thing comes out very abstract goals and very abstract concepts.
+There was a time when that was just so inconceivable that it would be embarrassing to say it.
+But now it should be straightforward.
+Like, we've seen that happen many times, you know, like AlphaGo learned to play Go.
+There's all these abstract concepts learned to play chess, and there's all the abstract concepts you need in chess.
+Like language models, it blows my mind what they've learned from this little problem.
+Oh my gosh, the next word.
+Yeah, from tiny things can come very abstract things.
+Yeah, okay.
+Okay, that's a convincing story.
+I'll be honest, when you put it that way, it also feels a little psychologically uncomfortable.
+I'll admit, it sort of feels less complex than I might like feeling about myself.
+Yeah, these decades we're going to learn, we're going to understand the mind much better,
+and I think it's not all going to be comfortable.
+I think the fact that it's uncomfortable actually makes me think that we are making progress.
+We are understanding things better.
+We're not just finding out what we want to be true, but finding out what's actually true.
+And if you think about it, it really wouldn't be possible to make a person who wanted to do something like become a research scientist,
+like how would evolution program you to have that goal, right?
+It's inconceivable, and it wouldn't work.
+It's got to give you a goal that it can sense that's concrete.
+It takes us down a peg.
+That's the psychological uncomfortable.
+There are going to be other things that are smart.
+And we're going to understand all of the work, and they're just going to be trying to get this number high.
+And that's interesting.
+It also seems like, because you were talking about animal intelligence, it sort of erases the distinction.
+Can we just object to a minute?
+Humans are animals.
+Sorry.
+I guess yes, that's fair.
+Non-human animal intelligence.
+I think it's very tempting to think that we are very different, as I just did when I said that.
+But it might erase some of those divisions that we've set up that don't actually exist.
+And that's not fun.
+It's accurate, maybe, but not fun.
+So you're saying you think we'll have this understanding within the next six years at this point?
+No.
+I do have a prediction.
+The prediction is one chance and four.
+In what?
+By 2030.
+That will?
+That we will understand.
+It's going to be vague.
+Basically, we'll understand intelligence, which means it doesn't mean we're going to understand the human mind.
+That will take much longer.
+But we will understand how you can do trial and error learning to achieve a goal, how you can make a transition
+all over the world that enables you to plan multiple levels of abstraction and do that with no major gaps.
+You know, it's going to have to learn good representations, learn to generalize well.
+It'll be a normal network.
+It'll have some different algorithm.
+It will have a reward.
+What is the world?
+The world?
+The world is the thing that we interact with.
+We send bits out to...
+But do you mean all of this, or do you mean some constructed world?
+I think the world is constructed.
+The world we send bits to, it sends bits back to us to our eyes and so forth.
+Right.
+And so we make sense out of this thing that we send bits to and get bits back from.
+So you're saying any world, I guess.
+Any world.
+Any world.
+To be able to make models, transition models, so then you're able to plan.
+If you could plan and you can learn also by trial and error, that's what I think a mind is.
+If your prediction holds true, like you said, one in four chance, I think you said?
+One in four chance, 2030, one in two chance by 2040.
+Okay.
+What does that mean?
+Like how will that change things?
+We'll understand how minds can work.
+This will help us understand our own minds.
+The AI researchers will understand it as detailed level and it will gradually fill throughout to the society, to the consciousness of the world.
+And we will get uncomfortable feelings and then we'll gradually get more comfortable.
+This will have technological changes.
+It will change the economy.
+And I'm not sure which of these is going to be more important, the sociological or the technical.
+There can be lots of technological changes anyway, even without understanding even mind.
+I think it will change us really because we'll understand ourselves better, which is maybe the whole point.
+So I think that's going to be really profound.
+Totally separate from its impact on the economy, its impact on geopolitics.
+Do you think it will impact the way we teach, the way we educate people, if we understand it better?
+Yeah, totally.
+Well, one big thing will happen will be augmentation.
+If we understand how our minds work, then we ought to be able to add a better memory.
+I want to be augmented.
+I want to think better.
+I want to...
+There are many advantages to digital substrate or the biological one.
+So we could be better.
+So many things are held back so we don't know how we work.
+Now, as I said, understanding minds is not the same as understanding the human mind.
+It's not the same as understanding the human brain.
+That will take longer.
+So, Alana, you're a psychologist here on the edge of neuroscience.
+What do you think of things like neural link, brain interfaces?
+I mean, I guess I see a lot of the places in which they could be helpful.
+I think we're pretty far away from most people feeling like that's the thing that they would want.
+I don't think that's probably a 2040 thing. What do you think?
+Well, it's just an interface.
+But are there so many other ways to have interfaces without actually opening my skull?
+That's true.
+You can get high bandwidth interfaces in.
+It's hard to get high bandwidth interfaces out.
+Maybe it's about compression, though.
+I often think about if GPT takes your quick summary of what you want to explain to somebody
+and turns it into a verbose email and then the person on the other side is taking that verbose email
+and using chat GPT to turn it into a summary, why aren't we just sending summaries to each other?
+So maybe we could do better than language.
+Yes.
+Yes, we really ought to be able to better.
+Language is taking your whole thoughts and squeezing them into these words, these linear words.
+And it must be something much better.
+Are you going to be disappointed in that?
+If we don't have language.
+No, yeah.
+As it came out of my mouth, I thought, that's sacrilege. You shouldn't say that.
+Firstly, we're getting back into psychologically uncomfortable territory again.
+I love language and I think language has been the way that we communicate these complex thoughts that we have in our minds.
+And also the way that we think through things ourselves is with language.
+So I don't think we need to throw it away completely, but I often think about sometimes it's more than we need, I guess.
+Our last question for you is, do you have any tips for students or other budding researchers
+about research in general, how to choose what to work on, how to make good progress?
+Yes, I think I do get a research notebook and write in it, write in it every day.
+Write what?
+Write your thoughts and work on your thoughts, try to challenge them and make them better.
+If you want other people to be interested in what you think, then you should start by caring about it yourself.
+And you should care about it at least enough to write it down and challenge it and develop it to progress it.
+That's the most important thing.
+I hit on that strategy and it really changed my whole trajectory.
+It's really hard to do because it's a blank page and what do you have to say?
+And maybe you're confused about what you're thinking.
+One saying I thought to help with that is that usually the value of writing down your thoughts is directly proportional to how vague and confused they are.
+The value is proportional to how hard it is to write them.
+If you say, I don't even know how to, I'm thinking six things at once, I can't possibly write this down.
+That's when it will be super valuable when you do write something down.
+Is that a way that you know that you have an idea that you really want to pursue?
+Is that a sign?
+No, that would be scary.
+It's got to be just like you and the page and you're trying to be clear to yourself.
+What are you thinking?
+If you can't think of anything else to write, just write down, what do I think are the six interesting ideas that I'm rolling around in my head?
+Just then write them down, one through six, and then say, well, has that really all of them?
+Is there a seventh one?
+Well, these six are two of them really the same?
+Or just take another paragraph on each one of those six things and explain what you meant by it.
+Explain to yourself what your thought is.
+And just by doing that, you will say, oh, that thought kind of just disappeared into nothingness when I tried to explain it.
+Maybe it isn't anything, you know?
+Or maybe it grew and changed as you wrote it down.
+All those things will happen.
+And so it's important just to keep writing.
+Try to do a page a day.
+Don't stress out it too much, but do keep doing it on a regular basis.
+That's my advice.
+Second advice is that you should try to be neutral on what's popular.
+If it's popular or unpopular, that shouldn't influence you at all.
+Because if it's popular, well, then it'll be easier to work on it because people will understand it.
+But it'll be less valuable because everyone's doing that.
+So you should be neutral.
+Pick your problem.
+What makes sense to you is being important and potentially fruitful.
+Do you have any tips for deciding on what is the next thing I should work on?
+Yeah.
+So like I write down the six things.
+These six things that I think are interesting.
+And then I explain them.
+And then I go back and say, OK, now let's try to say which one could I possibly work on now?
+And what if there's like three?
+Yeah.
+Then what do you do?
+The three things.
+Write them down.
+And keep going until there's only one?
+Or?
+Oh, no, no.
+You, yeah, that's a good question.
+I don't mean to suggest that you find one thing and you do that.
+You have to work out a few things because it is research.
+And most things are not going to work out and not work out right away.
+Yeah.
+So in the sounds of it, you probably go through a lot of notebooks.
+I have about 25 in them now.
+Like current ones?
+Well, I see 25 as a time when I stopped using physical notebooks.
+Right.
+Now I just write on my MacBook.
+Do you ever go back to revisit?
+Yeah.
+Not as often as you might think.
+But you do sometimes, for sure.
+Now that it's all on the computer, I can search it and find those things even more easily.
+Dude, a bit more.
+Yeah.
+And also, it takes a little less space than a whole bunch of notebooks.
+Although there's something pleasing about the Robe notebook.
+Yeah.
+Yeah.
+It seems like progress.
+Yeah, I would always write in ink.
+A brave...
+Scratch things out.
+Well, I think that's about all that we had, unless there's something else that you wanted
+to touch on that we didn't talk about.
+Well, thank you very much for giving me this opportunity.
+We learned a lot.
+Not all of it comfortable, as we noted, but all of it fascinating.
+So thank you very much, Rich.
+Thanks.

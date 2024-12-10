@@ -1,0 +1,1228 @@
+Hi, I'm Racheke, I'm here to talk about closure, which is a programming language I wrote for
+the JVM.
+This particular talk is oriented towards people who program in Java or C sharp or C plus plus
+in particular that I'm not going to presume any knowledge of Lisp, so you might find some
+of it tedious, although I am preparing for a talk I'm going to give at Ecoup to the European
+Lisp workshop where I'm going to talk about the ways closure is a different Lisp, so maybe
+some of this will be interesting to you in that respect.
+But that's the nature of this talk, it's going to be an introduction to the language, a fly
+by tour of some of the features, I'll drill down into some of the others.
+I started to ask this question before, but I'll just ask it again to sort of see, is
+there anyone here who knows or uses any flavor of Lisp, common Lisp scheme or closure?
+Okay, so mostly no.
+I presume a lot of Java or anything in that family, C plus plus, C sharp, Scala, anyone?
+You must be playing with it, right?
+How about functional programming languages like ML or Haskell District, guys, anyone,
+a little, don't really want to raise their hands about that one.
+Okay, that's good, in particular, I think coming from that background you'll understand
+a lot of this straight away.
+How about dynamic programming languages, Python, Ruby or Groovy, yes, about half, and I asked
+before, closure, we have a few people with their toes in the water.
+The other key aspect of closure that would matter to you if you're a Java programmer is
+whether or not you do any real multi-threaded programming in Java or in any language, yes?
+So some, so you use locks and all of that nightmare stuff.
+Practitioner, I programmed in C and C plus plus and Java and C sharp and common Lisp and
+Python and JavaScript and a bunch of languages over the years.
+Way back this same group, I think it's the same lineage, was the C sig and when I first
+started to come, I started to teach C plus plus to the C sig and it became the C plus
+plus and C sig and eventually the C plus plus and Java sig and out of the Java sig, so back
+in the 90s, early 90s and mid 90s, I taught C plus plus and advanced C plus plus to this
+group and ran study groups and I've come back tonight to apologize for having done that
+to you and to try to set you off on a better track.
+So we're going to look at the fundamentals of closure and it will be also of Lisp in
+many ways but I'm going to say closure, don't take offense, all these things or many of
+the things I say are true of closure or true of many Lisp's.
+I didn't invent them, they're not unique to closure but some things are.
+They will look at the syntax and evaluation model, this is the stuff that will seem most
+unusual to you if you've come from a compile link run language and one of the curly brace
+C derives like Java.
+Then we'll look at some aspects of closure, sequences in particular and the Java integration
+which I imagine will be interesting and I'll finally end up talking about concurrency,
+why closure has some of the features it does and how they address the problems of writing
+concurrent programs that run on the new and indefinitely, you know, for the indefinite
+future, multi-core machines and I'll take some questions, at some point in the middle
+we'll probably take a break, I don't know exactly where that's going to go.
+So what's the fundamentals of closure? Closure is a dynamic programming language and dynamic
+has a lot of different meanings, in particular it's dynamically typed, that would be an expectation
+you'd have of Python or Ruby or Groovy.
+It achieves that dynamic nature by being a Lisp and I'll talk more about that, I don't
+see a lot of people who know Lisp here, but that doesn't mean there isn't a bias against
+Lisp, how many people have seen Lisp and said, oh my God, I can't believe the parentheses
+and I would say I'd hope you'd put that bias aside for the purposes of this talk, it ends
+up that for people who have not used Lisp, those biases have no basis and for most people
+who have given it a solid try, they vanish and in fact many of the things that you consider
+to be problems with Lisp are features down the line. But having said that, closure is
+a very different Lisp, it's syntactically much leaner than a lot of Lisp's, it has fewer
+parentheses, it uses more data structures in its syntax and as a result I think it's
+more succinct and more readable, so maybe the time to try Lisp again. Another aspect
+of closure is that it's a functional programming language and again I'm going to talk in detail
+about these things, for now you can just say that means a focus on immutability in your
+programs, to write programs primarily with immutable data structures and if you're coming
+from another Lisp, this will be an area where closure is definitely different, I mean different
+decisions about the data structures in closure. The third leg of closure, it sort of stands
+on four points, it's dynamic, it's functional, it's hosted on the JVM and it embraces the
+JVM, it's host platform. There are ports of other languages that sort of just sit on the
+JVM, there are ports of for instance common Lisp that sit on the JVM but they don't really
+connect very well. For a number of reasons, one is they're implementing a standard, the
+standard was written before Java was written and there's just no merging the type systems.
+On the other hand closure was written for the JVM and so it's very heavily integrated
+with it, so not only does it reside there, which is a benefit because you can run it
+if that's your environment. But it embraces it, which means the integration is good and
+it's pretty transparent to go back and forth. The fourth aspect of closure is the concurrency
+aspect. I work in C-Sharp with guys writing broadcast automation systems, they're multi-threaded,
+they have all kinds of nasty stuff going on, multiple connections to sockets, lots of
+databases, you know, data feeds from all kinds of places and it's not fun writing programs
+like that that need to share data structures amongst threads and to have them get maintained
+over time and have everybody remember what the locking model is. It's extremely challenging.
+Anyone who's done any extensive multi-threaded programming with the locking model knows how
+hard it is to get that right. So closure is an effort on my part to solve those problems
+in an automatic way with language support. And the last thing is, you know, it is an
+open source language and it's very transparent, the implementation and everything else is
+up there for you to see. We started to talk about this before, why use a dynamic language?
+Some people are very happy, of the people who are programming in Java, how are we happy
+about that? They like Java, they have no complaints. Okay, not too many. It ends up that I think
+many Java programmers look at people who are using Python or Ruby and being very productive
+and I think justifiably MV, their productivity, the succinctness, the flexibility they have
+and in particular how quickly they can get things done. And it ends up that that is a
+fact of the static languages, especially the ones like Java, that they're inherently slower
+because of the amount of, well, some people call it ceremony, but you have to go through
+to communicate with the language. It slows you down. So flexibility is a key thing you
+would look for in a dynamic language. Interactivity is another key point. Again, this goes back
+to Lisp. Lisp has pretty much always been an interactive language and that means a lot
+of things. In particular, it means that when you've got Lisp up and running, you feel like
+you are engaged with an environment as opposed to shoveling your text through a compiler phase
+to produce something else out the other end. So that interactivity is kind of a deep thing.
+The repulous part of it, that means read, eval, print, loop, and I'll talk about that
+in detail in a little bit. Dynamic languages tend to be more concise. That doesn't mean
+that static languages can't be. Haskell in particular is very concise. But the curly
+brace languages are not concise. Java is probably a great example of a language that's not
+concise. And that's just not a matter of tedium. It's a matter of where is your logic, how
+far apart is your logic, how spread out is it? Can you see what you're thinking about
+or is it in pieces? Is it spread out by a bunch of things that are not about your problem?
+Dynamic languages are definitely more suitable for exploration. There's a certain aspect
+in which static languages are like concrete. That's a good aspect when you're trying to
+finish in some systems. Concrete is going to be more resilient. It's more resilient to
+change. It's more structured and it's rigid. On the other hand, that's not necessarily
+the kind of materials you want to be working with when you're trying to figure out what
+your structure should look like in the first place. So dynamic languages are better for
+exploration. And in particular, what I like about dynamic languages and Lisp fundamentally,
+and I think in a way other languages don't achieve, is it lets you focus on your problem.
+You can with Lisp and its ability to do syntactic abstraction, suck everything out of the way
+except the problem. And for me, when I discovered Lisp, I was pretty expert C++ programmer.
+I said to myself, what have I been doing with my life? It was that big a deal.
+So there are many dynamic languages. I'm going to talk about closure and I will do bashing
+of other languages, but I will try to highlight why you might choose closure over some of
+the other options. Because in particular now, I think it's a great thing that there are
+many dynamic languages available for the JVM. And dynamic languages are supported as a concept
+in the Java community. A Java one that was plenty presentations on Jython and JRuby and
+Groovy and these other languages. And Sun has hired some of the developers of these languages
+and given it kind of official support as something that's viable to do on the JVM. So you're
+going to see mixed language programming being accepted in Java shops. So how do you pick?
+I think you can categorize languages in one dimension pretty straightforward. Are they
+a port of a language that exists somewhere else or were they written for the JVM? Ports
+have a bunch of challenges. One is there is a canonic version out there because most of
+these languages are not defined by a specification. They're defined by a canonic implementation.
+So they're C Ruby, right? They're C Python. Those are really the languages. And the other
+things are ports which have to struggle to follow along with the C version. The other
+problem ports have is a lot of the infrastructure for the languages, especially the ones that
+don't perform very well, are written in C. In other words, to get the library performance
+they need, the support libraries for Python are written in C. So an effort to port Python
+to Java means having to replicate those C libraries. So there's that. I would say the
+main appeal to a ported language is if you already have an investment in Ruby or Python
+or you have to really love the language designs. That's a good way to go here. I would say
+if not, if you're just starting from scratch, you may find that a language that's native
+to the JVM is going to give you better integration. You know the version you're using is the
+canonic version. The canonic version of Ruby is the JVM language. The canonic version of
+Closure is a JVM language. And I would say of the two, Groovy is going to let you do
+what you do in Java, except a little bit more easily. Fewer semicolons, more dynamic. There
+are some builders. There are some idioms. There are closures. Sort of the fun of dynamic
+programming and a lot of the similar syntax to Java. So I think if you're just interested
+in dynamic and want to continue to write programs that are like your Java programs, Groovy
+can't be touched. Closure is not about writing programs like your Java programs. Closure is
+about realizing what's wrong with your Java programs and doing something different. And
+so you'll find some of that through the talk. So Closure itself, it inherits from lists
+and expressivity and elegance I think is unmatched. Depending on your mindset, you may or may
+not agree, but there's a certain mathematical purity to lambda calculus and the way it's
+realized in Lisp. The uniformity of the syntax is elegant. Closure also has very good performance.
+Again, I'm not going to get involved in any language bashing, but I'm pretty confident
+no other dynamic language on the JVM approaches the performance of Closure in any area and
+is unlikely to. But everybody's working on performance.
+We've converted them. Their Java program is there. So the performance is good. I made
+a point before starting the talk that the objective and objective of Closure is to be
+useful in every area in which Java is useful. You can tackle the same kind of problems.
+I don't write web apps and put stuff in and take it out of the database kind of applications.
+I write scheduling systems, broadcast automation systems, election projection systems, machine
+listening systems, audio analysis systems, and I write them in languages like C sharp
+and Java and C++ and Closure can be used for those kinds of problems. It doesn't mean
+they can't also be used for web apps and people did that right away with Closure and
+database and UI stuff, but it has that same kind of reach. One of the nice things about
+Java is it has a wide range. Closure has direct wrapper free access to Java. Some of the ported
+languages have to use wrappers because those languages have their own object systems that
+imply a bunch of dynamic features that they have to glom on top of Java objects when you
+interoperate with them. Closure was designed to provide direct access to Java. It looks
+like Closure, but it's direct. Closure being a Lisp is extensible in a deep way and we'll
+talk a little bit more about how you get syntactic extensibility through macros. Closure I think
+is completely unique amongst the languages on the JVM in promoting immutability and concurrency,
+much more so than even Scala, which is often talked about as a functional language, but
+isn't deeply immutable. It sort of is an option. Closure is really oriented towards writing
+concurrent programs and immutability for its other benefits outside of concurrency.
+So, how does Closure get to be these things? It is a Lisp. Again, put what you think about
+Lisp aside. I'll explain what that means in depth as I go into each of these points,
+but Lisp in general is dynamic in that way, interacting with an environment, having a
+REPL, having sort of introspection capabilities on the environment, being able to modify things
+in a running program are all characteristics that make it dynamic. A fundamental feature
+of all Lisp, if they want to be a Lisp, is that code is represented as data. And again,
+I'll explain that in detail. There is a reader, which is part of the implementation of code
+as data, sort of something in between your text and the evaluator. Being a Lisp means
+having an extremely small core. You'll find when you contrast Closure to other languages.
+Even languages that are theoretically lightweight like Python or Ruby, Closure has way less
+syntax than those languages. Far less complexity, in spite of the fact that they appear easy.
+Lisp generally have tended to emphasize lists. Closure is not exactly the same way. It's
+an area where Closure differs from Lisp in that it frees the abstraction of first and
+rest from a data structure, the consels. And in doing so, offers the power of Lisp to many
+more data structures than most Lisp do. So there's that sequence thing, and I'll talk
+more about that in detail. And syntactic abstraction. Again, we have abstraction capabilities with
+functions or methods in most languages. Lisp take that to the next level by allowing you
+to suck even more repetition out of your programs when that repetition can't be sucked out by
+making a function. Okay, so we'll dig down a little bit more. What does it mean to do
+dynamic development? It means that there's going to be something called a REPL, a read
+eval print loop in which you can type things and press enter and see what happens. I guess
+we should probably do that. So this is a little editor. It's kind of squashed in this screen
+resolution, but down below is the REPL. This is Closure in an interactive mode, and we
+can go and we can say plus one, two, three, and we get six. We can do other things Java
+like I'll show you some more of that later. But the general idea is that you're going to
+be able to type expressions or in your editor say please evaluate this. I mean I can go
+up here to math.py and hit the keystroke that says evaluate this and see below. We get that.
+And that's kind of what it feels like to develop. I'm going to show you even more after I explain
+what you're looking at because I don't want this talk to be yet another where people are
+shown Lisp and not having had to explain to them what they're looking at. So we're going
+to do that first. But you have this interactive environment. You can define functions on the
+fly. You can fix functions on the fly. You can have a running program and fix a bug in
+a running program. And that's not like being in a mode in a debugger where you have the
+special capability to reload something. It's always present. If you build an application
+with some access to the ability to load code, either a remote REPL connection or some way
+to do that, your running production systems will have this capability to have fixes loaded
+into running programs. In general, there isn't the same distinction between compile time
+and run time. Compiling happens all the time. Every time you load code, every time you evaluate
+an expression, compilation occurs. So that notion of phases of compilation is something
+you have to relax when you're looking at a language like Clojure. And I'll show you the
+evaluation model in a second. I talked a little bit about the introspection, but that's present.
+You're sitting at a REPL. Clojure is there. Clojure has namespaces. You can get a list
+of them. Clojure has symbols. You can get a list of those. You can look inside the infrastructure
+that underlies the run time and manipulate it. And that's what I mean by an interactive
+environment. I just don't mean typing things in. I mean, there is a program behind your
+program that is the run time of Clojure, and that's accessible. If I say something that
+you don't understand, you can ask for clarification. I'm endeavoring to try to come up with the
+ideal way to explain Lisp to people who have never seen it. And this is what I've come
+up with, which is to talk about data. Lots of languages have syntax. You can talk about
+Java. You can talk about here's main and here's what public means and static. And then you
+could dig into arguments to a function and things like that. But we're going to start
+here with data, in particular data literals. And I think everybody understands data literals
+from languages they're familiar with. You type in 1, 2, 3, 4, and you know that's going
+to mean 1,234 to your program. So Clojure has integers. They have arbitrary precision.
+They can get as large as your memory can support. And the promotion of small integers to larger
+integers while arithmetic is going on is automatic. It supports doubles as the floating point
+format. Those are doubles. Those are big D double Java doubles. When you type them in.
+They're right. Right. They're Java doubles, but they're the big D doubles. So one of the
+things you're going to see about Clojure is everything is an object. Okay. All numbers
+are boxed, at least until you get inside a loop where I can unbox them. But it's a language
+in which numbers are boxed. Unlike common lists where you have access under the hood
+to use tagged integers and tagged numbers, which is more efficient than allocating them
+on the heap, no capability of doing that in the JVM. There's been talk about it, them
+adding it, which is stunning to me. Apparently the guy, there's this guy John Rose at Sun
+who really does understand this very well and has talked about all kinds of really neat
+features, which if they make it into the JVM would make it stunning, like tail call
+elimination and tagged numbers. But in the absence of that, numbers are boxed so that
+everything can be an object and can be treated uniformly. You have big decimal literals.
+You have ratios. 22 over 7 is something. It's not divide 22 by 7. It's a number. It's a
+number that's not going to lose any information versus dividing 22 by 7 and either truncating
+or converting into a floating point format where you will lose information. So ratios
+are first class. String literals are in double quotes. They are Java strings. Same thing.
+Immutable. No conversions. No mapping. Being, again, being a native JVM language means I
+can just adopt the semantics of Java literals. I don't have to take strings from a language
+spec that said, for instance, they could be mutable. I have to force it on the JVM by
+having my own type and conversions to and from. So because I'm an immutability oriented
+language, I'm very happy with Java's definition of a string being an immutable thing. So closure
+strings are Java strings. Yes.
+Is there any way to work for an underlying unit?
+In other words, to say there's a total of 1.234, or unless you know the center meter
+is needed or something like that, you don't know.
+No. Try Frink. Have you ever seen it?
+No.
+Oh, you will love it. You can add all kinds of units and figure out how many, you know,
+balloons of, you know, hydrogen it would take to move a camel across this much distance.
+It's amazing. Units for absolutely everything. Old ancient Egyptian unit, it's really, it's
+fantastic. The guys are just a fanatic about precision, making sure you don't lose anything,
+but you can arbitrarily multiply all kinds of units. Everything is preserved. Everything
+works correctly. Fantastic.
+Frink. Frink. Frink. Frink is a language for the JBM. It's its own language, but it's
+a lot of fun. I've seen the guy talking. He just, he has some great examples. You know,
+some involve how many belches it would take to move a hot air balloon to the moon and things
+like that. Okay. So we have string literals and double quotes. We have characters are
+preceded by a slash, backslash. So that's a character literal and that's a big C character,
+Java character. Now we're going to get to two things that are possibly a little bit different
+because they're not first class things in Java. One would be symbols, which are identifiers.
+They can't contain any spaces. They have no adornments. Symbols are used as identifiers
+primarily in code, but they can be used for other things as well. They're first class
+objects like strings. If you have one of these things, you can look at it and it will be
+a symbol closure laying symbol. Fred and Ethel are two symbols. That's correct. The other
+thing closure has our keywords, which are very similar to symbols, except they always
+designate themselves. So they're not subject to evaluation or mapping to values by the compiler
+like symbols are. So symbol might be something you would use for a variable. You could make
+Fred be equivalent to five. You could never make a colon Fred be equal to five. Colon
+Fred will always mean itself. So when it gets evaluated, the value of the keyword Fred is
+the keyword Fred. It's sort of an identity thing. And they're extremely useful. They're
+very useful in particular as keys and maps because they're very fast for comparison and
+they print as themselves and read as themselves. That will make a little bit more sense in
+a minute. There are Booleans. This is different from Lisp, although there is still null as
+false. Nill is false. But in addition, there are proper true and false, mostly for the
+purposes of interoperability. It ends up that you can't solve the nil becoming false problem.
+At least I couldn't. So there are true and false and there for use in interoperability
+with Java, you can use them in your closure programs as well. But conditional evaluation
+in closure looks for two things. It looks for false or nil, which is the next thing
+I'm going to talk about. Nil means nothing. It also is the same thing in closure as Java
+null. Didn't have to be, but it is. So you can rely on that. So nil means nothing and
+it's the same value as Java null. So when you get back nulls from Java, they're going
+to say nil. Nil is traditional Lisp word. But I like it because also traditionally in
+Lisp, if you can say if nil, and that means it'll evaluate to the else branch because
+nil is false. Nil is not true. So that's another literal thing, that nil. There are
+some other things. There are regex literals. So if the reader reads that, it's just a string
+regex, exactly the same syntax as Java's, preceded by hash, will turn into a compiled pattern.
+So at read time, you can get compiled patterns, which you can then incorporate in macros and
+things like that, which is very powerful and shows how that delineation between compilation
+and runtime is a little bit fungible. Correct. And there's a good reason for that. And the
+reason is empty list is no longer as special as it was once you have empty vector and empty
+map. However, the sequencing primitives, the functions that manipulate sequences, return
+nil when they're done, not the empty list. So that aspect of being able to test for the
+end of iteration with if is still there. So closure sits in a unique point. He's asking
+about aspects of closure that differ a little bit from common list and scheme. There's like
+a long standing fight between what should the difference between false, nil, and the empty
+list be? Should they be unified? They are in common list. Should there be some differences?
+There are some differences in scheme. Closure actually does some of both. There is false.
+However, nil is still testable in a conditional. It does not unify nil and the empty list,
+which is a difference from common list. However, all of the sequencing or list operations,
+when they're done, return nil, not the empty list, which is an important thing for common
+list like idioms, where you want to keep going until it says false, as opposed to having
+to test for empty explicitly, which you would have to do in scheme. Does anybody know scheme
+here? You know scheme. But you know both. So you know what I'm talking about. For everyone
+else, I wouldn't worry too much about that because you wouldn't have presumed nil would
+have been the empty list, right? Probably not. Okay. So those are the atomic things.
+They can't be divided, right? That's what atomic means. A number isn't a composite thing.
+But there are composite or aggregate data structures. Enclosure. And they're kind of
+the core abstractions of computer science. One is the list. And in this case, I mean
+very specifically, the singly linked list. And even more specifically, the singly linked
+list in which things get added at the front. So when you add to a list, you're adding at
+the front. The list is a chain of things, which means that finding the nth element is
+a linear time cost, right? It's going to take n steps to do that. On the other hand, taking
+stuff on and off the front is constant time. Because that's the nature of a singly linked
+list. So it has all the promises, all the performance promises of a singly linked list
+with stuff at the front. And it's literal representation is stuff inside parentheses
+separated by spaces. There's no need for commas. You'll see some commas. Commas are
+white space enclosure. They're completely ignored. You can put them in if it makes you
+feel better or makes things somewhat more readable, but they're not actually syntaxed
+or not considered by the evaluator. So any questions about lists? Stuff in parentheses?
+One, obviously the commas up there are just for people where they're not part of the
+language. They're not needed there. Right. Well, these, these commas, the ones between
+1, 2, 3, 4, 5 and Fred Ethel Lucey are actually English commas. But, but there are some commas,
+for instance, when we get down to maps here, you see commas inside the data structure.
+Those are ignored. Those are white space.
+I understand there are white spaces in lists. What about there being a common decimal in
+a number?
+I don't support any commas inside numbers. The printed representations of numbers in
+closure are those of Java.
+In lists? No, in lists they grow at the front. Cons A onto something makes A the first thing
+in that list. And that's true of closure, too. Yes, absolutely not. All of these data
+structures are unique to closure. I'm only giving you some very high level descriptions
+of their representation and their performance characteristics. But what we're going to find
+out later is all of these things, in particular I'm talking about adding to lists, all of
+these data structures are immutable. And they're persistent, which is another characteristic
+I will explain a little bit later. So these are very different beasts and they have excellent
+performance, yet they're immutable and it's sort of the secret sauce of closure. Without
+these, you can't do what I do in the language.
+In the second list, Fred Epel-Lucy is only 4.6. That's correct. Again, how this gets
+interpreted, we're going to talk about it a little bit. Right now, what you're looking
+at is a list of three symbols. You may end up within your program, a data structure that's
+a list of three symbols. You may pass this through the evaluator and say, evaluate this,
+in which case it's going to try to interpret, it's going to try to evaluate each of those
+symbols and find out its value. And that's what we're going to do here. We're going to
+treat the first one as if it was a function. But we're not there yet. So that is a list
+of three symbols. The list at the end is a list of one symbol and three numbers. So
+heterogeneous collections are supported. In all cases, I didn't necessarily show them
+everywhere, but they are. It's not a list of something. It's a list. It can contain anything
+and any mix of things. Okay, with lists. The next thing is a vector. It uses square brackets.
+That should imply I would hope for Java programmers and people from that domain array. Square brackets
+mean arrays. Well, they do now. So a vector is like an array. In particular, it supports
+efficient indexed access. Okay, it's an expectation you would have of a vector you wouldn't have
+of a linked list. That getting at the 50th guy is fast. It's not going to be 50 steps
+to do that. And the closure vectors meet that performance expectation. Fast indexing. In
+addition, it's a little bit like Java util vector or array list in that it supports growing
+and in this case, at the end. And that also is efficient as efficient as your expectation
+would be of array list. That's a constant time operation to put things at the end. Similarly,
+it can hold anything. The first is a vector of five numbers. The second is a vector of
+three symbols. No, all the collections can be heterogeneous. Okay, so far. So that's
+going to behave like an array in terms of being able to find the element quickly. And
+finally, as a core data structure, we have maps. And a map is like, well, it's like a
+job of mapping or any kind of associative data structure in providing a relationship
+between a key and a value. Each key occurring only once and having a mapping to a value.
+So the way they're represented is in curly braces. And they're represented simply as
+key, value, key, value, key, value. Again, the commas don't matter. So they're white
+space. They get eliminated. For instance, in the second map you see there, that's a map
+of the number one to the string ethyl and the number two to the string fred. You don't
+need the commas. And the expectation with the map is that it provides fast access to
+the value at a particular key. There are usually two kinds of maps you would encounter
+in ordinary programming languages. One would be sorted, some sort of sorted map, in which
+case the access is going to be typically log n to find a particular guy depending on how
+many things are in the map because they use trees or red, black trees and things like
+that. And closure does have sorted maps. The one you get from the literal representation
+like this is a hash map. And the expectation of a hash map is constant or near constant
+time lookup of values at keys. And that maps to hash tables. So what you have in the closure
+literal maps is the equivalent of a hash table. It's fast. Okay, so far?
+I think I introduced another key. Another key. And it will be replaced. Do you want
+it? Correct. There's only one instance of a key in a map. Is that your question? Yes.
+So if you were to say the function that. Yes. It's probably a replacement. It's probably
+a replacement. I say in the same thing. I don't think it's an error. That's a good question.
+I might type it in later for you. Okay. Yeah, I mean. It's the same thing. Yeah, it's the
+same thing. Well, but there's no associated values. So Fred will be there. So let's talk
+about sets. The fourth thing I'm showing you here is sets. Sets are a set of unique values.
+Each value occurs only once in the set. And really the only thing the set can do for you
+is tell you whether or not something is in it. There's no associated values. It just
+does the set contain this key. Do you have a question? Yes. There are sorted sets and
+hash sets. Same thing as with the maps. The sets here are hash sets. So no, the order
+is not retained. You can request a sorted set and the order will be the sort order.
+Is that your question? Yes. Okay. What is the test for equality? Equal. The equal sign
+is the test for equality. And equality means the same thing for everything in closure. It
+means equal value. You'll see that closure definitely de-emphasizes identity and completely.
+In fact, there is an identity function and I have yet to use it. Closure is about values.
+Identical contents are identical by equals. That's made faster than you might imagine
+by caching hash values. But equality is equality value in closure. And yes, immutability helps
+certainly. Well, if you've ever read Henry Baker's paper on EGAL, closure implements EGAL
+finally. If you haven't, then don't worry about it. So yes, equality is equality of
+value. All right. Yes. Hi, Rob. If you were going to Java network in need of active Java,
+would you use it? No. You can make arrays and you can interact with Java arrays that are
+arrays of either objects or native arrays. You can say float array and size and you'll
+get an array of floats. So you have the ability to do Java stuff. I'm going to emphasize the
+closure data structures because they let you do what closure lets you do. You can access
+Java, but if you start accessing mutable things, some of the things closure can do for you
+we can't do. It doesn't mean you're not allowed to do them. But there's no point in me showing
+you how to interact with the Java, right? Except to show you the syntax, which I might
+later. So the last point about this is that everything nests. A key in a map can be another
+map. It can be a vector. Anything can be a key or a value. Because of this equality semantics,
+there's no problem having a vector or a map whose keys are vectors. That's perfectly fine.
+So if you needed to use tuples as keys, you know, pairs of things as keys, that's just
+completely doable. Well, you can get the hash of the vector. Correct? Right. That's
+how expensive to be. Well, it depends on what you're doing. I would imagine that really
+complex structures are not frequently used as keys, but they could be. Can that be helped?
+Yes. The fact that these are hash by default means that once and once only the hash value
+of some aggregate structure will be calculated and that will be cached. So there's a quick
+hash test. Otherwise, we do the deep value check. But again, I don't think you're going
+to encounter complex data structures as hash values that often. But using kind of small
+things like tuples or other small maps as keys is tremendously useful. It's really,
+really handy to not even have to think about that. I think we got one other closure program
+arrived. Who can possibly attest, independent of me, how closure is performance? How is
+closure is performance? Fine to me. Yeah. Especially a lot of things that have just been
+showing up on this. Right. Well, now there's some extra numeric goodness in there. But
+these data structures are pretty good. What's the reality? The reality of these data structures
+is I've tried to keep them all within one to four times a Java data structure, the equivalent
+Java data structure. In other words, hash map vector. Well, similar lists are pretty
+straightforward. So they're within striking distance. The B side is in a concurrent program,
+there is no locking necessary for use with these data structures. If you want to make
+an incremental change through data structure in a certain context, there's no copying
+required to do that. So some of these other costs that would be very high with immutable
+data structure vanish. So you have to be very careful in looking at that. The other thing
+that's astounding to me at least is that the lookup time, again, the add times are higher
+than hash map. But the lookup times can be much better because this has better hash,
+cash locality than a big array for a hash table. Okay. We're all good on this? I brought
+up to move a little bit quicker. Yes. More quickly. There is destructuring. Yes. I actually
+won't get to talk about that today. But there is destructuring. There is not pattern matching.
+Okay. But there is destructuring to arbitrary depth of all of these. Destructuring means
+a way to easily say, I want to make this set of symbols that I express in a similar data
+structure map to corresponding parts of a complex data structure on past. Closure has
+that. It has some really neat destructuring capabilities. All right. So what's the syntax
+of closure? We just did it. I'm not going to talk about semicolons, curly braces, you
+know, when you have to say this, when you have to have a new line or anything else.
+Because the structure of a closure program is a data structure or a series of data structures.
+There is no other stuff. There are no rules about where things go. There are no precedence
+rules. There's nothing else. You write a closure program by writing the data structures I just
+showed you. That's it. I'll show you.
+So you write a program by writing data structures. The data structures are the code. That has
+huge implications. It's, you know, it is the nature of LISP. There's a fancy name for
+it called homoiconicity. And it means that the representation of the program is done
+in the core data structures of the program. Which means that programs are amenable to
+processing by other programs because they're data structures. So I'm not going to talk
+anymore about text-based syntax because there is no more. Now many people claim of LISPs,
+well, LISPs has no syntax. And that's not really true. It doesn't have all this little
+fiddly character syntax necessarily. There is syntax to the interpretation of the data
+structures. You know, in those, you're going to see a lot of lists. They have different
+things at the front. The thing at the front will tell you the meaning of the rest. Alright,
+so let's talk a little bit about evaluations. How does this all work? This is, we should
+all know from Java or many other languages like Java. We types our program into a text
+file. We save it. And then we send those characters of that text to the compiler. Who has a very
+involved, you know, abstract syntax tree and parser and lexer that interpret the rules
+of the language. This is what constitutes a character. This is what constitutes a number.
+And then furthermore, you know, if you've said if and you've put parens and then you
+said some stuff and you put a semicolon and you happen to have put else, then you're still
+in this construct called if. Things like that. It knows all about that. And it deals with
+the text. And it will tell you if you've met the requirements in terms of it being a valid
+program. And then it will turn it into something that can run. In the case of Java, that something
+will be byte code. And it will go into a class file or a draw file. We know this. Alright,
+and then there's a separate step, which is called running. We take that stored executable
+representation and we ask it to happen. Usually, in this case, we'll say, you know, Java dash
+something class file and it will run. And it will run and then we'll end and it will
+be over. And we could try again. If we didn't like it. That's the traditional edit compile
+run. Be disappointed. Start over. Oh, correct. So, you know, if you want to do something
+like that, but I'm talking about the development process. Yeah, you know, yes, the runtime is
+just that long. Until you realize it's not working and you have to ask everybody to
+please wait for our damage while we fix it. Right? That's the difference. If you read
+about Erlang, which is getting a lot of press, they'll tell you about phone switches and
+how that's really not allowed. And Lisp was doing this for a very long time, this kind
+of live, live hot swapping of code and running systems. I think it goes more in this case.
+It's less about the production thing than it is about what's the nature of developing
+a program. Because as a developer, you know, seeing it run and saying, ooh, that was bad.
+I wonder what happened. I wish I had run it in debug mode. I wish I had put a break point
+somewhere. Interesting. And I'm really sad that I spent an hour calculating that data
+and dropped it on the floor because I have to do it again with the break point in. That's
+a lot different experience than keeping your program around and having that data stay loaded
+and fixing your function and running it again without starting over. So that's what happens
+in closure. You take the code, text could be characters. There is character representation
+and what you showed there can be represented in characters in ASCII. It does not go first
+to the evaluator. It goes to something called the reader. And this is the core part of what
+makes something a Lisp, which is that the reader has a very simple job. Its job is to
+take the description. I just told you, you know, keyword starts with a colon and a list
+is in parentheses and a map is in curly braces and it's pairs of stuff. Its job is to take
+those characters and turn it into data structures. The data structures I described. You start
+with the paren, you say stuff, you close the paren, that's going to become a list when
+the reader is done with it. You start with square brackets, that's going to become a vector
+when the reader is done with it. So what comes out of the reader are data structures. And
+what's unique about a Lisp enclosure is that the compiler compiles data structures. It
+does not compile text. It never sees text. What the compiler gets handed is maybe a list
+with three symbols in it or a vector with five numbers in it. That's actually what the
+compiler has. It has a data structure in hand with actual data in it, not text. And it compiles
+it and in the case of closure, it is a compiler. There are many, well, there are actually many
+lists that are interpreters, but many people believe that Lisp is interpreted. It's certainly
+easy to make an interpreter for Lisp that would take those data structures and on the
+fly produce the values they imply. But closure is a compiler and in particular closure compiles
+those data structures to Java bytecode right away. There is no interpretation in closure.
+So it's a compiler. It produces bytecode just like Java C does. And because it's an interactive
+environment, it presents that bytecode right away to the JVM to execute. And it executes
+right away and you can see the effect. Yes?
+When you're in the REPL, you have AVM, right? You have one thing. So yes, you can see the
+environment is your program. Your compiler is in your program. Yes?
+Yeah. Most commercial lists give you tools to take out the compiler in production, mostly
+because they don't want you giving away their compiler. Normally there's no reason to prevent
+that because it's a useful thing to have, particularly when you want to load code later
+to fix problems. You're going to need that compiler there. So in closure, there's no strip
+out the compiler option.
+Right. So I guess it's all written in Java.
+We'll see that there is a core of closure. The data structures are written in Java. The
+special operators are written in Java. And then most of the rest of closure is written
+in closure.
+Right. But it's no native code.
+There's no native code. Closure is completely a pure Java project. Right. There's no native
+code. There's no C libraries. It's all Java. Either generated by Java itself or generated
+by closure. It does not turn off the verifier or anything like that in order to get performance.
+There's been some schemes that tried to do that. Closure is completely legit that way.
+So when we have this separation of concerns between the reader and the evaluator, we get
+a couple of things. One of the things we get is we don't have to get the text from a file.
+Right. We can get it right from you. You just saw me type right into the REPL an expression.
+Never went through a file. Never got stored. So the first thing you get is this kind of
+interactivity of you can just type in stuff and say go. That's a big deal. I mean, if you've
+been programming in Java or C++ long enough to remember when the debuggers didn't give
+you the ability to evaluate expressions at a break point, you remember how hard that
+was. You always have that capability here to have expressions directly evaluated. What
+else do we get from this? Well, we get the ability to skip the characters completely.
+For instance, it's quite possible to write a program that generates the data structures
+that the compiler wants to see and have it send them to the compiler to be evaluated.
+So program generating programs are a common thing in this kind of an environment. Whereas
+this kind of stuff when you're doing it with text is really messy.
+So what I'm going to do is I'm going to give you a little bit of an example of how we can
+do this. We're going to do this with text. We're going to do this with text. We're going
+to do this with text. We're going to do this with text. We're going to do this with text.
+We're going to do this with text. We're going to do this with text. We're going to do this
+with text. Well, I mean, it's, that's a security policy thing, whether or not you expose this
+in a production system. So I'm talking about, you could if you needed to, you could have
+that over a secure Sacichael and have it be just an administrator who knows what they're
+doing, have that capability because the alternative is downing your system. If you don't have
+that, and of course opening this in a production system, that's completely a policy thing.
+It hasn't anything to do with the language. Except if your language doesn't let you do
+you can't do it. That's fair. So it does. The other thing is that these data structures you might
+write this program and have this happen directly, then you might say, I like this program. Let me
+take those data structures and there's a thing called the printer, which will turn them back into
+that, which you could store and so they could sign off on and say this is the canonic program,
+which our program generated that we're going to use and we'll lock that down and do whatever. Yes.
+So are the data structures physical files? No, they're in memory data structures. The ones you
+program would see. So, you know, an instance of closure laying persistent vector to the compiler.
+The compiler's got to deal with it, figure it out. So there's one more thing that this allows and
+this is the secret sauce of all lists, including closure, which is what would happen? I mean,
+it's fine to sit standalone and write a program that generates a program. But what would happen if we
+said, you know what, we're handing these data structures to the compiler, right? It would be great
+if the compiler would let us participate in this. If they could send us the data structures, when we
+write a program, very small program, and give it back different data structures, then we could
+participate very easily in the extension of our language. Because this compiler, it's going to
+know how to do with those types of data. It's going to know what to do with the vector. It's going to
+know what this means and a couple of other things. But there'll be new things that we'll think of
+that we'd love to be able to say, right? When you have something you'd love to be able to say in
+Java, what do you have to do? You have to beg son and wait for years and hope other people beg for
+the same things and you get it. That's it. You have no say. You have no ability to shape the
+language unless that's completely not what it's about. It's about getting you in the loop. And in
+fact, the language itself has a well-defined way for you to say, this is a little program. I'd like
+you to run. When you encounter this name, I don't want you to evaluate right away. I'd like you to
+send me that data structure. I know what to do with it. I'll give you back a different data structure
+and you evaluate that. That's called a macro. And it is what gives lists and closure syntactic
+abstraction and syntactic extensibility. Yes, it can. There are namespaces in enclosure and they
+allow me to have my cool function and you to have your cool function. Cool function. Yes. So that's
+what makes Lisp amazing. It's something that I won't have time to dig deeply into tonight if you can
+come away with at least the understanding that that's how it works. That's how it's possible. And the
+fact that these are data structures here makes it easy. You could theoretically say, oh, I could
+write something and if the compiler could hand me the abstract syntax tree, I could navigate it with
+some custom API and do whatever. It's not nearly the same, though, when what the compilers hand me
+one of those three data structures, I just showed you that every program knows how to manipulate
+and has a wildly huge library that directly can can manipulate. So that's how this works. I'll try to
+speed it up a little bit. In closure, unlike Java, everything is an expression. So you know in Java
+there's a difference between declarations and statements and expressions. There's no distinction
+in closure. Everything is an expression. Everything has value. Everything gets evaluated
+and produces a value. Sometimes that value is nil, not particularly meaningful, but everything is an
+expression. So the job of the compiler is to look at the data structures and evaluate them. There's a
+really simple rule for that. It's slightly oversimplified, but in general you can understand it
+this way. All those data literals I showed you, right, symbols, numbers, character literals, vectors,
+maps, sets are all evaluated by the compiler to represent themselves except lists and symbols.
+Lists and symbols by default are treated specially by the evaluator. So when it reads a list of
+symbols in particular, it's going to do some work. It's not just going to return the list of
+symbols to your program. It's going to try to understand them as an operation, which I'll show
+you in a second. So symbols are going to try to, the compiler is going to try to map to values,
+like variables. Like you know in a variable, you can say int i equals five. Later in your
+program in Java, you say i. Java is going to try to figure out, oh, that's five. That's the i you
+set up there. Same thing in closure. When you use a symbol in your data structure, closure is going
+to try to find a value that's been associated with that symbol. It can be associated with it
+through a construct called let, sort of the way you create a local name, or through def, which is
+where you create a global name. Or it's a list and it's going to say this is an operation of some
+sort. I have to figure out what to do with a list. So how does that work? Well, again, we said
+what's the data structure? It's, it's friends, it starts with something, it may have more stuff or
+not. But from the evaluator standpoint, all that matters is the first thing. The first thing is
+the operator or op. That's going to determine what to do. And it can be one of three things. It can
+be a special op. This is magic. This is sort of the, this is the stuff that's built into the
+compiler upon which everything else is bootstrapped. So some things are special. I'm going to
+enumerate them in a second. It can be a macro like we saw before. There's a way to register
+with the compiler to say, when you see the op, my cool thing, go over here and run this function,
+which is going to give you something to use in place of the my cool thing call. And the third
+thing it could be is an ordinary expression. It's going to use the normal means of evaluating
+expression. And it's going to say whatever value that yields on a treat as a function and attempt
+to call with the calling mechanism of closure, which is not limited to functions, but you can,
+it's main purposes for functions. So for people who know lists, closure is a list one.
+It is a list one that supports def macro well. And the use of namespaces and the way
+back quote works makes that possible. And everyone else can ignore that.
+Well, what, what, what it's going to encounter is it's going to encounter a list. And the first
+thing is going to be the symbol Fred. Fred is not a special operator, no Fred enclosure.
+Let's say no one has registered a macro called Fred, then it's going to use the rules we said
+before what about symbols to find the value of Fred, where hopefully someone before has said,
+Fred is this function or something that it will keep evaluating. It's going to
+evaluate that expression. But there are other function like things or callable things in
+closure in addition to functions. I'll show you that in a second. So let's dig down into each
+of these three pieces. Yes. You have an error at runtime. It'll say it's not a function. Effectively
+what will happen is it will say this is not a function. If you said Fred is is def Fred one,
+so Fred is the number one and you've tried to call Fred or use Fred as an operator, it's going to
+say one is not a function. Probably with the not very illuminating stack trace.
+Okay. So special operators, there are very few. I think, you know, one of the things that's really
+cool about lists and it's also cool about closure is you can define most of them in terms of themselves.
+One of the great brilliant things that John McCarthy did when he invented lists was figure
+out that with only, I think, seven primitives, you could define the evaluator for those seven
+primitives and everything you could build on them, like the core of computation. It still gives me
+goosebumps when I say that. It is a beautiful thing. It really is. And if you've never looked at the
+lambda calculus or at least from that perspective, it's quite stunning. These early papers are just
+great and they're just brilliant in a transparent way. So let's look at a couple. I'm going to show
+you two and then I'm going to list the rest. Death would be one. How do we establish a value for a
+name? There's this special operator called death. It takes a name. Now that name is going to be a
+symbol. Obviously, that can't be evaluated, right? Because the whole purpose of this special
+operator is to give it a value. If the compiler were to use normal evaluation, the name position,
+you'd have a problem because you're trying to define what it means. How could you do that?
+So one of the things about special operators that you have to remember, and it's true of
+macros as well, is they can have non-normal evaluation of their arguments. Like, the arguments
+might not be evaluated. In fact, death doesn't evaluate the name. It uses it as a symbol and
+it associates that symbol with the value. It does not evaluate the symbol. So this is a simple way
+to say, if I say death name, some expression, the expression will be evaluated. The name will be
+mapped to that value or bound to that value. When you later go and say name, you'll get the value.
+It was used to initialize it. You actually can do that more than once. You shouldn't do that more
+than once unless you're trying to fix something. In other words, death should not be used as set.
+But you can use death to define a function and later you can use it again to fix it.
+So the things that are defined by death are mutable at the root and it's probably, you know,
+it's the only escape hatch for that dynamic change, enclosure. That's not governed by
+transactions or some other mechanism. Okay, so it establishes a global variable. Again,
+there are namespaces. I don't have the time to talk about them, but it's all subject to a namespace.
+If you're in a namespace and you define the name, then it's in your namespace that's distinct from
+that same name in another namespace. Namespaces are not the same as packages in common lists.
+They're very much different in particular. Symbols are not inherently in a namespace. Symbols
+are have no value cell. They're not places. They're just labels. And there are vars, which are the
+places more like common list symbols. If is another thing that's built in. And if you think about if
+in your language, which you may not have ever done, right? If you thought about if is, why couldn't
+if be a function? Why can't I say if some test expression, some expression, some else expression?
+Why can't if be a function? I mean, it looks like a function. Well, it doesn't actually look like a
+function in Java, but why can't it be a function? Excuse me? It should only evaluate one of these
+two. That's why, right? And a function evaluates what? All of its arguments. So if you try to write
+if as a function, you would have a problem because functions evaluate all their arguments. So if has
+to be special and if is special in closure too, it evaluates these test expression. And then,
+depending on the truth or falsity of this in kind of a generic sense, for closure, this is
+no or false. It will not be that. If it's anything else, we will evaluate this. But we'll only evaluate
+one of those two things. No, it doesn't have to. The else can be missing in which case it defaults
+to no. So if is another example of something that has to be special, it can't evaluate all of its
+arguments. And then we have these others. In fact, this is it, right? There's something that defines
+a function. Something that establishes names in a local scope. A pair of things that allow you to do
+functional looping, to create a loop in your program. Something that lets you create a block of
+statements the last of which will be the value. It allocates a new Java thing.
+Access to members of Java. Throw, try, do what you expect from Java. Set, we'll rebind a value.
+And code bar is kind of a special purpose for list manipulation things. So I'm not going to get
+into them tonight. Question. Is that the entire list? Yeah. Of deaf macro? Deaf macro is bootstrapped
+on this. Oh no, there is deaf macro and it's defined a couple of pages into the boot script for
+closure, which I might show you. We have some time. Yes. I'm just intrigued. The reason for the
+explanation point of the set, is it trying to say something to the program? Yeah, this is bad.
+What are you doing this for? Yes. I thought that macro would not be as bad as it already is.
+No, it ends up that in closure. Macros are functions. And so there's just a way, there's a way to
+on the bar, say this function is a macro and it will be treated as a macro instead of as a function.
+Okay, so that's a tiny set of things. In fact, when you take out the stuff related to Java,
+it's an extremely tiny set. I don't think I made it down to seven. One, two, three, four, five, six, seven,
+eight. I have more than more property stuff, but I don't have dozens. So how could this possibly
+work? This is not enough to program with this. No. No, no, no. So we need macros. Okay. There are
+plenty supplied with closure. And what's beautiful about closure and LISPs is you have the same
+power that I have to write macros. When you see the kinds of things that are implemented in closure
+as macros, you realize the kind of power you have as a developer because you can write those
+same macros. You could have written them. You don't have to wait for me. I'm not son. This is not
+Java. You want to do something. You have something you want to express a certain way. You want to
+extend the language that way. If you can do it with the macro, you can do it without contacting me
+or asking me for the favor of adding a feature for you, which means the language is much more
+extensible by programs. So let's look a little bit about how they work. If we remember, we're
+getting data structures passed in the compiler. So it looked at the first thing and somehow
+there's a way, and I can't show you that tonight, to say this name designates a macro. And associated
+with that name then is a function. The function expects to be passed the rest of the stuff that's
+in the parentheses. So we had this cool function, my cool macro. Maybe it expects to be passed
+two things. The things that gets passed are not evaluated. It gets passed the data structures
+that the compiler got passed because the compiler is going to say, you told me you know how to do
+this. Here are the data structures. Give me back the data structure I should be processing. So it's
+a transformation process where the macro is handed the data that's inside the parentheses as
+arguments to the function that the macro is. It will run any arbitrary program you want
+to convert that data structure into a different data structure. You can write macros that look
+stuff up in databases that go and ask a rule-based system for advice. Most are not that complicated.
+But the thing is it's an arbitrary program transformation. There's not a pattern language.
+There's not a set of rules about this can be turned into that. It's an arbitrary program,
+a macro. And in this way it's like a common list macro. That given the data structure gives back
+its own replacement. Replace me the expression that began with me with this. And then keep going.
+Which may yield another macro and another round of matter. It may yield something that already
+knows how to process. Yes? No, this is happening at compile time. This is part of compilation,
+right? The compiler got handed this data structure. It said, oh, it begins with the macro name,
+hands it to the macro. It comes back. That transformation occurs. It keeps compiling.
+Then you get bytecode. After you get bytecode, there's no more talking to the macro. So macros
+replace themselves with another data structure. And then compilation continues. So we can look
+at a macro. You'll notice on the list of primitives, there's no or. Or is not primitive enclosure.
+And in fact, if you think about or, or is not primitive. Or is not a primitive logical
+operation. You can build or on top of if. The or I'm talking about is like the double bar or
+in, in Java in that, what happens if the first part tests true? What happens to the second part?
+Not evaluated, right? Still got that magic thing. But if already knows how to do that.
+If already knows how to do a conditional evaluation of only one of two choices. Which means we can
+define or in terms of if. And so this is what happens. So or is a macro. When it's expanded
+by the compiler, it, it returns something like this. I'm going to say or X for Y.
+And this is what comes back. Another data structure begins with the let, which we haven't seen so
+far. But let says it takes a, a set of pairs of things that make this mean, mean this inside the
+scope of the let. Like a local variable, except it's not variable. You can't vary it. But it has
+the same kind of scope. So it says let's, let's do that. And the reason why it does it is because
+this is going to be some expression. It, it looks like X here, but it could be like a call to
+calculate some incredibly difficult thing that's going to take an hour. In which case I probably
+wouldn't want to repeat that more than once in my expansion, because it would calculate that thing
+twice. So we're going to take whatever that expression is, put in here, assign it to this
+variable name, which is made up because obviously you can pick this name. It's a good machine
+to pick the name. So it makes a variable and then it says, if that thing is true, right, you can
+take an average of this, right, we have the value. If that's true, return it. If, right, you know,
+isn't going to do this, if this is true. Otherwise, it's going to do what? And that's the
+implementation of OR. If the first thing is true, it returns it. Well, in fact, in Java,
+you don't get a good value, but in Clojure, you get the value that was true.
+All values can be placed in a conditional, not just Booleans, and it's subject to the,
+the rules I said before. If it is nil or if it is false, you'll get the else expression
+evaluated. If it is anything else, seven, the string fred, anything else is true. So
+Clojure, like most lists, allows any expression to be evaluated as the conditional test.
+No, I talked about that. Let's say this x put them out, right, a well written macro will make
+sure it only gets evaluated once. I could have put if x, x, y, yes? No, this is the answer to
+the question. I could have said if x, x, otherwise y, then if x had side effects, it would happen
+twice. Then we make this not well written macro. This is a well written macro where it needs to
+use that expression twice, which means it's going to bind a temporary value, a temporary variable
+to the value, which means x only happens if it appears only once here. So if it had a side effect,
+it would happen only once. If it took a long time, it would take a long time only once.
+Let actually takes, at the top most level, it takes n arguments, the first of which has to be
+a vector of pairs of things. You can have multiple expressions, name, value, name, value, value,
+in a let. This is one symbol here. Let is a block, so it actually can have multiple
+expressions. In this case, there's only one. It returns the value. Well, this is a macro,
+and all it's going to do is give the compiler back this, and the compiler has to keep going
+with this in hand now. Let, well, let establishes this name, then when let runs,
+the series of expressions inside let run, and the last of them is the value of the let expression.
+In this case, there's only one expression inside the let. In this case, there's only one expression
+inside the let. So the value of the if expression is the value of the let, which is what we want,
+because we want this to mean or. And that's the scope, right? This is the end of the scope over
+here, and this parameter matches that one. That's what I was noticing. Yes, and well, it's one of
+the beautiful things about this system, which we'll see clarified in a moment, is that all
+expressions are bound. So we don't have a lot of complexity with precedents and terminators and
+things like that. It started with the parent, it ends with the matching parent later.
+Big Boolean. In fact, it has to be big Boolean false. If it's coming from Java, I test to make
+sure because an improperly constructed big Boolean may not be Boolean dot false.
+New Boolean is wrong. And in fact, not only is new Boolean wrong,
+but the reflection API in Java uses it exactly that way. So it returns multiple different values
+of big Boolean false. I have a patch that looks for that because I got bit by that already. So
+it will make conversions of big Boolean falses that aren't Boolean dot false into Boolean dot false.
+I'm sorry. I didn't write Java. I only wrote closure. So, but the point here is that
+this seems like a primitive thing. Like if the language doesn't have it, you're in trouble.
+It is not. If I hadn't, if I had somehow left out or you could have added it,
+you could have written the macro that does this job and added or to closure.
+I'm sure I forgot some things in closure. You could add them.
+Many things. In fact, we saw how tiny the special operators list is. And or conned,
+all kinds of things are built on top of these things as macros and or functions.
+And, and after the point of the special ops, you can't add a special operator,
+but you can add a macro.
+So, now I got a fair amount of data. So, I get this is great. So,
+some of the little, the bunch of macros and this thing is that is a powerful bunch of macros.
+Right.
+And the others got this like smoking, the main thing is that the language
+is going to come down to be in its critical developers and in critical levels.
+Right.
+Because it runs on error and it gets stacked crazy with the way it is.
+You're going to get a reference to the expansion, the inside of the expansion.
+The motto is got everything expanded, it's flat.
+Correct.
+So how do I figure out where my source corresponds to what we call?
+That can be challenging.
+That was the answer I was expecting.
+What's the answer?
+I guess it's good.
+It's still an area.
+People will be busy for a long time, which is great.
+I think that one of the things that's good about a Lisp is because you have the ability to work in the small
+and to say, I just wrote this little component of this thing.
+I'm going to run this right now.
+I don't have to wait until the big program that contains this runs.
+Your ability to do that immediate unit test to make sure that thing is working is good.
+On the 50,000 foot level, propagating up from macros the source of the problem in the macro is something
+that's being worked on.
+Some compilers do it pretty well for common Lisp.
+It's an area I hope to enhance in closure.
+But it will always be more challenging than a function.
+And that's why macro writing is not for newcomers or the inexperienced part of the team.
+It seems akin to language design.
+It is language design.
+It definitely is.
+On the other hand, without it, you're limited to the abstraction capabilities of functions, which are limited.
+Think about how much you repeat in Java.
+Think about how much code you repeat to close files in Java.
+Think about it.
+Think about how many times you've written the exact same thing.
+I mean, having your IDE spit it out is a little bit handier.
+But when you decide, oh, I need to change my policy about doing this.
+I want to check something else.
+All that generated code is not amenable to fixing.
+So those kinds of things that can't be...
+whose redundancy can't be eliminated by functions can be eliminated by macros.
+And that's something you want to do.
+Because the B side of this is, if you're doing all that stuff by hand, yes, it's transparent.
+You get this debugger error.
+Okay, you did that by hand.
+Where?
+All over your program.
+Because you didn't have a macro that generated it.
+You don't have one place to fix.
+You have N places to fix.
+So there's a...
+But you still have to find everywhere you have to fix it.
+And these things are idioms.
+Everybody that programs in Java has to know this.
+These idioms are only by convention, and they have to be manually replicated.
+It is an attempt to address those cross-cutting concerns,
+but it's still unproven as to whether or not people will describe those things in advance.
+Because what tends to happen is that you don't know it.
+And then you say, oh, I'm doing this all over the place.
+And then, will you implement an aspect?
+Is there a policy?
+Is there a way to describe an aspect that will insert it everywhere it's needed?
+That's a very challenging problem.
+I mean, I think aspect-oriented programming is interesting, but it's different.
+So anyway, there's trade-off with macros.
+Yes, it may be less transparent there.
+On the other side, when you fix a macro, you fix every usage of the macro.
+Finally, we get to the easier thing.
+I mean, start with special operators and macros,
+mostly because that's the evaluation order.
+But functions exist, and they're kind of straightforward.
+The first thing about functions you need to know is that they're first-class values.
+They're values like any other.
+Methods in Java are not first-class.
+You can't put a method into a variable.
+You can't pass a method to a function.
+There are special things in LISPs, and in fact, in most dynamic languages today,
+functions are first-class, which means the function is a value.
+So I've defined five to mean five.
+And of course, I don't need to do that, but I'm showing you a depth of a symbol to a value.
+Now I'm going to show you a depth of a symbol sqr to a value,
+which is a call to one and the other special operators called fun.
+And what fun does is it creates a function object.
+This is going to turn that code into something that gets compiled into a function
+that takes one argument and multiplies it by itself.
+It's a regular function.
+It's going to be an instance of a Java interface that takes an argument.
+It's a real regular method in Java.
+You'll have an invalidarity problem.
+Okay, I need to move a little bit more quickly, so let's hold the functions for a little bit.
+Let me move forward.
+So this fun, I can't describe all of the features of fun.
+It's an exciting and rich thing.
+But this one we can take as being fun as a special operator.
+It takes a vector of the names of its arguments.
+That's the simplest way to understand it.
+And then it contains a set of expressions, which will be the body of the function.
+The last expression is the value returned by the function.
+There's no return statement in closure.
+So when we say square five, it returns 25.
+Okay, this is a function call.
+Again, we said, what does it do?
+It says, is square a special operator?
+No.
+Is it a macro?
+We're going to say right now it isn't.
+So what's the value of square?
+It's this function object.
+Okay, call it.
+And pass it that.
+The value of that.
+Okay, so the arguments to functions are evaluated.
+So it's going to pass square the number five.
+Square is going to multiply by itself and return 25.
+So functions are first class.
+There are other things that are like functions.
+In other words, the compiler says, you know, can I call this?
+The answer is true of fun.
+It's also true of other things.
+A particular one of the neat things about closure is that maps are functions.
+Because if you think about maps mathematically, they are functions.
+Maps are functions of their keys.
+Given a key, a map should return the value of that key.
+And it does in closure.
+So maps are functions.
+Sets are also functions.
+Vectors are also functions.
+Vectors are functions of their indices.
+Okay.
+That's cool stuff.
+And when you see idiomatic closure, some of it is quite beautiful because of that relationship.
+So we'll try to summarize this.
+Things that would be declarations or control structures or function calls or operators or whatever in Java.
+All are uniform in closure or any list.
+In that there are lists where the operator is the first thing in the list.
+So we've reduced all of this variation here to something uniform.
+So look at each one.
+Int i equals 5 establishes i as the name whose meaning is the value 5.
+That i does that as well.
+Where in this does it say it's a definition?
+Whatever.
+Some rule about the shape of this thing says it's a definition.
+In closure, that says that's what it means.
+If x is equal to 0, return y, otherwise return z.
+When does this end?
+I'm showing the rest of the program.
+Is this done?
+Got me.
+You don't know?
+I don't know.
+Right?
+Because you could say else.
+Else, right?
+Else if.
+It has to say else if and then it could say else.
+We have to keep looking forward.
+We could not have had an else.
+It's not closed.
+In addition, without these returns, it doesn't yield the value.
+This is a statement in Java.
+There is an if conditional, which is an expression of two different things.
+In closure, if, against first, we know what we're dealing with.
+We saw the syntax.
+It takes three things.
+What's the question mark in closure?
+That's a function name.
+You can have question marks in names.
+Closure is much more liberal about the symbols that can appear in names,
+but not completely liberal because I need some symbols for myself.
+X times y times z, what are these?
+Mathematical operators.
+Again, another special thing about Java,
+and they can go in between things,
+and there's precedence rules, all other kinds of good.
+Right?
+Closure is wet.
+It's the beginning.
+I don't have to look anywhere.
+I'm looking in the middle or read for semi-column.
+What's happening?
+Multiplication, first.
+Also, you'll notice multiplication can take multiple operands,
+more than two.
+It's not just a binary operator.
+It's an n-ary operator.
+Foo x, y, z.
+This is what?
+Function call.
+Function call.
+Right?
+Foo x, y, z.
+People complain about presses.
+How many presses difference?
+None.
+Right?
+You move it from here over there.
+Same thing.
+Same thing.
+I don't know what you're talking about.
+And you're not going to see curly, curly, curly, curly, curly, curly, curly.
+Yes, you may see friends like that.
+But that's better, I'm telling you.
+It keeps your program near itself.
+You don't have to go down to the next page to see the next step.
+And then this member access, I'm going to talk more about the Java interoperability.
+But same kind of thing.
+Different number of presses?
+No.
+Different number of dots?
+No.
+But dot goes first because dot tells Clojure we're doing some Java stuff here.
+And that has its own special interpretation because dot is a special operator we saw before.
+So there's a tremendous uniformity.
+There's a lot of value to that uniformity.
+You know, I know a lot of programming languages.
+And every time I have to learn the arcane, whatever the rules are, syntax, and this thing next to that
+means that and this character means this and you can have a semicolon here but not there
+and it better be indented by the same amount or whatever it is.
+I really get angry now because there is no reason for that.
+It is not better than this.
+And if you use this for any amount of time, you will not disagree because there's no one who has who does.
+But it also has to have its video synthesis in some ways.
+Who got far enough?
+Who for an ex in Java?
+How would that be an expression of who?
+I'll show you later.
+If I only have another hour, I have to go much faster.
+Everybody ready?
+So let's hold the questions until like a question time.
+Unless you're really confused but just general interest things will hold because I may cover it.
+One of the things that is typical about a list is that it has a rich library for manipulating lists.
+But it ends up that I think in my opinion it's a shortcoming of lists traditionally that those functions are limited
+to a particular data structure which is the singly linked list.
+Because the functions that underline that abstraction are broader.
+And there are three of them.
+The first is I'd like to obtain some sort of a sequence like thing from some sort of collection like thing.
+That's an abstract way to say something.
+Given that sequence like thing, I want and need only two functions.
+One is to say, give me the first thing.
+The other is to say, give me the sequence that is the rest of the sequence.
+In the case of seek, if there is no stuff, it returns nil because nil means nothing.
+Which means you can say seek call and you can put that in an if expression as a test thing.
+And because nil returns logical false, you'll know there's nothing to do.
+That's an important idiom of common list, closure preserves.
+Unlike scheme where you have to say empty all the time.
+If it's not empty, you will get back an object.
+That object only makes two promises.
+You can call these two functions on it.
+This function promises one thing.
+There will be a first element because we already covered if there's not a first element here.
+So if you say first of the seek and this is not nil, it means you have a seek, you get back a guy.
+The first thing in the sequence.
+The second thing you can do with the seek is you can call rest on it.
+Which says, give me the sequence that represents the rest, not including the first thing.
+Of course, if there's no more, what should we get?
+Nil.
+Because we said here, nothing.
+If we have nothing, we get nil.
+Otherwise, we're going to get another seek.
+This is an extremely abstract way to talk about lists.
+But the advantage over common list and scheme lists is they would promise that the return value of this thing is a concept.
+And that is a real limitation.
+Because now, I can make seek work on absolutely everything.
+Seek works on lists because they have the structure.
+But it's possible to create a seek object.
+If you think about iterators and I want to make this analogy extremely weakly.
+There's a way to walk through a vector.
+Similarly, there's a way to walk through a map.
+There's a way to walk through a string.
+There's a way to walk through a file.
+And it ends up that seek is supported on all those things.
+You can walk through Java arrays, all the closure collections, strings, files, everything.
+And you can use these two operations to move around.
+This abstraction of listness, which I call a sequence because a list is more of a concrete thing,
+is bound to lists in most lists.
+Wow, this is hard to say.
+But it's not enclosure.
+And it's, I think, one advance of closure in the list world.
+Which means that you can apply these things to everything.
+So what does this mean?
+Well, this is kind of primitive.
+I mean, walking through step by step.
+But what it means is that you can build a library on top of these primitives
+that provides a lot of power for manipulating data structures without loops.
+I'm just going to show you a tiny, tiny little bit.
+But it should give you a feel for what it's like to program enclosure
+if you would think about what it would take to do these things in Java.
+For instance, I have a set of things.
+I'd like to have everything except the first two things.
+We say drop two from whatever the collection is.
+That happens to be a vector.
+It could have been a list.
+It could have been a string.
+We drop the first two characters.
+Whatever it is, there's a way to abstract out the notion of walking through it.
+Drop means leave out that many and give me the rest as a sequence.
+Take is the opposite.
+It says only give me nine of these things.
+Look at the second function, cycle.
+Cycle is a function call.
+It takes one, two, three, four in this case.
+It could take any sequenceable thing.
+It returns an infinite list, an infinite sequence
+of those things around and around in a cycle.
+How could it do that?
+Isn't that going to chew up all the memory in my machine?
+Cycle sounds like a really scary function.
+It does that because if we go back to the definition of this,
+is there anything about the way I describe the operation of these things
+that says that the rest of this thing has to exist?
+I could make up the rest right when you ask me, right?
+And how much of it would I have to make up?
+Just one more thing.
+The thing I give you has to have one more thing in it and I'm okay.
+It could delay the calculation of the next part
+till the next time you call rest.
+That's called laziness.
+And in fact, all the sequence stuff I'm showing you for closure
+is lazy, which means that you can write sequence functions
+that return infinite sets.
+And you can use them as long as you don't try to consume all of them.
+You consume a little bit of them.
+So in this case, we're making an infinite sequence out of 1, 2, 3, 4,
+and we're taking the first nine things from it.
+This looks like a weird abstract thing,
+but I've had plenty of programs in reality.
+I've had to do exactly this thing, round robin.
+You can use it to round robin work dispersal.
+You can use it to get distributions.
+In cycle, it seems like some theoretical isn't as cool
+you can make an infinite sequence, but it really has utility.
+It ends up in real programs.
+And it goes on and on.
+Interleave does what you think, one from this sequence,
+one from that.
+Makes a new sequence.
+Again, one of these could be infinite.
+You'd only make as much of this as you needed to match
+the length of the non-infinite one.
+Partition, split this up into pieces.
+Think about the loops to do this stuff.
+And in Java, you have to write everyone, every time.
+Never mind the laziness part.
+Now we get to a more interesting function, which is map.
+Now we're not talking about map the data structure.
+We're talking about map a function,
+which is, again, from Lisp land,
+which says take this function.
+So the first argument of map is a function value.
+And apply it to pairwise,
+or however many sequences I give you,
+the elements of the sequences I provide.
+So in this case, we're going to call the function vector,
+and we're going to call it on A and 1.
+Then we're going to call it on B and 2, and C and 3,
+and D and 4, and E and 5.
+And vector makes vectors out of whatever you're passing.
+So we're mapping vector across this pair of sequences
+to vectorize corresponding elements of those sequences.
+We get a set of data structures back out of this.
+So map is a very powerful thing.
+Instead of saying for each blah, blah, blah, do this
+and stick the answer into this collection,
+you say just map this function across this data,
+and it'll give you back a set of new data
+the result of applying that function to each thing.
+You can also apply it against multiple sequences.
+That's what this is doing.
+Maybe I shouldn't have done something this complex here.
+Apply is also very interesting,
+and it's a unique thing to Lisp's
+and languages that are dynamic.
+Apply says, I'm also going to pass you a function.
+What I want you to do is take the next expression
+and figure out the sequence it yields,
+and then use that as the arguments to a call to this function.
+So we're going to apply the function stir,
+and stir says, given any set of things, turn it into a string.
+Turn each part into a string,
+and concatenate them all back together into a string.
+So we want to put that together,
+and suppose does is it says,
+take this thing and put it in between everything in this sequence.
+So, interpose, comma, ASDF,
+it's going to turn ASDF into a sequence,
+and return characters.
+So we're going to have the character A and a comma,
+S and a comma, D and a comma, F and a comma.
+Seven things.
+Yes?
+Three four things with three things.
+Seven things.
+And I wanted that, which means string concatenate them,
+as if they were the arguments to stir.
+In other words, if I called stir and said stir,
+A comma, S comma, D comma, F,
+it would make a string out of them.
+Well, I can just apply it to the sequence,
+as if I called it with those arguments,
+and we'll do the job.
+I get back a single string with that in between.
+Again, if you don't quite get these, it's okay.
+I'm just trying to show you the power and the succinctness of this.
+Reduce is another function that takes a function.
+It says apply this function to successive pairs of the sequence you're given,
+taking the result of each application
+and using it as the first argument of the next.
+So if you say reduce with plus,
+you're going to get the first two things plus each other.
+And then take that and do that plus the next thing.
+That's what reduce does.
+So this effectively is summing this range.
+Range is a function that returns a sequence of numbers.
+And you can set where it starts and where it ends
+and how it steps and things like that.
+This is obviously a much higher level way to write programs
+than you do in Java.
+Yes.
+No?
+Your head hurts.
+I don't know.
+This is going to be a good time for a break.
+Does anyone have any questions on this real quick?
+I'm going to ask you with Cycle.
+What is the...
+I guess I'm looking at Cycle between the knowledge areas
+and then you probably take the two arguments.
+Right. And Cycle returns a sequence,
+which has only got one in it
+and the recipe for producing the rest of the Cycle.
+Sort of like a delayed function.
+That's what happens inside Cycle.
+It doesn't produce an infinite list, obviously.
+It returns an object that satisfies...
+It returns a sequence.
+It returns a sequence. Correct.
+Go ahead.
+Why can't you call stirred directly?
+Why can't you call stirred directly?
+Well, in this case...
+Well, I'd have to write A, S, D, F.
+Right?
+You just call stirred and then you're going to...
+Then you're passing stir a sequence.
+And what I want to do is say take that sequence
+and see arguments to stir.
+Not N argument to stir, but N arguments to stir.
+Right?
+Why slash comma is not quote comma?
+Because that's the syntax of closure.
+Slash comma is a character literal for comma.
+Quote is used for other things.
+That's why I don't use it for character literals.
+All right, let's take a break.

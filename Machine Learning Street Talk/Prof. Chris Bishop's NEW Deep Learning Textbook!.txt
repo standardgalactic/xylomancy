@@ -1,0 +1,1007 @@
+Today we have the privilege of speaking with Professor Chris Bishop,
+Illuminary in the field of artificial intelligence and machine learning.
+Chris is a technical fellow and director at Microsoft Research, AI for Science, in Cambridge.
+He's also honorary professor of computer science at the University of Edinburgh,
+and fellow of Darwin College, Cambridge.
+Hi, nice to meet you Tim.
+This is the new book on deep learning foundations and concepts published with my son Hugh.
+What problem have you got?
+Ethnol. I don't know if I'll use it, but I'm going to talk about invariance.
+That's wonderful, that's wonderful.
+Because you ought to get a little bit techy at some point.
+Oh yeah, I've already been slapped down.
+In 2004, he was elected fellow of the Royal Academy of Engineering.
+In 2007, he was elected fellow of the Royal Society of Edinburgh.
+And in 2017, he was elected fellow of the Royal Society.
+Chris was a founding member of the UK AI Council.
+And in 2019, he was appointed to the Prime Minister's Council for Science and Technology.
+At Microsoft Research, Chris oversees a global portfolio of industrial research and development
+with a strong focus on machine learning and the natural sciences.
+Chris obtained a BA in physics from Oxford and a PhD in theoretical physics
+from the University of Edinburgh with a thesis on quantum field theory.
+Chris's contributions to the field of machine learning have been truly remarkable.
+He's authored one of the main textbooks in the field,
+which is Pattern Recognition and Machine Learning, or PRML.
+It has served as an essential reference for countless students and researchers around the
+world. Chris explained in the interview how it steered the field towards a more probabilistic
+perspective at the time. And he also mentioned his first textbook, Neural Networks for Pattern
+Recognition, and its role in promoting neural networks as a powerful tool for machine learning.
+So this is the new textbook, Deep Learning, Foundations and Concepts.
+And one of the things that we're proud of with this book is the production values.
+We really worked with the publisher to ensure the book would be produced to high physical
+quality, and in particular, it's produced with what are called stitched signatures.
+So if you look down the edge there, you'll see the pages are not simply glued in.
+Instead, this uses an offset printing technique where 16 pages are printed on a big sheet of
+paper on both sides. Some of the pages are turned upside down, and then the page of the paper is
+folded and then folded and then folded again and trimmed, and the resulting set is called a
+signature and actually stitched in with cord. And the point about that is it allows the book to
+open flat, so it means that the book is easy to read and it means it should last a long time.
+What are your favorite figures in the book, Chris?
+Well, the ones produced by my son, of course, are the best. I mean, here's a nice picture of
+the transformer architecture, which is, this is GPT, so you could say it's one of the most
+important figures in the book, I suppose, and I just love the way he's done this.
+How did you do the research for this?
+So, that's a great question. I think, you know, one of the big challenges with writing a book
+like this is knowing what to include and what not to include, and with literally thousands of
+papers being published every month, it can be overwhelming for the authors, never mind the
+readers. So I think the value we add in the book is trying to distill out what we think
+of as the core concept. So part of this was really looking at key papers in the field,
+seeing what relatively recent ideas there are, but also trying to focus down on
+techniques and ideas that we believe will actually stand the test of time. We don't have this book
+to go out of date in a year or two. We want it to have lasting value, and of course, it's quite
+possible there'll be a breakthrough next week and that it will turn out to be a very important
+new architecture. But for the most part, many of the core concepts actually go back a long way,
+and so what we've really done is taken some of the foundations of the field and brought them
+into the modern deep learning era, but the idea of probabilities, the idea of gradient based
+methods and so on, those have been around for decades and they're just as applicable today as
+they ever were. Yes, one of the things I really like actually is the chapter on convolutional
+networks. My son Hugh did a lot of this chapter. He works on using techniques like convolutional
+neural nets as part of his work on autonomous vehicles, and I think there's a really nice
+description here of convolutional networks really from the ground up explaining the
+basic concepts and but also motivating them, not just saying this is how a convolutional
+network is built, but why is it built this way? How do we actually motivate it? So that's one of
+my favorite chapters as well. Yeah, it's been a very interesting career and at this stage of the
+career I can now finally look back and make sense of it, but at the time it felt like a bit of a
+random walk. So actually when I was a teenager, I went to see 2001 A Space Odyssey. It was actually
+very inspired by that rather abstract concept of an artificial intelligence, very different from
+the usual sort of Hollywood portrayal of robots. So I was very interested in the idea of artificial
+intelligence from a young age, but I was very uninspired by the field of AI at the time, which
+was very much sort of rule-based and didn't seem to be on a path to intelligence. And then I did a
+PhD in quantum field theory, which was a very hot field at the time, gauge field theory at Edinburgh
+University, had a wonderful time. At the end of my PhD though, I wanted to do something a bit more
+practical, a bit more useful, and so I went into the fusion program. I'm a big fan of nuclear fusion.
+It was sort of 30 years away then, and it's kind of still 30 years away now, but I'm still a big
+believer. But I went to work on talk about physics essentially, theoretical physics of plasmas,
+trying to understand the instabilities and control them. So I was working very happily as a theoretical
+physicist, having a great time. And after about 10 years or so as a theoretical physicist,
+Jeff Hinton published the backprop paper, and it came to my attention. And I found that very
+inspiring, because there I saw a very, very different approach to towards intelligence.
+And so I started by applying neural networks to data from the fusion program, because it was big
+data in its day. I was working there to the the jet tokamak, and they had many, many high resolution
+diagnostics. I had lots of data to play with. And I became more and more fascinated by neural
+networks. And then I did a sort of completely crazy thing. I walked away from a very respectable
+career as a theoretical physicist, and went full time into the field of neural nets, which at the
+time was not really a respectable field, I would say it's not wasn't mainstream computer science,
+it certainly wasn't physics, it wasn't really anything. But I just found it very inspiring,
+and I was particularly inspired by the work of Jeff Hinton. And so I've been in that field for,
+you know, three and a half decades now. And of course, recent history suggests that was probably
+a good career move. And now most recently, I've brought the two ends of my career together,
+because I'm now very excited about the impact that neural nets and machine learning are having on
+the natural sciences, including physics. Hinton is a famous connectionist. So he believes that
+knowledge is sub symbolic. And I was speaking with Nick Chater the other week, he had a book called
+The Mind is Flat, which is talking about the inscrutability of our brains. How do you feel
+that things have changed? I mean, you were talking about a convergence of these different ideas and
+in AI. I think one thing that's very interesting is that there was been a lot of discussion,
+let's say from 2012 onwards, when deep learning was clearly being very successful,
+a lot of discussion that it was missing the sort of symbolic approach that we somehow to find a way
+to combine this connectionist approach to use that sort of probably rather dated term now, but
+that sort of, you know, that neural net approach with the more traditional symbolic approach.
+And I think what we've seen with models like GPT-4, for example, that it's perfectly capable
+reasoning at a more symbolic level, not at the level of a human being, of course, but it can do
+that kind of more abstract higher level reasoning. And so I think what we're seeing with neural nets
+is rather like the human brain. The human brain doesn't have a connectionist neural net piece,
+then some other machinery that does symbolic reasoning, that same substrate is capable of
+all of these different kinds of reasoning and these different kinds of intelligence.
+And we're starting to see that emerge now with neural nets. So I think for me, the discussion of
+should we somehow combine symbolic reasoning with connectionism? No, to me, that's a piece of history.
+It's about how can we, how can we expand on the capabilities of neural nets?
+Yeah, that's so interesting. I remember there was a paper by Polition, I think it was the
+connectionist critique in 1988. And I was quite sold on this idea of, you know,
+systematicity and productivity and so on. And even now folks from that school of thought think that
+our brains are Turing machines, this ability to address potential infinity. And I guess what I'm
+getting from what you're saying is that the distinction isn't really there anymore. You
+can do that kind of reasoning with neural networks. Well, I take a very simple view,
+which is that neural nets in that since 2012 in particular have been shown to be spectacularly
+capable. And there's no end in sight. The rate of progress is faster now than ever. So it seems
+very straight. Nobody imagines that machine learning and deep learning has suddenly ended at,
+you know, whatever the time is today, you know, this is the beginning of an S curve.
+So the idea that we would worry so much about the limitations of neural networks and what they
+can't do, I think we just you put the word yet at the end of it, your neural nets can't do x,
+y and z yet. But I don't think any sense we've hit the buffers of what neural nets can do.
+And it's by far the most successful or the most rapidly advancing technology we have.
+So to me, you should look for the keys under the lamppost. We have this powerful technology
+that's getting better by the week. Why would we not see how far we can push it rather than worry
+about its limitations? Absolutely. Now, Professor Bishop, you are incredibly famous for your book
+PRML. But of course, it wasn't your first book as you were just speaking to. But
+what was I mean, could you just tell us about your motivations and just the thought process
+behind that book? Yes. So as you said, it wasn't my first book. My first book is published in 1995,
+Neural Networks for Pattern Recognition. And that book had a very specific motivation,
+which is that I was a newcomer to the field. I mentioned earlier that I got excited about
+backprop and and sort of transition from theoretical physics into machine learning.
+That was my way of learning about the field. You know, if you're a university professor,
+a great way to learn about something is to teach a course on it, because it forces you to think
+about it very carefully. You're going to get tricky questions from smart students. And you're
+very motivated to really understand it. And so for me, the analog of that was writing a book.
+PRML was rather different. By the time we got to, it was published in 2006. And by then,
+the field was much larger. Its sense was much more mature. It's a much more established and
+respected field. There were many courses on machine learning. The goal there was very different. I
+simply wanted to write the book that everybody would use to learn about the field. So it was
+trying to be comprehensive, but trying to explain the concepts as clearly as possible.
+And so really, that was the goal. The goal was to, in a sense, replace the earlier Neural
+Networks for Pattern Recognition book, which serves an important role in its day, I think,
+but really try to produce a single coherent text where people could learn about the different
+topics with a shared notation and hopefully try to explain things as clearly as I could.
+We know in theoretical physics, you can write down an equation, but solving it may be extremely
+difficult. You have to resort to approximations. But it's still nice to have that North Star,
+that compass that guides you. And so for me, I try to think of machine learning in similar terms.
+There are some foundations that really don't change much over time that are very good guiding
+principles. And we're dealing with data. We're dealing with uncertainty. We want to be quantitative.
+So you're led very naturally, indeed, uniquely into probability theory. And if you apply
+probability theory consistently, that is the Bayesian framework. So for me, the Bayesian
+framework is a very natural bedrock on which you can build and think about machine learning.
+Now, just as with theoretical physics, you can't often just solve things exactly. And
+certainly the Bayesian paradigm calls for integration or marginalization of all possible
+values of the parameters in your neural network. Well, you always operate with a fixed computational
+budget, right? It may be a huge one, but it be always constrained by computational budget.
+And should you spend that budget doing a very thorough Bayesian marginalization over a small
+neural network? Or should you take the same number of compute cycles and train a very much
+larger network? And if you have plenty of data to train the larger network, then the latter seems
+to be much more effective in a practical sense. So while from a practical point of view, the
+Bayesian approach still has certain applications in various domains. For the most part, it's not
+the framework we'd want to use in sort of mainstream machine learning today. We're much
+more interested in scale and making point estimates and using stagastic gradient send and so on.
+So I still think that students should learn the basic ideas of Bayesian inference, because really
+they have to learn, you have to learn about probability. I don't think you can be a machine
+learning and not understand probability. And then once you understand probability and you apply it
+uniformly, that really is the Bayesian framework. So I think it's the foundation, but then you're
+led to make approximations and in particular, you make point estimates. So in practice, you don't
+actually execute the full Bayesian paradigm. Yeah, I agree that Bayesian reasoning is it's
+beautiful. And it's the continuation, even of sort of propositional logic in the domain of
+uncertainty. It's fundamental. But there is this question of the world is a very gnarly place.
+And folks argue that the brain is a kind of Bayesian inference machine. But it can't possibly be
+solving the intractable Bayesian problem. And therein lies the question. So there are many
+hybrids or even deep learning approaches could be seen as some kind of a continuation or somewhere
+on the spectrum between maximum likelihood point estimation and Bayesian models. I mean,
+how do you think about that spectrum? I think that's a great question. I think you're spot on
+there. If you look back to a time when there are a lot of competitions, here's a data set,
+we're going to hold out the test set, you've got to score as high as you can on the test set.
+What approach should you use? The winner always is an ensemble. You should try 10 different
+things, preferably diverse, and then combine them suitably, maybe taking an average or some
+smarter combination. And that ensemble will always outperform any one single model.
+So if you're not constrained by compute, and in some of those competitions you weren't,
+then the ensemble always wins. And you can think about that ensemble is like, as you say,
+a sort of rough and ready approximation to a full marginalization of all of the uncertainty in the
+predictions that you might make. And so I think there's a little glimmer of sort of Bayesian
+approaches coming through there. But again, you know, in the modern era, you're probably better
+off training one single large model than 10 smaller ones and averaging. So I think knowing
+about the Bayesian paradigm and understanding where you can learn from it is still valuable today,
+but nevertheless, it's unlikely in most applications that you're going to want to apply
+the full Bayesian machinery, because it's just so computational expensive. Fascinating.
+Just one more thing on this. Do you think of large, you know, let's say large language models,
+but large deep learning models, do you think of them as one model? Or do you think of them as
+an inscrutable bundle of models? Because we're kind of getting into the no free lunch theorem here.
+Coming from the Bayesian world, we design models, you know, using principles and with neural networks,
+we just train these big black boxes. So do you think of them as one model or lots of models?
+I certainly, I always think of them as a single model. I've never thought of them as
+separate models, unless you explicitly construct a mixture of experts or something like that,
+where you have an internal structure. I guess everything is sort of very distributed and
+somehow sort of holographic and overlapping. And, you know, a remarkable thing about GPT-4 is that,
+you know, you often see people when they first use it, they'll ask some question,
+how tall is the Eiffel Tower? And it probably gets the right answer, you know. And it's like,
+oh, that's kind of interesting. And you're sort of a little bit disappointed in this technology.
+But it's like being given the keys to a very expensive sports car. And you notice the cup
+holders. And you notice that it can can support a cup rather nicely. You don't realize you need
+to start the engine and drive off in it to really get the full experience. And so until you realize
+that actually you can you can have a conversation, it can it can write poetry, it can explain jokes,
+it can write code, it can do so many, many different things. And all those capabilities
+embedded in the same model. And what is I think a really interesting lesson of the last few years
+is that models like GPT-4 outperform the specialist models. So for example, in my lab,
+we had a project for many years, which essentially said the following. It said, well,
+this is Microsoft, world's biggest software company, we have lots of source code,
+we could use source code as training data for machine learning. We've added all sorts of things,
+you know, spot bugs, do autocomplete, all kinds of things you could do if you had a good model
+of source code. And the project was reasonably successful. It was, you know, it worked reasonably
+well. But what we've learned is that when you build one gigantic model, that yes, it sees source code,
+it sees scientific papers, it sees Wikipedia, it sees many, many different things. In some way,
+it becomes better at writing source code than a model specifically for writing source code. And
+there are even, even in ablation studies where people have a model that's trained to solve math
+problems. And it does reasonably well. And now you give it some apparently irrelevant information,
+let's say from Wikipedia, but with anything to do with math stripped out. And you find it actually
+does better at the maths. So I think there are things here that we don't really understand,
+but the general lesson I think is fairly clear that when you have a larger, very general model,
+it can outperform a specific model, which I think is very interesting.
+I guess the reason I was talking about the no free lunch theorem is it feels to me as you say
+that models behave quite differently in an input sensitive way. So you ask them about this particular
+thing. And it's almost like it's a different model, because different parts of the model get
+activated. And then there's this question of, well, is the no free lunch theorem violated,
+can there be such a thing as a general foundational agent that could in robotics just
+do really well in any game or any environment? Or do you think, do you think there's still some
+need for specialization? Another great question. So I think these really open research questions,
+honestly, I'm not sure anybody really knows. But I think one of the lessons is that the general
+can be more powerful than the specific. So clearly one of the research frontiers we should push on
+is greater and greater generality. And so GBT4 can't ride a bicycle, but if we have models that
+can do robotics, should they be separate and distinct models? Or if we somehow combined
+everything into a single model, would it be more powerful? And there's a decent chance that the
+latter would be true, that it would be more powerful. So certainly that's one research frontier
+we should push on. An area I'm very interested in these days is deep learning for science,
+for scientific discovery. And science, amongst other things, involves very precise detailed
+numerical calculations. Now, if you want to multiply some numbers together, GBT4 would be a
+terrible way of doing it. It might give you the wrong answer. And even if it gets the right answer,
+you're burning a tremendous amount of compute cycles to do something you could do with the far
+fewer compute cycles. So there will still, as far as I can see, in certain domains be a role for
+specialist models. But even then I can see them being integrated with things like large language
+models, partly to provide human interface, because one of the things about language models is they
+they're so easy to interact with, you don't have to be a computer programmer, you just have a
+natural conversation with them. But also, the other remarkable thing about the large language
+models, I think there are two remarkable things. The first of all is that they're so good at human
+language. Maybe that's not too surprising, because they're sort of designed to do that.
+But by virtue of being forced to effectively compress human language, they become reasoning
+engines. And that's a remarkable discovery, right? That is a big surprise, certainly to me,
+I think to many people, perhaps to everybody in the field, that they can function as reasoning
+engines. And so even if you're, let's say, doing some specialist scientific calculations,
+you might still think about large language model as a kind of a co-pilot for the scientist, helping
+the scientist reason over what increasingly consists of massive, massively complex bases,
+very high dimensionality, many different modalities of data. It's hard and hard for humans to sort of
+wrap their head around this. And this is where I think a large language model can be valuable.
+But I still see it calling on specialist tools in the foreseeable future.
+Because you were talking about statistical generalization, but you could argue that language
+models can't do, let's say, they can't compute the nth digit of pi because they don't have an
+expandable memory, they're not Turing machine. So that's computational limitation. But they might
+be able to do this statistical generalization, as we were talking about, even though it might,
+in fact, be a weird form of specialization in terms of an ensemble of methods of models inside
+a large language model. But on the language thing and the reasoning, this is fascinating.
+So I think that language is a bunch of memetically embedded programs. So we play the language game
+and we establish cognitive categories, we embed them and share them socially. And it's like
+there's a little simulation out there and I'm using that to think. But the question always is,
+to what extent is that that's a bunch of processing that previous humans have done,
+and we can use it? But can the language model create new programs like that?
+This is, I think, part of a fascinating and broader discussion. So I do hear a lot of,
+oh, it can't do x, y and z. Often that's true. And I've always put the word yet at the end of it,
+because I don't know any law or physics and it can't do. There are some things which perhaps
+the current architectures provably can't do. But there's lots of exploration in different
+architectures. There's a lot of scope for expanding and generalizing neural nets. So I always think
+of it can't do a certain thing yet. But a lot of the questions or a lot of the comments about
+the limitations of models, I have a hypothesis on this. Let me test this out on you. I may be
+way short of the mark on this one. But a lot of the critique of what models seemingly can't do,
+especially when it's, oh, they will never be able to do this. They cannot be creative,
+or they cannot reason, or they cannot whatever. I wonder if a lot of this comes to a much more
+fundamental point. That's not actually a technical one. It's really to do with the human journey
+over the last few thousand years, because we've, you know, a few thousand years ago, I guess,
+most humans would have perceived humanity as the center of the universe, the Earth's center of
+the universe. The universe was created for the benefit of humanity. We had this very arrogant
+view of our own importance. And what we've learned over the centuries, especially from feels like
+astronomy, is of course, you know, that the entirety of humanity's existence is a brief blink
+of the eye compared to the existence of the whole universe. And our physical place in the
+universe in terms of length scale, we're on a little speck of dust orbiting an insignificant
+star in a rather boring galaxy in this colossal universe. And so I think it's natural for us
+as humans to sort of continue to cling to the things that we feel make us special. And we're
+certainly not the fastest creatures on Earth. We're not the strongest, but it's our brains that
+seem to make us unique. We are the most intelligent creatures by far on Earth. And so we think of
+our, of our intelligence as being the very special thing. Yes, okay, we get it that we're just living
+in a sporing corner of the universe. But nevertheless, it's our brains that make us special. So let me
+tell you a little story, which is, because I work for Microsoft, I was very privileged to have early
+access to GBT-4, and it was still a highly-tented, highly-secret project. And so I was exposed to
+GBT-4 at a time when I could only discuss it with a very small number of very specific
+colleagues. And for everybody else, I couldn't, couldn't even talk about it. And it was quite a,
+quite a shocking moment. The, the ability to, to understand and generate language sort of didn't
+come as so much of a surprise, because of course, I'd been following GBT-2 and GBT-3 and, you know,
+knew this technology was getting better. But this ability to reason, there was a sort of visceral
+reaction I had, which took me right back to that film 2001, that sense of I was engaging with something
+which, you know, my colleague Sebastian Bubeck called it the sparks of artificial intelligence.
+So nobody, nobody's claiming GBT-4 is anywhere close to human intelligence or anything like
+that. But there was just the first glimpse of something. It was the first time in my life that
+I'd interacted with something that wasn't a human being that had a glimmer of this, this
+higher level of intelligence and, and realizing this may be the dawn of a, of a new era that may
+be even more significant than the 2012 moment of the dawn of deep learning. There was something very
+special going on. And I wonder if part of the reaction that we have to these models is a little
+bit of that sense of that threat to the specialness that we feel as humans. Now, I may be completely
+wrong. This is purely speculation. But, you know, it's interesting that we talk about people whose
+phrases like stochastic parody, just regurgitating stuff that it, that it's seen before some people
+claim or, you know, of course it hallucinates. Sometimes it comes up with stuff that's just
+wrong or doesn't make sense. But, but think about the following. Imagine there was a very, very smart
+physics student went to, went to a top university, worked really hard for four years. What would they
+do? They would, they would read books, they would read papers, listen to lectures, have discussions
+with their professors and with other students. And then they sit their final exam and they get
+95% in their final exam and they come top of the year. We don't say, huh, well 95% of the time
+there are stochastic parrot regurgitating Einstein and Maxwell and the other 5% of the time they're
+hallucinating. No, we say congratulations. You have a first class honours degree. You've graduated
+with honours. This is, this is a, you know, a wonderful achievement. So it's interesting that
+we do seem to view the capabilities of, of neural nets with almost a different ruler to, to that
+of humans. And while nobody's suggesting that current models are anywhere close to humans on
+many axes of intelligence, nevertheless, I see the first sparks of, of artificial intelligence.
+And just one final comment. The term AI artificial intelligence has been very popular for many
+years. I used to hate it. I used to always say, that's machine learning. None of these systems
+are intelligent. They're very good at recognizing cats in images. There's nothing really intelligent
+about this in, in, in, in one sense. And yet now I find for the first time, I feel comfortable
+talking about artificial intelligence. Because I think we've taken the first baby steps towards
+what I think of as true artificial intelligence. I still think that agency and creativity are the
+distinguishing feature, not necessarily that we are biological beings. It's more to do with,
+we are independent agents, and we are sampling random things from our local worlds. And we're
+combining them together in, in interesting ways. And in doing so, intelligence is about the process
+of building models and sharing models and embedding models in our culture. So it feels to me that GPT
+was building models at the time it was trained. And, and, and that's all it's doing. I can imagine a
+world where there were lots of GPTs, we all had GPT in our pockets. And maybe then it would be much
+more like biomimetic intelligence. I think there are lots of interesting points that you touched
+on there, Tim. So I think one thing is in terms of creativity, you know, are these systems creative?
+It's certainly true. They only exist because of humans. They're created by humans. And, and,
+and we should acknowledge that. But I don't think it means they're intrinsically not creative. If I
+asked an artist to paint me a picture of some people walking on the beach with a sunset or whatever.
+And they came back a few days later with some beautiful picture. I might hate it. They may have
+used very vivid colors. I might like pale pastel colors, but that's a matter of opinion. But I
+wouldn't deny that there was creativity there. But their expertise came because, well, they went,
+they perhaps had some intrinsic ability in some sense, but they went to art school, they studied
+the work of other artists, they practiced, they got better. And, and, and that creativity owes a lot
+to what went before. But I don't think it diminishes that in the same way a physics student who can
+explain the theory of relativity, you have to say, well, you didn't invent the theory of relativity,
+you know, Einstein invented that, you only learned it from Einstein. But it doesn't diminish
+the fact that they have understanding, the fact that they convey it, and the fact they can potentially
+think in new ways and be creative. So I'm, I'm less convinced about discussions about the limitations
+of, of, of the technology in general, where it can go. I don't particularly see any limitations.
+The brain is a machine that uses this term used earlier connectionist approach, it uses
+these fine grain neural nets. And, and so there are similarities to the technology that we have
+now. There are also huge differences. Some of those differences point to the artificial neural
+nets being much more powerful than biological neural nets. And Hinton's made a strong point
+of this lately. And I think it's a very interesting perspective. So I would be the first to say,
+yes, the technologies we have on many axes are a long way short of humans. On many axes,
+they're much better. GPT-4 can create text much better than any human. I mean, to produce a page
+of coherent text that's correctly punctuated and good grammar and so on in a few seconds, there
+aren't any people that can do that, I think. So on an increasing number of axes, systems clearly
+outperform humans. And on others, there's still a very long way to go. But I think one of the nice
+things about technologies like this, the generative AI technologies, whether it's, you know, Sora for
+creating videos or GPT-4 or whatever it might be, is they do rely on the prompt. There is a clear
+role. They are co-pilots, as we say. They sit there and do nothing. And you use them as a sort of
+a cognitive amplifier. You have an idea, sort of half-baked. And then you can engage in a conversation.
+And sure enough, it can come up with a different way of thinking and say, hey, that's really good.
+I like that idea. Now let's take that, work that back in, try again. And so it becomes now a companion,
+a co-pilot, something that enhances your cognitive ability. But the human is still very much in the
+loop and playing a key part and actually initiating the process. And then of course, finally, at the
+end of the day, you're the one that selects the 10 video clips, you pick the one that you like.
+And so the human is very much involved in the loop throughout. So I think that's a very nice
+feature of this technology. I completely agree with that. So at the moment, AIs are embedded in the
+cognitive nexus of humans. So we have the agency and we drive these things and they help us think
+and also I agree with you that it doesn't make sense to think of these things as limited forms
+of computation. We should think of the collective intelligence. So we are Turing machines and we
+are driving these things and we are sharing information. So when you look at the entire system,
+it is a new type of memetic intelligence. In fact, you know, to a certain extent, GPT-4 isn't
+running on Microsoft servers. It's in all of us, right? And that's a wonderful way to think about
+it. But to me, the extent to which it is constraining our agency and creativity is what
+I'm fascinated by. So GPT says unraveling the mysteries and, you know, the intricate dance
+of XYZ and all of these weird motifs and constructions. And maybe that's just the way that RLHF
+has constrained the model. Or maybe it speaks to the constraining forces in general of having these
+low entropy models that kind of, you know, snip off a lot of the interesting pathways.
+So we are very creative. GPT-4 resists creativity a little bit. Is it a problem?
+Well, I think there's some design choices there. So you talked about reinforcement
+learning through human feedback as part of that alignment process. We ought to create
+this technology in a way that does good to minimize harm. And so naturally, we do constrain it. So
+for sure, it's true that a constrained GPT-4 behave in, you might say, less creative ways,
+but perhaps in more helpful and beneficial ways. And it's appropriate that we should do that.
+And perhaps we lose a little bit of the creativity in the process. And so there's a balance. There's
+a choice to be made, a design choice in how we want to create the technology. And we should be
+very deliberate about that and not apologetic for that. I think it's good that we are making
+those design choices. But people sometimes have an intuition that it's not creative.
+And contrast that to I'm using DaVinci Resolve, and I'm using all of these nodes,
+and I have all of these filters and processing transforms. The difference seems to be that
+I'm designing the architecture. So I'm using cognitive primitives, and I'm composing them
+together in a new way. And by tweaking the parameters on the filters, I'm going off-peast
+a little bit. I'm creating the structure myself. Whereas in neural networks, the structure is
+implicit. I don't know what the structure is. Well, I think you're talking about you're contrasting
+two different kinds of tools there. So the video editing tool is designed so that it follows your
+instructions very precisely. And you prefer one tool over another, perhaps because the interface is
+easier to use. You get the results faster. But you have in your, you've done the creativity,
+you've designed this to video edit that you want, that you want to have. And now the tool is to try
+to get you to that as fast as possible, as accurately as possible. But sometimes we need
+more than that. Sometimes, you know, if you've got writers blocking, you don't know where to begin,
+having a tool like GPT-4 could be very powerful. You're not delegating the entire process to the
+technology. You're working with it as a co-pilot, as an assistant, that can for sure help you with
+that creative process. It will come up with crazy things, and most of them you may not like, but
+maybe one of them, you don't like it either. But it causes you to think about something that you
+would otherwise not have thought of. And so the two working together can surely be more creative.
+So I think certainly as a working in unison with humans, it certainly enhances creativity.
+So that's certainly my experience. I think there's no doubt about that. But also if you think about,
+let's take a simple example that I think most people relate to, which is image generation,
+you're giving a talk and you want some image to illustrate the talk. And, you know, you could go
+to stock images and it's a fixed set and, you know, you can't easily adjust it, or you go to
+editing the images yourself. That's a sort of slow and painful process. But now you can just
+with a simple prompt, you know, you can get a bunch of examples. And if one of those isn't
+quite what you like, you can alter the prompt and fine tune it. And it now becomes that process,
+which is a creative process. And you could sort of say the human is in the driving seat,
+but the overall creativity is certainly enhanced. And when you take a text prompt and the machine
+produces this beautiful photorealistic image, I mean, how many of us weren't absolutely blown away
+by the incredible advances in generative AI of the last, you know, the last decade?
+Why would you not call that creative? If a human being did it, you would call it creative. Why
+are we not allowing the machine to be described as creative? That's the piece that I don't quite
+understand. So you could argue that creativity is just pure novelty of the artifact. So it's just
+how much entropy is in the artifact. But you could think of GPT-4 pros as being a kind of
+category. So there's a lot of variance in there. But there are also certain motifs. And now when
+people see the motifs, they say, oh, I've seen that a million times before. So I did think it was
+novel and interesting. And now I don't. But this is the thing. So now when I'm writing blog posts
+and stuff like that, I'm deliberately trying to do something genuinely creative. It's almost like
+the intrinsic creativity isn't important. I don't want people to think that I use GPT-4. So that's
+driving it. Do you see what I mean? Yes. So clearly creativity is about novelty and novelty is
+what we desire here. But whether that novelty has value or not, that's a subjective opinion. In
+your case, it's whether it's achieving the goals that you desire. So I think there is no doubt
+that even if you say we're just taking existing ideas and combining them in new ways, everything
+that humans do, or I think builds on the work of their own previous experience and on the work of
+others. And I think that's absolutely fine. That's a wonderful thing about humanity is that we,
+from generation to generation, we build upon the work of what's gone before. And the machines that
+we build now are heavily dependent on the creativity and the work of humans before because
+they learn from humans and they're designed by humans. And I think that's absolutely fine. It's
+a wonderful thing. And they add to the sum total of human creativity. And that's a wonderful thing.
+Chris, you've written a really beautiful book. And you wrote it with your son, Hugh. And there
+was a picture of Hugh, I think, in the introduction of PRML. And I guess part of what I want to
+understand is deep learning is a huge field. I mean, what was the thought process and how did
+you decide what to tackle and what not to tackle? Great question. So there's an interesting story
+behind the new deep learning book, which is that PRML was written in 2006. It predates the deep
+learning revolution. And what has constantly surprised me is just how popular it's remained
+in spite of the fact that, in one sense, it's massively out of date because it has no mention
+of the most important thing in the field of machine learning. And so I've long felt it was
+time to update the book, produce the second edition, add some material on deep learning.
+But life is busy. And anybody who's ever written a book will tell you that it takes way more effort
+than you can possibly imagine if you've not actually had that experience. And so I never
+really got around to doing it. And along came the COVID pandemic. And we all went into lockdown.
+And I feel like it was one of the very privileged people in that lockdown. We were locked down
+together as a family in Cambridge. And when you're locked down at home for several months,
+you kind of need a project. And I thought this would be a great time to think about a second
+edition of the PRML book because what else are you going to do in lockdown? And it became a
+project with my son because he was with me. By this time, he'd gained a lot of experience,
+master's degree in machine learning, and been working in autonomous vehicle technology.
+And in a sense, he had a lot more practical hands-on experience with deep learning than I
+did at that point. And so we started this as a joint project. But we very quickly realised that what
+was needed was not a couple of extra chapters on PRML, but rather the whole field had changed so
+much. And also, we didn't want to write a book. We were just accumulated more and more material.
+It would just become a huge, a huge tome. The value of a book, I think, is in the distillation,
+is in the way it draws your attention to a subset of specific things. This is the small
+set of things that you really need to understand. And then you're quick to go off into the field.
+So what we omitted was almost as important as what we added. And we very quickly realised
+this was a new book. So we called the book Deep Learning, Foundations and Concepts.
+And we made a lot of progress. But then, of course, the lockdowns ended. I started a new team
+called AI for Science at Microsoft. Hugh started at Wave Technologies, building the core machine
+learning technology for their autonomous vehicles. And we were all just far too busy.
+And then the next thing that happened was the chat GPT moment. In a space of a few weeks,
+100 million people were using this. And suddenly AI machine learning was in the
+consciousness of the general public. And we realised that if ever there was a time to finish
+this book, it had to be now. And so we had just a really big push to get the book finished and
+available for New Europe in 2023. And we made it just at the last minute, as you do.
+And the book was on display at New Europe's there. And Hugh and I spent the week going
+around the conference together, talking to folks at posters and just had a great time.
+So it was actually a huge privilege to be able to write the book with my son.
+Yeah, that's fantastic. What was your favourite chapter? And I mean, are there any
+things that you felt were remissions that you would have liked to do, but you just had to draw a
+line under it? Yeah, in terms of favourite chapters, I mean, of course, the more recent
+architectures were particularly interesting. I very much enjoyed writing the diffusion
+chapter. And Hugh had a lot of input into that chapter and of course, Transformers as well.
+And just understanding how to integrate the sort of the different generative frameworks,
+how to bring, think about GANs and how to think about variational order encoders and
+how to think about normalising flows and so on, how to think about those under one umbrella,
+present them in a more coherent way. So that was that was part of the interesting
+for the learning experience. I always enjoy learning new things. I learned things writing
+that book. And I think you did as well. And so in a sense, that was that was the favourite part
+of the book, the things where I where I learned new things or new ways of looking at things I
+already knew about the real decision process is what to put in what not to put in while keeping
+the size of the book under control. Because I think it's something like it's thousands of papers
+a month now published in machine learning. It's overwhelming for the beginner. So really,
+the goal of the book is to still out those few core concepts, which means there are always things.
+Oh, should we have added this? Should we have added that? What we wanted to do was to avoid
+adding the latest sort of architecture that might be very hot at the minute that could easily
+disappear three months down the line. So I hope we've resisted that that temptation.
+But there are areas where, you know, perhaps when we at some point, if we get around to
+a second edition, we might think about including reinforcement learning is something which is
+of growing importance and would be lovely to have a chapter on reinforcement learning
+that integrates well with the rest of the book. There are books on reinforcement learning,
+there are review articles, there's plenty of place to go learn about them.
+There's something that sort of integrated with the book I think could be could be valuable.
+So that is something we might we might visit in the future. But for the moment, we've just
+focused on what we think are the the core principles that any any newcomer to the field,
+whether a master's student, whether they're somebody who's self taught a practitioner
+coming into the field wanting to understand the basics of the field. And so the goal was to try
+to keep the book as it were as short as possible, but no shorter. Looking back on your last couple
+of books as well in retrospect, which bits are you most kind of proud of? And which bits do you
+kind of feel that when you did make the decision at the time, perhaps you mispredicted how successful
+something might be? Very interesting. So the thing I'm most proud of actually is the very
+first book called Neural Networks for Pattern Recognition. And the reason is because I think
+the book was quite influential in steering the field towards a more probabilistic,
+more statistical perspective of machine learning. Perhaps hard for people to appreciate today,
+but it wasn't always that way. When I first went into machine learning, a lot of it was inspired
+by neurobiology, which is which is fine. But it lacked sort of mathematical rigor, it lacked
+any mathematical foundation. And so there was a lot of trying to learn a bit more about the brain
+and then try to copy that in the algorithms and see if that worked better or not. And there was a
+lot of trial and error, still a lot of empirical trial and error in machine learning, of course,
+but at least we have that that sort of bedrock of probability theory. And so I think that the
+book was the first one to really address machine learning and neural networks from a statistical,
+from a probabilistic perspective. And I think in that respect, the book was very influential,
+the field was much smaller than today, we take we take that as obvious. But I think in terms of
+the thing I'm most proud of, it's probably the influence of that that first book back in back
+in 1995. In terms of things I look back on that I might do differently, I suppose when I look at
+if I look at PRML, for example, and I look at the trajectory of the field, we've seen that neural
+networks were were all the rage in the mid mid 1980s to mid 1990s. And then they kind of got
+overtaken by other techniques. And then we had this sort of Cambrian explosion of, you know,
+support vector machines and Gaussian process and Bayesian methods and graphical models and
+all the rest of it. And, and I think one thing that one thing that I think Jeff Hinton really
+got right is we really understood that neural networks were the way the way forward. And he
+really stuck to that perspective, sort of through thick and thin. I got kind of distracted, particularly
+we talked earlier about Bayesian methods and how beautiful and how elegant they are.
+And to a theoretical physicist, it's very appealing to think of everything from a Bayesian
+perspective. But really, what we've seen today is that the the practical tool that's giving us
+these extraordinary advances is neural networks. And most of those ideas go back to the to the
+mid 1980s to the idea of gradient descent and so on. A few new a few new tweaks, you know,
+we have GPUs, we have relues, you have a few, but essentially, most of the ideas were were were
+still were around back in the back in the late 1980s. We didn't really understand
+the incredible scale at which you need to use them. But they only really work when you have this
+gargantuan scale of data and compute. And of course, we didn't really have GPUs or know how to
+use them back then. So there were some key developments that have unlocked this and made
+it possible. But I think perhaps if I did something differently with the amazing benefit of hindsight,
+other than sort of investing in certain stocks and whatever, all the other things you could do,
+if you had perfect hindsight, I think the other thing I would do is probably just stay really
+focused on neural networks, because eventually that's the technology that came good.
+But I always come back to probability theory is very much a unifying idea. So let me just give
+you a specific example from PRML, actually. There were two different technologies, one called
+hidden Markov models that were all the rage and speech recognition back then. Another technique
+called Kalman filters that have been used for many years to to guide spacecraft, track aircraft on
+radar and all sorts of things. It turns out they're essentially the same algorithm and not
+only are the same algorithm, but they can be derived from the most beautifully simple principle.
+You just take the sum and product rule of probabilities, and then you take the idea that
+a joint probability distribution has a factorization described by a directed graph.
+And if you want to... So when I was preparing PRML, I looked over a bunch of books called
+Kalman filters, an introduction to Kalman filters, and they become chapter after chapter at the
+forward, and then chapter after chapter at the reverse equations and so on. It's very, very
+complex and very, very heavy going. But you can derive the Kalman filter and get the hidden Markov
+model for free in almost a few lines of algebra, just starting with probability theory and this
+idea of factorization, a sort of deep mathematical principle that operates there. And you discover
+the message passing algorithm, and if it's a tree structure graph, it's exact, and you have two
+parcels. It's very beautiful and very elegant. So I love the fact we're exploring all these many
+different frontiers, but I love the fact we have at least some compass to guide us as we engage in
+the exploration of this combinatorically vast space. Yeah, it's so interesting. My co-host,
+Dr Keith Duggar, he always says that he doesn't need to remember all of the different statistical
+quantities because he can re-derive them from first principles. It's that nice. But we should move
+on to AI for science. So you're leading this initiative at Microsoft Research. Can you tell us
+about that? Yes. So at a personal level, of course, this brings back my earlier interest in theoretical
+physics and chemistry and biology, and brings it together with machine learning. And what many
+people realized a few years ago was that of the many areas that machine learning would impact,
+the scientific, the area of scientific discovery would be, I think in my view, the most important.
+The reason I say that is because it's actually scientific discovery that really has allowed
+humans to go on that trajectory of the last few thousand years, not just understanding our place
+in the universe, but to be much more in control of our own destiny, to double our lifespan, to
+cure many diseases, to give us much higher standards of living, to give us a much brighter
+outlook for the future than humans have traditionally enjoyed. And that's come through
+scientific discovery and then the application of that knowledge and understanding of the world in
+the form of technologies, agriculture, industrial and so on. And so I can't think of any more
+important application for AI. But what's really interesting is it's very clear that many areas
+of scientific discovery are being disrupted. And when I say disrupted, I'll just give you
+one simple example. The ability of neural nets, machine learning models to act as emulators
+for what previously were very expensive numerical simulators, very often gives you a factor of a
+thousand acceleration. You know, we can forecast the weather a thousand times faster with the same
+accuracy than we could a few years ago prior to the use of deep learning. Now, if that were the
+only thing that was happening, that alone would be a disruption. That alone would be worth setting
+up a team on AI for science. I think actually it's only scratching the surface. But anytime
+something that's very core, very important, gets a thousand times faster, it means you can do things
+that would take years in a few tens of hours. That really is a disruption. It really is transformational.
+So a couple of years ago, I pitched to our Chief Technology Officer to say, look, this is a really
+important field. I'm happy to step down from my role as the lab director of MSR in Europe. And
+instead, I'd like to lead a new team focusing on AI for science. And met with enormous enthusiasm.
+And so we've been growing and building that team. It's a very interesting team. It's very
+multinational. We have people on many different continents in different countries. We've opened
+new labs in Amsterdam and in Berlin. We have teams in Beijing and in Shanghai and folks in
+Seattle as well. And so very multidisciplinary, very multinational. But with one thing in common,
+this real excitement and passion for what machine learning and AI is going to do
+to really transform and accelerate our ability to do scientific discovery.
+You were talking about inductive prize just a second ago. And I guess I first learned about
+this with the art of designing inductive prize and machine learning from Max Welling's group.
+They were saying that, you know, the remarkable thing is that you can, using principles, let's
+say from physics, we can design these inductive priors, and we can reduce the size of the
+hypothesis class that we're approximating. And because we know the target function is inside
+that class, we are not introducing any approximation error. And we are kind of overcoming some of
+the curses in machine learning by making the problem tractable, which is amazing. But that's
+speaking to this kind of principled approach of imbuing domain knowledge into these systems.
+It's really interesting. Actually, Max and I have a similar trajectory. We both did PhDs in
+theoretical physics and then moved into machine learning. And I think we both feel there's a
+very important role for inductive bias to play in the use of machine learning and the scientific
+domain. I think I'm sure everybody is familiar with the blog called The Bitter Lesson by Rich
+Sutton. And if anybody watching this is not familiar, they should immediately after this
+video go and read that blog. It's a very short blog. And without giving too much of a spoiler,
+he essentially says that every attempt by people to improve the performance of machine learning
+by building in prior knowledge, building in what we call inductive biases into the models,
+it produces some improvement. And then, but very quickly, it's overtaken by somebody else who just
+has more data. And that indeed is a bitter lesson. And it's a wonderful blog and people should,
+I've read it many times, I think people should probably read that once a month. And it's very
+inspiring. But I think there may be exceptions. And I think the scientific domain is one where
+inductive biases for the foreseeable future will be extremely important, sort of almost
+contrary to the bitter lesson. And a couple of reasons for this. One is that the inductive biases
+we have are not of the kind, let's say, let's say linguistics or something, which is or any
+domain where, which is based on human expertise acquired through experience, because a person who's
+had a lot of experience over a number of years and formulated some sort of rules of thumb
+that guide them. That's exactly what machine learning is very good at, processing very large
+amounts of data and inducing the rules, as it were, the patterns within that data. So I think
+that kind of inductive bias is typically harmful. And I think the bitter lesson will certainly
+apply there. But in the scientific domain, it's rather different. First of all, the inductive
+biases we have are very rigorous. We have the idea of conservation of energy, conservation of
+momentum. We have symmetries. If I have a molecule in a vacuum, it has a certain energy. If I rotate
+the molecule, the representation of the coordinates of all the atoms changes wildly in the computer,
+but the energy is the same. So we have this very rigorous inductive bias. We also know that the
+world at the atomic level is described exquisitely well by Schrodinger's equation, sprinkling a few
+relativistic effects. And you've got an amazingly accurate description of the world. But it's way
+too complex to just solve it directly or is exponentially costly in the number of electrons.
+But nevertheless, we have this bedrock of really understanding the laws that govern the universe.
+And so I think that's the first thing. We have very rigorous priors that we believe in deeply. It's
+not that we think conservation of energy doesn't work. We know that it's true. The second thing
+is that we're operating in a data scarce regime. So large language models are able to use very
+large quantities of internet scale quantities of human created data, whether it's in the form of,
+you know, whether it's Wikipedia or whether it's just scientific papers or any of the output of
+humans almost is potentially material on which large models can feed. They're in a very data-rich
+regime and can go to scale. And so the bitter lesson, I think, really kicks in there. In the
+scientific domain, the data might come from simulations, which are computational and expensive,
+or it might come from lab experiments, which are expensive and the data is limited. So we're
+operating usually in a data scarce regime. So we have relatively limited data and we have very
+rigorous prior knowledge. And so the balance between the data and the inductive bias is very
+different because, of course, the no free lunch theorem says you can't learn purely from data.
+You have to have some form of inductive bias. And in the case of a transformer, it's a very
+lightweight form of inductive bias. We believe there's a deep hierarchy. There's some, you know,
+data dependent self-attention. But really, that's it. And the rest is determined from the data.
+In science, there's much more scope for bringing in these inductive biases. There's much more
+need to bring in the inductive biases. And that also, incidentally, again, in my personal very
+biased opinion, makes the application of machine learning and AI to the sciences the most exciting
+frontier of AI and machine learning, because it's the one that's richest in terms of the creativity
+and also in terms of the need to bring in some of that beautiful mathematics that underpins the
+universe. Yeah, so fascinating. I mean, could we just linger just for a second on that? So
+Rich Sutton in his bitter lesson essay, he explicitly called out symmetries as being, you
+know, he was warning against human designed artifacts in these models. And I mean, Maxwelling,
+as you say, famously built these gauge equivariant neural networks bringing in his physics knowledge.
+So I'm just trying to understand the spectrum between high resolution physical priors and the
+kind of macroscopic human knowledge that we learn, which is presumably brittle. Is it just that we
+think that these physical priors are fundamental? And that's a perfectly acceptable way to constrain
+the search space, but these high level priors are brittle? Yes, I think the prior knowledge that
+comes from human experience is more of that brittle kind, because the machine can see far more
+examples than a human can in a lifetime, and can do a more systematic job of looking across all of
+that data, we're not subject to, say, recency bias and those sorts of things. So I think that kind
+of prior knowledge is one where scale and data will win, whereas the prior knowledge that we have
+from the physical laws in a sense is much more rigorous and symmetry is very powerful. It's
+sometimes said that physics more or less is symmetry. That's almost right. So conservation
+laws arise from symmetry, you know, translation in variance in space time gives you conservation of
+energy and momentum, and gauge symmetry of the electromagnetic field gives you charge,
+conservation and so on. And so these are very, very rigorous laws that apply from symmetry.
+But you know, even if you take a data driven approach, people often use data augmentation,
+if you know that an object doesn't depend, his identity doesn't depend on where it is in the
+image, you might make lots of random translations of your data to augment your data. So data
+augmentation can be a data driven way of building in those symmetries. But now when we have very
+rich prior knowledge, I'll come back to Schrodinger's equation, it describes the world with
+exquisite precision at the atomic level, but solving it is very, very expensive. And so what
+we can do is we can cache those computations. We call it the fifth paradigm of scientific
+discovery, which is a rather fancy term, but the idea is very simple, is that instead of
+taking a conventional numerical solver and using it to solve something like Schrodinger's equation
+or something called density functional theory, instead of solving that directly to solve your
+problem. Instead, you use that simulator to generate training data, and use that training
+data to train a machine learning emulator. And then that machine learning emulator can now
+emulate the simulator, but typically three or four orders of magnitude faster. So provided you use
+it a lot and you amortize the one off cost of generating the training data and doing the training,
+if you're going to use it many, many times, overall, it becomes dramatically faster, dramatically
+more efficient than using the simulator. And that's just one of the breakthroughs we're seeing in
+this space. So first of all, there's a spectrum, as you say, of we could just train on lots of data,
+or we could augment the data, or we could make a simulator for the data, and then we can train
+a machine learning model. And as we were just speaking to these inductive priors, they are so
+high resolution that we are not restricting the target function that we want to learn. And we can
+make quite a principled argument about that. But the one question to me is there's a kind of,
+I don't know whether it's best to frame it as exploration versus exploitation, but
+there needs to be some amount of going off-piste. So we define the structure, and we essentially
+build a generative model, and we can generate a whole bunch of trajectories. But could it ever
+be the case that we wouldn't have enough variance to find something interesting?
+There's a very interesting question about the overall scientific method of formulating
+hypotheses, running tests, evaluating those hypotheses, refining the hypotheses, running
+more experiments, and so on, that scientific loop. I think machine learning will have an
+important role to play there, because data is becoming very high dimensional, very high throughput.
+Humans can't analyze this data anymore. A human can't directly look at the output of the large
+Hadron collider with its petabytes a second or whatever it is pouring off. We need machines to
+help us. But again, I think the human rises to the level of the conductor of the orchestra,
+as it were. They no longer have to do things by hand. Machines are helping to accelerate that,
+and I think the machines can help accelerate the creative process, potentially, by pointing to
+anomalies or highlighting patterns in the data and so on, but very much with the human scientist in
+the loop. But even coming down from those sort of lofty, more sort of philosophical considerations,
+just to the practicalities, when we talk about discovery, we're also interested in just the
+very practical method of how do we discover a new drug, or how do we discover a new material?
+So scientific discovery also means that very pragmatic, near-term approach. And there we're
+seeing really dramatic acceleration through the concept of this emulator in our ability to explore
+the combinatorially vast space of new molecules and new materials, exploring those spaces efficiently
+to find potential candidates that might be new drugs or new materials for batteries or other
+forms of green energy. So that alone is a very exciting frontier, I think.
+It's so interesting. So searching these space, I mean drug discovery is an interesting one.
+I think you spoke about sustainability as well as another application you can speak to, but
+how do you identify an interesting drug? So the drug discovery process starts,
+first of all, with the disease and trying to, first of all, deciding we want to go tackle a
+particular disease and then finding a suitable target. So the standard so-called small molecule
+paradigm, which is where most drugs are today, they're small synthetic organic molecules that bind
+with a particular protein. So pharma companies will spend a lot of time identifying targets,
+I'd say, a protein that has a particular region with a molecule combined to and therefore can
+influence the behavior of that protein, switching on or switching off some part of that disease
+pathway and breaking the chain of disease. So the challenge then is to find a small molecule
+that, first of all, has the property that it binds with the target protein, that's the first step,
+but there are many other things that it has to do. It has to be absorbed into the body,
+it has to be metabolized and excreted, it mustn't, and particularly it mustn't be toxic,
+it mustn't bind to anything, many other proteins in the body and cause bad things to happen.
+So what you have is a very large space of molecules, usually estimated around 10 to the power 60
+potential drug-like molecules, and out of that enormous space of 10 to the 60 you're trying
+to find an example that meets all of these many, many criteria. And so one approach is to generate
+a lot of candidates, but in computationally, and then screen them one by one for different
+properties. That screening process, the more that can be done in silico rather than in a wet lab,
+the faster it can be done and the larger the search space can be, and therefore the bigger
+the fraction of that space of possibilities you can explore. Hopefully thereby increasing the
+chances of finding a good candidate, because many attempts to find a drug for a disease simply fail,
+nothing, nothing eventually comes of it. So increasing the probability of success,
+increasing the speed of that discovery process. So in all of that, there are many places where
+machine learning could, could be disruptive. So on that process of, I guess you're describing,
+you generate candidates, and then you almost discriminate interesting ones, and then you
+rinse and, and repeat in a kind of iterative process. Let me give you a concrete example. So
+we've done some work looking at tuberculosis. So tuberculosis kills something like 1.3 million
+people very sadly back in 2022, which is the last year we have, we have data. And it might seem
+surprising because we have, we have antibiotics, we have drugs for tuberculosis. Why are so many
+people dying? One core reason is that the, the bacterium is evolving to develop drug resistance.
+And so there's a search on for new, for new drugs. So maybe I'll just take a moment to explain
+some of the architecture and get into a little bit of the sort of the techie details of, of, of
+this. So we wanted a way of finding, we know what the target is, we've been told what the target
+protein is, the target has a region called a pocket, and we're looking for molecules that
+are bind tightly with that pocket region on the protein. And, and so the way, the way we approached
+this was first of all, build a language model, but not a language model for human language,
+but for the language of molecules. So we first of all take, there's a representation,
+representation called smiles, it's a way of taking a, it's an acronym, but just a way of
+taking a molecule and describing as a one dimensional string. And so you first of all,
+take a large database of, I don't know, 10 million molecules represented as smile strings,
+and you treat them like the tokens for a, for a transformer model. And by getting it to predict
+the next token, the next element of the smile string, you build a transformer based language
+model that can speak the language of molecules. So it can, it can run generatively, and it can
+create new, create new molecules as that put. So you can think of that as kind of like a,
+a foundation language model, but speaking the language of molecules. Now we want to
+generate molecules, but not just any molecules, we want molecules which bind with a particular
+target protein. So we have the target protein, in particular, it's the pocket region that we're
+interested in. So we can give it the amino acid sequence of the protein as input, but we need
+more than that. We need the geometry of the, of the pocket. And this is where some of those
+inductive biases come in. So we, we need to have representations of the geometry of the atoms in
+the, that form that pocket, but a way that represents these equivalences. And so they're
+encoded as input to a transformer model that learns a representation for the protein pocket.
+And the final piece we need, as you said, we want to do this iteratively, we want to take a good
+molecule and make it a better molecule rather than just searching blindly across a space of 10 to the
+60 possibilities. And so the other thing we want to provide is input is a molecule, a descriptor of a,
+of a, of a, of a known small molecule that does bind with the pocket already. And,
+but we want to do this in a way that creates variability. And we actually use a variation
+autoencoder to create that representation. And by, and that's the n encoder that trunk,
+translates the molecule into a latent space. And we can sample from that latent space.
+And then the, this language model, the smiles language model can attend to both the output
+of the variation autoencoder and the output of the protein encoder using cross attention.
+And so what we've done there is I think rather tastefully combined some elements from,
+you know, state of the art, modern deep learning, the result then can be,
+can be trained end to end using a database of known other proteins that are known to bind
+efficiently to, to small molecules. And once the system is trained, we can now provide as input
+the known target for tuberculosis and some known molecules that bind with this. And then we can
+iteratively refine those molecules at the output, we get molecules that have better binding
+efficiency. And we're able to increase the binding effectiveness by two orders of magnitude. And so
+we now have state of the art molecules in terms of binding efficiency to this, to this target
+protein. Of course, we can't do the wet lab experiments ourselves. We partner with an organization
+called Giddy, the global health drug discovery institute. They've synthesized the molecules
+that we've generated and measured their binding efficacy. And so we're very, very excited about
+this. And of course, the next stage now is to take that as a starting point and further refine
+and optimize those molecules and try to address all those other requirements that we have for
+before a drug can actually be tested on humans in terms of its toxicity and metabolism and all,
+on all the other things. But I think it's just a very, a very nice example of almost like a first
+step in using modern deep learning architecture to accelerate the process of drug discovery.
+And already we have, I think really quite a spectacular success, given that we're, we're
+kind of newcomers to this, to this field, partnering with experts, domain experts with the wet lab
+experience and the wet lab capability. To me, this is the beginning of a very exciting journey.
+That sounds incredible. Is there any kind of representational transfer between the models? So
+for example, you were talking about this, this geometric priored model and generating tokens
+to go into the language model, because just using language models, by the way, is a fascinating
+approach. I spoke with Christian Sugedi, and he was doing mathematical conjecturing,
+just using language models, you know, just just taking mathematical constructions and putting
+them into language. And they used to use graph neural networks for this. So I guess the question is,
+could you kind of bootstrap it with a, you know, with an inductive
+principled model, and then kind of just train using the language model afterwards?
+I think I think the general principle there is a very powerful one. So the idea of borrowing
+strength from other domains. And I think we're seeing this time and time again in deep learning
+that, that the machine learning models are able to extract some general patterns from even from
+one domain and translate them into a completely different domain. We talked earlier about large
+language models being getting better at writing code. If they've also got exposure to poetry or
+something that's seemingly quite irrelevant, there's something quite deep and subtle going on there.
+But perhaps in a less subtle way, it's clear there's a sort of a language of molecules,
+there's a language of materials, and that by building models that have a broader exposure to
+that language, they almost invariably will become better at the specific tasks that we want to
+apply them to. So I think there is a general principle at heart there. Yeah, it's so interesting
+because I used to think that perhaps the drawback of these inductive prior models is that it was
+one inductive prior per model, but this ability potentially to bootstrap a foundational model
+that can do all of the things, that's really interesting. I think the most powerful inductive
+biases and the ones we focus on are really those very general ones where symmetry is just
+very fundamental properties of the universe. And we want those really baked into the models,
+I think. The sort of intuitions we have about more specific domains, I think they can perhaps
+lead us astray because they're based on our experience of much more limited domains. I
+think this is where the machines can be much better at processing and interpreting large
+volumes of data and drawing regularities out of data in a more systematic way.
+Okay. And just before we leave this, this is a bit of a galaxy brain question and that's parlance
+that all the kids are using these days, by the way. But how fundamental is our physical knowledge?
+The question is, we're designing these inductive priors as if they are fundamental,
+but folks like Stephen Wolfram, for example, argue that there's a deeper ontological reality.
+It might be a graph cellular automaton or something like that. And is that something you
+think about the kind of the gap between our models and what reality is?
+So I think, first of all, one of the greatest scientific discoveries of all time is the fact
+the universe can be described by simple laws. That is not obvious a priori. That itself is
+perhaps the most profound discovery, really going back to Newton, but we found it time and time again.
+What we've also found is that our understanding of the universe as it exists today has almost
+like onions or appealing way layers of onions. Newton, if you want to navigate a spacecraft
+to Jupiter, you still use Newton's laws of motion and Newton's law of gravity, it's just fine.
+It doesn't mean we believe it's exact description of nature. We've now got deeper
+descriptions of nature. We understand relativity, for example, general relativity tells us that
+actually Newton's second law of motion or Newton's law of gravity rather is just an approximation.
+The inverse square law is a pretty good approximation, but we've got a much better
+description now. But it's hard to say that we've found the ultimate answer. It's rather that
+human knowledge is or just always stands on that edge of what we don't understand and scientific
+discovery is always about exploring the things we don't understand, working out whether the
+laws actually do hold and the anomaly we see in the data is because of some phenomenon that we
+haven't yet observed. This is how Neptune was discovered by seeing that the planets were not
+behaving as they should do according to Newton's laws. Newton's laws were just fine. It was just
+another planet perturbing them. Or is the procession of the perihelion of Mercury because
+there's another planet? No, it's because actually Newton's law of gravity isn't quite right. We
+need relativity to understand that. I think scientific exploration, as far as I can tell,
+has no particular end in sight. It's rather that we have things that we understand and there are
+new frontiers. When I was a teenager getting excited by physics, I love reading about
+relativity and quantum physics, but it's depressing because I thought I was born 50 years
+too late or whatever. All the exciting stuff happened at the beginning of the 20th century
+and it's all been done. But now we have dark matter and dark energy and we realize that most
+of the universe isn't sitting on the periodic table that I learned about in schools. Actually,
+I needn't have worried. I think it was at Vannevar Bush who called it the endless frontier.
+The science is an endless frontier. There is always more to explore and always more to learn.
+So whether the particular ideas you alluded to have substance, I don't know. At the end of the
+day, the scientific method will tell us. If they have predictive capabilities, they can predict new
+phenomena that we weren't aware of before, then they have credence as far as a scientist is concerned.
+But ultimately, we still stick to the scientific method. It's about our ability to make predictions
+that are testable experimentally. If they stand up to the test of experiment, then we give more
+weight to those hypotheses and eventually they're elevated to the stages of theory.
+I often wonder about the horizon of our cognition, what we are capable of understanding. We tend to
+understand things using high-level metaphors. Information is a great example of that. A lot
+of people talk about the universe as information. This agential view is quite interesting, so
+modelling everything as agents. And it might well be possible that the universe is just so
+strange and alien that we could never possibly understand it. So there's a bit of an interplay
+between our kind of intelligibility and our models and what it is. The universe clearly is
+completely unintelligible in the sense of nobody can really think about quantum physics. It completely
+defies our everyday intuitions that we learn at this sort of macroscopic level. So I think we
+have to accept already that the universe is described mathematically. That's our precise
+description. And then we have kind of metaphors about waves and particles and so on, but none of
+them really work properly. They're just crutches to lean on, but ultimately it's a mathematical
+description. But that is also very interesting, the fact that the world is described by mathematics,
+that by making little marks on a piece of paper you can discover a new planet. That's quite incredible.
+Shifting over to deep learning a little bit more broadly. We were touching on this already,
+but the landscape is dominated by transformers, architectures. What are your broad thoughts
+about that? Like any field, I think machine learning has its fads and its waves. Something
+works really well and then everybody latches onto that and makes use of that and that's all well
+and good. I'd be kind of surprised if the transformer is the last word in deep learning,
+if that's the architecture we use forever more. But it clearly works very well and we
+haven't reached the end of its capabilities by any means. So it makes a lot of sense to
+exploit the transformer architecture in applications and see how much we can
+gain from that. At the same time, there's clearly opportunities to think about the
+limitations of transformers. The computational costs can be do the same thing with better
+scaling if you want longer context windows and all the rest. So there's plenty of interesting
+research I think to be done in new architectures as well. So I think we need both.
+So here's another Galaxy Brain question. Why does deep learning work? Because on the face of it,
+it shouldn't work. It shouldn't train. It shouldn't generalize and they've been
+an absolutely remarkable success. Why is that? So I think first of all, at one level, you could
+say, well, we understand why they work. We're fitting nonlinear functions. We're kind of doing
+curve fitting in high dimensional space. We need some generalization and it comes out to
+no free lunch theorems of inductive biases. Perhaps it's smooth and it's continuity. Perhaps
+it's something more constraining than that. So at one level, it's sort of not surprising. I can fit
+a polynomial to a bunch of data points and by gradient methods and I can make good predictions
+for sort of intermediate points. We're just generalizing that to more data and higher dimensions.
+So at one level, I say, no, it's not at all surprising they work. At a different level,
+of course, the fact they work so well is remarkable. But the way in which they work is very interesting.
+So one thing which if we go back to the earlier years of machine learning and certainly back to
+the world of statistics, the idea that you would fit models that have way more parameters than the
+number of data points would be clearly insane to any self-respecting statistician. We never would
+and perhaps that's why nobody really tried it very much. And yet we have these odd phenomena
+whereby, you know, the training error goes to zero and yet the test error continues to come down
+even though the training error is already at zero. Something about stochastic gradient descent,
+the actual training process clearly is important there. It's not just here's a cost function,
+we find the global minimum, it's a property of the global minimum. No, there are many, many
+global minima that all have zero error. Some solutions will clearly overfit, others generalize
+well. And so there's something about the training process that we need to understand. So I think
+there's a lot of research to be done in why do they work so well? I think it's an open question.
+We can describe the model. We can say lots of things about the model. We can say,
+because it has this and this and that number of layers, therefore the structure of the space has
+this and that properties and it divides it up into such and such regions and so on.
+Those are true. I don't know whether that gives us real insights into why it's working. I think
+there are some very much open questions there. It strikes me a little bit like neuroscience.
+You know, we have the human brain, it does these amazing things and we can get more and more and
+richer and richer data about which neurons are firing and when and how the firings are correlated.
+We can learn something about the the underlying machinery. This is a bit like neuroscience,
+except we can put a probe in every neuron in our artificial brain and gather very,
+very rich information. So again, I think there's a very interesting research frontier of getting
+better understanding of why are they able to generalize so well and why do we have these
+strange phenomena with these seemingly overparameterized models that don't overfit but rather
+have very good generalization. Lots of research to be done. And just to linger on that observation
+you made that you can train a deep learning model and after the training error has converged,
+the test loss continues to improve. I mean, that just seems, it just doesn't make sense.
+I mean, and that there's grokking as well, which is another, it's almost like we were saying with
+physics that outside of the the machinations of the optimization algorithm, stuff is happening
+that we don't understand. Well, you can tell stories, right? You can say there's a big space,
+each point of the space is setting for all the parameters of the model, so the sort of the
+weight space of the model. And maybe you started off somewhere near the origin with some little
+random initialization and you follow some trajectory that's defined by stochastic gradient
+descent. And there are lots and lots of places in this space, all of which have zero training
+error. So they're connected. So there's some sort of manifold of zero training error and you're
+starting off at the origin. Stochastic gradient descent is somehow not taking you at a random
+way. Maybe it's taking you to something like, you know, the nearest point on this manifold or
+something. And maybe that's some kind of regularization. And maybe that place has certain
+smoothness properties that lead to good generalization. So you can kind of tell these stories. I
+think the challenge is to take the stories and make them predictive. So I think when we have a
+theory, when we have a theory of what's going on, we'll know we have a theory because it can
+predict new things, not just tell stories about what we've already discovered empirically,
+but really become predictive. I think that's still a very much an open question.
+So what do you think about the the intelligibility of neural networks in terms of things like bias
+and fairness and safety? Because you could just think of these things as inscrutable
+bags of neurons. But we need to have some guardrails, don't we?
+Well, we absolutely need to create technology that's beneficial to humanity. There's no question
+about that. And there are mechanisms for doing that to align the systems, whether it's through,
+you know, human feedback, whether it's external guardrails that are providing more conventional
+checks on how things are being used. That's clearly necessary. And I find it very encouraging that
+so much energy and effort is going into this. And yes, there'll be bumps in the road and missteps
+on the way for sure. But overall, we seem to be heading in a very good direction. But I think
+the fact that there is a lot of attention being paid to the potential risks associated with this
+very powerful and very general new technology gives me hope that we will avoid most of the
+biggest risks. Can you give me a specific example of an emulator?
+Yes, I can. So one very nice example. Actually, it was the final project I worked on
+when I was working in the fusion program. So I was using fusion as a sort of springboard to get
+into machine learning. And we wanted to do real time feedback control of a fusion experiment,
+I think called a tokamak, very high temperature plasma. We wanted to use neural nets to do
+nonlinear feedback. So the challenge there was to take a plasma, it's like a donut shaped
+ring of hot plasma. And it was known that if you could change the cross sectional shape,
+you could improve its performance. So there's an experiment called a compass compact assembly at
+Cullum in Oxfordshire. And the experiment is designed to produce very interesting, exotic
+cross sectional shapes to explore the performance. So we wanted to use a neural net to do that feedback
+control. Now, the good news is we had a great piece of inductive bias, a thing called the
+grad shifranoff equation. It's a second order elliptic partial differential equation. But the
+point is it describes the boundary of the plasma very accurately, right? So you make a bunch of
+measurements from hundreds of little pickup coils around the plasma. And those are boundary
+conditions, you solve the grad shifranoff equation, you know the shape of the plasma. And the goal was
+to decide ahead of the time that you wanted to create a circular plasma and then change its shape.
+And, and, and then make corrections if the shape wasn't quite the one you wanted, you would change
+the the big control coil currents and an alternate shape. The problem was the grad shifranoff equation
+on a state of the art workstation of the day would take two or three minutes to solve,
+whereas we had to do feedback on sort of 20 kilohertz frequency or something. It was about
+something like six orders of magnitude too slow. So what we did instead was we, we solved the
+grad shifranoff equation many times on the, on the workstation over a period of, you know, days and
+weeks until we built up a large database of, of known solutions along with their magnetic
+measurements. And then we trained a neural network, just a simple two layer neural network back in the
+day, with probably only a few thousand parameters, I mean, minuscule by modern standards, but it was
+trained to take the magnetic measurements and predict the shape. And we could put that into a
+standard feedback loop. And, and we were in a bit of a race with another organization that was doing
+a similar thing, a different fusion lab that was working on the same project. And so that was very
+motivating. And I'm pleased to say we got there first and we did the world's first ever real-time
+feedback control of a tokamak plasma using a neural network. But as a beautiful example of a,
+of an emulator, we could get five or six orders of magnitude speed up, not by solving the equation
+directly to do feedback control, but by using the numerical solver to generate training data
+and using the training data to train the emulator and then the emulator. Even then it was still
+quite demanding for the silicon of the day. There was no processor fast enough. So we actually
+built a physical implementation of the neural net, believe it or not. So it was a hybrid
+analog digital system, had an analog signal pathway with analog sigmoidal units, but the weights
+were set using digitally set resistors. So we could take the numerical output of the the emulator,
+download it into this bespoke hardware physical neural network and do real-time feedback control.
+So I was pretty excited about that project. That's fascinating. What do you think about
+control now? Do you have any opinions on, you know, model predictive control and
+control is a super important area, both the control problem and the overall planning problem.
+I think despite all the remarkable advances in GPT-4, the world of instantiated AI and robotics
+and so on is still a very, very wide open frontier. We don't really have robots that can even yet
+drive a car through central London. That's still a major challenge that we're seeing some very
+remarkable progress recently. Yeah. I mean, more broadly, I've been speaking with some neuroscientists
+and they say that we have the matrix in our heads. So we're always running simulations. And
+presumably in the future, this will be a principled way of building agents. So the agents will run
+counterfactual simulations and select trajectories, which look like good ones. And then the process
+will iterate. I think this is very powerful. I mean, the idea of sort of type one and type two,
+fast learning, slow learning, the idea that we simulate the world and we compare the simulation
+with the reality and we can learn from our own simulators and so on. We don't quite know what
+best to do with that, but it feels such a powerful and compelling concept. And we think something
+like that is going on in the brain that again, that feels like an area that's ripe for exploration.
+And I think in some form, some kind of, you know, model prediction and simulation of the world
+feels like it will be increasingly a part of AI systems as we go forward. I mean, for me,
+the takeaway in all of this is just what an amazing time to be in this field. There are so
+many fascinating things to work on. Professor Bishop, it's been an honor to have you on MLSD.
+Thank you so much. Well, thank you. I've enjoyed it. Thank you. Amazing.

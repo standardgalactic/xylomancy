@@ -1,0 +1,552 @@
+So, what is Pagan and why use it?
+So Pagan, I've talked about this a lot, but I'm going to go through and review it again.
+So Pagan is a language that I wrote, you can go to pagan.dev, I think I still have that
+up there.
+I've been using it a lot because I'm using Pagan to write Kegamel.
+Sometimes you need a language to write a language, it's called a meta language, and that's what
+Pagan is, you can go here and read about it.
+So Pagan is a language for defining languages, more precisely as universal notation for expressing
+any grammar, including natural language, which I'm very proud of, in a way that is easy
+to parse cognitively and programmatically without any specific application or implementation
+in mind.
+And this is the problem with Pagan, which is from Brian Ford, which I'll get to.
+Pagan builds on the best of the existing meta data structures such as Pagan, ABNF, EBNF,
+and JSON.
+If you've ever read the GoLang specification, it's all an EBNF, it's very common for people
+to write language specifications, an EBNF, it's more common to see ABNF for things like
+Internet IRFCs and INET IRFCs, things like that, but ABNF, you can't even use characters
+in it, you have to use hexadecimal notation for everything just because it's so precise.
+It's like, how do I define the HTTP protocol?
+Go read ABNF for that.
+Now, ABNF allows ranges and something that Pagan does not do that.
+Pagan is a very, very friendly kind of flying in the face of traditional parsing mentality,
+primarily by saying we have infinite memory in our assumption, our base assumption, rather
+than saying we only have one byte of memory, which is what all the other parsers do.
+I am absolutely obsessed with parsing.
+I think it's so fun.
+If I was going to have done a computer science thing, I would have really, really obsessed
+about parsing.
+And I've already written in Pagan-Parser some time ago, a couple years back, and we've
+had lots of people use Pagan, Quint comes to mind, Quint, if you're out there, thank
+you for your contributions.
+Quint has actually got his Pagan-Parser that we kind of collaborated on running in production
+for a rather large company that I won't say.
+But it is a way of specifying languages, and so what does that actually mean?
+So the motivation here, let me just keep reading here, and then I'll close this up.
+So the motivation, technology increases complexity, the need for a better human-computer interaction
+becomes more pronounced, creating language grammars quickly and simply has become a critical
+need.
+And there's something that I have found out recently has got the name Fluid APIs, and
+that's why I made Bonsai.
+So Bonsai defines a natural language API that could be spoken on the command line as opposed
+to demanding dashes and get off and all that other crap, which is another project I made
+related to this.
+But Pagan is somewhat related to the same need, because we need a way to define domain-specific
+languages very quickly.
+The way that I learned about Pagan, quite frankly, yet again, TJ Hollowaycheck, I was
+following him, and he wrote his own domain-specific language for parsing and querying logs for
+his APEX, one of his projects on his APEX company, and he used Pagan for that.
+And so I found Pagan, I actually helped contribute to one of the GoPeg parsers that's out there,
+and then I realized that it didn't have enough, and I needed to add a little bit more, and
+so I made Pagan.
+So Pagan has decided to use the data by allowing any data to be represented as a grammar and
+break it down into universal data form, it can be composed, combined, and analyzed in
+multiple ways.
+So my eventual dream is to create, is to allow Pagan notation to replace regular expressions.
+Regular expressions are nice and all, but when it comes to structured data and the ASTs
+that are produced by it, it's really, really problematic.
+Whether it be simple counting all the words in a document, creating a simple query language
+to make searching logs easier, coding a human-friendly interface to an otherwise complicated web
+API, simplifying the parsing of a form of a common markup, implementing a fully-programmed
+language that leverages LVM to quickly create high-performance compilers, or developing a
+binary language for moisture evaporators, ah, Star Wars joke, Pagan addresses these issues
+by prioritizing the creation of other language grammars without weighing them down with any
+specific bias.
+And I keep hitting that point because that's why all of the Pagan parsers that are out there
+right now, Guido van Rosen, Pagan of the Python creator, obsessed with Pagan because there's
+lots of videos from him trying to reimplement the entire grammar of Python and Pagan.
+I don't know if he ever made it through that or not, but lots and lots of implementations
+of Pagan that forced you to use that specific language.
+And so Pagan, the end in Pagan, stands for notation, which means we don't care.
+It means we are not associated with any specific language, and therefore it's universal.
+It's now, and see Python, is it okay?
+Weighing it down, a specific bias commitment.
+In fact, Pagan is so flexible it can also be used to define written language as a music
+notation.
+Pagan grammars are exploding, but inconsistent in 2004, Pagan grammars have exploded in popularity.
+And that's when I started this.
+God, that was, I mean, that's not true.
+I started, it's, that's when they came become popular.
+I didn't get into it and probably tell, I want to say 2020, I was already streaming.
+So it'd be like 2021, 20.
+Anyway, and Brian for his example, Pagan grammar is all but ignored.
+It's also incorrect.
+While we were going through the parsing of his example, we realized it violates his own
+syntax.
+I still haven't ever told Brian that his, his example is invalid peg according to his
+own specification.
+I don't think he actually ever tested it with a parser or anything.
+We actually found that out very surprisingly, quit when I, when we were going through making
+our own parser.
+And we use this example.
+So Brian for his example, Pagan grammar is all but ignored as people continue to build
+on their own syntax as a very little resemblance to the original.
+I think that's probably why it doesn't work.
+It's because he just threw it in there because everyone else has got their own idea of what
+it should be.
+And our more implementation code than peg, this is demonstrated by many projects that
+contain both a grammar file for becoming acquainted with the syntax and another virtually
+identical file containing additional limitations specific to the code, a specific implementation
+language.
+So what this is how it goes, right?
+You, you run, you run your, your code through, through this and you through the parser, right?
+And then the parser will actually, if you do a peg parser, right, it'll actually generate
+code for you.
+It'll generate parser code in your target language and, and, and you know, like Lex and
+yak and all those other things, except for it's much more modern approach.
+And so there's lots of them out there.
+You can go look at them.
+So anyway, this redundancy and specialization are not only less sustainable, but they're
+also highly rigid and counterproductive and you can't exchange them with anybody else.
+Pagan is a language grammar specification that does not allow implementation code so
+that the resulting grammar specifications stand on their own, allowing their creation
+of any variety of lunches and code generators and different language implementations, even
+different design variations in the same implementation language, AST, callbacks, et cetera.
+I'm going to get there, but, but Pagan actually defines the AST format as well, which is not
+included in any other thing.
+So I mean, having the AST that, which is, you know, the thing that you care about when
+you run some code through a parser, you want the AST then so you can check for the syntax
+properly or you can, you know, create your compile it in every, any number of ways or
+you can transpile it or whatever.
+You have to have an AST.
+I mean, there are implementations that don't use an AST because it's, it's, it takes
+a, it's a minimally, you know, slower to do that.
+That's the compile part of regular expressions.
+By the way, when you say you have to compile a regular expression, you're pretty much building
+a binary that's going to give you an internal AST really quickly.
+And then, you know, it's kind of internal.
+I don't even know if there's an AST for most regular expressions actually, but, but these
+days you want the AST because that's the thing that's going to give it to you.
+So like, if you had, if you do, if you do pandoc, let's say you take, pandoc actually
+has this built in, you can do pandoc t, is it raw?
+You can do JSON if you want.
+So JSON, this is a representation of this document in an AST.
+So it's a very simple document, right?
+And it's parsed using pandoc, the specification for, for markdown, pent up markdown.
+And this is the resulting JSON version of the AST.
+Now they, there's another one.
+I don't know the name of it.
+Is it, I don't know what's the name of it is.
+I want to say raw.
+Maybe it's data.
+It might be AST data.
+I wish pandoc had completion.
+It does not have completion.
+There's another number of reasons I don't like it.
+Oh wait, maybe it does have completion.
+When did it add it?
+Maybe it already said, always had it.
+I just forgot.
+Uh, which is the one we want.
+We want, uh, not GFM, we want not law tech native.
+There we go.
+This is the internal Haskell AST, uh, that is used by pandoc.
+So this is a, you know, it tells you the thing.
+So you have a header and then you have a string and then another string space, space, string,
+space, string, space, space.
+So, so this is, you know, Haskell is a perfect language for writing ASTs.
+I want you to notice something here that all of the, uh, nodes that are parsed in the
+AST have three elements to them.
+They have, uh, the type, um, I think they have an array, uh, of how many there are.
+And then they have the actual content.
+I can't remember.
+Oh no, no, that's a variation on a header.
+It must be an attribute of it, whatever.
+So that's the AST and that you need an AST if you're going to do anything, uh, it's
+a Haskell data representation.
+Yeah.
+This is, this is, this is a Haskell data representation of, uh, and, and I don't know, they, they,
+they have nodes with attributes, which I hate.
+So Pagan does not allow attributes, uh, for a reason.
+Uh, you can never decide whether you want your node to have attributes or not, or you
+want it to just have the attributes to just be sub nodes.
+And so Pagan doesn't allow that.
+Uh, it's pretty deep, uh, you know, comment, uh, and if you don't know about parsers and
+stuff, but, uh, it's really may ASTs are all over the place.
+By the way, if you go look at the webpage, this is an AST.
+I mean, this is an A, anytime you look at like this, this is an AST.
+The reason node is called node is because the dawn, the document object model is, you
+know, a specification of how to parse thing that was at one point defined, uh, through
+something else, uh, can get tricky without properties attributes.
+I haven't had any problem with it so far is because, because you can just define, you
+don't want to have one type have a different attribute to it.
+I mean, like H one, H two, H three, you know, you can actually have a parent, uh, and then
+you can have the child be the attribute.
+It does get a little bit harder to, to traverse it, but it can be done.
+Um, so anyway, pegging doesn't allow for properties, um, like that.
+And neither does peg actually, uh, strictly speaking though, I mean, you could, you could
+use, you could use peg or pegging and then just, I mean, the AST is, you could use your
+own AST instead of the one that I have in here if you wanted.
+Um, but original peg lack specificity for yours, ABNF and ABNF provided excruciating
+levels of specificity.
+Uh, yeah.
+I don't know if you have to switch.
+Yes.
+I mean, but it's very stateful, right?
+I mean, so it's like one state at a time and that's what I like about it.
+Uh, it's not some variation on the state, you know, uh, you see all different variations
+and node trees, uh, when people are doing this kind of thing.
+You ever see, there's people that will make all the nodes the same and then they'll
+have attributes on each of the nodes and that's the only distinction between all
+the nodes and there's a million ways to model this.
+And my favorite is to just, you either have, you either have a node that's a parent
+that has children or you have a node that is a leaf and that, that is an attribute
+or whatever, uh, in this case.
+Um, so anyway, ABNF and ABNF provided increasing levels of specificity in their
+grammars, but lack of obvious advantages of order priority and a simplicity of the
+original ASCII peg grammar.
+Uh, for example, pegging adds count and min max to provide limits and adds
+unicode tokens.
+So there's no unicode tokens in ABNF at all.
+You have to do everything based on, uh, based on that.
+In fact, um, uh, they're, they, they created an extension to ABNF, uh, to allow
+for, like, there's like C data or one of the data things from ABNF had to be
+expanded.
+I actually wrote a VIM syntax header for ABNF.
+If anybody's wondering too, if you ever just want to open an ABNF, uh, VIM file
+and have it actually make sense.
+And I updated it to include some of the new stuff from the latest extension
+to ABNF.
+I was obsessed with ABNF for a long time, uh, because I was just looking for a
+way to specify grammars.
+And those are the only ways until I made pegging.
+So the hope is that pegging's language itself can be more explicit, better
+performing and readable replacement for grammar, meta languages, uh, and inline
+regular expressions, co-generators producing parses of different types and
+a different implementation language can be created from the same grammar
+specification expressed in pegging.
+In other words, you can take a pegging thing and you can run it through a
+code generator and generate, uh, Ruby code.
+You could generate Rust code.
+You could generate Perl code.
+You could generate C code.
+It doesn't matter because there's nothing specific language specific in pegging.
+And that's the biggest selling point of all of the whole thing.
+Um, and parses, pegging parses and center libraries can even provide highly
+optimized handling of pegging grammars, including directly in code as strings and
+constants, much like compiled regular expressions are handled today, but with
+much greater clarity and efficiency.
+So for example, uh, when you use a regular expression, you have the, the
+parenthesized, um, you know, list, but it's a, it's a, a linked list.
+You know, it's not, it's not a structure.
+Yeah.
+I mean, it, it does kind of make one, but you just get an array out of it.
+Right.
+You get, you have to know the number and you have to like figure out where your
+parentheses are inside of this other thing to see whether it's number one or
+two, because you have to unpack the parentheses in your brain in order to
+understand what, you know, integer it becomes in terms of index.
+And with pegging, you don't have to do that because you get an AST out of it.
+Uh, you get a standardized AST out of every time you always get the same one.
+And that is a structure.
+That's a full structure that you can walk, uh, however you want and, and, and do it.
+So that, in my opinion, it might be slightly slower than regular expressions,
+but it gives you more power when you're, we're dealing with grammars, uh, and
+specifying them.
+A progressive best example is what's, is, uh, itself, which is specified in
+pagan, uh, here's another example, the JSON specification in pagan.
+So, so pagan is a self specified in pagan.
+Um, and this is an old one.
+Yeah.
+This is, um, that, that link is broken.
+I got to go fix that, obviously.
+Um, I haven't picked up pagan for a long time, used it for lots of things, but
+this site needs to be fixed.
+So here's the JSON RFC, uh, according to eight RCA 259.
+This is the implementation of JSON, uh, in pagan, and you have, uh, the
+overall grammar grammar is a conventional name for the top level node.
+And then, you know, you have the white space, uh, and then a value or whatever,
+and then more white space.
+Uh, and I use the actual terminology from the thing, uh, there are syntax
+conventions for, uh, the name.
+So if they're, if they're initial caps, those are, um, the kind of, I easily
+tie identify, uh, the other couple of things when you have two, I don't want
+to teach you all pagan right now and take forever, but two dashes.
+This is pretty significant.
+Uh, the two dashes signifies a, um, a, a substantial node or a semantic, what
+I call a semantic, um, node, that means capture it.
+Uh, if we don't have that, it's just, uh, a simplification, uh, of code.
+So that, you know, the, the spec of the pagan spec code can become simpler.
+So this, anytime you see value value is all of these things, right?
+But this says, don't make value a node.
+Uh, it just says, this is how we, we refer to value so I can put value down here
+later and, and then, but any of these things would be a node.
+If there's a node, it would be implemented at that point.
+It would be captured.
+So an object is a significant, a significant, um, node.
+And it would, you know, it's just, I mean, it's basically the same as peg.
+You get, you get a bracket and then a zero or more white spaces and then a member.
+And then you go down, well, what's a member?
+A member is a string plus a colon plus a value and, and then you get, uh, you
+know, zero or more of this, you know, sort of thing combined together.
+And in that sense, if you know, regular expressions, uh, you can see this.
+One of the things that's nice about this is it is a lot easier to read, uh, than
+regular expressions.
+We do have an entire standard subset of predefined, uh, tokens like DQ and
+everything, uh, which APNF has also done.
+Um, so you can just use those.
+If you already know them, uh, in fact, anything that's lower case is considered
+a class and some of the classes can be used without specifying them because
+they're assumed there to be coming from the, the peg and specification itself.
+So they're predefined such as WS, uh, and that includes every positive, uh, span
+range, uh, and things like that, um, digit, um, and stuff.
+Um, and so, yeah, so digit, digit, digit is another class.
+Actually, I think digit is a token.
+Yeah.
+There's differences between classes of tokens, uh, uh, classes like one of these
+set and the other one, uh, uh, specific token is like this exact, uh, single
+character or, you know, three characters or something like that.
+And so the other thing that's cool about peg and peg is that they're left to
+right versus ABNF and EBNF, which are like, when you specify something with a
+slash and ABNF and EBNF, it can be any of those things at any order.
+And the really, really, really great simplification of peg is it's guaranteed
+to match first left, left wins.
+So you put the stuff to the left.
+So for example, in my specification for, um, for Kegumel, um, you know, wait,
+let me go see where is my spec over here.
+Okay.
+So in my specification for Kegumel, let's, let's do the, let's do the, the, you
+see here I have, uh, bulleted and then numbered and then figure, right?
+Well, if I was going to do those bulleted, right, a bulleted list begins, I'm not
+bowing them, let's, let's do, let's do spans, spans are better.
+So let's do strong emphasis.
+The reason is strong emphasis first, even though you might not want to
+list it that way is because strong emphasis to me, uh, is three stars plus,
+you know, something and that this is the part that's kind of interesting.
+So right here, we're going to put, uh, uh, plane.
+And, uh, so then we can put a plane.
+So it's a, you know, it's a plane span and followed by another token, right?
+And so, so there, the reason that's the strongest, uh, that the reason that
+that one comes first, of course, is because, uh, the strong one has two.
+And the, uh, emphasis one, which is italic is, is just one.
+Now, what if I put, so if I was trying to specify this in EB enough, you see
+how problematic this would be by just placing the order to check for each one.
+I can have tokens that would otherwise be included in the other tokens.
+This is where you get all the craziness with XML and everything.
+Because they don't have the, the idea of, well, first look for this, I can't
+tell you how valuable this is when it comes to code generation or just writing
+the code by hand, because just by looking at the peg and I know right away, uh,
+what comes first, I know that I need to write, I need to check for, uh, a strong
+emphasis token before I check for an emphasis token so that I can fail out
+or, you know, go to, or, or, or, or hand off to the next, to the, to the next
+parser, the next token parser, because I have the order.
+And I know, I know, I'm going to, I keep talking about this, but that, that
+is such a huge thing when it comes to writing parsers.
+Um, because otherwise you just don't know.
+And it's really nice because it keeps the syntax of, of Kegel, of Kegel,
+or Monzyme very simple.
+I'm a, I'm a huge fan of just one way to do things in a markdown language like
+this.
+And so I just use stars all the time.
+And even though you can use underscores in any number of combinations, infinite
+number of combinations, which to represent in a grammar would be crazy hard, not
+to mention put an unnecessary amount of overload on a parser.
+And if you're going to make a specification for something that's going
+to potentially be capturing all of the knowledge of the world, we want to be
+optimized in our parsing.
+And so this is one of those cases where we just want one best way to do it.
+Uh, other grammars would, would nest them.
+A lot of grammars would nest these and you can represent these as nested, but
+I do not ever want to do that.
+Uh, and neither does medium.
+Medium does not allow you to nest your grammar to nest your emphasis.
+You cannot have, uh, italics in something that's already been bolded.
+And if you've ever played around with any kind of syntax highlighters or
+Vim plugins or anything like that, you have experienced a broken emphasis
+highlighter, something that gets it wrong because it wasn't well specified, uh,
+or it thinks it's, it thinks it's got a span when it really doesn't because
+it's on a different line.
+Or I mean, I, I'm guarantee you, if you spend any amount of time doing any
+kind of syntax highlighting stuff, you will find something that's really broken.
+And it's really too bad because, because of that.
+So, uh, for, so, so for my particular grammar, and this is one of the reasons
+I made pegging, I wanted to be able to very precisely specify, uh, I wanted
+to be very precise in my specification of the grammar and, and to keep it
+deliberately simple and people might accuse me of keeping it too simple.
+They're like, why is it simple?
+I was like, cause I don't need more, but it's not as simple as Godoc.
+For example, Godoc doesn't have anything Godoc is, is even worse.
+It's just text and you can indent something by four spaces to get it to,
+to be the same and, and headers are, are, are lines by themselves.
+So there is a grammar there.
+It's just not specified.
+You have to go read the Go source code to understand what the grammar is.
+This is why I made pegging.
+At least when somebody, when somebody comes to me and says, okay,
+I'll say, well, you know, what's Kegelman?
+I don't want to have to learn another thing.
+I say, you probably already know it.
+I was like, how do you know it?
+Well, do you know Markdown?
+Yeah.
+So it's a, it's a, it's a simplified version of Pandoc Markdown, which means
+it's got, you know, it's got semantic div breaks and it's got, um, you know,
+it's, it's got, you know, math support, which GitHub now has.
+And so, so that's what pegging is.
+Pegging is a way to specify a language.
+You can go read more about it if you want to get into the details.
+I feel like I've gone too far in the details already.
+I do think it's important that I mentioned that the grammar, the pegging
+itself does specify the AST to be used.
+Uh, I am seriously considering, uh, a revamp of this AST, uh, at some point.
+So the AST, the format for the AST, the text version of the AST is also,
+is also written in pegging.
+Um, and you can go read that if you want, uh, or you can actually look
+at the long form, um, so, so yeah, I'm trying to find an example.
+So here, here is a long form example of, of, uh, uh, the JSON AST.
+So this is the, if the, this is the AST of the JSON file itself.
+Um, but if it's, but the compact form, it's actually extremely compact.
+Uh, it's the smallest text based, uh, JSON compatible.
+Uh, readable, human readable AST that you can get.
+And, um, uh, it, it can be easily expanded.
+So, um, that was by design, uh, when I looked at the, the native Haskell,
+if this was all inspired by Pandoc, uh, Pandoc's JSON AST is abysmally bad.
+Uh, I mean, let me just show you, I talked about this earlier, but I'm
+going to talk about it again.
+I just love salmon on this particular thing.
+So when you do Panda, I mean, they didn't have as much as information
+as they do now, it's too bad because they can't go back and redo it.
+But I don't know if you can see this, but, but, so they have strings here,
+right?
+They have spaces like a space, meaning white space and then Kegamel and they
+have, first of all, they have way too many too much, like two verbose rich thing.
+But what I really, really don't like is when they have strings, uh,
+try to find one, there's no one there.
+Okay.
+So here we go.
+So here, this right here, uh, string C documentation, um, slash docs.
+What is that?
+Oh, this is a link.
+Okay.
+So we have a link and the properties of the link are, and then it's got all the
+properties in order.
+So they're not named.
+Um, and I mean, what I was trying to show you is that they, when they have
+strings, the strings include quotes on them and stuff like that.
+So, uh, let me see if I can find another version.
+So if I have, um, uh, I don't know, let me see if I can find one.
+Pandoc dash tj son, read me.
+Um, did I just go to look at the same one again?
+I did.
+And it's in the spec, ML spec.
+All right.
+So let's go, uh, let's look at this, read me.
+Okay.
+So look at this one.
+So, so, you know, you have the links here, you have the types, you have a soft break
+and it, it deliberately uses long words.
+You, there's no way to make it shorter.
+So the, the textual ASTs that are generated from Pandoc are so fucking long.
+Uh, that, and the standard instruction from Pandoc, if you want to write your
+own conversions is to convert to the JSON AST and, and then walk the, the JSON AST
+and parse that and produce your other thing.
+And I guarantee you.
+You, you should see how long it takes to do that because this thing is a
+monstrously big waste and it also gets tons of stuff wrong.
+So for example, it, it deliberately lumps together, uh, quoted content as a
+string.
+So for example, or a parenthesized word as a string, it doesn't consider the
+idea of fields and then words and then things like that.
+It's, it's so, it's just a mess.
+And that's, I, I, you know, I really, really appreciate that we have Pandoc.
+I don't want it to be misunderstood.
+I think it's so great that we have it.
+Uh, JQ, I could pipe it through JQ, but yeah, uh, Jeff needs some love.
+Yeah, it does.
+And they could actually make a different representation.
+You could probably do a Haskell, uh, you know, PR and, and do that.
+But the, the, the, yeah, they probably prefer Haskell rep for most, I agree.
+But the, the, the point is, is that, I mean, if you're going to tell somebody
+that you're a standard way of supporting other conversion method out methods is
+to, and by the way, you can make your own.
+You can write your own Lua plugins that will render the whole entire thing.
+It's beautiful Haskell.
+And if you get into the functional program, if you, if you want a really good
+example of when functional programming really shines, uh, you know, Pandoc is
+a good example of that because it was Haskell is like tailor made for parsing
+syntaxes and grammars and stuff.
+It's just so perfect for it.
+And, and, you know, I imagine, uh, you know, Lisper or Lang or something,
+uh, would be just as good.
+Uh, but, but that's, you know, that's my experience with Haskell too.
+Um, and, you know, it's super fast, but, but I mean, it, it does lack a lot in the,
+in the, you know, the, the, to me, the AST is really core because if you want to
+have a, the ability to make a conversion from one thing into anything else, uh,
+it's so important that you get that AST, right?
+Because then everybody else can render it however they want to.
+You've just created a data model for the thing that you're representing,
+whatever it is, the document or whatever.
+And, and, and that's really core of the whole thing.
+And the people who made Pandoc, of course, are not web people.
+They are, you know, publishers and Haskell people and academics and they're
+over at Berkeley and, you know, JGM's an amazing spearheaded common mark and a
+bunch of other amazing things.
+And I, I've had some interactions with JGM.
+JGM is completely 100% unimpressed with anything I've ever done, which is fine
+because, but I'm doing things that I need, uh, and yeah, including Peg.
+And I, I ran Peg and buy him and he was like, why am I, well, you know, why Peg?
+And he doesn't, he's not interested.
+He just, he got his answer.
+He's a philosophy major and he's a great guy, but, uh, a philosophy professor.
+So, um, anyway, here's the parent nodes, uh, given the following data example,
+you get this copyright and, and, um, yeah, here you get another AST, no, no AST
+node attributes, summary, no two days, structure, miles, a lot for attributes.
+Peggan's AST does not, since attributes came more, uh, efficiently and precisely
+indicated by adding an additional parameter, parent or terminal node type,
+which is another word for leaf node.
+Uh, Peggan was conceived originally developed by me, uh, I'm working with
+tokenizers and text generation.
+Oh, nice.
+Uh, while creating grammars, uh, was needed for ArtiBake's knowledge that that's
+Peg, uh, easy mark, data mark, mate, man, I got to update this.
+These are all of the different, um, base QL, all of the ones that I've been doing.
+Uh, live coding streams, others to update and contributed and help.
+This is, that's, I got to update them.
+Uh, related tools to Vimplug and Emacs.
+I don't have them in plugin done yet.
+I need to other efforts out there.
+You can go look at peg leg.
+That's the one I helped contribute to go peg is the one I contributed to
+actually space on peg.
+Look, uh, the Python was the Guido one that, that they added 3.9 and Python, I
+think, uh, Pigeon, Pigeon, Pest.rs, which I was so excited about.
+Turned out it's crap.
+And antler antler has been, is Java is an all about Java, but it's, it's
+exactly in the same sort of space, uh, for defining grammars and stuff, but
+it's Java only.
+Um, formal peg and grammar specifications, blah, blah, blah, go read that, uh,
+linking documentation with definitions, uh, legal considerations, what adoption
+is blah, mime type.
+I'm, I'm hoping to get X dash pegging for a mime type, but I haven't submitted
+that yet, trademarks, uh, blah, blah, licensing, it's Apache tube, uh,
+attribution, patents, uh, contributing, IFC are, I guess the race.
+So I would like to get this eventually submitted, but I don't want, I want to
+use it for like a year or two and have all the tools done for before I do that.
+Um, I think it has a peg and parsering has been used in production at at least
+one company that I know of besides mine, uh, for over a year and a half at this point.
+And so if you're wondering whether it's worthy of abuse, and there has been
+uh, some tweaking to the specification in that time based on, uh, you know, the
+very intense usage that's happening over in that other company.
+Um, so, so it's out there.
+You can go use it if you want.
+You can play around with it.
+If you ever want to write your own language, you probably can.
+I may very well do, uh, write a book about pegging.
+Uh, I'm, I'm all about writing books these days.
+Um, I got to finish the terminal velocity.
+That's the book I'm working on right now.
+And after that, uh, you know, these other books in spaces that are not covered
+by anything, uh, will be all right.
+I mean, I'd write a book about bonsai, write a book about pegging and, uh,
+some of these other things so that people can take them and use them.
+So that's all I have to say about that.

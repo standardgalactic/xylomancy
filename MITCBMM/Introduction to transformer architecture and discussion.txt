@@ -1,0 +1,1625 @@
+If we look at history, models of the brain
+have always been the most fashionable technology.
+It was hydrodynamics in the 17th century,
+and digital computers a few decades ago.
+And 10 years ago, it was convolutional neural networks.
+And now, transformers, of course.
+So in preparation for this, we have an introduction
+to transformers.
+I think this is something that Michael Fee,
+chairman of this department here, and Jim Likalo asked for.
+Of course, they are not here.
+But Michael actually asked me to record it.
+Is that possible?
+It's recording now, as long as that's OK with you guys.
+Everybody agrees to be recorded?
+OK, all right.
+So with this, we have an introduction to transformers.
+And this probably will be the first of some of the research
+meeting where we'll speak about transformers.
+Next time, perhaps more in comparison
+in the framework of models of the brain.
+But this time is more on just technical aspects
+of transformers.
+And so Philip Insola, C-Sale, and Brian Chung,
+this building, will tell us, oh, Jim is here, after all.
+OK, so Lupus in Fabulous.
+What was that?
+Lupus in Fabulous exactly means what happened,
+that I will speak about you, and you came in.
+The magic.
+So Philip will start.
+And then we have Brian, and then perhaps discussion.
+And in the meantime, of course, very
+welcome to ask a lot of questions.
+All right.
+OK, great.
+Thank you, Tommy.
+So this can be, as far as I'm concerned, very informal.
+I'm happy to go back and forth.
+I took slides from a lecture, like hour and a half
+lecture on transformers I've given,
+and tried to pick a few slides.
+So it's going to be a quick intro.
+But we can go into as much detail as you want,
+and happy to make it also just more discussion.
+But I'll start by talking about what are transformers,
+for those of you who haven't encountered them yet.
+OK.
+So I think that there are two key ideas that are not new,
+but are relatively popularized by transformers.
+And the first is called the idea of tokens.
+And then the second is going to be the idea of attention.
+There's a few other bits and pieces in transformers.
+But to me, those are the two key ideas.
+OK, so tokens are essentially a new data structure.
+And they're a replacement for neurons.
+So in artificial neural nets, neurons
+are just real numbers, just scalar numbers.
+And tokens are vectors.
+So that is the distinction that, as far as I'm concerned.
+So it's just lingo for a vector of neurons,
+a vector of scalars.
+But when you start thinking of your primitive units
+in a network as tokens, whether they're neurons,
+then sometimes the math will look a little bit different.
+And I think it's just a powerful way
+of working with new kinds of neural networks,
+made out of tokens instead of neurons.
+OK.
+Again.
+It's a patched-in image.
+A patched-in image can be a token.
+I'll give a few examples.
+And not any ideas.
+Vector neurons, vectors of features for a unit
+inside a network, that's an old idea,
+shows up in graph neural networks if you've seen those two.
+OK.
+But the way I like to think of it is
+we used to work with arrays of neurons.
+And now in transformers, we work with arrays tensors
+of various shape of tokens.
+But they're kind of like encapsulated vectors
+of information.
+OK.
+So you can tokenize just about anything.
+And that is the big trend right now,
+is just show how to turn whatever data you have
+into a sequence of tokens.
+So here's an example, like Tommy's mentioning.
+You can have tokenizing an image.
+You could do this in a million different ways.
+But the way that is very common is you start with an image,
+you break it into patches, you flatten all the patches
+to create just take all the rows of those pixels,
+and just concatenate them into a really long row
+or a really long colon vector.
+And then you get this thing called a token,
+which is just an n-dimensional vector representing that patch.
+And this arrow up here, if you can see my mouse,
+it could just be flattened or concatenate.
+But commonly, it will actually be a linear projection
+to some fixed dimensionality.
+So project to 128 dimensional vector, for example.
+Should I think of a token as an embedding?
+Is it the same or what?
+Same thing, yeah.
+So a vector embedding of a patch would be a token
+in this context, yeah.
+So there's a lot of names for this.
+But to me, once you start thinking of things in terms
+of tokens, that's how I like to think of it.
+OK, so you can tokenize anything.
+That's often a linear projection.
+We used to operate over neurons.
+Now we operate over tokens.
+And just a few more examples.
+So whenever you can take your signal
+and chop it up into chunks and project each chunk
+to a fixed dimensionality vector,
+then you can tokenize that data.
+So for language, people do this as well.
+They chop up into little chunks, which are often
+two characters or a few characters at a time.
+And they project those into 120 dimensional vectors.
+With sound, you chop up into little tiny snippets of sound.
+So you can tokenize anything.
+And once you've tokenized it, then
+it's just a sequence-like representation,
+a sequence of vectors.
+Although, really, the way transformers work
+is they treat it as a set, not a sequence.
+But people often talk of it as a sequence.
+OK, so that's tokenization.
+That's, I think, that's the first critical idea.
+And then everything ends up being
+operators defined over tokens as opposed to over neurons.
+So rather than taking linear combinations of neurons,
+which is the common linear layer in a network,
+we take linear combinations of tokens,
+where you just take a weighted combination of vectors
+instead of a weighted combination of scalars.
+So I'm not in this because it's only a little intro, going
+to go into the math in detail, but we can always
+come back if you're interested.
+OK, so in standard artificial neural networks,
+there's two key layers.
+There's the linear combination layer, the linear layer,
+and there is the pointwise nonlinearity, which
+might be a ReLU or a sigmoid function.
+So in tokens, there's the same thing.
+There's a linear layer, which we have here.
+It's a linear combination of vectors.
+And then there's the tokenwise nonlinearity,
+which is completely analogous to a neuron-wise nonlinearity.
+So this is a neural net that does a pointwise nonlinearity
+over neurons.
+It applies the same function ReLU to every neuron in a list.
+And the token net applies the same function F
+to every token in a list or in a set.
+Usually F is going to be itself a multi-layer perceptron.
+It will be some parameterized function.
+You can equivalently think of this as a convolution
+over the tokens.
+So transformers, CNNs, it's all the same ideas kind of rehashed.
+We can talk about that if people are interested.
+But here's what it looks like.
+It's just a token-wise operation that slides along
+the list of tokens.
+So you can see that looks like convolution sliding
+across the signal.
+OK.
+It's usually one layer, right?
+Is it usually one layer?
+I think that it's usually linear, ReLU to linear.
+Yeah, so it's a nonlinear function.
+Yeah, it just has to be nonlinear,
+so you get nonlinear as soon to the system.
+So I have a question.
+MLP.
+One layer of net.
+Well, two linear layer MLP, but sure.
+Yeah, you could call it something else.
+Yeah, question.
+I have a good question for the last slide.
+I think I have missed.
+What is the Z here in the last slide?
+Oh, Z is the token code vector, meaning the vector of neurons
+inside that token.
+So it has this code vector that lives inside it.
+Yeah.
+OK, thank you.
+You're welcome.
+Yeah, we'll see you now with convolution here.
+So convolution applies the same operator
+independently and identically to every item in a sequence.
+And this is doing the same thing.
+So it's like slide the filter across.
+Here is slide this nonlinear filter across the sequence.
+But we give it as a one by one kernel
+because the receptive field in the sequence dimension
+is just looking at one token at a time.
+OK, so here's a neural net.
+And here is what I'll call a token net.
+So it's just like a neural net alternating linear combination
+point-wise nonlinearity, but now it's
+linear combination of tokens and token-wise nonlinearity.
+And transformers are in that family.
+Another name for that family is graph neural networks.
+They have the exact same structure.
+OK, but the terminology is just different
+to graph neural nets.
+But they're the same thing.
+Token nets, graph nets, transformers are all the same thing.
+You could say that transformers are a special kind of graph net
+if you were to look at it that way.
+So there's so many connections that could be made.
+But I'm going to zoom right ahead
+and we can discuss all the connections.
+So idea number one is build things out of tokens, vector
+valued units, as opposed to out of neurons,
+scalar valued units.
+Idea number two to me is attention.
+Maybe this is the most famous idea of transformers
+is they have this new layer called attention.
+So let's look at what attention is.
+OK, so in a neural net or what I'm calling a token net,
+you'll have linear combinations of inputs
+to produce an output or weight of some of the inputs
+to produce an output.
+And you will parameterize that mapping with weights w.
+And this will be learnable.
+And in attention, you have a weighted combination
+of inputs to produce an output.
+But the parameters or the values in the matrix A
+are not learnable.
+Instead, they're going to be data dependent.
+They're going to be a function of some other data.
+So when you have data dependent linear combination
+where the weights are a function of some other data,
+then that's called attention.
+OK.
+And so A is the weight matrix.
+And it's just a function of something else.
+It tells you what to attend to, how much weight to apply
+to each token in the input sequence.
+And you'll take a weighted sum, which is just matrix
+multiply A by the tokens.
+OK, notation, don't worry about it.
+So here's the intuition.
+So I can have attention given to me
+by some other branch of my neural network.
+And maybe it's going to be a branch that
+parses a question.
+And that question will tell me what patches in the input
+should I attend to.
+The input patches are represented by tokens.
+And I will say, these are the patches
+that I'm going to place high weight on.
+And then I'll take a weighted sum of the code vectors
+inside those patches to produce an output.
+So I could ask a question, what is the color of the bird's head?
+I'll attend to the bird's head.
+What is the color of the vegetation?
+I'll attend to the background.
+It's just saying which tokens, tokens or patches here,
+are going to be getting a lot of weight to make my decision.
+OK, and then I'll report the best green,
+because the code vectors will have represented some information
+like the color of the token.
+OK, so this is going to be a little too much detail
+to fully understand in just a few minutes.
+But here's the most common kind of attention layer,
+just to show you the mechanics really quickly.
+The question submits a query that
+is matched against a key in the data that you're querying.
+So the data you're querying is a set of tokens.
+And each token has a key vector, which
+gets matched against the query vector of the question.
+You compute the dot product to get the similarity between the key
+and the query.
+And that dot product, that similarity,
+becomes the weight that you apply to another transformation
+of your tokens, which is called the value vector.
+And you take a weighted combination of the value vector.
+And so all the fancy math here is just
+to say the question will tell me which tokens to weigh heavily
+in a weighted sum to produce an output.
+But it'll be via these three transformations,
+the token vectors, which are the key, the value,
+and the query transformations.
+OK.
+So that's a little mechanistic detail.
+We can go back to that if we want to discuss the nitty gritty.
+The way it kind of looks like is this.
+And this is common to most of the transformer architectures.
+You have a bunch of, you break into patches.
+Then you have a bunch of layers, which are basically
+these one by one convolutional layers.
+And then every now and then you have something
+that tries to mix information across space, across tokens.
+And that's called attention.
+And that is just the tokens based on their values, queries,
+and keys will decide which of the other tokens
+should I average together to produce a new representation
+in the output.
+So this head might attend.
+So I should look at the other heads
+to decide how I can better recognize what's
+going on in this patch.
+When you say one by one convolution,
+you mean a patch is a pixel.
+A patch is, so you vectorize a patch.
+And then you do one by one convolution
+across all of those tokens where the channel dimension is
+the token vector.
+OK.
+So here's MLPs.
+And then transformers are two changes.
+One is that rather than scalers, they have tokens.
+And other changes, rather than having parameterized linear
+weights, they have data-dependent linear weights that
+are given by that special attention operator.
+And that attention operator itself
+has parameters that define the key, the query, and the value,
+and those are the learnable parameters of the system.
+Just a small detail.
+But you start with self-attention,
+and then you have a one-layer of multi-layer perceptron.
+But in the previous slide, you had the opposite order, is that?
+Well, so it will vary a lot between different architectures.
+Like, yeah, you could alternate these in different orders.
+And I did gloss over the detail of this
+attention from an external question.
+But the more common thing is self-attention,
+where attention is coming from the image itself,
+from the data itself.
+And that's OK.
+This is like attention from the question branch.
+But I could just have the data choose what in its own token
+sequence to attend to.
+Each token chooses which other tokens to attend to.
+And that's called self-attention.
+Like, this picture here where this patch will decide
+what to attend to to get a better representation of that patch,
+essentially.
+OK, so this is self-attention, really, as opposed to you.
+That's why the dependency of the weights on the data
+is like this.
+It's attending to itself as opposed
+to attending f is not coming from some external source.
+OK, so I think this is the last one.
+Just to connect it to one of the most common demonstrations
+of transformers is to do sequence modeling.
+But really, transformers are more about set-to-set operations.
+But you can represent a sequence as a set.
+So it's fine.
+But oh, no, I think I got the wrong slide here.
+Let me pull up the right one.
+Yeah, this is what I wanted to show.
+OK, so here's how it looks for doing next-word prediction.
+And you can do next protein prediction and a sequence
+of proteins or next sound wave prediction.
+You can do next meeting prediction.
+That's a really common framework.
+So this is like a one-layer transformer.
+We're going to say colorless, green idea, sleep.
+Put that into the transformer.
+We want to predict the blank.
+The words attend to each other.
+Then you pass to this token-wise non-linearity.
+And then you make a prediction at the very end.
+So just one example of what you have seen as transformers
+for sequences.
+But really, transformers are more general than that.
+They're not just about sequence modeling.
+This is just one way you could use them.
+OK, so that's the 10-minute overview of transformers.
+Let's see.
+Should we do questions?
+Or Brian, do you want to just jump right in?
+Maybe you can do questions while I set up.
+Yeah, questions while Brian sets up?
+What is the history of these terms, quest, query, value?
+So he's probably other people here know better than I do.
+But I think it's all coming from the data retrieval,
+database literature.
+So you have a database where you have knowledge stored
+in kind of cells.
+And you can query that database.
+So you say, I want to find things related to drafts.
+And then every cell will have a label, the key.
+It will be like, this is the cell for mammals.
+And this is the cell for drafts.
+And here's the cell for plants.
+And you'll match the query to the key.
+And then the stuff inside the cell that you retrieve
+will be the value.
+So I think it's coming from that.
+This isn't a fully formed question.
+But I guess in the framework of having question key value,
+if, let's say, the question was, what
+is the color of the turkey's head?
+And for some reason, the turkey's head
+is a feature that's complex enough that it
+can't be well represented within a single question.
+Does that cause issues with attending to the right thing
+or waiting for the right thing properly when?
+Yeah, I suppose it could.
+One answer would be that you often
+do multi-headed attention, where you'll
+take your sequence or your set of tokens,
+and then you'll have k different query vectors
+and k different value vectors and k different key vectors.
+And each query can be asking a different type of,
+you can say, I want to match to the same color.
+Another one can say, I want to match to the same geometry.
+And when you optimize the parameters of this network,
+it will somehow self-organize that, well,
+it's useful to factor things into geometry and color,
+then there'll be one attention head that cares about color
+and one that cares about geometry.
+I just want to put a quick thing on the transformer
+architecture and the nonlinearity.
+If very correctly, you do a normalization of each token,
+right?
+What's the intuition for that?
+Why do you do that?
+I haven't seen that too much before transformers.
+Yeah, that's a great question.
+So normally, you want your weighted sum to add up to 1,
+so the weight should add up to 1.
+And people do that, achieve that via the softmax
+over the weights.
+Is that what you're referring to?
+No, I'm referring to post the residual connection.
+You do as part of the right before that.
+Oh, the layer norms.
+My understanding of transformers
+has progressed to the level of tokens and attention,
+and all the rest, layer norm and residual connections,
+at this point, I don't rock it.
+I don't know why.
+That feels like tricks that usually help neural networks
+train.
+It's good to normalize things.
+It's good to have residuals.
+I haven't understood anything specific to transformers
+about those ideas yet.
+They're generally useful tricks.
+OK, now go ahead.
+Transformers are very hard to train, especially several layer
+ones, like 12 and up, if you don't have residual connections
+or layer norms.
+Yeah, OK.
+So the training isn't very stable in those tricks.
+So it's not, it's not.
+Yeah, also there's a tension between multiplication,
+and that might not be as stable as normal non-intentional layers
+just to addition.
+That's the softmax, right?
+The softmax can probably help with that.
+Yeah.
+So how do you decide what patches to use,
+for instance, if the image or the text you also
+had what seemed to be arbitrary segmentation of the data?
+Yeah, that's a great question.
+How do you do the tokenization?
+How do you design that?
+I think it's super hacky right now,
+so that feels like somewhere that people could do a lot of work.
+One thing that does seem to happen
+is that the smaller you make your tokens,
+if you have tokens that are a single pixel,
+it's just the better you get.
+So maybe the, what will happen is we'll just
+stop having clever tokenizations and just go down
+to whatever the atomic units of the data are,
+like a single character or a single pixel,
+and that just makes a choice for us
+because you can't go below that really.
+So I think the smaller envision transformers
+that thing I've seen is that the smaller the tokens are,
+the better they tend to perform.
+But because the attention mechanism is every token
+attends to every token, it's like n squared.
+If you make the tokens too small, there's too many tokens,
+and then you run out of memory.
+So there's probably clever tokenization schemes
+like super pixels or segmentation,
+or in language spaders, a lot of tokenization schemes
+that are byte code, byte parent coding is the name of one,
+and Word2Vec could use that as your first tokenization layer.
+But yeah, that feels like a kind of hacky area right now to me.
+I can try to usually leverage at least some degree of topology
+by tokenizing it that respects spatial coordinates for images
+or language order for words, at least.
+Because there's also something called position encoding,
+which gives you knowledge about the topology
+of why this element is in this position
+versus this other position.
+And that tells you a lot about the structure of the image,
+or at least where this token is
+with respect to the overall structure of the image.
+Yeah, and then another thing that seems missing right now
+is people usually envision transformers,
+which I'm most familiar with,
+and usually break into non-overlapping tokens.
+But we know from continents and similar processing
+that you'll get a time of aliasing
+and filtering operations.
+If you have these huge strides,
+you're breaking into non-overlapping patches,
+you really would want to have overlapping patches
+or blur the signal.
+So all of that signal processing stuff,
+I think it's been kind of thrown away.
+And probably it's a good idea to put it back in there.
+Someone has tried overlapping patches,
+and it does help, yeah.
+And by the way, everything I say,
+as you probably know,
+there's 10,000 transformer papers now,
+so I'm sure everything that you can imagine has been tried.
+Yeah, so the part about working with sequences
+versus sets confused me a little bit,
+and this relates to position and coding.
+So I think it is important when you send these tokens
+to the transformer to actually inform it
+where it is in the sequence.
+So, yeah, so a transformer operates in sequences
+or sets, like how, like I'm...
+Brian, do you mind if I take the slides over one more time?
+I do have some slides that I can clarify that.
+So, yeah.
+So there's this idea of positional encoding,
+which I think is the third big idea of transformers,
+but it's been used in other contexts too,
+so maybe it's not just about transformers,
+but if you have a component
+and you don't want it to be invariant to shift,
+it's convolutional shift invariant,
+you can just tell the filter where you are
+by adding this positional code.
+So I can just say, you know, at the bottom right of the image,
+and then my mapping will end up being conditioned
+on the position.
+Transformers, it's the same thing.
+I can tell you where the token comes from,
+and if you do that, then you do get sequential...
+You are modeling the sequence
+because you're telling the token, you know,
+I'm the first item in the sequence or the second item.
+If you don't do that,
+then you have the property of permutation equal variance,
+which is why I said it's really a set-to-set operation.
+So if you don't tell the tokens where they come from,
+you don't give them positional codes,
+then if I take the tokens on the input layer
+and I permute them into any order,
+I will simply permute the tokens on the output layer.
+The mapping will be the same after permutation.
+It takes a little thinking to see why that's true,
+but essentially the reason is because the attention layer
+is permutation invariant,
+because the way self-attention works
+is it looks at the color of this and the color of that,
+and it makes some similarity comparison,
+and then the weight of the weighted sum
+that goes to here,
+it's just going to be something about the similarity
+between the color, the query, and the key of this.
+So no matter where you move that edge around,
+as long as the input and output are orange and blue,
+it will get the same weight.
+So you can kind of work it out and see that attention
+is permutation invariant.
+The token-whites operator is point-wise,
+that's permutation invariant too,
+and then that means that the whole transformers
+are permutation invariant function,
+and you can make it model sequences by telling it
+the position of every token in that set,
+but if you don't have position encoding,
+it's more appropriate for set-to-set mapping.
+One more question or comment is,
+you started with the idea of tokens,
+but just a few sentences before,
+you said that something that to me sounds like
+the idea of tokens is rather weakened,
+that the transformers work better
+when you have individual bits of data like pixels.
+So it feels to me that the idea of tokens
+is not really essential in the whole concept to work,
+but that attention is the most critical part,
+and the idea that being able to attend dynamically
+anywhere in the picture if it is visual data
+is the idea that gives power in these algorithms,
+not the talking percent.
+Yeah, I don't know, and I think that's kind of the open debate.
+Maybe, yeah, fun to keep discussing it.
+So I think the field is kind of split right now
+between people thinking that it's the tokens
+and the vector and encapsulated vectors
+that are important to this versus the attention
+and really, okay, if you just have an intentional mechanism,
+it can still be operating over neurons,
+it doesn't really have to be about tokens.
+I feel like both probably are important to this success,
+but one counter example to that attention matters
+is there are these other architectures now,
+sometimes called like MLP mixers,
+one architecture in this family,
+which uses tokens but not attention.
+So it's basically a component over tokens,
+one by one columns over tokens.
+They call it MLP.com and that's super confusing,
+but anyway, forget the terminology
+because these things are all just like
+small transformations in each other.
+Okay, but anyway, this MLP mixer thing doesn't have attention,
+but it's still, in my view, is a token net,
+and that seems competitive on some tasks
+with attention networks, so maybe attention is,
+maybe it's not looking at matters.
+Related to this question, so it seems like,
+especially in the self-attention mode that you're describing,
+if you unroll that, it's like a series of matrices,
+I think, going on there that could just be implemented.
+It's just straight up feed forwards chain.
+If I'm following, is it just very deep?
+It's gonna be skips, I think, but is that idea
+make sense to you?
+You can always take any one of these arrows
+and just say, oh, that's actually just a matrix multiply,
+but it's a matrix with special structure.
+It's not like a full-rank matrix,
+and I think that that's one way
+of just understanding all the power.
+I didn't mean it was any matrix,
+but I'm just like, you could re-express this as another,
+as I was trying to understand what the re-expression form
+might look like, and then generalize that to,
+and then you're back in standard mode again.
+Maybe that was closely related to what we were saying.
+Yeah.
+Yeah, where you have the second branch with a Q,
+that's different, that's sort of active state
+versus this kind of deterministic processing based on.
+That's kind of multiplicative there,
+and that's where it differs from standard MLPs,
+where they don't have this kind of multiplicative interaction,
+that means that you're dependent on the element.
+You're self-contesting yourself,
+meaning that you're dependent on your own input,
+when you process this particular input.
+So it's kind of like a hyper-network, I guess, in that case,
+where you change the representation
+based on what your representation already is.
+Yeah, so it's not like, yeah,
+you can't just rewrite it exactly as these linear combinations
+on a regular feed-forward network,
+because it does do these multiplies.
+Maybe that's the one mathematical atomic unit that's different.
+But I think you can express these in different languages,
+and I actually do like thinking of it as,
+oh, it's just a special kind of matrix.
+The matrix weights come from this other source,
+the self-attention mechanism, but then it's just a matrix,
+but that matrix has special structure,
+and understanding that low-ring structure is kind of a,
+that's just a way of understanding architectures,
+is what is the special structure you're imposing
+on the linear transformations on the matrices.
+But yeah, this dot product here,
+between the query and the key, involves multiplication,
+which is not something that you would directly
+get in a regular network.
+Please, what related to this,
+and also the representation for your variance?
+That's within a block.
+So what about across transformer blocks?
+Yeah, so you can kind of have any set of tokens
+that tend to any set of tokens,
+and they could come from one layer of the net,
+and another layer of the net, or one block, another block.
+It could come from a text processing network,
+and an image processing network,
+and then the text attends to the tokens of the image,
+and then it could come from just,
+the text tokens attend to themselves,
+and that's mostly what I talked about,
+but actually, sorry, did that answer,
+is that your question, or am I going the wrong way?
+Actually, you said that you could commute,
+like within a block, like the operations, pretty much.
+Like I'm just saying, if you have like 12 transformer blocks,
+this can show that some of the earlier blocks,
+like learn more like surface form type of features,
+where like later learn, like high level things,
+and I was wondering if like, can you also commute?
+Yeah, I think no, probably.
+So I don't think you can commute depth-wise,
+I think just you can commute within the input sequence, yeah.
+Actually, with multi-headed tension,
+you know how they concatenate all the heads together
+to go to the next layer?
+Don't they lose the permutation variance,
+or the permutation equivalence
+in your concatenation process?
+I don't think so.
+Because your concatenation has to have some sort of ordering.
+Oh, interesting.
+Yeah, maybe.
+Okay, so it's possible that transformers aren't,
+at least not always multi-head transformer.
+Equal variant.
+Individual transformer heads are actually.
+Yeah, I hadn't thought about the multi-headed thing.
+Okay, yeah.
+Because in the multi-headed,
+you take a weighted sum of the heads,
+and then that.
+The feature vectors, they concatenate together.
+And that's a parameterized sum,
+and if you change the order of,
+I think you're right, okay, interesting.
+Fedev, did anybody try,
+instead of using the Q and K matrix,
+or the W, Q and W, K, use a single matrix?
+Yeah, okay, so one thing you can do
+is just get rid of queries, keys and values,
+and just have your code vectors at Z,
+and take like the inner product of,
+or the outer product of Z with Z as your attention.
+And I think that that can sometimes work just as well.
+But I don't, yeah, I haven't really followed
+the latest on that,
+but you can have queries, keys and values
+that are linear functions of your code vectors Z,
+or they can be nonlinear functions,
+or they can be identity.
+And I'm not sure that there's a consensus
+on when you need which.
+So one thing that's kind of interesting
+is that if you use the identity
+to create your queries and keys,
+you're basically creating that grant matrix
+between all of your token vectors with themselves.
+So it's gonna kind of like,
+it's gonna cluster the data,
+and there's been some analysis of how,
+okay, identity, attention, identity queries and keys
+will create this, you know,
+like spectral clustering type matrix,
+it'll create this similarity matrix
+when you hit the data with a similarity matrix,
+it'll group things that are similar.
+And maybe we can understand a little bit
+of what's going on from that perspective.
+Like linear queries and keys
+are just some projection of that kind of thing.
+And how does that work?
+If you don't have the WQ and WK matrix,
+but just the identity.
+Actually, yeah, do you know Brian,
+or does anyone know?
+So resMLTs are actually kind of like this,
+more exactly like this spectral matrix,
+because what you do is you process the input,
+transpose it, process it again.
+If you work out both operations in sequence,
+they end up becoming Z transpose Z
+with like a matrix in the middle.
+So I think it does work, I guess.
+Yeah, that was my, maybe not as well,
+but it does work.
+It does work.
+It works just maybe not as well.
+Yeah.
+Because you're sort of interleaving
+with these nonlinear operations,
+and you still get expressive power.
+And one other question that you mentioned,
+and there is a paper, I think,
+from deep mind about using a single pixel as a token.
+Yeah.
+It seems very little in terms of being able
+to establish similarities with other tokens,
+because you have just color and intensity, right?
+So my feeling there is that, yes,
+on the first layer, that's a very bad token.
+You can have like, you have a 1.8 dimensional vector
+that coats just the color of a single pixel.
+It's not gonna do much.
+But then when you do this linear combination operation,
+it's like taking a one by one patch
+and making a bigger patch out of it.
+I mean, it can learn to mix information
+across the whole image and say all of these similar colors,
+maybe all the white stripes on the zebra
+will go with all the black stripes on the zebra
+because the black keys will match the white queries.
+So it could create these abstracted tokens
+as you go deeper into the network and build up.
+Many years ago in computer vision,
+there was the idea of instead of using a patch,
+of using at a single pixel, the value of the pixel,
+and derivatives, which means essentially,
+you're having non-local information
+because the derivatives gives you information
+about enabling pixel, especially derivatives.
+It's kind of like a little token.
+That's right.
+It's a vector of, and it's very much
+like a token, yeah.
+Yeah, so I don't think that these are new ideas really.
+It's just, it helped me to coalesce
+around the idea of a token.
+Like we're gonna think all the operations
+in terms of tokens, but we used to talk about,
+hypercolumns and feature vectors,
+and like there's a million names for the same,
+this and concepts.
+Yeah, fine.
+Do you wanna pull up just so we have time for you too?
+Yeah.
+You made the connection earlier
+with graph neural networks.
+I don't recall which one you said is more general
+of the two, but I also don't feel the connection
+because for graph neural networks,
+it's important like the connection in the graph,
+the structure is very important.
+Whereas in transformers, you said it is less of a case.
+So yeah, I think it depends on you to find these things,
+but I like to think of graph nets as more,
+a broader class and so transformers to be graph nets
+with a fully connected graph.
+So every token talks to every token
+and the aggregation function that decides
+how to do like the weighted sum of incoming messages
+is given by this attention operator.
+So the similarity between node A and node B
+tells you how much the messages from node B
+will be summed up into node A.
+And you can have attention and graph neural networks.
+That's why you fail it.
+And that's, I think it was independently invented
+over there or maybe even first invented over there.
+So graph net people have done attention,
+I think before transformers made attention really popular,
+although of course, attention is an old idea as well.
+And it has shown up a lot of times.
+So I guess I can start now.
+Yeah, so we'll give a great overview
+which actually is going to make this a lot easier.
+Where I think I'm going to go over more of the AI machine
+in the communities perspective of attention
+and the developments happening in that community
+and go over some kind of unintuitive things
+about transformers that I think are surprising,
+I guess, to a lot of people now.
+To go over that, let's go over how it started.
+So originally, the transformer was a language model.
+And the language model paper had possibly the most
+arrogant title you could imagine,
+saying that attention is all you need.
+Now, little did they know that that actually turned out
+to be something that would actually have more truth to it.
+And I think most people realize,
+including I think myself,
+which is that this now is a model that covers,
+I still mentioned language, speech, vision.
+It's basically a universal model now
+for all the modalities that people apply to data actually.
+And again, attention is not a new idea.
+This is something that was proposed even before this paper,
+but this paper proposed something that was very, very similar
+to the vision transformer attention,
+where they created essentially attendable feature maps
+at the last layer or the next to the last layer
+of a VGG network that was still spatial.
+And they were able to use this to show that
+when you do image captioning,
+it would attend to the correct parts of an object.
+So the reason why I think this kind of seminar is important
+is because classically, you know, whatever works well
+has always been something that we always ask ourselves,
+is the brain also doing this?
+Because that's been the classical thing for a lot of the past,
+you know, 10 years of research,
+actually a lot from Jim DeCullo's group.
+And I think we have to understand what's going on.
+I think to understand why transformers are so important
+and potentially why we should either care about them
+or not care about them actually.
+But I think there's this all too familiar aspect
+where whenever it's working extremely well,
+we need to compare that to the brain now.
+And I think we should kind of get ahead of it this time
+because in this case, we want to see where they're going.
+And again, one of the things that's kind of interesting
+is that when people compare these attention models,
+specifically certain versions of them like clip
+to human behavior, you get a substantially improved
+performance in terms of like explaining
+either the misclassification errors or not
+in human visual systems.
+And I think the issue is like,
+we don't know why this is happening
+in the sense that like in this paper,
+they mentioned that the particular vision transformer model
+that they tested was far better than all their other models
+for explaining human behavior,
+but they weren't sure why at the time.
+This was from a 2021 paper.
+So I believe that they're still not sure,
+but all they found was that the results show
+that this particular model clip was an outlier
+for their comparisons to human behavior.
+And also there's been, like I said,
+this natural tendency to now compare convolution networks
+to transformer networks because the transformer networks
+are starting to outperform covenants
+on a lot of vision tasks.
+So the question is now,
+which models are more similar to neuroscience
+or just human vision in general,
+whether it be cognitive science as well,
+are covenants more similar or transformers more similar?
+And intuitively you would think that there are certain
+properties of convolutions that make convolution,
+convolution, and transformer, transformer.
+And what makes, what we believe convolution and convolution
+is the fact that of equivariance.
+Meaning, as Phil mentioned,
+when you apply an operation to the input,
+the operation applied to the output
+should be the same type of operation.
+Now the issue is that this turns out
+not to be exactly true, it turns out after training,
+a vision transformer is more equivariant to translation
+than a component, which I think is quite surprising.
+So Phil might actually already know the issues
+with the convolution not being equivariant.
+One thing being that a lot of the pooling
+and other operations, even the non-linearity,
+contribute to hurting or harming
+the equivariance performance.
+So this plot here is showing this paper's measure,
+which is a lead derivative,
+the equivariance error of a component,
+this is ResNet 50 versus a vision transformer.
+And it turns out after training,
+a vision transformer is translationally more equivariant
+than a component, which I think is quite non-intuitive
+in the sense that we built in the equivariance
+specifically for a component.
+Yet here we are and vision transformers
+are more equivariant after training.
+And then this on the right shows
+this is not just specific to these two architectures,
+but many different architectures here.
+And it's also an interesting,
+they also measure MLP mixers,
+which as Phil mentioned is kind of a newer projector also,
+that also has surprisingly high equivariance after training.
+And this is equivariance improves
+as you increase ImageNet test accuracy.
+So you have any questions here?
+Brian, one question.
+Do you have positional encoding on these networks?
+Yeah, you do have visual.
+So it should be equivariant.
+Oh, well, this is like a measure of equivariance.
+Yeah, no, no, I mean, it should be like...
+Oh, it shouldn't be, yeah, it shouldn't be.
+Well, in that case,
+equivariance is very strictly by the patch.
+In this case, they're doing small transformations.
+So it's not the size of a patch.
+But since you asked that question,
+there's another paper that shows about invariance.
+And this is like much larger translations.
+And they show that actually after training
+a trained vision transformer,
+which is a transformer model,
+is as invariant to translation shifts
+as a ResNet 18, which is a component.
+And this is kind of interesting
+because then the question has is, what's going on here?
+Like, you know, we build in these things to our models,
+but apparently not building them in
+also gives us the thing that we wanted.
+And I think this kind of goes to the issue
+that maybe might be controversial,
+but has been kind of true,
+which is the idea of scalability.
+And are people familiar with the bitter lesson here?
+Or has anyone heard of the bitter lesson?
+This is like a classic controversial statement.
+Actually, I think a professor,
+a former professor here actually gave a retort
+to this thing by Rich Sutton who wrote
+that the lesson that we should take away,
+and this was written I think in 2019 or 2018,
+is that we should not be working on
+deductive biases for models
+as much as we should be working on
+deductive biases for learning.
+And I think one of the kind of key directions
+that organizations like OpenAI are going towards
+is the idea that we shouldn't really try to bake in
+these priors that we think are really, really useful
+because at some point,
+your data might give you that prior anyway.
+And that could be what's happening here.
+And to give you a flavor for what's going on
+in the machine learning community,
+they're essentially optimizing
+the upper right hand corner of this curve.
+And the x-axis here is the compute required
+to train these models.
+And the y-axis is the negative log-proplacity,
+which is essentially the task error,
+or task performance, I guess, not error.
+And in this case, what they're doing
+is they're trying to find architectures
+that go all the way up here in the performance curve.
+And they're essentially paying for that performance,
+not by incorporating inductive biases into their model,
+but by trying to absorb those inductive biases
+through data.
+So I think to give you a glimpse
+of what's happening in the future
+is that there probably will be less inductive biases
+in this community of machine learning
+because they're willing to pay this cost of compute
+to not have to build in the inductive bias
+that they would normally have to build in
+for smaller data sets.
+And as Saul alluded to, which is the,
+or as actually Tommy also mentioned,
+it's just these architectures
+are getting more and more general purpose.
+So in this case, this is a transformer architecture,
+but unlike a transformer,
+this is an architecture that can attend
+not over the token level,
+but treats each pixel as a token.
+And what's interesting about this
+is that they actually train this on ImageNet
+without any image fryer.
+So the positioning coding that Phil mentioned
+was actually learned by the model
+and they could actually get performance on the order of,
+you know, normal image prior oriented models
+like comp nets and patch vision transformers.
+So the remarkable consequence of this is that
+there's no actual image prior or modality prior
+built into this model.
+It learned it on its own.
+And even in that perspective,
+it's still competitive on ImageNet.
+So this is not necessarily a very large data set either.
+Do you know if the perceiver of Brian
+also has like a texture bias, for example,
+or if in general robustness?
+I don't think we've looked into that.
+I think the robustness qualities
+are probably not too different from standard models.
+I think in terms of adversarial examples,
+like transformers are, well, I think it's controversial,
+but I think people say transformers
+are a little bit more robust adversarial examples
+than comp nets, but on the grand scheme of things,
+they're both very susceptible to adversarial examples.
+I mean, just to finish,
+I was just curious to see if, you know,
+I'm sure there's many models now
+that they can all do whatever 75% on ImageNet,
+but not all of them will see like a human,
+whether that's a goal or not, right?
+Right, that's a good question.
+And I think like we have to now be aware
+that this is where the field is going.
+Is that where we're going as well as a field?
+Not, yeah.
+What does it mean to learn position features
+in the case of an image?
+Well, you randomly initialize the position encoding
+to be just from like a random Gaussian or something.
+The position of the pixels in the image,
+so it's like an unordered set of pixels.
+Right, so you cheat the pixels as you cheat,
+each pixel has an unordered element in a set.
+Wait, Brian, is it the case that the top left pixel
+will always get the same positional encoding?
+It'll be a learned.
+Yeah, so, yeah, so it's not like you shuffle every image
+independently of every other image, and then get-
+So I think it's still inserting
+a lot of information there.
+Well, the prior that they're inserting is that
+the topology is consistent across samples.
+Which I think is reasonable about modalities mostly.
+You would imagine that the position shouldn't be,
+you need to every single sample,
+because in that case, then I think the problem would be
+almost like really, really hard.
+I don't know if you can even learn anything besides like-
+If you randomly shuffle all the pixels in an image,
+there's no-
+Yeah, I don't know what you're going to be able to learn.
+Every image has its own permutation
+that you give to the models.
+You could learn like higher statistics, I guess,
+over what fixes together, yeah.
+Another number is how many training example it takes
+to train this compared to a convolutional network.
+Right, so I think one of the things that we know is that
+it takes more data to train-
+But you have the number for this?
+This is, I think, just ImageNet with augmentations,
+actually, this isn't like a larger data set.
+This is just augmentation providing the extra information.
+Yeah, I don't have the numbers,
+but the crux I've seen tend to be,
+we have a whiteboard,
+so the connet starts here and goes kind of flat,
+and the transformer starts down here and goes up,
+so it scales better, but for low data, it's very worse.
+Right, so I think that's one of the things that
+why the community is going towards,
+like industry especially, going towards this direction,
+because they're willing to pay for the scale,
+the compute cost rather than having the kind of built-in
+data points, I guess, be not for free, I guess,
+because what happens is that convolutions,
+after a certain level of scale, will start saturating,
+and transformers still continue to go up
+in terms of increasing the parameter count
+will give you still positive returns in performance.
+What I didn't discuss in this talk is also,
+there have been a lot of other variations
+of transformers as well,
+and it's kind of strange, actually.
+People have, at least Google has done a meta-analysis
+on transformers and all the zoo variations of them,
+and at least in terms of scalability,
+it seems like the original transformers
+actually scales the best, which is a little bit odd.
+Which one scales the best?
+Vision transformers.
+Well, there's vision transformers
+and also sparse mixture of extra transformers.
+Those apparently both scale-
+The AT, the AT, though.
+The AT, well, don't remember if they were specifically
+doing vision in this case,
+I think it was more language tests.
+But I think this kind of tells you a story
+that maybe the machine learning community is going towards,
+which is not the fact that architecture matters the most,
+but the fact that data is actually
+the really important aspect.
+And I think they're building now architectures
+that aren't necessarily good at working well
+without being trained, but furthermore,
+work well at absorbing data a lot more efficiently
+than other architectures.
+And I think we should think about the things
+that lead to the resulting model
+that we work with these days,
+which is the idea that it's not just the model itself
+with its architecture, but there are priors about
+the compute, the capacity of the model
+to train over that data.
+And also more importantly, now more recently,
+nice thing is that, as Phil mentioned,
+the notion that a lot of these models
+don't require supervision, so they can absorb
+larger and larger datasets without much economic cost
+to the person training it.
+And one also, another aspect of Transformers
+is the way it was created was mainly
+as an alternative to recurrent networks.
+And the reason for that is because,
+as you see in the left arrow, I mentioned hardware,
+and one of the things about Transformers
+is that they're much more parallelizable
+on GPUs than a recurrent network is.
+And they run much more better on like,
+stupidly parallel software than a recurrent network does,
+and that's why they become very popular also
+is because the parallelization of them
+is much easier than other sequence models.
+One comment if I may make, how I view this.
+Like, I feel when you go to Transformers,
+just by introducing the idea of attention dynamically
+handled by the data, you kind of have,
+I don't, it's an overstatement,
+but you know, as general architecture as you can have,
+kind of like, you know, you have really powerful architecture
+and now to train it, you need a lot of data,
+and this is really where we are now.
+And more data does better just because the architecture
+is extremely general, much more than convolutional,
+as you said.
+So I don't know if there will be any other
+fancy architecture that will be more general.
+We've made two comments on that.
+One is, they are lacking in one thing,
+which is when vanilla Transformers don't have memory,
+they don't have feedback connections,
+and so they're not doing complete
+in the same way that an RNN is.
+Of course, people are adding memory
+and recurrence to Transformers,
+but the, still the majority of them don't have that.
+So that's like, actually, I think a big limitation.
+They don't have memory.
+And then two is, yeah.
+You know, eventually lookup tables will perform best,
+or you know, nearest neighbor will perform best
+because the limit of infinite data does work,
+and we don't have these working the limit of infinite data.
+Yeah, I agree, it's not surprising
+that you need less traction with more data.
+Brian, you were saying like there's choices to be made
+for if we're interested in models of brain systems.
+So the question is like, what are we interested in
+in terms of if these architectures become less biased
+towards being structurally more relevant to neuroscience,
+but just being more task-relevant to neuroscience?
+Like, are we going to be stuck at some level
+of understanding that's only functional?
+What makes them structurally that's relevant?
+That's sort of why I was asking these kind
+of wait questions, right?
+Like, why do you say that?
+Well, I don't, yeah.
+So I think the tricky part is like,
+I think because things work well,
+people will find ways to say
+that they're more structurally relevant.
+I don't know if Transformers are more structurally relevant
+than comp nets.
+Like obviously there's Fukushima, you know,
+Neocognitron, which is inspired by neuroscience,
+but attention themselves is never inspired by,
+always Transformers was never inspired by neuroscience.
+So I don't know if they're actually more
+neuroscience friendly, I guess,
+in the terms of similarity,
+but I think what the bigger picture is
+that they're going to be more and more generic,
+and they're going to take less inspiration
+from structural biases that we know about necessarily,
+until, you know, Paul mentioned the idea of like,
+you know, recurrence and, you know,
+feedback and those things become more,
+because like, actually,
+one thing that's interesting is that like,
+there hasn't been much,
+I mean, people have proposed these architectures
+and they do work,
+but people aren't really using
+feedback versions of Transformers,
+mainly because there's no recurrent nature to them.
+So for example,
+all of these things are still fee-forward architectures,
+that's still processed from the bottom up.
+But I think the divergence is going to be like,
+are we going to be interested in the same models
+that the AI and machine learning committees
+are going to be interested in?
+Are we going to be interested in specific models
+that work on neuroscience,
+but don't necessarily have a functional performance
+equivalence to what these models have?
+One question I have for the neuroscientists in the room is,
+what is the scale of data that the human brain is trained on
+when they reach adulthood?
+And my rough estimate or understanding is it's similar
+to what the biggest Transformers are currently trained on,
+or a little bit smaller than that,
+but much more data than continents were trained on.
+And so all this stuff about how,
+in which data regime do you get what kinds of performance?
+Well, the data regime that seems most relevant
+to neuroscience, to me,
+seems more like this Transformer regime.
+But I don't know if that's true.
+Like how many images do humans see
+compared to these models?
+It's not true for text.
+Text, I think they're trained on much more data.
+Yeah, but for images.
+You would not possibly read everything on the internet.
+Yeah.
+But there was a paper for thing,
+I've trained a rankings group recently
+that showed that even if you train a GPT-2
+on a 10-year-old amount of text data,
+it does explain fMRI responses
+almost as well as even having a lot more data.
+It's because fMRI is bad.
+Oh.
+So I think it's training a Transformer
+around 10 million tokens,
+which is like what a child would be exposed to
+as the age of 10,
+while like most Transformers are trained
+in like formation of billions of tokens.
+And like, yeah, it's good except for my data.
+I don't need to worry about them.
+But yeah, fMRI has its own limitations.
+But there's an assumption under this question,
+which is like, are we actually interested
+in models of the system in the adult state
+or are we interested in models
+of how the system gets to be in the adult state?
+Those are not the same question, right?
+So there may be a shift here between models
+that are like, and you sort of called it out,
+like, hey, we can,
+instead of us having to hand design them in,
+this is the bitter lesson version,
+we'll just lean on the data with a general flexible thing
+and let the data push it
+as long as our compute can handle that.
+We have enough data.
+And I think the question you were asking,
+that's sort of interesting to us.
+Some of us is, does that end state,
+which of those end states looks more like the adult
+and the state that's agnostic to whether,
+neither of them probably followed the same biology path,
+but just even in that assumption state,
+what is the state of affairs?
+I don't think we know what the state of affairs is,
+visual Transformers relative to comets on alignments
+with even visual processing.
+I mean, somebody was asking here about like,
+somebody who was asking about similarity,
+maybe that was you.
+And then, because also at the neural level,
+that also requires mapping assumptions
+that, and they get more complicated
+with the Transformers, right?
+But behaviorally, it sounds like,
+in Gary's paper you were pointing out,
+like there's some maybe better alignment,
+but I don't know how they're compared
+against the latest, you know, AT trains, you know, comets.
+You know, it's okay.
+Yeah, I don't know about,
+I think those stories haven't been done to my knowledge,
+of like actual alignment with neural recordings.
+And of course that, I'm sure people here will do that.
+But alignment in terms of functional capabilities
+does seem quite a bit better,
+just anecdotally to me,
+because, okay, confidence, what can they do?
+And what's been demonstrated
+with the confidence of 10 years ago,
+classify 1,000 animals, cats and dogs,
+and image categories, what can trans,
+well, sure, you can make confidence that grow bigger,
+but the current generation of the best models
+are these transformers, like a clip,
+but of course there's a clip, non-transformers,
+let's just say clip,
+and that seems much closer to the functionality
+of the human visual system,
+that you can recognize millions of categories,
+or way more than thousands of categories,
+and you can recognize compositions of categories.
+You can type in a red ball,
+and have, you know, recognize the red ball,
+and just see one example of that.
+And these networks are getting to that point,
+so at the kind of psychophysical level,
+I think they're getting closer.
+I don't know about the neural embedding level.
+So something that I'd like to share is that
+there was one paper that me and William McCall
+of the group that we submitted to NERBs.
+It actually got rejected, but there was one about,
+and we just submitted ICLR about this transformer model
+that achieved state-of-the-art in brain score for area B4,
+which is kind of interesting,
+because we went to the brain score competition
+at the beginning of this year,
+like just hoping to participate,
+and all of a sudden William trained this transformer.
+It was a dual stream transformer
+with adversarial training and rotations,
+and we just like broke the record in V4 unexpectedly,
+and wrote a paper about that.
+In any case, what I think was interesting is that
+the same model, exact same architecture,
+if you trained it another way,
+just classical SGD, ImageNet,
+no fancy augmentations, adversarial perturbations,
+the score wasn't that great.
+So I wonder, just in general,
+should we also just be thinking about transformer model
+or the interaction of transformer models
+plus any type of training regime,
+or maybe a fancier loss function
+that we haven't even conceived?
+And suppose we do hit like the explain variance
+or one correlation in brain score for IT,
+like how do we even reverse engineer from that, right?
+Cause the model is just so big.
+I'm saying playing devil's advocate on my own work, right?
+Like the model is so big,
+like how do we even go back?
+And it's an open question,
+you know, just I don't know if anyone has any ideas or...
+Anything else?
+I mean, I think one of the things that I think we often forget
+is that a model isn't just its architecture,
+like, you know, the slide before,
+a model is also data.
+And once it's interacted with data,
+we have to understand data now too,
+to understand what that model is doing.
+We can't just understand the architecture.
+And I think as these models become,
+or these architectures become more generic,
+data is going to play a larger and larger role.
+And we're kind of back to now,
+trying to understand data now,
+and understanding what the architecture is.
+And I think that's,
+I don't know if that's easier or harder.
+But also the message is, you know,
+for the last 10 years until Transformers came,
+like three or four years ago,
+I think the success stories in machine learning
+was convolutional networks.
+There was one architecture.
+Now there are several.
+And so we have quite a few options.
+And, you know, they all perform pretty well.
+That's right.
+And I think if you just compare functions,
+input output, or while they fit the neurons,
+you'll find they're all doing okay.
+So you'll need a lot of other constraints,
+which means what can be implemented
+by neurons and synapses,
+and what cannot, or very difficult to see how.
+Yeah, I agree, and I gave this guest lecture
+in Tommy and Brian's class.
+And I was calling it the Anna Karenina conjecture
+that like as systems get more and more intelligent,
+they kind of converge on the same representations,
+abstractions, models, and so forth,
+which other people have put forth.
+And I think it's kind of the same here.
+I don't actually think the difference
+between transformers and components and MLPs
+is that dramatic.
+I think it's more, as you get more and more data,
+and you optimize more and more toward success
+as some objective, the models will converge.
+Well, that's one way.
+But the other way is that, you know,
+what I said that I'm meeting a few weeks ago,
+it could be like flight, you know.
+Yeah, you have a model of a bird,
+but that's not really good for everything.
+What is important is to understand
+the principles of aerodynamics,
+then you can understand how birds fly
+and how to build airplanes and other things.
+And maybe how fly flies, which is different from birds.
+Because aerodynamics involved is different.
+So I think principles are much more important
+than the specific implementations,
+which can be quite different.
+And the question is, what are the principles here?
+Yeah, and I think there are similar principles.
+I think all of these four pictures are like just reweighting
+at the same few ingredients.
+Factorization is in all of them.
+Hierarchy is in all of them, right?
+Like, I don't know.
+And even in transformers and confidence,
+like transformers can be rewritten as 90% convolution
+and just a few little layers that are attention.
+Like if you look at the actual operations,
+almost every operation is a convolution
+in the sense of being a one by one,
+chop up the signal into patches
+and process each one independently and identically.
+Yeah, so I think the principles
+are going to turn out to be very similar.
+And the question is,
+which principles should we care about now,
+given this kind of heterogeneity and architecture,
+but similarity and functional performance?
+Because I think one of the things that it becomes easier
+if the community like has something they cannot do,
+whether it be like, you know, to fly,
+I guess for example, a flight,
+which is like, how do we achieve something
+that we can't currently do right now?
+I think the general spirit of the machine and committee
+is that, oh, we're done.
+We can just keep making these models bigger
+and keep doing this and we'll be fine.
+But I don't think that's true.
+But right now it seems like the spirit is in that direction
+and that's why we're kind of revalidating,
+oh, of course this must be like the brain.
+Of course this is like what we care about.
+Of course, all these kind of back explanations are working.
+But once we hit a wall,
+I feel like then we know what's wrong and what's correct.
+Otherwise, I guess it becomes kind of hard to tell right now.
+The topic of like data efficiency.
+This might have an obvious answer,
+but like I was wondering if when you have multimodal data,
+whether like learning becomes a lot more efficient
+if you have like explicit information from visuals,
+the experts of like texts,
+that like maybe our captions associated with the image
+or something versus like two experts of just,
+text data and then you.
+I don't know how well those things have been estimated,
+but the language vision models are a lot better
+on certain benchmarks than the vision only models.
+And it does seem like language must be like
+incredibly valuable per word.
+There's a lot more information than per pixel.
+So it seems like a lot of the recent success
+is just leveraging language, at least in computer vision.
+Same with robotics, a few other areas.
+I think what made Clip a lot more,
+at least from that psychophysics experiment
+from Garrus et al,
+a lot more like powerful for their results
+was the fact that Clip was trained on classification,
+but on caption similarity matching.
+So matching to a text caption,
+which has a lot more information in the caption
+than just a single label for this entire image.
+Like caption can tell you,
+things about geometry,
+it tells you what things on the left,
+what things included,
+what thing season it is or what time it is.
+Like it tells you a lot more information
+than a single word would be to image net class.
+Another, okay, this is a little anecdotal,
+but what I've heard is that for training diffusion models,
+if you train them without language,
+just unconditional diffusion model,
+generative model of imagery,
+it's really expensive.
+And we all thought like, okay,
+we're not gonna get into that game,
+it's not for us, it's for Google.
+But if you train them text conditional,
+they're actually much,
+according to the students I've talked to,
+they train much faster
+because the text conditional models,
+the text gives you so much leverage.
+And so they said that, no, no,
+we can train text conditional,
+like dolly type models, stable diffusion,
+those things are within the budget of MIT.
+How do you do that to train conditional?
+Because you have to have text image pairs,
+see if a lot,
+this is a huge source of supervision there,
+as opposed to just random images.
+And if you have that,
+then you're in like the hundreds of thousands of dollars
+of range to train one of those big models,
+as opposed to the tens of millions of dollars range.
+This is anecdotal,
+the students are saying right now,
+they might be just trying to get some GPUs,
+I'm not sure.
+By the way, address a question to both of you,
+but an important feature of Transformers
+compared to previous networks
+is the fact that you don't have to worry about labeling,
+when you use text, right?
+Yeah.
+Well, I think that's the issue about
+the definition of supervision,
+which is like,
+I never found a consistent definition
+of what a supervised task is,
+versus unsupervised one, besides economic cost.
+Like how much did you spend to acquire this data?
+It seems to be the only consistent label.
+Well, but if you speak about neuroscience,
+it's not only cost, right?
+Right, but then like, I think,
+yeah, this is another divergence
+then between two communities, right?
+Which is like,
+but the real problem is the brain,
+come on, everything else is.
+Well, more questions.
+I'm happy to keep chatting much
+for when we're supposed to.
+Dan.
+I think we want for quite some time,
+we can adjourn to the next iteration,
+sometime in the next few weeks.
+Okay, thank you.
+Thank you.
+Thank you.
+Thank you.

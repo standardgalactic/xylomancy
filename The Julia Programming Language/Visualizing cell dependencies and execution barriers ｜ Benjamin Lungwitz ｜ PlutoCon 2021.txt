@@ -1,0 +1,343 @@
+Hello, I'm Benjamin Lungwitz.
+I want to talk about today about cell dependencies
+and execution barriers.
+This is now a talk about technical things of Pluto itself.
+And just if you want to reproduce this notebook,
+please be aware that it's currently not
+working with the standard Pluto version,
+but you need to take the Pluto code from this pull request,
+which is linked here, because it's
+using some experimental features, which
+are not inside the main branch of Pluto or the release
+branch yet.
+The motivation for these features is reactivity is great.
+There's no hidden states in your notebook,
+which could introduce some bugs or non reproducible behavior.
+For that, I could really recommend
+this slide of the talk of Joel Krüß.
+I don't like notebooks.
+And when you know Pluto and you compare the griefs
+he has with notebooks, especially this talk is
+based about Jupiter notebooks, then you
+will see that most of the griefs he has
+are not present in Pluto, because Pluto has reactivity,
+has no hidden states, and is working perfectly
+with version control systems, because the notebooks are just
+Julia files.
+And also, what we've seen, what is practically used
+in every talk now, when you change a variable slider,
+whatever, then all cells are automatically
+updated, which is really, really good,
+because it's probably the easiest way I know
+to build a GUI for some visualization.
+And there are lots of more reasons you probably know,
+because you're here.
+But there's one thing.
+Why is my 10 minute long calculation
+cell executed all over again?
+I have one cell, which does, or a few cells, which
+do really hard computational work,
+and which should only be updated in very rarely
+in certain circumstances.
+But due to whatever reasons, it's all updated,
+and my nice reactivity is gone.
+That happens to me quite sometimes,
+and maybe also to you, or quite probably also to you,
+when you're using Pluto a lot.
+That has, I would say, in my opinion,
+that comes down to two things.
+The first is that dependencies are not always obvious.
+That means it's very often it's clear which cell depends
+on which, but not always.
+And sometimes dependencies could even be existential,
+like when you have a typo in a function,
+and you're referring to a global variable
+instead of a function parameter or something like that.
+And then it's, well, a Julia code,
+but reactivity could be different than you expect.
+And the second thing, maybe you don't
+want reactivity for that specific cell, which takes a long.
+Maybe you want to first do, to update three input sliders,
+and only if you're finished updating these three input
+sliders, then you want to this long-running cell to execute.
+Yeah, this principle would be possible in the moment
+to protect it with the long-running cell,
+with a checkbox or something like that.
+But it's, yeah, this is quite tedious.
+The question is, how could we improve these things?
+For the first point, we could or we
+should make it visible which cell depends on what.
+This is called here cell dependencies
+and addressed in this now merged,
+and also released in Pluto 0.14.1, pull request 891.
+And the second is, we could make mark specific cells,
+not to be updated automatically.
+This is this execution barrier, this pull
+experimental work in progress, pull request 985.
+OK, cell dependencies, what does it mean?
+That it's, in principle, available.
+That means that we now have all the information
+available in the front end.
+That means we could show cell dependencies in the,
+both in the Pluto JavaScript front end
+and in JavaScript code in Pluto cells itself.
+What we unfortunately don't have yet
+is an implemented GUI for that.
+That means, yeah, we are still thinking
+about how to show it in a GUI, and also someone
+needs to implement that.
+And maybe this is something where you can help.
+Their help would be definitely much appreciated.
+OK, how do we get to dependencies in the front end?
+One, we can, you probably know the debugging console
+of a browser in Chrome, you get it with F12.
+Like, one thing we want to know is the execution order.
+That means your cells are, of course,
+not shown in the order they are executed.
+When I just execute that simple JavaScript,
+then you get here, OK, it's a very, very long list.
+But this is, in the end, the order these cells are executed.
+And each cell has a hash, no, sorry, not a UUID.
+And this is the order of the cells which are executed.
+This one information we now can get in the front end.
+And the second, maybe more interesting,
+is our cell dependencies.
+For cell dependencies, we are saying
+we have upstream and downstream dependencies.
+Upstream dependencies are all cells where the current cell
+depends on.
+And downstream dependencies are all cells
+which depend on the current cell.
+That means the current cell is re-evaluated
+when an upstream dependency changes.
+And if the current cell changes, then all downstream dependencies
+are re-evaluated.
+OK, there are in the cell dependencies structure,
+which we can show here.
+And this looks like this.
+That means we have here a list of cells.
+We can just put one cell.
+OK, it's a little bit boring.
+Maybe this one, for example, depends
+on the multiplication function and on the sleep
+function, which are not, which are Pluto's standard library.
+And it depends on the variable to zoom in on the right.
+So click on the developer console and then control plus
+to zoom in.
+OK, cool.
+OK, let's start this one.
+Yeah, OK.
+Oh, it's not getting.
+Sorry, I have to group.
+I'll give it one second.
+Is it better now?
+This is perfect.
+Thank you.
+OK, welcome.
+Where was I?
+Yeah, OK, we have the variable y, which is defined in that cell.
+Downstream, we see that the variable u
+depends on that cell.
+OK, this is something we could get programmatically.
+Like, we could write a small JavaScript, which is,
+I will just hide the development console.
+Then we could have a small JavaScript, which
+looks like that, which fetches all the data
+and then creates codes, which we couldn't put into a new mel
+diagram, which we could use to illustrate these cell
+dependencies.
+These are the shorted cell hashes.
+These are the variables, and these are dependencies.
+Like, this one defines x, x is taken by these two cells.
+This cell defines y, which is taken by these three cells.
+And this one defines then set, which is taken by this cell.
+This would be one possibility how
+to illustrate cell dependencies in a Pluto cell.
+OK, we can fetch it in the front end in the development console
+and in Pluto cells, but we rather wanted
+to have it some kind of integrated into Pluto itself.
+Is that possible?
+What I will just show you is how we can get that.
+This would be a very, very ugly mock UI.
+So could you also zoom in Visual Studio Codes?
+It's also Control Plus, I think.
+Yeah, on second, I'll just hide that here,
+and we can see a little bit better.
+I hope you can see it.
+Would I just zoom in?
+I think the text is too small.
+A little more?
+OK.
+Control Plus, it's zooming.
+OK, Control Plus.
+OK, now it's better.
+Sorry.
+OK, then I can hide that one, and now it's hopefully OK.
+OK, what we can do is we can comment out or put that part.
+This is essentially when we put that code in, just save it,
+just modify here the Pluto, and just reload the page here.
+And then we can see something happen.
+These ugly lists are appearing over each cell.
+These show you the upstream dependencies of each cell.
+Of course, these are only macros.
+When we scroll down a bit to the interesting demo
+where there's actually some kind of logic
+where there are some cells which depend on each other,
+then you, for example, can see that this cell depends
+on multiplication and on x, and now click on x,
+jumping to the cell which defines x.
+This would be just a very, very simple and very, very ugly
+method to display the cell dependencies directly in Pluto.
+Another way would be to, which is at least as ugly,
+is just showing more or less the raw data of the dependencies.
+Again, I just modify the JavaScript code of Pluto
+itself in Visual Studio Code, and then I just reload.
+I don't need to restart anything.
+I just reload the page in the browser,
+and now I see for every cell information,
+like we've seen in the debug console, we see the cell ID,
+we see the upstream dependencies and the downstream dependencies
+and a number called cell precedence.
+The cell precedence is used so that things
+like using statements are executed first.
+We can also see it.
+There is somewhere using.
+Where is it?
+Yeah.
+Somewhere is using.
+And this should be executed first.
+OK, I don't see my using.
+OK, anyhow, using Pluto UI has a cell precedence of six.
+That means this one is executed before the other cells.
+And again, we see this cell here, for example,
+this has the upstream dependency on the built-in function sleep.
+And multiplication and on the variable x,
+which is defined on that cell.
+And the test downstream dependencies,
+that means what depends on that cell are these cells, which
+are all dependent on the variable y, which
+is defined in that cell.
+That means you could, of course, define multiple variables
+in a single cell, and they all depend on them.
+OK, so let's switch that off again
+and come to the second part, namely the execution barrier.
+This is, I would say, yeah, a little bit nicer.
+With what I just said, the use phase
+is to somehow protect computationally intensive cells
+or to have some step-by-step computations.
+And you can actually activate the execution barrier
+in the moment by right-click on that run button here.
+And for example, this cell takes quite long.
+It takes, as a sleep, takes two seconds.
+When I now right-click on the run, this cell is grayed out.
+That means if I now change x, then this cell
+is not re-evaluated again.
+And all cells, which are dependent on this cell,
+either directly or indirectly, are now grayed out
+because they are not updated.
+And I can right-click on that run button again.
+And then this cell is re-evaluated and all its dependencies.
+And everything is correct.
+And the notebook state is always guaranteed to be consistent.
+I can also deactivate, of course, other cells or multiple cells.
+When I now activate that one, then this one's executed.
+And I can also activate them back again.
+And the execution barriers are also
+stored in the notebook file.
+That means somewhere here is now, ah, yeah, here.
+Here you see this is an execution barrier.
+When this is active, then it is saved in the notebook
+file.
+That means if you open the notebook again,
+then the execution barrier is persistent.
+When I remove it again, it's also removed in the notebook.jl file.
+And it's backboard-compatible because when
+you open that in an older Pluto version
+without execution barrier, it's just the command
+in the first line of a cell.
+OK.
+Then any questions?
+Yes, this is awesome.
+So Benjamin has been working on this very recently.
+And we talked a lot about this feature before.
+But it's only in the past weeks that it's coming to life.
+I know that Paniottis love seeing this.
+It's really cool.
+And also supported me very.
+Yeah, thank you to you two for supporting me with that.
+Yeah, of course.
+Yeah, so I think maybe one thing of the Pluto con
+is that we want to inspire people who
+would like to contribute to Pluto to do so and to reach out
+to us.
+Maybe Benjamin, you could say something about what
+you think it would be like for someone
+to work on this feature, like what would that look like?
+Yeah, I think what's obviously in a very, very early stage
+is that visualization of cell dependencies.
+This is on one hand because my JavaScript knowledge
+is very limited.
+And I'm mostly working on the back end side.
+On the other hand, also, I think we should first develop
+a very good idea how to do that.
+How do we want to visualize the cell dependencies?
+There's an observable, it's somehow
+showing as lines besides the cells.
+That would be one possibility.
+Or yeah, it's different possibilities.
+But yeah, there are definitely inputs
+would be very helpful.
+How could we do that?
+What would be nice and not too obstructive and intuitive
+to do that in Pluto?
+And then, of course, it also has to be implemented
+on the front end side.
+Right.
+It's possible to reiterate this cell dependency information
+since it's available inside our front end.
+We just don't use it for anything yet.
+But if you react, it's part of the state.
+So in your cell, you're free to fork Pluto
+and do something with this information.
+And please tell us what you did.
+OK, let me just mention that the YouTube friends
+have posted that this is a game changer
+and it looks very handy.
+So it looks like people are seeing the value we're
+getting here.
+Also, an idea is to draw wires.
+Well, I would say wires are great.
+And this is what Excel does in the function trace.
+The only thing is that you have to think
+how to do it correctly.
+I mean, the layout here is linear.
+So it needs some thinking, some designing.
+And we are very happy to do this designing with all of you
+people.
+You can join us at our Thursday calls.
+And we can discuss about ideas about how this can work.
+You can try things out and we can discuss them.
+There are so many ways this can work.
+Some of them are better than others.
+Let's discuss.
+It's very fun to have these nice problems.
+Yeah, very happy to discuss.
+And yes, I definitely welcome.
+Yeah, so if people want to get started,
+go to our GitHub, look around at our pull requests.
+There is a little guide on how to develop Pluto,
+especially front-end developers, which is most of what we do,
+is quite easy.
+You fork and then you can just edit the source code
+and refresh.
+So just try it out.
+It's cool.
+It's fun.
+All right, thank you again, Benjamin.
+This is an awesome new feature.
+We'd love to see more of it.
+And we'll go on to, I think, our final talk
+by Nathan Daly, who is also making a reactive notebook.
+Thank you, Benjamin.
+Thank you.
+Goodbye.

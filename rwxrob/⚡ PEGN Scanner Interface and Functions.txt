@@ -1,0 +1,1100 @@
+Go.
+So, lots of changes if you've been following
+the keg and the peg and stuff I've been doing
+over the years.
+I went to bed last night with my head working
+on a bunch of problems.
+I woke up and I just had an idea I had to finish.
+And I've been working on it straight since,
+God, I don't know, like eight o'clock this morning.
+It's somewhat related to work.
+Don't worry, I'll make up the work time tomorrow
+in the next day and the next day.
+But this is really important because it's so key
+to everything else that I'm doing.
+So let me try to stick with the highlights
+and hell, why don't I actually make a,
+use my YouTube thing.
+We're gonna make a directory for this.
+We'll call it updates on peg.
+Actually, now let's call it something more specific
+than let's say,
+peg in scanner interface and functions.
+So what I've done
+is I mentioned the other day that
+interface and functions.
+Did I do that right?
+Peg and scanner interface and functions.
+Yeah, I mean, and she'll have a tool that do all that.
+So, okay, so,
+so my peg in scanner implementation now conforms,
+now conforms to a common peg in not scanner interface
+so that other scanners can be implemented.
+My people that conform to it.
+So the reason that I made an interface,
+why an interface so that the library of scanner functions
+of scan functions can be interchangeable
+with different scanner implementations.
+And if that's, that is the main reason.
+And let me show you what I mean by that.
+So if you go to, so this is all, by the way,
+this is all like, I should probably put in the thing.
+I'll put it related in here.
+So here's the pages that we're going to.
+HTTP, github.com, rdxrub, peg in, peg in dash spec.
+And that's pretty much it.
+If you go there, you can find everything.
+It used to be that I had it all over the place.
+So I used to have, there's this, there's peg in dot dev,
+but that's kind of, it's kind of older.
+But a little older and out of date.
+So it's still there.
+I'm reforming the spec as we go.
+So we want, okay, so let me, let me show you why.
+So if we go to the peg in scanner itself here, right?
+So I mean, what is the end goal?
+The end goal is for us to be able
+to parse any kind of language.
+And we started with base ML or base MD.
+Now you'll remember I was basic MD.
+I was writing a basic MD scanner.
+And here is the, so this was all brought about
+because of this.
+So I'm just going to put all of this precipitated
+by the basic, basic MD parser that I was right.
+I mean, a scanner parser AST.
+So I started writing that last night
+and that was all good and everything.
+But it became clear to me that there,
+some of these functions, I'm going to show you one
+is some of these functions that I have written.
+I have written them so many times.
+I swear, I have written, so like, I don't know how many,
+so I didn't thank God I didn't post it to you Tim.
+I'm not going to force it on you.
+But I did, I must have written a, you know,
+a white space or an end of line parser,
+probably a dozen times, different ways.
+Because I don't have, I haven't had a standardized way
+to abstract the scanner stuff in a way
+that didn't require rewriting a scanner.
+I mean, I've written probably,
+including an extremely complicated one.
+If you go back in my YouTube videos,
+there's something I was writing.
+It was called Go Compatible Pegin Expressions.
+And it was actually Go code that could be passed
+into symbols that could be passed
+into another function that would parse it
+and then it would, you know, it would do its thing.
+It was pretty cool, but every time I've written one
+and then the most recent iteration
+of my scanner that I wrote,
+I just ripped all that crap out.
+I was like, I want the ultimate and minimal.
+And thank God I did that
+because I actually ended up coming up with,
+so here's an implementation of the new scanner interface
+that anybody can write.
+And all it has is, I mean, some of this stuff is internal,
+but you know, let me show you the interface first actually.
+So let's start with the interface.
+So the scanner interface, it's in my types.
+The scanner interface is just a scanner.
+It's a rune scanner that is aware of the beginning
+and ending of each rune that it scans,
+which can be more than one byte, right?
+So people know this.
+So you can imagine a cursor going, you know,
+through the screen like this,
+like with an emoji on there and sometimes it's a thing.
+So in fact, the scanner has this idea of a rune cursor.
+And I used, I mean, I fought with myself
+about whether to call it cursor or not.
+I did end up keeping a concept of cursor here,
+but I want to find I had it embedded and everything.
+I don't want to get into it,
+but so ultimately a scanner as it's a bytes buffer.
+And this is another reason I put this in the peg.
+So this thing, all of this used to be
+under artifacts Rob slash scan.
+I had my own rune scanner in there,
+but I realized, and I'm going to put this in my conclusions.
+So I realized that my RDBX Rob scan
+was actually very peg specific.
+And what I mean by that is that,
+so a couple of really important specific assumptions
+are made by peg, peg assumes that you have infinite memory,
+which is, you know, the polar opposite of parsing
+when you're using anything that you would get out
+of the dragon book or computer science class.
+And so, I mean, that's a huge thing.
+So if someone comes across my scanner,
+they're going to say, oh, a scanner, cool, you know,
+they'll make think it's a finite automata, you know,
+single look ahead kind of scanner.
+And they, they're like, what the hell is this thing?
+It just flipped my whole data source, you know,
+byte buffer and into memory.
+I mean, that's like an unorthodox thing to do.
+That's a sacrilege in this.
+You know what, that's what peg does.
+So, so I realized that the scanner that I have built
+and been using the most recent one,
+which I've used all over the place,
+I'm using it all over the place.
+I'm using it in bonsai and everything is actually,
+in fact, I think I just broke bonsai by, no, I didn't.
+Bonsai's got its own scanner, nevermind.
+Anyway, so I went ahead and implement it.
+And I actually also deprecated the other one
+by, because I moved the entire scanner
+into the Pagan package or the Pagan module.
+Because why?
+Because it's Pagan centric.
+It's Pagan centric, because a Pagan centric scanner,
+you can't even use it unless you load up a buffer.
+And, you know, that's completely unheard of in other circles.
+So that was the first major thing.
+That did mean, however, though,
+that the other one that I have,
+which I'm leaving out there,
+because I'm pretty sure I have some dependencies
+on this scanner.
+And it's also listed in my awesome go list and things.
+And I have some pretty intense breaking changes
+that I added to this since version 10,
+because I changed some of the internal references
+and everything.
+And the more I got changing,
+the more I, see right here,
+it says fulfills Pagan's scanner face.
+It actually doesn't do that anymore.
+I broke that when I was doing the move.
+And then this is the most accurate thing.
+So I've moved this entire scanner
+over to RTX ROM Pagan.
+And it is, you know, implemented as, under the types.
+Good night.
+So it's implemented in the type here.
+Under types, you can see the scanner is here.
+It gives you the cursor type and a scanner type.
+And you can look it up.
+And it has a mark and a go to and a scan and a finish.
+I mean, nothing fancy there, right?
+And then I implemented, they included, you know,
+a reference implementation of the scanner
+that I use for the Pagan stuff.
+And this gets me to where I was going with base,
+basic marked, my basic markdown parser.
+So, so here we have Pagan.
+We have, so this is, this is the exact code
+that was in this other place that's just been moved
+and cleaned up.
+And I mean, really cleaned up and had some,
+some other things added to it.
+For example, the fulfillment of the interface
+so that it can be replaced with something else
+at any time.
+And let me, let me talk to you about why I decided
+to make it an interface again.
+I mean, I started talking about that.
+But if you go to, so here's the interface,
+but as I was working on basic MD,
+I started realizing that parsing end of line
+and end of block and paragraphs and, you know,
+all of these things that are listed in Pagan
+are things that I need to do all the time.
+In fact, I just added in paragraph, right?
+These are things that I already need all the time.
+And I'm like, I've always have intended to write,
+I mean, I've been really kind of hung up
+on creating a code generator for all other stuff
+that so you write Pagan and you end up
+with different types of code, right?
+But to be more practical,
+I've started realizing all I really need to do
+is write a scanner function for each of these
+and then reuse them.
+And then the ones that I, that aren't in Pagan
+that are specific to basic markdown
+or whatever I'm writing, keg or whatever,
+I can actually write those using exactly the same
+function signature.
+And I could even put them in a packages, you know,
+as a collection of first class functions
+because they all accept the scanner interface.
+And that is, you know, that is go interfaces
+shining the brightest, right?
+Because that's what you exactly
+what you want to do with it.
+So what does that mean?
+So I have the scanner implementation here.
+And I can, I actually chose to make this implementation
+fast and abstract so that if somebody chose to use it,
+they could use the direct references
+to the byte buffers and stuff like that
+so they could bypass the indirection
+from the interface method calls,
+which is the reason I didn't do it originally, right?
+If you look at the highest performance
+parsers out there,
+they do not have a lot of functional indirection, right?
+It's actually one of the biggest complaints I have
+about the current code generator for Pagan
+that Quint mostly made.
+And I last two years ago,
+is it has a ton of function indirection in it.
+And that's been something I've been kind of like
+irrationally hung up on.
+And I think I finally hit the middle of the road here.
+So this particular reference implementation,
+which is a part of Pagan comes with a struct
+that you can use directly if you want to,
+which I probably will do and really quick and dirty,
+I mean, not the quick and dirty stuff,
+I'll probably will use the abstractions
+because they're easier to remember
+and you can just swap them in and out.
+I don't need performance, right?
+But if I'm like really wanna make a low level,
+really intensely often, you know, parsed grammar,
+then I can go ahead and bypass the use of those things
+as long as I don't want to reuse any of the stuff
+I've already write in Pagan,
+which brought me to think, oh, damn, you know,
+let's say I make a, let's say I make a,
+here's my workflow, okay?
+So I imagine the workflow of making a grammar
+something like this, right?
+So in fact, this is even in a slide
+of Brian Ford, I was looking at Brian Ford's peg stuff
+and he has this in a slide about, you know,
+traditional thing, he used Lex and Yak and blah, blah, blah.
+And then, but, you know,
+the pragmatic way approach to doing parsing these days
+is to write a, you know, a generic kind of specification
+and then to write a recursive descent parser.
+It's the standard way, the practical way to do parsing.
+And let's say I wanna do that, right?
+So I wanna write a grammar,
+but I wanna write it quickly.
+Now, the quickest way to do it would be to do
+code generation with, you know, from peg in notation,
+which is something I still wanna do.
+That's nothing that Brian Ford ever wanted to do.
+Kind of wanted to get away from it
+because he realized it was just as fast
+to just write your own recursive descent functional parser
+and then be done with it.
+You don't have to deal with all the intricacies
+of code generation, not being exactly what you want.
+You just write it, right?
+And I'm kind of on board with that idea
+because, you know, it's quite a bit of work
+to get it to generate just the way you want to.
+And then which code generation method do you want?
+Do you want it to be highly efficient?
+Do you want it to be used functional
+so it can be easily maintained?
+Are you gonna rerun the generator every time?
+Is it just giving you the first version?
+And so at a certain point,
+you kind of come to the conclusion
+that probably the fastest way to create a parser
+is to just write the thing.
+Because then, you know, you're gonna be done.
+You're gonna be done with it
+and you're gonna be able to move on to other things.
+So, and that's kind of where I am.
+So, also realized a fastest way to develop a parser
+is to write, peg in, and then function,
+and then scanners, functions for recursive descent.
+I mean, it really is.
+So by the time, you know, you get all the thing,
+just writing the peg in itself is good.
+I mean, that kind of gets you thinking
+about how it's supposed to be implemented.
+But you're also not wrestling with peg in syntax and stuff
+in case you get it wrong.
+Now you should probably do that,
+but let's say you don't represent it perfectly in peg in.
+Who cares?
+The peg in is just there to help you understand
+what the parser is gonna, how it's gonna behave.
+And then you can, you know, compare it to that,
+just visually and get to your point.
+But you can get busy kind of writing your parser.
+So, but, you know, along those lines,
+assuming that you're gonna write a parser, right?
+You're gonna go ahead and write a parser.
+What are the obvious building blocks?
+I mean, code generation is awesome and everything,
+but what would be the other way to do this
+if you didn't have code generation?
+Well, it gets pretty obvious
+that it would be a standardized library of scan functions
+that you regularly reuse, right?
+And if you, as long as you make those export,
+you make those public, you can pull them in
+and you can tweak them and make them more efficient
+and other people can contribute their own.
+And you have, you know, you end up getting
+this ecosystem of scanners of, you know,
+because it's really, the scanners are really the secret.
+Because if you have a scanner, you can scan it.
+And if it scans successfully
+and you were to get a true at the end of that.
+I mean, and this is very hastily, right?
+If you get a true after that, you're done.
+You're under the next thing.
+If you don't get a true,
+then you're guaranteed that the scanner
+didn't do any advancement because it snapped back.
+And you're gonna see this all over in my implementation
+of functions, which I'll show you in a second.
+Because that is how you do this.
+And that is exactly how Brian Ford talks
+about it in his paper.
+It's like the difference between, you know,
+the traditional scanner and, you know,
+parser kind of approach.
+And this is that you can scan ahead as far as you want.
+And you can keep track of how many matches you have.
+So you can be very greedy if you want.
+And say, okay, so did I find anything?
+Yes, I found like 10 of them.
+And then I keep scanning and like, oh, hey, well, okay,
+I stopped.
+So then I like roll back to the last one that was successful.
+Or if there were none that were successful,
+I roll back the scanner all the way to the beginning.
+So this idea of snapping the scanner back
+and moving it around a thing,
+that's a very fundamental part
+of the PEG architectural approach.
+Because you have memory.
+You have memory that you can fly around in.
+And very quickly, by the way, I mean, you know,
+moving pointers around in memory is crazy, crazy fast.
+And you've only had to do the one load.
+And so, you know, all these things that are doing
+like single byte loads, in order to do that,
+you've already had to buffer your data at some point.
+So you've already had to do the buffering.
+So the thing that's cool about PEG is it assumes
+that you're just going to buffer all of that up front.
+And then you're going to break up your content
+into manageable chunks that fit within, you know,
+reasonable amount of memory
+that you're going to be parsing.
+You should put limitations in there and stuff.
+And that's a part of the grammar design,
+which is another reason that PEG is a fail
+because as wonderful as it is,
+it does not allow you to put limitations
+and constraints on this size, which is why I made PEG-in.
+So when I say things like,
+I only want, you know, two end of lines here,
+I can specify two end of lines.
+There's no way in the original PEG specification example
+to indicate amount, which I just think is crazy
+given the fact that regular expressions
+in ABNF have been doing it forever and ABNF,
+but PEG decided not to do that.
+So that's one of the reasons I made PEG-in
+because we clearly want the combination of those things.
+All right, so let me go back to here.
+So I went ahead and I implemented a white space function.
+Right now, I could have probably automated this,
+but let's look at what it looks like.
+So if we go into the PEG-in scan,
+and you're probably wondering,
+well, why did you name it scan?
+Because I wanted it to read well.
+So let me show you the examples here.
+See, these are gotestable examples and they are public.
+You'll remember maybe when I did basic MD
+that I kept a bunch of my scanning, not public.
+I was like, because I didn't want people
+to become dependent on my scanner functions, right?
+I mean, I'm just making a basic markdown part.
+So I don't want people to be including my thing
+because they want my specific implementations of these.
+And that's one of the reasons I started thinking,
+hmm, I should probably think more deeply
+about some of these scan functions
+that are going to be reusable.
+And I should probably put them somewhere
+where they could easily be reused by me and others.
+And that's what got me to do this.
+So I've created a convention called sum,
+which is just a nice, happy way.
+It's like, you know,
+and go, they have must and compile and things like that.
+So I created a convention where you put sum in front.
+These are all documenting the design considerations
+on the readme page, by the way.
+But sum means, you know, zero or more white space,
+or one or more white space.
+So if I have example sum, WS.
+So, and then the reason I named the sub package scan
+is so that we would get these wonderful readable lines here,
+scan dot sum white space, and then pass in the scanner.
+Now you might be asking, as I mean, many, many people
+will tell you that have done scanners
+that they implement the scanner as a class,
+which I think is a disastrously bad architectural decision
+because you cannot do anything with it at all
+until you expand the class.
+That is the primary reason that people
+like Jim Copeland and others hate
+class-based object-oriented programming.
+It is so concrete, you can never extend it,
+not without re-implementing the class or subclassing it.
+By doing it this way, I can use first-class functions.
+It's a very functional approach.
+I can use first-class functions if I want,
+I can use it from a package, whatever,
+because the scanner is an argument to the function.
+And so as long as the scanner fulfills the interface,
+this is why interfaces are king.
+This is why interfaces are part of solid,
+even in modern Java development.
+If you're not doing this, if you're writing a scanner,
+writing a class and extending the class
+with all of the different types
+and then having to do that every time,
+you're doing it wrong in my opinion
+because you're never gonna be able to extend that
+in any way that's gonna be reusable for anybody.
+And maybe you don't care about that.
+I do, I want it to be reusable.
+I wanna create, ultimately, I wanna build up
+hundreds or more scan functions
+that can be used with anything whatsoever
+that implements the scanner interface.
+And that's why interfaces are so amazing.
+So I pass this scanner interface, I say scan some WS
+and I get a true or false.
+So this prints out false
+because the first number is a one.
+Now I added a constructor,
+there's really not constructors in Go,
+but it's the closest word for it.
+And this takes an optional argument.
+Now constructors are very, very high-level,
+so they don't have to be performant, right?
+Especially since you're not gonna be buffering a lot.
+So I put an optional parameter or two on the constructor.
+If you pass in a string or a reader
+or a bytes, a buffer, any of those things,
+it will work and it will just slurp all of the thing
+into memory and then it will allow the scanner
+to work on that bytes buffer.
+And so then we do this to say,
+so you can see here, you see it was false
+that it's not currently the scan WS failed here.
+Because why?
+And you'll notice too that it didn't advance
+that it's not supposed to, that actually looks
+like a mistake, that might be a mistake.
+Let me check here.
+Oh, no, no, no, no.
+Okay, let's do this.
+Wait, what?
+Advanced to nothing at all output.
+Example sum WS.
+I think I might have a problem with this one.
+Anyway, it's supposed to, I just barely fixed these.
+That's why I wanna make sure it's okay.
+Sum WS.
+Is it not, isn't that working?
+I'm gonna go try something.
+Go test, run sum WS.
+Well, let's turn a trace on.
+Oh, this is cool.
+I finally got traced to working again.
+So trace, that'll turn trace on and when we run it,
+we should be able to see every step of the way.
+So the first call to scan,
+got it, that's what the first,
+that's every time scan gets called at printed.
+So scan, scan the one in and that shows us the,
+from between zero and one and then what's left
+in the buffer and there's a space.
+And then it shows we scanned a space
+and that was between one and two.
+It could be one and three, depending on the size
+of the rune and then as the buffer is empty.
+So that shows it's doing what we wanted to.
+I just was, oh, I know why.
+It's doing that because it's actually,
+because this actually did do some scanning
+and it did not reset.
+Actually, that's a mistake.
+That's a mistake.
+I need to fix this.
+This, because it didn't scan,
+it should not have advanced the buffer at all.
+It should have been,
+I'm glad I could do this.
+This is a nice catch.
+And again, this is just a bug in the scanner function
+only not the scanner itself.
+Trace is internal.
+Trace is a part of this scanner implementation.
+It's not part of the forced interface.
+No, it's not.
+You don't have to have a scanner in there.
+That's part of this scanner implementation.
+So, I don't wanna burden people
+with those kind of details.
+If they wanna do their own, they can, right?
+So, I mean, but yeah, you could extend that
+and do what you want with it.
+So this is actually wrong.
+This should have been x00
+and it should have been
+zero to zero
+and then it should have been a one here.
+That's what it should be.
+And then when you do the scan, it should go through.
+And then it should have been a one
+and a zero to one.
+And then that should have left us with a space
+and it should have been false
+and then it should have been true.
+This one should have probably printed true.
+Yeah, something might be wrong with that today.
+All right, so that's how it should look.
+So, that means there's a problem with my function,
+my scan function, which is what I was debugging before,
+but let me show you how to do this.
+So, there may actually be a problem with my mark
+and I'm hoping not to.
+I think that might be something wrong with my mark,
+which is relatively new.
+The point is, I don't know if you saw the functions
+I was writing yesterday,
+but these are way, way simpler, right?
+They just have to scan and check what the runes are
+and scan again and the idiom is the same
+no matter what.
+You take a bookmark to it at the beginning
+and you revert back to the bookmark
+if you didn't find anything, right?
+And you leave things as they are.
+Otherwise, you let the scanner happily proceed along
+and it's not like there's a lot of cache in there
+so that you'd have problems there.
+But yeah, I have a problem with this one.
+I got to come back to it.
+I can't see it right out of hand,
+but so this is actually,
+this is supposed to scan as much white space as possible.
+I think the problem is, I don't know,
+we might be getting ruined.
+I don't know, I'll have to go debug this one.
+But if I wanted to just debug this one too,
+I could also just do this.
+I could just do s.trace and turn on the tracing in here
+while I'm doing this debugging.
+I can put it there in the test either way.
+Oh, that's right, I forgot about that.
+Man, this is gonna be interesting.
+Yeah, because you just said,
+is that in the debug output?
+Interesting.
+Yeah, I just realized something
+because I locked down the interface
+and I'm gonna keep a bunch of stuff out of here
+that I'm not gonna be able to do because
+this expects a scanner interface
+and that means only things that are defined
+in the scanner interface can turn on.
+I wonder if we should make trace
+into the part of the interface.
+We should say you need to implement
+some form of activating trace.
+I don't think we should.
+I think we should leave that in the test stuff
+because people can set up their own test cases
+and then call it that way.
+I don't know, I thought about it for a second though.
+This is just as good, right?
+Having the trace up here.
+Because this is using a specific scanner
+that fulfills the interface
+and therefore it can have extra things in it like trace.
+The other one doesn't have anything
+and you know I'll show that at all.
+And it shouldn't, right?
+We don't, again, I wanna double check
+that everybody understands this.
+So we do not want people writing,
+Pagan or any
+scanners functions that are going to be doing fancy things
+that are not defined by the interface.
+Because if you do, then they won't work
+with interchangeably with other scanners.
+And that's not ideal, right?
+We wanna be able to have people write
+very highly optimized scanners however they want.
+I mean all of them obviously are gonna have the downside
+of having to call out to a function to do their thing
+but that's not too bad.
+But that way people can supplement the scanner
+that I have made or make their own or something like that.
+And they can share all of these scan functions
+with each other.
+And we can make libraries of scan functions
+that do different amazing things.
+So it's basically like creating a library
+of regular expressions.
+And if you look at the Pagan stuff that I've been doing,
+you can see that we've got a lot of functions to write.
+So over the next year or two,
+I'll be implementing individual scan functions
+for the different types of stuff
+that is included here and in our tokens.
+And yes, we're gonna have functions for things
+that are strictly static.
+And the reason is that is to keep everything functional
+because we need to be able to pass the scanner to it, right?
+If we didn't do that,
+we would have different kinds of dependencies.
+We would have dependencies on the Pagan
+like implementation to some degree, I think.
+And so that, I mean, it's not that much extra.
+Before I was like calling out to a function
+just to parse the references to the other functions.
+So there is, it's not gonna be any less performant
+than any of the other stuff.
+And that's really premature optimization.
+If somebody really, really, really wants
+that level of performance,
+they probably should write their own scanner
+and maybe just use some of the scan functions
+without it and not bibbed.
+So, but I will be writing like,
+I'll probably be auto-generating a bunch of go code
+to stand for each one of these scan functions
+and then they'll all be under scan dot whatever.
+So I'll be able to just on any project,
+just be able to import,
+artifacts.rub slash Pagan slash scan
+and I can get any and all of these that I want.
+And it's not that big actually
+because it's just text parsing, right?
+It seems big because it's a lot of code for us to write
+but most of it's gonna get inlined
+and the size of the package isn't gonna be too big.
+And then we get kind of like this regular expression
+engine that's on steroids
+because now we can just write our own
+recursive descent parsers as easily or if not easier
+than we could write complex rig X expressions.
+And that to me is kind of the holy grail
+because that's what I wanna do.
+I have like four or five grammars that I wanna finish
+that I'm kind of waiting on.
+And this is, that's where it leaves us.
+All right, so I need to come back and fix this white space one.
+Let's go back and look at one that maybe works better.
+So here we have, I put the Pagan line up here.
+So an end of the line is, you know,
+we scan the found Boolean stuff.
+We don't really need that.
+I could have just done a return right here
+and call it a day and not gotten all the way down here.
+And the reason I didn't do that initially
+is because I wanted to think about
+how this code could be auto-generated.
+But now that I'm looking at it,
+I am totally okay doing that.
+So, so we can just do a return true there.
+Here we can just do a return true.
+Yeah, and if we make it down this far,
+that means we didn't find it and we need to do that.
+So that, this is not hungry.
+If you're using something that's hungry,
+yeah, you might have a different problem, right?
+Because, you know, you need to,
+yeah, you need to,
+if you're having something that's like hungry and greedy,
+you need to like count all of the finds
+and you'll see that kind of thing happening over time.
+Oopsie, did I refer to found in here?
+Return false.
+So, I mean, that's a simplification we can do.
+Again, these are, I want these to be highly optimized.
+Another reason, by the way,
+that I think code generation is probably the wrong way to go.
+And the more I keep coming back to this,
+the more I think that hand crafting
+or recursive descent parser
+from a huge library of existing scanners,
+scan functions is a better idea
+because of this problem that you just saw.
+The optimization I just made is the kind of thing
+that would take an extreme amount of intelligence
+in the code to be able to write it in a code generator.
+Whereas if I'm just writing the parser,
+I can do tricks and stuff inside of my functional parser
+to make it really, really optimized
+for this particular scenario, you know?
+And I can do things that couldn't be done
+if I were to just degeneratize the generation
+of this code from the syntax.
+So, what I'm saying, and I'm gonna put this in here,
+is that I'm kind of souring on the idea of code generation.
+So, I'm souring on the idea of Pagan
+to code generation
+because it's removing, you know,
+it prevents, it precludes optimizations
+that only a person could do.
+And, you know, people will definitely do this.
+And if you're gonna, I mean, at the end of the day,
+we're writing a compiler when we do that kind of thing.
+And, you know, there are people
+that have spent their entire lives
+dedicated to compiler optimizations.
+Well, one of the reasons that having a human
+write a scan function is better,
+is because depending on the language they're writing it for,
+they might already know how the compiler
+is gonna inline that code.
+So, you know, having some genericized rendering
+of the code may not be able to take advantage
+of those things.
+And, you know, premature optimization, yes, right?
+We wanna avoid premature optimization,
+but at the same time, we don't wanna be forced
+into doing things that we could do
+because we know about them later on.
+We could come back to the code
+and we could actually say, well, okay, let's optimize this one
+because this is that my Pagan function
+for parsing, you know, white space,
+the most important thing that I'm ever gonna write,
+it's gonna be used by millions of people or whatever.
+And I should really, really optimize that one function
+and then everybody can spend their time
+optimizing the functions that we have
+for parsing those specific things.
+And we can maintain a community library of this
+rather than having everybody write the best,
+you know, their own white space parser, right?
+So we can actually have a collective community
+of contributions from people who know about parsing
+or really, you know, amazing Go specialists
+who have, you know, know how to optimize code
+based on what they know about inlining.
+So, yeah, no more code generation.
+Just a lot of pre-generated libraries
+that are immediately importable.
+And then we could just write, you know,
+and if statements and switch statements
+and you can write your own thing really quickly.
+And I think that's really gonna be the new normal.
+Useful form overlooks, yeah.
+And so, yeah, I think that that's,
+that's kind of how I am with this.
+That is why you're developing anything.
+Yeah, I think that the code generation thing,
+I mean, this doesn't mean we're not gonna do
+some code generation, right?
+But we're gonna statefully code generate
+like all the functions for the 200 or so Unicode classes,
+which by the way, already have functions.
+Yeah, so for those kind of things,
+we're just, that's exactly how Go does it, by the way.
+Go takes that document and it generates the Go code
+from straight up from the Unicode specification document.
+And it has a whole library of true or false
+kind of things, right?
+But it's not a scanner.
+And so, the only thing we're gonna have to do
+in the Go one is basically the same idea,
+but we're gonna say, okay, is this thing a thing?
+And then we'll make a sum variation as well
+so that it'll be like one or more of those things, right?
+And all that code will get auto-generated.
+So we'll have a pretty big library of scanners
+that'll be developed that you can then make
+your recursive descent parsers from.
+And maybe we can get somebody else to actually,
+I think it's a good idea besides me.
+Optimizing a lot first is that you can find
+you don't need the functions you're optimizing.
+No, that's right, so I'm saying.
+So a lot of them, yeah, you could combine
+the two things together or something, right?
+Yeah, so I think I'm kind of happy with this,
+where we're going with this now.
+Now, I still have this bug here, my white space bug,
+but the other one is fine.
+Let's try to run that one.
+Let's do run, what was it, the end of line?
+End of line, I think, right?
+Oops, we need to, let's turn scanning on end of line
+so you can see it, end line.
+Man, there's lots of end lines.
+So, should we use the carriage feed one?
+Actually, let's just turn it on for the whole scanner.
+Yeah, scanner has a trace for the whole entire package
+if you wanted to turn tracing on on everything.
+Yeah, trace equals,
+I'm probably gonna have to do it in a knit here.
+Trace equals one.
+Yeah, that's gonna say, you need to put that in a knit.
+All right, fine.
+This is just for now.
+There's other testing ways to do this,
+but I'll just do that for now.
+So we could go test.
+So actually, this is gonna show every single part
+of this that we did.
+I'm so happy with this.
+So when you turn the trace on,
+when you turn it on this way,
+it'll actually give you the full thing.
+So here it was, it read the first carriage you turn
+and then a line return and then another line return.
+So that was that one that we did and there's another one.
+So these are all the different ones.
+There's no other printing statements going on in there,
+but you can kind of watch what's getting parsed
+as you go and check on it.
+And you can go look at that and see if you like it.
+But yeah, I mean, it's working without that part of pasta.
+I just got that white space one I have to figure out.
+So I think that's enough for this video.
+I just wanted to show where I was.
+Some of the, I mean, God, the end paragraph turns out
+to be end block.
+So remember yesterday, I was doing basic markdown
+and I was like, hmm, we need to delineate our blocks.
+Well, what do we have?
+We have any number of spaces
+and then a greedy include of white space and line returns.
+And that's what this is.
+So I had to rewrite it and say,
+do I have the end of the data?
+Do I have an end of line and then the end of the data?
+Or do I have two end of lines, which are the greedy thing?
+And then the white space splat and peg repeat operators
+are greedy by default.
+So that says, grab as much white space as you can.
+As far as I know, I might have that wrong,
+but grab as much white space as you can
+and then make sure you have this at the end, right?
+Now, it may be that I have to,
+if I were to put this up here in the front,
+then it would be non-greedy.
+So it would get, you know, it would get the first one.
+So the first match of, I had that happening before.
+I had the first match of a line of double line returns
+and it got the first one.
+So that's how you do non-greedy
+is you put that stuff up in front here,
+but you have to kind of look at the peg syntax,
+the peg syntax to get that.
+That's from Brian Ford.
+That's not from me, but,
+and I still have to go look it up for everyone as well.
+But once you get it,
+it's much easier than regular expressions.
+It's not, it's actually, it has positive, negative,
+look ahead and all that kind of thing,
+which regular expressions,
+depending on which engine you're using,
+you don't really do well.
+Not to mention, you know, the ability to capture things.
+So, and I use the, I use the block here and go to,
+which I actually prefer to for loops
+because they just are so much cleaner
+because you just know you're gonna go up to the top again.
+And you know, you know, the thing I like about,
+it's much easier.
+I mean, it's much harder to write an infinite loop
+with a labeled block than it is with an infinite forever loop,
+which is just for, and I used to do them that way.
+Because, I mean, you definitely can,
+but you have to explicitly create an infinite loop
+that keeps going to the top again, right?
+So, it's kind of like a do-while.
+And you see this all the time in parsers.
+This is in Go, it's in,
+and Go is compiler for the language that Go to
+is a very real solid thing to use
+for compilers and for parsers and scanners.
+And it saves you from any kind of functional recursion,
+which is the devil when it comes to performance in parsers
+because you hit, you hit, you know,
+you hit indirection functional loops,
+functional recursion loops, stuff like that.
+Some languages, it's the preferred way to do it,
+but most of the languages are not.
+Most of them want you to just stay within there
+and kind of figure out a way to short-circuit
+and go back up to the top.
+And it's more performant that way too.
+So, this one has to have the whole notion
+of a found boolean in it because even if I find one,
+I still want to look for more.
+I still keep wanting to look for more
+until I get, I'm greedily get the last one, right?
+And I, before I added a notion of a found loop in that,
+I wasn't getting everything.
+And so what it does is it keeps getting stuff
+until it hits something that is not valid.
+And it's like, okay, I finally run out,
+but did I ever find anything along the way?
+I was like, oh yeah, okay,
+well what was the last one that I did find?
+And then, you know, it can tell you that thing.
+And that's what the go-to is.
+This is actually wrong.
+I'm just realizing I have some problems with this.
+Yeah, it's funny because now that it's cleaner
+and I've got to spend my whole day fixing up
+all of this syntax, I can see that this is probably wrong.
+Because this is going to, this is if it, oh no, no, I'm sorry.
+No, I'm sorry, this is only if it's not found.
+Yeah, this is only if it's not found.
+Okay, so scanners do not advance.
+So the rule, this is kind of a hard thing
+to come up with when you're trying to figure out
+how to make your parsers and functions and stuff.
+But the easiest rule for a scanner is if it scans,
+it returns true and it advances the scanner.
+If it doesn't, to the next thing,
+right to the beginning of the next thing,
+it doesn't scan that thing,
+it puts it right to the beginning of it.
+If it doesn't, if it doesn't scan anything,
+it needs to leave the scanner exactly how it was
+before it was called.
+And in order to accomplish that,
+you need to take a bookmark
+so that you can snap back to it, right?
+And I put go to here, I could probably do snap,
+but that would people think I would snap a shouting
+or whatever, go to is the one I'm gonna use there.
+So that actually sets it to the cursor
+and the cursor is three things.
+It's the byte index in the byte buffer array
+of the first item in the rune,
+the first byte of the rune.
+It is the rune itself, a copy of the rune.
+That's what we get when we go get dot rune.
+And it's also the end of the rune.
+So the byte pointing to the byte array
+to the beginning of the next thing,
+which is like maybe one or two, three things away.
+And that's where we got this thing.
+So we get like a three to four.
+If I were to scan like a tomato emoji,
+and I don't know where to go back to Mark's point.
+If it found the end of paragraph,
+it considers it advanced and no more,
+go back to Mark the point.
+You don't need to Mark the point
+because the scan automatically advanced it.
+Yeah, because any of the scans that fail,
+I'm pretty sure I'm gonna have to go back to that.
+But there are cases, yeah, I've read that.
+I have that book.
+I wrote that years ago, a couple of years ago.
+I have the PDF somewhere.
+Yeah, actually bought it.
+There's that one.
+There's two or three go scanners in the go code base.
+And then there's a website
+that has write your own scanner and go.
+There's like, those are the three main things
+that I'd recommend if you wanna start doing
+this kind of fun stuff.
+But yeah, they're pretty cool.
+And I'm obsessed with parsing.
+I'm not very good at it, but I'm obsessed with it.
+So anyway, mostly I'm obsessed with language.
+And so grammars are a part of language.
+And then that's why I like it so much.
+This is something I don't understand.
+What I wanna do is I wanna be able to specify
+my Bonsai command lines from a pagan.
+Wouldn't that be cool?
+Yeah, there is a writing compilers.
+Oh, really?
+Yeah, I have to go look at that one.
+So yeah, I mean, a compiler is the next step, right?
+It's like bringing it all together
+and doing something with the thing you get out of it.
+And we don't have any AST,
+any notions of AST going on yet.
+That is coming.
+I already have all the data structures for that developed
+that I'm gonna use for my AST.
+And, but yeah, so you gotta have push and pop for ASTs.
+It's like crazy.
+Yeah, I mean, the hardest part,
+the hardest part with the AST,
+and we're gonna get into this,
+is how to throw away elements of the tree
+that you can't just pop back and kind of, you know,
+you can't just pop back to the latest bookmark
+when you're doing parsing,
+because you have all this data that you parse
+that you can't throw away.
+And it's very complicated.
+You can't throw it away
+because you don't know how much of it to throw away.
+And that's gonna be a big piece of this
+that might, you know, I still have other things to do.
+This isn't my main thing.
+So, but I am interested in this.
+So far, the test case on this is so good,
+so important that you have lots of test cases on this.
+I'm pretty sure this one is good.
+But I don't know, we'll go take a look at it later.
+But here's the thing,
+I don't wanna have to keep revising all of my parsers.
+I wrote, I mean, I'm gonna go back
+and open up my old Pagan dev.
+I wrote an entire recursive descent parser
+for the Pagan language itself, if I have them.
+And so that's gonna be something
+that we're gonna come up with later,
+but so I don't know how that's gonna end up going down
+because I wanna be able to pull out some of that stuff
+from here and just reuse it
+because I've already got all the algorithms there
+and I can just reuse those algorithms.
+So that's pretty much it for YouTube.
+So if you wanna stay tuned
+and watch stuff about the Pagan and Keg stuff,
+I'm probably not gonna be working on much of this.
+I hopefully not the rest of this week.
+I have got a ton of work to catch up on
+that I'll be doing like for the rest of tonight
+and during tomorrow morning early
+and we'll be, yeah, I'm gonna be doing a lot of that stuff.
+But this is sort of related to stuff
+we wanna do at work in terms of like documentation,
+validation, that's where it came from originally
+and if you wanna stay tuned, we'll do some more of that.
+I am gonna implement basic Md as a grammar
+and I'm gonna be using this
+and we should get pretty high performance on it, actually.
+We should have performance at rivals gold mark
+which because it doesn't have as much to do.
+So we should have performance at rivals gold mark
+which is pretty much the go-to standard
+for markdown parsing and go right now.
+And we'll be able to compare
+and do some benchmarks on that a little bit later.
+So have fun parsing and come on by sometime.
+Talk to you later.

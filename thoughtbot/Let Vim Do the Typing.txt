@@ -1,0 +1,380 @@
+Hi everybody, I'm George, I work at Thoughtbot and I'm going to talk tonight about letting
+them do the typing.
+As Tute said, as humans, we're pretty bad at typing.
+I probably spend eight, nine, maybe even ten hours a day typing.
+I still make mistakes all the time, I'm still really, really bad at it.
+I chose to use Vim.
+I chose an editor that's very efficient, it's all about saving keystrokes, it's all about
+making sure that you do the minimum amount of work to get the maximum amount of effect.
+So why would I spend all this time typing, which is this really slow manual error prone
+process?
+So we're going to talk about all the different ways that Vim can kind of help you out with
+that and reduce the amount of typing you do.
+First we need to sort of talk a little bit about philosophy, VI versus Emacs, one of
+the battles that's raged since the beginning of time itself.
+These are both great editors but they have very different philosophies.
+So in VI, we tend to modify what a key does by switching mode, so you might hit I to go
+into insert mode and now when you hit keys, they add text to the document.
+Then when you're in normal mode, hitting keys might make some kind of error, whereas when
+you're in Emacs, you're going to change what the key does by holding down some modifier
+keys.
+You're going to hold down control or alt or shift or control alt and shift, you're going
+to kind of twist your hand into weird shapes.
+Everything I'm going to show you today involves staying in insert mode and holding down modifier
+keys.
+So it's going to feel very Emacs like, but it still fits within Vim philosophy.
+So one of the things that makes Vim efficient is that we like to think in terms of edits,
+like you start out in normal mode, you go into insert mode, you do a little bit of editing
+and then you get out again.
+And you've made a single edit which you can repeat using the dot key and you can undo
+it using the U key.
+But what if as part of that edit, you want to add some text to your document that you
+know Vim has definitely seen before?
+Maybe this text is a symbol in your program or something you've got in a register or something
+that's in one of your files.
+That would conceptually be part of the same edit.
+But let's see what I mean with a concrete example.
+So here's a document.
+I know that Vim currently has the word hello in the A register, has the word world in the
+B register and I want to quickly type hello world.
+So what I could type is double quote A to select the A register and you can see the
+keys I'm hitting down there in the bottom right.
+Double quote A and then P, now I've got my hello, then A to go into insert mode and space,
+escape to get out of insert mode, double quote B to select the B register, P again, A again
+to go into insert mode and return to end the line and then escape.
+Quite a lot of keystrokes.
+I didn't have to type out hello world so you know I'm kind of winning on that, I didn't
+have to do the error pro in typing where I could have made a typo.
+But I made four different edits.
+I did a paste and insert, a paste and insert and if I hit dot to repeat my edit, I just
+repeat the last insert where I put in the new line and if I hit U, I'm going to have
+to hit U like four times to undo that thing.
+But conceptually it was one edit, like in my mind it was one edit of adding hello world
+to the document.
+So this is the kind of thing where like I might want to stay in insert mode and do something
+more complicated than just adding a single character.
+So what are some ways that we can do this?
+I can use control R, so if I go into insert mode I can hit control R and you'll notice
+control R has popped up down there but my cursor has changed color and there's a little
+double quote there.
+The double quote is there kind of as a hint to say, hey tell me a register, like double
+quote is the key you press in normal mode to tell them the next key coming up is the
+name of a register, so tell me a register.
+So I'm going to say register A, so I just pasted from register A without ever leaving
+insert mode so I can hit space immediately, control R again, B for register B and return
+and now if I hit escape to leave insert mode and I press dot I can repeat that edit.
+Like I've made one edit but I did it using bits of text that they've seen before and
+I did it kind of using these control key sequences in insert mode.
+So we all convinced they're not some heretical emacs user, they're like it's okay to hold
+down the control key in insert mode sometimes, cool.
+So one more thing to do with registers, there is a special register called dot and the dot
+register contains whatever the last text you inserted was the last time you were in insert
+mode.
+Right, so the last time I was in insert mode I inserted hello space world new line.
+So if I go back into insert mode and I hit control R and then I hit dot I reinsert that
+entire thing.
+But even cooler if I just hit control A then it just does that for me.
+So have you ever been in the situation where like you've made an edit and you want to repeat
+the edit, you're about to hit dot and then you realize oh no wait, last time I wanted
+to change up to the underscore but this time there's no underscore, I want to change up
+to the end of the word or last time I was changing to the end of the word, this time
+I want to change to the bracket or something but you can't do it.
+You can, you can type the new command like the change to underscore part and then you
+can just hit control A to repeat the insertion.
+Nice and fast.
+A little bitty maxi but you know still in the Vim philosophy still very efficient, still
+about making atomic edits that can be repeated and undone.
+So that's just to find why I'm holding down control.
+So let's really get into the meat of this.
+So we've got a few of my favorite things in insert mode are control R and control A but
+the biggest category of things where you want Vim to insert text for you more than just
+one character at a time when you're in insert mode is completion.
+So like when you're in the shell you might hit tab to do tab completion, when you're
+in Vim there's all this context that Vim has about your project you know it's, you've
+got all these files open, it's seen all the words that you're typing and often if you're
+doing you know especially for programming you're repeating the same words over and over again
+language keywords, symbols in your program, class names, function names, all that kind
+of stuff.
+So how can we do completion?
+And everything I'm about to show you is, everything I've shown you so far and everything I'm
+going to show you is all like built into Vim so there's no plugins involved in any of
+this.
+Feel free to squeeze in there's a few seats around the place, don't worry.
+So I've got a document here containing some text and I want to type the word quick.
+So I'm going to go into insert mode and hit Q U but quick is like it's here, it's in
+the first line of my document so I shouldn't have to type the whole thing that's like three
+more keystrokes where I can make a mistake.
+Who has time?
+Now when you cancel it like that I'm sure you're making a mistake.
+So instead I'm going to hit control P. Control P is Vim's default key binding for completion.
+P stands for previous so it looks backwards through the document for previous matches.
+So I typed Q U and the first thing it finds is quick because if you go backwards through
+the document the next thing you hit that starts with a Q U is quick.
+And I can repeat that, I can keep hitting control P to cycle through these options.
+Notice that this one quickly has a file name after it that's because that didn't come from
+this file but Vim is smart enough to look in more than just one place.
+So Vim is looking at like other files I have open other parts of my project we'll get into
+exactly where it looks a little bit later on and the opposite of previous is next.
+So as well as control P which searches backwards through the document for previous things I
+can hit control N to go forwards for other things and you get some like useful little
+context at the bottom as well about where you are.
+Control N and control P it's quite simple it just matches on like the word that you're
+typing and tries to find a match for the rest of the word.
+I'm kind of laboring the control N and control P keystrokes because they're how you browse
+through your different options and all the other types of completion that we're about
+to talk about.
+So like knowing those two is kind of foundational.
+Everyone with me on control N and control P?
+They're already quiet you can say things it's okay.
+I gave this talk in London and I told them they were being too quiet and I expected people
+to behave like they do in New York and be noisy and I'm giving the talk in New York and you're
+all being quiet again.
+Control N!
+Woo!
+Thanks.
+Wow!
+You can tell them you're in New York.
+So we've got control P and control N for simple word completion.
+But I don't normally use them for typing words I normally use it for typing programs.
+So let's talk about some kind of programming specific completions.
+Who is familiar with C tags?
+It's about half of us.
+So C tags to refresh your memory if you haven't met it it's a program that indexes your source
+code and it finds the names of things so like class names, method names, function names
+that kind of stuff and it finds where they are declared in your software.
+So for example in this Ruby program I have a class called human.
+If I've run C tags and there are various Vim plugins that will run C tags automatically
+for you but if I have run C tags then my tags file will know that the class human is declared
+in the file code to RB at line one.
+Which means that if I have the word human elsewhere in my file I can hit control and
+closing square bracket and of course I don't have a tags file.
+That totally worked last time I gave this talk.
+There we go.
+I just hit a leader command that I have set up to manually run the tags when my Vim plugin
+has failed me.
+So I have a tags file now and when I hit control closing square bracket it jumps from the character
+that's under the cursor so like this symbol human to the place where that was defined.
+It will jump across files.
+So everyone happy with C tags?
+So another use once you have this tags file conveniently you have a list of all these
+names in your program so you can also use the tags file for completion.
+So say I've just typed capital H if I just hit control P which is what we saw before
+I get hello which is part of the string and I get human which is a symbol in my program
+and I get how which is from some other file that I don't really care about.
+What if I know that I want to type a class name?
+Like I know that this is going to be a symbol from my program.
+I can tell them only complete from those symbols so this is where it gets really emaxy.
+I hit control X which puts me in a special sub mode of insert mode which is completion
+mode and once I hit control X I get this thing at the bottom that says I'm in control X mode
+I can hit any of these things to all do different kinds of completion and in this case I want
+to complete a tag so I use closing square bracket control closing square bracket and
+it just immediately completed human as it says at the bottom it's the only match right
+there wasn't anything else in my tags file that started with a capital H if I use control
+P I have to scroll through all these other options that aren't symbols in my program
+but with control X control square bracket straight to the one that said a symbol of my program.
+So that's tag completion. Any questions so far, everyone with me? Cool.
+George when you did the C tag to go to the definition.
+Yep.
+If the definition is in a different file how do you switch back to where you just were?
+If you want to go look up the definition and then come back.
+There is a thing called the jump list where Vim remembers all the places you've moved
+to if you use the kind of motion that Vim considers to be a jump so like if you just
+press J to go down a line that's not considered to be a jump but if you use like a jump to
+tag control square bracket yeah that's considered to be a jump and if you hit control O and
+I they will go forwards and backwards through the jump list so I can show you even just
+in this one file if I hit control square bracket to jump to the definition of human then I
+can hit control O to go back to where I was before you think of it as like in and out
+so control like you go you kind of drill in to look at things and then you hit control
+O to go back out to where you were.
+The quick tag navigation you can also pop from the tag stack to control T.
+Ah cool I didn't know that.
+So if I've gone to this if I've gone to this tag I can hit control T yeah nice and that
+just pops from back.
+Which means as you follow tags it creates a stack and then you can pop.
+Which means other jumps that I may have done won't be a part of that that's very useful.
+Control O goes across files so if you go for another file you can go back and forth.
+Yep yeah exactly so control O and I guess control T will jump around between files as well.
+Excellent I always like it when I get to talk to them and meet up and I learn things it's great.
+And we have that one kind of standing seat if you'd like to come in.
+So the next type of completion that I find useful as a programmer like another so you've got symbols
+in your program it's a common thing that you want to type and you know you can kind of trust
+your computer if you've got a tags file to know what the symbols are.
+Another thing is file names.
+File name completion is quite useful so I'm going to type EX because I have an examples
+oh no I'm in the examples folder oh that's why I didn't have a tag thanks my working director
+okay I'm going to type co for code because this this file is a code file.
+Control X again to go into that sub completion mode and then control ff for file
+and code.rb gets completed for me.
+This works kind of similarly to to tab completion in the shell so if you hit
+let me just relaunch VIN from a different directory.
+Oh I shouldn't have done that.
+Okay so I'm now in a different working directory so now I can hit EX for
+examples control X control L oh control X control F sorry and then control X control F again to
+complete the files in that and I can use control N and control P to go back and forward in that in
+that list. So if you know that there's something in the examples directory and you want to reference
+it in your file but you can't remember what it's called well control X control F control X control
+F there's the list and you know you didn't make a typo because it didn't did the typing for you.
+So that's file name completion. Any questions about that one? I have kind of a personal question
+like when you learn this one this one like this mode that we have on completion and different
+like keystrokes that we can hit and they're so useful how do you do to remember them you
+you force yourself into using them for a week until they stick what do you do.
+So the things I've been talking about just down right yeah and that like using them for a few
+days reading from the paper until you remember you get to yeah but also in this case like the
+primary thing you need to remember is control X puts you in completion mode when you're in
+insert mode and then a lot of the things are kind of mnemonic from that so like control F for file
+name or we're going to see control L for line and a bit control square bracket for tag well I use
+control square bracket when I'm in normal mode for tags all the time so that's kind of associated
+with tags already in my memory so you know Vim's quite good at making things like having patterns
+you know the way that like D and capital D and C and capital C you know like D is
+delete with a motion capital D is delete to end of line C is change with motion capital C is
+change to end of line you get these patterns which are useful I've remembered things D
+but let's move on to context to where we're in completion so it's all been it's all been
+kind of fine so far but like we're completing words surely everyone's editor can do that I mean
+how are we going to how are we going to show off to the Vmax crowd with just completing words
+so let's let's get fancy what if I want to pull in like the middle part of this sentence I want
+to say something like the slow brown fox jumped over the lazy duck that's a very similar sentence
+but it's not exactly the same so I don't necessarily want to yank it and put it and then edit it
+maybe it's quicker to just start typing the slow br but as soon as I type br like now I'm into the
+stuff I want to to pull in from from above so I can hit ctrl x our old friend to put us in
+in completion mode and then I can hit ctrl p and ctrl x ctrl p again and ctrl x ctrl p again
+I now have two options ctrl n ctrl n ctrl x ctrl p ctrl x ctrl p ctrl x ctrl p ctrl x ctrl p
+ctrl x ctrl p I just pulled in that whole sentence without typing hardly anything um so what was
+happening well the first time I hit ctrl x ctrl p vim did what it normally does with ctrl p it
+completed the word but because I take ctrl x first it also remembered the context where it pulled
+that completion from so when I hit ctrl x ctrl p again it was it knew like okay I'm completing
+this context and think of the times especially in programming where you type these patterns
+so I was pair programming with a friend of mine a couple of weeks ago and we were writing some
+javascript tests and there was this pattern that came up over and over again you'd have
+it open parentheses some description of what the thing we were testing did
+comma function open parentheses close parentheses open brace and then because of the test
+framework we were using there was this kind of weird thing that happened next so then there was
+with open parentheses this close parentheses open brace like because of the restrictions of the
+language we couldn't make that any shorter but it was this big repetitive thing um and I I noticed
+what my friend James was doing is is he would type it and then type out the description by hand
+and then type f u n and just hammer on ctrl x ctrl n over and over again or ctrl x ctrl p over
+and over again and it would just pull in the whole of this like long string of javascript
+boilerplate that we had to use so something where you have repetitive structure that you
+have to type over and over again this kind of thing is really useful um as with regular completion
+like p and n both work for searching previous and next p tends to be my go to because I'm more
+likely to be repeating something that just occurred before where I am rather than repeating
+something that occurred after where I am just typically that seems to be what happens um any
+questions on that one you can't replay those commands easily without hammering control x
+ctrl p you can if you just throw a macro at it real fast there's no period for that right um no
+because you're still in insert mode so it's all part of the same edit okay um so even recording
+a macro I'm not sure what that would do like I'm not sure if that would replay with the control x
+ctrl p which would maybe pull from a different context and get confused I've never tried it
+if you set a mark you can do that okay um
+so that that's word completion but what if we want to do more than just words what if we want to
+complete entire lines again sometimes these boilerplate structures that you get in software
+they're not just words they're they're entire lines like say you're testing something again again
+with the testing but tests tend to have quite repetitive structure you know you're testing
+something in a success case and then you want to test it in a failure case it's not like so similar
+that you can make an abstraction but it's similar enough that you just want to kind of pull in a
+couple of lines at a time from the previous thing and then tweak something here and there so how do
+we do that well I can start typing the quick and then oh I already have a line that matches this so
+ctrl x anyone want to guess what complete a line will be ctrl l yeah um and this like ctrl x ctrl p
+this is context aware so if I hit ctrl x ctrl l again it pulls in the next one
+this is the number one thing that I do when I'm pairing with people in them where they go whoa
+what did you just do and I learned this from uh mike burns who runs our stocking office
+because in my thought about interview when I was pairing with him I said whoa what did you just do
+so um this is a good one to to show off but also it's incredibly fast and it's amazing how often
+it comes up like part of the reason people often ask me and mike and other people use this about
+it is because it's amazing how many times in your writing software you go you know what I kind of
+just want those two lines and then I'm going to take them a bit so um that's ctrl x ctrl l
+possibly my favorite then thing of all time so we've got one more type of completion everyone
+with me so far yeah cool um so I'm going to go back to some code and we're going to talk about
+uh language aware omni completion so vim has a setting where you can turn on kind of a file type
+detection plugin system and if you have that turned on then it will do uh this thing called
+omni completion which is ctrl x ctrl o what does omni completion do we'll say I want to
+do something to this string I have this string that says hello name and then I want to call
+some method on the string I can't remember what the method is called I can't I'll know it when I
+see it but I just can't remember what it's called if I hit ctrl x ctrl oops ctrl x not function x
+ctrl x ctrl o I get a list of all the methods that are available for a ruby string just run
+through them and go oh yeah capitalize that's the one I wanted cool done capitalize um
+um vim will do a surprisingly good job of this it will do it well if the language plug-in
+for that language supports it it will try pretty hard if you have syntax highlighting available
+for that language like it will try and do some stuff for you um you know things like the word
+function in javascript the highlighting knows that that's a language keyword so even if you
+don't have any other javascript stuff installed just by having the highlighting it'll know it
+can complete the word function and that kind of thing um I don't use this as often as the others
+but and when it's useful it's it's really it's really useful this is vim verbons vim vim yep I
+haven't apart from the apart from c tags which isn't really a plug-in it's more of a third party
+external program um and I use a plug-in to create my tags file but apart from c tags nothing I'm
+showing you is outside of normal standard there's no plug-ins no special anything can I ask about the
+why numbers is that a plug-in or is it a different thing that is that is built in as well um you
+can type colon set a relative number I think yeah if you type colon set relative number then it will uh
+yeah and I I turned that off before the talk so I could refer to actually like numbers but
+when I restarted vim because I was in a wrong directory it turned back on um the better one
+is the one that in the zero you get the actual line of that number yeah the actual number of the
+line sorry yeah and and that's also built into them but it's just a newer version of them and I haven't
+seen that before so if you want to traverse like up to line two above or two below is it going to be
+like I could throw in number and then shift g you'll take me to whatever line number I want if I have
+sequential indexed order what happens in relative mode so it works in the same way so if I type
+two capital G I'm gonna jump to here even though it's labeled with a five okay but the thing that
+this is useful for is if I want to go up five lines from where I am I can just type 5k okay and if I'm
+on like line 97 of a file and I want to go up then it's probably quicker to type 5k than it is to type
+like 92 capital G um and when you're doing like all kinds of different motions you know oh I want
+to delete how many lines three lines because you don't have to do so much mental arithmetic
+is pretty much the the benefit of this one but if you're pair programming
+it can drive you crazy because as you're moving the cursor around your pairs like
+on line seven that no six that no five stop moving the cursor
+um so uh one more thing that I want to talk about and then I'm done which is customization
+and I still don't mean plugins I just mean built in settings uh because it wouldn't be them if you
+couldn't just completely customize all of how this works so going back to the very beginning
+when I was when I was here and I was showing you qu and control p to complete quick
+and I said this looks in other files and I'll talk more about where it looks
+where it looks is based on the complete setting so if I type coonset complete I will just see
+what my setting is without changing it just kind of useful to know um and what the complete setting
+does is it tells them where to look for completions um so the rundown is uh this is all default apart
+from casebell by the way which I've added but everything before the casebell is is default
+so the dot means look in the current buffer so the first set of like the first things you're
+going to see it will always be from the file that you're in w is other windows that you have open
+so if you had like a split window with a file here and a file here that file will come next
+then other buffers that you have loaded in in this tab or any other tab then u is unloaded
+buffers so buffers that are low that are open but they're not active in any window
+does that make sense um and then we've got t is actually for your tags file
+so you can complete tags just with control uh control p so like that's completing hello
+because it's well because it's in an open buffer but also because it's in my in my tags file
+and what else oh and i is included files so if you're using a language that has explicit
+includes like in c where you hash include something.h or in python where you import from
+some package then uh it will actually follow those and look in those files for completions
+ruby requires as well if you're not using rails and you're requiring things by hand
+so that's kind of useful because you know if you're including like a header file or some other
+some other component that you want to use you can you can just out the box automatically complete
+symbols or words from that file um and then k spell is the one that that i turn on beyond the
+defaults k means look in the spelling dictionary but k spell means look in the spelling dictionary
+but only when spelling is enabled um so let me show you what that means currently if i type q u
+and hit control p i just get these options from the file but if i colon set spell now spell checking
+is enabled and if i type q u and hit control p suddenly i get a lot more options quick quite
+qualified quoting quotients quotients quotient quotidians quotidian quaff um if you can't go
+remember how to spell a word kind of handy this is loading from the dictionary yeah so if if you
+add uh in your complete setting coincide complete if you just added comma k to the end then it would
+always look in the dictionary if you add comma k spell then it looks in the dictionary but only
+when spell checking is enabled so i have spell checking enabled for example when i'm in a git
+commit message when i'm in an email because i write on my email in them i sent one too many emails
+with colon wq at the end of them and decided i'm just going to switch to that uh how did you tell
+it to enable spell checking um i typed colon set spell okay cool um yeah uh so that's it that's a
+little tour of vim completion um some stuff about how i customize it and use it these slides are here
+i'll throw that link on the meetup group as well and this isn't just a slide deck it's a document
+with all of my notes and so um you can you can get the whole the whole thing from there any questions
+so one of the things i don't know if you covered it because i came in a bit late um
+one of the things i found most valuable when using vim across teams is being able to set a
+editor dot or a dot editor config file and be able to have vim map that accordingly either using bash
+rc or mrc files so that you can make sure that tab indention is is it spaces is it two is it four
+whatever it may be is set up properly um do you use that yourself um so we uh i thought what we have
+a a set of company dot files which when people join the company they're sort of pointed in the
+direction of i never installed them because i've had my own dot files and i was like wait no you
+remap the leader key i'm i'm out but that at least is a fantastic repository of like common
+patterns and practices throughout the company so like i may disagree with the remapping the
+leader key thing and i don't use the whole the whole file but i certainly like pull in i certainly
+pull in pieces of that and so do other people and we have an open source tool called rcm which is
+maintained internally which kind of takes what you're talking about with having an editor rc
+and just takes it to the next level where you could have multiple directories of things and
+they could be tagged and they could be specific to host names and you can have your own dot files
+and your company's dot files and rcm just manages sim linking everything into the right place and
+deals with all of that stuff so you can easily keep your own stuff in version control and share
+stuff around your company so i'd recommend checking out rcm yeah if you could
+throw the link on that with the meetup as well as this that'd be wonderful i always love something
+yep dot files and rcm i'll put them both in there uh anything else
+thanks for all your comments while i was talking that was that was helpful i don't think thank you
+you

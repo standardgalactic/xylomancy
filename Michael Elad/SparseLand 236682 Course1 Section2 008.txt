@@ -1,0 +1,77 @@
+In this part, we aim to address the uniqueness question by suggesting something stronger than
+the mutual coherence, the bubble function.
+We start by the statement that while simple to use, the mutual coherence is in fact very
+crude.
+Why is it so?
+Consider the case where A has two identical atoms.
+In this case, mu becomes one and all our analysis collapses.
+Furthermore, if two columns are closed by, this implies that mu is very close to one
+and again, our results become too weak.
+Indeed, we have seen that there is a large gap between the one plus one over mu and the
+spark bounds for uniqueness.
+One is of the order of square root of n, at best, and the other could be as high as n
+plus one.
+An interesting question to ask is this, does the mutual coherence has a true practical
+meaning or is it only a theoretically convenient tool with a pessimistic prediction?
+While we will not answer this tough question here in full, we turn now to propose the
+bubble function which fixes some of the difficulties that the coherence has.
+The definition of the bubble function mu one of k is given here and the first thing to
+notice is that it looks quite complicated.
+So let's make sense of this formula.
+We get the matrix A and choose an arbitrary set of k columns from it denoted as capital
+lambda.
+We choose another column, aj, from outside of this set and then compute the sum of the
+absolute inner product of all the vectors in lambda with aj.
+Now imagine that we repeat all these process for all the possibilities of choosing lambda
+and aj and let's maximize the above mentioned sum.
+This is mu one of k, the bubble function.
+The above description must leave you with the impression that computing the bubble function
+is a combinatorial task of exponential complexity.
+Actually this is very far from the truth and in fact computing mu one of k is rather easy.
+We start by computing the gram matrix g.
+Then we take the absolute values of the entries of g and sort each row in descending order.
+The maximal element in each row is obviously one taken from the main diagonal and it will
+be leading each row after the sorting.
+The rest of the row contains values in the range zero to mu.
+We remove the first column from the resulting matrix as these ones contribute nothing to
+the computation of the bubble function.
+We are nearly done.
+Now replace each row with an accumulated sum of it from the left to the right.
+That is the first entry remains unchanged.
+The second becomes the sum of the first two, etc.
+As a last step, go to the kth column and search for the maximal value.
+The row it is found in defines the index j in the computation of mu one of k.
+And the first k elements are in fact the set lambda.
+The maximal value itself is mu one of k.
+Why should we turn from the mutual coherence to the bubble function?
+Well, because the mutual coherence characterizes pairs of columns from A whereas the bubble
+function naturally extends this to larger sets.
+How are the two related?
+First observe that by bounding each of the inner products by the regular coherence
+mu we see that mu one of k is upper bounded by k times mu.
+Secondly, mu one of one is trivially mu the regular coherence by definition.
+Indeed, this implies that the bubble function does not provide a remedy to the case where
+the two columns are identical.
+Another property of mu one is the fact that it is monotonically increasing as k grows
+and the steps are getting smaller and smaller.
+This exposes the source of strength of the bubble function over the regular mutual coherence.
+If the growth is slower than mu in each step of the increasing k, the bubble function is
+more faithfully describing the situation for us.
+We will not provide a complete analysis of the bubble function, but the following observations
+are easy to verify.
+First, as long as mu one of k is smaller than one, this implies that any set of k plus one
+columns is linearly independent.
+This in turn says that the spark is bigger than k plus one.
+Here is a graph illustrating this property.
+Observe first the line mu times k and the curve describing mu one k which grows slower
+than the line.
+The spark is predicted as the first k that causes mu one of k minus one to cross the
+value one.
+Due to the slower growth, this prediction is better than using the regular mutual coherence.
+Can we use the bubble function to get a new and alternative uniqueness result?
+The answer is positive.
+Here is the original theorem that we have already seen which bases its claim of the
+uniqueness on the regular coherence.
+But with the bubble function, a new condition for uniqueness can be posed if the given solution
+is sparse enough, having k non-zeros, and if mu one of k plus mu one of k minus one
+is smaller than one, then this solution is necessarily optimal.

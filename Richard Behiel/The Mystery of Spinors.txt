@@ -1,0 +1,763 @@
+Hey y'all, today we'll be talking about spinners. These things are really cool. Once you learn
+about spinners, your life will never be the same. You'll develop a lingering, justified
+suspicion that this world is not as it seems. And you might also develop a lifelong addiction
+to physics. So, you've been warned.
+To set the tone, I'd like to start off with a quote by the renowned mathematician, field
+and knight, Sir Michael Atia.
+No one fully understands spinners. Their algebra is formally understood, but their general
+significance is mysterious. In some sense, they describe the square root of geometry,
+and just as understanding the square root of negative one took centuries, the same might
+be true of spinners.
+Michael was an extraordinary mathematician, and if he of all people says that no one fully
+understands spinners, then it's okay if we're a little confused when we first learn
+about spinners. Spinners are confusing, frankly they're disorienting, and not particularly
+intuitive. You know, if you tell someone there's a thing that you have to rotate twice to get
+back to where it started, they might think you're a little insane. But really, the insane
+thing is that spinners are not insane. They're mathematically coherent, they show up in our
+most fundamental laws of physics, and they refuse to go away. Spinners are really at
+the core of fundamental physics. I mean, look at the way function of an electron, for example,
+or any fermion for that matter. If not for spinners, we wouldn't have the poly exclusion
+principle, and so we wouldn't have chemistry. Matter would collapse, and the world would
+be a very boring place.
+So there's no way of restructuring physics in a way that you don't have spinners, and
+therefore these strange, weird, little mathematical objects we do actually have to deal with,
+and we have to work with, and we have to understand, where does this come from, what does it mean,
+why do these things exist, and it's really mysterious.
+Okay, but what is a spinner? Hmm. Well, in the last few videos, we've been developing
+some of the basics of relativistic quantum physics, we've looked at Klein-Gordon, we've
+looked at the Dirac equation, we've looked at an example of Dirac equation for the eigenstate
+of a particle at rest, and while we've done that, we've seen that spinners have emerged
+as the sort of two component complex numbers. But today, I don't just want to define spinners
+as a pair of complex numbers, because that's not particularly geometrically insightful.
+Instead, I want to show you an argument for why we should expect something like spinners
+to exist in the first place, and we'll do that by exploring a very subtle thing about
+the way objects rotate in three dimensions. That'll open up a crack in reality that we
+can use to smuggle spinners into our imagination. Then after that, we can explore the algebraic
+properties of spinners, we can see where the complex numbers come in, we can see how we
+can draw spinners as flags, we can look at how they transform under rotations, and finally
+we'll tie it all back into the Dirac equation and we'll talk about how this relates to
+electrons. This video will hopefully answer many questions, and it'll surely raise many
+more. Spinners are one of those things where the more you learn about them, the more wonderful
+and magical they become.
+Before we talk about rotations, there are a few vocabulary words that we need to borrow
+from topology. These are homotopic, simply connected, and homotopy class. So imagine we
+have a whiteboard, and we've drawn a squiggly loop. The loop is alive and sentient and
+is feeling its way around the whiteboard. As it goes along, in each moment it takes
+on a different shape, but it doesn't break apart. It can stretch and shrink, but it can't
+be cut. And from one moment to the next, its topology stays the same. The fancy way to
+say this is that it's evolving into different loops that are all homotopic. Homo is in
+same and topic as in topology, so homotopic means that they have the same topology.
+Oh, whoa, little guy's getting nervous. Eh, that's okay. Stage fright, you know, it's
+understandable. Oh, there it goes, shrinking down to a point. It's a defense mechanism.
+That's fine, you know, I'm a bit shy myself, so who am I to judge? Anyway, the reason our
+loop was able to shrink like that is that there wasn't an obstacle or a hole or something
+weird that got in its way. Instead, it just had a nice, smooth, simple space, so it was
+able to shrink on down to a point. And that is our next vocabulary word, simply connected.
+A space is simply connected if all the loops that live in the space can shrink down to
+a point whenever they want to. But now what if we take our whiteboard and we drill a hole
+in the middle? So now as the loop explores its environment, it goes around and it realizes
+that it can't go into the hole and it can't escape the board, but it can still shrink
+if it wants to, so no problems there. But now consider this little guy which was born
+into quite a predicament. It's wrapped all the way around the hole, so it can't shrink
+down to a point. When it's feeling shy, at best it can only become a small circle,
+not a point. So that tells us that this space, whiteboard with a hole in it, is not simply
+connected. So now think about this. The loop on the left can evolve into a variety of different
+shapes that are all homotopic to each other. All the different forms that it can take on
+are all a loop that lives between the hole and the edge of the whiteboard. Likewise,
+the loop on the right can also evolve into many different homotopic shapes, but those
+are all wrapped around the hole. And so you see here we have two different homotopic classes,
+class in the sense of like a set of entities that all have something in common. So we can
+say that the loops fall into different classes depending on whether or not they wrap around
+the hole. And actually it's a bit more complicated than that because in this case you could also
+have loops that wrap around the hole multiple times. And so we actually have a different
+homotopic class for each number of times it wraps around. And so the winding number matters,
+the number of times that the curve is wound around the hole that matters, but those are all
+the homotopic classes of loops on the whiteboard. You can organize them just by specifying the
+so-called winding number. And a curve that has a certain winding number cannot be continuously
+deformed into having a different winding number. So you can stretch them and shrink them, but
+you can't change the winding number unless you cut the loop which is not allowed. This hurts
+the loop. Do not hurt the loop. Okay. By the way, in this context the loop can pass through itself
+so we don't have to worry about the loop getting tangled up in knots and what are the different
+kinds of knots and all that. No no, it doesn't matter. The purpose of these loops are not to
+model like physical rubber bands, but just to tell us something about the nature of the space
+in which they live. Oh, one more thing on this topic. Imagine we repair the whiteboard so there's
+no more hole, but now it has the magical property that the left and right edges of the board are
+identified with each other, such that the loop can appear to teleport from one side to the other.
+So there's no longer a hole in the board, but there is this weird teleporting situation. So now
+is this space simply connected? To address that question, we have to think about what it means
+for the curve to teleport like this from one side to the other without breaking. That means that
+each point on the left side of the board and the opposite point on the right side of the board
+must be literally the same point. So we realize that this space is actually the surface of a
+cylinder without the top and bottom circles. And so from that point of view, no, this space is not
+simply connected because in addition to loops that can shrink to a point, we also have the
+possibility of loops that wrap around the cylinder and those cannot shrink to a point. Now when we
+look at those loops on the whiteboard, they look like weird teleporting lines, not loops. But when
+we're looking at the three-dimensional view that really shows the nature of the space without any
+cuts and teleports, but we see the real space, the real for real, like how it actually is, then we
+can see that indeed this is a loop and it cannot be shrunk to a point. By the way, here again,
+it's the same exact situation as before where we can also have different winding numbers and it
+turns out that all the homotopy classes of loops on a cylinder can be organized simply by their
+winding number. It's not a coincidence that the hole in the whiteboard and the cylinder have the
+same set of homotopy classes. Because if you think about it, a whiteboard with a hole in it, well,
+that's a CD and a CD is a lampshade and a lampshade is a cylinder. So therefore, whiteboard with a
+hole in it is a cylinder. I love topology. You know the difference between geometry and topology?
+In geometry, you take your ruler and your protractor and you draw lines and angles and shapes. In
+topology, you take your ruler and your protractor and you throw them out the window.
+Okay, so now we know about homotopy simply connected and homotopy class. We also know that if a
+space seems like it has teleports from one side to the other, this might actually be a totally
+continuous space with no teleports, but embedded in a higher dimension, such that you can actually
+pull those points together. And now we're going to apply these concepts to the group of rotations
+in three dimensions. But first, we have to specify what even is the group of rotations in three
+dimensions. Let's say we have a cube and let's go ahead and stick a flag in it to make it really
+easy to see how the cube is oriented. Now let me ask you this, if we rotate this cube, what are all
+the different ways it can be oriented? And how can we represent that set of all possible orientations?
+Well, there's a couple different ways of going about this and they're all basically the same.
+But probably the easiest way is to notice that every orientation can be defined with some axis of
+rotation and some amount of rotation around that axis. And this is known as the axis angle
+representation. So what this means is that let's say we have some reference flag that's say pointing
+up and in a certain direction, then we can get to any other flag orientation just by rotating the
+reference flag some amount around some axis. This fact is not obvious, but it is true. It follows
+as a direct consequence of Euler's rotation theorem. Okay, now let's introduce the concept
+of an axis angle rotation vector. So what this vector is, is it points in the direction of the
+axis of rotation, and its length is the amount of rotation. So here I'm showing a cube rotating
+around a single axis, and you can see that as the vector grows and shrinks, the cube is rotated more
+or less around that axis. And so if you think about it, what is the space of rotations in
+three dimensions? If you wanted to categorize everything, how can we possibly come up with
+some kind of space that encodes every which way a thing can be oriented? Well, it's the space of
+all directions multiplied by the space of all lengths. But it's a little bit tricky because
+it's not really the space of all lengths. You know, if you rotate 180 degrees around some axis,
+that's the same as rotating 180 around the opposite axis. So actually what you want to imagine is like
+a sphere where if the vector pokes through the sphere, by the way, the sphere has radius of 180
+degrees or pi if you want, but when it goes through the sphere, then it ends up teleporting to the
+exact opposite side of the sphere, and it ends up coming back in if you keep rotating it. See,
+because what happens here, and here we'll just go along a single axis to make it easy to see,
+but as the vector grows and grows, the thing rotates, it gets to 180, and at that point we're
+going to map its rotation vector onto the opposite axis 180, and then we're going to keep rotating,
+and that's going to keep coming in and coming in, which is like a lesser and lesser rotation around
+that opposite axis, until finally it ends up back where it started. And so in summary,
+the space of all possible rotations in three dimensions can be represented as a ball,
+a ball meaning a sphere and also the volume contained within it, of radius 180 degrees,
+where every point on the spherical boundary of the ball is identified with the exact opposite point,
+such that if you go outside of the sphere, you seem to get teleported back through the other
+side of the sphere. But remember, this is not actually a teleport. There's not actually anything
+discontinuous happening here. This apparent teleport is just an artifact of the way we're
+drawing this space. In reality, the space of rotations in three dimensions, ironically,
+doesn't really fit in three dimensions. And that's not that weird, because if you think about it,
+what we have here is an abstract space that represents every possible kind of rotation,
+so that's a different kind of thing than the space that we're rotating within,
+so it's actually not that weird that this space ends up having this kind of topologically
+interesting character. But a lot of weird things follow as a consequence of that, as we're about
+to see. What I want to show you now is that there are different kinds of ways to rotate an object
+back to its original orientation. And that seems weird, because you'd think any way you
+rotate an object back to itself, it should all be the same, right? There shouldn't really be a
+meaningful distinction between how you go about doing that. But that's not actually the case.
+So first, let's recognize that if we rotate an object back to its original orientation,
+what that means in our axis angle space is that we're starting with the zero vector at the origin,
+meaning no rotation, then the vector is going to go out and grow in some direction and it can move
+around and in general it can do whatever it wants to do. It can teleport if it goes more than 180,
+whatever the case may be, but in order to return to the original orientation, it has to come back
+to the zero vector. So the space of all possible ways to orient an object back to itself is exactly
+the space of all possible closed loops in this axis angle representation. There is one caveat
+here, which is that when we look at loops in the axis angle representation, we should think of it
+only as going around the loop once, for reasons that we'll see in a moment. And so what we're
+going to do actually tell you what, we're going to take a circular cross section, so not the full
+three dimensional ball, but actually just a two dimensional disk. Now this is just a slice, it's
+just a cross section, but it's easier to look at than the full three dimensional thing. And what I
+want to show you about there being different ways of rotating things, all of that we can see by
+examining this cross section. And then we'll see that the same exact concepts easily generalize
+into the full three dimensional space. Now when we look at these loops, I'm also going to use a
+color map that winds around the rainbow and then comes back to the starting color. And what that's
+going to do is that's going to highlight for us the continuity of the loop. And in a similar spirit,
+I'm also going to put a little dot on the loop that just goes around and around. And so when we're
+looking at teleports, the ball is going to help us visualize which parts of the curve are connected
+to which other parts of the curve. But remember, each of these loops only corresponds to rotating
+an object once around this particular loop, okay? And that's important because as we'll see, there's
+a difference between going around once or twice or three times or four times. And so there are some
+subtleties there. So in our diagram, whenever we have a loop, think about it as that represents
+rotating the object one time around this path in the space of rotations. Alright, well with all that
+said, let's go ahead and start to explore some of the different kinds of loops we have in this axis
+angle space. The first kind of loop that we'll look at is maybe the simplest kind. It's just a
+small loop that stays totally within the boundaries of the diagram. And this corresponds to a wiggle
+where the cube never rotates more than 180 degrees around any axis. It just sort of wiggles around
+for a bit and then returns to where it started. As you can imagine, this loop is homotopic to any
+other wiggle that stays within the boundary and passes through the origin because you can always
+just imagine stretching it and shrinking it and exploring the entire homotopy class of wiggles.
+And again, these loops can pass through themselves, so we don't have to worry about the question of
+knots and the different kinds of knots. So aside from wiggles, what other homotopy classes might
+there be? Well, consider a cube that rotates once along some axis. So it does a full 360.
+That means that its loop is going to start at the origin, and then it's going to go out to 180
+degrees. Then it'll come back in along the opposite axis. And finally, it'll return to the origin
+again, having completed a full 360 degree rotation. Now that's a rotation, right? That's not just a
+wiggle, that's a full rotation. And by the way, if you look at the loop, it might not look like a
+loop, it looks more like a weird teleporting line, but remember the cylinder. And remember that the
+apparent teleportation here is just an artifact of the way we're drawing the space, but it doesn't
+represent any real discontinuity in the space. You have to imagine that the space is curvy in a way
+that doesn't really fit in the dimensionality of your screen. And so the points that the curve
+appears to teleport through are actually literally the same point. And in this diagram, all pairs of
+opposite points are literally the same point. Now this kind of loop is a genuine rotation. I mean,
+look, it goes all the way around. It's way more than just a wiggle, it's a full 360. And you can
+see that it can't be reduced to a wiggle because there's no way of continuously deforming this
+loop into a loop that doesn't cross the circular boundary without cutting it. Okay, so then now
+we have at least two different homotopy classes of loops in the axis angle space, wiggles and full
+rotations. So the space of rotations in three dimensions is not simply connected, which is
+really surprising, right? You wouldn't necessarily expect that, but here we can very clearly see
+that there are at least two totally distinct homotopy classes of loops in the space of rotations
+in three dimensions. And you know, that's just a fundamental fact of reality. All right, well,
+this feels similar to the cylinder example, where you had loops that didn't teleport,
+and you also had loops that teleported, and then you had like multiple winding numbers of
+teleportations. And so we might expect to find infinitely many homotopy classes here for the
+rotations, depending on how many times the loop goes through the boundary. But surprisingly,
+that's not the case. There are actually only two different homotopy classes. Consider, for example,
+the fact that a wiggle is homotopic to an octopus. That's got to be a brand new sentence. I don't
+think anyone's ever said that. You're hearing it first here, folks. Freshly minted sentence.
+Okay, so the wiggle crosses the boundary zero times, but the octopus crosses many times.
+And yet the two are totally homotopic, as you can see as we're going back and forth between
+these two, you see their homotopic, it's all continuous transformations here, there's no
+cutting. So we don't have one homotopy class for each winding number, like we did with the cylinder,
+because now it's a different kind of teleporting boundary. The boundary is round and has a
+different geometry, and so the loops can slip around and slip through the boundary. And what
+that ends up doing is it means that you can always add or subtract two boundary crossings
+by continuously deforming the loop. See, for another example, let's say we have a rotation
+that teleports once. And by the way, each pair of points here, we're counting as one crossing.
+Notice they're the same color, they're really the same point. It looks like two points on our
+diagram, but that's an artifact of the way we're drawing a diagram. Okay, so this is one crossing.
+But you can show that this loop is homotopic to a loop that teleports multiple times.
+But when you do that with this loop, because it started off crossing once,
+you can only ever get to an odd number of crossings.
+And so, as it turns out, we only have two homotopic classes, and they're based on
+whether we have an odd number or an even number of teleports. You can see this by noticing that
+you can always pull part of the loop through the circular boundary, but when you do so,
+you'll always pull two line segments at a time, because we're grabbing onto a closed loop and
+that's just how it is. And by the way, you can see that this argument generalizes not just to
+the circular cross section, but also to the whole spherical situation, because it doesn't
+matter whether you're pulling a loop through a circular boundary or a spherical boundary,
+because either way, the loop is going to come through two line segments at a time when you
+pull on it. So this thing about the two homotopic classes, even though we've demonstrated that
+for this circular cross section, it actually does hold true for the entire space of rotations
+in three dimensions. Oh, and here, let's go ahead and introduce some terminology.
+So we'll say that a loop is class one if it has an odd number of teleports,
+and we'll say it's class two if it has an even number. This is easy to remember,
+because one is odd and two is even. You know, we've now arrived at a checkpoint,
+like in a video game, when you get to a certain level and your progress is saved.
+You'll want to make sure that you're really comfortable with all of these ideas discussed so
+far, because we're about to get algebraic, and it makes all the difference in the world if you're
+able to see and to feel in your soul that the rotations in three dimensions are not simply
+connected, but actually have two different homotopic classes of loops. I really want to
+emphasize that this is a fundamental insight, a pivotal transformation of your worldview that
+you have to go through if you want to study spinners. You know, even though we haven't
+used any equations yet, there's a lot to think about here, and it may take a while to digest
+these ideas. I know it took me a while, so it's worth meditating on these concepts until they become
+second nature, because seeing that the rotations aren't simply connected, but have rather two
+homotopic classes, is really the difference between your intuition holding you back and
+pulling you forward. If you get this concept about two homotopic classes, if you really feel it,
+then instinctively you'll suspect that maybe there might be some mathematical object that is
+sensitive to the homotopic class of rotations. And so it would necessarily have to double cover
+the space of rotations, and it might not exactly return to itself after a single rotation, but
+instead might pick up some phase factor that alternates depending on whether it's a class one
+or a class two, and so if you really get this, then your imagination is going to pull you in
+the direction of spinners. You'll yearn for them even before you've seen what they are,
+and you'll be prepared and excited when it comes time to actually write an equation.
+Alright, let's get algebraic. So we have this idea of an axis angle representation of a rotation,
+and now the question is, how do we actually work with this? What do we do with this? Let's say we
+have some rotation vector, and we want to say, okay, I want to rotate an object in accordance
+with that axis angle vector. What equation do I write? What code do I put in the computer? What
+do I do? And I want to tell you about two different ways of rotating an object, the vector way,
+and the spinner way. So I want to focus on the vector way first, and this involves rotation
+matrices, and then later I'll talk about the spinner way, and this involves SU2 matrices.
+So starting with the vector way of rotating things. Actually, you know what, here, first
+we're going to go into two dimensions. I'll show you how to rotate vectors. I'll show you the
+implications for this vis-a-vis rotating objects, and then we'll expand up into three dimensions,
+but I'll use the two dimensions as an example to lay out some of the mathematical framework.
+Alright, so imagine we're in a two-dimensional space, and we have a unit vector pointing along
+the x-axis, and you know a unit vector along the x-axis is kind of the simplest thing you can put
+in a vector space. So we're going to use that as our reference object because, you know, no need to
+over-complicate it. Now in order to rotate this vector, what we can do is we can construct something
+called a rotation matrix. In two dimensions, the rotation matrix about some counterclockwise angle
+theta has the form cosine of theta, negative sine theta, sine of theta, cosine of theta.
+And if you investigate the properties of this matrix, you'll find two things. First,
+the inverse of the matrix is the transpose of the matrix. So if you transpose the matrix,
+and if you take the inverse, that's the same thing, and another way of writing that is that the matrix
+times the transpose equals the identity matrix. So that's the first thing, and that means that the
+matrix is orthogonal. So when the inverse of a matrix equals its transpose, that is an orthogonal
+matrix. And another thing we can see by inspection is that this matrix has determinant one,
+because, you know, cosine squared plus sine squared is one. So our matrix is orthogonal and it has
+determinant one. And so the fancy word for that is it is a special orthogonal matrix. In particular,
+it's a special orthogonal two by two matrix. And so what we say is it is an SO2 matrix.
+So a rotation matrix in two dimensions is also known as an SO2 matrix. Oh, by the way,
+even though we're talking about SO2 in terms of matrices, the term SO2 can also refer to the group
+of rotations in two dimensions in a more general sense, whether or not we use matrices to represent
+them. For example, instead we could represent 2D rotations with unit complex numbers and complex
+multiplication, because the group of e to the i theta's under complex multiplication is isomorphic
+to the group of SO2 matrices under matrix multiplication. And that's a neat little connection
+there between the complex numbers and the SO2 matrices. We'll see in a moment that there's
+a similar connection between the quaternions and the SU2 matrices, but more on that later.
+But for now, I just wanted to let you know that there are many equivalent ways to reformulate
+all of these concepts. But I like the matrix representation because it's very mechanical
+and transparent. Now, if we look at this blue thing swinging around, we realize that we can use the
+set of all rotated blue vectors to visualize the set of all SO2 matrices. Because if we define the
+unit vector along x as our reference vector, then each SO2 rotation matrix corresponds to one
+and only one rotated unit vector. So if you tell me, hey, here's a reference vector, and now here's
+a rotated vector, then by looking at how rotated the rotated vector is, I can figure out what SO2
+matrix was responsible for the rotation. Likewise, if you give me an SO2 matrix and a reference vector,
+then I can draw you the rotated vector. So there's a one-to-one correspondence here.
+And this is true regardless of what reference vector we pick, no matter its length or orientation,
+which you can prove to yourself by skeptically tilting your head and leaning back.
+So anyway, we can see that we can loop through the SO2 matrices in a periodic way, passing through
+each of them in order of increasing angle, and then ending up back where we started.
+And so we can see that the topology of SO2 is just a circle, and that's why SO2 is also called the
+circle group. So in two dimensions, we can represent an SO2 matrix, in other words a rotation,
+with just a vector. But when we go to three dimensions, because of the extra degree of freedom,
+we're gonna have to use a flag. And the reason we're using a flag is because if you just had
+a vector in three dimensions, then that kind of points in a certain direction, but then there's
+the question of how is the vector rotated along its axis? And so with a flag, we can see that flag
+rotation angle, and so we can use that to represent the rotations in three dimensions. But before we
+get into three dimensions, I want to show you how to rotate a flag in two dimensions. And basically,
+the way to do it is just imagine the vector that points from the origin to each of the interesting
+points on the flag. So the zero vector points to the flagpole base, then you have a vector that
+points to the top of the flagpole, a couple of vectors that point out to the sides of the flag,
+and then another vector that points along the flagpole to the point where the flag meets the
+flagpole. So basically, we just treat those five points as vectors, and you apply a rotation matrix
+to those vectors. And as it turns out, the whole pattern of the flag will rotate when you do this.
+And that's because rotation matrices preserve the relative lengths and angles of vectors that
+they're transforming. And so any lines drawn between two vectors, which is also the difference of
+those two vectors, will transform in the same way as all of the other vectors. Now here's a view
+where we offset the flag from the origin. So here, this really drives the point home that if you
+have some shape made out of vectors, and you rotate all the vectors, you end up rotating the shape.
+There's a couple of other concepts I wanted to touch on while we're here. For example, what would
+happen if we scaled up our rotation matrix so that its determinant were greater than one? Well,
+now it would no longer be a special orthogonal matrix, but it would still be a matrix and it would
+still transform a vector field. And as you can see from this animation, if we take a rotation
+matrix and scale it up so that its determinant is greater than one, then that's just going to expand
+all of the vectors. Likewise, if we scale down a rotation matrix so that its determinant becomes
+less than one, then that's going to shrink the vectors. And the reason I bring this up is so that
+you can see the connection between a matrix having determinant one and a matrix doing a rotation
+transform. Because with a rotation, we don't want to expand or shrink vectors, we want to keep them
+the same length. And by the way, when you're transforming a vector space with a matrix,
+it's not always a uniform expansion or contraction, sometimes you can also get a skew,
+and a matrix that skews a vector space is not an orthogonal matrix, because it doesn't preserve the
+relative lengths and angles of the vector field, you know, it squishes them. And so anyway, that's
+another reason why we want to use a special orthogonal matrix for rotations, because they
+don't skew the vector field. Oh, and also if we go ahead and allow the determinant to go negative,
+you can see that an inversion of the vector field happens. And by the way, I know this looks kind
+of three dimensional, but it's actually two dimensional, and it's getting squished along
+one axis until it flips around and goes out on the other axis while at the same time I'm rotating
+it. But anyway, the main thing I wanted to show you there is that an inversion can happen when the
+determinant goes negative. So I hope these examples of growing and shrinking and skewing
+and inverting vectors gives you some sense of why we want to use special orthogonal matrices to do
+rotations. Okay, so now that we're experts on SO2 and rotations in two dimensions, we'll go ahead
+and pop up into the third dimension. A lot of what we just talked about in 2D will transfer directly
+over to 3D. But of course now we're in an expanded environment, so some of the concepts will be
+adjusted accordingly. But something I want to emphasize is that all of this special orthogonal
+terminology gives us a precise way to describe what kinds of matrices we're looking for, regardless
+of the dimensionality of the space that we're in. Because all of the same intuitions apply in 3D
+as in 2D, about not wanting to grow the vectors or shrink or skew or invert anything. And so what
+we're looking for now are SO3 matrices, that is special orthogonal 3x3 matrices, where the same
+constraints apply about the inverse being the transpose and the determinant being 1, but now
+there's just an additional dimension. And so the essence of special orthogonality is the essence
+of rotation. And yes, by the way, this also applies in higher dimensions, but save our tears for
+another day. So anyway, earlier we saw that given some rotation angle theta, we can construct the
+2D rotation matrix as cosine, negative sine, sine, cosine. But now in three dimensions,
+instead of just an angle for the rotation, we now have an axis angle vector like we talked about
+earlier. And so we're faced with the question of how do we write the SO3 matrix that goes with any
+particular axis angle vector? This is actually quite a difficult problem, but don't worry,
+it was solved in 1840 by Alinde Rodriguez, and the solution is called the Rodriguez formula.
+The Rodriguez formula is just a recipe for converting an axis angle vector into the SO3
+matrix that does that rotation. So you take an axis angle vector, put it into the Rodriguez formula,
+and out pops your SO3 matrix. And then you take that SO3 matrix, you just slap it onto a vector,
+and it rotates the vector. And that's how that works. That's how you rotate vectors in 3D. It's
+pretty neat. So in theory, in principle, according to everyone's intuition and imagination, that
+should be good enough. If we want to represent rotating any object, you should totally be able
+to just list out a bunch of position vectors of points on the object, rotate all your position
+vectors with special orthogonal matrices, and then that should be like all you need to rotate things
+in math and physics, like you should only ever have special orthogonal matrices for rotations,
+like we have it already, it's good enough, right? This is fine. Well, not exactly. We got to talk
+about SU2. SU2, I don't even know where to begin with SU2. Well, here, how about this, we'll start
+off by thinking about SU2 as a complex generalization of SO2. Let me clarify what I mean by that. So
+think about an SO2 matrix. As we've seen, you can write an SO2 matrix as cosine theta
+minus sine sine cosine. Or equivalently, we can say that the general form of an SO2 matrix is a
+negative b, b, a, with the constraint that a squared plus b squared equals one.
+And you can see that this is the same thing by the substitution a is cosine of theta and b is sine
+theta. And when you write it in terms of a and b, and a squared plus b squared equals one,
+you see that we have a unit circle of possible SO2 matrices. Okay, now with that in mind,
+let's look at the definition of an SU2 matrix. So an SU2 matrix involves complex elements.
+We'll symbolize them as alpha and beta. And it has the form alpha negative beta conjugate,
+beta alpha conjugate, where alpha and beta are complex numbers. And the magnitude of alpha
+squared plus the magnitude of beta squared equals one. You can see that in the special case that
+alpha and beta are real numbers, then this matrix has the form of an SO2 matrix. But because alpha
+and beta can be complex numbers, SU2 is actually a more general kind of matrix than an SO2 matrix.
+It has more degrees of freedom. And whereas an SO2 matrix acts on real valued two component
+vectors, an SU2 matrix being complex naturally is going to act on complex valued two component
+vectors. Those complex valued two component vectors are called spinners. And this is one
+way of thinking about what a spinner is. It's the vector like thing that an SU2 matrix acts upon.
+By the way, there are ways of generalizing the concept of spinners using other kinds of matrices,
+but I'm not going to worry about that today. Today we're just focused on two component complex
+spinners, which are the most common kind of spinner you'll encounter in physics.
+Okay, now something you can see by exploring the properties of these SU2 matrices is that they
+have determinant one, and that the inverse of the matrix is the complex conjugate transpose of the
+matrix. So this is very, very similar to a special orthogonal matrix, but technically the correct
+word now is special unitary matrix, where unitary refers to the fact that the inverse of the matrix
+is the complex conjugate transpose of the matrix. And that complex conjugation comes in because the
+dot product of two complex vectors involves a complex conjugation. And so in order to preserve
+lengths and angles between complex vectors, we have to preserve the dot product. And so there's
+a complex conjugation that comes in in order to preserve dot products. But anyway, I'm not going
+to go into too much detail on that, just know that these are the constraints on SU2 matrices.
+Okay, so what we've looked at so far is a very algebraic definition of SU2. And what we should
+look at now is the picture of what do these matrices actually do. So the way to do that is to first
+draw some reference spinner, and this will be analogous to the reference vector we looked at
+when we looked at SO2. And then we're going to multiply it by an SU2 matrix, and we're going
+to see how it transforms. So first of all, how should we even draw a two component complex
+vector? Well, there's a lot of different ways of drawing it, but today I'm just going to keep it
+simple. We're going to look at one complex plane, and then I'll put two dots in the plane, corresponding
+to the two components of the complex vector. And I'll draw a line between them just to highlight
+the point that these two dots are actually two parts of the same object. There's another way
+of looking at all this math in four dimensions, but we're not going to get into that today.
+Anyway, so when we multiply our reference spinner by SU2 matrices, we can see that it kind of goes
+around, and it spins, and it transforms in this rotational kind of way. And so naturally we can
+ask the question of what are the degrees of freedom here? As we're transforming our spinner,
+how does it evolve and how many degrees of freedom does it have? Well, naively, it should have four
+degrees of freedom, right? Because there is two complex numbers, and each complex number has two
+degrees of freedom in the complex plane. But we're going to take out a degree of freedom by virtue of
+the fact that the SU2 matrix has determinant one and is unitary. And so what that means is that
+this spinner is not changing in size. And that means that the magnitude squared of the first
+component plus the magnitude squared of the second component is always going to equal one. So we
+actually have three degrees of freedom here. And these three degrees of freedom are isomorphic
+to the hypersphere, which is the locus of points in four dimensions that are all equidistant from
+the origin. Which you can see when you think about it, right? You start off with four pure
+degrees of freedom, and then constrain them so that they have to be constant size. What you
+end up with is the hypersphere. Interestingly, the hypersphere is a simply connected space.
+That'll be really important later. But for now, just think of these spinners as
+rotating around and spinning around in a way that is simply connected.
+Okay, so here we have three degrees of freedom. And it involves some kind of spinny, rotating thing.
+So the question arises, does this have any connection to SO3, that is, the three dimensional
+rotations? Maybe it will, maybe it won't, right? I mean, if we're just thinking about it from a
+mathematical perspective, that's a legitimate question to ask. And as it turns out, shockingly,
+there is a very, very close connection between SU2 and SO3. And in particular, SU2 double covers
+SO3. Let me explain what that means. So imagine we have SO3, which acts on some three dimensional
+vector and rotates it. And we also have SU2, which is going to act on some two component
+complex vector that we call a spinner. And it's going to transform it and kind of spin it around.
+What the double cover means is that we can draw a connection between any possible rotation in three
+dimensions and any possible SU2 transformation on these spinners in this two complex dimensional
+space. But the connection is not one to one, it's actually two to one. For every rotation
+in three dimensions, we have precisely two possible SU2 transformations. And moreover,
+those two SU2 transformations are related to each other in that they only differ by a minus sign.
+So you know, at the beginning of the video, I mentioned that quote by Michael Atia,
+where he was talking about how spinners are in some sense the square root of geometry.
+And you really see this in the way that SU2 double covers SO3. Because if you think about it,
+what is the square root of four? Well, it's two, but it's also negative two. And what is the square
+root of nine? Well, it's three, but it's also negative three. So when you take the square root
+of something, you get an answer, but you actually get two answers that differ only by a minus sign.
+Likewise, if you look at any rotation in three dimensions, which corresponds to a single SO3
+element, and you ask, what is the corresponding SU2 element, you get an answer, but you actually get
+two answers that are related by a minus sign. Okay, now let's talk about the spinner way of
+rotating things. So because SU2 double covers SO3, there's an intimate connection between
+every SU2 transformation and every rotation in three dimensional space. Therefore,
+if we wanted to, we could mathematically deal with rotations using the framework of SU2 matrices
+instead of SO3. But we would just have to ignore the redundancy that comes with a double cover.
+But that's not really a problem. I mean, we can literally just ignore the redundancy, right? We
+can just project it out. Let me give you an analogy. So suppose that there is a math problem,
+and you have some computer program that calculates the answer, but it's kind of slow,
+and it takes a while to run. So you run your program, you wait a moment while it calculates,
+and then let's say you see that the answer is 4. Well, okay, if you're not in a rush, that method
+works fine. But let's say you're really in a hurry, or maybe you have to do a bunch of these
+calculations super fast. So you look for a way to do it faster, and then you discover a faster
+method, but the catch is that it doesn't give you the answer, but instead it gives you the square
+root of the answer. So if the answer is 4, then sometimes the fast method gives you 2,
+and sometimes it gives you negative 2. Okay, fine, that's actually not a problem at all,
+because you can just square it, and the ambiguity washes out, and you've got your answer.
+The same reasoning applies to using SU2 to do rotations, because it turns out that SU2 lends
+itself to faster, more numerically stable calculations than SO3. And even though there are
+two possible spinners for each SO3 orientation, they only differ by a minus sign, which can easily
+be washed away. Don't get me wrong, SO3 is pretty fast too. I mean, I used like a million SO3 matrices
+while making this video, but then again, I also rendered these animations overnight. I wasn't
+in a hurry, so I just took the easier route in terms of thinking about SO3 and axis angle vectors
+in Rodriguez's formula, and that worked fine. The only time I really had to use SU2 for 3D rotations
+is when making these colored flag animations. Those are actually based on SU2, because I wanted
+it to match the spinners. Anyway, with animations, there's not really a time constraint, so you
+might as well just think in terms of axis angle vectors, Rodriguez's formula, SO3 rotation matrices,
+because it's easier on the brain, and usually there's no benefit to rotating a vector like
+a microsecond faster, so why torture yourself if you don't have to? But if you are writing
+software for video game graphics, or a vision system for a self-driving car, or the attitude
+control system for a rocket, then you'll for sure want to use SU2, because in those cases,
+you're gonna have to rotate a lot of vectors very quickly. And the only cost of using SU2 is that
+it's harder to think about when you're writing the code, because your imagination has to roll
+around on a hypersphere, and it's kind of dizzying, but at the end of the day, you'll end up with a
+code that's faster, uses less RAM, and is more zen than a code that uses SO3. The numbers flow
+more gracefully when you use SU2. SU2 also lets you avoid the problem of gimbal lock,
+which affects SO3. I don't have time to go into it today, but Google Apollo 11 gimbal lock
+for a cautionary tale about the perils of SO3. Also, when using SU2 for rotations in three
+dimensions, people often use the quaternion representation, because it's clean and simple.
+We saw earlier that there's an isomorphism between SO2 and the unit complex numbers,
+and similarly, there's an isomorphism between SU2 and the unit quaternions. And by the way,
+this isomorphism makes manifest the hyperspherical topology of SU2. So anyway, whenever you hear
+people talking about a rotation algorithm that uses SU2, or spinners, or quaternions, it's all the
+same. The basic idea is that you're doing your rotational math in this weird, simply connected,
+hyperspherical, kind of redundant group that somehow lives, like, kind of underneath the
+vector rotations. It's very bizarre, but it works. Somehow it works. And so SU2 is actually used
+ubiquitously in applications that demand maximum performance. And so SU2 is more than just some
+fanciful abstraction. It's actually very practical. And you know, it'd be one thing if it were just
+practical. It'd be one thing if SU2 was just, like, a more efficient way to do rotations,
+and you just ignore the spinner phase. Fine, I mean, okay, that's cool, but that's not particularly
+profound. But the thing that's really a trip is that in theoretical physics, the spinner phase
+actually matters. So SU2 is not just another way of doing rotations, but that redundancy that you
+wash out if you're just doing, like, video game graphics, that actually is something that's relevant
+to the wave function of a relativistic electron, for example. And as we'll see later in the video,
+that is a very, very deep mystery as to why that's the case. Okay, so let's look at one more double
+cover animation, and then we'll talk about the physical mystery of spinners. So here we have a
+very, very complicated rotational path. And it's all like, and it's all like swooping around and
+doing all these moves. And the point I want to illustrate here is that even when the rotational
+path is super complicated, there's still this connection between the flag rotating an SO3
+and the spinner rotating with an SU2 matrix. There's still that two to one connection,
+such that if we go around a class one curve, we end up with the phase switched.
+And then if we run that class one curve again and bring it full circle, we end up doing a
+class two, and we end up back to where we started. So let's take a closer look at this, and we can
+see exactly how that happens. Okay, so first it comes in, it's like shoo, shoo, and then look,
+it's about to teleport right there. Do you see that? Okay, cool. Let's keep it going. Now it comes
+around. And look, we'll pause here. Okay, now it's come back towards started, but the phase is reversed,
+as indicated by the fact that the flag is red. And also if you look at the plot, you can see that
+the spinner is the negative of what we started out with. Alright, and continuing, it's gonna swoop
+around, and it's gonna teleport right now. And it's gonna come back through, and it'll end up
+back where it started. So we've done two class ones, and that's a class two, and that brings us
+back to the starting point. Isn't this neat? I think it's neat. The thing I really want to
+impress upon you is that SU2 double covers SO3, and it's like a perfect double cover. It's like a
+hand in the glove, or like, I guess, a hand in two gloves, you know? So like, that's really cool,
+you know? Like, what does that mean, right? I mean, the algebra, I think, as you can see, the
+algebra is formally understood. I mean, look at all the numbers on the screen. If you pause it at
+any moment in time, you can check for yourself, the matrices are right, and you know, all the
+equations we've looked at, that's all true, it's all good. But why? Like, what does this mean?
+You know, the funny thing is, when making these videos, the equations are the easy part,
+because an equation is just a recipe, and I can put it in the computer and make an animation,
+and I can just tell you how it is and how it works. The hard part is conveying the sense of mystery.
+I mean, aside from the fact that it's just kind of confusing and like, whoa, what are these things,
+but how can I share with you that sense of awe and wonder that so many people have when they
+work with spinners, especially in the context of physics? And you know, that's much more of a
+storytelling problem. That's the objective there is to really share a state of mind or
+an attitude. And so I just want to tell you about it from my point of view. So please take
+everything I'm about to say with a grain of salt. This is just my perspective, but I hope
+it resonates with you as well. Okay, so you might have heard of the five stages of grief. Well,
+I like to think that there's a similar five stages that you go through when learning about spinners.
+Hear me out. So except it's not as bad. Instead of anger, its astonishment, and instead of depression,
+it's existential shock. Now, I don't think anyone's ever gotten to the fifth stage,
+but I can tell you about the first four. So starting off with the denial stage,
+if you tell someone that there's something that you have to rotate it twice to get back to where
+it started, they're just going to tell you, no, you're wrong. Like that can't be like,
+have you ever rotated an object? Everyone knows all you need is to do a 360 rotation in any axis,
+and then you get back to where you started. This is like a basic fact of reality. And look,
+I get it. I mean, I understand. I've rotated objects too. I've actually personally rotated.
+Back in the days when I used to jump out of planes, I spent a lot of time rotating
+atmospherically. So I'm not naive when it comes to rotations. I've been around a time or two.
+Sorry, I couldn't resist the pun. Anyway, if there's one thing that I know and you know and
+everyone knows, it's that a rotation of 360 degrees is all you need to get back to where
+you started. You don't need a 720 rotation. So what is this spinner stuff? It makes no sense.
+So that's the denial stage. And what breaks you out of the denial stage is when you become
+really familiar with the math. So when you get to know SO3 and SU2, and you see that SU2
+double covers SO3, you see that SO3 is not simply connected, but SU2 is. And so now you have two
+different ways of looking at rotations. And one of them is kind of more elegant, but in some sense
+more redundant than the other. And it's sort of like, okay, there's something here. Now when you
+become familiar with the math, it's very astonishing. So I like to call this the astonishment phase.
+And this is when you might be very curious about the math, and you might study it a lot more,
+you might explore it, you might write some Python codes, you might investigate every which way you
+can rotate these different things, and you might make pretty plots. And it's very wonderful and
+beautiful. And you find that there's a very rich structure here that you can spend a lot of time
+exploring. And after having done that, there's no way that you can go back to the denial stage,
+but even still, you feel the need to contextualize the math. You feel the need to say, okay,
+but what does it all mean? And how literally should I take it? And what are the physical
+implications, if any? And the part of you in your heart is not going to want there to be
+any physical implications. I mean, you want to think it's just the product of a mathematician's
+overactive imagination. You don't want to think there's anything in the world that actually
+does have to rotate twice to get back to where it started, because that's deeply unsettling.
+And so we enter into the bargaining stage where we say, okay, fine, mathematically, sure, yeah,
+spinners are a thing, but it's not physics. This isn't real. This isn't like tangible.
+And so you can sort of argue the math and physics and say, no, it's just a useful fiction. It's
+just the structure of the equations, but it doesn't have any physical implications. And the problem is
+that is a losing battle. Because the more you learn physics, the more prominent and essential
+spinners become. You know, for example, look at the Dirac equation, look at the wave function
+of an electron, it's a bispinner field. And it's this thing that's written in terms of spinners,
+and it's at the heart of quantum physics. So okay, but you still want to bargain some more,
+you still want to say, well, our understanding of physics is incomplete. And so the Dirac equation,
+maybe there's a way of writing it without spinners. So you look into geometric algebra and these
+different ways of writing the Dirac equation, and you find that nope, no matter what, you always
+have spinners or something equivalent to spinners. And so then you say, okay, but maybe the Dirac
+equation itself is wrong in some sense. And then so okay, it's like, what is the Dirac equation?
+Well, it's three ingredients. It's Lorenz invariance. It's the quantum mechanical energy momentum
+operators. And it's the requirement that the equations be first order in space and time.
+Now, to the first one of those things, no one has ever observed a violation of Lorenz invariance.
+And in my opinion, in my lifetime, probably no one ever will. Now, do I think that Lorenz
+invariance is literally true at every scale? No, personally, I don't. But I also don't think
+we're ever going to be observing any deviations from it anytime soon. So if you want to try to
+undermine the importance of spinners in physics by arguing against Lorenz invariance, it's not
+going to work out. Likewise, with the quantum mechanical energy momentum operators, I mean,
+there's really not much room for flexibility here because they describe so well pretty much
+like everything. I mean, you want to look at the blackbody spectrum, you want to look at like
+the hydrogen energy levels. So you're not going to be doing away with the quantum mechanical
+energy momentum operators. But if you look at the third ingredients, the fact that the equations
+have to be first order in space and time, here we do have a little bit of leeway because with the
+benefit of historical hindsight, we can say that Dirac was a little bit misguided in his original
+approach. You know, I think it's fair to say that he was right, but perhaps for the wrong reasons,
+or maybe better, for reasons that were not fully appreciated or understood at the time.
+Anyway, with the development of quantum field theory, we now know that you can have particles
+that aren't fermions. And so there's no reason for us to think that the electron must be a fermion.
+It just so happens that they are and it just so happens that the way to write that way function
+is to say that it's a first order equation in space and time, take the square root of the
+mash shell spinners pop out, you know, that whole thing. So it's right. But it's not obvious that
+it's like mathematically necessary for an electron to be a fermion. Aha. So the way we're
+going to bargain out of having to deal with spinners is to say that the electron is not
+actually a fermion. Instead, we can just choose to model it as a spinless particle, right? So
+instead of a by spinner field, we could just use a complex scalar field for its wave function,
+sort of like Schrodinger or Klein-Gordon. And there are kind of ways to do that if you're
+dealing with one electron and are okay making an approximation. But the problem is, if you take that
+approach while you're trying to deal with multi-electron systems, like if we're doing quantum
+chemistry or condensed matter physics, then that approach doesn't work because we get slapped in
+the face with something called the spin statistics theorem. And it's such a hard slap that we get
+knocked out of the bargaining phase and into the existential shock phase. The spin statistics
+theorem deserves its own video. And actually, for now, I'll just say there's an excellent
+book written on it called Polly and the Spin Statistics Theorem by Ian Duck and ECG Sudarshan.
+It's a very interesting book and I highly recommend it if you want a good overview of the
+history of this theorem and its profound implications and what is known about it and what is still not
+known about it. But anyway, for today, we just have to know what the theorem says. In a nutshell,
+it says that particles with half-integer spin are fermions and their wave function
+will pick up a minus sign when two particles are exchanged. And that leads into Fermi-Durok statistics.
+On the other hand, particles with integer spin are bosons
+and their wave function will remain the same when two particles are exchanged.
+That leads into Bose-Einstein statistics. In short, the spin statistics theorem says that
+there is a direct and mysterious link between the minus sign, or lack thereof, picked up by
+a particle under 360 degree rotation, and the minus sign, or lack thereof, picked up by a
+multi-particle wave function under the exchange of any two particles. This fact is going to lead
+to radically different behavior, depending on whether you're dealing with an ensemble of fermions,
+or an ensemble of bosons. Bosons don't mind being all up in the same quantum state at the
+same time, it's all good. But fermions will never share the same quantum state. They do not like
+to be together. There's a principle that every high school chemistry student learns
+called the poly exclusion principle. It says that no two electrons can occupy the same quantum
+state at the same time. This is a profound principle with far-reaching consequences.
+It plays an absolutely fundamental role in chemistry. It's the reason, for example,
+that atoms have different orbitals that the electrons have to stay in, because you might
+wonder why isn't it that an atom at rest, why can't all the electrons collapse into the ground
+state together? What is it that keeps some of them propped up into higher energy states?
+Well, it's the poly exclusion principle. The lower orbitals are already filled up.
+So chemistry students take this for granted as sort of one of the axioms of chemistry,
+but with physics we go a bit deeper, and right now we're actually logically one level underneath
+the poly exclusion principle, because it follows as a consequence of the more fundamental spin
+statistics theorem. To see this, just consider a system of n electrons whose multi-particle wave
+function can be written as psi is a function of x1, x2, dot dot dot, xa, dot dot dot, xb,
+dot dot dot, xn, where x sub n in this context refers to all the quantum numbers of the nth
+particle, including spatial coordinates and spin. Now, suppose we switch electrons a and b.
+According to the spin statistics theorem, because electrons are fermions, the new wave
+function is just the minus sign of the original one. So psi of the original quantum numbers
+is going to equal negative psi of the same quantum numbers, but with the numbers for a and b switched
+around. So all we've done so far is basically just stated generically what the spin statistics
+theorem tells us about fermions. But suppose now that we force electrons a and b into the same quantum
+state with the power of imagination. Then, by the symmetry of what it means for two things to be the
+same, we conclude that there is no difference between the original and swapped wave function.
+By definition, there can't be. If a and b are the same state, then you switch them, nothing can
+change, right? Because they're the same. Well, now here we have two apparently contradictory
+things. When particles a and b are exchanged, the wave function both does and doesn't pick up a minus
+sign. How can that possibly be? Because we're saying that psi has to equal negative psi. Well,
+that can only be the case if psi is precisely zero. And because psi is a probability amplitude,
+we conclude that it is absolutely impossible for two fermions to occupy the same quantum
+state at the same time. There is zero probability of that happening. And that is the poly exclusion
+principle. Notice that this argument does not apply to bosons. With bosons, there's no minus
+sign picked up under particle exchange. And so there's no logical tension when you put two
+particles in the same state. Switch the identical particles around all you want, it's all good.
+And that's why the poly exclusion principle does not apply to photons, for example. Photons
+are bosons, and they can share the same quantum state, no problem, and in fact they often prefer
+to do so. You can see that the spin statistics theorem is quite profound, and plays a major role
+in shaping the world all around us. But why is it true? Where does this all important principle
+come from? Well, we know that the spin statistics theorem is true. Every moment is bursting with
+an abundance of empirical evidence supporting the theorem, as electron orbitals continue to exist,
+and photons continue to be able to occupy the same state. Additionally, the theorem follows
+logically from the assumptions of quantum field theory, and it's been proven rigorously in that
+context. But despite all that, nobody really understands, in a geometric or visual way,
+why there is this mysterious connection between spin and particle exchange.
+If you think you do understand it because you've seen Feynman's topological argument or some
+similar intuitive proof, read chapter 20 of the spin statistics book. Long story short,
+those so-called proofs are actually analogies without any explanatory power, but they are fun
+to think about. Okay, fine, now there is one last battle where we try to work our way back into the
+bargaining phase, and that is to say, well maybe the spin statistics theorem is not actually
+logically underneath the poly exclusion principle, maybe it's just some kind of cosmic coincidence,
+so maybe spin doesn't play a fundamentally consequential role in the spin statistics theorem,
+but instead maybe it just so happens to be that the particles in our universe that happen to be
+fermions happen to obey the poly exclusion principle, whereas bosons do not. Now this is
+unlikely, but we're really grasping at straws here to try to retain some semblance of our
+natural intuition, you know, we don't want to feel like the world is much more bizarre than it seems,
+but it is. But anyway, the final nail in the coffin is to say, okay look, what if we take an electron
+and we change its spin so that it no longer is a half-integer kind of thing but actually behaves
+as a boson? Then, if that electron is set free of the poly exclusion principle, we would know
+that we actually are logically underneath the poly exclusion principle right now,
+because that experiment would give us a definitive proof that the poly exclusion principle actually
+does arise from the spin statistics theorem in a really meaningful way. Now it's actually not
+super easy to convert electrons into bosons, but it can be done. In some materials, because of the
+way electrons mutually interact with the crystal lattice, you can occasionally get a spin-up electron
+pairing up with a spin-down electron, and that pair of electrons has a net spin of zero.
+And so the pair of electrons is collectively a bosonic entity. So in the material, you can have
+a great many of these, and they're able to condense into something that's spiritually very
+similar to a boson-stein condensate, and they genuinely are occupying the same state at the
+same time, which electrons hardly ever do, but when you convert them to bosons, all we're doing is
+modifying their spin, we're not changing their charge, we're not taking away any mass or any of
+that, we're just pairing them up so the spin cancels out, and now we set them free from the
+poly exclusion principle. They condense into a very low energy state and can slip through a material
+like a ghost without interacting with the atoms along the way. And this is the phenomenon of
+superconductivity. And so superconductivity gives us an undeniable proof that the spin
+statistics theorem is genuinely underneath the poly exclusion principle. By the way, we'll have a
+lot more to say in the future about superconductivity. It is an incredible phenomenon, and you know,
+I've personally seen what a superconductor can do. My colleagues and I have sent enormous electrical
+currents through superconductors, many thousands of times the intensity that would melt copper,
+and I've watched it stay cool as a cucumber. It doesn't heat up at all because all that current
+is being carried by these super electrons that are behaving as bosons. And so it's not even like
+regular physics like we know and love it, it's like this weird surreal like crazy version of
+reality where the poly exclusion principle only, you know, doesn't always apply to every electron,
+like it's amazing. It's a wonderful thing. So we'll talk about that a lot in the future,
+we'll get into Ginsburg Landau and flux quantization and all that good stuff. But anyway,
+today I just bring it up to highlight that this whole spinner thing, you know, it's real, it's
+mysterious. And if you take away the spinner nature of the electrons wave function, you get some
+pretty bizarre and surreal effects that actually are real. This is not just theory. This is not
+just Socrates philosophies and hypotheses. No, this is like real, like technology, like engineering,
+people are building devices with this stuff. So, you know, so that's something to think about.
+Anyway, is it possible to reach the acceptance stage and to really understand spinners in a
+way that would satisfy even Michael Atia? Maybe, but we're not there yet. Among other things,
+the lack of an intuitive but rigorous proof of the spin statistics theorem shows that we don't
+fully understand the significance of spinners in physical reality. We're aware of spinners,
+we're able to work with them, we know how their algebra works, but we still do not know why spinner
+valued wave functions are anti symmetric under particle exchange. Now you might be thinking
+Rich, come on now, you're just dramatizing your own ignorance. This isn't actually a mystery,
+you just don't know the answer. Well, it's true that I don't know the answer, but I'm not the
+only one who thinks that this is a mystery. Let me share with you this quote from the spin statistics
+book. This quote is in a passage about whether or not physics can explain the spin statistics
+theorem or is just consistent with spin statistics. We should modify the meaning of understand.
+And at the same time reduce our expectations of any proof of the spin statistics theorem.
+What is proved whether truly or not, whether optimally or not, in an acceptable logical sequence
+or not, is that the existing theory is consistent with the spin statistics relation.
+What is not demonstrated is a reason for the spin statistics relation.
+To belabor the point, it is difficult to imagine a fundamental mechanism for the poly exclusion
+principle upon which all depends, which predicates it upon the analyticity properties of vacuum
+expectation values of products of quantized field operators. Did God, for lack of a better word,
+build a series of failed worlds which sputtered and died, or exploded and disintegrated before
+discovering the stabilizing effect of anti commutation relations for half integral spin fields?
+Was this before or after imposing the requirements of Lorenz invariance?
+Are we the lucky winners of a Monte Carlo simulation in which every choice was tried
+and one survived? Must we reduce our demands on physics to require only consistency?
+Does an understanding of the why of the spin statistics relation have no direct answer in physics?
+Or must physics be formulated to include it?
+The poly result does not explain the spin statistics relation and cannot.
+The Noinchwanders and the Feynman's of the world must remain unsatisfied,
+because the consistency of relativistic quantum mechanics and quantum field theory with the
+poly exclusion principle has every reason to be as complicated as these subjects are,
+not as simple and direct as the poly exclusion principle itself.
+So in short, there sure is a lot of mystery here and it's confusing, but it's kind of cool to
+think about, right? But you know, honestly, I can only think about spinners for so long
+before it starts to hurt. It's like diving underwater. You try to go as deep as you can,
+but at some point you have to come back up for air. And it's all so disorienting that sometimes
+when you stop thinking about spinners it's all so confusing and you feel like you're right back to
+square one. But my friends, if there's one thing that spinners have taught us,
+it's that just because you returned to where you started doesn't mean you haven't picked
+something up along the way. So in that spirit, I'd like to reiterate part of the quote from
+the beginning of the video. No one fully understands spinners. Their algebra is formally understood,
+but their general significance is mysterious. I hope today I've given you some sense of the
+algebra, but most importantly, an appreciation of the mystery.
+If you enjoyed watching this video as much as I enjoyed making it, then please consider supporting
+my channel on Patreon. On there, you'll be able to download these beautiful, magnificent PDFs
+with the equations and diagrams discussed in this video, and other videos too. Also, if you sign up
+on Patreon, your input will help determine the future direction of this channel. I know what
+I'm going to do for the next few videos at least, but beyond that, I don't know, I need your advice.
+What do you want to see? Where do you want to go? You want to go into electromagnetism as a gauge
+theory? You want to go into superconductivity? Do you want to go into whatever the case may be? So
+anyway, your support is not obligatory, but it is greatly and sincerely appreciated.
+All right, well hey, thanks for watching, and I'll see you in the next one.

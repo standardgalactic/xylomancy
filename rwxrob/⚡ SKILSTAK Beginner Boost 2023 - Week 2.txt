@@ -1,0 +1,1564 @@
+Here we go, we're gonna do the beginner boosts
+We're on week two if you're here for the beginner boosts 11-11 time to start something new
+And get going on this we're gonna jump right into it
+We have here a
+Number of things that we're gonna try to get through today. So we have two hours. That's it
+We're gonna take a 10 minute break in the middle
+Right at noon. So if you want to my time noon, and if you ever wanted the time and you're in twitch
+Go ahead and do exclamation point time. That'll show that to you
+big shout out to all the people in in in
+twitch
+also just a shout out to
+To the people who have been helping with these chapters specifically
+Yungozu who has been very faithfully posting the chapters as a comment
+And I have been adding them so that we now have chapters so we have chapters in every week so far as you can see last week
+We covered markdown a github
+Markdown why to do markdown from note-taking we started talking about I mean there was a lot of talk about taking notes of markdown
+But that's important because that's a big part of this you're writing your own textbook for the beginner boost
+And and that that is an accurate statement. We are not going to have a textbook
+I mean I will write some notes and stuff, but it's more about you writing down your own notes
+As a part of the RWX method just to remind her read and research
+Write about it, you know ponder it as you're writing about it and explore it experiment with it
+That's the art of X method, which is just an extension of the scientific method, which we covered on day zero
+Well when we started so those are all things you can go back and review
+if you want to
+But let's get going. All right, so
+Let me just clean some of this stuff up
+All right, so today as as it said in there you should already have
+Stop the video right now if you don't have the following things, right?
+If you don't have bash installed and you don't have a terminal installed, right?
+If you don't have those two things go back and watch the videos
+Otherwise, you're gonna waste your time and you're gonna get frustrated, okay?
+So I'm assuming that you have installed a terminal you've customized it minimally to your liking for now
+and
+Whether it's a macro windows machine you've done that and and that you've installed podman desktop
+Okay, so what is podman desktop?
+Podman desktop is something we're gonna cover a little bit later, but I don't want to I don't want to blow you away
+So so the first thing I want you to do everybody there
+I'm gonna do it with you is we're gonna open a terminal now
+I've already got a terminal open. So let's actually close mine up and and
+I'm gonna let's go through the steps all by itself
+So if you don't know I mean look you're gonna be opening a terminal one way or another for you if you want to you can full screen it
+I'm gonna go ahead and do the windows version on a Mac. It's the same, but if you're on windows
+You just I I learned to search I push the windows key and I search for a type terminal
+This is what I call search centric
+Command execution I cannot tell you how to get to that command never done it, right?
+So
+In fact, I do this everywhere and it's usually its own little module called search and search centric computer use
+Which kind of is before you know the beginner boosts
+It's like how to use your computer people think they know how to use a computer and then I see them like
+Struggling with application menus. I'm like you have not learned how to use your computer yet. So let's just take a moment to talk about it
+You whether if you're on a Mac you want to use command space and then start typing the name
+Okay, if you start typing a name the command will pop up if it's there and off you're on a if you're on a windows machine
+you just type the windows key otherwise known as a command key same with Linux by the way and
+You you start typing the name or a key word within the name of the thing you want to open now
+You can use this technique
+To to do all kinds of stuff back. Let's open this thing
+I
+use
+Use command search
+I'm going to do this
+Use command search to open a bash terminal, okay
+I watch people go through the other way and it's sorry about that
+Because you can answer to open a bash terminal
+Right, so I just push the tab and I mean the command thing and then terminal whichever one yours is
+And they enter and it'll pull it up now mine was already open, but you can see I have a new one
+I have changed my configurations to default a full screen. You can do that yourself. It doesn't take very much to do that
+There's lots of things that people like to play around with but the goal here is to get a terminal open
+And usually if you type, you know, I think those search tools that we just mentioned are really good because they exist everywhere
+Another thing that's that exists everywhere on every platform is alt tab. So
+Or the equivalent, right? So alt tab or the equivalent will jump you through all these different windows
+we're going to be doing this a lot and
+It's not really part of the boost but you should already know how to do this if you're not alt tabbing right now
+You're wasting time. You really are so you're going to be alt tabbing between all your different apps and
+That works on a on a Mac a Windows box a Linux machine. It works on iPads for God's sake
+so learn to alt tab learn to do command centric
+you know things and
+Get your terminal open. Okay, so if you've got if you've got your terminal open
+So I have a new one over here brand new instance of this running now. I have a
+customized
+Terminal window and you see the command prompt now
+I I'll also defaulted to get bashed now if you don't see that this is a piece
+Let me show you what you might see if you're on Windows if you're on Windows
+You might have ended up seeing something like this
+You might have seen this right and that's because you're do get power shells at a fault, right?
+And you don't if you you can do it that way if you want to do it that way then it started that way this type bash and
+That will actually open up
+Get bash and you can see that you are now in Mount see users Rob
+Not actually I think that might actually be WSL to
+Yeah, it is it is I'm pretty sure is I can't remember which one it is
+But I think this is the problem with Windows, right?
+So if you installed WSL to that would I don't want to get into it
+just there's a difference between get bash which is just a program that runs under Windows and
+The WSL Windows subsystem for Linux, which is an entire
+Linux system that runs inside of Windows
+Or kind of next to Windows instead of virtual space. It's very complicated
+But I think the bash command has been defaulted to open a WSL to instance
+So that's probably not what you want
+If you want to be absolutely sure you're going to be getting the right shell and no
+We are not going to go into why to use get bash versus WSL to today
+We started talking about it last week and we will talk about it near the end of the boost if you want to or we can
+Have a big debate and discord about it
+But so vice-ed to say WSL to is broken and and I can I can back that statement up with video evidence of it
+Not working in several critical areas
+So we've decided to you just get bash with Windows and when we talk about permissions
+Remind me to remind you about what the difference between WSL to is and then permissions because there's a really fundamental difference there
+Particularly for beginners. So if you don't want to avoid all this hassle, let's just do this instead
+So let's let's go ahead and exit out of this exit is pretty much a universal command
+Let's exit out of this PowerShell one and we're going to open up a new one
+Oh, my I click plus sorry, so when you click plus it opens up whatever your default is
+I changed my shell to default to get bash, but let's do this. Let's say I want to open
+You can have look at all these wonderful things. These are the things you don't you probably don't have those
+The these are all the WSL by the way, and you can get the old-fashioned command prompt that Windows used to use
+PowerShell or get bash get bash should be one of your options, right?
+And then you can open get bash and you'll get what is a bash prompt, right?
+And you can you know it's get bash because it says up here in the top here if you want to go to full screen on Windows
+It's f11
+Which I can't see right now. There we go, and you can get a nice pretty full screen like mine if you wanted to do that
+I'm sorry about the ads people some people are ads are still on apparently
+Let me just take a pause here
+Right sorry for that we had ads start up. Okay, so we are back and we have
+F11 shows us the full screen if you want these colors
+You can I showed you where to look for my configuration settings. You can go look at those up
+That's in the last week's video go find that and you get this video
+I mean you get this this pretty thing if you want to switch between
+If you're in Windows and you want to switch between the different tabs
+That's just alt tab or I'm sorry control tab and you can see it goes back and forth between the two
+So you can see I have like two of them open, right?
+So I have to go back into my notes. So just give me a second. I'm going to connect back to my notes really quick
+Don't worry if you don't know what that is. This is just my notes. I'm going to put a thing here that says
+Notes or to do what it to do. Well, you're gonna learn all this you're gonna learn all this teamwork stuff
+So this goodness eventually so use the command search. We did that
+Let's talk about the command prompt again. So we'll go back to this is what you're seeing, right?
+So you've got a terminal open you've got a prompt and you potentially have just got this big full screen
+So let's talk about this this over here is the username, right now
+This corresponds to in because we're using git bash this corresponds to the username of the Windows user on this computer
+Okay, the at sign is is been around forever. We'll talk about that that yes
+If that looks from like an email address, it actually is that's where email addresses came from this here is the host
+All right, so this here is the name of the computer and
+I if you you know you I'm not going to tell you how to change your name for your computer if you're in a Mac or a Windows person
+that's not included but if you if you want to go in and and
+Change those things. That's what you do and I change those so that would you know look nice on screen and on streaming and everything so
+And and so then you have this colon here
+Which says okay? Here's the end of the information about where we are
+And then you have this tilde
+Now we're gonna we're gonna just the tilde just for now
+Just know that that means you're in your home directory
+Which we're gonna immediately talk about and then we have this dollar sign now the dollar sign is like hey get ready
+For the prompt right and you have a blank space and for those of you
+Somebody out there has already seen Linux and they've seen somebody with some fancy fancy command line prompt out there and
+They immediately I want a fancy command line prompt
+Okay, so
+I gotta put a thing here why simple prompts are best
+All right, so you can actually do a search for this so
+our complicated
+Command prompts
+long
+Or short you might be able to find the study that I once found and
+A beginner's guide to the windows prompt command lines. Why does people bother with them?
+Because of the fastest computer human interface period
+What is it and how do I use it?
+Complete list of prompts useful command prompts everyone should know chat GPT. Wow look at all this stuff
+You probably will have a hard time finding it. I don't think it's even in my zonal cast and I was pre zonal cast in days
+But there is actually a science study out there that shows
+that
+The simpler command prompts are better for you because they emphasize
+the command and not
+distracting from the command by having a big long
+Annoying prompt and if you watch people on Twitch right now who are streaming or if you watch people on YouTube who are producing videos
+They will have big they'll have like the weather in South America
+And they'll have like the time of day and they'll have like their current rank in in whatever game and they'll put it all on the command
+Line prompt it doesn't belong on the command line prompt in my opinion that stuff belongs
+Elsewhere you mean you can put it down in your T-mux window like for example if you want your pomo timer on
+You know which I can do
+You know if you want something that fight put it put it put it there, but don't you know
+Oops, I didn't I didn't I don't have my pomo timer on right now apparently anyway
+So the what I'm trying to say is keep your keep it simple, okay?
+Because you want it to be so so just
+There's there's multiple reasons to not like freak out about that the first one being is you just don't need it
+And you're not always gonna have it and you're gonna see when we start open up containers
+Containers are gonna give you standard prompts no matter what anyway, right?
+And you're not gonna spend your time
+Customizing a prompt in a container. You're just gonna want to get on the container and use it
+So it's better for you to learn how to interpret the default prompt on every Linux operating system out there
+And AI X and slurs and all the other flavors of Unix out there, which we'll talk about
+We'll talk about the Unix philosophy
+I think probably next week and we'll talk about where Unix came from what the command line is and all that stuff
+But for right now, let's just get some commands out of the way so you can have fun with this and
+But the prompt is you know a simple thing
+It's not meant to be an artistic expression of your identity, right?
+You can make it that way if you want to use your system for primary for editing that's fine
+But you still need to understand the basic prompts and what they do and I that's a part of progressive learning
+Which I think I may have talked about on the first day, which means there's nothing wrong with learning the advanced fancy thing
+Right, but build up to that fancy thing. Don't learn Kubernetes with canine s on your first day, right?
+Learn the cube CTL commands and you know the other baseline commands so that you can build up your knowledge and you're gonna see me
+using this approach a lot
+As we go because that way you don't have gaps and if you're forced to use one of these
+More minimalistic tools like a like a machine with a basic props. Don't know what's going on. Okay enough about that
+Let's move on. All right, so
+So let's go to the next thing
+We have we have
+Rob at or at TV blah, blah, blah, right now just to finish up the idea about email addresses
+So this here is what's actually called a host name. Sometimes it's mapped to a domain name like oh
+I don't know skill stack that I owe or YouTube or whatever
+And you'll notice that it doesn't have a dot after it like dot-com or something like that, right?
+Well that those you know parent domains the master sub domain there, you know the dot-com and the dot-io and all that stuff
+Those things were added. We'll talk about this again later with networking
+But those things were added after the fact and just a quick history fun history lesson here back when they created the first
+You know uses of these computers with terminals like this these command line systems were used by tens of thousands of
+University students at the same time and they still do this in fact if you do if you go to Carnegie Mellon's
+online
+I forget the name of it, but they have like a cyber security
+Place where you can go there and get a free shell prompt and you know practice over their hack
+you can go over there and see that twelve thousand people all logged in at the same time in these multi-user Unix systems and
+That host name that part right there was to identify that machine
+So then what they started doing is saying hey, well, we have this machine over here with thousands of users
+And I want to send a message between the two right so they would start to send messages and it's too bad
+We can't do any multi-user stuff. We won't be doing that for the booth
+But it's really fun to have multiple people blog into the same machine
+You can chat with each other using N talk which you know came out in the 80s
+It's not even you know all this stuff that that you use every day
+Hey, you know in the modern internet and the modern web and all that it's already been invented
+It was already there that we were using a long time ago. It's just become mainstream
+So it's this the idea of getting stuff from one machine to another machine
+required
+Taking these names that they were given these host names like in my case TV and giving them a domain now
+Obviously, I don't own the TV comm domain or something like that
+So it's just a host name and a host. What's a host?
+A host is the name of a computer that you have connected to that's hosting access
+Okay, that's that's a host so you'll hear it called you'll hear terms like host or local host and that's what that is
+right, so this thing the name of the host their host name is TV. It's just the name of your computer and
+And so we're connected and we're we've got our shell prompt to it and everything
+We didn't have to make any kind of remote access into the thing now
+That is something that we need to cover using remote access using secure shell
+Let me give an example of that and just to kind of you know
+We used to do this all the time, but you didn't need to do that when you just open a terminal
+You just ran a program right and that is where you are you're looking at
+You know exactly where the program started and we're going to get into navigation right now, but
+But it could be that you would want to not just have a program on the same computer
+But you might want to get a command line prompt on another system and when we talk about networking
+We're going to talk about this, but just let me give you a preview
+So ssh, which opens up a secure shell to another system
+It's going to connect to a another machine. I have called Anton out there and you can see
+This i'm showing this because of the prompt so notice the prompt has changed
+So now I am on artifacts rob as the user at and i'm on Anton, which is the name of
+Yes, it's a nod to silicon valley if you know about it
+And you can see that other than that the the prompt is very much the same and that's because I've done it that way
+I've made my different systems have some more similar prompts
+And the theme is the same because the theme is coming from the the application the terminal application in this case
+Microsoft windows preview that's the terminal application that's giving me the colors everything now
+I want to tell you a fun story about this really quick before we get going on this now
+This is going to be I'll probably tell the story again later
+But pay attention. You know right now you probably don't need to worry about it too much
+But pay attention to this host right here
+All right long story short. I'll I'll tell you what I'll tell you the first part of the story now
+And I'll tell you the end of the story later. Make sure you remind me to tell you when I was first hired as a system administrator
+Uh, I had been doing Linux systems administration in my garage for some time
+I was running my own domains out of the garage. I was catching indie hackers and being hacked and um
+And you know, I I I knew enough to be dangerous
+But I was a junior system administrator
+And and I was on my laptop
+I was running Linux on my laptop
+Which everybody thought I was the coolest thing ever because I was running Linux on my own laptop and none of them were
+They were always using windows or max and they were connecting
+Uh to these sun unique systems and to other stuff like that and they had never even heard of Linux
+So I actually got a chance to teach them. I talked about that a couple days two weeks ago
+anyway, well
+I was trying to get home for the night. I was tired, right?
+And I typed a command which don't type this right now. Okay. I typed a command shut down
+dash h now
+So there's a command don't do the command right now. I promise what did it do?
+Now why would I type such a command right? Well, I typed that command because I thought I was going to shut down
+my Linux machine from the command line same as pushing the power button basically except for safer and
+I thought I was turning my system off
+My laptop. Well, guess what? I was logged in to the corporate mail server
+I have to share my failures with you so you can avoid them
+Yeah, and I shut down the corporate mail server instead and it was like at the end of the day
+And and I my face probably just went white
+I was so terrified because the corporate mail server was in boulder, colorado
+And I was in oregon
+And that meant that the only way to bring the thing back on so that all mail for the corporation would continue to flow
+Was for us to call somebody called an operator. The job is called an operator in silicon valley. There's fun
+References to operators. These are these are like the moles who live next to the computers and they
+Take care of the computer, you know care and feeding of the computers and they go in there and push the power button
+On for you when you need them to and so he actually went in there
+and
+uh
+He went ahead and he you know, they started back but when he went to go turn the computer back on
+I told him my boss about it. Everything. I was so sad
+And when they bought the computer back when you go to put to put to push the button the computer
+I go the computer's on are you sure and it turned out
+Thank god that the computer when I did the shutdown that there was something
+Happened with the shutdown process that the unique shutdown process didn't go down all the way
+And we're going to learn about this at some point probably not in the boost
+But just so you know when you're using linux or or unix, there's multiple levels of up and down
+Right and they're called init states like init 0 1 2 3 4 5 6 7 8 9 10 whatever
+So when I shut down the machine it turned out it stopped at one of them
+So it was still flowing it was still sending network email and stuff like that and I didn't shut the email down thank god
+And so all we had to do is reboot it and bring it all the way back up so that we could get restore our network
+access to the machine and
+And it was fun. Nobody lost an email and they knew anything better and I I said you're going to fire me
+And my boss said no, why would I fire you are you going to do it again?
+I went no and he says well if I heard of somebody else they're going to maybe do the same machine
+You'll never make that mistake again. I'm like absolutely not so
+Yeah
+so
+So so yeah, I was it was one of those things where I
+You know I I did it. I did a boo boo. So the take away
+This pay attention to what your host is right now that makes the case too
+What if I had what if my host name had been buried?
+Among a million other crazy things in my command line prompt big old long command line prompt where it was really not obvious
+What host I was on right so so you can see my point here
+It's super important that you know number one what your user is because everything you do you're doing as that user
+And yeah, you can be multiple users on the same system
+We're going to get into that a little bit and also I'm going to have you know what host you're on and then this is the location
+So so let's get into that now
+Let's change
+Let's just more yes, let's change let's change the
+The topic and let's talk about we talked about what a prompt is why simple prompts are good. What's a command?
+What's an argument? What's a switch and how can I find help? Let's get through that really quickly
+I'm just looking at time this little time check. Okay, so
+What is a command a command is
+Something that you type as far as you're concerned is something that you type into the command line
+and a command line is
+this idea of having a prompt
+asking for you to type something in and then hitting enter
+Having it run or evaluate or execute
+Printing out the results and then setting up the prompt again
+In fact, that is sometimes called and I'm going to put this in here in our notes
+Uh, okay
+What is a REPL? All right
+That is sometimes called a read evaluate print loop
+Okay, and if you if you're curious about this, there's actually some fun stuff you can go play around with actually know the creator
+Uh, you can go to REPL.it
+Or REPL it.com either way and this is a fun place for you to get a REPL
+On things we've talked about using this for the boost in the past
+The reason we primarily don't do this and I've written about it quite a bit actually had a
+Kind of a debate with the creator of this
+service when it first started
+About its value for learning because you can't do this unless you have the internet
+And I've been in a class teaching, you know 45 people and they haven't been able to use it because their internet hasn't been
+Reliable. So that's why we're learning how to use it from containers and from git bash and all that stuff
+But if you want to go out and you're anywhere on the internet, you just want to play around with an it
+You can go here and you can log in. Remember that github account you created? Well, now you can just do that
+You click on continue with github
+Uh, I already authorized it. Why doesn't want me to do this again. Let me make sure to
+I need to do something really quick
+Where's my flux?
+Where's my flux? Give me one second here
+Where's my flux? All right
+All right, so let's go. Let me go ahead and sign in
+You can go try this right now if you want to
+I we've already I've already showed this to people before but we're gonna go ahead and show it again
+I don't see I'm not doxing anything. Okay. So
+Here we go. You can go to your you can go start a ripple and you can do anything
+You go bash, but if you know bash you can click on that clear to bash ripple
+and
+You can actually write shellcode again ripple. It is designed
+To learn how to code primarily, but you can get away with doing other things over here. So
+You can actually get a shell and you can type pwd and ls which we're now going to talk about
+And so this is it. So the takeaway from this is ripple it
+Read evaluate read the command the command in this case is pwd
+Evaluate it that means do the stuff that you wanted to do. That's where it sends it to the computer and then
+print out this the output and then
+Do it all over again loop it back. So ripple. That's what a ripple and the the model of a ripple is something that command line
+Uses you see ripples used for other things besides
+Just command line shells now. Let's talk about the word shell for a second. So
+The shell you can think of the shell as being the outer shell that that allows access to the inner kernel
+Or to the inner functions of the computer, right? And the shell is designed for
+In this case bash is designed for human readability and interaction
+The idea of a shell being the outer thing that connects to other things
+Is usually associated with human interaction, but it doesn't necessarily be there are shells that that are not for humans
+But most shells are for humans. So bash is a shell
+It's the a shell is just a fancy name for the command that that runs that takes your commands
+Interprets them into machine
+You know friendly stuff specifically in this case
+System calls and then those system calls get sent to the inner kernel of the computer
+The computer answers back and gives you back the human readable response
+Usually to to the command line, right?
+So that's when we say so if you if you had to describe the difference between a command line and a shell
+A shell is a thing that provides a layer of access to inner kernel things to something else primarily a human
+And a command line
+Is it is the idea of a read evaluate print loop, right? We're going to take something in we're going to put it in
+We're going to take it out, right? So a repel a command a command line a shell those terms get used interchangeably all the time
+Sometimes people mistakenly will say that a terminal is a command line. That is not true. Let me show you why so
+Uh, i'm going to put that here
+Difference between
+terminal
+And
+Command line, okay, and this is this is this gets this gets screwed up all the time
+Uh, okay, so a a terminal
+Okay, this is a terminal the thing you're looking at that's all a terminal, right?
+The command line is this thing here that we're executing right
+We're executing a command and it's it's doing the repel thing and it's printing out the results. That is a command line interface
+What's the difference between a terminal and a terminal interface and a command line interface?
+A terminal interface is any interface that uses an ascii text terminal
+It doesn't necessarily mean that it's a command line interface. So
+Most command line interfaces are also terminal use terminal interfaces
+But not all applications terminal applications use command line interfaces. Let me give you an example of that
+So like if I run the fishies command
+I have a program that has a terminal ui, right?
+And there's actually ascii games that you can play that use your keys to move around some of them means you use your mouse
+Now they're all using a terminal interface
+But they're not using a command line interface you get it
+Okay, so make sure you understand the difference between a terminal a tui to e whatever
+A command line interface and of course a graphic user interface, which is anything that's got graphics widgets in it
+So you're going to hear those terms thrown around a lot if you're just new to tech
+You probably already have but but it's important that we make that distinction. All right, so so that's the difference there
+What is the an argument and what is the switch? Let's go to that really quick man. We're running out of time so fast
+All right, so let's let's actually jump right so an argument
+um
+And all right, let's let's actually jump into the ls command. So let's go down
+I'm going to show you the ls command and we're going to show you an example of that and then we'll go deeper into the ls command
+Okay, so the ls command which you can do right now if you've got your thing open
+Uh is and I'm I'm not in the right one here
+Am I oh, I've already logged in I need to make a new one
+Yeah, let me let me make a new one
+We got that one
+Oh, I'm on Anton. That's why we need to exit out. Oh, I'm on the wrong machine. What do you know?
+Okay, so now see I typed exit so I I shut down my remote connection now. I'm on my local machine
+Right, so let's let's talk about the prompt again. I told you the the tilde means home and where is home
+Well for this user on windows now this starts to look more like windows now, right?
+See users rob now
+It's like why it's forward slash if you've done anything with windows, you know that windows uses backslashes
+Which is why we're using git bash because we don't like backslashes. They're horrible
+You should never windows should never have done that was horrible idea
+And so here we are and see users rob. This is my home directory. That means when my computer starts up
+That's where everything refers by default to that location. There's there's other places in your system
+And let's talk about file systems for a second. Okay, so
+Um a file system is just a way of navigating the computer
+So we talked about the command already pwd is a command I executed one command and it showed me all this stuff, right?
+You see another command and it shows me all my current
+Files in here clear is another command
+Let's let's put clear in the list here. Let's do clear in the list
+I put clear in the list
+clear
+Clear the screen and I don't want anybody to tell me to use
+Uh control l bite your tongue. Don't do that. You never want to use that especially when we get into vi mode
+Okay, so
+So here we go. So we've got the ls command, right? The ls command lists all the files that are there
+And all the stuff we'll say for now and how do I
+You know
+Do that. So I want to see all of it like the long listing ls-l. That's an option. Otherwise known as a switch
+Uh strictly speaking. I mean splitting hairs on what they mean and a switch is usually just one small case small small letter
+Uh, but as you can see you get these longer this longer output, which we're going to talk about later. So
+Uh, so the the thing to take away from this is
+There's a space in between each of the arguments and some of those arguments are options
+and uh
+Also, those some of those options are switches
+So it really depends on the application, right? But there are some
+General standards about how to do this. Uh, I have strong opinions about this as a rabbit hole if you want to go study
+my bonsai
+Alternative for modern computing
+Uh, I'm just going to put a plug in for it right now if you are a veteran or interested in this kind of stuff
+You go to get a rbx rob bonsai
+Uh, I have strong opinions about how the command line interfaces since the 70s are broken
+And should be fixed and I've created a library to deal with that
+So but that's more for the veterans out there, but I do want to mention it
+So as a convention in the 70s for some stupid reason, my opinion
+They decided to put dashes and double dashes in front of everything, right to separate the arguments from other arguments
+Even though the order really actually does matter and this is one of the things that that confuses beginners the very most
+Is how what order do the arguments come in? Is it an option or an argument?
+When do I put it there? So like an argument in this case would be just
+Like a name like that, right? So that says hey, I only want to list the one thing here
+Not all of them, right? So so so let me restate
+These are all arguments
+Okay, in fact, even the command is actually an argument, but we'll get into that later
+So you could say this is the first argument and this is the second argument, right?
+It just so happens that this first argument is also an option or a switch
+And so it has special meaning to the ls command and then this one is is more of a value
+It's like an input value if you were to have a machine and you would say, okay
+That's the one thing I want to see, right?
+So they're all arguments, but this it would
+Technically be called more of an argument and this is more of an option if you're going to get start to split hairs about it
+But you're going to hear people interchange those terms all the time for better or worse
+But it's when I say you need to add dash dash whatever
+That's what I mean when I'm saying options or arguments, okay?
+And and you can there's you know, wide
+Conversations about that, but now you know what those are
+There are I've written commands that actually when we get into scripting
+We're going to talk about arguments a lot more because that's one of the main ways to pass in data to the command
+To change how it behaves, okay? So and that if you know, uh, you know math then you recognize the term immediately
+It's an argument to a function, right? That's where the term comes from for math. Uh, how can I find help?
+uh
+Switch and flag are the same in this context switch flag and option have uh
+what uh, what
+Is a switch flag
+Uh
+Or option and honestly, I don't think
+We should split hairs there because this is just for beginners, right?
+So when we start to get into scripting, we will start to break that down more
+But just understand that that for right now
+Argument switches flags and options are are the stuff that comes after the command, okay?
+Because I don't want to overly complicate you but but as you're reading about, um, we got ads again
+All right ads are disabled. So, um, the difference between terminal and command line, let me get my so
+Let's talk about that. We talked about the difference between all right. Let's actually get into some of the commands
+Let's talk about a file system
+What what they are and the bash shell and then we're going to have to stop I only have eight more minutes
+And then uh, but here get ready to start entering commands from the command line, okay?
+So let's go back here. So
+Uh, first of all, let's take a look at what this looks like from the graphic perspective
+So let's let's if you don't know how to do it go ahead and pull up your explorer
+Uh, and I'm going to call on the file explorer in windows, right? Hopefully I won't give any too many things away
+Um, so this is a regular good old windows file explorer. You guys have one in mac too, you know, it's funny
+I had a I had a person that was helping to mentor. Um,
+Who had never experienced?
+Uh, the concept of a folder or directory and containing files
+And the mac interface actually complicated the issue for them because
+The mac interface had recent, right? That was the main thing. It was just recent
+So it was just this arbitrary idea of the most recent thing used and it it didn't by default when you open the mac explorer
+Uh, there wasn't there was no hierarchical organization anything to look at
+And so I actually had to take this particular person's only time ever
+Uh through the idea of a rooted node tree or the idea of there's a folder
+That has some stuff files in it and then there might have another folder inside of it, etc, etc
+Right and that's what a file system is. I actually tried to use the
+concept of a file system to help them this person understand
+how
+The internet works right how a website is broken down into the same sort of
+data structure, which and and I'm going to use that I use that word very deliberately
+A data structure. So if you take cs 101 or anything like that, you're going to learn data structures
+And algorithms so data structures are the ways of organizing data
+So that it can be manipulated and traversed and navigated and accessed and all of that
+And you're also going to talk about algorithms, which is the the steps that you can follow to do things with those data structures, right?
+So uh, so I I want you to learn the name if you want to sound fancy
+If somebody asks you what a file system is you say it's a rooted. It's a rooted node tree data structure containing
+information in the form of files
+Right and and directories and spoiler alert. Guess what directories are files
+Yeah, they actually are files. In fact, there's a common saying
+Um, I'm going to put it out here
+Uh, everything is a file
+Uh in unix
+Okay, and you're we're going to you're going to see this a lot
+All right, so everything is a file and more specifically an inode you can think of inode as being
+Uh, the the term for information
+Uh
+inode
+Specifically and we're going to this we're going to come back to this a lot. Okay, so
+Uh, but understanding that everything is is a file or an inode is super important
+But at the higher level when you're thinking about the graphics terms
+I'm bringing up the graphics interface because most people already
+Are intuitive
+About how content is organized, right? You've got these folders, which is a popular mack mackism
+And then you've got the stuff that goes in there
+You know and like here's me, you know doing my cadence and my gearing ratios and stuff like that and these are individual files
+Inside of here now. You obviously you can have different sub directories within their
+Uh, sub folders if you want to call them that but the reason and so the the term folder and directory is directly is interchangeable
+Uh, directory seems a little
+You know odd because I mean folder to on a you know a mackerel scale sounds easier to to
+conceive but
+But the directory is more accurate because the directory lists
+Everything that's in there not just the files. I mean a folder would suggest that
+You know, you've just got other files in there
+It wouldn't suggest that you've got other folders inside of there, which you would never find in a file system in the real world
+Uh, I mean generally speaking so so
+I'm going to use the term directory
+The command for this is dir on windows if you want to see the contents of a directory
+It's important that you start using that term directory
+But a rooted node data structure is just
+This way of organizing everything so that it has a a root and then under the root is this kind of
+You know upside down christmas tree on its side of all the stuff that goes inside of that
+Okay, you're going to see that data structure a lot. Uh, we're not going to get into it any more than that
+Um, but that that is uh, and uh, yeah one of those examples
+um
+and
+So let's actually talk about a command for this right now
+um
+Let's go back to our thing here. So if you type ls you see this
+Uh, you could type ls dash l and you see a bunch of stuff
+But you see how all the stuff is only in this directory, right?
+Uh, and you see immediately that there's different colors and what are those things in there?
+Um, I'm debating about how much detail to go into right there
+We only have about four minutes, but suffice it to say they're all different kinds of files
+And those different files have different kinds of permissions
+um
+And I don't want to get into file system permissions right now
+We're going to do that next week. If not, if not tomorrow
+We we need to get you a running Linux machine container before we end today
+So so the only commands we're going to learn right now are
+pwd for showing the current directory
+all right
+so, um
+So pwd shows
+Oops
+Where am I?
+All right. Hey, thank you for the sub. So let's do a pwd
+So we do the sub see users rob, right? So we see we're in the home directory, right?
+You can actually find that exact same directory in your graphics interface
+And I encourage you to do so take a moment to see that they are the same thing
+So like I don't know where it is, but let's go in here
+So let's go all the way back up at the risk of exposing something about my system
+So let's go to the to the this pc. Okay, so this pc
+All right, so there's c
+So I've got c over here, right? Okay, so let's go into c
+I'm going to open that up. Yeah, I'm almost full my hard drive is almost full
+Oh, we got all this fancy stuff here
+If you've done anything with your you know mods and stuff on your game computers
+You probably know about this. We got users right here. All right
+And then we're going to go under users. Okay. Oh, there's rob. All right, so let's go into rob
+And
+Look at all that jazz. Look at all that stuff that's in my home directory
+Right, this is my home directory and there's a bunch of files here. These are hidden files
+We're going to go through all of that just not right now
+And
+So this is you can see all of the different things that are in here, right?
+And it's surprising this and not surprising because if I do ls
+You'll see I have the same files here. They might not be in the same order
+But they're the same files. See they put vagrant file about earlier
+But they're the same. They're exactly the same thing. So what the point is that
+That we have
+The same organization from the command line as we do in the graphic user interface
+Okay, you know, you're going to see that you could do things on the command line to manage these files
+Much more quickly. In fact, I should that one person I told you about understanding the commands and everything
+Uh, when they found out how to rename files and move a whole bunch of files
+At once with a single magical command from the command line
+They immediately obsessed about learning all of that they were so because they had been, you know, dragging files around and moving them around to the
+Graphic user interface their whole life and did not know how powerful it was to
+Do stuff from the command line even with just relating to files and to a veteran of linux or unix
+That's like, well, yeah, but to somebody who's never seen it
+Like moving all the files you don't want into some other thing or moving all the files with a particular
+Format or name or permission into a different thing and filtering them all a single command. It's very powerful
+Um, so anyway
+Something's interesting here is you can actually you see if you click on that look familiar
+C colon users rub looks a lot like our pwd command, right?
+It's because it's the same thing. It's just the windows interpretation of it
+In fact, you can actually go back and forth between the two
+So I think everyone's got that association, right?
+So we can use the graphic interface for these files. Is there something fun? Watch this
+I can actually make a new file in here. So let's make a new folder in here. We'll say, uh,
+my sample
+New folder and I'm putting spaces in there on purpose to be annoying and now when I look ls
+Right and I can type and we can do tab completion
+I do my my my m y tab and you can see what it does
+You see what it did it put the back slashes in front of the spaces
+um
+And we can see that it's there now if I wanted to go into that what if I want to delete it
+It's there, right? So let's actually let's let's uh
+Let's well that's file manipulation. We're not going to do that today
+We're gonna hit it. We're gonna do it next week like how to create files how to change the permissions how to move them around
+That's different. I just want to show you that if the file is there, then it's also here, right?
+So it's exactly the same thing. We're just using a different we're using the command line interface
+Rachelle interface versus the the GUI graphic user interface
+So we're trying to remove this and it's going to be like, uh, oh, it's a directory. You can't do it
+Have it do silicon command which you haven't learned yet rmdura will delete it now
+That might fail for you if add something in it. That's but see now the file is gone
+That's all I'm trying to show you is that the the the graphic interface and the command line interface are the same
+They're you're looking at the same files, okay?
+That and that's because we're using git bash and when we start talking about file manipulation
+This is the number one reason we used git bash on windows
+or or bash on shell on mac as opposed to
+Uh, the wsl and the other options there and and that's because you're not dealing with the same files
+It's very hard to deal with the same files. It can be done. It's just for beginner. It's not particularly intuitive
+So I just want you to understand that git bash is doing the same thing to the same files. Okay, and in fact if
+Well, no, no, no, no rob. I was going to go into permissions. Let's go ahead and take a break. It is 12 o'clock when we come back
+We are going to finish
+Um, if for you on youtube, it'll be instantaneous. We're going to do a couple more of these commands
+Uh, we'll talk about the directory organizations the hierarchical thing. We did that already and we're going to actually get into containers
+And we're going to start up a container and we're going to install linux and you're going to start using linux
+On from a container. So that's coming in a few seconds
+All right, welcome back on the from the break if you took a break. Hopefully you did take a break
+Uh, let's get going with virtual machines and containers
+Um, let's talk about this this concept at a very high level
+Now I just before we get into this
+As somebody out there is going to
+Write nasty things in the comments or something
+About
+This conversation about containers and virtual machines
+Um, I could spend the entire hour just talking about that
+suffice it to say
+that containers and virtual machines are two different ways
+to
+Do something on a computer
+That is not using
+Effectively what is on the computer the host computer like we talked about right
+In a nutshell it's a way of sort of making
+Another computer inside of a computer
+And when we're talking about a virtual machine it literally is doing that and that's the only difference you need to know between that and a container
+Okay, so and and there are lots of pretty graphics go out there and do your own research on this
+If if you want to understand the difference between a container and a virtual machine now is the time to do the research, okay?
+Um to give some context for to this this is super important
+um
+When we did the virtual when we did the boost last year
+We did a virtual machine instead and if you remember me just sshing and connecting into anton
+Uh, that is a virtual machine that's running on this computer actually that was created last year
+so
+using a virtual machine as a way to encapsulate work, you know all the stuff you want to put on that machine
+um
+Is one way to do it and another way to do it is to use the same
+Operating system but to share that operating system in a safe way and to divvy it up
+into containers, all right
+And specifically linux containers. Um, and so those are two ways of managing
+Uh separations of concerns and you know if you if you know about docker, you know that you know
+They have like a a ship and they have all the docker doc
+You know containers on there and you can ship those containers around and the idea of a container is
+That you can put an application and everything it needs inside of a container in this nice happy thing
+And you can send it someplace and then have it run there
+With the base assumptions about it needs this much space and this much size to run and everything
+And it's just a modular way of handling work. If you've heard anything about cloud, which if you haven't you're under a rock
+Um, then you know that cloud is fundamentally
+Uh dependent on these concepts either a virtual machine
+So if you've heard of amazon or azure or any of these things when they start up a
+A or digital ocean, uh, their droplets over there whenever they start up
+A new machine, right? They have a host machine, which is usually a big big thing
+And then they start up virtual machines inside of those and in every respect
+those virtual machines
+are
+They function just like a virtual machine in other words. They can have their own
+Virtual disk drives. They can have their own virtual usb drivers
+So you can plug usb sticks into them, which is by the way, I recently used vmware versus
+Um, uh virtual box, which we won't get into we did that last year though
+If you want to go watch last year's boost that we do get out of that a lot
+In fact, we made a decision to use containers. We use containers two years before that
+So the best way to
+You know safely encapsulate the work that you're going to do
+Uh boils down to a decision
+Uh about do I want to use a virtual environment?
+Which is something we haven't even discussed, but that isn't even related to a container
+Do we use a container or do we use a virtual machine?
+And so for the purposes of the boost we are going to use a container
+Now in order to use a container
+You need to have a container engine and the engine has to be built
+Modern containers are are linux only they're you know bsd and other unixes do have them
+But when you hear the word container or image or docker or any of these things today
+They're specifically talking about
+Lxc, which is a linux container that means you cannot have a container without linux and you're like mr
+Rob, I don't have linux on my machine. How the hell am I going to run a container?
+All right. Well, that's what we're going to talk about and
+The reason it is nice to talk about what a virtual machine is and this is I might your mind
+Your mind might go crazy here, but we are going to use a virtual
+We're going to use a container engine
+That runs a linux virtual machine
+Behind the scenes that you can't see
+In order to run containers for you
+Okay, that is what podman desktop is. So let's go back to podman desktop
+And and show you what we are
+So right now if you haven't started at podman desktop do your little command to start up podman desktop
+right
+Now if you had any trouble installing or anything, please hit the discord on that you should have this install already
+Um, and I'm going to go ahead and trash
+I'm not supposed to have this one here prune images. Okay pretending you didn't see that. All right
+So so this is the podman desktop. Okay
+If you haven't updated it make sure you click on update to 4.5
+Wait, what I did that already. Okay. Yeah, make sure you're updated to the latest so this down here
+Um, you don't need to do this stuff. There's might say install kind if you want to do that you can but that's a kubernetes thing
+Um, so so this is the podman desktop now to be fair. I have not used the podman desktop more than 20 minutes actually
+Uh before I started this but I have used docker desktop a bit
+And we are going to go through the graphic user interface for a bit
+But I I want to come back
+To ads again. How are how are we getting ads again?
+Sorry about the pause for that ad break. Okay, so we're back to
+Podman desktop. So podman desktop is a graphic application. I've talked about this before
+that
+contains
+A virtual environment a virtual machine
+That's running linux
+on which
+It runs the lxc container engine. It runs a container engine
+And what does that mean? That just means that we can run containers
+Using this GUI if we want
+All right
+So so for the next for the rest of the hour, we're going to run
+We're going to play around with containers. So you should have podman desktop up and running
+We're going to play around with running containers in here
+And we're going to run them using the GUI and then we're going to run them using the command line
+And we're going to do both combined the kind of like we did when we were browsing. All right
+So so I mean as I said, I'm brand new to podman desktop
+Why podman desktop over docker desktop? I talked about that before the long story short of that is
+Podman desktop is open source software. Docker is not
+All right, that's all we're going to say about that for now
+um
+So before so when you fire up the desktop
+You can see here you've got this is the container. This might be different for you depending on how dated this video is for you
+But but here we have containers. You can see there's no containers
+What's the difference between a container and an image? So we come down to this thing
+Pods what is a pod? Oh my god. What's a pod? What's a container? What's an image? There's like all of these different things
+What are volumes? All right, let's talk about all these things right now. So
+um
+the
+Uh
+But but but let me go back to here
+All right, so here we have
+So here's here's the command you could run from the command line using get get bash if you want to do that
+You can go ahead and run that we're going to do that later though
+And let's go first of all to containers create a container. Let's just play
+Create a container
+Okay container file or docker file. No, okay, so
+I like that that podman allows us to make a
+thing called container file instead of docker file now
+That's interesting. It used to be you had to call them docker file
+But they but podman is for med hat and they don't want anything to do with docker. So they allow this defines
+what goes into a container and
+There is on the list of things to do way after we get to our bash scripting
+We might come back and actually make our own containers. Okay for right now
+We're just going to use existing containers
+To get you going and navigating the command line, but eventually you might make your own
+So let's say I want to use an existing images. Oh
+So the first thing we learn is you can't have a container unless you have an image
+So listen to this a container
+Is an instance of an image that is running
+Okay, and a container is an instance of an image that is running and then you can connect to and use and everything like that
+Okay, uh, and all a container fundamentally is
+is
+at least one executable
+something that can run a command
+and
+A protected environment in which it lives
+Uh, in other words, it's separated from the rest of the operating system in terms of like what files it can see
+What processes it can mess with it's for all intents and purposes it is separate
+from
+The host system and it runs within the container environment, right?
+And and that's what makes it safe and protected and you can you know ship container images all around and you can
+You know if you're doing development
+You can have that container run and have it be the same kind of container in multiple places
+And we're going to show you that i'm going to use a a container for that kind of thing
+Uh, it's kind of like and yes, it's it's like like the instance relationship and object-oriented programming, right?
+So an image is basically kind of like the class. It's the image and the um container is a running instance of it
+So so for example, we talked about Linux a little bit. We talked about Ubuntu Linux
+That's the Linux we're going to be using today
+We're not going to get into that right now
+We're talking we're talking about unix philosophy next week. I think we'll we'll get into that but for right now
+Just know that's the one we're going to be using
+So I need to get an image
+Well, where can I get an image mr. Rob? There there are a number of image registries on the internet, okay?
+Uh, and I need to put this down here
+uh
+okay, so
+There are a number of image registries on the internet now the default
+standard registry location is hub dot docker dot i o now that that is for
+Uh legacy purposes, so you should probably even if you know
+Even if you don't want a docker one
+You should probably go out to docker.io or docker.com
+And docker desktop if you play with docker desktop, you'll see it's the same as popman desktop, okay?
+But the point is is you probably want to create an account over here
+Uh so that you can log in and get the the stuff over here at its default location. So
+Images are stored in registries. What are the main registries on the internet for open images?
+Well, you have the main one which is hub dot docker dot com
+right
+But this is surrounded in controversy. I won't get into it right now
+Is it hub dot docker dot com or dot i o?
+I think it's hub dot docker dot i o
+Someone know
+Why am I not getting it?
+What happened to hub?
+What there is
+That's weird. Okay, so here you go docker hub, right?
+so
+I'm just gonna so we're gonna talk about the registries out there that you can get to really quickly. Okay
+Um, the main one for docker is docker's hub. This is a default
+And it is now huge and controversial because they have
+Really screwed open source. They basically told all the open source project. They had to pay overnight
+And I'm misrepresenting it. I'm going to get into trouble, but
+Suffice it to say that hub dot docker dot com
+Every major project is like
+Running for the doors to get off of docker dot hub because docker continues to do stupid
+things that are against
+The best interests of the open source community and themselves actually and they're shooting themselves in the foot and
+Seriously, most enterprises can't get off docker fast enough. So
+But it still behooves you to have a docker hub if you're an individual user
+It still behooves you to have an account on hub dot docker dot com
+So that you can pull down images from the default location. Why does that matter?
+So when you say pull an image and you go search for images
+You can see ubuntu it can search for an image here
+And it's like, oh that this is just among the images that I have right? Well, I don't have them
+So I'm going to do this. I'm going to say pull an image image name image to pull if I type ubuntu with nothing else in it
+It defaults to docker hub
+Okay, and you can see that it's downloading the image
+And it's ready to go. So now I have an image and we can run that image
+But you can see right here that it's like docker.io slash library slash ubuntu
+And that's interesting because podman added those qualifiers in front of it if you use the docker tool
+It doesn't do that
+um
+And the reason docker is still around is because docker started all of this but then it's falling out of favor
+So you're going to still see references to docker
+But the whole community and enterprise and everybody are all moving away from the reference to docker
+Which is why I found it so interesting that that you can actually use
+um
+You don't even you can actually use the term
+Uh container file instead of docker file. Anyway, so we're back to containers
+So we have okay. So there's we pulled an image. That means we got a copy of the image
+So it's it's like we took that container hub now. We're going to make an instance of it run
+So let's go ahead and and run one. So if we click on run the image
+The run the image gives us all the parameters and the arguments and everything that we would need to start up a container that uses that image
+So you can say, you know, it's like, uh something here
+volume, okay, what a vault. What's a volume a volume is
+Something on this computer. So if you wanted to make
+Uh a directory on this computer
+Uh that you can use so you could even go into your users directory
+And find, uh, you know, where's that folder? Do we do we have another folder? Let's make one new folder
+Can we do it? Yeah, I think we can
+Did it did it do it?
+Where's my new folder? Oh, I don't think it did it go to the windows. But uh, let's try it new
+folder
+No
+I don't like GUIs. Oh, there we go. Now we got three of them. All right. So let's rename this one
+So let's just read we're going to do this all from the command line later. That's why I'm having a problem. So let's do this. Let's say, um
+And so I'm kidding. Thank you for the gift subs
+So we're going to say, uh mounted we'll say, okay
+and
+Or how about this? How about we say shared? I mean, you can name it whatever you want, right?
+So now we have a folder. Let's go ahead and select that
+It doesn't have anything in it select folder
+Shared path inside the container. So this is where in the directory path
+Do we want this to appear inside of our brand new linux container?
+And which has got its own, you know, it's kind of like its own machine and its own operating system
+It's not really but it's separated out. So let's go. Let's go make it. So let's say we want shared to be in
+Slash shared. Okay. So that's at the root
+Of the file system and that's where we wanted to appear
+Well, I can talk about environment variables right now. Just know that this is a way of passing information
+That is specific to this specific container. This is very critical if you're going to get into kubernetes stuff
+But we're going to skip that for now port mapping
+We'll talk about that later
+But like if you want to run a web server inside your container
+You'd have that can those, you know, all those ports and everything are protected
+And unless you say no, I want that
+You know port that has my web server on it to be accessible from
+The host operating system or anybody else on the local network
+I need to map that port
+To another port on the host operating system. Otherwise, it's protected and contained. That's the whole point, right?
+So so we would add a port there, but we're not going to do that
+We're just going to add a mount point
+For a volume and then we're going to go ahead and start the container now in case you're wondering
+We're not going to be doing this long term using this graphic user interface. I'm just trying to to show you
+The nice happy way of doing it before we get into doing it from the command line
+So so here we see we have a running container
+It's named something
+And and it's there now now. Well, mr. Rob. How do I get a terminal? The whole point of this boost is it's huge terminal
+How do I do a terminal? Well, you can actually docker desktop. I mean pubnet desktop lets you do this
+Uh, we can skip all that kubernetes stuff, which is fine. But hey, look. Oh my gosh
+Open a terminal. I can actually open a terminal. Whoa
+That's right. I've got a terminal
+And remember what I was telling you about simplified prompts. Look at how tiny that is
+Remember remember all that stuff about simplified prompts
+Remember I was talking about that right about how
+Look at that. See that's got a hashtag in it and like mr. Rob. I cannot read that
+Is there anything I can do to improve the quality of this terminal? No, not really
+So so this is why we're not going to use this terminal
+We're going to use the terminal that we spent all that time installing to access to connect to it
+So let's do the exactly the same steps that we just did
+But let's do it using git bash running a shell
+In in that, you know, in our nice pretty shell
+Okay, so you'll see I type exit and then it just kind of drops me
+This is definitely not the way to go about this. Look what it shows you though
+It shows you that it was running the bin bash command
+It which is the the main command to run that was in as I said a container
+Fundamentally contains one command and then that command is the primary thing that's running inside of the container
+and
+So let's go. So then we have logs here. There's no log output
+There's inspect. Oh, it shows you what image it came where it got the overlay. That's kind of cool
+I've never seen that before so we have our terminal here. Oh, look. I opened up a new terminal
+I don't need one though. So I mean if you nest I like some of this stuff though
+Oh, wow, this has got the kubernetes pod. God, I can't we got to come back to this
+This is one of the reasons that I'm actually really excited about podman because in a pod a pod is yet another
+abstraction that contains one or more
+Containers it makes it into a pod and a pod is the fundamental unit of kubernetes
+Now a lot of you are watching this going
+I want to get into kubernetes and devops and all that stuff you have to understand containers
+fully
+Before you can even touch kubernetes
+Because it's all about containers because containers are one or more usually just one
+Container goes in a pod and then the pod is the thing that's used to do all of the
+Deployment across the entire enterprise you can think of kubernetes as being kind of like an operating system for an entire enterprise
+where multiple computers are brought together to
+Effectively become a single mega operating system that then can run separate
+Running programs and stuff like that in the form of
+Deployments and all kinds of different things that that is what kubernetes is kubernetes is to the enterprise
+What linux is you know to you on the desktop you have lots of running programs all running
+So so that's just an open summary that i'm going to be doing a bunch of kubernetes stuff later today actually
+and in my own home lab and
+There is another home lab in it series that i'm going to start streaming more of
+outside of this
+To cover how to set up your own in fact
+I'm going to start my series over again and start setting up my own kubernetes cluster on my on my rack back there if that interests you
+But that is more for people who've already mastered containers
+The reason i'm telling you that in the boost is because if you have
+Any prayer of like doing any of this enterprise devops and cloud infrastructure
+You have to master containers
+Period so just you know pay attention here as we go about it
+So this is just a happy gooey, but as you can see there's a number of problems with the gooey
+First of all, we don't know what the underlying commands are that we're executing even though we'd have to do those things from the command line
+So it you know it kind of helps you but it also as most gooey's do
+It hinders you because it keeps you from doing what you really need to do
+Which just means i need to get into that thing right and see what's going on so
+We have this container is still running
+And i'm going to jump to the command line. So let's go
+To our command line here. So here i am
+And you know like well, how do i see that it's running so that
+There's uh in in our in our list of things here. We kind of skipped a few things
+So we're going to cover which we covered exit, but let's cover which
+And and let's cover how to get how can we find help? Okay? Um
+And i think i might have to just move this down here
+um
+Let's do exit
+We'd have over that one. Okay, so let's go back
+So what does the which command do and which command looks through your path for the command if it see if exists
+You can do effectively do the same thing with the type and which
+If if you're a veteran and i'm going to put a question out there for our veterans
+What's the difference between which and type and why would you use one over the other?
+We're not going to talk about it right now and for the beginners
+But all the beginners need to know is that which
+Podman will tell you whether that command exists, right?
+If it does where it exists if it's there if it's not there
+So which docker you see there's no docker on there, right? We have no docker on the system at all just podman
+Uh, you could type the same thing. Anyway, we'll we'll we'll get in that so
+That's what that command does. You really don't need it for anything more than that
+Uh, and that just ensures that you have a command that's in the right place that will run when you just type it like this
+We're going to talk about what the path is and how to execute commands and all that later
+So podman is so podman, right?
+So if you just enter podman by itself, it's going to be like nope
+And most commands will kind of help you out, right?
+And so you can use your mouse for this and scroll back up
+I I'm going to show you a way to not have to use your mouse for this, but uh, you can actually read the help, right?
+So this is where
+Fundamentally, this is where most help is found is in the command itself
+And most commands will have a dash h or a dash help or whatever
+Uh, and most commands if you don't put anything after them at all not all but most will
+Give you the help so you can go in there and do it the right way
+Uh, but you know, you can usually guess by using a dash h or something like that if you want to learn to help
+Um, so as you can see here's all the commands
+Before we leave this topic of like looking up help, uh, there is another command
+There's two other three other commands on linux to get to get help, right?
+And uh, i'm going to put those in here right now
+Uh, and we're going to say so you have dash h, right?
+So you have the man command you have the info command
+And you have the help command, okay?
+And these are all commands that you'll you come familiar with over time
+Uh, I don't want to belabor this point too much right now
+But if I say man pod man a sensor manual pod man, you can see that there is no man
+Uh
+Tell me to scroll terminal with mouse
+Yeah, I look you if you you don't know about how to not scroll without the mouse yet because you don't have team looks yet
+So apropos and what is I don't really like apropos and what is but you could list them there
+Uh
+People won't know what they are and they're not on
+at most things
+Uh, but you can put these here
+Okay, so the the main ones are
+And there's also yeah anyway
+There's no tl d r unfortunately, so but you can type help
+Okay, the help by the way the help comes from bash the help is specifically for the bash command
+So if you type help, uh ls, it was like, oh, I don't know what that is right if you type help
+Uh exec, you know, it'll show you that section of the bash man page
+So if you type man bash, which what oh, there's no man command because I'm on windows
+Well, we're gonna I'm kind of getting ahead of myself
+Maybe we should do this after we do the pod man connect because we're still in windows
+I know it looks like bash, but we're not in bash
+Right
+We're not in bash. We are in bash, but we're on bash on windows
+We're not in bash on linux, and that's what we want to get on. All right, so let's let's connect to this thing
+Actually, let's just trash this one and do the same thing from the command line. Okay
+So let's go ahead and trash that boom. It's gone, right?
+Before we leave the idea of registries though
+It's important that you know that there are other registries you can go to
+So like quay.io is another registry
+Uh github has a registry
+So it's usually the first thing that goes right here, but you can see right here. It gives you the command to use, right?
+um
+A man page
+So you can go ahead and copy this to the command line
+And we can type enter and this will pull the latest image and it will run our image
+Hello pod man world
+So what did that do that pulled down the image?
+And then it ran the command inside of the image and then it executed and then it exited
+Now the command that goes inside of an image
+Can do different things sometimes sometimes that command is just meant to execute and stop in this case
+That's what we had right and sometimes it's much more
+Sometimes the thing that you're going to run is is is a shell that's running inside of an entirely
+You know simulated linux environment and as far as you're concerned, it seems like an entire linux operating system
+And so let me give an example of that one. I've already made one
+That is my personal workspace environment now. This has been designed. There's things missing from it
+But you can try this right now at home and it is on docker hub. Unfortunately. I haven't moved it over yet
+But let me show you the command. So as you saw already if you forget the command
+Oh, say here's the one that just executed. Let's actually
+Oh, look at it says there's a
+That container exited, but it didn't delete it
+You see that it still kept it around
+Is it still there?
+Yep, okay
+So so when we ran this command a couple things to note here pod man run quay, blah, blah, blah, right
+So we use the run command. What did the run command do the run command?
+Pulled down the image and then ran the program and exited right, but it kept the container around
+So this this container has been exited and I could restart this if I wanted to
+You see look at when I run it. Look what it does. It runs and goes off. Why why does it run and go off?
+Because it's only running that little command now
+We can't see the output when I do this when I'm clicking on run. We can't see the the the output, right?
+It could open the logs and see them see every time I run it watch every time I run it
+It's going to do it again. It'll it'll put another log thing up. Why is it doing that?
+Because it's just a container that runs a command and exits
+It's not a container that runs a command that keeps running, right?
+But it still keeps the container around so you can run it again
+And again, this is a container that's been customized to have
+You know, it's it's an instance
+Of the image itself, right? So I can actually run another container watch if I if I do another one what's going to happen
+It's going to make another one
+Uh, see that why did it make another one?
+Right, it made another one because every time you run it unless you tell it to use the same name
+It's going to go make a new container. What is a container? A container is an instance of an image
+Whether it's stopped or exited or not. It doesn't matter. It's an instance of an image
+These are all the same. They're all instances of the same image
+And if you go to image here, you can see these different images, right? So there's a bunch of one and here's podman. Hello
+So we have only one image, but we have two containers. How is that possible?
+Well, because these are separate and you see how they were given random names, right?
+And and we can trash those I can run them. They're both doing the same thing
+They're just completely contained and and separate from one another and that is really valuable when you get to cloud native computing infrastructure development
+Uh, you're going to see that this idea of being able to run one two ten dozen a hundred of the same containers
+That do identical things next to each other and completely separate spaces
+Is a very valuable thing when it comes to distributing load for work across the enterprise
+I mean, that's kind of a future thing, but I want you to understand why this is important. Why containers are so important
+Yeah, there's two different. Yeah, two two different objects from that class
+So if you know about object programming, maybe that helps you
+So as you can see, we can delete these things though. I say let's let's let's add something
+Let's let's continue to use the same one now, but let's add let's add some other stuff to it
+So let's actually give it a name and and I don't remember the name. So let's do this. Let's do podman
+Run dash h. I want to see all the commands that go with it run. Okay. I got it wrong
+Dash dash help remember that thing about switches versus thing. Okay, so here we have I'm scrolling
+I know I don't I under the way to not scroll, but I don't want to teach you to yet
+um, we're going to learn teamwork for that
+So you can go and see man. Look at all these cool things
+You're we're not going to go through all this stuff, but I this is where you go to look for this stuff
+Right. So where's the one that we can set the name? Here we go. Assign a name to the container name string
+All right, let's try that then. All right. So let's instead of let's go back. I'm pushing the up arrows
+So you have your history. I want to give this container a name name something. All right, so this time
+When we when we do this we get what now what's going to show up in our list of containers?
+Hey, look something right
+Now watch if I try to do it again
+If I try to go and repeat the same command
+It's going to say nope. I already got one name something can't do it
+Like, okay. Well, I kind of run it. So again, this is just like all the others except for now
+We have a named right. Well, what if I actually just want it to execute this existing container?
+You know, I mean, we're not going to go there
+There are so many things you can do here with containers. So I wanted to give you yeah
+I almost named it that for key bash
+Um, the reference to two years ago. Um, so we're going to go ahead and do
+something
+Now I I want you to go experiment x rwx experiment explore play around with the whole container space
+The only reason that we are using containers right now for our purposes is so that we can practice
+Doing things with linux like installing software and running vi
+And you know deleting files and seeing what happens if we blow away the root file system
+We're going to do all of those things in a container, right?
+But I had to kind of give you this introduction to the podman command and to these to these containers
+Before we do those things. Okay, rather than just doing, you know, falling along
+But here's your homework play with podman play with those other container
+Things it's going to take you a long time to get all of the commands down
+But the really the only command that you have to know right now and in fact when I was writing my notes this morning
+Some people saw me like simplify this thing. I had all of these commands here, right?
+And and then I ended up concluding with the singular command down here
+Open and run a new temporary command command with the podman command
+That is all that's required for the boost now those of you who know about containers
+And all that there is to learn there know that I'm skimming over a bunch of stuff
+But in order to keep us moving forward and getting to the next part which is learning out a script and navigate and
+Change permissions and use vi and use tmux and search from the internet from your command line
+All of that stuff requires us to just get to know enough podman to run a linux instance
+Temporary linux instance from a container in on our desktop. That is the that is the goal for now. Okay
+So so here we see we have all these other containers
+And I I wanted to we're gonna we're gonna kind of abandon the podman desktop for now
+You can always come back to this if you want to lean on it
+But we're gonna go ahead and delete these extras here a nice interface for this
+By the way, if you click prune containers, it will delete any container that is not currently running
+Yeah, so that's a nice thing by the way
+Some of these commands are so convenient that I can't even remember what the command line equivalent is
+So keep that in mind. I mean like when you go
+Like this this is how this pulled down these different images, right? Oh look, here's one. Let's go ahead and let's I forgot
+I skipped over this. Let's pull an image. Let's let's pull an image that I know of right
+Uh a container is an instance of an image. Yes. So let's let's pull down my workspace
+rob
+Slash workspace
+This is off the ochre hub. So there's no preface to it pull image
+So all this does is pull down this really big big image
+It's going to take you a while. It's about two gigabyte image, which as images go is pretty darn big
+Um, it's not as big as the stuff I've seen in our machine learning environment
+But still it's pretty super big now. So it's still pulling the image
+It's got the download complete and now it's done, right? So now we can see that I have uh,
+The docker.io workspace image is here. Uh, it's a pretty old one 2.16 gigabytes
+Um, and and now watch we can actually if you click on play right here on the images
+It will start a container and and run it. So you click on play there
+It's like which kind of things do you want here, you know, but instead of doing any of that
+We're going to do it from the command like like we just saw right
+But but I want to I'm going to we're going to delete the image and I want to show you how you can do
+So if you don't if you don't if you fast forward through the whole video
+Hopefully you got to this part because we we are going to uh prune all the images
+We're going to get rid of all of them. We don't use any of these images pruning images is like
+I want to delete all of the images that are not currently being used for running containers
+Okay, so it took a while to delete them all but you see now we're all gone
+By the way, those things take up space on your tis drive
+So, you know, you don't want to have them laying around if they're not being used
+But if you know, you're going to use the same image lots then it's good to have that
+Okay, so here's the command you need pound man run
+Right
+And so now we're going to this is you just have to memorize this pop man run dash it run it
+That's how I remember it
+Run it the i stands for interactive and the t the t stands for tty in other words give me a terminal
+Well, I don't want to just run it. I want to run it and connect it connect to it so I can start using it
+Right and then and then if you don't want
+The container to be around after you exit and so it has to go be cleaned up you can type dash dash rm
+And so what that does is it says when that container is instantiated from the image, right?
+It'll pull down the image if it does so what does this command do and then I'm going to do rwx robb slash workspace
+Okay
+So this does a lot in one command if there's one command you need to write down. This is it
+So what this says is?
+Download run it means pull
+And run it
+That's what it means. It means pull it and start it
+So pull it and start it or there's other commands in there execute
+But so pull it and then and then run it and not only run it but run it and connect to it interactively
+With a tty or terminal interactive terminal you can think of it doesn't stand for that
+But you can think of it standing for interactive terminal run dash it interactive terminal dash dash rm
+That means clean yourself up delete that instance when we're not using it anymore
+And then here all right and then this so when we run this you'll see
+It's going to take all this time downloading these blobs
+And getting them so it's going it goes to docker.io because we didn't put it there
+And it's going to take a while because it's got two gigabytes. It has to pull down two gigabytes
+So as I said, that's rather large. Why is it so big because this unlike hello world that we just did
+This isn't just one one command that's just going to go right go away after that
+This is an entire simulated linux workspace environment
+That means it's it's all of ubuntu server plus all of my personal configurations
+Including fishies and colors and everything and all my vim config
+So if you actually want to go see
+My workspace interactively and play with it and then throw it away later while you're working on yours
+This is what this is what you can do with your containers now when my
+Workspace runs it actually the first program it runs
+Actually prompts you for a few things. It's asks you hey, do you want to what what kind of user?
+What do you want the user to be and for the purposes of this?
+You can just accept all of the defaults. Okay, so we're going to say you
+And the user id it's the number that goes with your name. We use a thousand
+We'll use the group name you and use a group of thousand
+We're going to say home you for my for my directory
+And we're going to say that we want the bashcrub. So these are the defaults if you know about these things
+you could actually set these to be
+something different
+And what that does is that creates a ubuntu linux machine with the account name you this number right here is the
+Automatically generated host name for this container now if I go back into our GUI
+And we go look and up here. You'll see hardcore shall a you'll now see that I am running
+See I'm running right there and I'm connected in fact you could even connect a terminal from both places
+And you know
+You'll see that look user share rwx rob slash workspace. That's the default for that now if I were to do
+If I were to well, this is this is okay. So let's talk about this
+This is this hashtag means that it's running as root right and root is just admin
+That means they have access to everything and they can go ahead and break everything
+Which we're going to do but but by default
+And by default root is the default but if you use my workspace, I didn't want to do that
+I wanted to be able to set it up as an individual user
+And and you know come in and do the things here, but if you want to come in and do fishies
+Or uh, do we have neo over here? No, I have a c matrix t matrix. I think is over here
+Yeah, we have the t matrix over there
+So if you want to go over there and just play around you can but now let's let's actually talk about a few images
+That are more useful with our few minutes left. We only have about six or seven minutes
+So what are some other images right away that you can play with right? So let's try
+As I said before we're going to just use everything on the default docker hub for now
+And uh, let's go through
+We're going to say ubuntu. Okay, so we want ubuntu linux
+And we now it's going to go grab ubuntu linux and now we have root by default notice the prompt
+Notice the prompt. We now have the root user. We have this generic id that's assigned for that machine
+Uh, and then we have the hashtag that means that we're a root user
+And not a regular user. In fact, there are no regular users on this machine, right?
+The only user on ubuntu by default is root
+So something to keep in mind most containers that run that look like operating systems when they run
+They run as root unless you specifically create an account on here and that is one of the things that we're going to do
+So we're going to do basics like
+How to create a basic user administrator account on here?
+Um, and how to set that up and how to configure that those are all things that we're going to do in the boost
+Without getting into too many details not to the level of certification, but now something is interesting
+So let's go back to the GUI again just if we're just for um
+Is it still there? Where's my podman desktop still running?
+Should be running where did I kill it?
+Let's go podman desktop. Let's go run it again
+All right, so let's go back to our podman desktop and look at our containers again
+Okay, so now we have an ubuntu container that is running
+Uh, that's the image. So let's go to the container. So we have nice pain. See how I did it
+So we have a running ubuntu container. What happened to my other container?
+The workspace one the workspace container because we did dash dash rm was deleted
+After it ended after we exited it shut it down and it deleted the container
+It's like, okay, you don't use it anymore, right?
+And that's super important to understand that when normally when you shut a container down
+It's meant to be ephemeral which means that you just chuck it
+You just throw it away and anything that you wanted to keep around
+You would have mounted and written to some other place
+For our purpose is that's fantastic for testing because we don't want it to keep anything around
+We want to repeat the steps, right?
+And we want to write those steps down in our notes
+So we can practice those steps over and over again
+And one of the reasons that containers and virtual machines are so good for education
+Is that you can kind of save them along the way at different paths and virtual machine
+You can do something called a snapshot which freezes that machine at that moment in time
+And then you can do dangerous experimental things and snap it back to the place it was before it got killed
+You know, you can do the same thing with containers
+It's a little bit more difficult because they containers in general are designed to be really thrown away
+And then you know brought back but you can leave a container running
+Which we're going to talk about next week because we want to have an ongoing container that we are going to
+You know a Linux machine in a container running in a container that we're going to build up
+Over time and normally that's not something you would do but for the sake of our practice and education. It's fine
+um
+And and then if you you know if you ever wanted to you can also try out different versions here
+Uh of ubuntu so so here we have watch what happens when I type exit
+So when I type exit it goes away and the container is gone now watch what happens if I do get rid of the rm
+See if I get rid of the rm
+And now we do it it see how fast it ran a new one
+Why because it's already pulled the image down you know what's really cool
+Is that if somebody updated the image and I do run like that
+It will detect that there's been a change to the image
+And it will grab the latest version of the image update it automatically and then dump you out on a command prompt
+So so this is um a super important um part of this
+So so here we have we have it running and
+You see it's running now watch when I type exit this time
+Boom it goes wait. It just exited it kept it around. Uh-oh, right
+And now can I type run again? I can now it's running, but I'm not connected to it
+Okay, uh, they're the way I forget the command actually it's like run pod man
+Is it connect?
+I can't I can't remember. I don't even use the command. What is it? Someone help me out
+It's is it login
+It's not run
+If we do run it'll make a new one
+I I didn't want to do this because I didn't I didn't want to freak people out attach. Yeah
+Attach to there. I just tab tab I hit tab tab and it told me what one to go to right
+And now we're gonna need I think we need it for this too. No
+No, it's not it's not it
+If it's running right so now we just reattached
+So now we're connected back to that one that we were before if I type exit
+No, but what but if I try to attach it see how it exited
+What happens if I try to attach one when it's already it's not running. It's like oh, it's not running, right?
+So then you can do pod man start
+elated
+And this will start it
+And then you can attach to it
+Right, and then you type exit by default when you type exit it turns it up
+Uh
+Yeah
+Yeah
+Yeah, okay, and so it really depends on the image and stuff about how you want to
+Um, but again if you don't want it to do that and how do you delete it, right?
+pod man, uh delete I think
+Is it leader rm?
+I don't remember there is I don't do it often. So now that image is gone. Okay, so that is really your homework
+For this week and I we're done. It's one o'clock
+So we're going to go ahead and end your your homework is to get pod man working and start to play around with those commands now
+Next week when we do this we are going to learn all about how to deal with files
+Um, and how to set up the operating system and how to do more but for right now play around with some of the different images
+Let me give you some of the examples
+So using that exact same run command you can sample different operating systems different linux operating systems
+So you do rm, right? So you can actually do cali linux, uh, cali. I think it is
+So tonight resources, uh, what is it?
+I don't what's the cali linux one?
+Running manifests latest docker. I think they moved cali off of there
+What is it? I can't remember
+If you want to try okay, so you can't you can do red hat if you want quay.io red hat
+Basically find a whole bunch of images. Uh, oh, that's not one
+I don't know about fedora
+Dora, I don't I don't even know what i'm doing. I'm just guessing a bunch of images cali rolling. That's right cali linux
+The hackers out there will know this one
+But you know have fun with this exploring it and looking at all the different ones
+This is one of the main reasons to use containers is that you can see all the different things. So this is a cali linux
+Uh, this is cali linux running from the command line
+It doesn't have a lot of good stuff in it because it's a very limited version of it
+But you can try that. Here's another one. You want to try arch linux?
+I always wanted to try arch. I try arch. I think arch is arch linux arch
+I can't remember. I anyway try them all
+Uh, which one is it guys?
+Is it arch arch?
+There's a bunch of them. I wish I can't remember them off hand. Obantu is the one, uh
+You could try gen two if you wanted to arch
+My my favorite one is alpine
+Alpine is is the smallest linux
+Uh besides busybox and alpine is like one step above busybox. So this is alpine
+You can also do, uh, busybox
+So busybox and alpine are the
+One and two most popular container images
+Ubuntu is probably after that is the most popular
+Um, mini mini mini linux distribution when somebody wants more or less a linux distribution to go with their application and put them all in there
+So those are the ones I would definitely know how to do we need, um
+So busybox is by far the smallest linux distribution in planet earth
+Uh, that you can generally use for containers and there are others if it's into 1.5 megabytes by the way
+Um, and you can do, uh, alpine is another one
+Alpine doesn't have any gplv3 linux in it. If you know what that is, um, it's very very popular
+It also, um, these do not have vast shell on them. They have other shells on them
+This is one of the reasons I like to use it to demonstrate why you should progressively learn
+vi and ed and that stuff as well as
+Vim and all the other stuff because these
+Containers only have a minimal version of vi in them. Uh, and there's cali linux. You can go look at that one
+Um, and then there's, uh, I wanted to get arch to work. I can't why am I not getting what's arch?
+I have to go look it up. Give me a second here
+I gotta look up arch so
+And we'll say, uh, try
+Let's see obuntu
+Obuntu
+Which one is it?
+It's just arch linux really
+Okay, let's try that one arch linux
+It is okay. So there's arch linux
+Some people are big arch linux fans. You can actually I think arch linux is the best container for creating a
+security distro of your own
+So in fact, I I was extending arch linux
+Uh, some years back to make my own security command line container distro
+um
+And if you know anything about security, you know how important, um, running this kind of stuff in
+Protected containerized environments is because of security concerns, right?
+That's one of the reasons to use containers is is because if if if you know you leak information about how to get to your computer
+Uh, who cares? It's just inside of a container. I mean, there's there's a lot of considerations there
+But having a container in a virtual machine is one way to protect yourself
+During discovery and that kind of stuff that you would do in security
+so
+So and arch linux is is a popular
+Distribution with those who like to customize and do things like that
+Gen 2 is another one, but it's a different different flavor. In fact, I don't even think it has an image
+Uh, does anybody know?
+I don't think no doesn't okay. I don't think it does
+So so those are some to try and that should be enough for today
+So try a bunch is the one we're going to be using the most they all have different
+Package managers, which we're going to get into if not next week the week after that
+And that's how you manage installing software. And so the reason that we're going with Ubuntu
+What's the red hat one by the way? So
+Uh, there's a portage container really okay, so try Ubuntu
+Cali linux
+Uh, cali rolling
+Cali linux cali
+Is it cali rolling? Let's put them all here for everybody
+Uh, which what which one did we do cali linux?
+Oh, wow, I did tab and got tab completion. That's because it was downloaded already
+Cali linux cali rolling latest. Okay
+um
+What else we got we got, uh
+Uh
+busybox
+Uh art alpine
+Uh arch linux
+Yeah, let's just put these all in here
+I'm busy. These are kind of fun
+I'm busybox
+Alpine these all just be in the notes if you haven't seen it already they'll turn into notes for the youtube video
+Uh cali
+Now notice that you can't use bsd, right?
+You can't use bsd and you can't use windows or you can't put mac in there because those are different operating systems
+And back to about the virtual machine the one fundamental difference between containers and virtual machines
+Is for the most part virtual machines can emulate different operating systems like
+At the lowest level and and if you go even further than that with something like something called kimu k emu
+Which you talked about on the first day you have an emulator that can then run things that are that simulate
+Entirely different hardware, right?
+um
+And so you have all these different layers of abstraction at the expense of speed
+Depending on what you want to do
+When you're on a container though, you'll notice that there are no bsd versions of linux. I mean unix
+Or salares or something that we can run in a container because the containerization as
+Is referred to the idea of containerization bsd has something called jails. Those are containers for bsd
+But generally when we're speaking about container, I'm going to say it again a container is an lxc
+It's a linux technology for the most part in modern times
+Where it has to be a variation on the linux kernel
+That means that you can have all these different types of linux
+That are all using the same host linux kernel that you're currently running
+Right, so they're they're using the linux kernel that is being provided
+By your engineer. You're like mr. Rob on my windows. I don't have linux on here. Well behind the scenes
+podman desktop is providing
+a specific linux kernel for all of your containers and you don't need to care about the details of that
+But it goes without saying that if you wanted to you could install and that's what i'm doing on anton
+I don't know if you notice this but that's what i'm doing on anton you can run
+You can run your own virtual machine and then install docker or podman into that virtual machine
+instead of using
+Uh instead of using you know a fancy desktop podman desktop kind of application like that that includes a virtual machine inside of it
+That's quite a bit to unpack so make sure you pause it and re
+You know re listen to that so if you understand what that means, but it you know
+A lot of people when they seem using podman desktop
+I was like, why don't you just install a virtual machine and then run podman on that
+I was like, well, you can totally do that if you do that then you have more control over the virtual machine
+That's running your containers
+But if you don't care then something like podman desktop or docker desktop
+Is better because it takes care of all that hassle for you
+And if you're running on a mac m1
+Which or m whatever that's using arm
+Then you're going to start to have hassles because you got to like
+You find a virtual machine engine that actually works with your hardware and it's not beginner stuff
+It it's you know it can be done
+But you know up until very recently they weren't even virtual box even came out with a
+Thing saying they were not going to support the new max and now they say they are so
+So if you want to get into the nitty gritty of virtual machines and then installing
+You know podman or docker onto those virtual machines
+You can certainly do that
+But the faster way to go about it for most beginners is going to be install podman desktop
+And boom and now you have your containers, right?
+And you're going to need containers no matter what because almost everything needs containers these days
+So, you know, even if you do try to decide to do virtual environment to learn bash
+It would make you know
+It would be good for you to learn how to do the docker stuff or the podman stuff
+All right, that is all we have for today. Um, so go ahead and play
+And then we are going to be doing so
+For next week for next week, you should be able to start up get bash
+Navigate around your file system
+Understand the differences between
+Your your graphic user interface and your command line interface when it comes to the file system
+And know how to list things know how to move around
+CD by the way, we didn't cover that but cd changes the directory
+Go ahead and you know change into a directory and then go up
+We're going to do all this stuff much more next week
+Uh, but the main takeaway is that you can get podman
+You can get you understand what a container is that you can start up a container running one of these linux variations
+And that you understand how to get rid of them and you've played around with the commands from the command line
+Or using the podman gooey and desktop. You should be able to start and stop containers
+By next week, you should be able to start and stop containers without a problem
+And get on there and you should be able to start minimally understanding how to navigate through those things
+So next week, we're going to spend all of the time
+On navigating the bash command line
+dealing with files creating them destroying them moving them around organizing them and
+Possibly even starting to integrate those files with get and get hub so that you have a backup copy
+Of the stuff that you most recently pulled down
+And when we talk about how containers get thrown away all the time, right?
+Well, you're learning. Well, what happens if I do some work and it gets thrown away? Well, that work should be saved
+Into github, right? So we're probably going to cover that next week. I don't know if we're going to make it in time
+They'll probably have to do that the week after that. So so that is that's where we are
+Um, but you should have enough to really sink your teeth into it and play around with with containers
+you can read more about container and virtualization in general and uh, that that's going to be it for today
+I'm just going to go through the chat really quick. See if there's any big questions. I miss
+Uh, uh, risk be hardware risk constraints is run natively with risk
+Uh, you can't run risk risk v at all for any of this. You need kimo for that
+Because it's a different it's a different hardware architecture
+Uh, gen two stage three. Oh, so there is there is a gen two
+Yeah, let's try that gen two
+Gents gen two is another one. These are we're going to talk about what linux and unix are next week
+and um, these different distros and why they exist and
+You know why linux period all that that's all coming next week, too
+Um, but I didn't I wanted to get something in your hands. You can start playing with
+All right, so these are we'll cover these next week. See if you can find the differences between the two just on your own
+It'd be kind of fun. Oh, you found red hat. Nice. Thank you for that. So, uh, red hat
+Uh, it'll be
+It'll be eight dash minimal
+Thank you for that. That's actually more important than Cali and all these others, but
+Great, great. Great. So, yeah, um, thank you for those references. Appreciate that
+Containers can be unsafe. Yes
+Um
+Containers are generally safe. The only time they get unsafe is if people can break out of the container
+Most of the people who attack that's what they do. In fact, one of the reasons to use podman over docker
+Is there's less to attack and that was one of a very big controversial thing is the attack surface of docker the docker
+Uh, the docker daemon, which is the central process and manages everything. We had to run as root
+So that means if you broke out of the container, you got root access to the host system
+And that was a serious security concern for a very long time. Did I write the wrong thing red had?
+Thank you for that. Good catch
+It's probably time for me to go. Let's see universal basic image gen two stage three
+I think that's about it
+Do we skip podman machine and it and podman machines start? Yes, we did skip that
+Um, okay. So if you want to use the command line entirely my friends, uh, I'm glad you reminded me that then
+so, um
+I'm pulling in to start a container
+Okay, so
+I don't know if we should complicate the issue right now
+um
+So dan dan is reminding us that there is um
+That there that there is
+A have a this understand
+equivalence
+From command line
+So podman has
+Unlike docker podman has an extra command called podman machine and it
+That you have to run
+So they can start doing all of these things
+um, but we bypassed the need to do that by using the podman desktop GUI
+And so dan I that is a good point about podman machine and it if you were doing these all of these things
+Uh without pot, you know what? Let's do that next week
+So next week what we'll do is we'll do the entire thing without using the GUI period
+We won't even start podman desktop GUI. We'll turn it off
+We'll turn the daemon process off and all it'll pretend like the machine was rebooted
+And we'll do all the commands including podman machine in it and and we'll deliberately try it and hit the error
+So people can learn it uh because I don't think they're gonna hit that error
+Uh
+Is the bunch of image that you pulled the server version? Yes, but if all
+Yep, it sure is. Um, okay, and that's all so I a good point though on the podman machine
+So podman unlike docker
+Does have an extra step with podman machine in it
+But we will hit that on purpose next week
+And you'll see that if you don't want to use the podman desktop GUI which you may not always have
+You might be working on a remote system that doesn't have a GUI that you have access to
+So you would need to know that command, but let's let's let's show that command next week
+Alrighty. Bye everybody

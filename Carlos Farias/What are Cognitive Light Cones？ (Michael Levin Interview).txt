@@ -1,0 +1,850 @@
+My favorite paper of yours, and maybe one of my favorite papers ever of all time,
+is the computational boundary of a self paper that you wrote in 2019.
+I started to try to formalize the way that one could think about any possible cognitive system
+or any possible intelligence. And when I say intelligence, I mean William James,
+this kind of definition where it's a competency to reach the same goal by different means.
+It's a very cybernetic definition. It means there's some problem space, there's some
+goal you're trying to reach in that problem space. It becomes a navigation task.
+And it asks you to think about for any given system, how much competency does the system
+have in navigating its world to reach its goal despite all kinds of new things happening,
+various barriers, and so on. So I started thinking about what if we can't rely on origin story,
+because I don't think that matters. If we can't rely on composition, because I don't think
+having a brain that looks like ours makes any difference here. What do cognitive systems
+have in common? And so what I settled on is this notion of a cognitive light cone.
+And the idea is this, and this is borrowed from, well it's sort of upside down actually,
+but it's borrowed from the way they do. Minkowski may have been the first to do it,
+but these kind of space time diagrams in physics and what you do is you put
+times on the vertical axis, all of the dimensions of space are on the horizontal axis.
+And what you can define is you can define this cognitive light cone
+as the spatiotemporal size of the biggest goal that the system can pursue.
+Michael Levin is a scientist at Tufts University. His lab studies anatomical and behavioral decision
+making at multiple scales of biological, artificial, and hybrid systems. He works at the
+intersection of developmental biology, artificial life, bioengineering, synthetic morphology,
+and cognitive science. If you got this far, please hit that subscribe button,
+and I hope you enjoy our conversation. Mike, thank you for coming on.
+Yeah, thanks for having me. Happy to be here.
+Such a pleasure. I mean, I first learned about your research. A couple of years ago, you did a
+podcast, your first of a few with Kurt Geimungal. That was my first exposure to your work.
+And I just thought it was absolutely incredible. And I agree with him when he said like your work
+already, it's like deserving of Nobel Prize, which you've already been able to accomplish.
+And just think of the implications of what your work could bear out in the future. It's
+remarkable. Well, thank you. Thank you. And your lab, you're working with, is it over 40 people
+working in your lab? Oh, at the moment, there's probably around 32. 30? Okay, 30 to 40. I know,
+yeah, it sort of varies. Probably don't share with time. And your work is at the intersection of
+all these interesting areas. I think to get us kicked off, it'd be great for sort of the lay
+audience, people who aren't familiar with their work, if you give them a brief overview of what
+you're working on, maybe your career a little bit, and then we can dive into the nitty gritty. I have
+a ton of questions to ask you about the specifics of your work too. But just give us a little high
+level grounding. Sure. Yeah. Well, our work is spread over a number of areas. So we have, there
+are people in the lab who do very basic conceptual kind of stuff that's almost philosophy. And then
+computer, there's some computer science, and there's some bench work in developmental biophysics,
+and there's some behavioral science and things like that. And we have a mix of
+biologists, physicists, bioengineers, computer scientists, and so on. And there are lots of
+projects in areas such as birth defects, regeneration, moving towards regenerative medicine,
+cancer, AI, unconventional computing, and unconventional cognition, and things like that.
+And all of it, it sounds like a grab bag of 100 different things, but it's actually all stemming
+from one fundamental question that I'm interested in and that I've been interested in since I was a
+kid, which is really this issue of embodied mind. This issue of how minds can exist in the universe,
+how they interact with their bodies, how minds scale from the primitive kinds of
+metabolic and other competencies of single cells to the emergent mind of the body and then of the
+whole organism in a behavioral sense. And this scaling, embodiment, and communication is
+at the root of everything. So it's at the root of developmental biology. It's a way that we think
+about the task of regenerative medicine is to communicate with this collective intelligence
+of cells to get it to do various things. And then, of course, applications to robotics and AI,
+and so on. So that's kind of the field of the group. You must be having so much fun because
+it's at the intersection of all these fascinating areas, intersections on intersections. It's
+absolutely just mind boggling. And I recommend for people who are interested in your work,
+I'll link in the description some of your papers, some of your presentations that you've given.
+I really love visuals to the company, the explanations, and the regular presentation
+you've given in the last couple of years that has everything from the planaria to morphogenesis
+and explaining those kinds of things. It's really super helpful. So that's really cool.
+And I should say, just as a shout out the visuals, there are a lot of amazing visuals,
+both in the talks and in the papers. And most of them come from one graphic artist named Jeremy
+Gay, and he works in Paragreen Creative as his company. And he is phenomenal. And he helps bring
+all of our crazy ideas into a visual form that other people can participate in.
+Yeah, thanks for pouring that out. Yeah, I was going to mention him as well, because
+those are some of the slides in particular that I wanted to share in a moment,
+because to be honest too, in preparation for this interview, I've only given,
+it's been about a dozen interviews so far, but this was by far the most difficult interview
+to prepare for, if I'm being honest, because it's extremely, it can get extremely technical,
+especially reading a research papers. And I believe you have over a couple hundred
+research papers, right? You've published quite a bit in your decades of work. So,
+and that had a lot of collaborators that you worked with as well. So we'll be changing scales,
+I think, quite a bit during this conversation, because, you know, I want to get to the details,
+but I think where it's really interesting is the biomechanics, where they intersect with,
+say, like information theory, and sort of jumping between levels and different scales,
+but they kind of say biomechanics is implementation of, say, a lower or more
+fundamental laws, perhaps. But we'll, I think that's something we'll sort of start to unpack as
+we go through this. And one of the papers of yours, though, that I think, my favorite paper of yours,
+and maybe one of my favorite papers ever of all time, is the computational boundary of a self
+paper that you wrote in 2019. And I think that'd be a great place to sort of ground the conversation.
+And because it's got a little bit of everything, a lot of your work is referenced in there. And we
+won't go to the paper line by line, but some of the major topics of conversation, I think,
+will be pulled out of that paper, and we can dive into the specifics. So if you give me a second,
+I can actually just share my screen here. Yeah, as I just mentioned, this paper of yours, it
+tackles so much in one. Could you possibly give us an overview of the paper and a million questions
+to ask in terms of specifics? But should you tell us what this paper's about?
+Yeah, yeah. So I've been thinking about these things for many, many years. But what finally
+catalyzed me sitting down and writing this up is that in 2018, there was a conference on
+Diverse Intelligence put on by the Templeton Foundation. And we were challenged by our program
+officer, Pranab Das, to think about frameworks where unconventional intelligences could all be
+thought about at the same time. And so there were people there working on ants and octopuses
+and chimpanzees and things like this. And I, like with a number of things, I sort of
+tend to crank that knob all the way out. And so I'm interested in every kind of possible
+cognitive system. So we're talking cells, tissues, minimal matter, collective intelligence of groups
+of organisms, all kinds of artificial synthetic beings, software, AIs, possible aliens, like all
+of it. So I want to know how we detect, how we understand and how we relate to and maybe even
+create diverse intelligences. What is the space of possible minds? And I'm certainly not the
+first person to ask that question. So we were thinking about all this. And I started to try
+to formalize the way that one could think about any possible cognitive system or any possible
+intelligence. And just to give it a definition by intelligence, I don't mean the kind of
+second order metacognition that, for example, humans have where you can sort of think about
+what you know and so on. I mean, that's one kind. But I'm talking about when I say intelligence,
+I mean, William James, this kind of definition where it's a competency to reach the same goal
+by different means. It's a very cybernetic definition. It means there's some problem
+space, there's some goal you're trying to reach in that problem space. It becomes a navigation task.
+And it asks you to think about for any given system, how much competency does the system have
+in navigating its world to reach its goal, despite all kinds of new things happening,
+various barriers and so on. And so I like that definition because it's independent of the origin
+of the system. It doesn't matter if you're evolved or designed or some hybrid. I think that there
+are a lot of artificial distinctions that are made in these various fields that are
+not facilitating progress. They're kind of blocking it actually. So I want things that are
+as unified as possible. I really take this unification task seriously. So I started thinking
+about if we can't rely on origin story, because I don't think that matters. If we can't rely on
+composition, because I don't think having a brain that looks like ours makes any difference here,
+what do cognitive systems have in common? What does it mean for something to have
+some kind of cognitive system? And so what I settled on is this notion of a cognitive light cone.
+And the idea is this, and this is borrowed from, well, it's sort of upside down actually,
+but it's borrowed from the way they do. I mean, Kowski may have been the first to do it,
+but these kind of space time diagrams in physics and what you do is you put
+time is on the vertical axis, all of the dimensions of space are on the horizontal axis.
+And what you can define is you can define this cognitive light cone as the spatiotemporal size
+of the biggest goal that the system can pursue. And I don't mean the reach of its sensors and
+effectors, right? So the James Webb telescope has this incredible sensory that reaches to the
+edges of the observable universe, maybe, and so on. That's not what I'm talking about.
+I'm talking about not what you can sense and where you can act. I'm talking about the size
+of the goal state that you are, the largest goal state that you are capable of pursuing.
+So this frames, much like James, and I think it was right, and like Wiener and colleagues before
+that, it frames the tasks of some type of cognition, whatever it is on that spectrum,
+as being fundamentally about pursuing goals of some type. And so one can start with very simple,
+and so here it's a tick, but you can think about a bacterium or something. And the cognitive light
+cone is quite small because it has a little memory going backwards and has a little bit of
+predictive power going forwards in time. But what it really cares about is the local concentration
+of whatever molecules it cares about right at that local level. So it's very small. The cognitive
+light cone is very small. And you can move up to something like a dog. So that has a longer
+light cone going backwards. It has a little bit of predictive, more predictive capacity going
+forwards. And of course, spatially, it will know things like one of the goals is to keep intruders
+out of its neighborhood than the perimeter of the house or whatever it is. That's what it works on.
+But so that's great. That's way bigger than the tick or the bacterium. But what you're never going
+to get your dog to do, as far as we know, is to care about what happens in the town three
+miles over a month from now. It's just not going to happen. They're not capable of it as far as we
+know. And then you have very large light cones like humans that may really be one of the goals
+maybe something to do with world peace and what's going to happen. Some people are literally
+depressed because the sun is going to burn out. And so they're working on these technologies to
+get us off the planet and so on. And of course, we all have limitations. So even though the human
+light cone is huge, and it does have this interesting feature, maybe the first one in this
+evolutionary chain, maybe not, where some of those goals are guaranteed not attainable. So if you're
+a goldfish and you have some goals that reach, let's say a half an hour forward, that's absolutely
+attainable. You're very likely to live that long. And so your goal, most all of your goals are
+attainable. If you're a human, it's very likely that you know that many of your goals are your
+cognitive light cone is longer than your lifespan. You know they're not attainable. And that may or
+may not result in some psychological pressures that are unique. But I don't know. So our cognitive
+light cones can be huge, but they're also limited in that, for example, and this becomes important
+in some of our more recent work. If you think about the capacity to, I mean, what this is
+fundamentally about is care and compassion. And if you think about your capacity to care about the
+welfare of other beings, we are quite limited in the linear range. So you might have a certain
+amount of care about something that happens to some number of people. But if it's then, if you're
+told that well, actually, it's not a thousand people, it was actually 10,000 people that it
+happened to, your amount of active care is not going up 10-fold. We just can't muster that level.
+But you could imagine, and you could imagine these sort of bodhisattva like beings whose
+light cone is large enough where they can actually, they can literally care about a massive amount of
+possible sentient beings. So anyway, so that's the point of this cognitive light cone. And
+the idea behind all of this, and there's a follow-up paper from last year that's kind of the
+next version of this, which is the TAME paper, the TAME, the technological approach to mind
+everywhere, which extends this and really goes into this, the mechanics of what this
+is supposed to be. What this is supposed to be is a framework that moves these kind of questions,
+questions of cognition, of sentience, of intelligence and so on from the area of philosophy,
+where people have a lot of philosophical feelings and preconceptions about what things can do and
+what things can't do. And it really, really stresses the idea that you can't just have
+feelings about this stuff, you have to make testable claims. And so every claim about a system
+of some level of competency, you say this thing doesn't have this level of cognition or it does,
+wherever you are on the spectrum, and it has to be a spectrum, it's not binary, that's the biggest
+thing that trips everybody up is trying to be binary about these things. But wherever you are
+in the spectrum, that is a testable claim. So somebody has to pick out a problem space,
+say what you think the goal is, say what you think the system is capable of doing to reach
+that goal, and then you test it. And then you see if what you've got facilitates discovery,
+experiment, further research and so on. So for me, the goal of all of this is to
+make testable frameworks that advance a research program, they're not just philosophy.
+Sure, sure, so fascinating. And thank you, that was a great succinct summary of the paper. And I
+love to, at the bottom right corner here, this collection of compound intelligences. And I
+think it's one of the points you made, you made in a few podcasts, is that all intelligence is
+collective intelligence, we're a collection of cells. And I think that's such a wonderful
+point, because we do kind of get lost in the philosophical debates, let's say, in terms of
+thinking of it as a singular kind of pointed focus. But this, especially this graphic in
+particular, where you have the cell and then actually the components within the cell, I believe
+those are the pink diamonds there, that makes up the organism, the organism makes up the colony.
+So you can see these things are made up, they're sort of nested. But one thing I would love to get
+your, just the explication on a little bit here, is how, I believe it's from the paper,
+that most biological systems consist of multiple nested cells. And how is that different than,
+say, one, say, integrate itself. I think you actually point out it's not one as implied by
+integrated information theory. Could you tell us a little bit about that?
+Sure. Yeah. So this collective intelligence thing is crucial, because a lot of thought in
+philosophy, going all the way back to René Descartes and before that, Descartes, which I think he
+gets a bad rap for a lot of things, I like him actually. Yeah, I've seen him in your slides
+sometimes. Yeah, he's great. Well, right, some very helpful stuff there. But one of the things
+that I think he was wrong about is that he was really interested in the pineal gland,
+because he said there's only one of these in the brain, right? And so that makes sense as a kind
+of a nexus for this unified human cognition and so on. But actually, if he had had access to
+some good microscopy, he would have found out there's not one of anything. If you look into
+this pineal gland, what you see is a whole bunch of cells. And when you look into those cells,
+you see a whole bunch of molecular networks and down it goes, there isn't really one of anything.
+And so what we have to ask ourselves is, where does this large scale, because we certainly,
+as an organism, you certainly have a light cone that does not belong to any of your pieces.
+So you have goals and preferences and hopes and dreams in spaces that do not belong to your
+individual cells and tissues and organs. They work in physiological space and transcriptional
+space. And when you're in embryo, they worked in morphogenetic space. You work in three-dimensional
+space and maybe linguistic space and maybe some other things. But so certainly there's a kind
+of scale up process by which these competent subunits and that's one thing we have to understand
+is that we are made of very competent subunits. I give another talk, sometimes it's called
+why robots don't get cancer. And the reason that our current technology don't ever get
+cancer is because they tend to be made of pretty passive parts. So you hope that your robot has
+some degree of intelligent performance, but the parts themselves never go off the reservation
+and do something else. But with us, that's a definite risk because that's the
+price you pay for having those scaling mechanisms. You become susceptible to failure modes where
+the individual parts, they have agendas. And there are these, evolution has given us some hardware
+which is very good at scaling up these cognitive light cones and pivoting them into different
+spaces into different problem spaces. But that has failure modes. And I think it's really
+critical to ask that question, how the properties of the compound intelligence
+and the goals, because there are novel goals that appear and so on, how those relate to the
+properties of the parts, what dynamics facilitate the scale up, how do they go wrong? Because at the
+level of tissues, for example, that's cancer, that's basically a disorder of this cognitive
+scaling, results in cancer and all kinds of other implications up and down the chain.
+And so the last thing you mentioned was about IIT and really the one thing I would say is this
+and that I don't, we haven't really gotten into consciousness at all, which is fine. I think it's
+really important to demarcate actual talk of actual consciousness from the stuff that we're
+talking about, which is cognition, intelligence, performance, computation and so on. And I think
+with respect to those kinds of things, I think it's pretty clear that
+the kinds of ingredients and the kinds of dynamics for which brains are sort of famous,
+and this is why people think that brains are associated with intelligence and so on,
+those kinds of processes go on in every tissue of your body. So almost, I'm not aware of any
+real distinction that one could draw between the kinds of mechanisms. People talk about
+magnetic fields and they talk about quantum events and microtubules and they talk about
+the electrical signaling and various parts, different kinds of integrated spiking and all that,
+all that kind of stuff happens in other parts of the body. And so I think we have to be really
+open to this idea that treating the rest of the body as clockwork, whereas we are kind of
+okay with attributing various higher level cognitive properties to brains, I think that's
+a real mistake and I think we're leaving a lot on the table in terms of biomedicine and other
+things by making that assumption. Yeah. Matt, how did you come up with the name Scale Free Cognition?
+That possibly could have been, so that comes from a paper that I did with Chris Fields.
+I don't recall if he was the one that came up with that title or if I was, I don't remember
+at this point, he and I do so much together, I don't know. But the reason it's good here is that
+we as humans are very kind of focused on a very much like we are in the electromagnetic
+spectrum and so on. We only see this like tiny little bandwidth. We are the same way for intelligence
+and so we are very good at recognizing kind of medium sized objects moving at medium speeds
+in three dimensional space and look there, that's a crow and this is an octopus and that's an orangutan
+and we can recognize intelligence. But there are intelligences all around us at various scales
+that we just find very difficult to think of in the same way. So the bacteria in your gut that
+are solving physiological problems and navigating not just physical space but physiological space
+in very clever ways, that's an intelligence but it's very small and literally it's very small and
+it's hard for us to recognize those. The various organs that make up your body, people will immediately
+say well they're not, they don't have a cognitive self, I have a cognitive self and they're just
+part of me. Well yeah, that's because and they would say the same thing about themselves if
+they could talk right. So this is just basically a first person perspective from a cognitive system
+and we're very bad at recognizing the different scales. Going in the opposite direction,
+one could for example, and this is also something that Chris and others and I are working on,
+the paper's not out yet, but this idea that one could look at a whole evolutionary lineage
+or in fact the process of evolution itself as this giant distributed agent where every
+particular animal is a hypothesis that that agent has made about the outside world and like all of
+our ideas that are being sort of turned over by active inference by this active inference process,
+these hypotheses may be supported and they may survive and give rise to other such hypotheses
+or they may be unfit and die and you'll never hear from them again. And so that's another,
+those kind of ideas and I'm not saying it's right or wrong but those kind of ideas,
+you can't even begin to have those kind of ideas and consider those hypotheses
+if you're tied into the fact that all cognitive systems are roughly the size and scale of us
+and they have to have the brains and they have to work on a time scale that's too rapid and that
+begins to look too weird and too stretched out and well that can't be a mind but it's all relative,
+it's all completely relative but we have this vantage point like we used to when we thought
+we were the center of the universe and all that, we have this scale vantage point that just
+really obscures the reality of things. Cool, yeah because I was wondering about the name,
+how you named it there because it seemed like it struck me as more scale dependent cognition
+because it's reliant on the space and time scope but perhaps scale free means, I don't know,
+it's like a different approach, it's like a macro look at it versus... Yeah, I see what you mean,
+so you're right in that this approach does emphasize looking at scales, the point isn't
+to get rid of scale but I think when I say free, I mean there's sort of, it's kind of a play on
+words, there's two ways to think about this, one is it's free in the sense that it's not tied to any
+one scale so you can sort of jump up and down and it still works, it's these invariants so the same
+thing is true and we see this all the time, I think physicists use it this way too, it's something
+that's true on one scale and then you turn some control knob whether it's size or time or something
+else and exactly the same thing is true at this other scale, right, that same dynamic so that's
+one but I also like this idea, to me what free really specifies there is freedom in the sense of
+freedom for the system to do what it's going to do and freedom for you as a scientist to not be
+locked in one particular lens of looking at this system, that's how I see things, I see things as
+you know sort of unfettering our ability to recognize these diverse intelligences.
+Gotcha, cool and we're going to get into morphogenesis and bioelectricity
+in a minute but before we do that, we do want to touch on two concepts that are in this paper,
+surprise and infotaxis and I was somewhat familiar with surprise before, that the concept of surprise
+from second information theory, infotaxis was a little bit newer to me but one of the things I
+didn't realize was this concept of likening these agents, they want to minimize their surprise level
+which is a concept from like the free energy principle, what's a bunch of other places but
+and that you've of course published with Carl Friston as well, I'm talking to him next month
+which will be great, I can't wait to talk to him about that stuff but I didn't equate it to
+stress so like stress and surprise, should we think about those two as equivalent?
+So yeah, so it's good that you're having Carl on and I'm certainly not going to try to butcher his
+information by trying to recap it here but let me sneak up on it from a slightly different
+perspective because I think stress is very important. One way to think about
+the behavior of these collective intelligences of cells and we're talking about, let's think about
+regeneration or development which is basically just regeneration from a single cell, same thing,
+what you have there is a kind of, what the system is doing is it's navigating in morphous space,
+it starts off in this, so morphous space is this virtual high-dimensional space of all
+possible anatomical configurations that a particular genome could possibly reach
+and so you start off in one corner of this morphous space as a single, as a single cell
+and then you sort of navigate to this other region which is an ensemble of states that we
+recognize as the correct target morphology for whatever creature that you are. That navigation
+process has quite a bit of intelligence to it in the sense that not just, I'm going to take a
+quick detour here, but one way people critique these ideas is they, oh well all you're doing is
+painting the word intelligence on any complex process, anything that happens you say it's
+intelligent because look how complicated it is in a gap from here to there, so that isn't it at all,
+this is really critical, first of all you cannot estimate intelligence from observational data,
+it has to be interventional experiments and what you're looking at is not,
+you're not looking at emergent complexity, that's very easy, there are many systems that
+start off with very kind of simple local rules and then something very complex comes out the
+other end, that's not intelligence. Intelligence is the ability to get where you're going to reach
+that goal despite novelty and perturbations, despite it's problem solving basically, so this
+is key, so you're this collective intelligence because you're a group of cells very early on,
+you become a group of cells and you have to reach wherever it is that you're going, okay so the
+part of this that's intelligent is the part that when you deviate it from what it's trying to do,
+it finds other ways of doing it, so let's just use a simple example, we got a salamander
+and in that salamander there's a very particular limb that forms with a certain number of fingers
+and if you amputate that limb and you can amputate it anywhere from the shoulder to the fingertips,
+the cells will immediately grow, they will start to replicate, they will differentiate,
+they will do all these different things and then they stop, this is the most amazing part,
+is that they stop, when do they stop, they stop when a correct salamander limb has formed,
+so one way to think about this, the traditional way to think about this is as feed-forward
+emergence, so yes every cell has a bunch of local rules dictated by DNA and biochemistry
+and you just sort of roll them forward and whatever happens happens and it just so happens
+that it's a salamander limb, so that's one way of looking at it, I think that way of looking at it
+is missing the boat in a profound way because it limits our understanding and our ability
+to regenerate medicine, but anyway the view that I recommend is that you look at this as a
+kind of homeostatic capability of this collective intelligence, what it has is and by homeostasis
+I mean the thing that happens in your thermostat where there's this loop where it takes a measurement
+of something, let's say temperature in the case of your thermostat, it makes a decision
+relative to a memory, a set point of what the right temperature should be and then it takes
+actions to get closer to that set point, so you can think of regulative development and regeneration
+and cancer suppression and metamorphosis in exactly the same way, there is an error minimization
+process that tries to work to keep the system in the correct anatomical region of space and when
+it's deviated by injury, by mutations, by teratogens, by whatever, it tries to get back there as best
+as it can and I give lots of talks about all the amazing examples of what it can actually do
+in order to achieve that, just all the weird new solutions that it comes up with to various problems.
+So in order to do that one, so how do we think about, I mean the key thing about that loop,
+that control loop and this is for engineers, this isn't absolutely nothing new, that control loop,
+the key is that it has a set point and why does it keep, why do these cells act, why do they spend
+metabolic energy, remember they used to be independent organisms, individual cells
+care about little tiny single cell goals, they care about metabolic state, they care about local
+concentrations of things, they don't care about these large goals of organ shape and organ size
+and things like that, so why do they keep trying to do this and one way to think about this and so
+this is an idea that I sort of push forward in that tame paper and then since then we've done
+a lot of experimental work on it which is not published yet which you'll be seeing later this
+year and some good commutational modeling of it, some of it which is published as of a couple
+weeks ago, so one way to think about this is that what keeps the system trying to minimize error
+is stress, now stress is a really good word because stress has been used by engineers when
+they talk about various materials, so they talk about stress in mesoscale stress and materials,
+it's talked about by a psychologist, it's talked about by evolutionary ecologists in
+terms of ecosystem stress, of course behavioral scientists in terms of single but where people
+don't really talk about stress very much is at this middle level which we focus on which is cells
+and tissues and organs and I think that this concept of stress is quite general, scale free
+if you will, and that the deal with stress is that one of the things and there's a couple of
+major things is just one of those, one of the things that helps scale the cognitive light cone
+and move a set of subunits from caring about from a pile of cells that care about individual
+cell level things to a collective that cares about much bigger things like hey we don't have
+the right number of fingers currently right and no individual cell knows what a finger is or how
+many you're supposed to have but the collective does and the thing that keeps them the motivated to
+kind of try to get back to where they're going is stress and so what you need for this in that
+system what you need for this is for every cell to be able to be stressed by and to spread its
+stress to other neighbors in in response to conditions that are really failures of alignment
+at a larger scale so for example just to give you an example if we were to take an eye and stick it
+on the tail of a tadpole right and sort of you know transplant it you could have a situation where
+no individual cell is damaged nobody's injured nobody's poisoned there's no DNA damage there's
+no reason for any individual cell to be stressed but the collective is at the wrong location in
+anatomical amorphous space there's a geometric problem and so or for example after amputating
+the limb you know after all the cells heal and there's you know the skin everything heals
+no individual cells should be stressed because everything is fine on the single cell level
+but there's the real mismatch between there's a delta between the pattern memory that the system
+has that's that set point and where the collective is now so so I think and there's there's a lot
+more than than we have time to go into here but but but that spreading of stress and that linking of
+individual cell stress response mechanisms which used to be all about my you know migration and
+and and various physiological responses used to be about single cell stresses things that could
+happen to an amoeba and stuff like that and they're now getting harnessed to much bigger states of
+affairs and that's the beautiful thing about these homeostatic loops is that the cybernetic
+kind of aspect of it it's a it's a it's a it's a set of wildcards measure something what do I
+want to measure well it could be anything from your the quality of your DNA to the length of the
+tissue in which you find yourself to your position in the hierarchy of the tribe you know some sort
+of social thing any of that can be the thing you measure and then there's a set point to which you
+compare and again that could be that could be almost anything and then there's some actions you
+could take which again could be almost anything so what evolution does is it uses this basic
+loop this this basic concept of this loop and then it just progressively harnesses the three
+sort of main parts of that loop and points them at different sizes different scales different
+types of things and and that that I think is a is a major aspect of the kind of multi-scale
+competency architecture that makes this the whole thing so robust and interesting that's incredible
+the um so for stress one thing that I think I'm not sure if it was from this paper another paper
+of yours but and you you you sort of uh you didn't mention it's an exported error signal
+yeah so I think as you put it in the paper um export of stress molecules which have no ownership
+metadata yeah um can you explain that sorry I'm not a computer yeah that'd be helpful yeah yeah yeah
+so there's two there's two pieces that there's there's two kind of two big components to what I
+think of as what underlies the scaling of these collective intelligence is the first the first
+is this is the spreading of stress so so imagine this is this is I'm gonna I'm gonna give you an
+example but but really this is about all kinds of contexts not just not just cells moving around
+but imagine that there's a there are a bunch of cells and there's one cell at the bottom that
+that that according to the correct pattern needs to be up at the top now the cell can sense that
+it's far away and it wants to minimize this distance and so it's going to try to migrate
+but it can't because the other cells are sitting there and the other cells have no incentive to
+move and let it through because they're perfectly happy where they are their stress is very low
+so so what you what you've got here is a system where kind of like a like a cooling magnet right
+where you have all these domains and as you cool the thing they try to find a globally acceptable
+configuration where everybody where the total amount of stress meaning geometric frustration
+right the alignment is is the all the free energy is another way to put it is is as optimized as
+possible but what will happen is that sometimes it's impossible for everybody to be happy right
+you can you can set up situations where the geometric frustration is such that you always
+have some kind of lack of alignment somewhere so so the other cells so basically the temperature
+that system temperature not physically but in terms of free energy the the temperature that
+system is low the other cells are happy they're not going anywhere the barrier to get them to move
+is is very high because if they move they become they become less happy so so now you got a problem
+so so now why what what could what what can evolution do about this well one thing you can do
+is the molecule that and and of course the level of stress how do we know when something is stressed
+out well there are markers so there are more of the specific molecules that are used as a
+as a physical implementation of stress so so so you know heat shock proteins then other other
+markers that are like this is my level of stress right and then there's other there's hormones
+and whatnot so so now one thing you can do with this is you could keep all the stress to yourself
+and then this is the only cell that knows he's in the wrong location and nobody wants to help
+him and and and that's it that's all the system stays or you could be a little bit leaky so if
+you're a little bit leaky and and you're letting some of those stress molecules propagate to your
+neighbors then something interesting happens they become less happy now why are the why are they
+less happy well they don't know because stress is stress the molecule itself that's that metadata
+I was talking about that much that that's that molecule doesn't by itself tell you what the
+problem is it just says your something's wrong right and so what that means is that the cells
+in this vicinity the temperature starts to rise they get a little bit more plastic and this actually
+there are a variety of systems where actually where for example I just saw a beautiful talk
+a week ago by somebody who studies in drosophila like like literally cells that are in the wrong
+location they make they make the cells around them physically more fluid they get they literally get
+a little more plastic and when they get a little more plastic they're more willing to let other
+things happen for example that cell is now going to be able to get through them and again I realize
+this is this is a an example that's very kind of physical but but same idea in all sorts of all
+sorts of spaces by what you're doing by spreading that stress specifically in a way that looks like
+all of their all of the other agents stress is you are making your problems be their problems
+it's it's a way to it's a way to get alignment it's a way to get coordination towards a common goal
+it's a way to get this kind of unification this kind of unity that's needed for a common for a
+for a complex multi component system to achieve larger goals so so that's that's one thing the
+spreading of stress to to to get and and notice notice something interesting it doesn't require
+altruism it creates altruism these other cells are not helping you out because because they want
+you to feel better they want to feel better and and the best way for them to feel better is for
+you to stop stressing everybody out that's that's you know that's that's a real kind of a simple
+way to put it but that's actually the dynamic that happens is is it's not that that they're there
+to help you it's that you the system is set up in such a way that that lowering the overall stress
+requires them to to to to to act in a way that lowers your stress now now the other business the
+other part of this is the is the other metadata piece of this which is which is this one of the
+things we study in in this kind of scaling up is this notion of this this notion of communication
+via gap junctions now what are gap junctions gap junctions are these these little proteins that
+form like a like a like a submarine hatch kind of thing that in the like a like a little aqueous
+pore that can open and close in the cell membrane and when two cells are next to each other they
+can dock those those those those gap junctions can dock and then what happens is that small
+molecules and these are very we're not talking proteins but like very small molecule signaling
+current and and so on can can go from one to the other now i've made i've made the
+the claim before that that these gap junctions are kind of magic in terms of
+this this this cognitive scaling and and and here's here's one reason why and they're not the
+only thing they're not the only way to do this but i think evolution exploits them heavily
+imagine that you're a cell and you've got there's a cell a cell a and cell b and they're sort of
+near neighbors and and something happens to sell a and sell a has some sort of some internal
+consequences of that let's say calcium has gone up or some kind of you know some kind of
+memory trace molecule of that happening and what it can do is it can send a signal over to cell
+b now now the typical way that these signals work is that there's a secreted molecule of some sort
+it goes out from the cell surface it lands on the cell surface of cell b there's a receptor up
+there grabs the receptor you know binds the receptor and now cell b now here's the thing
+with that kind of communication um it's very easy for cell b to know that that's that that
+information did not originate internally but that came from outside and with information that comes
+from outside you have to be very cautious with it because that could be a parasite trying to hack you
+it could be somebody else trying to you know uh so so basically once you know that it comes from
+the outside you are free to ignore it you are free to respond to it you may you may let it alter your
+model of what's going on in the world in other words you may learn from it or you may not
+you got all those options but one thing you know very clearly is which information is yours
+that's all the stuff inside of you and what's coming from the outside now imagine what happens
+with gap junctions now cell a and b are now linked by gap junctions um something happens to cell a
+uh that generates a memory trace let's say a calcium spike a calcium train of some sort
+that propagates through the gap junction lands in cell b now what's cool about this is that
+that calcium spike or whatever it was doesn't have any metadata on it that says where it came from
+whatever that signal is it is what it is and so when cell b gets it uh it comes directly into
+its internal milieu it appears inside right these gap junctions basically sort of make a connection
+that that um lets the two internal environments largely communicate and what that does is provide
+a memory wipe in the following way an identity wipe in the following for memory in the following way
+the memories that you now receive through those gap junctions the traces of various events
+you don't know as cell b you don't know that they're not yours there's nothing
+you know they're just like the rest of the memories you have so so what it does is it's a kind of
+mind meld it means that it's now very difficult for that system to say whose memory belongs to whom
+was that was was i the one that got poked and now i have this calcium signal or not well you can't
+even you can't even do that calculus because you are so connected to the a cell a and b are so connected
+they're now one system with respect to the memories they have so now this is a great scaling because
+it means that you can now uh you now have a larger computational uh capacity because because now
+there's more and more networks and more states you have a bigger spatial area that you're sensitive
+to you can take bigger actions you can start to exert biomechanical forces as a cell sheet so you
+can do stresses and tensions that are hard for individual cells to to have on that scale and
+you can so so so that that mind meld is uh is another way to scale to a higher level uh system
+because as long as the individuals can maintain i me and your you then there's capacity for cheating
+and for um defections in the game theory sense and and all kinds of calculus about well well what's
+good for me versus what's good for the system once you have this kind of mind meld all of that
+largely goes away you you can't defect against the cell that's gab junction to you you can't
+poison it because it'll come back to you immediately it's it's you know it it it scales up um cooperation
+that scales up um computational ability and it scales up um the the goals that the system is able
+to pursue now uh i'll i'll just stop after one one one more point which is that i've painted a really
+rosy picture of this gap junctional communication i mean it prevents cancer it's i mean it's it's
+great for many things but one thing that people often ask and i want to come right out and sort
+of uh say this is people often say well that's tremendous so so in a scale freeway let's all
+borg ourselves together into this giant uh collective and we'll wipe our individual identities
+and that will be you know just fantastic right uh and and and i want to be very clear that that is
+not what i'm saying i actually think that works out very poorly um and uh what's what what we need
+to keep an eye on here is uh for whose benefit do such connections exist because you will then get
+an individual that a larger individual who who yes will do more impressive things in other spaces
+but you know as each of us knows who you know if you've done any kind of uh uh you know contact
+sports or anything you go rock climbing you scrape a whole bunch of skin off of your hands
+i had a great day rock climbing will your your your skin cells didn't they had a terrible day
+they're they're dead now and in fact and in fact right and so so so that happens all the time we
+don't think at all but typically about about these little little lives that makes us up something
+make us up so that's that's what happens when when you when you join a collective so
+it's you got to be careful it's not it's not a panacea by any means sure wow there's so many
+fascinating different places we go just based off what you said the um we want to go to next
+here i think one of the things that would be cool and something that you highlight a little bit
+i don't think i think it's something that's um underappreciated in biology is just the
+importance of the membranes so um i was i was watching a um a talk on your the your mic 11's
+academic content youtube channel that's yours right i just want to make sure it's hard to tell
+you know some of the people can start up but and it's someone else's account but i just want to
+make sure that's yours but i watched um the very first video there by bob gatenby oh yeah and um
+he stated in his talk and this really stuck out to me that about 99% of the Shannon information
+in a cell is in the membrane and membrane and transmembrane gradient which um seems like a lot
+you know for someone who is a light completely layperson in this area can you give us a sense
+of why there's such as this disparity because i mean within the cell there are all these other
+sub cell components and they have their own membranes why is it that so much of the Shannon
+information is on the outer boundary of the cell yeah well a couple things um bob is amazing you
+should you should have him on uh he's a very very smart guy a lot lots of interesting things to say
+um i i think that uh and i don't i don't recall the you know the exact calculations that he used
+to reach that conclusion i can so i can sort of reconstruct why uh one one thing about information
+is that uh Shannon or otherwise is that what's very central is the role of an observer
+and we're back to this concept of surprise this idea that as an observer how much surprise did
+you get out of a particular message that you received right or how predictable was it the
+those kinds of things and so and so in the i could i could imagine some kind of an observer
+in the cell that would get way more information from the things that are going inside versus the
+membrane but i think what bob was talking about is the fact that when cells interact with each other
+so this kind of multicellular context there's an interface by which they uh it communicate and
+control each other so cells are hacking each other all the time and that interface is the cell
+membrane and not just because physically that's what's on the outside but it's because in that
+cell membrane are a lot of the interesting so so biochemical of course uh bioelectrical because
+that's where all the ion channels are and uh bio mechanical because that's how you're going to
+even exert strength forces on things uh that's where all the signals come come in and out so
+so i think what he's saying is that that's the nexus of the information exchange between cells
+in the outside world and every cell is some other cells in in the body every cell is some
+other cells external environment which is also kind of a key thing to think about when you think
+about the origin of cells and so on is that you need to you need to set a boundary somewhere it's
+not given to you from from scratch so i think that's what he's talking about that that that
+control and communication interface of cells got it okay yeah that was um that just stuck out to me
+that i mean i understand the importance and that will sort of i can get to that the um
+the the ion flows and gap junctions and a little bit and the importance of of of those one thing
+that i think and of course there's issues with shenan information doesn't tell you about the
+meaning right there's certain issues there but one thing that did stick out to me about um this
+paper i believe is other than this paper that you said um everything about these light cones
+that expanding the horizon is what enables shenan information to acquire meaning
+because data becomes data becomes causally linked to distant and past experiences and
+acquire simplifications for future expectations so can you help like decouple that a little bit
+yeah yeah and that sounds like uh i'm almost positive that one was from uh that that's a
+chris fields sentence and that one oh i'm almost positive and that one was from a paper that chris
+and i did on on meaning and where meaning comes from and i you know the and you should have him
+on too chris chris is also um absolutely remarkable so yeah i've come across his research before
+he's great yeah you should you should definitely talk to him but um uh the what what i think what
+i think is is critical there uh and what uh what what chris and i uh have been working on a lot
+is uh the centrality of this concept of the observer and it's this idea that and i and i
+actually think that's one of the things shenan information gets gets right and that it doesn't
+assume that meaning is uh i mean yes it misses out on meaning but but when you're trying to capture
+meaning you you start to get this idea well there is one meaning and it's our job to kind of discover
+and i i think a better frame is that there are multiple observers which have to imbue uh
+data with with meaning it's on them to interpret it and it means different things to different
+observers everything is observer relative and in fact i don't know if you've seen if you've seen
+this paper but there's a really cool recent uh well there's a really cool piece of um research
+by josh bongard one of my collaborators uh and his student atusa on uh uh poly computation
+and then and then josh and i wrote a review of and some new ideas about this this concept of
+poly computing and this idea that one way to squeeze more computational power out of a piece of
+biology or in fact out of anything is not to change the thing but to change your perspective
+as an observer in the sense that multiple observers can be looking at the exact same physical process
+and and and get different computational results out of it depending on what their
+perspective is and what their interpretation is so it's this and it's got this it's it's an idea
+that has this weird match to you know some ideas and in um uh kind of psychology and so on that
+that changing your perspective on things is is is a tool that you have in addition to actually
+trying to change the thing the thing itself um and so and so that's that's part of it is that we
+have to we have to we have to think about that meaning is very much relative to some to some
+observer which by the way might be the system itself an observer doesn't mean that there's
+some sort of there's not always some sort of external thing that needs is there to give to
+give something meaning the system itself can be sort of it's like this strange loop as hofstadter
+puts it um that can do that for itself if it's a complex enough system yeah yeah that's really
+interesting the um just so you know after the fact i'll probably won't have this slide up the whole
+time i'll probably have the side by side of us just because uh it's probably up for you now but
+just so you know i'll probably put it up and put it uh have it down and put it back up at different
+different times of the conversation but one thing before because i do want to talk about
+morphogenesis a little bit and go into bioelectricity but this light cone idea and
+i think i think this brings in something you've said about cancer cells or at least your
+theory of how cancer cells look they have like sort of the wrong scope of what what they themselves
+are um can you explain that a little bit sure well one one so so a lot of cancer research
+focuses on why why do we get cancer right like what like what causes it and i think that um
+the right way or a better way to think about the the kind of the origin of it is why is there ever
+anything but cancer why isn't it all cancer all all the time because if you think about if you
+think about individual cells as as which are our as our ancestors their basic state is is not to sit
+quietly as a disposable organ somewhere their basic state is to reproduce and go where life
+is good we are made of pieces that want to behave like a tumor they want to go wherever they want
+they want to reproduce as much as they possibly can they want to hijack other cells around them
+to help them do whatever they need to do this is that's the basic state the real mystery is
+is is what what keeps that uh under control and i think this was this was well recognized by people
+kind of in the at the dawn of um the developmental and cell biology but it's sort of it's sort of lost
+lost steam for a while but it's but but but it's a very powerful idea because then you ask yourself
+well uh if we really take this this cognitive light cone thing seriously we look at individual
+cells and we say um so what's happening here is that there are a variety of signals and those may
+involve the stuff that we've been talking about so gab junction stress propagation you know with all
+kinds of other things um what they're doing is they're partially erasing the identity of these
+individual cells to enable the collective to work towards a very large goal like making a nice
+liver or a kidney or whatever and then you start to think through well what would a failure mode
+look like so you get some you get some sort of oncogene uh that uh let's say um uh shuts down
+all the gap junctional communication for that cell and immediately what happens is once that cell
+is electrically isolated from its neighbors it can now start to have an individual identity and
+that leads to a calculus of individual little tiny cell goals and and that cell can now as far as
+that cell is concerned now the rest of the body is just external environment so what happens with
+these electrical networks and of course chemical and biomechanical networks is that they set the
+boundary between a cell and the outside world if if you're a cell and you're connected to a whole
+bunch of other cells the boundary of yourself is huge it might be the whole body you know and then
+everything else is sort of external environment but as soon as that gap junction breaks your yourself
+is now tiny it's just it's just a single cell so so that boundary between self and world uh grows
+in shrinks it grows during during development and grows during evolutionary um uh you know evolutionary
+the course of evolution and then it shrinks during during cancer where and and that's really
+important to to to think about that these these cancer cells are not any more selfish than normal
+cells you know in a lot of game theory you treat the cells as more selfish they're not more selfish
+they're exactly as selfish as every cell they just have a tiny little self so all the other cells are
+also being incredibly selfish but their self is huge and so they're all working towards this common
+purpose that we see of us as an organ or in fact the whole organism um but it's not because they're
+not selfish it's because they're their identities partially erased through their tight informational
+linkage to other cells and so cancer is exactly what you would expect from a breakdown of that
+process as soon as you're disconnected and we see this we see as soon as you get an you get a
+strong oncogene first thing that happens is it shuts down um uh gap junctional communication
+you get a weird voltage uh as a depolarized voltage state and then and then you start doing
+this calculus well where am i better off well i'm going i'm going to go down there and then i'm
+going to proliferate as much as i want and this is metastasis and and then and then yeah then your
+goals start to start to deviate from the goals of the rest of the collective yeah yeah i love it
+you said you pointed out the uh cancer cells no more selfish than another cell just has a
+the wrong scope of what it is kind of it doesn't have the proper um that it's like cone is is deformed
+let's say but yeah and and it's it's shrunk and and the key is that again so so so to make good on
+this on this promise at the beginning that this wasn't going to be just just philosophy what we've
+been able to do is to take that weird way of thinking about it and turn it into a therapeutic
+strategy so so once you start thinking about that we think okay so maybe we don't need to kill the
+cells and maybe the problem isn't the the the molecular hardware maybe what we can do is is
+physiologically reconnected to the network and it should go back to doing its normal thing and
+that's in fact what we've done so so we have we have a whole body of work on cancer in the frog
+model and we're now moving to uh glioblastoma in human cells uh is to is to can convert the cell
+with a with a really strong nasty oncogene like a k-ras mutation force it to be in proper electrical
+state with its neighbors and the cell normal and they normalize there's no tumor they go even though
+the oncogene is blazingly strongly expressed they just go back to doing what they what they normally
+do because they're now again they're part of this they're part of this morphogenetic collective
+will we eventually you think be able to electrically communicate with say a cancer cell
+and just change the information going into the cell via say electrical currents and tell it to
+do something else like is that a decent explanation of where we're going towards or is that a little
+different than that it's it's it's it's it's reasonable um but i'll i'll twist that just a
+little bit here's here's where i here's where i think it's going um down at the lower level so if
+you zoom in yes i think that's what we're looking at is is aberrant electrical and other kinds of
+signaling between cells that's the target however uh i don't think that uh the way that we're going to
+be manipulating this is by focusing our our intervention efforts directly at that layer
+and the reason i don't think that's what we're gonna do and i'll tell you what what i do think
+we're gonna do uh is that it's kind of like uh it's kind of like programming a computer the way
+the way you program the computer in the 40s and 50s is you have to physically interact with
+the hardware you literally had to sit there and rewire it right and and that's and that's what all
+of modern molecular medicine is about it's a crisper and genomic editing and and and rewiring
+pathways and protein engineering like all that stuff is down at the level of the hardware
+i think what what what can what the information technology revolution has taught us is that
+if your hardware is good enough and i think the biological hardware is definitely good enough
+to do this the the better way to do this is to communicate with the system using its own
+built-in interface not to try to rewire it but to but to reset the set point and and and and take
+advantage of its built-in competencies so so reprogrammability so so what i think we're going
+to be doing is i don't think we're going to be telling every cell what to do in either cancer
+or regenerative medicine context what i think we're going to be doing is uh basic basically a
+rough way of saying is retraining it we're going to be we're going to be using high-level stimuli
+and and i think i think it's a AI recent recent examples of AI and various techniques in machine
+learning show great promise in being that that translation layer to uh to to to do very high
+level top-down interventions where the details are all handled by the system itself this is how
+we've done a lot of our work on bioelectrics we can make cells we can make bodies form an
+eye in weird locations or an extra leg or or you know repair various structures and it's never
+by telling the individual cells what to do it's never by differentiating stem cells
+it's always by communicating with a collective intelligence with a fairly simple signal looks
+like a subroutine call it just says build an eye here or regrow whatever normally goes here that
+that's the kind of stuff you don't want to be down at the level yeah we then i say this to my to my
+um students uh you don't you don't get out your soldering iron every every time you want to go
+from from Photoshop to Microsoft Word right i mean you could but but we don't do that why don't
+we do that because because your system has a much better way where you can take advantage of these
+built-in multi-scale controls and that's what i think we're going to be doing oh that's great
+thank you for correcting that's that's really helpful to have that um sure the you know there's
+actually there's actually a really interesting piece of this that that ties into uh some some um
+some medical uh issues that have been coming up for years we just we just had a talk by by uh
+Fabrizio Benedetti who's this amazing uh placebo researcher and he has this quote which i just love
+and i'm now using it all over the place which is um he said uh drugs and words have the same
+mechanism of action and he's exactly right by looking at by looking at how bodies respond to
+uh the context of being given a diff specific drug or being given a placebo whether the whether
+the doctor was wearing a white lab coat or wasn't or whether he told you you were getting a drug
+or whether he told you you were getting the best drug or what you know all of those things have
+have massive implications for the therapeutic outcome and that's because we are part of this
+multi-scale system where high-level cognitive expectations of what's going to happen
+filter down to the molecular details of how your cells actually react and this is what makes um
+a hypnodermatology work it's what makes the placebo effect work and it's also less people
+think that this is some like weird exotic effect that's how you get up out of bed in the morning
+because when you're laying there and you decide to stand up out of bed what's happening is
+that high-level executive cognitive function that says you know what I think I'm going to get up
+out of bed now has to has to traverse down to change the molecular properties of your muscles
+of the cell membrane in your muscles in order for you to do to take these voluntary actions
+it that that cognitive intent has to change the way your voltage is spread across the cell
+membrane it has to affect the micro level physiology so this business where where top
+level cognitive states affect molecular biology is not some some weird you know mind-brain medicine
+woo-woo stuff it's it's it's the daily reality of being a behaving um a behaving living multi-scale
+agent that uses uh by electricity mostly but but also a bunch of other stuff to cross levels like
+that to go from from cognitive goals to molecular states oh that's fascinating I never thought about
+that way huh yeah next time tomorrow morning when I wake up I'll uh think about the I gotta be the
+executive and get get actually get up I'm not snooze a bunch of times the uh one thing I like
+and you actually just touched on and it's another slide that um I guess the the the elevated um
+function of bioelectricity versus these these other components that are happening um within the cell
+um I think it's it's a great I think it's a great like sort of one slider in terms of like
+looking at morphogenetics and um kind of breaking out the component parts and there might they're
+very well very well might be other sort of components here but these are kind of the
+major ones right the the ECM I think it's the extracellular matrix is that right tension can
+you give us just like um I guess a quick um you know rundown of sort of what each of these kind
+of component parts do and then like I said like and you have mentioned here of course on the right
+here the bioelectricity has its own it's the computational layer so it's got sort of a special
+component yeah yeah this is this is a very early slide I I used it extensively probably 10 years
+ago um sorry as well no it's fine it's still it's still valid but but but see as as I was rolling
+out to this whole this whole uh kind of research program starting in I don't know god 98 or 99 or
+so uh there were certain things you couldn't say at the beginning that you have to you have to say
+things a certain way and it's much easier now now that the data are there it's it's easier to
+to say those things now what with this thing this this this diagram is um basically just
+designed to get across a couple things uh first of all that there is this morphogenetic field
+that impinges on every cell and it's made of multiple components so there's the biochemical
+component uh or layer and then there's the biophysical and so so ECM and tension are both
+kind of part of the biomechanical layer there the stresses tensions pressures the you know those
+kinds of gradients um and then there's the bioelectrical layer so so that was the first thing I was
+trying to get across and that this this information field is critical from development to to adulthood
+to uh cancer suppression to regeneration to to all of that the other thing I was trying to say is
+that bioelectricity doesn't do the whole job by itself because I've written many papers saying
+how amazing bioelectricity is and then and then people will often read that as me saying that
+well that's the only thing that matters and I'm absolutely not saying that of course all
+these other things matter and they all work together um and then and then the the last thing
+which which uh I only started emphasizing fairly recently is that what's it what's really interesting
+and and again this isn't something I would have ever said early on but but but now I think
+now I think I think it can be it can be said is that what's really interesting about bioelectricity
+isn't um that it's yet another piece of physics that we now have to pay attention to it's more
+than that it's actually the uh the excitable medium the the the uh medium in which the the
+information processing and the primitive cognition of that collective intelligence
+is stored so again that sounds very very weird and and sort of mystical but it's basically exactly
+what happens in neuroscience so neuroscience if you ask the question what's the cognitive glue
+that takes a whole bunch of individual cells I mean neurons are perfectly good individual cells
+and then there's other cells in the brain of course uh what's the cognitive glue that binds
+all of those cells together so that I emerge and I have some thoughts and and and uh and plans that
+don't have anything you know that they don't exist at the level of these cells well the answer
+that we've now known for for a really long time is ah bioelectricity that's what it is and so all
+I'm saying is yeah that's right and where did the brain learn that trick it got it from from all
+the evolutionary history before we had brains and neurons even of using the exact same thing
+to store the content of the thoughts that the collective intelligence of the cells was having
+about anatomy in morpheus space and then eventually evolution sort of pivoted that to be all about
+three-dimensional movement and things like that so so that's what that's what that slides about
+okay gotcha yeah sorry it's if it's a dated slide but uh I just thought that's an important concept
+yeah it's got a lot it's very dense it's got a I think of um on different components to it and
+I want to get to sort on the bioelectric um level there was I think I was someone in the 30s or 40s
+I'm trying to remember Harold Saxton Burr yeah who who had a lot of these ideas 100 years ago um
+and he was sort of on the right path what um what kind of privilege information did he have like
+do you know anything about him or uh what what his deal was yeah yeah yeah that's a great question
+and I apologize I've just got about a few more a few more minutes sorry oh yeah um yeah yeah so
+so the story with Burr is interesting well first I'll just say I'll just say this this whole idea
+of privileged information there's there's a few examples and Burr is one of my favorite examples
+but but there are others like um this guy this guy Lama Tree who was uh around in the 1700s who
+published this book that said man was a machine and you just imagine you know what machines did he
+have access to back then you know water clocks maybe was the best machine you could have seen
+and just to have that that foresight to to extrapolate from that and to be able to say
+yeah and so all these great artists and philosophers what they do yeah that could probably be explained
+that way right just like like this unbelievable um ability to to out paint from what you see
+into what what the future might be so so so Harold Burr had this and and the thing with um
+he wrote he wrote this this book called the the Fields of Life and he uh he had one of the first
+good uh volt meters and he went around and uh he measured things everything from cells,
+tissues, embryos, tumors, uh maple trees, um uh the psychiatric patients everything he
+could get his hands on he would take these measurements he didn't have any ability to
+do functional experiments they didn't really understand at the time what the kind of biophysics
+was that was underlying it at the cellular level they didn't know anything about ion channels
+uh but on the basis of these measurements he described what how he saw the the the the
+the future you know kind of development of this area of bioelectricity and I got to say uh
+he had a crystal ball I mean it was unbelievable just how with that simple with that one tool
+that he had and nothing but uh nothing but some some some crude uh you know extra cellular
+measurements he reconstructed and he was able to see I mean everything that he said in that book
+has been basically slowly uh being being realized to be true uh and then there's some more stuff
+that you know we'll find we'll we'll see um how it goes but um that that book was was hugely
+influential uh for me um I think I think he was amazing I think he was he was a pioneer to be
+able to to see all this stuff and uh of course of course the other part of this is you know I
+sometimes get emails from people who say what are you doing all this work on electricity this was
+all done in the in the in the 40s it's all done well okay there's a difference between
+kind of uh roughly having the idea that something like that should be possible
+and actually getting it to the point where it you know it it's quantitative and it works and
+it's a therapeutic so so I'm not saying that I mean all the amazing people that have worked
+since him which were also you know kind of my my heroes so so you know Lionel Jaffe and all of his
+postdocs um you know Rich Borgans and Ken Robinson and all those folks uh uh were were amazing and
+they all did valuable valuable work and now we're sort of able to to go from there but uh but yeah
+he had these he had these very fundamental ideas uh be in the 30s and 40s it's really remarkable
+incredible you have to do more digging on his uh on his work and then you know and dive into a bit
+more and one final thing just before you go the one of the final paragraphs of the scale
+for your cognition paper you write about zen zen buddhism uh which I thought was great and
+brought me back to reading Colonel Ashrabak by Hofstadter which he has some zen in there um
+anything you want to sort of leave us on on on that point I think um I can go back to the light cones
+here because I think that's it's it gives you a good visual for what you're kind of getting at
+there yeah the only thing I'll say about that and and I'm no I'm no kind of zen expert or anything
+but but but I am fortunate enough to be working with a set of um scientists interested in uh
+certain ideas in the buddhist tradition and we have a paper uh out now and we've got a couple
+of other papers in the works on the kind of uh conciliants of this cognitive light cone idea
+with the idea of enlarging one's ability to feel compassion and to active compassion I don't mean
+feeling emotions about things I mean actively you know working towards the welfare of all
+beings and so so to me this is this is really fun there's some good there's some good diagrams in
+there that I think you like um there's some there's some really fundamentally important aspects here
+because uh again one thing that thinking about this diverse intelligence does for you
+is that it really makes it clear how the kind of simplistic distinctions that we've been making
+about who or what we should feel compassion towards is uh it really needs revising and um
+you know at the end of what many of my talks now I do a whole thing on uh kind of the space of
+possible beings and all the different weird hybrids and hybrids and cyborgs and everything
+else that's going to exist and what it's doing is it's completely wrecking the kind of primitive
+uh uh criteria that we used to use on which to develop our ethics and that that all has to get
+redone and I think that the goal of all of this stuff about enlarging your light cone by you know
+technologically increasing our intelligence and our capability and I'm all for it I think I think
+that's we've got to do that but the purpose of all of it isn't just to to screw around and have
+more technology the purpose of it is to enlarge our our ability to feel compassion towards other
+beings and and uh yeah you know we don't have time for all that but but but there is a there is a
+whole paper on it and there's more there's more coming oh really what's the paper called um I
+will uh give me a second I'll I'll I'll turn it here I just left a link to it and oh I want to
+read it myself of course too yeah and the tame paper yeah as well yeah so it's called so it's
+biology buddhism and AI care as the driver of intelligence and it's this idea that care and
+compassion and the and intelligence are mutually reinforcing feedback loop so that as you as one
+grows the other should grow too and that's that's um yeah anyway so so I'm gonna I'm I'm putting it on
+the uh on the chat here so you can uh oh thank you yeah there's a bunch yeah so this is done this
+is done with uh Thomas Dr. Olaf Witkowski, Elizaveta Salamanova and Bill Dwayne and there's
+there's a couple of more um you know they're the buddhist experts not me so there's a but there's
+a lot more on this coming that's right in my lane my audience is gonna love that um I can't
+wait to dive into that paper and yeah that's what thank you you know you you could have them all you
+could have them on at some point and just talk about that specifically like that if folks care
+about that here then uh that's yeah that's a real real interesting discussion to be had yeah I'll
+try to and everything that we discussed as well well these this paper specifically um some of my
+favorite papers of yours your talks I'll link in the description of this video for the audience
+watching is there anything else you want to um to tell people where they can find you or
+you know looking out for working on next yeah the only absolutely everything we do is on my
+academic website which is www.drmike11.org uh one word drmike11.org and everything is there all
+the papers the talks the inspiration everything everything yeah wait we didn't get a chance uh
+which I want to really want to talk to you because I know you're a big mid-journey fan
+um and you have some stuff on there we are over our I think um styles or interests in art overlap
+quite a bit like the the codex seraphon seraphonianus it's hard to pronounce and our Hieronymus
+Bosch's work so this is surrealist I think we have like a lot of and I think you had something
+a post about dwarf fortress which is like a game simulator and maybe one of your kids was was getting
+into it yeah which I also had gotten down the rabbit hole about um like last week separately
+completely and also my my computer almost froze uh a few days ago because I had so many tabs open
+going off rabbit holes of your work and your research um there's so much fascinating stuff
+that well we can do we can do we can do another one if you want we can we can talk about that
+in AI you know we didn't get to AI and some of that stuff so yeah wow there's thank you I appreciate
+that so much yeah there's a lot of questions I kind of over tend to over prepare over I have a
+lot of other questions I had an active interferon so I'll talk a bit uh first and about that but um
+there's a lot of other stuff and so I really appreciate that and I appreciate your time Mike
+this was amazing I learned so much I'm sure the audience did too and I love your work and uh well
+I'll be in touch thank you thank you so much yeah I appreciate it talk to you soon

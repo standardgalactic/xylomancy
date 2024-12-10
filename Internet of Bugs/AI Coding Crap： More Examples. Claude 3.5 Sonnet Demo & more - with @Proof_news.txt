@@ -1,0 +1,385 @@
+I've done several videos on AI Hype in general,
+and hyperguarding code generation in particular.
+Today, we're going to continue that
+by looking at a coding video that was released long
+with Anthropics' Claude 3.5 Sonnet model a few weeks ago.
+Like Devon, Claude was given a really, really easy problem
+to work on, and it did a lousy job.
+Although unlike Devon, or most of the demos
+I call that on my AI Hype video,
+there aren't blatant factual falsehoods here,
+just things that Claude got wrong and the video glossed over.
+Which is a pattern with these demos?
+So the second part of this video is a more general discussion
+about some of the ways that the code generation is so bad,
+and why companies feel the need to cherry pick simple questions
+and then pretend that their answers don't stink.
+That part of the video was done with a new non-profit
+called Proof News.
+You might have seen their video recently exposing
+how AIs had been trained on YouTube creators' videos
+without their consent, and in violation of YouTube's
+terms of service.
+I appreciate Proof News because they're trying
+to inject some sanity into the cycle of companies
+over hyping demos and the press amplifying
+the hype to the public.
+And it's about time someone worked on that,
+because most of the press is just full of shh.
+This is the Internet of Bugs.
+My name is Carl, and I've been a software professional
+for 35 years now.
+And I'm trying to do my part to point out bugs and hype
+because unless people start caring,
+the Internet will continue going downhill.
+Today is going to be a nowhere near exhaustive discussion
+about how bad AIs are at code
+and how companies try to hide it.
+Starting with this video, as with my Devon breakdown,
+all the frames displayed from that video
+have closed captions burned in the lower left-hand corner
+and a timestamp burned to the upper right.
+So you can follow along if you want to,
+although why you would, who knows.
+Unlike with my Devon video, I have not yet made a video
+where I show how I would solve this problem,
+the one that Claude's had in the demo.
+The next time I need an example
+to illustrate a relevant point, though,
+I'll come back and grab this one
+and I'll put a link to it here.
+There is a supplementary video for this one, though.
+I did an interview about it
+with Julie Angwin from Proof News, link below.
+So the program in this video, quote,
+resizes and crops images into circles, unquote.
+And this really simple program
+doesn't quite work correctly,
+so Claude was asked to write a test to catch the bug
+and use that test to fix the program.
+Claude ends up getting to a place
+that seems to have worked
+if the viewer either doesn't know how to program
+or doesn't bother to look closely,
+so let's look closely.
+Real quick here, I'm taking screenshots
+of the three pieces of code from this video
+and I'm showing them transferred over
+into a code editor that I can work with.
+The initial broken code that Claude was given,
+the test Claude wrote
+and the fix that Claude came up with.
+This is just so you can see
+that the code that I'm working with
+is the same as the code that was in their video.
+And here's the input image that they're using on the left,
+the image that Claude is supposed to generate in the middle
+and the image the original code
+actually generates on the right.
+First off, here's what Claude says is going on.
+A bell on line nine that removes the alpha channel
+and one on line 24 that incorrectly uses a white background.
+Both of those are mostly wrong.
+The statement on line nine is actually a red herring.
+That line would cause a problem in a very specific case
+where the input image has transparency in the center part,
+but one, that's not the situation we're in.
+And two, there's no reason for the line to be there at all.
+It's just unnecessary.
+You can leave that line untouched
+and with the input we've been given,
+it'll have absolutely no effect.
+But the correct thing to do for the general case
+is just to delete that line entirely.
+I can't, of course, really know for sure,
+but it looks to me that line nine was put there
+just to make it look like Claude actually fixed something.
+A lot like the way that Devin looked more impressive
+because it was fixing bugs that it created itself,
+although in this case,
+that line might well have been placed there by human
+to give Claude something to do.
+As far as line 24 goes,
+the issue isn't that the background is white.
+It's that it has no alpha channel.
+In other words, it has no place to put transparency.
+In fact, the easiest way to fix the problem
+is given to Claude would be to add an uppercase A right here
+after the RGB and add an extra comma zero here
+before these parentheses.
+And all it should have taken to fix this case
+is adding three characters.
+And in the general case,
+to add those three characters,
+and delete nine nine.
+But worse is the test that Claude wrote.
+Here's what it tells us about what it's gonna do.
+It says it's going to make an image
+with a red circle in the middle
+and then run the function in question
+and then verify that the corner pixels are transparent
+and the center is red.
+Here's the test.
+If you look at line 22 of our original function on the left,
+you'll see this call to a ellipse right here.
+That's what makes the circular area to cut out.
+You'll notice on the right,
+there's no call to ellipse in this test.
+And that's because it's not making a circle.
+Despite what the comment says,
+it's actually making a red square in the middle.
+Here's what that image looks like.
+What's worse though,
+is that the image that it's using to test the function
+starts with transparent corners.
+So it can't test if the function
+is cropping out the corners or not
+because they're already cropped out.
+In fact, if I delete all the cropping part from the function
+and just make the crop resize P and G function
+do nothing but just resize, the test passes fine.
+So the test of crop resize only really looks at resize.
+That just doesn't make any sense.
+This is just garbage.
+The test doesn't test what it's supposed to test.
+The test doesn't even agree with its own comments.
+The fix misses diagnosing the problem,
+adds an if statement complication to a line
+it should have deleted and changes irrelevant numbers
+on the image.newline for no reason.
+It just makes Claude looks like he knows what it's doing
+and it might have well been set up that way intentionally.
+This is not work that a competent programmer would do.
+It's not work a competent team leader should accept.
+And frankly, it's work that I would be embarrassed
+to show off in a demo video.
+But far more importantly, downplaying AI's limitations
+feeds into the currently overhyped atmosphere.
+And speaking of overhype, there's a new partner
+in the fight against hype.
+It's this journalism studio I was mentioning earlier
+called Proof News.
+I worked with them on this video.
+They're doing a series of interviews with creators
+to evaluate the accuracy of the output of various AI models.
+Their founder, Julie Angwin did a piece on AI hype
+for the New York Times a few weeks back
+that referenced by Devon debunking video.
+That's how I met her.
+She's one of the good ones, which is rare these days.
+Too many journalists just amplify the AI hype
+and make things worse.
+Proof News has made a tool that can run queries
+on multiple different AI's.
+They're really large language models, not AI's,
+but everybody refers to them as AI's.
+So I'm just gonna do it that way.
+The tool can run on multiple AI's at the same time.
+And that's great because it helps us understand
+the difference between Claude didn't get this right
+and no AI's get this right.
+When I run the tool in the original buggy code
+from the Claude demo, I get a variety of poor answers.
+Claude 3.5 was alone in saying it was gonna use
+a circle for its test image and using a square instead.
+However, none of the others even bothered
+to put anything opaque in their test image at all.
+So Claude 3.5 actually was the best at that.
+None of them did a good job of testing
+to see if the crop area was circular.
+In fact, Claude 3.5 was the only one that even tried
+and only looked at one pixel.
+None of them spotted that the image convert call online,
+nine of the original wasn't helpful
+and could just be deleted.
+And that kind of makes sense.
+And AI can pretty much only regurgitate examples
+it's been trained on and there's a lot less unit test code
+out on the internet compared to the non-test code.
+And it doesn't do a great job with the non-test code.
+But it's nice to know for sure
+that this isn't just a Claude problem or a Devon problem,
+but a general AI problem.
+And it's just one of many.
+Besides being really bad at writing tests
+and seemingly other things
+that doesn't have a lot of training data on.
+AI's are also bad at stuff that they have too much data on.
+Let me explain.
+When you're programming, it's often the case
+that what you're trying to do is unusual or new.
+After all, if all we're doing is writing code
+that already exists, somebody can just grab some off
+the shelf software package instead of hiring us.
+Once you've been coding for a while,
+if you're running into these situations
+where the answer you want isn't the usual answer,
+that can be annoying, but not nearly as annoying
+as trying to get an AI to handle those problems.
+One way that happens is when you're working
+with a newer version of a language or a framework
+that's changed in the last few months or years
+and every search you do on the internet
+turns up the old way of doing it for the old version
+and it doesn't help you solve your own problem.
+And AI is really bad at that.
+But going through the minutiae of a bunch
+of code syntax errors doesn't lend itself
+to the medium of video.
+So let's talk about a similar example
+that's more high level and easier to describe.
+Let's talk about prime numbers.
+Nope, wait, wait, wait, I promise.
+I'll keep the math and the code to a minimum.
+Promise, just stay with me, okay?
+Don't leave.
+Now figuring out whether or not a number is prime
+is a really famous, but tedious and slow math problem.
+And people have been working on quicker ways to do it
+for 2,000 years or more.
+For a long time, this was just a mathematical curiosity.
+But then we discovered that by using
+really big prime numbers, we could make
+internet transactions safe.
+That's what all of our encryption is based on.
+The whole security of the internet,
+at least until some new stuff recently,
+has been resting on figuring out,
+or more importantly, how long it takes to figure out
+prime numbers.
+Needless to say, this is a very well studied
+family of computer algorithms.
+And if you ask an AI to write you a program
+that can tell you whether a number that you guess is prime,
+it should give you a program that, in theory,
+should give you the right answer.
+But if you ask for a program to figure out
+whether a really big number is prime,
+the AI's mostly fail.
+They're a program that give you a work, in theory,
+mostly, eventually.
+But it almost invariably gives you the same simple code,
+even though there are well-known ways
+to make the answers go way faster,
+as long as the numbers aren't too, too, too big.
+If you ask the AI specifically to describe an algorithm
+to find whether a large number,
+like a 38-digit number, is prime,
+they can describe one using words.
+And an implementation of one of those algorithms
+can determine if a number of that size
+is prime on my computer in just a few seconds.
+But when you ask the AI to write code
+to check a number of that size,
+it doesn't use an algorithm like that.
+Almost all the AI's still use a far too simple one.
+Except for Gemini.
+Gemini actually uses a slightly more complicated algorithm,
+and it does run fast.
+It just guesses a lot and gives you lots of false positives
+and isn't reliable at all.
+I learned when I was in high school, back in the 1980s,
+not to do it the way the AI's are doing it for big numbers.
+I'll have to look it up in a reference book
+while I'm writing the code or looking up on the internet,
+but it's not that hard.
+The AI's have been trained on the faster algorithms.
+They can tell you how they work.
+The AI's just don't have the judgment
+to know when to use which algorithm.
+They just choose the simple one
+because it's what they've seen the most of.
+And that's a problem when people out there
+are talking about replacing their programmers with AI's.
+The AI's will give them code.
+There's just a high likelihood it'll be poor code.
+And the AI doesn't know any better.
+And chances are, the person who replaced the coders
+with the AI won't know any better either.
+If the AI's don't know how to deal with a problem
+that has had papers written about it
+for more than a thousand years,
+how well do you think it'll do
+on something truly new and useful?
+And speaking of truly useful,
+another really important thing
+the AI completely fails to do
+is planning and communication.
+So here's a table extracted from using the proof news tool
+to ask for two different plans.
+The middle column is an estimate
+for an app that lets you just browse photos on your phone.
+No uploading, no commenting,
+just looking at pictures swiping from one to the next one.
+Now the numbers for this are kind of all over the place,
+but that's not the point.
+You can look down the left-hand side
+and you can see the different AI's for this.
+Here's a second scenario,
+where I asked for a clone of the current TikTok app.
+So look at the difference between the middle column
+and the right-hand column.
+So the first number is just for looking at photos.
+It's one of the simpler apps I can think of
+that would be useful at all.
+The last column changes photos to videos,
+it adds posting, video editing, commenting,
+log-ins, profile pages, following recommendation,
+algorithms, et cetera, et cetera.
+The only one with a significant difference
+between the middle column and the right-hand column
+is Lama 2, and it's still wholly inadequate,
+thinking about it.
+TikTok has something like 1.5 billion monthly active users
+and it made $15 billion last year.
+You think you could build that
+for less than a third of a million dollars?
+That's just nuts.
+Remember there was a quote
+from the former CEO of Stability AI
+that he said there will be no more human programmers
+in five years.
+But he said that despite the fact
+that companies feel the need to give their AI
+is really simple code to fix
+and then pretend it does a competent job.
+What do you think?
+When none of the current models
+can even write a decent test
+for code that crops a circle in a photo,
+much less know how to code a check for a large prime number.
+These things are ridiculous on their face.
+It's not just one company's AI,
+all of them do lousy jobs
+on things that early CS students know how to do.
+And I know that because I'm the father
+of a college freshman CS major
+and I've seen the homework.
+And when it comes to more advanced stuff
+that more senior developers do,
+like planning and estimating,
+you might as well just roll dice.
+Now who knows what the future will hold?
+Models will get better.
+But in addition to that,
+companies will also get better
+at making demos that hide their limitations,
+which makes responsible journalism
+like proof news even more important.
+And I'm grateful to them
+for their help making this video
+and for promoting facts
+and to helping to play at the high.
+You should check proof out.
+There are links to their stuff
+at the end of this video
+and in the description.
+We need more folks like them
+because even before this latest batch of so-called AIs,
+the internet was already full of bugs
+and the AIs are just making that worse.
+And anyone who says different
+is probably just hoping that the bubble won't pop
+until they manage to offload all their stock options
+on some other poor sucker.
+Let's be careful out there.

@@ -1,0 +1,607 @@
+Perhaps Catherine and I should just introduce ourselves.
+So we were at Brown University for several decades
+in the Department of Cognitive and Holistic Science there.
+I was also joined in computer science.
+Moved to Australia about 14 years ago to Macquarie University.
+And at the same time, I think we started becoming
+external faculty here at SFI.
+Catherine got a gigantic mega grant
+that required hiring a lot of people doing a lot of work there.
+I started going into the startup route.
+And then what with that?
+And then with COVID, I think we let the external faculty
+connection lapse.
+But now we'd like to restart the connection with SFI again.
+The startup stuff that I was doing
+was actually in the chatbot space.
+We got acquired by Oracle Corporation.
+That's the reason for this disclaimer down here at the bottom.
+So nothing that I'm saying represents anything
+of any of our employers.
+The other reason for this comment here
+is because the whole field of large language
+portals is really changing incredibly quickly.
+I don't know how much of what I'm going to say right now
+is going to be true or relevant in six months' time.
+So nothing, I'm not saying anything that I believe is false.
+But some of the effort could well be wasted.
+So I'm going to try and give you guys
+the high-level executive overview talk.
+This talk was really actually aimed originally
+at academic researchers in natural language processing.
+And so I'm going to skip some of those details.
+But you had to have been underneath a rock
+if you didn't notice the large language models who
+radically changed the field in the last year or two.
+And so I'll be talking about that.
+We'll also be talking about suggestions.
+How should academics actually respond to this changing world?
+So we'll be talking a little bit about what
+these large language models may mean or may not
+mean for human language acquisition, the study of that.
+There's a lot of interest in neuro-symbolic models
+that integrate large language models
+and more traditional kinds of AI models.
+And I'll also talk a little bit about alignment of LLMs.
+And I'll end talking a bit about the connections
+between large language models and the social implications
+of them and lessons from the first industrial revolution.
+Katherine and I just spent two months at the University
+of Edinburgh.
+And it was very interesting there because, of course,
+the first industrial revolution really
+happened in Northern England and around Scotland.
+And actually, it's a fascinating thing
+to read about that James Watt, the inventor of the steam
+engine, actually did a lot of his work
+at the University of Glasgow.
+So that's really interesting.
+OK, so how deep learning changes NLP?
+People like Katherine and I have been in the field long enough
+to have actually seen really a switch from symbolic parameters,
+statistical NLP, and then finally now to deep learning
+and large language models.
+And I guess I would say that the really huge difference
+is that large language models can understand context much,
+much longer contexts than anything
+that I thought was even possible.
+In fact, I actually thought there were good theoretical
+arguments that it should not be possible to try and model
+a context as long as a sentence or a dialogue
+or an entire paragraph, yet large language models
+can do that perfectly well.
+And if you want to, I can go through what those counting
+arguments would be.
+But just when I actually look back at the pre-deep learning
+work, I did a lot of work on syntactic parsing, which
+would involve recovering pastries that look something
+like this.
+And I think the motivation for dealing with wanting structures
+like these, these things make local a lot of dependencies
+which are non-local in the string here.
+So it's a flight through Denver.
+So this relationship here is making that local.
+The same thing also, we're talking about a preference
+for a flight, for example.
+So it's making that dependency local.
+Why do you want to do that?
+You want to do that if you think that you can only really
+model pairs, pairwise interactions.
+Large language models, as I said,
+are happy modeling contexts in the hundreds
+or the thousands of tokens.
+And so I actually think these theories are correct,
+but they're just no longer required.
+So to do natural language understanding,
+I don't actually have to recover this sort of structure anymore.
+OK, so strengths of large language models.
+We just talked about how there's so much better
+at working with incredibly long contexts.
+I think the other, I'm giving you the executive summary here,
+the other really amazing thing is that if you showed
+these large language models to people
+from the first neural network revolution from the 1980s,
+actually everything would be really quite familiar to them.
+There's a slight twist with the attention mechanism,
+but you could explain that in about 15 minutes.
+And those guys would understand it all.
+And Sutton has this thing which he calls the bitter lesson,
+which is that for people like me who work on lots
+of really interesting algorithms and models and structures
+and things like that, actually really none of it really
+seemed to be relevant.
+If you just got data and compute and scaled everything up,
+that really seems to be the secret.
+And I actually do think that these large language models
+are actually just sort of brute forcing linguistic generalization.
+So they're covering rather than really capturing them.
+But it's really interesting how well they work, right?
+That, in fact, actually with enough compute and enough data,
+you do seem to be able to produce something that's really quite amazing.
+OK, weaknesses of large language models.
+I mean, I think this is probably everybody here has already heard
+about this stuff, you know, Emily Bender's stochastic parrots,
+you know, or as I guess Gertrude Stein would say, there's no there, there.
+And I think actually these large language models just, you know,
+they respond reflexively.
+In fact, I actually think if we're talking about human models,
+these large language models maybe actually aren't such so bad
+for the purely reflexive processing that maybe humans might be able to do.
+But scaled up, you know, whereas humans maybe have a context window of five
+or something like that, these large language models have a context window
+of five thousand, for example.
+And I think actually that's also because they have no beliefs, desires or intentions,
+they have no, you know, guiding, you know, thoughts.
+That's why hallucinations such a big problem, you know,
+they're just trying to produce plausible output.
+I think it's really interesting to actually wonder about, you know,
+these large language models now becoming multimodal.
+How will that change things?
+I actually think if you think the fundamental problem is a problem
+of symbol grounding, then arguments like sales, Chinese,
+room argument still are just as valid against multimodal input.
+On the other hand, I actually think the multimodal inputs
+incredibly interesting, maybe incredibly powerful.
+Yes. So naive questions.
+What does multimodal dream mean?
+Oh, so here what I really mean is vision and language.
+I should have made that clear.
+Vision and language, but these days, in fact,
+people are now starting to train off movies as well, right?
+So that's, I mean, arguably, that is one big difference
+between these large language models and, you know,
+the way humans might work, right?
+And what is the Chinese room?
+That's a really interesting thought experiment.
+Which I think for reasons of time, I might just skip here,
+but it's basically where he asks us to imagine
+a blind symbol following system and he says,
+so can you really do you really want to say that this blind symbol
+for, you know, rule following system actually has any understanding
+that doesn't really seem to make sense to attribute any understanding to it?
+Anyway, I do actually think, you know, there's a lot of people now
+that are also wondering, are these large language models?
+Are they really intelligent?
+Could they be a AGI, artificial general intelligence
+that maybe might take over the entire world?
+I think they currently can't because they do lack, you know,
+beliefs, desires, intentions, the ability to form long term
+memories, for example, but I'm actually not so sure
+that that's such a huge technological barrier.
+I actually do think that it's possible that that could be relatively easy.
+Now, you know, we've been in this situation before where we thought,
+oh, the thing that's really missing from this machine being intelligent is X.
+You add X to the machine and all of a sudden you discover,
+well, actually, you know, there's this other thing,
+why that's missing as well.
+And so that may happen here, too.
+But there is a chance that, in fact, if we just added episodic memory
+to these large language models, then they may actually become intelligent things.
+The other, OK, another high level point that I want to make is that
+these large language models are manufactured systems in the same way.
+Remember, I was talking about the first industrial revolution
+in the same way that a steam engine is a very highly engineered
+manufactured system, you know, you wouldn't want to be trying to infer
+the laws of thermodynamics or even the ideal gas laws by examining a steam engine.
+I think the same thing is true also about these large language models.
+You know, they're they're trained in a way
+which is really an engineered product, you know, and certainly as somebody
+being an industry, I can tell you that, you know,
+the people in industry that are building these things really don't care about doing science.
+They're trying to build a product that they can sell, and that's really what they care about.
+OK, so just an aside about,
+you know, the relationship between I actually think
+a natural language understanding and, say, you know, the science of
+linguistics or language acquisition.
+So the scientific side and the technological side,
+I think the technology is currently outstripping the science.
+And I think that has happened in times before.
+In fact, I think it actually happened with the first industrial revolution.
+So I won't spend too much time here, but my understanding is,
+and maybe there's people, historians of science in this room that know more about this than I do,
+but that, you know, really, in fact, actually, people started to invent steam engines
+long before they had the scientific understanding, first of all, of ideal gas laws.
+And then ultimately, right through thermodynamics and statistical mechanics,
+that took centuries for the scientific side to emerge.
+And in fact, actually, ideas of things like entropy really actually had to be developed
+to answer questions about why it was not possible to build steam engines
+above a certain level of efficiency, for example.
+And I suspect the same thing may be true today,
+but our science of, say, language and psychology is actually behind the technology.
+OK, one of the things that I actually quite like is, you know, this comment here,
+natural language is the new programming language.
+And that, yeah, I mean, certainly for those of us in industry,
+LLMs are really changing the way in which we do our work, right?
+Whereas it used to take a team of real experts to build, say, for example,
+a device which would identify all the financial products that are mentioned,
+you know, in a particular document.
+Now, you can just simply ask a large language model to do that for you.
+And it does a pretty good job, maybe not as good
+as the very best hand-built natural language processing system.
+So those are still actually better.
+But, you know, they take months or years to develop,
+whereas it takes, you know, maybe hours to use a new large language model.
+So I actually think that particularly in terms of the commercial implications,
+the commercial deployment of natural language processing in industry,
+that's going to change completely.
+It's not clear we'll need nearly as many experts in natural language understanding,
+for example, for the industrial applications.
+I did want to mention a little bit, you know,
+I think that one of the really interesting things that's happening in the field
+is taking these large language models and then combining them with other components.
+The first component that people started to look at was combining large language models
+with what's called a vector store or a retrieval system.
+And that's just simply something whereby when you ask a question,
+instead of just directly asking the large language model to respond to that question,
+you retrieve a set of relevant documents to that question,
+feed those in as part of the input to the large language model.
+You can see that's what I'm suggesting that you do over here.
+And then you then tell the large language model to use to produce an answer
+that just simply references those documents.
+And that's sometimes called the reader retrieval model
+or retrieval augmented generation.
+That idea can get even more power when you start to think,
+well, maybe, in fact, the large language model can actually decide
+what what information to do a search for.
+And then when you then started to think, well, should it decide what information
+to do a search for? Maybe, in fact, it could also call other tools.
+So these large language models are infamous for not being able to do numerical
+calculations very well. But maybe, in fact, what we should be doing
+is giving the large language model the ability to call a calculator.
+And there's just in the same way is which, if I was to ask any of you guys
+to do a complex task and involve something, some numeric calculation,
+I'd want you to be also using a calculator rather than trying to do it longhand.
+OK, so in terms of research directions inside of an LLM world,
+so the very first comment to make is that it is very challenging
+for academics to do research in large language models.
+You know, the ideal thing would be to have something like an ideal gas
+experiment set up, but and you certainly can build small versions
+of these large language models.
+There's some disagreement about whether or not, though, whether there's
+well, there certainly seem to be emergent capabilities.
+So the bigger the model, the more things that it can do.
+There's big arguments about whether or not this emergence is like a phase
+change or whether it's really more incremental.
+And again, I'd be happy to talk about that later.
+We could spend hours talking a bit about that.
+But I think there's enough lack of clarity about what emergence is.
+But if you wanted to do academic research, you really do want to get
+access to, you know, the larger large language models.
+And the problem is that these, you know, the best large language models
+are really complicated commercial products, as we were talking about before.
+And it's what's actually even worse is that these days for,
+you know, proprietary commercial reasons, the companies aren't even
+actually telling us all the details of exactly what they're doing.
+So that actually does make it very hard for academics to really do
+any sort of academic research in our own papers.
+You know, I'm collaborating with people at the University of Edinburgh.
+What we wind up doing is saying we're actually not going to test
+the closed commercial systems, but we will work with the largest
+open source systems that are available.
+I think that's not a bad thing to do, but it does mean that you're
+cutting yourself off from a lot of the really cool systems there.
+Yes, this is a very interesting question on that slide about how quickly
+they degrade as you move, as we move to commercial ones, to smaller and smaller ones.
+Yes, just a steady degradation.
+Or is there a sudden drop?
+So so so and in fact, actually, this also gets back to the emergence
+question. So let me just say, I actually do think that a lot depends
+on exactly how you measure it.
+So I don't have to tell people, particularly at the Santa Fe Institute,
+right, that quite often what you'll actually see is a lot of small
+changes all of a sudden reaching a tipping point that is basically like a phase change.
+And, you know, when you think about these language models, I mean,
+they generate output token by token, if the correct answer is just slightly
+less probable than some mistake, right, well, then as the output gets very,
+very long, then the correct answer can be incredibly improbable, right?
+So if you're just looking at the output of 100 tokens or more, you're just
+looking at the output, just ask me, is the output right or wrong?
+You'll go wrong, wrong, wrong, wrong, wrong, right?
+And then all of a sudden, as the correct token probability just nudges
+above the incorrect tokens, you know, all of a sudden the output flips and
+all of a sudden it's just magically all correct.
+But if you measure the per token probabilities, for example, then you'd
+actually discover a much more continuous change.
+You know, so I think that's actually where a lot of emergence happens.
+And in fact, that's, I think, the way, there's a little academic dispute
+about whether or not these models have emergent behavior or not.
+And that's at least my understanding of how you'd resolve that.
+So I actually do think that a lot of the ideas that people here would have
+would actually be very useful for the community to have as well.
+Okay, all right.
+You know, I actually think there's lots of really interesting questions
+also, you know, can we understand what these large language models are really doing?
+I think it's, you know, I mean, we know something about how language
+is processed in the human brain.
+You know, we know that none of these models really are realistic.
+Just even understanding, you know, what these large language models are doing,
+how can you be sure that they know a syntactic rule or make it even simpler,
+that they know a particular word?
+So right now, and in fact, actually, I think another really interesting question
+is if these large language models are basically just, you know, gigantic neural nets,
+as I said before, of a relatively generic type, why is it that only human beings
+can acquire language?
+Are they, you know, why is it humans are the only animals that can acquire language, right?
+I mean, you know, we don't have the biggest brains.
+There are animals with bigger brains.
+If it's just merely the size, you know, the number of neurons that we have sitting
+inside of our skulls, if that's all that determines our ability to do something
+like low language, why don't other animals, why don't they have that ability?
+It's very popular now to talk about analyzing large language models using
+psychological or psychological linguistic methods.
+I think that's about the best that I know how to do.
+But I think a lot of these methods were really designed to work on humans,
+at least agents that have beliefs.
+And again, you know, in a sense, a large language model doesn't have a belief.
+It's just got reflexes.
+OK, so, you know, just to emphasize the differences between large language models
+and humans, right?
+So, you know, children start and end learning from much smaller data sets.
+They generalize in particular ways that we actually understand to new unseen forms.
+I think we don't really know actually how these large language models
+generalize. I mean, they do.
+I think they do generalize, but it's very difficult to tell exactly how they generalize.
+Children also actually overgeneralize in characteristic ways.
+So, Catherine's an expert in this area, but, you know, these are just a couple of examples
+that she pointed out, you know, where children have taken irregular verbs
+and either inflicted them in a regular fashion or overgeneralized the irregular form.
+She's giggling me.
+You know, that makes sense if you think of giggling as being a verb,
+a bit like tickling, for example.
+Language learning, you know, by the time you're three or four,
+you're a competent speaker of your native language, usually.
+But then there's also some part of language learning
+that's not really complete until the early teens.
+And then, you know, just in terms of the pragmatics of doing research on large language models, right?
+The time scale of research projects are different.
+So it might take a couple of years for a student to do a research project
+studying, say, human language learning.
+If they're studying something which was inspired by GPT-4,
+well, in two years' time, we're probably in GPT-6, you know?
+And the inspiration might be actually sort of completely different.
+I also, this is essentially that same theme as I was saying before, right?
+So evaluation and testing, I think, is really a huge challenge.
+That was always difficult inside of natural language processing,
+but it gets even worse because the inputs to large language models now,
+instead of just, again, because this context is so much longer.
+The input is not just a single sentence.
+It's an entire conversation or entire story or something else like that.
+So if you want to really evaluate the performance of one of these systems,
+you want to vary not just, you know, the last sentence.
+You want to vary the entire context as well.
+From a commercial point of view, I think actually testing is really super important.
+I mean, you've probably all saw the Microsoft Bing chatbot,
+which, when it was, you know, the New York Times reporter studied that chatbot
+and it announced to the reporter that, in fact, actually,
+that it preferred to be called Sydney rather than Bing
+and then also suggested that really, you know, that the reporter should divorce his wife.
+I mean, I'm sure.
+Behaviour is that Microsoft was really not too proud of, right?
+And I actually think for commercial purposes, it's super important to be able to detect
+and, you know, guarantee that such behaviour is really aren't lurking
+beneath the surface of your large language model.
+Constraint decoding, that's just an NLP topic.
+I won't spend too much time on that.
+I actually do think that there's really interesting work there
+to look at different ways of actually constraining the output of a large language model
+and some real challenges there.
+I think there's really interesting work about how one actually trains these models as well.
+So I mentioned that the training procedure is itself actually a very complicated one.
+Typically, what happens is that they start up by training with what's called a language model,
+training objective, which is where effectively you're just simply training the model
+to predict the very next word.
+But a model which is just simply trained with this large language model training objective on its own
+doesn't really engage in useful conversation, doesn't really follow instructions very well.
+So it's actually very typical to follow that up with an additional training step
+that involves, well, as I said, this reinforcement learning with human feedback.
+And I think that's a really interesting question.
+I've actually got some theories myself about, you know, when you want to use one sort of training objective
+versus another, and if there's people that'll like to talk about that.
+More generally, I think there's a really interesting question, which is how do you align the LLM behavior
+with, well, how do you get the LLM to behave the way that you want it to, right?
+So you've got these very general alignment goals like, you know, follow commands that run right through it
+to destroy humanity.
+So ultimately, it's the training data and the training procedure, which is going to determine the LLM behavior.
+So how exactly do we do that, right?
+And I actually do think that there's good academic research that can be done there, largely because the fine tuning step
+that I mentioned, this sort of multi-stage training, that's pretty modest, right?
+Tens of thousands of examples or less.
+And it can be done on sort of fairly modest hardware.
+So I actually think that's a great academic research topic.
+I feel a little bit guilty here because I just mentioned to you that maybe the only thing which is standing between us
+and, you know, artificial general intelligences, the ability to have episodic memory.
+And then now I'm going to suggest to you how we might actually do that.
+And it's, you know, the most obvious way to do that is to actually take that retrieval augmented generator that I mentioned before
+and basically let the large language model write its own memories.
+And this is basically a suggestion about how you might do that.
+More generally, I actually think that, you know, people like me have spent decades
+trying to come up with specialized knowledge representation systems and specialized inference systems.
+You know, so, and this essentially is like a specialized logic, you know.
+Knowledge graphs are one example of that where you try to encode information in entity relation triples, for example.
+But I actually think with LLMs, you know, one real possibility is that you actually let the primitive statements actually be natural language statements.
+So you just have represented inside of your system stored inside of a vector store, for example, something like insomnia is a typical symptom of diabetes.
+And then you'd actually let the large language model itself decide the relationship between these atomic propositions.
+And so instead of having a specialized knowledge representation language, a specialized logic, you'd use natural language
+and you'd let the large language model actually pass information from one atomic proposition to another.
+For those of you that are as old as I am, you know, I mean, I loved prologue and, you know, very simple horn clause inference procedures.
+So what I just tried to do here was take that and sort of show how I might replace first order logic in there with natural language statements, but otherwise you've got proof rules, proof structures.
+So this is in fact actually a standard, you know, textbook example of how you might wind up doing inference here.
+So you've asked the question, you know, can Sam get a degree and you've got a series of facts about what courses Sam has taken and a series of rules.
+But the difference is all this is all expressed in natural language rather than in some first order logic form.
+All right, so just talking a little bit more about the social implications of all of this.
+So I think to understand the social implications, I think one of the things you probably want to understand is trying to make some guesses about how the field itself might actually evolve.
+I can see sort of two possible futures.
+One is where we wind up getting ever larger proprietary, monolithic, close, large language models that you effectively interact with via web APIs.
+That is the actual model itself, the training data, everything is kept proprietary, but you can just simply call it over the web.
+Another future is that there will be open sourced language models and the weights will actually be available and you'll be able to do things like fine tune those weights yourself.
+And right now, you know, we're in the world where there's both of these kinds of large language models and the proprietary models are better than the open source models.
+And I think really the big question about the development of the field is whether or not fine tuning will turn out to take the open source models and make them competitive with the close proprietary models.
+And I call that 64 billion dollar question because that's probably about the amount of money that the companies that are investing here sort of have invested.
+You know, the language models are becoming increasingly capital intensive.
+It costs huge amounts, many millions of dollars to collect the data and actually do the training of these things.
+And capital intensive industries tend to concentrate.
+You know, you just look at the chip manufacturing where I think there's only one or two fabrication factories in the entire world that make the top end chips that we all have in all of our devices.
+So if that is actually what the future of LLMs is, then probably we will see that same sort of concentration into just a couple of places.
+I suspect the training data will become increasingly important.
+People are already talking about training data as being the ultimate limiting factor.
+And I think it will become the major differentiator, particularly if you want to do things like build LLMs for very specialized domains like healthcare, finance, other things like that.
+And I actually think data and LLM quality control, which goes back to that issue about testing and evaluation, and I was talking about before, that's going to become increasingly important.
+In fact, I actually, when I think about what will somebody like me in the industry be doing in five years time, quite possibly, you know, testing and evaluation will actually be, you know, 90% of what we do.
+You know, we know that fine tuning can mask a poor large language model, right?
+So we know that you can take Sydney and do a little bit of fine tuning and have it at least superficially call itself Bing, but then Sydney reemerges in the right context as well.
+So I think one way we'll get around that is we'll start seeing things like certificates of origin, you know, we'll be saying, you know, I guarantee that my large language model has been trained on just high quality data.
+And the same way as you see certificates of origin for, you know, fancy cheeses and things like that, you know, the cows grazed on grass, organically raised on the south's southern meadows and all that sort of stuff.
+And particularly if that open source world that I was talking about before, if that comes into play, I, you know, I see that as being sort of really one of the really big challenges.
+But I've seen how data vendors, small startups are really under incredible pressure to produce something which they can sell because they're usually cash constrained.
+And the same thing may be true for startups that are producing large language models.
+They'll be under huge pressure to take somebody else's model and do a few tweaks to it and try to present it as something that's completely new.
+And yeah, impact on NLP jobs.
+I actually do think that it's not too far off when we'll be able to say something like give an instruction to a large language model.
+It's like deploy a chatbot.
+The task is informing users about the products that you'll find listed in this database over here.
+I want you to interact with users in a professional tone, emphasize customer service rather than price and politely decline to talk about topics that are related to the price.
+And that will be it.
+That will build you a chatbot.
+You won't need an expert development team.
+You know, I do think that, however, that that's not going to come up immediately.
+We will, for the next, say, five years or so, we will need people that can create training data and fine tune models.
+And as I said before, I think evaluation and testing is just going to get more and more important.
+There are social impacts.
+Right.
+So I think we already know that deep fakes and fraud just going to get supercharged by this sort of technology.
+And yes, I think that's true.
+I think we're going to see automation of jobs not previously automated.
+Krugman has an interesting article in the New York Times just a couple of days ago where, you know, he makes the point that it doesn't really matter.
+Whether these LLMs really are intelligent or not, that even a souped up auto correct can actually have quite major implications in terms of productivity.
+He's actually really quite positive.
+He seems to think that actually these things might, you know, level society somewhat.
+And they might.
+I mean, there's some evidence that, in fact, the GPT-4, for example, enables poorer workers to work at a higher standard, whereas the best workers are helped less by GPT-4.
+Maybe that's the case.
+I think there's a number of risks.
+I think we are seeing, you know, AI models being trained on public domain data that the creators, when they made their data public, really had no intention, no expectation that their data would be used in this way.
+We're seeing a political fight right now between media companies and tech companies about the use of data.
+I think that's still mainly about search rather than training AI models, but that same fight, I think, will continue.
+I, looking back to the first industrial revolution and things like the tragedy of the commons, I don't see any particular reason to expect a socially optimal outcome.
+Although I think the writer's Guild of America settlement actually sounds like it's a pretty forward-looking one, and I'm very pleased to see that.
+I do think, you know, I'm not one of these people that poo-poo's, the people that are worried about, you know, AGI and misalignment.
+I don't think we're likely to be made extinction, but to be made extinct, but I do think we should be worrying about that.
+And the final point I'd like to make is that I think these things are economic and political choices, not really technical choices.
+So it's an interesting question.
+So those of us that actually have the technical expertise probably are in a position to have our voices heard more than what they would normally be, so we should probably make use of that.
+But I actually really do think that it's not just up to the tech companies in particular to try and make the important decisions here.
+So conclusions.
+I think LOMs are here to stay. A lot of my people my age remember the AI winter of the last century.
+I don't think there's going to be an AI winter just simply because these things are actually way too useful for students.
+Intellectual revolutions are a great time to enter the field because in fact actually the amount of knowledge you need to have to become an expert is much, much less.
+I think LOMs open up new interesting scientific research questions and directions.
+NLP I think will have less emphasis on clever new algorithms and more on interaction and integration of models, applications, data design and training, and much more emphasis on evaluation.
+So, thank you very much.
+Questions or comments. Yes.
+Thank you for a great talk. Super interesting. I just wanted to ask you about one thing in the middle of the talk, which is about this kind of neuro symbolic integration.
+And you had this kind of proposal that LOMs are going to give you parts of bits and then you're going to use those inputs into a logic model.
+And I wondered, like, why do you think I mean personally I like neuro symbolic learning.
+So, but I'm interested today like why, why do you think that's a good idea or good approach like why not just let the LLM do the entire thing like what, what is it that LLM.
+So certainly, certainly there are people that are betting.
+Yeah.
+You know, let's just let the LLM do the entire thing.
+Yeah.
+I guess the answer I would give there is that there are a lot of academics and in fact I'm sure many of you've seen this stuff right. It's, it's now quite, you know, there's like a little mini industry of people coming up with things like, you know, chat GPT cannot understand
+GPT for does not understand X is why statements, you know.
+And in fact, actually, I don't think I'm ashamed, but we have a paper that is claiming that LOMs cannot understand, you know, do not really properly understand entailment, you know, that walking entails moving, but moving does not always entail walking.
+So if you really believe that stuff, if you really believe, you know, and if you believe it enough so that you actually think that GPT five or whatever the next model is that comes out is going to have exactly that same weakness.
+The idea then is build a symbolic component that addresses whatever weakness you happen to think these large language models have.
+But it is, I look, I'll admit it is rather risky because these things are improving so rapidly. And I'm not so sure. I mean, it's, it's a risk if you're a grad student to say, All right, I'm going to commit the next year or two of my life to working on solving, you know, the problem of negation in large language models.
+And halfway through your research project.
+You know, someone discovers that just by scaling up the training data and other order of magnitude all of a sudden now it's going to handle negation just perfectly.
+And that's what I meant by, in fact, I think that was one of the slides that Kate asked was saying that it's particularly if you wanted to do something, some sort of behavioral research or something else like that.
+You know, where this the timescale, so which LLMs are changing versus the timescale doing behavioral research is the LLMs are just changing so fast that if you, if you looked at today's LLMs and said, Okay, inspired by then here are some interesting behavioral
+predictions that they're making, I'm going to go out and start running some experiments with kids or something like that.
+Yeah, you know, by the time you've collected a quarter of your data, there's another model out there and it's got a it's making different behavioral predictions.
+It's just, I don't know what the answer there is, except to say that.
+Can I just ask a follow up question. So, if, if you have a chat system.
+This is fine.
+I think that's actually for the zooms but I think they also said there's a whole array of microphones.
+Well, I'll just talk about it as opposed to adding a symbolic system to to a chat system or an LLM.
+What about fine tuning and just doing lots of fine tuning instead. I mean that's adding more data but if you fine tune it with that kind of data as opposed to going a symbolic route.
+That's right.
+That's very true. And in fact, I think that's a good question is, you know, if.
+So right now, what was it, you know, Gary Marcus is picking up on the fact that somebody wrote a paper that said that.
+Look, there's a whole lot of cases where the large language models will quite happily say that.
+See, I don't know enough about celebrities, unfortunately, but you know, so and so so and so is Tom Cruise's mother.
+Right. Okay, it accepts that statement. And you then ask the other, you then ask the question who is Tom Cruise's mother.
+And he says, I have no idea. So, and it seems like, oh, well, if I've actually got a couple of comments.
+So first of all, it seems like X is why that looks an awful lot to a mathematical mathematical person as being like X equals Y.
+And we know that what was it?
+Equality is was it commutative, you know, so X equals Y then Y equals X.
+And actually, X is a Y actually really isn't commutative.
+You know, you know,
+what was it, you know, chicken salad is a wonderful meal.
+You know, that can be true, but a wonderful meal doesn't always have to be chicken salad.
+So.
+But anyway, so Mike, you know, the, the, yeah.
+Do you think there's going to be kind of, I mean, what do you think about like the kind of vision vision language models where you're kind of train it on like a ton of images and then it generates a load of
+images. We actually did, you know, before I did the startups, just before I did the startups, I think the last student I worked with was working on image captioning.
+And I'd very much like to go back to it. I think that's really incredibly interesting.
+So while I think it doesn't actually solve the child, the cell Chinese rule, Chinese room objection, you know, I mean, ultimately the input to all these models are really just
+activation patterns. And, you know, the models got no reason to suspect that an image is
+closer, you know, more connected to the world than languages.
+But I think just in practice, there's a very good chance that there may be really interesting correlations that can be learned by correlating, you know, images with language.
+And of course, the only issue there is that the amount of compute that's needed to do this is just really enormous.
+And, you know, you'd have to do some, have to get some deal probably with one of the major tech companies to get your access to enough compute to do it.
+And that's sort of the problem with a lot of this research now.
+And in fact, I think one of the comments that I wrote there is, you know, maybe in fact we should be thinking about something, you know, physics has been very successful in getting funding for big science.
+Maybe we should be thinking about ways of getting funding for academic big science as well for dealing with this stuff.
+Well, and there, if you think of images, still images, that's a certain amount of compute power because visual, no, ongoing visual scenes and movies, that's a lot more.
+And yet, presumably real world learners are, you know, taking advantage of the visual scene as it moves by.
+And although learning can take place in blind people as well, and that's a whole nother research area.
+So, you know, you don't need vision to learn language, but it certainly can facilitate aspects.
+Yeah, and I guess also, I mean, like looking forward, you'd want these systems to actually be kind of situated in the physical world somehow, I guess.
+Well, so that's the, certainly lots of people have got that, you know, feeling that in fact actually that we need situated, you know, situated models.
+But I mean, isn't the input to a model always really just an activation pattern?
+Isn't it really always just a, I mean, couldn't you always run, you know, so, you know, there was the question, what is Silver's Chinese Room argument, right?
+That was that basically, you know, supposing you come up with a computer program which can translate English into Chinese, or sorry, translate Chinese into English.
+So, you give that to a person that's sitting, you know, inside of a room, and you just simply tell them, you know, here's a set of symbols, follow these instructions, and give me the output that you obtained by following these instructions.
+And Silver's point is that even if this thing does actually produce good English as an output, you really can't say that the person understands Chinese, you know, that just, they don't understand Chinese, you know, they're just following these rules.
+And so his argument really is that there's something else that a pure rule following system really doesn't have understanding that something else is required.
+Now, lots of people wind up saying, oh, well, what you really need is grounding. You really do need these, you know, you need the symbols to be connected somehow to the real world.
+But I think the model never really knows. I don't see any way for our current computational models to know that the bit patterns that we're feeding into them correspond to anything in the world.
+Yeah, I mean, I would agree on that, but I guess for that kind of simple grounding, some people argue you need to have a kind of community, right, of language users.
+Maybe.
+But all kind of do, you know, and then the grounding kind of comes out of people using the same symbol in the same way.
+Yes.
+Yeah.
+Yes. No, no, I mean, you're a Kripke, you know, so philosophers of language like Kripke have argued that in fact actually
+in fact, this is sort of very true of me because I grew up in the southern hemisphere. I don't know a lot of the northern trees.
+So I'm not sure I can with Catherine's help now I can recognize aspens, but you know, I'm not really sure about the difference between Oaks and Elms and the rest of them.
+Right.
+But Kripke would say that I can still talk about all of those things.
+And when I talk about Oaks, I mean oak trees, even though I might not be able to actually identify a tree reliably.
+And so Kripke's story there is exactly what you're saying. It's a community of language learners, sorry, language users.
+And I am willing basically I'm agreeing to the authority of language users and I effectively what I'm saying is when I use oak, I use it to mean whatever the rest of you mean that, you know, that grew up and presumably know exactly what an oak tree is.
+Right. And he says that in fact, actually, with a lot of particularly scientific terminology, we wind up using it that way.
+Right.
+Many of us may not be able to define exactly what the difference is between different types of neutrinos or whatever, but we rely on experts within our community to be able to ground those things.
+All I can say is I don't even know how you'd even tell a large language model that it's part of a community.
+Yeah, yeah.
+I was, yeah, kind of thinking that sort of thing myself like how.
+Yeah.
+I mean, does that does the community there just mean literally that actually just the text documents that have been fed into it is that.
+I mean, I guess with the instruction tuning, I guess you get a little bit of that right.
+And when else questions.
+It's almost just that you could have a community of users of a particular model.
+Yeah, that would have sort of various types of queries within a particular domain that might help train up that model then to become more realistic conversational agent within that particular domain.
+Perhaps.
+Yeah.
+Yeah.
+So, maybe that's kind of.
+Yeah.
+Yeah.
+Yeah.
+Who knows, maybe a year or two from now, you know, those things will start to emerge.
+So I think one of the things that Catherine and I are hoping to get out of this is to find out more about, you know, work at SFI that we might connect with right now sort of general interest in, you know, language, learning psychological aspects, computational aspects.
+So.
+So we're here until Tuesday afternoon Tuesday evening. So please, please contact us.
+Right.
+Great.
+Thanks.

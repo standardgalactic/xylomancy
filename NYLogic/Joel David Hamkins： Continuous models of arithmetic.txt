@@ -1,0 +1,667 @@
+Okay, so this is my great pleasure. Okay, can you hear me? Is it fine? Okay, so this
+is my great pleasure to introduce Joe O'Dellick Hamkins, who will talk to us about continuous
+models of arithmetic, and I just want to add that Joe, we miss you, and think about coming
+back at some point. Welcome.
+All right, well, thank you very much for that introduction, and I miss New York also. I spent
+a while, and so I certainly will be back at some point in New York. Okay, so I'm hoping everyone
+can see my screen, and okay, good. So, right, why don't I just dive right into it?
+So, this is joint work with Ali Enayat, and myself, and Bartosz, visual. I'm sorry, if one
+of the polls could pronounce Bartosz's name. Peaceful. Okay, thank you very much. It's a difficult
+name for me. So, our paper is available on the archive, and right, it starts with a question
+that Ali Enayat asked about 10 years ago. Namely, can we form a model of arithmetic on the rational
+numbers by defining new operations? Of course, not the rational plus and times, but some other
+plus and times, using continuous functions in such a way that we make it into a model of
+piano arithmetic. So, can we define a model of piano arithmetic continuously on the rational
+numbers? That's the question, and I find this question quite intriguing, and I was very curious
+about it, and the amazing answer is yes, you can do it, and furthermore, every... Oh, I gave away
+the punchline here. So, the standard model has such a presentation, okay, using continuous
+functions. It's hard to imagine, maybe at first, but in fact, every countable model is continuously
+presentable. So, the main theorem is that every countable model of FIAA has such a continuous
+presentation on the rational numbers, meaning using the standard topology on the rational numbers.
+Okay, so I want to prove that, and also... Joe, okay, so can I just ask a question? Perhaps this is
+something one should ask later. So, these are the rationales and countable models. How about the
+wheels? Yeah, yeah, it's gonna... Okay, yeah, we're gonna... That's exactly the kind of question
+that we want to ask. In fact, it might be on the next slide. So, a topological model of arithmetic
+is one which is equipped with a topology for which the operations of plus and times are continuous,
+with respect to that topology. And then the question is, which topological spaces support
+topological models? For example, the reels or cannot space, the long line,
+Susan line, bare space, and so on. Which spaces can you have a topological model of arithmetic?
+That's the main question that we're going to address. So, I'm going to give you
+many affirmative answers. So, on the rationales, the main theorem says yes,
+but also on the eta-alpha, on how starts eta-alpha spaces, these are the dense linear orders
+of size of alpha provided they're saturated. And then many uncountable subspaces of the plane
+you can do it. And there's many other positive answers. And there's negative answers. So,
+to answer Roman's question for the reels, it's negative. There is no way to do it with the reels.
+Or, in order to the end, you can't do it long line counter space. All of these are negative answers.
+So, the question there are no, there's no way to give a model of PA continuously with those spaces.
+And bare space is open. We don't know the answer for bare space. Okay, so let's just jump right in.
+So, in light of the answer, so that the main answer we're saying every countable model is
+realized continuously on the rationales. And so, one could ask, well, is that phenomenon,
+that sort of non-all phenomenon general? So, if a topological space supports a continuous model
+of PA, then does it support all models of that cardinality? For example, in the rationales,
+the answer for the specific space of the rationales is yes. And then one could also ask whether the
+topology can ever distinguish the theory. So, are there arithmetic consequences of the topology,
+where maybe you can get some of the spaces but not all in a way that enables you to say, well,
+you can't ever have a model of this theory, but you can with that theory. And so, for example,
+if a space supports a continuous model of PA, then is it going to give you models of all of the
+completions of PA continuously? So, I'm going to answer all these questions by the end.
+Sorry, Joel, can I just ask a dumb basic question? Go ahead. So, when you say, I mean,
+if you're talking about the continuity of plus and times for these models, you mean they're
+continuous with respect to the product topology on whatever is the space that you started with?
+Yeah, because they're binary functions. So, we ask, are there continuous functions in that topology?
+And is it conceivable that they could be, you could have not a continuous presentation, but sort
+of, you know, if you fix any element and you look at the sort of, for example, because the
+successor function be continuous, you know what I mean? Yeah, generally, the negative
+answers are all, it can't even be continuous in one coordinate. So, yeah, we're definitely thinking
+about that kind of issue. Okay, if anyone has a question, please feel free to go ahead and ask,
+that's going to be fun. I'm totally willing. Okay, let's prove the theorem. So, this is the
+main theorem. Every countable model PA has a continuous presentation on the rational numbers.
+And the first step is to read the standard model, which is maybe surprising because it's hard to
+imagine how you could possibly define plus and times on the rational so as to make
+an isomorphic copy of the standard model of arithmetic and furthermore do so with continuous
+functions. But in fact, I'm going to show you how to do that. Okay, so it begins with the sort of
+school child's observation that if you're doing addition and multiplication, then you can start
+even when you don't know the whole number that you're adding. So, for example, maybe you
+have some number and you know the last some digits of it and another number and you know it
+ends like this, then you can start to add them even though you don't know the whole number,
+you can get some of the final digits of the answer, even if you know only some of the final digits
+and similarly with multiplication. So, that's a kind of obvious observation that I think we're
+all familiar with. You can start to do the addition even when you don't know the whole number but
+just the final digits and similarly multiplication. And if you think about what that really means,
+it means that arithmetic is continuous with respect to the final digits topology, you know.
+So, that's exactly a sort of more sophisticated way of saying the same thing. If you want to know
+the final digits of the answer, it suffices to know certain final digits of the inputs and similarly
+with multiplication. In fact, it's sort of even better than continuous, it's Lipschitz because
+the number of digits that you need to know is the same. If you want to know 10 digits of the final
+answer, then if you know 10 digits of each of them, I mean from the right, then you can do it
+and similarly with multiplication. So, okay, so we can put a topology on the natural numbers,
+the final digits topology, namely the basic open sets are u sub s where s is a binary string,
+a finite binary string and these are just the numbers that end with those digits.
+Okay, so for example, u zero is all the even numbers because those in binary, the even numbers
+are the ones whose last digit, whose rightmost digit is zero. And u one has all the odd numbers
+because those are the numbers that whose last digit is a one in binary. And similarly this,
+okay, one one zero is six in binary, but we have two extra zero, so we're going to go mod 32.
+So these are the numbers that are six mod 32. And those are all open sets in the final digits
+topology. And there's a couple of observations. So, okay, so the main point is that the addition
+and multiplication are continuous with respect to this topology as we observe because of the
+school child's observation. We can ensure that the answer is in one of these open sets by ensuring
+that the inputs are picking suitable open sets for the inputs. Okay, so what are some topologies,
+this is a house store of topology because if you have two different natural numbers,
+then they disagree on some digit. And so there's some s and t open sets that are going to distinguish
+those numbers. So it's house door. Also, it has no isolated points because every use of s is infinite.
+And the basic open sets are cloaking because the complement of use of s
+are just the numbers that disagree with us. So there's finally many ways to do that. And so
+the complement of use of s is just the union of the finally many use of t's
+where t has the same length as s, all the other ones. So those are cloaking.
+It's symmetric and it's really generated by the two attic valuation, namely the distance between
+two numbers is just one over two to the k, where the k is the first bit of difference between the
+numbers. So this is, so it's a metric topology. And it follows by a result of Sierpinski that
+every countable metric space without isolated points is homeomorphic to the rational. So this
+topology that I described is in fact homeomorphic to the rational numbers. And so I didn't prove the
+theorem by defining plus and times on q. I did it by defining a topology on the natural numbers,
+but then arguing that that topology is homeomorphic to q. So now I can just translate the ordinary
+addition over to q and whatever the homeomorphism is giving me will be continuous functions on the
+rational. Okay, so that basically proves the theorem. So we have the natural numbers, the
+standard model as a continuous presentation on the rational, because that topology, the final
+digits topology is homeomorphic with the rational. So let me give a different proof now.
+A more specific proof. What I want to do is define a certain linear order on the natural numbers.
+It's called the final digits order. I guess, does anyone have a question?
+Oh, I do. Briefly, just that Zierpinski theorem. And you're stating it from metric. Of course,
+I mean, you could prove metrizability under the assumptions given anyway. So I'm wondering.
+Yes, you're totally right about that. Is it harder to prove this result without saying the word metric?
+No, because in fact, the real proof of the theorem is the argument I'm about to give next.
+Okay. Yeah. So this was sort of the first proof, but then we realized what's really going on.
+No, but I mean, I mean, Zierpinski's theorem itself, we're getting your proof, but just
+to prove Zierpinski's theorem, you know, I mean, we don't need any of this. In fact,
+the next argument I'm going to give makes it even more obvious, because in fact,
+it's an order topology for an endless dense linear order. And obviously, that's homeomorphic with q.
+So we don't actually need Zierpinski's theorem at all.
+Okay. So this final digits order
+is the following order. We take the binary tree. Okay. So and zero means go left and one means
+go right. But this binary tree, it's a little bit backwards from how maybe you usually draw it,
+because I'm ordering the sequences from the right instead of from the left.
+So, so one zero is extending zero. Whereas normally, I think you when you when you normally
+when you draw the binary tree, you go from the left, but I want to go from the right
+to make it match up with the final digits order. Okay. So, so I'm adding new digits,
+but I'm adding them on the left as I go up the tree, you know, and some of these sequences
+correspond to numbers like one one zero, that's six. And one one one zero, that's 14 in binary,
+right. And some of them don't correspond to numbers because they have a leading zero. So when
+you have a leading zero, then, then you don't you don't correspond to it. And now I want to
+put the natural numbers in order, depending on how they show up in this tree in this final digits
+tree. And it's so I'm using the lexical order on binary representations, but going from the right
+instead of from the left. You know, that's the final digits order. And it's, it's an endless
+dense linear order. It's easy to see, of course, the tree is branching, but there's always, you
+can always put a leading one on so every, every neighborhood is going to have a natural number
+in it. So it's going to be a dense linear order. And the, the, the, the final digits topology are
+just determined from the cones in this tree. So for example, use of one zero zero one is just
+the natural numbers that are in this interval here. I mean, this union of intervals. And so
+they're going to be open. So the order topology on the final digits order is the same as the
+final digits topology. So this is, this makes it now completely obvious that it's homeomorphic
+to Q because I've got accountable dense linear order. And I'm looking at the order topology,
+but the order is isomorphic to the rational order by Cantor's theorem. And so the order topology
+is homeomorphic to Q. So the final digits topology is homeomorphic to Q. So this is what I meant,
+we don't need Sir Pinsky anymore or any of that. It's just the final digits order.
+It's the order topology on the final digits order. Okay, are there any questions about
+this final digits order? Is it clear enough? Okay. So like zero one is greater than one zero in
+just zero one, zero one is, yeah, everything over here is greater than everything over here.
+So, you know, this is the empty sequence. So it's sometimes when people say, well,
+what's zero in binary? And, and sometimes people say, well, it's just zero. But no,
+that's not right, because that would have a leading zero. So zero in binary is the empty
+sequence, which is in the middle here. This, the sequence just with zero only is not representing
+a number in binary because it has a leading zero, namely the zero that's right there. So this is
+not a number. Okay, this is representing two and so on. So, okay. So one way to think about it is that
+I actually have, I actually have one quick question. The ones that don't represent numbers,
+you're, are you kind of just forgetting about them? Yes, exactly. Yeah. Yeah. So they don't
+correspond to natural numbers, they correspond to sort of, I mean, this connection with periodic
+numbers here are two added numbers. Well, that'll come up later. Okay, let's see. So where are we
+now? So now the theorem was that every accountable model of PA has a continuous presentation on Q.
+So far, I've only convinced you, I think that the standard model that I want now to prove that every
+accountable model, and this is how it goes, take any accountable model of PA and consider the final
+digits order as it is defined inside M. M can define that order, because it can talk about
+binary representations and so on. And from the right lexical order, it can define the order.
+And M sees its own arithmetic as continuous with respect to that order. That's just the
+school child's observation that addition is continuous with respect to final digits.
+So M knows that its plus in times are continuous with respect to the order topology of that order.
+But what is that order? Well, it's accountable endless dance linear order.
+And so it's helping you more pick to Q. So therefore, I've got a copy of M on Q with continuous
+operations. So that's the proof. Basically, it's just realizing that the final digits order is
+definable in PA and it gives you accountable endless dance linear order. So again, that's
+perhaps will be addressed later. But how much of PA do you need for this argument?
+Oh, very little. And in the paper, I'm not going to get into so much because I'm not so good with
+weak arithmetic, but my co authors are pretty good with weak arithmetic. So in the paper, we were
+careful to state exactly what you need. And I delta zero plus X is enough to handle the binary
+sequences. And so I think it's on the next slide, actually. Yeah, wait, can you elaborate? I'm a
+little bit lost at where you're using the definability in this argument. Oh, I need to
+I think right here. Yeah. And M can be fine in order. So therefore, it makes sense to think
+about the order topology. That where I it's just okay, it's really just a manner of speaking.
+I mean, okay, fine. I mean, you're using that fact and that fact is most immediately expressed
+in terms of the order. Right, exactly. Okay. So that's really why this way of thinking is maybe
+better than the other way going through syrpinsky and so on, because I'm not going to be able to
+maybe appeal to syrpinsky inside the PMO. Right. I'm going to find that confusing to do that.
+But once you get to the next slide, right, you're not this kind of almost canceling your order.
+That's not that's a statement you're just proving out here in the real world. You're not
+or are you trying or are you proving that internally in some weak system? It's just where I lost
+ground. M knows that its order is is dense and endless and M is countable. So externally we can
+see look that's externally. Okay, that's what externally it's a it's a copy of Q because it's
+accountable and the sense in your order. So that's why it's homeomorphic to Q externally,
+internally M sees its arithmetic as continuous with respect to the final digits order. Okay.
+And M thinks that that order is isomorphic to its Q, maybe nonstandard Q.
+Wait, but do you need that fact that M thinks it's internally isomorphic to its Q? Is that
+is that an essential part of this argument? Or is that no slide comment? No, it's not. I didn't use
+it. All I used was that the order was dense than your order. But that's another property you can
+consider, I suppose. Yeah, and we do. So it'll come up. Okay, sorry. Okay, so this is the weak
+theory. One more question. Sure. This proof doesn't it just show that if you have any model of PA,
+you can find a continuous presentation on its version of the rational. So if it's
+exactly your two slides ahead of me, yeah, it's going to come. Okay, okay.
+Okay, so this is the week to another question. Sure, go ahead. This theorem you have on the
+screen. Do you know this one? Okay. Do you know whether it's sharp? Do you know that if you like
+weaken this theory that you get countered? No, well, the thing is, if you don't, you need X to have
+binary representations. And so I have no idea how to prove the theorem or refute it if you're
+weaker than this. I just don't know. Okay, and your coauthors didn't either then?
+I don't want to speak for them because I was hoping to stay away from I guess it's
+the Mopa seminar, but you know, PA, it's in your name. So just give me PA.
+Okay, I'm sorry. I don't know the answer to that Cameron. So okay, so here's a variant order,
+which is very natural in which actually we have maybe we're considering at first, but it doesn't
+work. So this is the this is a natural order where you don't ignore the leading zeros. You imagine
+that every natural number is represented in binary by an infinite string with only
+finitely many ones. And so you add on all the leading zeros, and then you just use the lexical
+order from the right. So zero is represented by the the any number of zeros, you know, or the
+infinite zero string if you like. And it's a different order because before zero was in the
+middle. Okay, but also addition is not continuous with respect to this order. Because for example,
+one plus one is two, I think we can agree. But if you look at two, the number two in this topology,
+it has an open interval consisting entirely of even numbers because all the odd numbers are up here,
+and the even numbers are here. So there's an interval, there's a neighborhood of two that
+contains only even numbers. But one is the smallest odd number in this order. And every
+neighborhood of one therefore will have some even numbers and some odd numbers. And so it can't
+be the preimage of the interval around two, because you must be able to get some odd numbers by adding.
+So therefore, addition is not continuous with respect to this topology. So therefore,
+this is the wrong order is how I think about what's going on the other order is the right order.
+Okay, it caused some confusion because we were looking at this order first. And then I realized,
+wait a minute, we need we really need the other order. Okay, so in uncountable models, we get this
+theorem, which is the one that Corey was mentioning, namely every model of arithmetic has a continuous
+presentation on on its rational numbers, which will be an uncountable order topology.
+Okay, and we can ask, well, oh, okay, but this is the proof that we observed already.
+The model always has a continuous presentation with respect to its final digits order. And the
+point is that its final digits order, it thinks its final digits order is accountable to its linear
+order and therefore, order isomorphic to its rationales. And it and that reasoning is correct,
+even when M is uncountable. But the point is that what what it thinks its rational software isn't
+accountable to order anymore, but some non standard version of the of the rational. Okay.
+How store introduced these Ada orders. So Ada is the the order type of the rationales,
+but we can have uncountable versions of this. So if you have a saturated endless dense
+linear order of cardinality all of alpha, then that's called Ada alpha, and that exists provided
+you have this cardinality requirement, which is necessary for saturation. And so the corollary
+is that the order Ada alpha, if it exists, has a topological model of arithmetic. And the proof is
+just look if Ada alpha exists, then there are saturated models of size all of alpha for any
+theory of suitable size language. And so if we just take a saturated model of PA of that size,
+then its rationales will also be saturated and therefore we'll have
+order type Ada alpha. And therefore, the previous theorem will imply that we can do it on Ada alpha.
+And this is sort of a generalization of the previous argument about Q. It's really about Ada
+alpha for any alpha provided that it exists. Okay, so which spaces, what is the Q of the model of
+PA? What which topological spaces arise that way? There are always at least a little homogeneous,
+because in the rationales we have translation as a continuous operation. So any point, in fact,
+any, any finite order isomorphism extends to an automorphism. So that's a limited amount of
+homogeneity in the topological space in the order and therefore in the topological space.
+It's never complete as an order, because the model itself even knows that because it can
+point at this word of two, which it thinks is a cut that's not filled. So the model can define
+a cut that's not filled, and therefore the order is never complete. Okay. So in particular,
+I guess that shows that it will never become packed as a topological space.
+Okay, so the same idea works with the integers. If you have the integers of a model of PA,
+then you can make a continuous presentation on the rationales. And now you use the signed
+final digits order. So here we have a, we put a digit for the sign negative numbers over here,
+positive numbers, and then we start giving the digits, but from the right. So the small digits
+are more important. The rightmost digits are the important digits for determining the order. Okay,
+so here's all the even numbers, positive even numbers, positive odd numbers, these are negative
+even numbers, negative odd numbers, and so on. Okay, so I guess right here, because it's negative,
+the zero is going up, and the one, the one is sort of more negative. Here, the zero is going down,
+because it's positive. Okay, so this is a natural order on the integers, but the same proof then
+works, because this is a countable dense linear order. So homomorphic to Q, and the integer
+arithmetic is continuous with respect to this signed final digits order. Okay, let's see.
+So let's now consider negative answers. So, and we're going to prove this in a way that was discussed,
+namely, well, fulfilling something like the Tenenbaum, we're going to show that in fact,
+it's often the case that neither addition nor multiplication can be continuous.
+And often we only need sections, unary sections of these functions, we can show none of them are
+continuous. Okay, so candor space is not possible, you can't do, you can't have a
+continuous presentation of a model of PA on the candor space. And more generally, no compact
+holster of space has a continuous model of arithmetic. So let's prove that. So no compact
+holster of space. So this is the proof. Suppose you had a compact holster of space with a continuous
+addition. So it's a model of PA and it has a continuous plus. So then look at the final segment
+in the in the PA order in the arithmetic order, a final segment.
+So this is the image of the whole space under the adding K map, which is a unary function.
+So it's the image of a compact set under a continuous function and therefore it's compact.
+And therefore it's closed. And so we've produced a lot of closed sets here,
+but they're nested because as K goes up, those sets get smaller and there's empty intersection.
+So we've made an infinite nested intersection of closed sets with empty intersection and that
+violates compactness. So therefore it's a contradiction. Okay, so you can't do it with
+a compact holster of space. An addition can't even be continuous, not even in one coordinate.
+Can I ask a bit of a maybe a stupid question? Sure, go ahead. Where do you use house for
+from this argument? Oh, right here to know that the continuous image. Yeah, it's in this step.
+I think you need both of them for that, for that reasoning to work.
+The image of a compact set is compact, but therefore closed. That's using house.
+Okay, so that was for addition. Now let's handle multiplication,
+but we can do basically the same thing. Now let's look at the multiples of K factorial.
+So we compute K factorial inside the model. The model's version of K factorial because
+K might be non-standard, right? But it's a PA model, so it knows about factorials.
+So we can make K factorial inside the model and we look at all the multiples of that constant.
+And that's the continuous image of a compact holster of space by this map, assuming that
+multiplication is continuous, even just in one slice. And therefore this set is closed,
+but again they have intersection empty because there can't be any number that's in all of these.
+That's a multiple of K factorial for every K. That's impossible. And therefore the intersection
+is empty and that's contradiction. Okay, so compact holster is impossible.
+Let's do the reels now. The reels are impossible, so this answers Roman's question in the beginning.
+You can't even have a model. Sorry, can I ask just a one point. It looked like you were using
+this translation by K, multiplication by K factorial. I mean, why is there even that
+slight difference? Or is it just a matter? I mean... Oh, if you just do multiplication by K,
+then it's not linearly nested. So that's the only reason he is K factorial.
+Oh, right. Yeah, okay, fine. Exactly. Okay, good. Thank you.
+Linearly nested, yeah. Yeah. Joel, since we were talking about those, so what happens if you cut
+the model, you know, take the model with a top? So there will be a largest K.
+So then the argument wouldn't quite apply. Or some variant. Do you mean if you have a very weak
+theory or what? No, you just look at the arithmetic of an initial segment with a top,
+so then you can consider. I mean, you don't have K factorial or... Right, right. So there's much
+that you don't have. Also, we have the highest number there, the both arguments. Right, I have
+no idea in that. Well, you have to adjust the functions out of there when they are undefined,
+perhaps the value is zero or something. Right, right. Yeah, if there's a largest element,
+yeah, I'm not sure. I have no idea. I don't think we even treat that case in the paper.
+That's a much weaker theory than what we're looking at. Okay, but I guess some of our
+theories are just considering, say, success arithmetic, which is a weak theory, but it's never,
+it never is going to have a top. I mean, in success arithmetic, you can always add one more.
+So, okay, let's look at the reals. In the reals, you can't have a continuous model arithmetic.
+You can't even have one where the successor function is continuous. Suppose that you had one,
+and really, we just need successor arithmetic, which is a tiny part of PA minus.
+So, consider the adding one function, if that's continuous, then the range of that map
+should be connected, because it's a continuous image of a connected set.
+But it's missing only one point, because you've just thrown out zero only. So,
+but the reals have the property that if you throw out one point, it's not connected.
+So, that's a contradiction. So, if you look at all the image of the successor map, the image of
+the whole space under the successor map should be connected, because the image of a connected
+space is connected. The image of a connected space under a continuous function is connected.
+But in the reals, if you omit a point, it's not connected anymore. It always is disconnected.
+Okay, so that handles the reals. It doesn't handle the plane, though,
+because in the plane, you can omit a point. It is still connected.
+But it does work with the long line. Okay, sometimes in the long line, you have a least
+element. So, you'd have to omit two. If you have a long line and you omit any two elements,
+then it's disconnected. So, you just add two instead of adding one. But it's the same idea.
+Okay, so if you become disconnected after deleting any, finitely, many k points,
+then that argument is going to show you can't have a continuous model.
+But I missed that. Is that because it's the long line rather than the bi-directional one?
+Yeah, I mean, normally, I think when people say the long line, they mean the one-directional one.
+Yeah, the positive one. Okay. Yeah, but the previous argument works with the bi-directional
+long line. Or it works with the one-directional long line, but you just have to add two instead
+of adding one. Yeah. Okay, right. So, here's a different argument. So, if you have these two
+properties, if you have an uncountable connected space, but it has no descending omega-1 sequence
+of connected subspaces, and there's no partition of the space into uncountably many disjoint
+connected uncountable subspaces, and the reels have that, then you can't have a topological
+model of arithmetic. You can probably guess which of those two arguments was the first one.
+I mean, this is our first argument, of course. And then the other one of adding one and omitting
+a point, it makes it so obvious. Okay. So, let me just briefly give this argument. So, case one,
+if the model has an increasing omega-1 sequence of numbers, then we can look at these sets,
+which are nested omega-1 sequence of connected subspaces. And that violates the first condition.
+In case two, otherwise, there must be some number D with omega-1 many predecessors.
+And in that case, we can look at modular arithmetic at the residues. And depending
+on the residue, we're going to get a partition into uncountably many connected
+uncountable subspaces, and that violates the second condition.
+Okay, let's just proceed. Every topological model of arithmetic has a continuous pairing function,
+and by that, I mean a continuous injection, not necessarily bijection, but injection.
+And the reason is just Cantor's pairing function. Of course, Cantor's pairing function in arithmetic
+is a bijection, but it has this one half in it. And dividing by two might not be continuous.
+In fact, we can prove that sometimes it's not continuous. So, you can't divide by two, but
+if you just get rid of that factor of a half and then add two m instead of m. So, this is twice
+the Cantor pairing function. So, it's an injective pairing function, not bijective. The range will
+be the even numbers. And this is a polynomial, so it's continuous if the model was continuously
+presented. Okay, so from that, you can use to rule out the r to the n. In any finite dimension,
+you can't have a continuous model of arithmetic on r to the n. And the reason is that if you
+look at the continuous pairing function, then this is giving you a continuous injection from
+r to the two n to r to the n, but there can't be any such thing. If you look at topological
+dimension theory, you can't ever have a continuous injection from a higher dimension to a lower one.
+But the pairing function would be like that. So, therefore, you can't have a continuous model
+of arithmetic on r to the n. Okay, so bare space. So, does bare space support a topological model
+of arithmetic? Or what about this space? Or any uncountable polish space? And we don't know the
+answers to this. These are all open. But you can see them as motivated by this sort of classic
+result. For any consistent, countable first sort of theory, you can always represent it in bare
+space using f sigma or g delta relations. So continuity is a kind of stronger version of that.
+And this is where the question originally came from. And the reason why Ali originally asked
+the question was because of this kind of thing. So can we improve this classic result to continuous
+from nearly f sigma? And of course, if you have a continuous function, then the graph is closed.
+So it's f sigma graph. The graph of the function will be f sigma, but continuity is stronger.
+Okay, so let's talk about the difficulty of kappa like models. So if a model of arithmetic is
+continuously presented on an uncountable polish space, then you can't have an increasing or
+decreasing omega one sequence. In particular, you can't do it with a kappa like model.
+And the reason is that if addition is continuous, then the order will be analytic sigma one one.
+But there's deep theorems that show no analytic order can have increasing or decreasing chains
+of length omega one. Sorry, did I miss the definition of kappa like kappa like means that it's a model
+of size kappa, but all the initial segments have size less than kappa. Right. Okay.
+So in particular, every omega one like model will have an increasing omega one sequence.
+Okay, but you can have uncountable models that don't have that property.
+All the points have sort of all the cuts have co-finality omega basically.
+Okay. So just to summarize, so every model of arithmetic admits a continuous presentation with
+respect to these topologies. Of course, we always get the discrete and indiscreet topologies because
+every function is continuous with respect to those ones. And we get the rational line as computed in
+M. And also you can handle the initial segment topology. So that's the topology. It's not
+hostile for the topology whose open sets are the initial segments of M. M is ordered, right. It's
+a model of arithmetic. So it has an order. And we take the initial segments of M as open sets.
+Okay. So that's a sort of Sierpinski like topology. And this is the final segment topology. And
+for three and four, the key to show that say you're continuous with respect to the initial
+segment, it means that if A plus B is in a certain initial segment, then it suffices to take A and B
+in certain initial segments. And then you're going to guarantee that the sum is in that initial
+segment. The same kind of argument about the final segment. So it has to do with a sort of
+monotone nature. It definitely doesn't work if in the integers, for example, where when you're
+multiplied by negative, you're switching the order. And so it's not, it's not monotone in that way.
+But in models of PA, it's monotone. And so you get, you get these sort of extra kinds of topologies.
+Now, if you have a question about the previous slide, for these four, do you use anything beyond
+PA except this like ordered semi-ring stuff? I don't know exactly what we use, but I don't
+think it's very much at all. Yeah, I think that's right. Yeah, it should be very good. Thank you.
+I think in the paper, we were careful to state exactly what you need. But for this talk,
+I was just assuming PA everywhere. But I think you're totally right about that.
+Okay, if M is a topological model of arithmetic, then M is upward homogeneous, meaning that if A is
+less than B in, in, in the arithmetic, then you can continuously math A to B. Okay, of course,
+you just, you just add the difference, right? And that's, that's adding a constant. So it's
+continuous. Okay, so that's a level of homogeneity. But it follows that if you have an isolated point,
+then all the smaller numbers are also isolated. Okay, so if you have, if the topology ever has
+an isolated point, then everything less has to also be isolated because of that.
+So now, suppose M is a topological model of arithmetic, and you fix an element B.
+And now let's change the topology. We're not going to change the arithmetic, but we're going to
+change the topology to make every number up to be isolated. So we have, we have M, we fix some B,
+and just make, declare all these points to be
+open as singleton sets. So they're all now isolated. So you generate a new topology,
+and that's M star. And you can show that it's still continuous. Addition and multiplication are
+still continuous, as long as you did it on an initial segment. And the point is just that the
+pre-image of a small value is also small. So if you ever were affected by these isolated points,
+then the way that you're affected are also isolated. And so everything's fine.
+And then it, it follows that every model of arithmetic has a continuous presentation where
+dividing by two is not continuous. Because I could take, say, the indiscreet topology,
+and then make points isolated, you know, find many points, make them isolated.
+But now if I was in the, in the, in the indiscreet chunk of points above, then dividing by two,
+if it brought me below that cutoff, then it would violate the continuity of dividing by two. It
+shows that dividing by two is not continuous. And also subtracting one is not continuous,
+for the same reason, because if I'm going from in the indiscreet chunk to the isolated point,
+then I can't do that continuously. So you can't, predecessor might not be continuous.
+Okay. I mean, it's a weird topology, but it's good to know that you can't divide and you can't
+subtract necessarily unless you have some other reason why that should be continuous.
+Okay. So is there a topological model of arithmetic having no continuous bijection? Okay,
+we were kind of irritated that Cantor's pairing function has to divide by two,
+which is not continuous necessarily, but we can't prove that there's no continuous bijection
+in these models. So in the model I described, I think there is one, but maybe there's some other
+model in which there's no continuous bijection. We don't know the answer to this question.
+Okay. Now, in countable spaces, let's see. So what are the countable topological spaces that we
+can realize? Well, we can realize the rationals. Every countable non-standard model is continuous
+with respect to the rationals, but also we can make the rationals with finitely many isolated
+points because I can just make points isolated using that process. I can also make infinitely
+many isolated points. If it's a non-standard model, I can make, say, all the standard numbers isolated
+in the other ones just using the regular order, the final digits order on, for example. Also,
+the countable discrete metric space, of course, if I make every point isolated.
+Okay. So the main theorem gives Q and the topology blending ideas give these other
+spaces. But one thing to notice is that the standard model cannot use three. We cannot
+put the standard model on space three because of this fact, if a point is isolated, everything
+less than it is isolated. So if there are infinitely many isolated points, then all the
+numbers have to be isolated for the standard model. And so therefore, this answers the question.
+If a space realizes a model of PA, does it realize all of them? And the answer is no,
+because here's a space that has all the non-standard models, but it doesn't have the standard model
+continuously presented. So that's a negative answer to that question I asked initially.
+Okay. If I have a topological model of arithmetic, then so is M star, where this is a new topology
+generated from the old by taking all initial segments. So now I don't just add isolated
+points up to something, I just take, I add the initial segment topology all the way up. So I
+take the old open sets, and then I throw in a bunch of new open sets, namely the initial segments,
+and I generate a topology that way. And it's going to be still continuous with respect to that topology.
+Also, I could add the final, the final segments, if I wanted to, instead, and it's going to be
+continuous with respect to that topology also. Okay. So the final digits topology already makes
+all the final segments open. Okay. So here's a topology that's going to realize all the non-Kappa
+like models. So, namely, so I'm going to give you a space of size Kappa that continuously supports
+exactly the non-Kappa like models of arithmetic. So let X be the indiscrete space. So that's the one
+where the only open sets are empty and everything, you know, and plus Kappa many isolated points.
+So I've got a big chunk plus Kappa many isolated points. Now, I can't, I can't ever realize a
+Kappa like model because I have Kappa many isolated points, so they would have to be
+unbounded in the model, but therefore all the points would have to be isolated because anything
+less than an isolated point has to be isolated. So no Kappa like model is realizable here.
+But any non-Kappa like model is realized because it's continuous with respect to the industry
+topology. And then I can just pick a point with Kappa many predecessors because it's not Kappa like
+and make all those points isolated. And now I found this topology. So this is a space that realizes
+some of the models of size Kappa, but not all of them. And now I've got another space that realizes
+all the other ones, namely the ones that all the Kappa like models. Okay. And the space is just
+like this. Take any Kappa like model M and then use the initial segment topology on M.
+So that's a topological space now. And you can argue that every model that's continuous with
+respect to that topology will have to be Kappa like, I don't want to give the argument because
+it's a little finicky, but you use the main fact that you're using is that the open sets are linearly
+ordered by inclusion. And you can use that to argue that any other model in which the
+operations are continuous will have to be Kappa like. So we have now two spaces of size Kappa.
+So that this space has continuous presentations for all the non-Kappa like models and the other
+space has continuous presentations for all the Kappa like models. So it's a partition of the
+models of size Kappa, depending on this topological presentation.
+So of course, if you do that when Kappa is omega, then you're really identifying a topological space
+X so that the only the standard model is realized on X as a continuous presentation on X.
+Namely, it's just the initial segment topology on the standard model. Then by the argument I just
+described, another model is going to be continuously presented if and only if it's omega like,
+but the only omega like model of PA is the standard model.
+But in particular, this answers the question of detecting the theory because now I've got a topological
+space so that only the standard model is continuously presented on it. And so in particular, I can't
+realize any theory except for the theory of true arithmetic. I mean, I've not only detected the
+theory, I've detected the model itself and there's only one the standard model.
+Okay, so if I have a model, well, we don't know it's those previous arguments seem to
+be suggesting that if a model of arithmetic is continuously presented with respect to the initial
+segment topology of another, then maybe they would have to have the same order. The order might be
+isomorphic, but the proof doesn't quite give that to us, but it suggests it's very suggestive that
+maybe that's true and that would be a kind of explanation of it. Of course, I think models
+arithmetic can have the same order without being isomorphic as models of arithmetic.
+I mean, that just follows because you can't define plus and times from the order, but
+right, maybe you can get it for Kappa like models. I'm not quite sure. Okay, so
+right. Oh, I see what am I saying here? Right. Oh, yeah, all the countable non-center models
+have the same order type, of course, if they're non-standard and the standard one has the only
+other order type. Okay, let's see. So, right, so let's go, I guess I'm almost done. So every model
+of arithmetic of size that must continue can be continuously presented using a subspace of the
+plane. And this is a consequence of the fact that in fact, every such model is a sub is a
+submodel of the complex numbers. Every model of arithmetic of size that most continuum is a
+submodel of the is a subring, I'm sorry, is a submodel of the complex number field.
+And that's due to Joseph. Oh, my God. Maybe one of the, I don't know how to pronounce his name.
+Milcek. Milcek. Thank you very much, Roman. Okay. So what you do is you start with M and you take
+its integers. Of course, M is a submodel of its integers. And then that's a subring of its rational
+field. And then you can take the algebraic closure of that field that gives you an
+algebraically closed field of characteristic zero. And if it wasn't big enough, oh, I see,
+you should start with a continuum. So first, you should make it size continuum and then do all that.
+Now you've got an algebraically closed field of size continuum. And there's only one,
+isomorphism, because that's a categorical theory. I mean, it's uncountably categorical.
+So this field is isomorphic to the complex numbers. And therefore M is the submodel of it.
+And furthermore, because it's a submodel, and in the complex numbers, plus and times are continuous,
+that gives us a topological presentation of the original model M.
+Okay. So that's it. So thank you very much. I'm happy to have any kind of questions.
+Should I stop my share so we can see each other?
+Well, wait, because there may be some questions about some previous slides.
+Okay. So now our strange procedure is that we clap somehow. So let's clap.
+Thank you. Now we're clapping. And it's open now for questions.
+Well, I can think about one. I have one that
+so it seems like an obstacle for continuity would be the standard initial segment in a nonstandard
+model. If you look at the rest of the model, the operations have some flavor of continuity.
+So have you thought of situations where we can represent the chunk then on standard,
+you know, we just chop off the standard cut and look at the rest and see if this has
+representation on some topological space by neglecting the standard part.
+Oh, I see. Would it make any difference?
+I guess in a sense, the topology blending arguments sort of have that flavor because you're sort of,
+you can make the standard numbers all isolated, which is a way of excising them.
+But it's going the other direction from what you're requesting because
+we're starting with a topological model and then saying, well, we can also chop off the standard
+part and make them all isolated. But I was thinking in terms of the negative results of
+things that you cannot do in certain kinds of spaces, but maybe you forget about the standard
+chunk, maybe you could.
+Right. Yeah, I don't know. We haven't really thought about that. That's a very interesting
+proposal. So I want to think more about that. I just don't know the answer to that. So you
+want to prove that maybe sort of like almost continuous, meaning that as long as you're
+operating only on nonstandard numbers, then it's continuous. So the restriction to the nonstandard
+part would be continuous is what you're asking for. Yeah. Okay, that's interesting. I don't know.
+Oh, can anyone hear me? Yes. Yeah, this is Ken. I can't see me, but you can hear me.
+Yeah. A question about the ADA alpha orderings, the house top orderings. Yes. Yeah. Now, as I
+remember it going way back there used to be there were theorems that say that for real close fields,
+if the ordering is an ADA alpha ordering and the fields, any two fields that have the same
+ADA alpha ordering are isomorphic. Can you say anything like that with these when you use an
+ADA alpha ordering? Does that give you some, some version of isomorphism or whatever, homeomorphism
+when you map your structures onto versions of the irrationals that look like an ADA alpha
+order? Well, I don't think you're going to make a conclusion like that because the theorem here
+is basically all the saturated models are going to be realized, but they won't all
+be isomorphic. They could have different theories and so on. And so I don't think you're going to be
+able to prove, well, maybe you could prove that their orders are isomorphic or something, but
+I mean, because we're getting every single saturated model of size of alpha on that space
+ADA alpha, that's what the corollary is giving us, right? Right. But those models won't even be
+elementarily equivalent to each other, so they can't be isomorphic. And but maybe, yeah, I'm not
+sure. What I don't know is, okay, although the space is the topological space is an order topology,
+I'm not sure how deeply connected that is with the order of the model. Certainly,
+it's not connected directly with the with the arithmetic order of the model. It is conceivably
+connected with the order of the final digits order of the model, which is the same as the
+rational order of the model. So maybe one could hope to prove that those orders have to be isomorphic.
+I mean, I guess they would be if they're saturated. So I guess maybe a conceivable line of attack on
+that would be to show if I have a model of PA and it's continuously presented on ADA alpha,
+then its rationals must be saturated. And I don't know if that's true or not. It seems plausible.
+Then the orders of the models would all be the same, they would all be the same as ADA alpha.
+I mean, the rational orders of the model. Thank you.
+So I have a question about to what extent this is about plus and times in particular.
+So your divide by two example shows that just having plus and time continuous won't give you
+all delta zero functions continuous. Do you know if something like that is possible? You
+could have a top logical presentation where all like delta zero functions are continuous.
+Oh, oh, I see. You want not just plus and times to be continuous, but all the deltas
+Oh, I see. Yeah, that's a really good question. I don't know the answer to that question.
+Is exponentiation any easier than the general?
+Oh, it might be harder because the definition is not delta zero.
+Okay, right. Yes. All right. So yeah, but you could ask about that also.
+Is exponentiation continuous in my standard model?
+Just having you discuss that question about trying to get continuity there also.
+Well, it seems like it is under this like final digits order because if you want to
+know the final digits of a number, do you know the final digits of two to the n?
+I guess you do because I guess it's two to the n or zero.
+Right. So the exponentiation, I guess if you just mean two to the n, this is continuous
+with respect to the final digits order. Final digits are also. No, no, no, wait.
+Is that what we want? Yeah, I think that doesn't that show it?
+Right. But of course, one wants to consider, you know, a to the b or something, right? And
+for three to the n and so on, even though you're looking at the final digits order in the binary
+representation. Is that like a radix going on where it's like binary, then primary, then secondary?
+I'm sorry, I can't quite hear you, Kevin. You're breaking up. Can you say it again?
+But isn't it possible to represent numbers that the radix varies as you move to the left?
+I thought there was some weird way of doing that. Maybe I'm right.
+Yeah. I mean, sure, that that wouldn't be the final digits order, but that would be a kind of
+generalization, I guess. And yeah, maybe that makes sense. I'm not sure. I don't know. It's a
+great question. And I just don't know the answer. Yeah, maybe it's I think it's maybe a good project.
+So, so I guess what you want to know is sort of when can you make all of the sort of simply
+definable functions of continuous, I guess, factorials, right? In fact, if you take factorial,
+then it's not biased towards any particular base. So does that make it easier or harder here?
+Is it continuous with respect to the final digits order? See, if you don't know the last
+let's see. I mean, you know,
+well, with respect to this, I mean, you know that every factorial is even. It's also usable by
+three. The final digits of the factorial are all zero. Right. Once you get big enough,
+because it's a multiple of two to the k. I mean, once you're bigger than two to the k,
+then the final digits are going to of the factorial are also going to be have k zeros there.
+So that makes it continuous, doesn't it?
+Because you can, you can, you can say what the final digits of the answer are,
+if you know the final digits of the input sufficiently. Maybe let's see. I have to
+think more about it. Yeah, don't quote me on any of that. Yeah, I don't know, but also factorial
+and exponentiation aren't, well, yeah, let's see. So yeah, I guess, what's the right class of
+functions? I mean, you said delta zero definable, but maybe one wants like
+yeah, when you make all the primitive recursive functions continuous.
+Okay. Isn't that obvious somehow? If you have a Turing machine with the tape,
+you don't need to repeat certain finite initial segment to output.
+No, because the Turing machine might want to see the whole input before it starts doing
+anything interesting. Right. Okay, that's true. Yeah, right, exactly. That, but that's what we're
+talking about. Right. So yeah, maybe making all computable functions continuous, that would be a
+kind of super, super continuous presentation. I don't know if it's possible. I mean, it's quite
+interesting though. Yeah, how far can you push it? What's, what's the class? Yeah, this is great.
+I love those questions. Yeah, I have no idea though. Yeah, really great questions.
+But you have a computable bijection between the rationals and the model and the model itself.
+So I mean, could you sort of use that to build a continuous function that is purposely not
+continuous somehow? I mean,
+Well, what topology are you thinking about the final digits topology or?
+Yeah, I'm thinking of the final digits topology. You have access to that sort of in the computable
+world and you can kind of play with it in some sense. You can make a step function there.
+Right. That's what I'm kind of thinking. And it's going to be definable. It's going to be
+low level definable. Is that, yeah, I think that's basically going to refute it right there.
+Yeah, it's even for Delta zero, right? There's going to be a Delta zero definable step function on
+the, the rationals of the model. And that is order isomorphic with the final digits order.
+And therefore the model is going to be able to define a discontinuous function
+on the final digits order. You know, that's, I think that's great, Corey. Yeah, that basically
+answers that question, I think. Yeah, great. But maybe, you know, going back to explanation
+all that, it's like, can you make it so that all of the functions in a fifth grade textbook are
+continuous or something like that? Yeah, right. I think there's probably a quite rich
+collection of functions that you can posit that you can get the positive result for.
+And the question is how far can you push that?
+Which natural class of functions can you make continuous say with respect to the final digits
+order, which I view as a natural topology to be looking at for this kind of question, although
+one can, you know, change the topology to something else if you want. Yeah, so one would want, I guess,
+exponentiation factor order and so on, all those kind of functions.
+Can I ask about the connection between the topology of picking out theories?
+Because I thought that was pretty interesting. So right now it seems like you can, you can
+essentially pick out the standard model and all others, right, all other countable models,
+which gets almost at that question, but it's really more just about the standard versus
+non-standard. So is there any thought about what, like, is there a topological space which
+supports one and only one, like all completions of a particular, all countable completions of a
+model of PA and only those or something like that? Yeah, that's a great question. And we tried to do
+that, but it seems to be really hard. And so sort of this, you're totally right about objecting to
+that answer, because it's not really satisfactory. It's not about the theory, it's really just about
+the standard model. So we can, topologically, we can make a distinction between standard and
+non-standard, and we can also make a distinction between capital I and non-capital I. And those
+two distinctions are sufficient to answer those questions that I asked, but it's really not satisfactory,
+as you said, because one would want maybe a more robust way of answering the question about the
+theory would be that, you know, you can, like, if you have con PA, then like a certain, it's sort
+of hard to believe, right? How could that possibly be true? So maybe about that question, if you're
+in a non-standard model, it has lots and lots of initial statements that are models of all
+kinds of completions of PA. So once you have a continuous representation for this model,
+it comes together with representations for all those others. And so that would be making it very
+difficult to sort of isolate those that wouldn't really go in this category. I see, you mean some
+theories imply that there are cuts among the... Right, exactly. You know, all those embedding
+theorems that you can actually, you know, in an non-standard model, you can embed continuous,
+initial segments that are models for continuous many different completions.
+So this one. I see. That's really quite interesting. Yeah, maybe that's an avenue
+to answer some of these questions. You know, I don't know the answer to the question. We only
+have those two distinctions, and I find it not really very satisfactory. And so this really,
+please give it a shot, you know, trying to... Yeah, right. So, do you see them? Sorry, sorry,
+sorry, sorry, sorry. Go ahead. Go ahead. I was going to say, this is, that might have answered
+my other question. I was going to also ask about, like, maybe you could... Is it possible to do the
+same thing just for another theory, right? Do the same thing in the sense of it's a topological
+space that supports exactly one model that's not standard, but like exactly one model for...
+And then maybe it picks out a different... Right, so here the answer is... No, it's clearly no.
+Yeah. Yeah, I would find it hard to believe, but are you saying you have a proof, Roman, or...?
+Well, by that argument, because once you have a topological representation for a model,
+then you... So you just cut it to representations of those initial segments, I think. Yeah, but
+that's a different space, right? So if you're going to the subspace, maybe you're getting that other
+space? Oh, I see. I see a different space. That's... That's a subspace, right? Oh, right. Would it be
+the question is... No, maybe all kinds of things to consider if you take submodels of a given model
+or cuts. How does it... What kind of space are you getting on the other side? Is it isomorphic
+to the one you started with, or is it something properly different? Right. Yeah, I think it's
+really a collection of questions there, I think. Yeah, yeah, that's true.
+Okay, so are there any more questions? If not, well, then let's thank Joe again. It was a great
+talk, much to think about. And I just want to say that we do not have any talks planned after this
+one. So unless we get some volunteers, or unless I hear from some people that have been invited,
+who haven't responded yet, we'll take a break and watch for the announcements for future seminars
+a little later.

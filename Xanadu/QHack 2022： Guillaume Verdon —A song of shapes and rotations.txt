@@ -1,0 +1,531 @@
+Thanks to Xanadu and all the organizers of QHAC for having me.
+It's always a pleasure, you know, really love this event every year.
+So yeah, so this year I'll be talking about quantum probabilistic information geometry
+quite a bit with a lot of memes and hopefully a lot of shapes in the space of rotations
+or unitaries.
+Okay.
+So, you know, this is my mandatory slide kind of reviewing the difference between quantum
+theory and probability theory, right?
+In probability theory, we have positive numbers describing probability over outcomes.
+And in quantum theory, we have wave functions that are complex value, right?
+And these two theories are quite similar, actually, a lot of people like to say quantum
+theory happens in exponentially large space, but so does probability theory, right?
+So you could consider probabilistic bits, let me just get a laser pointer here, yeah.
+So probabilistic bits here, and then you have qubits, right?
+So that's one probabilistic bit, they're a probability of zero and one wave function
+of zero and one, you know this by now.
+So where does, you know, you hear about entanglement, superposition, all sorts of voodoo sounding
+stuff.
+Where does quantum computational power come from?
+Is it from, you know, an exponentially large space?
+Well probability theory, probabilistic systems have also an exponentially large space, so
+it's not that simple, right?
+We have superpositions instead of mixtures of outcomes, right?
+What was shown experimentally many times now is that shallow depth quantum neural networks
+have become classically unsimulatable, right?
+So what's happening, why is the case, right?
+So what I'm referring to is quantum supremacy, quantum supremacy was, you know, kind of like
+achieving orbit or a split-nick moment for quantum computing.
+Let's dig into this orbit analogy a little bit more.
+So imagine quantum complexity, right?
+Like zero quantum complexity or computational complexity is like the center of the earth,
+and then classical computers are kind of like planes and they can get to a certain altitude,
+but then they can't go deep into the Hilbert space.
+In this case, space, Hilbert space, same thing, right?
+Quantum computers are like Hilbert space ships, and classical computers are like plain old
+planes, right?
+So there's a lot of caveats to this, but let's just say quantum complexity kind of scales
+up, scales, you know, more or less linearly with the quantum circuit depth, right?
+Why is that?
+Well, to compute the wave function amplitudes, right, of all the outcomes that are put, there
+is kind of doubly exponentially, with the volume of the circuit, many paths to add contributions
+from in order to compute the likelihood of measurement of a certain outcome, and that
+blows up really quickly, and that's very hard to assimilate, so really it's about interference
+in a very large space, not just having a large space, right?
+So the NISC era, we're kind of bounded in the maximum altitude that we could go, not
+because, you know, there's a hard wall, it's more kind of a soft wall that, you know, our
+computers are not, you know, they have very high fault rate, right?
+So statistically speaking, your rocket blows up before you get too far from Earth, right?
+But we all have a space, a certain altitude to operate, and that's why we do quantum neural
+networks, so we stay within that space and we search within that subspace of low depth
+circuits, right?
+So what's the solution to go, you know, further and with higher performance, it's to hybridize,
+right?
+Here we see a plane launching a rocket, right?
+So that's kind of the philosophy of what I'll be presenting, it's kind of using classical
+and probabilistic ML as far as we can go, and then adding quantum on top.
+So you know, the solution is to create hybrid models and software, I'll talk a bit about
+both, mostly about models, but, you know, hybrid models, you've heard about hybrid quantum
+classical neural networks, you know, we built TensorFlow Quantum to handle them, you're
+familiar with Penny Lane as well, they're kind of the TensorFlow and PyTorch of quantum
+classical ML.
+So you're familiar with these, you've heard about them all week.
+So I'll focus on the models and, you know, check out tensorflow.org slash quantum if you're
+interested in trying it out.
+So we want to hybridize quantum and classical deep learning neural networks and quantum circuits,
+what are the ways we can do that?
+Well, in ML, as we know, there's, you know, two of the big pillars, there's others, but
+the big ones are generative modeling and discriminative modeling, but really they're both kind of
+modeling distributions, right?
+Like generative modeling is trying to learn a parametric model of a distribution from which
+the samples, which are the data I came from, and then generative modeling is conditional
+distributions really that we're trying to learn.
+So what I'll be focusing on is kind of hybridizing for generative models, not so much discriminative
+models.
+There's a lot of examples in TFQ, which are just in feedforward hybrid networks.
+So okay, so what happens at the intersection of quantum theory and probability theory instead
+of trying to replace, you know, probabilistic computing with a quantum?
+Well, we know that a lot of systems actually are described by probabilistic mixtures of
+quantum states.
+So you know, they're, those are called mixed states, right?
+And mixed states have a eigen decomposition.
+So how can we use this to model mixed states, right?
+So how do we represent mixed states, right, states that are in the intersection of these
+two theories?
+Well, we could, we can compose literally models that are made for probabilistic ML and models
+for quantum ML.
+Right?
+So the hybrid approach is to sprinkle in some, some quantum on top of our probabilistic
+ML stake, right?
+Thanks Salpe for demonstrating.
+So you know, you've heard about VQE, QOA, QNNs and so on.
+That's all pure states, right?
+So you have an initial state, you have parametrized, unitary, and then you train it.
+So what, what we're focused on is quantum probabilistic models.
+So you have a probabilistic model that parametrizes probably distributions, right, over bit strings,
+and then you, to prepare the, to kind of transduce that sample distributions to the quantum computer,
+you flip the bits according to each sample from this generative model that is classical.
+And then you have a diagonal density operator, and then you apply a unitary quantum neural
+network.
+And on average, the resulting, you know, onsots for mixed state is one that has classical
+parameters data and quantum, and then parameters five, and you could train both basically.
+And that's really what we're focusing on all day today.
+So how do we cleverly parametrize quantum probabilistic models?
+E, just E, you know, let's use E, we like E.
+So exponential families, right?
+E is nice because of calculus reasons, and it's nice because of physics.
+There's Boltzmann distributions, but, but E is going to turn out to be very, very useful.
+So instead of parametrizing the density matrix directly, we parametrized the argument inside
+an exponential, right?
+So we parametrized it as a quantum thermal state of a parametrized Hamiltonian operator,
+right?
+And so how can we parametrize this Hamiltonian operator?
+Well, you know, any operator that's Hermitian is going to have an eigen decomposition.
+So we could parametrize the eigenvalues of the classical neural network.
+So it could be, you know, a deep neural network, be a Boltzmann machine, you know, a second
+order binary polynomial, whatever you'd like.
+And you know, for the diagonalizing unitary could be whatever your favorite Q and N is,
+right?
+And together, you get this onsots, right?
+So these are called quantum Hamiltonian based models, QHBMs.
+And that's what we're going to be talking about all day today as well.
+Okay.
+So how do we train these and what do we use them for, right?
+So you know, quantum simulation, learning quantum data, it's all the same task of minimizing
+quantum relative entropy and QHBMs are really strong at that.
+So it's kind of the, you know, I'll use words such as VQT for quantum simulation, QMHL
+for quantum data learning and QHBMs all the time.
+But you know, it's all about, you know, because we made this choice of using E, we can minimize
+quantum relative entropies really nicely.
+So quantum relative entropy for those who, you know, aren't familiar as this expression,
+we're taking logs of density matrices, which is, you know, usually really hard to evaluate
+if you didn't pick your parameterization cleverly.
+But because we picked it with the diagonal form, there's all sorts of simplifications
+that happen.
+I won't give you all the math, I'm going to flash screen later.
+But the TODR is that you can simulate thermal states, right, which is, you know, makes sense
+because we parameterized our models as parametric thermal states.
+So if you're giving a temperature or inverse temperature beta called coldness in a Hamiltonian,
+you can pretty easily generate, well, depending on your onsets, you could generate the thermal
+state, right, by minimizing the quantum relative entropy this way, where you're, it's relative
+entropy of your model versus the target thermal state, right?
+And it's kind of a generalization of VQE called VQT because it's nonzero temperature.
+As we'll see, I'll flash the math, but for now you have to trust me, there's really clean
+parameter shifts, just like the parameter shifts you've seen for QNNs, there's parameter
+shifts for the classical model as well.
+And later on, we'll see hybrid parameter shifts for the metric.
+And you don't need to estimate the partition function if you use gradients, right?
+So you always want to use gradients for these models.
+The dual task is given data, I want to represent it as a thermal state of a parametric Hamiltonian.
+So I want to figure out that, that what is called modular Hamiltonian of my model's
+density matrix, right?
+It's like a quantum version of log likelihood.
+So let's say I have an unknown data state, it could be a, you know, a mixed state from
+a certain distribution, while I want to be able to generatively model the state, create
+new copies.
+So what do I do?
+I just minimize relative entropy the other way around, right?
+But I'm going to flash math for those that are watching the replay because I don't have
+time to cover it now.
+But you know, this is the math of VQT.
+This is the gradients.
+And this is how you could evaluate the loss function going forward.
+It's kind of like, you know, VQE, but with some side classical computing, right?
+And the dual task when you have the data is to ingest the data and run it backwards through
+the QNN and then evaluate expectation values to evaluate the loss.
+You can compute the gradients of the classical and the quantum parameters pretty cleanly.
+It's very nice.
+And as we'll see, we're actually going to release software to do this for you, so you
+don't have to understand all this math.
+So we've had a paper for a while on this.
+It's covered in the TFQ paper and in the original paper.
+I won't go through these results, but if you have a good on-sots, you could model fermionic,
+spin chains, et cetera, right?
+But this talk is about going further than before, right?
+So we can model single systems with these algorithms or for giving many copies of one
+state, we can generally model it.
+We've shown that.
+But what if we want to have a lot of tasks that are very similar to one another, right?
+Like modeling spaces of different material parameters or different temperatures or modeling
+how states, quantum states propagate through time, which is why we wanted to build quantum
+computers in the first place, well, you know, if we just train everything over again from
+scratch, we're kind of throwing out our work, and it's not very clever, right?
+And even when we're gradient ascending because of the quantum chaos of random Q&Ns, right,
+when you're using quantum hardware-efficient on-sots, change the parameter a bit, you injected
+a bunch of chaos, and you kind of threw away your work.
+You're in a completely different part at the output of the space of states.
+How do you control this chaos?
+Well, you need geometry, right?
+So if you don't try to control the chaos and you try to model a bunch of states at different
+temperatures and you work with depth, you see baron plateaus happening here, you see
+there's dips, there's sectors of parameter space here, in this case temperature, where
+it's harder to generatively model.
+So could we use, you know, could we copy ourselves, kind of self-plagiarize our optima we found
+from different temperatures, different regions of parameter space in order to instruct where
+to look, right?
+The problem is quantum hardware-efficient on-sots with no information about where to look in
+parameter space, it's too big, it's too expressive, right?
+We want to reduce where we're looking to a small ball in the space of states.
+So how do we best traverse the quantum probabilistic landscape?
+This is where the devs memes really kicks in, devs is a cool show about quantum computing,
+and check it out if you understand these references.
+So quantum probabilistic information geometry, the main meat of the talk, so you've heard
+of natural gradient descent, it's technically, that's technically natural gradient descent
+for pure states, which is a different metric called Fubini study, but here we're talking
+about a different type of metric called the Bogoli above Kuboomori metric.
+Anyways, that's for the connoisseurs, but at a high level, we have the space of density
+operators, we have the, you know, some manifold spanned by our on-sots for all the values
+of parameters, and let's say we have a fixed value of the parameters, we have our density
+matrix on-sots, let's say we wanted to take a step in the space of density matrix, the
+density matrices that was of a constant size in the relative entropy, relative to itself,
+right?
+It's relative as entropic distance is constant, right?
+Well you could do all sorts of calculus Lagrange methods to find, you know, this, you know,
+what nudge in parameter space from a certain point, you know, can obey this equation, right?
+Let's say you're doing gradient descent or some other types of moves, as we'll see later.
+Well, what you could show is natural gradient descent is optimal, and in our case, the natural
+gradient descent is the Hessian of the self-relative entropy.
+So again, it's like the relative entropy with respect to the perturbation away from
+a point, right?
+And you're familiar with this update, right?
+The inverse metric times the gradient, they'll have all sorts of pictures explaining how
+we come up with this update in a second, but, you know, this is more for the advanced folks.
+But what's cool about this is that, let's say this is our parameter space, you know,
+on our classical computer, before we inject it on the quantum computer, a circle in state
+space gets pulled back to an ellipse in parameter space, right?
+There's a local squishing, right, and the major axes of this ellipse are actually the
+eigenvectors times the eigenvalues of the inverse metric, right?
+So, you know, we have, if we want a notion of a circle, or we want to have a notion of
+distance in parameter space, we could pull back that circle or pull back that notion
+of distance, and we get a metric, and that metric we can use to regulate our step sizes.
+As we'll see in a second, it's actually kind of like adding friction where the friction
+is computed with a notion of velocity, that is, the velocity in the distance, the information
+geometry, the distance defined by the information geometry, by this metric, okay?
+So again, for the advanced folks, we're doing the Bogolubov-Kubomorin metric, we can compute
+it, we have parameter shift rules for all the matrix elements, if you really want to
+compute it and have a lot of fun, there are a lot, but we have ways to not compute the
+metric and still get all the benefits and actually even more performance as I'll present
+in a second.
+So, okay, that's complicated math, that was like manifold math, let's just show me some
+shapes.
+I heard it was shapes and rotations, you talked about rotations, unitaries, where are the
+shapes, right?
+So, here's a shape, here's a lost landscape, we have our point, we could take the tangent
+plane, right, so first order tail expansion, point in parameter space, if we add a self-relative
+entropy regularizer, right, to that potential or that lost landscape, maybe it looks something
+like this, like this green thing, we could also tailor expand to second order this regularizer.
+So what is NGD in this case?
+So NGD adds the plane and the bowl, the plane from the loss and the bowl from the regularizer
+and if you add, you've completed squares in high school, right, if you add a second
+order polynomial to a linear function, then the new, if you add them together, the new
+minimum has shifted, right, where the derivative is zero, right, you could find it with gradient
+descent or you could find it analytically by inverting using the pseudo inverse.
+So the thing is here, you need to get the second order tail expansion, so you have a
+lot of terms to compute, which doesn't scale because it's order N squared for N parameters,
+right, so how do we avoid doing this?
+I'll get to that, actually, sorry.
+I want to explain what this looks like if there's more than one point, right, once you
+do many updates.
+So if you have a lost landscape, you could compute, oh, that's weird, it looks really
+weird on photo, but yeah, you could compute a gradient vector field, right, just the gradient
+for this potential, and similarly, you know, just like I showed you, you can do a second
+order tail expansion of the regularizer anchored at each point in this space, and then, you
+know, if you slice a bowl, it becomes an ellipse, the ellipse has two major axes, that's what
+we're plotting here, right, for the advanced folks, I'm plotting the inverse metric as
+a tensor field, right, and then the point is you can multiply this inverse metric times
+the gradient and get a new gradient vector field, and that's the thing we're following,
+we're just flowing according to that, right, and that's basically Riemannian gradient flow,
+or quantum probabilistic Riemannian gradient flow.
+So the thing that's happening here, though, is I have a restorative potential anchored
+at each point that kind of like herd step size, right, so if I consider gradient descent
+as like integrating or dynamics according to certain steps or finite amounts of time,
+how much step, how long of a step I do per unit time is basically velocity, and here
+I basically have a force that is negatively proportional to the velocity as measured in
+the inverse metric, right, so we're basically just adding friction to tell our gradient
+descent optimizer to slow down, but it's a notion of friction that is, you know, from
+the information geometry length, again, which is from the relative entropy at distance.
+Okay, so how do we avoid doing, how do we get the benefits of NGD but avoid doing the
+second order expansion? Going back to the full picture, well, instead of doing second
+order expansion, we could just use the self-relative entropy directly, right, and we have the first
+order expansion, and then we have the self-relative entropy, and we could just find the new equilibrium
+point with an inner loop of gradient descent, so that's a first order method because we're
+just using gradients, we could evaluate the gradients of anything you want to do with
+relative entropies and QHBMs, so that's what we use, and basically turns out to perform
+extremely well, and we call this quantum probabilistic mirror descent, it's an alternative to quantum
+probabilistic natural gradient descent, and the two are equivalent, you know, in the limit
+of small step sizes, so, you know, MGD versus MD, it's a graphical comparison, you pause,
+and yeah, so this is mathematically what it looks like, we find per step, you know, the
+argument is an error between the parameter and the vector of the gradient, yeah, so it's
+specific to the Boguli above Kubo Mori metric, it's much more tractable, and we don't need
+to do block approximations or anything like that, it's great, alright, showing some results,
+so what happens when we supercharge VQT with geometric optimizers, so vanilla is just SGD,
+this is fidelity, so fidelity is our test loss, we don't train fidelity, we train on
+relative entropy, so vanilla is SGD, Adam, definitely struggling, and then natural gradient
+descent is kind of noisy and not as consistent, because again, there's all sorts of difficulties
+estimating the metric, but then mirror descent always ends up winning, and that's been our
+experience so far, and you could just keep going closer and closer to perfect fidelity,
+and this is like a six qubit system, so that's great, mirror descent is really cool, we called
+it the chat optimizer internally, but yeah, so can we go much further, like now that we
+got this cool optimizer, can we be ambitious, can we take inspiration from the show devs
+and try to grab some of the algorithms they have there, and make them happen now, right,
+so yeah, so we're going to present now a way to variationally do real and imaginary time
+evolution using these geometric optimizers, and actually a few more applications with
+those techniques, so I'm going to introduce Quartz, and spoiler alert, the V is Roman,
+sorry for spoilers, but yeah, so Quartz, V is Roman, and so you could consider, you know,
+if I have, I have a geometry of my model parameter space, but there's also, you know,
+the, any sort of tasks that are related to one another also live in the geometry of states,
+and I could kind of pull back paths in state space to my parameter space, that's the advanced
+version, but you know, practically, if you're used to trotterization or open system time
+evolution, trotterization equivalent, you have, you know, tiny time steps and your state evolves
+in state space, it moves a bit, and each time step, if you take it in decimal, the state
+should move just a little bit, and there's kind of speed limits to how much your state
+should move per unit time, depending on the strength of the dynamics, right, so can we leverage the
+fact that these tasks are generally modeling the state at different points of time, they're related
+to one another one, and they're close to one another too, right, and the answer is yes, right, so
+you know, if you take really tiny time steps, they're all within one circle of one another,
+and then you could use geometric optimizers to restrict your search to search locally in the
+space of parameters, so that the optimization of re-optimizing your state to propagate forwards
+in time is convex, and it's really easy, you know, this is what the algorithm looks like, you
+regenerate the QHBM for the previous time step, you apply some trotter steps, and then you learn it,
+you relearn it, we're kind of like, instead of using the quantum computer to propagate states
+through time on the quantum computer in the memory, we're kind of saving, or in representing
+data as coordinates in the geometry, right, and we're just updating the coordinates,
+so this is again from devs, you know, they can extrapolate on the future or the past,
+and it was inspired by that algorithm, so this is our analogous movie here, so on the left you have
+the ground truth density matrix, again for an interesting system, in the center you have our
+geometric optimizer quarts, and on the right is just if you try to do smart initialization of atom,
+so it's much better to use quarts in geometry, so what does it look like as we do time
+evolutions, the fidelity, so it does decay exponentially, but as you can see, you know,
+after 40 time steps, we're still at, you know, above 0.9 fidelity of the time evolution with
+chained mirror, chained atom is doing something, and then if you're just trying to do it independently
+and not using the locality, it decays very quickly, right, why is that? Well, chained
+mirror descent in geometry or where doesn't kind of kick itself out of like, you know, it was close
+to the good value of the parameters because time evolution is small time steps, right, whereas like
+atom has no notion of the geometry, has like an approximate notion of the geometry, but it's
+not very good, and so it kicks itself out of, you know, the region of the optimum, right,
+so yeah, I mean that's why we build quantum computers to do time evolution, now we have a QML
+native way to do time evolution. There's something else in physics called imaginary time evolution,
+which is really interesting. Imaginary time evolution is like cooling, progressively colder
+and colder, stimulations, right, and sometimes that helps because, you know, just like you could
+anneal a metal, you could find better optima by cooling slowly, right, can we find better optima
+for VQE or VQT by starting at high temperature and cooling, right, in physics this is called
+wick rotated or imaginary time evolution, right, because this is twitch, you know, can I get some
+wickets in the chat, because we're about to get wicked in here with a wicked rotation,
+okay, so taking inspiration from our time evolution plot, you could have what are called
+coldness, so inverse temperature, you could step in coldness, it's called Euclidean time
+evolution, and similarly we can kind of reuse our work as we, you know, step in coldness and we
+could restrict our optimization to be in a local neighborhood, right, and as we'll see in a second
+actually works for not just stepping in coldness, but any parameter of the Hamiltonian you'd like
+to simulate as long as you step slowly, okay, so how does, how does it work, so this is us,
+you know, cranking up beta inverse temperature, again, you know, chain mirror descent is amazing,
+Adam doesn't work so well, everything else crashes, so if you just try to do a bunch of VQTs
+that are, you know, as we saw, if you do independent VQTs, there's a dip in the fidelity,
+that's pretty significant, but we, we vanquish that now, and again, we see it from the lot,
+these are the loss curves of each, Adam kind of, you know, just like the meme I showed before,
+kind of screws up its work before having to fix it, whereas mirror descent, yeah, it doesn't flinch
+as much, so, you know, why does this work so well, well, you know, remember with NGD or Equivalent
+Mirror Descent, we have this regularizer that you add to the landscape to make sure that the,
+you know, and you take kind of the average of the two potentials that you take the gradient of both
+to equilibrate, and that's how you do your updates, so basically, if the landscape slowly shifts,
+slowly shifts, and you track at each point your regularizer, you're always and effectively a bull,
+right, and gradient descent really likes bulls, and so, so yeah, so it converges really well,
+and basically any sort of manifold of tasks or paths of tasks, you could, you could use this
+geometric optimization strategy, okay, so that was some crazy math, you know, this is a hackathon,
+not a mathathon, so, you know, it seems like some of you could use some coding tools to,
+to tackle this, right, and so, this is a QHack exclusive, we're releasing, as of today,
+a QHBM library, it's an open source library for quantum probabilistic general modeling,
+so there's QR code here, so QHBM lib is kind of the first our knowledge that quantum probabilistic
+ML focused software package, yeah, it's open source, it's built on TensorFlow quantum and
+TensorFlow probability, naturally, doubling up on TF, it's much, much, much higher level than
+trying to code all of this from scratch, you know, this is like doing a whole QMHL, all the crazy
+math I was showing you, a few lines of code, right, so it has QHBMs as first class objects,
+it's much higher level API for manipulating QNNs or taking expectations, it has VQT, QMHL, and,
+you know, pre-programmed, there's all sorts of tools for sampling, like there's weird MCMC
+algorithms you need for like neural networks to find on discrete spaces that we put in there,
+and we're going to add our research baselines very soon, but it's available, as of today,
+at github.com slash Google slash QHBM library, check it out, but, you know, it's all about the
+devs, right, and the team's been working on this very, very hard, I just want to give a huge shout
+out to the team, Antonio has been leading the library work for a while now, very diligently
+working, Ferris has been leading this geometry project, you know, watch this guy, Ferris is
+a Padawan, soon to be Jedi of QML, and shout out to, you know, Dimitri and Jeffrey for help with
+the theory, and as well as Jay and Sahil for help with the engineering, check out their Twitters.
+Wrapping things up, so quantum Hamiltonian based models, they're great for evaluating relative
+entropy, they parameterize density matrices in a way that makes sense, where we use classical
+NL as far as we can go and just sprinkle in some quantum, and MGD, mirror descent is
+really good. Check out the library for VQT and QMHL, and we'll have some papers soon on the
+quartz and meta VQT. All right, so those are the references, just go flash them a little bit,
+and that's it for me, I guess we'll take questions now.
+Awesome, thank you so much, Guillaume, great talk as usual, great memes, I love the closing with
+the alfalfa sprouts there, nice call. Spoiler alert for those who haven't seen all of Devs,
+I'm sure some of that stuff is spoiler territory, so just be mindful. Cool, Guillaume, why don't we
+start with, and we're talking about QML, QML libraries, you just announced a new library,
+that's amazing. I know you and I first met at a conference maybe five years ago in New York,
+an IBM conference, it's actually quite a cool conference because there's lots of people there
+who were just starting out, and now it's amazing to see where people have ended up years later.
+In those days, QML wasn't really much out there yet, and I know that we at Sanity were keen on
+it, I know for sure that was an area that you were super keen about. How have you seen the field
+of QML growing in the past five years compared to when we first met? I mean, it's grown exponentially,
+I remember when it was, I think basically everybody who was working on QML could fit in
+that room in the IBM lobby, realistically, almost. It's been wonderful to see, I think,
+companies like Xanadu, and certainly some of the efforts we've been doing at Google and X,
+we've been trying to fuel the growth of this space, and I think we could give ourselves
+a little pat on the back for helping it propel itself forward and grow so much. I always look
+forward to the QHAC event every year because it gives a measure of how much the space has grown,
+and I see all the engagement on Twitter and so on, and it gets me really excited because ultimately,
+that's what it's all about. I've been passionate about this field since 2017,
+and so have you and Xanadu, and it's just been wonderful to see it grow so much.
+Is there anything you could put your finger on as the biggest catalyst to the explosion of the field?
+Yeah, I think developing software and open sourcing software and kind of transducing
+from the culture of just writing papers with really large proofs for future quantum computers
+and asymptotics to, here, I turn this into engineering. Here it is. It becomes kind of
+more of an empirical science, and engineers and software engineers can participate
+and help propel things forward, so it's even more inclusive, and there's all sorts of talents
+that are needed to propel QML research from software engineering to, in this case, geometry,
+mathematics to engineering infrastructure, making cool diagrams. It's been wonderful.
+Yeah. Where do you think we're going next? What's our biggest
+thing we have to overcome? What's our destination next?
+Well, I'm pretty bullish on these directions. I want to keep exploring whatever
+this area is that we've been exploring. I'm really interested in the probabilistic ML
+theory and taking inspiration from some stuff there. I think it's really getting
+variational algorithms to work on hardware, really advanced error mitigation, ideally,
+that's kind of native to QML, and demonstrating that maybe we don't need error correction.
+I think that would be a very bold direction, and that's what I'm aiming for personally, I guess,
+which is bold. I think error correction is like the sacred cow in quantum computing.
+It's kind of an assumption that we'll need it, but yeah, maybe there are certain devices that
+have enough fidelity, and with clever error mitigation, we can make low depth circuits
+useful. We saw today we could do propagation of states over time, but it's low depth circuits
+throughout the whole thing. It's going to depend on how good the devices are, because low depth
+really depends on the quality of the device. To me, that's where I'm placing my bets for
+the direction, because even though QML is going to be useful for fault tolerant error,
+fault tolerance has a lot of engineering challenges, and it's going to take a while
+to get there, obviously. Cool. You still think that there's some intermediate territory before
+then where we can do something interesting? Yeah. I hope so, but it's not just hope. I'm
+actively working on it as hard as I can, I guess, and trying to import as much leverage
+from classical ML as possible for every aspect, hybridizing, and there's optimal
+control with ML that can help in better device fidelity. There's error mitigation with ML,
+just throw ML at everything and see if we can make this thing work. Let's see how far we can get.
+Cool, man. I want to turn to a different direction here. Since we last met you at QHAC,
+you've become a bit of an artist. Is that true? Yeah, I may have sold a few NFTs.
+For those of us who are naive, don't really follow the scene. What's an NFT? What does
+it have to do with quantum? What are you doing there? Right. This journey started last April,
+on April 1st. NFTs and crypto tokens were taking off, and I wanted to make a nice April Fools Day
+joke that wasn't a joke, or I wasn't sure it was a joke. That morning, I had an idea for
+creating a piece of art that basically NFTs are, well, right now they're mostly images,
+but they could be any sort of file. They're a token that is tracked on the blockchain. The
+blockchain is kind of a decentralized computer database, where Ethereum is actually a universal
+computer that's decentralized. But the point is that there's kind of a global state. There's a
+global memory for kind of the earth, and so you could keep track of who owns what, for example,
+and NFTs do that. Let's say you have a digital piece of art because you could copy classical
+information, not quantum information. You could copy classical information. It's hard to keep track
+of who owns the digital copy, but with NFTs, you can have kind of a record that's indelible
+of who owns what and what time. It really opened up the space of digital art. Of course,
+if you're going to use a quantum computer to make art, it's probably going to be digital.
+I had an idea to do the first quantum AI-based NFT, and so I did a little VQE of some bosons
+simulating something from my masters in quantum cosmology, simulating the early universe,
+and I put it up for sale, and it sold for, I think, 5 Ethereum. That was quite the moment.
+I was like, oh my god, there is a demand for this. This is serious. This was a joke at first,
+but actually maybe I should take this seriously, and then I learned more about the space, and
+I've made many more and been pretty successful, if not addictive to some extent, for me to
+produce these. It's helped me test out several platforms for quantum computing
+to generate these pieces of art for fun on weekends.
+You've even minted a piece in the commemoration of QHAC, is that right?
+Yeah, that's right. If you check out my Twitter, there's a link to OpenSea,
+and there's a peace sign because it's the 70s theme. I minted one for QHAC, so if anybody's
+really into NFTs, it's the same algorithm I've been using. It's a simulation of Bosonic
+quantum field in the early universe, and then I do a coherent state that is using a displacement
+at various frequencies so that it makes an image, basically. It's a peace sign, so check it out.
+Cool. Maybe we can get the chat to run up the bidding price for that.
+That'd be great. I've been using that capital to get a better PC,
+get a GPU, train more QNNs, and so on. GPUs these days are basically used cars.
+Hard to come back. Yeah.
+Cool. I just want to quickly ask you one more question about the show Dev. In that show,
+one of the things they do is they have this quantum computer that can really look very far
+forward and backward in time. Again, spoiler alert. Where do you think we'll ever get to a
+stage where we could do large-scale simulation of anything beyond a single molecule at the scale
+that they're doing on that show? Temporal extrapolation. All of the molecules in a room
+to be able to rewind or fast-forward the simulation of that.
+Yeah. That's the part that is less realistic, I guess. You have order avogadro's number,
+plus or minus few orders of magnitude to simulate a whole room's worth of particles. We need
+similar order within a few orders of magnitude of cubits to do a full-scale simulation. Maybe if
+we don't mind filling in some blanks with some neural nets, maybe we can have a simulation
+that's partly quantum mechanical of the whole room and it's still accurate.
+But if your question is, do we live in a simulation, the answer is, I don't know.
+I don't believe that was the question, but you asked it.
+But that's the theme of the show. Yeah, yeah.
+Asked and answered. Cool. Why don't we take some questions from the chat? There's a couple here
+I can get to. Here's one. I'm not going to even bother repeating that username because I think
+they just mashed the keyboard there. Sorry if you mentioned this, but why train on relative entropy
+rather than fidelity? Yeah, so fidelity, first of all, is you can evaluate for pure state with
+the swap test. It's very sparse and difficult of a loss function. It's zero or close to zero for
+most states except one. You got to get really close to that state. It's actually a pretty bad
+loss function to evaluate. There's proofs by Patrick Coles and the Lano group on
+baron plateaus induced by the cost function. That's one reason, but mainly we're using
+density matrices and evaluating the fidelity. If you look up fidelity from mixed states,
+it's a bit more complicated. In ML, it's cross entropy and basically KL divergence
+everywhere. That's what we use. We use quantum cross entropy and quantum free energy.
+It's kind of the king of loss functions in ML. We king and queen, I guess, and we use that,
+but a quantum version of it because we can't evaluate it with our models. Why is it really
+good? It's kind of because you're taking this log. If there's just state overlap, if you have
+low probability for things, you don't get a lot of signal. You get just better loss signals when
+using log. That's why people use log likelihood in classical ML. We're seeing that with quantum ML as
+well. All this to say, basically, the loss function is way less sparse. We're taking inspiration
+from classical ML. Nice. My favorite source for inspiration.
+All right. Maybe one more question here. A question from abusef19.
+Are GANs good generative models for quantum? GANs have been around for a while. Now they're
+not as much in vogue. It's all about energy-based models, transformers, something called, I think,
+stochastic differential equations and flows. Our approach is similar to flows,
+but also similar to energy-based models. I'm obviously biased, but I think GANs have
+fallen out of fashion because they're hard to train. Finding the equilibrium is very tricky.
+Just in terms of performance, other types of generative modeling has taken over. GANs are
+really cool because they're very accessible to understand the basic principle, the adversarial
+examples and the class fires, cat dog and so on. When you progress in ML and you can learn
+more advanced concepts like relative entropies and score functions and so on, you can tackle
+some fancy methods with a bigger learning curve, but that perform better. I'm biased, but I would
+say let's explore other types of generative models other than quantum GANs for really good
+performance in generative modeling with quantum computers. It's interesting to see, as you mentioned,
+that energy-based models are back in favor. They're not a new invention, though. They were
+originally inspired by physics. Exactly. I won't get to the slide, but
+ultimate machines were second-order polynomials defined over binary values. Those were the
+original energy-based models, but now you have deep EBMs. You have a deep neural network
+parameterizing the energy function, and then you use Markov chain Monte Carlo that uses gradient
+information, something like Hamiltonian Monte Carlo to sample that landscape. You could take
+the expressive power of deep neural nets and all this differentiable computing power, and then bring
+it to all the cool techniques and results that were first derived for EBMs, like Jan LeKern and
+Hinton. They were all working with bolts and machines and EBMs, and they had all sorts of
+interesting ideas. Now we could take the expressive power of all these deep neural nets and differentiable
+computing and tackle some of these ideas with all that compute power now. It's really interesting,
+and that's definitely what motivated originally this work into transducing the philosophy of deep
+EBMs into QHBMs. The difference between this and a Boltzmann machine is that we have a deep
+function, a deep QNN, and then a deep neural network to evaluate the energy, so very much
+inspired by that. Great. Thanks a lot for your amazing insights, Guillaume. It's been great to
+have you on here.

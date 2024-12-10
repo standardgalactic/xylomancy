@@ -1,0 +1,27 @@
+Processing Overview for Canal Blender
+============================
+Checking Canal Blender/Curso Python para Blender 02- Hagamos un Botón.txt
+¡Hola! En este videotutorial, te he guiado a través de los pasos para crear un botón personalizado en Blender utilizando Python, que al ser presionado genera una esfera geodesica con parámetros predefinidos (tamaño 1 y subdivisiones 2). Aquí está resumido el proceso:
+
+1. **Entorno de Desarrollo**: Abre Blender y accede a la consola de Python usando el atajo `Alt + P`.
+
+2. **Creación del Script**: Escribe un script básico en Python dentro de la consola. Este script define una función que crea una esfera geodesica (`bpy.ops.mesh_simple.grease_pencil_add`) con los parámetros especificados.
+
+3. **Definición del Operador**: Dentro del script, defines un operador personalizado (`cls = bpy.types.Operator`) que ejecutará la función creada cuando se presione un botón en la interfaz de usuario.
+
+4. **Botón en la Interfaz**: Utilizas el sistema `panel + operator` para agregar un botón a una ventana o panel específico en la interfaz de Blender. Asignas al botón el operador que llamamos previamente.
+
+5. **Registro del Operador**: Asegurate de que el operador esté registrado para ser utilizado, esto se hace mediante `bpy.register_class(YourCustomOperator)` fuera de la función principal.
+
+6. **Uso de la Referencia API**: Te invitamos a consultar la referencia API de Python en Blender para entender cada paso y cómo se conectan los elementos dentro de la interfaz de usuario.
+
+7. **Prueba y Ajuste**: Probando el botón en la interfaz de Blender deberías ver que crea una esfera geodesica con los parámetros definidos. Puedes ajustar estos parámetros según tus necesidades.
+
+8. **Aprendizaje Continuo**: Este es un paso básico en la programación de Python para Blender, pero a medida que aprendas más, podrás explorar y crear operadores más complejos y funcionales.
+
+9. **Comunidad y Recursos**: Recuerda que hay poco soporte en español para Python en Blender, pero hay una gran comunidad internacional que puede ayudarte a resolver dudas y aprender más.
+
+10. **Siguiente Paso**: Con estos conocimientos fundamentales, puedes explorar scripts más avanzados y expande tu capacidad de modelado y automatización en Blender.
+
+Espero que este resumen te sea útil y te inspire a seguir explorando la programación de Python en Blender. ¡Hasta el próximo tutorial! Un abrazo y éxito en tus creaciones.
+

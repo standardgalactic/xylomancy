@@ -1,0 +1,189 @@
+So, for our third speaker this evening, this afternoon, we have John Martinez with ECSB and he's going to talk about the problem with qubits.
+Thank you very much. I would want to talk about supervent qubits. I'll get to that, but I want to talk about a bigger, generic problem.
+Well, you might even say it's a psychological problem. And let me explain that.
+We have these amazing computer devices based on bits. Okay, and this works so well, and it's so powerful.
+We can abstract the bits we don't have to think at all about hardware anymore. And we just think about this and conceptually manipulating information.
+The degree of that abstraction is now such that, let's say you talk to some Silicon Valley executives, they believe we live in a computer simulation.
+Okay, now we're physicists so we don't believe that. But that's how powerful this abstraction is.
+What we're going to talk about today. And it's the problem with qubits is that we have this psychological thinking that we can abstract qubits in the same way.
+Now it's great that we can abstract two level systems and quantum systems as qubits, but we cannot abstract it in a way that we're doing with classical.
+In particular, we know fundamentally, at least at this point that qubits have errors that's the problem with qubits.
+And if you abstract away qubits, which is good for doing calculations whatever, but you want to talk about reality you want to talk about industrial use.
+If you extract away the noise, you are not talking about qubits anymore.
+I'm going to say this is sorcery.
+These are magical qubits. If you talk about a real physical system without talking noise.
+Okay, that's a magical qubit. We're talking about physical qubits.
+So what happens is when you build a qubit and you talk about qubits.
+You really need to be honest about what's going on, talking about the noise how well does it work. What are all the problems.
+And if you don't do that, you're talking about magic. You're talking about something that maybe in some instances that work right but if you really want to think about building a quantum computer.
+You know that that's that's not right.
+So don't pretend qubits are perfect.
+And secondly, how noisy are they.
+Okay, and, you know, noise is in fact important to understand.
+So let me start by saying why I think noise is very important and why maybe there's some magical qubits, and we could take advantage of this quantum phenomenon without worrying about the noise.
+But I think it's going to be true. Okay, you don't know, but I think it's very unlikely.
+And I want to talk first about, I think Drew Potter was one of the authors this is a KITB conference a few months ago, qubit efficient simulator with quantum tensor networks.
+And if you take a quantum problem, let's say a 2D correct 2D array of connected qubits.
+You can solve for the quantum evolution of that very efficiently using quantum tensor networks it's an approximation, but it's a pretty good approximation, you can solve that.
+Okay, okay, let's solve that. What happens is the approximation having to do with this introduces some errors, let's say around one or 2%.
+Okay, and it may depend on problem whatever but it's roughly that.
+So, so I have a conjecture here for the NIST threshold conjecture.
+It basically says that quantum computers and simulators can be efficiently simulated with errors of approximately few percent just by using this.
+Okay, and hardware. If you want to do something useful.
+You want to be below this threshold.
+So, you know, the point is, is if you have a quantum computer with errors a few percent, why run it on a quantum computer, run it with a quantum tensor network approximation, and get the answer on your computer.
+That's the idea.
+So there's a corollary here and again this is a conjecture I don't know if it's right. Quantum advantage can't be claimed with no error measurement.
+Because how do you know if you use quantum tensor network or some other clever approximation, you know, maybe you can get a, the answer a better answer.
+So, I'm going to say magic qubits.
+If, you know, cubits where you haven't measured errors is kind of their magical. Okay, you don't know how powerful that really is.
+Okay, that's a few percent errors if you're lower than a few percent, at least, you know, roughly you can't do this.
+Okay.
+Now I also want to talk about when we talk about errors.
+It's, it seems to be fairly reasonable maybe not in all cases that we can talk about errors being a classical.
+So when you talk about a real physical qubit, it has some average unitary, and then there's some errors on it. We, which we can talk about as a random errors and x, y, or z.
+And you know, polytron phenomenon allows you kind of to do that.
+It's a very simple approximation.
+You wouldn't, you wouldn't expect that necessarily case and maybe not the case generically, but generally it's fine. I see this is useful because error probability is simple to understand and then use.
+You can measure the measure predict, and it works well why it's first order algorithm estimate, and you can use randomized compiling is effectively a gauge transformation to, you know, effectively twirl the state so that this is a pretty good, pretty good thing.
+So, and in fact we validated this.
+And we need more experiments to test that this is the case.
+But the nice thing, at least about, you know, noise is that we can consider at least the first order approximation is a relatively simple way.
+So you have quantum mechanics, and then the errors, you know, can be thought about in a relatively simple way. And I'll show some data to explain that.
+Now, you know so where are we with the errors right now, how powerful algorithms can we do.
+Okay, so if you take classical CMOS you have some gates.
+There's a error per logic gate, and the number of logic gates you can put together and yield a circuit properly goes as one over the air, no surprise.
+In the 1960s, maybe you have a transistor error in 1000 transistors or so. So you could do relatively, you know, reasonable size integration test it scale it up as okay.
+Now those error rates are down to about 1011 10 my 11 so you can build big big processors and get them to yield and there's a lot of.
+This is kind of magical what happened in 60 years.
+Okay, same thing happens for quantum.
+You have to make a good fabrication but of course, there's a fundamental error in the gates quantum mechanics tells you that.
+So if you look at WQ bits and instructions on each of the WQ bits at certain times. So there's a depth D the total number of gates is WD, and that's going to go as one over the air the gate, roughly maybe three times five times and we want to work a small fraction of the time.
+But that's basically the same thing this more or less the coherence time over the gate time that everything's working right. Okay, so here's the punchline.
+What are the typical errors of quantum computing systems that are being built.
+Some of them, you have no idea what the errors are.
+Some of them have been measured, but most of them are measured. The error is about 1%, maybe 2%.
+Let's talk about a width of 100 qubits. That's pretty interesting.
+The errors 10 of my two w 100 depth is one.
+What is depth of one mean, you can, you can run programs with one instruction set.
+That does not seem very useful, maybe three, maybe five, not very useful.
+Okay, that's a big problem in the field.
+Now, if we can get those errors down to 10 minus three 10, let's say 10 minus four even, then you can get the depth of 100 and then you can start doing something interesting.
+So we really want to push down that. And of course, if you get to 10 minus three 10 minus four, you start doing error correction and do a bunch of interesting things.
+So, you know, that's really something that has to be worked on is get the errors low.
+If you build qubits, if you don't measure the errors, you have no idea what you can run, and whether you can use this other approximations to simulate what you're doing.
+You don't know that the basic thing you have to do is understand what your errors are to know if you have a chance of doing something powerful.
+Okay, so there's more it's even more subtle than this.
+So I want to talk a little bit about the strategy of measuring errors because it's actually a little bit complicated.
+And basically, let me just say you can build, let's say, you know, these individual transistor in my cell phone, that's pretty good.
+But you don't know that when you put a billion of these together, whether this thing is still going to work.
+And engineers do a lot of work to make sure that when you scale it up, it still is going to work right and you have to do the same thing for the qubits is not not obvious that you can do that.
+So, for example, for you can do, you know, single gates, you can do some kind of tomography you can do a to get a date doing some kind of tomography, which is basically check that your fundamental gates are working right.
+That's great. People do that.
+But a lot of things can go wrong. So for example, if you take and let's say a two cube it, you can do multiple gates one after each other.
+And then see what happens in that case and what happens is the errors, you know, get bigger and bigger because you're doing it over and over again so that's good to do that.
+But it also tests the fact that this whatever is going on here, interfere with what's going on here and here so there can be time crosstalk, there can be things going on that messes up you need to check that.
+And the same thing happens when you have a big processor, you can have something going on here, some gate going on here but does that couple to this guy right here.
+And you need to do that. So you have to do simultaneous one and two gates on a large processor to do space cross.
+And then what you have to do is on a big algorithm with lots of gates.
+You have to check whether that you're getting the correct answer. Okay, you have to check that too. It isn't an isn't a full algorithm.
+This is the most important thing, you have to look at the answers coming from this or this or whatever it is, and see if they make sense from what you did up here.
+Right, did you introduce errors, as you scaled it up.
+You have to compare the errors, and you have to have a system error model that hopefully is consistent with what you measure on individuals. This is a basic engineering concept.
+The reason I bring it up is I go to conferences, and I know about this and I asked people who are building quantum computer systems, and people are checking this, maybe running a large algorithm but they have no idea what's happening to the errors.
+In fact, what's really worrisome to me for the field is that they don't even know that that's a question, and that's something they should be doing.
+It's like, oh, they never thought of it, the company never thought of it.
+So that's why I go around talking about it because if I want to look at all what all people are doing. I need to do these cross checks to see if things are working right.
+You don't know until you measure it.
+So, 10 minutes, good.
+So, what I want to do is talk about how we actually went about measuring that. And this was actually in the quantum supremacy experiment.
+We did that.
+So you do quantum state and process tomography.
+You do randomized benchmarking is that this is like whether you see the full quantum matrix, you know it's working okay do randomized benchmarking to figure out if the errors are let's say compatible with this.
+And then you do cross entropy benchmarking. And it's very similar to randomized benchmarking but you do it for arbitrary gates and what you do is get the best fit unitary.
+That's an error, and I would say that's a pretty useful thing for you to know is what that is.
+And you can, there's a lot of interesting things you can you can do there so let me not go into this in detail but let's just talk about what we did for the quantum supremacy experiment to illustrate all this.
+Okay, what we did is we did single qubits all by themselves.
+And we measure how the state, how you do a bunch of dumps of gates and you see how the coherence decays, and you do that on the 53 qubits and you get a histogram if you integrate that histogram, you get that dotted line.
+And then what you do is you turn off all these gates.
+And then you do it individually on each of those so that's instead of separate you do it simultaneous, you get the black line here it's a little bit worse, but not too much, and that's okay.
+So that's a good check.
+You have all this horrible crosstalk or something. You do the same thing for two qubit gates, and then individually, and then you run the whole thing at the same time yeah that gets gets a little bit worse.
+That's a trickier date, but okay at least you know what's going on. You do the measurement.
+What's the y axis on this histogram what are these numbers of this is the y axis. So you do a histogram, and then you integrate that histogram that's a cumulative probability distribution.
+So if you're going to take the derivative of this this would kind of look like a Gaussian shape.
+And it's just easy it's you it's better to plot it this way.
+If you want to know what the average error is you take 50% and you, you come down there. If you want to say 90% of the gates are better than that error.
+So, this is this is we find this a much better way and you're not losing any data, any accuracy that data turns out. I can talk about that later.
+So how do you test this full circuit, and is basically doing this cross entropy benchmarking, but this is the basic idea when you, you do this you run randomly, known but randomly chosen gates.
+This is essentially a random number generator, and you generate all the states here.
+However, because that's a coherent circuit, some of those states are more probable and some are less probable, just like a laser.
+Going through frosted glass some directions you get constructive interference, and some directions you get destructive interference, the same thing happens here.
+Basically what you do is you measure these states, which are going to be the most likely states the higher probability states, and then you run this circuit on a classical computer maybe a supercomputer to see if actually the states you measure were the high probability
+and you can come up with a nice mathematical function, given by here where X is what you measure and P is what you computed, and if it's one over to the end this fidelity is zero.
+If you have a perfect match, no decoherence at all.
+You get a one.
+And what's really interesting about this is if you have any bit flip or face flip anywhere in here that completely randomizes this qubit speckle pattern, and the fidelity goal to zero completely uncorrelates it.
+So you really can when you measure zero and one how zero and one it is tells you what the percentage of time, there were zero errors in running that circuit.
+And of course, zero errors in calibrating it and you know transferring it over to your suit or whatever. So really good check check of your system. It's a great system check.
+And here's the quanta supremacy data. I don't have time people have seen this. This is our data here doing the cross entropy benchmarking.
+And it goes down exponentially as you expect there's more and more chances of errors.
+But the interesting thing I want to say with this talk is the black line here, and the black line is the prediction from the gate and measurement errors that I showed you couple slides ago.
+And that prediction, in fact, is just the total fidelity of the system is one was the fidelity of all the individual one and two good elements.
+This is kind of amazing. You got this great, great agreement here.
+And what happens is the, the quantum nature of this gives you the speckle pattern, this unique speckle pattern, very difficult to calculate, you know, takes a long time.
+But the errors are given by a high school statistics formula.
+The errors are really simple, at least, you know, in this experiment, but the computation is experiment is hard.
+So it's kind of nice, you know, you could be in this is this is great it means that you can at least in this experiment and maybe in more experiments.
+You have the full power upon a computer, but you want to estimate if it's going to work, you know, it's not too hard, assuming everything works of course.
+So you can show this is a here's some data of the XCB fidelity I think this is 1214 qubits, you have about 22% fidelity and then you put in a face flip that goes to zero as expect.
+And in fact, if you put in a face flip with arbitrary phase, it follows this cosine squared behavior, which is the prediction of the digitization of errors, which of course is part of what you assume to get quantum error correction
+working. And this is the digitization way inside the inside of the this complicated algorithm. And yet it still works properly to think of it in this simple minded way.
+So this is this is really kind of nice that it works that way.
+So that's what I have to do about noise that asked to talk about super necking qubits I don't want to say much, basically saying super necking qubits work, and all the system components work.
+And if things are right, and I'm also going to say the super nine qubits are pretty fast.
+1020 nanosecond gate time. And this is a critical metric, because when you run some kind of algorithm you might want to take 10 to four 10 to five 10 to the six repetitions to get a low statistical uncertainty or whatever you're measuring.
+And if you're, you know, having nanosecond 10 nanosecond time scales you can do this fast and then you can change it and optimize it.
+So making fast qubits is really useful for really doing that.
+As I said here we need the lower errors. I think, because everyone knows about this in the field they're working on it. I think it's possible to do that. We are we know the architecture right now.
+And you know improvements and cubic coherence has been demonstrated we have to put it together. It's not trivial I think it can be done though.
+And then people often say about okay super deducting qubits are not very scalable.
+You know I, I have a plan, and maybe other people do too, to scale to very large size in a reasonable manner I think it's possible to do that. Of course we have to show that but the first thing, of course, is to work on lowering the errors, making these
+making these better qubits better physical qubits.
+Okay. So, if, if your quantum computer has you want to build a quantum computer need to measure the errors you should be less than one or 2% to actually start to doing something useful.
+And then I'm saying that the errors below 0.1% or so is for interesting deep algorithms error correction that's a really our target, we've known this for a while, but we really have to hit that.
+And I also want to say just, you know, measuring the t1 t2 or measuring one or two quid dates is nice, but you have to measure system errors and compare with your error budget.
+If you aren't doing that.
+You don't know what's going on with a quantum supremacist experiment. That's the reason why I did it at Google, as I wanted to know that China has reproduced that.
+I don't think anyone else has done that in the West. That's a real problem.
+And yeah, we really have to do that and to just to conclude this.
+The reason I'm going around talking about the problem with few bits is that if we want to be around talking about quantum computing in five or 10 years.
+We need to make better qubits because if we make better qubits. We don't make better qubits and what we have right now. There's not really a reason for this field to exist.
+If we want to have a successful field we want to do something useful.
+And I hope some people here are want to invest in that in that future. This is something that I personally and thinking about really focusing my effort, how to understand that.
+Make good qubits make it scalable. And I feel very confident we can do that, but it takes a lot of effort. And the problem is is you don't get a nice nature of science paper out of it.
+This is this is a this is a psychological problem. But I think if you do that.
+Oh, then, then, instead of, you know, picking the low hanging fruit, you're then planting the orchard to do many many interesting things so please if people are interested.
+Please, please work on this is really important.
+And with that, thank you very much.
+Great.
+If it was a simple answer.
+Someone would have done it already.
+Okay.
+I think there's a variety of things going on. And the problem is, is there more than one thing going on at the same time, you work on one of them.
+You know, it doesn't get better so you don't know if you're on the right track. So there's, there's, there's several things you have to work on.
+These ideas are kind of in the literature already but we haven't been really focused on, I'm going to say it mostly just takes a lot of time doing very careful experiments to make sure that you can really ever budget all of this and figure it out.
+Okay, the big things are, you know, you know, a two nanometer interface of amorphous silicon dioxide between the metal and the substrate absolutely kills the, the coherence we know that people are working on it.
+And as an example, you know, there's also cosmic arrays is there's a whole list of things you have to get right.
+I think, I think you just have to work on this very carefully and you have to learn how to fathom it in a reliable way.
+So, the one or two percent error is, for example, we have angle errors, because we have the cubits going around in the complex plane, right.
+But an angle error of one or two percent gives an amplitude error of cosine of, let's say one degree, which is like 10 minus four, which is much better.
+So, the angle errors are more like, you know, they aren't are they aren't about 1%. It's, it's, it's 10%.
+It's ready to give you 1%.
+Exactly.
+So, what you're saying is that the anglers of 10%, there'll be one fifth of a radian. That's how bad it is.
+So what the, well, 10 10 degree error is someone one.
+One degree is 10 degrees is radians with a 60 degrees. So that's one six.
+And I think that's just a factor of two. So that's 110. That's about, that's about a, that's about 1%. If I did the calculation.
+I don't calculate in public very well.
+All right, let's ask one more question.

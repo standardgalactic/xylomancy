@@ -1,0 +1,95 @@
+Okay, so it's been just under a year since the original Llama model was released and the license
+around that was quite unusual, but in some ways it was semi-open and then the weights got leaked
+and that triggered the floodgates of open LLMs to start last year. After the first Llama we saw
+things like Alpaca, we saw things like Vikuna and then eventually we saw the Llama 2 model come out
+and the Llama 2 model really changed everything with being a reasonably open-source model that people
+could use, people could build on, people could do a lot of open-source projects with it out there
+and then along with that later on we saw models from Mistral, both the Mistral 7B and the Mistral
+model that came out and around this time a lot of people were asking why hasn't open AI open sourced
+any models or why hasn't Google open sourced any models. So Google has a long track record of
+open sourcing models back from some of the early models through to things like BERT through to
+things like the T5 model which was a series of models that they open sourced back in 2019
+and even a while back they open sourced the UL2 20 billion model but since then everything's being
+quiet up until today. As of today Google's open sourcing a new suite of models that they're calling
+Gemma and in this video I'm going to talk about the different sizes of Gemma, I'm going to talk
+about the different models, I'm going to show you how you can basically start using these and
+trying them out and then in future videos we'll talk about how you can do fine-tuning with Laura
+and Gemma and some of the other cool things that you could do to build your own open-source projects
+based on these new models. So let's jump in and have a look at the details about the model.
+Okay so if we jump on to Kaggle here we can actually see the model card for the new Gemma
+models. Now I have to keep practicing pronouncing Gemma and not Gemini here. So there are currently
+four models available, there's a seven billion base model, a seven billion instruct model,
+a two billion base model and a two billion instruct model. So they describe them here as
+Gemma is a family of lightweight state-of-the-art open models from Google built from the same
+research and technology used to create the Gemini models. They are text-to-text decoder-only
+large language models available in English with open weights, pre-trained variants,
+so it is possible that there may be some other variants coming along but for now we've basically
+got some really nice core models that we can use, especially the seven billion model is a really nice
+size, the same sort of size as the mistral model and we'll be able to use these for a variety of
+different things. So they talk about these aren't multi-moder models, these are basically text-in,
+text-out models. You can see here they've got the inputs and outputs being text strings such as
+question, prompt, output is going to be generated in English language. One of the things that is
+really interesting about these is the whole sort of model data and the big thing being that they
+are actually trained on six trillion tokens here. So if we think back to the original
+Lama models were around one to 1.4 trillion tokens, the Lama twos were around two trillion
+tokens. We've seen some of the Chinese models get up higher to three trillion tokens. We don't know
+for sure what the mistrels were actually trained on but it does seem like that this is certainly
+getting up there for the highest number of tokens in training for an open style model that's out there.
+So they talk a little bit about the training data set that these are web documents, this is code,
+this is mathematics in here. They've done data processing to take out a bunch of different
+kinds of sensitive data and I think that's similar to what they've done with the Gemini models there.
+So these models were trained on the TPU V5E here. So they've trained with Jackson ML Pathways
+framework and here we can see that they've actually got the benchmarks for the different models. So
+for the two billion model for the seven billion model in here and we can see by looking at these
+benchmarks that they're certainly respectable. So it's going to be interesting to see when people
+start to fine tune these models, what they can actually get out of them. It is going to be
+really interesting to try out the two billion parameter models in here and see how well they do.
+They've also done a bunch of evaluations in relation to toxicity and various things like that.
+So rather than keep going through this, I will put the link for this in the description. You can
+come and check it out yourself. One of the things that people are going to probably be interested
+in is the license and the actual users. So they do have a terms of use for Gemini. I'm not going to
+go in depth into this now, but looking at the prohibited use policy, so far seems reasonably
+good in a similar way to perhaps the Lama models, although it does seem like they're restricting
+certain uses on chatbots and that kind of thing as well. All right, let's jump in, have a look at the
+code and have a look at getting the Gemma model going. All right, let's jump in. Okay, to get access,
+you're going to have to fill out the Gemma access request here. So you can see I've just put in my
+name, etc. You have to go through, read the definitions, read the restrictions, and then
+accept this so that you can actually get access to the model weights. All right, so once you've done
+that, not only would be able to use the weights in Kaggle, but you'll also be able to then download
+the weights externally to collab or to something like that going through this. Okay, so the notebook
+that I'm going to have a look at is this get started with Gemma using Keras NLP. So I'll just
+go through this very briefly. And then in a future video, I think the Hugging Face version will be out
+and I'll make a more extensive sort of look at using it in there. So to basically do this with
+Keras NLP, you need to make sure that you're using Keras 3.0. So this is set up for this.
+And along with Keras 3.0, you also want to be using Keras NLP. So if we actually come in here,
+we can have a look at the models. And if we scroll down in, this is in the Keras NLP models,
+we can see that we've got the base models, we've got the instructor models in here. So there's
+four models for Keras NLP. For PyTorch, there are actually the same four models, but also two
+quantized versions of the seven billion models in there as well. So if we come in here, we basically
+just set it up, I've set the back end up to Jax, which is what they had as the standard.
+And then just bringing in the base model here, you'll see some interesting things when you
+bring it in. So one of the things that I find really interesting is that the vocab size on the
+tokenizer is actually 256,000. So to give you a sort of comparison on Lama 2, it's 32,000. So that
+means that this model is much more likely to be very good at fine tuning for multilingual.
+Now the weights are only English at the moment. So it does make me wonder whether they're actually
+going to release a multilingual version of this later on at some point. Anyway, you can see I've
+put in the model in here. If we ask it some simple questions, we can basically just use the
+this generate command and run it through things like that. If I ask it some questions about
+what is the Lama, you can see, and this is not the remember this is not the instruction fine
+tune model. So I was actually having some issues with the instruction fine tune model. So like I
+said, I will make another video doing that. You can also basically run it in batches. So if you
+want to go through and run a batch of this, you can. If you want to change the sampling strategy,
+you can also do that in Keras NLP. So you can do top K sampling like this. Or the other option,
+you can come in here and actually set the top case. So you'd probably set this to around 40 or so.
+You can set the temperature. You can do a number of things like this that have built into Keras NLP.
+Like I said, I'm expecting the hugging face version to be up in the next few hours or so. So I will
+make another video going through that and then looking at using the models in there. And then
+also we can see how the instruct models actually compare. I would say that my guess is that Google
+has overly been careful on the instruct models. So I'm not expecting the instruct models to be the
+best sort of teller of how this model will perform. I actually think we'll see really good instruction
+fine tune models made by the community from the original base models that are probably going to
+be the really interesting models. So something like a Gemma Orca, something, some of these models
+that we've seen out there, you could imagine that people will start training these up and we'll see
+them probably over the next few days or week at max for this. Anyway, as always, if you've got any
+questions or anything, put them in the comments below. If you found the video useful, please click
+like and subscribe and I will talk to you in the next video. Bye for now.

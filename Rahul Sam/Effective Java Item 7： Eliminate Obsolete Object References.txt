@@ -1,0 +1,480 @@
+Hey everyone, welcome to yet another episode of this video series on Joshua Block's Effective Java,
+where I try and expound and make sense of the items that he has
+animated in this book. And without further ado, let's get started with the introduction,
+because I sort of anticipate that this item in particular is going to be a lone one,
+because there are a lot of, I'd say, ancillary points that we need to discuss to make sense of
+the crux of this item and the argument that Joshua Block is putting forward.
+So as per usual, I'm going to go through the same introduction that I go through
+in every single video in the series. So if you've been following along, please do skip
+this bit to save your time. The proviso goes like this, which I'm kind of sick of repeating,
+but I feel like I kind of have to repeat it for, let's say, due diligence or just to be
+ethical about this whole thing. This is not a tutorial. I certainly am not a teacher,
+nor am I an expert. So take what I say with the grain of salt. Don't think of this as any other
+tutorial on YouTube where what I say is, in some sense, gospel's truth. I don't think every single
+tutorial on YouTube is like that, but there are some tutorials where certainly, you know,
+they're good quality, they come from an expert in the field, and you can trust what they're saying.
+Don't trust what I say. I'm pretty sure I'm going to put you a lot of things in this item and
+in some sense, hopefully, try my best to do it as accurately as possible, not splitting the
+bullshit, but getting to the points in the item. Certainly, I'm going to be unintentional mistakes
+that I make. I'd like to think of this as the blind leading the blind. I'm as blind as you are,
+perhaps even more. This is merely, or not merely, this is a exploratory disposition. I'm trying to
+make sense of this collectively, you know, using different forums like Stack Overflow. Whenever
+I come across something that I don't understand, I'd post a question on Stack Overflow and I'd
+really appreciate it if, you know, if I do make any mistakes, which I think I inevitably will,
+please point them out in the comment section down below, not just for my sake, but even for
+other people that are watching these videos. I really don't want to mislead people in any way.
+And given that this is a programming video series, it only makes sense to have all the code that I
+use on GitHub publicly available. I'll leave a link down below, not just to my GitHub account,
+but also Joshua Block's sort of official public repository that is published and put out all
+the code used in the book. And saying all that, let's get started on item number seven,
+which states eliminate obsolete object references. And this again is from chapter two,
+creating and destroying objects. So something I've been trying to do in these videos is,
+before we even get to the content of the item, to try and expand on and try and understand
+basically what the words used in the title itself are. So object references,
+what in the world are object references? This diagram or this image pretty much puts it quite
+simply. And object reference is merely a pointer, or not merely, it's probably good to conceptualize
+it as a pointer. So we have objects in the heap memory. So the memory is subdivided into
+different segments by the JVM. There's a heap, there's a stack. And generally,
+leaving aside the stack of the heap, what a object references is a memory address,
+the pointer points to a memory address of a particular object in the heap. And adding on to
+that in this image, if we take something like an object array, let's say, an array itself is a
+reference to another object. What I mean by that is an array can exist in the heap. And there's a
+pointer or a memory address that points to that array. But the items in the array itself
+are pointing to other objects within the heap. So in some sense, you can, I guess, think of it
+this way, the way they've shown in this diagram where the array contains references itself,
+and it could also contain an L. So if you null out an array, which we're going to see some
+nulling out in this item, then it's not going to point to anything. So in Java, what happens when
+we use the new keyword is we reserve a location in memory. When we instantiate a class, the constructor
+of that class and all classes have a constructor creates a reference to an object. And the reference,
+I said it's like a pointer, but another way of thinking about it is that it's information regarding
+the location of the object in memory. So what we see here is an example of that, where they're
+creating this object array, a primitive array, and we're instantiating it in this case with a
+primitive type. So just repeating the point, item seven states again, eliminate obsolete
+object references. So unlike a language like, let's say, C++, Java does automatic garbage
+collection. What is garbage collection? It's simply put memory management. When we do allocate
+resources to a certain object, we make sure that once that object is no longer in use, we clear it
+out. We let that memory go to free out resources so that that resource can be something else. And
+there are different algorithms used in garbage collection. In fact, I'll leave some links down
+below on some videos by Gaurav Sen, I believe. I think it's his surname, but he does the system
+design videos on YouTube. Really good, superlative content. And he does do a bit of explaining of
+how these algorithms work, specifically apropos JVM. So of course, because Java does
+automatic garbage collection, as I said, unlike a language like C++, we could make the wrong
+assumption when I mean we, I mean a programmer could make the wrong assumption that we don't
+have to think about memory management at all. And that's why in the beginning of this item,
+Joshua Block states, when it comes to garbage collection, it seems almost like magic when you
+first experience it. And therefore it can easily lead to the impression that you don't have to
+think about memory management. But this isn't quite true. I had to take off my cardigan because it
+was getting really hot in this room. Summer's coming in Melbourne. Yay. So he keeps going,
+consider the following simple stack implementation. I've got the stack implementation right here.
+However, before we get to the code and do a deep dive, I kind of again want to backtrack a bit and
+discuss some of the terms. So we discussed what object references are. And then I want to discuss
+what's a obsolete reference. And obsolete reference is a reference that will not be
+dereferenced again. It's unintentionally retaining an object. Now this term here,
+dereferencing or dereferenced again, this can be quite confusing because dereference does not mean
+that you get rid of the reference, not at all. What dereferencing in fact means is
+when we do refer to an object in our code somewhere down the line, once we do create the
+reference, we may refer to it again. We may get the value that the reference is pointing to.
+That process is called dereferencing. And if we don't dereference an object, there's no use of
+keeping an object in memory. So we are unintentionally just leaving an object there, allocating resources,
+making our application inefficient. And that shouldn't be done. So the solution is quite
+simple. In fact, it's simply to now outreferences once they become obsolete. And we sometimes
+have to do this explicitly on our code, despite Java doing memory management or garbage collection.
+So to have a bit of a more formal and clear definition by my favorite Java programming
+website by Aldang, dereferencing means the action of accessing an object's features
+through a reference. And one way to prevent obsolete object references is by narrow scoping.
+And what's narrow scoping? That's something what you would see in a for loop. In a for loop,
+we have the int i, for instance, that variable is within the scope of that for loop. So narrow
+scoping, that's an example. Another example would be trying not to declare global variables in a class,
+rather declare the variables within a function within a method, and keep it localized to that
+specific method. And that helps with eliminating obsolete object references, because we sort of
+know what the scope of a variable is in our code base. And then in the item, he keeps going. And
+this is the code base for the stack class. And then he asks, can you spot the memory leak,
+saying that before we get to the item and try and visualize what the memory leak is,
+let's take a look at the code base and the code base of this stack implementation,
+a really simple stack implementation that Joshua Block has used here as an example
+to illustrate his point. So I'm pretty much going to go through this code line by line,
+despite it being a bit long, because I think that's the best way to understand this.
+We have a simple class called stack. We have a object array of elements and another
+private, the object array is also private, but also not the private
+variable called size of primitive type integer of int, sorry. And then this constant here
+is what initially defines the initial stack capacity. So when the stack class is instantiated,
+of course, the constructor is called. And in the client over here, I am instantiating the class,
+line number 57. So when the constructor is called, a new object array is initialized. So this
+array we defined here, elements, this new object is passed to that variable. And when the new
+object array is initialized, its default capacity is a minimum stake here, it's not 26 at 16.
+And that's assigned to the variable elements. So this variable in line number 10 will hold a,
+I'm pointing with the code as if you can see where I'm pointing at. That's so funny. Anyway,
+this object array will hold a reference, or elements will hold a reference to this new object
+that was created and that's in the heap. And then we have a method called push. And what that does
+is as you'd expect from a stack, you can push new elements or new objects onto the stack,
+or in this case, the elements array. But in that method, we have another method that we call
+ensure capacity. Ensure capacity just ensures that there's space for at least one more element
+roughly. And if not, it'll just double the capacity each time the array needs to grow,
+because we want the stack to be dynamic. You can see here, it's creating a copy of elements and
+passing it to elements. And the more we keep adding onto the stack, the more the array grows. So
+doubles in size, let's say, now we get to the point, this pop method is what's pertinent to our
+item and where we see memory leak take place. So we have this object method, sorry, we have this
+pop method. And here in this method, garbage collection doesn't take place. And that's why
+we need to be aware of that. So firstly, if the size is equal to zero, we're just going to throw
+an empty stack exception, and we can't add stuff into an empty stack. And here we see
+that when we pop the object of the array, or when we return the object that's in the array,
+where we reduce the size with this counter. So this was the variable we declared here
+in line number 11. And when we reduce that, oh, sorry, I didn't say that. In fact, in the push
+method, whenever we push a new item onto the array, we also increase the count on that variable.
+And when we pop it, we reduce it, kind of makes sense. But what happens here, though, is
+whenever we pop an object from the stack, or when we take an object out from this array,
+an object is still unintentionally retained here, despite the client of this class having no use
+of those objects. And that's where the memory leak takes place. And the proper way to do this,
+and again, this bit of code here, line number 28 to 33, I will illustrate that in this diagram
+more visually, it'll make a lot more sense. Whoops, that was a mistake. Getting back to this.
+But this is not the right way to do it, because what's happening here is a memory leak.
+The proper way to do it would be like this. I'm going to comment out the wrong way.
+It would still be where we are checking if the stack is empty, the stack can't be empty. And then
+we are, in fact, assigning this value onto a new variable we're going to create called result.
+So whatever the elements array returns after we reduce the size, we're going to assign that value
+to result, and then simply we null out that location on the array. And that's where the elimination
+of the obsolete reference takes place. And we return the result afterwards. So we assign it to
+result and return the result. But we ensure that that element on the in the array, that index
+that we return, that it's nulled out. Because when it's nulled out, what happens is something
+like what we see here, it's clear that it's not obsolete, that it's not pointing at something
+and taking up memory resources. And really, if you run this code, there really isn't a use in
+running the code, but this is kind of what you'd see. You just print out the array or the stack in
+this case. This, you can ignore this empty stack exception. The reason for that is because we're
+pretty much pushing everything into the stack and then popping everything off the stack. And then
+you would at one point as we go through it, expect this exception to be thrown here, which is,
+wait, I just missed it. Right here, because what happens is we keep popping the stack at one point,
+the stack gets empty. So this is kind of expected this error here.
+So now before I read out what Joshua Block has explained here, let's take a look at this diagram
+and visualize it. So here we have that elements array that I spoke of before. So that's the array
+right here, like the object array that we define. That's what I've illustrated or represented here.
+And we, let's say the objects are integers, and we're adding one, two, three, four, five,
+six. I don't know why I put a zero in front. Let's just think of it as one, two, three, four,
+five, six. And then this is being added by the push method here.
+But then for some reason, we also pop some of it and we pop three items from the array. Now,
+what happens here is if you don't null out the references the way we've done here,
+these things are still going to exist in the array. However, for the purpose of the stack class,
+the client will never use these elements, these objects. They'll just exist in memory,
+making them obsolete, and more importantly, making it a memory leak because it's taking up
+resources that could be used for something else. And that's the problem here if you don't
+null that out. So the right way to do it is to treat this array in this way where the way we've
+done it in the proper pop method, every time we return whatever is in the index of this array,
+we also ensure that it's nulled out. In that way, that reference is eliminated. Sorry,
+the obviously reference is eliminated. I hope that makes sense. I'm repeating the same point,
+but you know, repetition is important to make sense of this. And on the note of repeating,
+I'm going to read out what Joshua Bloch has said about this particular class in the book.
+He goes like this. There's nothing obviously wrong with this program.
+You could test it exhaustively, and it would pass every test with flying colors.
+But there's a problem lurking. Indeed, indeed. Loosely speaking, the program has a memory leak,
+which can silently manifest as reduced performance due to the increased garbage
+collect activity or increased memory footprint footprint, what kind of process that would.
+Yeah, so that's that the increased memory footprint is what I explained here that these three,
+let's say, for this example, these three indexes create taking up space in the heap. He keeps going
+if a stack grows and then shrinks, the objects that were popped off the stack will not be garbage
+collected, even if the program using the stack has no more references to them. So that is what we
+saw in the other method, the when it's wrong, the way it shouldn't be done. There's nothing out here.
+This is because the stack maintains obsolete references to these objects.
+An obsolete reference is simply a reference that will never be dereferenced again,
+so never be used by the program again. In this case, any references outside of the active
+portion of the element array are obsolete. It's important to understand what he means by the
+active portion. The active portion really is the the portion of the array that the client would
+care about or use the client of this class. So in this example, the active portion really is
+index zero, one, and two, not this bit here, which is why they should be not out. The active
+portion consists of the elements whose index is less than size. Yes, so this size here is why
+holds the size of the stack. And then he sort of concludes that point by stating memory leaks in
+garbage collected languages like Java, more properly known as unintentional object retentions,
+insidious. If an object reference is unintentionally retained, not only is that object excluded from
+garbage collection, but so too are any objects referenced by that object and so on. It's an
+interesting point there because I've had a conversation with a C++ engineer or developer
+in my company, and he kind of made the point, you know, that's kind of the trade-off we make in
+programming. The more we sort of give control to the virtual machine, in this case the JVM, the
+less we know what's going on kind of behind the scenes under the hood. The more abstractions
+on abstractions we build, the less of an understanding we have as to what's going on in our program,
+which is why, for instance, when it comes to using packages, sometimes it can be dangerous and to use
+Joshua Block's term insidious because we don't have a really good power or deep understanding of
+what's happening, let's say at a memory management level. So as a good programmer, it's, I guess it's
+important to be kind of prudent and careful about that and be judicious as to how we write our code.
+Anyway, before I get carried away philosophizing about programming, let's get back to the point
+here. And the item he says then, the fix for this sort of problem is simple, null out references
+once they become obsolete. That's what I've shown here. I already showed the solution
+in the code itself. An added benefit of nulling out obsolete references is that if they are
+subsequently dereferenced by mistake, the program will immediately fail with the null point of
+exception, rather than quietly doing the wrong thing. It is always beneficial to detect programming
+errors as quickly as possible. Now, I don't know how in this class, someone could dereference
+parts of this array that theoretically should not be accessed in the stack class, but it's possible
+if that area was public, let's say by mistake. And it would be a theoretical mistake if after the size
+of the stack changes, let's say the size of the stack was three, and we only had zero, one, two,
+and three, and we still get access to the client to four and five. That would be a mistake. But when
+we now that out, the error is explicit and clear because the program will throw a null point to
+exception. But interestingly, then he also makes the provision that nulling out object references
+should be the exception rather than the norm. So technically, this thing what we've done here
+shouldn't always be done. There are better ways to handle this or eliminate obsolete references
+than just nulling out elements in this area, let's say in this example. The best way to eliminate an
+obsolete reference is to let the variable that contain the reference fall out of scope. This
+occurs naturally if you define each variable in the narrowest possible scope. And this is kind
+of what I meant by narrow scoping is one way that allows eliminating obsolete references,
+and I did explain what narrow scoping is. It's ensuring that when we define a variable, when
+we declare a variable, it's in the narrowest possible scope in our source code. But if he says
+nulling out shouldn't be the norm, why in this example is given in the stack class, why are we
+nulling out these references? Why not use narrow scoping as he suggested, which he says should be
+the norm. To put it simply, he says it's because the stack class manages its own memory. We see
+that here. We see that as to what's what's what's going on here, where we're managing the memory
+apropos this array here. The storage pool consists of the elements of the elements array. That's a
+bit a bit confusing, I know, but the elements inside this array. So each individual element,
+which he's added here are the object references, not the objects themselves. So these are references
+themselves. And then the elements in the active portion of the array as defined earlier are allocated,
+and those in the remainder of the array are free. So that's the active portion that's allocated,
+and these are made free. The garbage collector has no way of knowing this to the garbage collector,
+all of the object references in the element elements array are equally valid. Correct,
+because the garbage collector doesn't know what the purpose of the stack class is. The garbage
+collector isn't that intelligent. Hopefully, in the future, it would be only the programmer or
+get up copilot, perhaps knows that the inactive portion of the array is unimportant. The programmer
+effectively communicates this fact to the garbage collector by manually nulling out array elements
+as soon as they become part of the inactive portion. That's correct. That's what we've done here.
+And then just to conclude that point, Joshua Block states, generally speaking,
+whenever a class manages its own memory, the programmer should be alert for memory leaks.
+So what are the examples, can we think of when it comes to memory leaks,
+apropos, Java and JVM? Another example that he's given here is memory leaks that we would see,
+so I shouldn't say apropos, Java and JVM. This is just commonly in programming,
+in let's say OOP programming in general. These examples he's laid out or laid down
+could lead to potential memory leaks. And the first one he's given is in caches. It's quite
+common to see memory leaks in caches because of course, what happens a lot in a cache is we
+cache data. And when we do cache data, we cache objects, there's a high possibility if we don't
+do it in a smart, thought out way that it can lead to obsolete object references because once an
+object reference is put in a cache, it can be left there long after it stops being relevant,
+past being obsolete. And the solution for this problem of memory leaks and caches that
+Joshua Block has suggested is using weak hash maps. And when I said in the beginning of the item
+that there are some ancillary points, some concepts we need to understand to really get
+to the crux of this item. This is what I meant. I've never used a weak hash map in my life.
+Therefore, I had to do a bit of reading and styling as to what weak hash maps are.
+So Joshua Block states, before I get to what a weak hash map is and before I go through the code,
+which I've got here, I've got a weak hash map demo.
+Joshua Block states, if you're lucky enough to implement a cache for which an entry is relevant
+exactly so long as there are references to its key outside of the cache,
+represent the cache as a weak hash map. Entries will be removed automatically
+after they become obsolete. So conceptually, that sort of makes sense, doesn't it? Because
+the reason we have a cache is to the quick access of data of objects. And the key in a cache,
+we got to make sure that whatever data that's in the cache that the keys are relevant outside of
+the data structure in the cache, in this case, it could be a hash map.
+So that ensures that we don't have obsolete object references. And he keeps going that.
+Remember that weak hash map is useful only if the desired lifetime of cache entries is determined
+by external references to the key, not the value. Okay, now let's understand what a weak hash map is.
+Firstly, before we get to the code, let's get through some definitions. It's important to
+get a firstly, a theoretical understanding, a conceptual understanding of what this is.
+And one of the best definitions, that's be sure that I found, is by a Baldang's blog.
+It's this blog. Oh, no, that's on Profilers. It's this blog post here, a guide to weak
+hash map in Java. And he states, simply put, the weak hash map is a hash table based implementation
+of the map interface with keys that are of a weak reference type. And now we have another term here.
+What are weak references? For that, we'll open up. The best explanation that I found is this
+Stack Overflow answer. And in fact, this user says that it's by Ethan Nicholas,
+but the name of this user is Michael Myers. And a weak reference, simply put, is a reference that
+isn't strong enough to force an object to remain in memory. Weak references allow you to leverage
+the garbage collector's ability to determine the reachability for you so you don't have to do it
+yourself. But also in this article by Baldang, he's given some pretty good definitions where he
+discerns between strong, soft and weak references. So a strong reference is what would normally be
+when we declare a variable like this, let's say. That's a strong reference. And this is the most
+common type. And it's not eligible for garbage collection. A soft reference is eligible for
+garbage collection, but only when the JVM needs more memory. It absolutely needs more memory.
+In fact, he's made that point here. It's kind of like a last resort kind of thing. But a weak
+reference is not that. A weak reference doesn't, the garbage collector is given volition where it
+can sort of eagerly garbage collect its own weight until it needs more memory. It'll just
+use it up if required. And that's where using a weak reference in the context of cash helps us
+to eliminate obsolete object references. So in any case, that's another definition of a weak
+reference. There's also this article that I read, which is quite good. I think it gave a pretty good
+practical and sort of applicative explanation of what, well, the title of the article is
+Practical Uses of Weak References by this user, philosophical geek, or I guess Ben Watson. I'll
+leave a link to this down below too, where he goes through, well, he starts off the article by saying
+that you rarely use weak references, but if you do use them, it'll mostly be for framework building
+or when it comes to something at more of the memory management level. And Java programmers,
+at least day-to-day Java programmers like myself, don't really do a lot of memory management.
+But this is a good article to read just for learning. So back to the weak hash map definition,
+which uses weak reference type, by the way, while then continues, an entry in a weak hash map will
+automatically be removed when its key is no longer in ordinary use, meaning that there is no single
+reference that point to that key. So what this bit means here is in the key value pairs in the
+hash map. If the key isn't being used anywhere outside of the data structure, outside of the
+cache, that means that there's no single reference. Therefore, it just could be removed
+automatically and having a weak reference helps. When the garbage collection process discards a key,
+its entry is effectively removed from the map. So this class behaves somewhat differently from
+other map implementations, because normal map implementations would have a strong reference,
+and you can't just let the garbage collector just do garbage collection as it wishes, eagerly.
+It's a bit more tighter and a bit more stricter. I just realized that I didn't go through this
+canonicalized mapping bit. That is, in fact, from the Oracle docs that defines what weak
+references are. So the doc state, weak reference objects which do not prevent
+their reference from being made finalized, finalizable, finalized, and they're reclaimed.
+Weak references are most often used to implement canonicalizing mappings. What does that mean?
+So this is another really good blog post I read.
+Sorry, I had to find the blog post here. The title of the blog post is itself
+canonicalized mappings. I'll leave a link to that down below. I'm not going to go through
+the whole thing, but the definition is by Tom Rosen and Ian Lowe. A canonicalized mapping
+is where you keep one instance of the object in question, in memory, and all other lookup,
+that particular instance via pointers, or some such mechanism. The short answer is that weak
+reference objects can be used to create pointers to objects in your system, while still allowing
+those objects to be reclaimed by the garbage collector once they pass out of scope.
+That kind of makes sense. I mean, it makes sense in the sense of I can see why theoretically a
+weak reference type can be used in a weak hash map to prevent memory leaks in a cache.
+I can see the reason. I'm going to be honest. I don't think I can
+still fully understand how to implement that in code, but at least conceptually,
+I can see the connection there. So now let's take a look at what a weak hash map is. So I created
+this class called the weak hash map demo. I kind of repurposed this example that was used on
+Baldung's blog. Firstly, this part really isn't a part of the weak hash map. I just want to show
+how to create a weak reference. That's how you do it. It's a generic type. You pass it
+of integer, and then you create the weak reference. Easy as that. And then when we
+made this prime reference null, initially we declared that we make it null,
+this object will be garbage collected in the next GC cycle, as there's no other strong
+reference pointing to it. So when we create the weak reference, as you can see here,
+we're passing that object into the constructor of the weak reference class. And now this new object
+is of type weak reference. But that's just how I create weak references. Now let's get to the
+cracks of this class. This is terrible coding. I should have put this somewhere else because
+this in no way is related to this class. But in any case, it's just for demonstration purposes.
+Here's how we create a weak hash map. So it's just like creating a normal hash map, really.
+You define the key and the value, the types of the key and the value. And ideally, we want a
+map implementation that allows garbage collection to automatically delete unused objects,
+correct? And because we ideally want that, is the reason that we use a weak hash map.
+When a key of a big image object is not in use in application in any place. So that's
+the key for this object here, the unique image name in this case would be the key.
+This entry will automatically be deleted from memory. It's pretty cool, in fact, how this
+happened. And I'll show you this and show this to you in code. So we have the weak reference map.
+Just ignore the other line of code I've used here. It's just a normal hash map I've used. I was just
+playing around with this. But what matters really is the map I've created here in line number 25.
+So for all intents and purposes, this hash map could be our cache. And we are putting a new
+big image object into that cache, into our hash map. We're also creating key and putting that key
+to and we're creating the key value pair here. And the image name, of course, is the object
+reference, which is the key. So if I run this code now, what you'll see is...
+So what's this log here? Map does contain, does not contain an image name. So
+that is terribly misleading. I just realized that that log can be extremely confusing because
+the map is supposed to contain an image name because they're putting it in line number 31.
+And we aren't nulling out any key here. So I'm going to run that again because that can be really
+confusing and kind of ruin the purpose of this demo. The map should contain image name. It should
+contain the key because we haven't nulled it out and I think nothing has happened. And of course,
+the map will also contain a big image, the big image object.
+Also, that's confusing. I should have prepared for this demo much better. I
+can't get rid of that line because I'm adding it twice into the hash map. I don't know why I'm
+doing that. Anyway, in any case, I hope I'm making sense. I profusely apologize because
+this is not a good demo. Hey, but as soft engineers, we all know that whenever there's a demo,
+things break. So perhaps it is, ironically, a good demo because this is what a demo would
+actually look like. So initially, yes, it does contain the key and it also does contain the
+value. And then what happens is we null out the key. That's all we're doing. We're not clearing
+anything out. And then we just run a garbage collection cycle. We force a JVM to write a GC
+cycle. And then almost magically, the bloody hash map is empty. And how is that? This wouldn't
+happen if it was a normal hash map with a strong reference. The way the hash map is empty in,
+so this is the log here that you see, is in fact because this hash map is a weak hash map using
+weak reference type. So when the external reference to this key was nulled out, the object
+itself or the key value pair was garbage collected because it's not used. So that's the perfect
+implementation of a cache that will prevent memory leaks. And then for this problem of
+memory leaks and caches, another solution that he's proposed is sort of using a least recently
+used cache eviction policy. But the implementation of it is a bit more different to kind of the
+conceptual understanding of what that policy is. And that can be done using a scheduled
+thread pool executor. And it could be what this does is in the background on a separate thread,
+you can run tasks, schedule tasks repeatedly, such as cache cleansing. And to understand what
+this is, what a scheduled thread pool executor does, I came across this article on geeks for geeks
+by a user called Samu Fo, and that's the user's pseudonym. And here's the implementation of that
+class. I think it's important to understand what this is doing, even though this isn't fully related
+to clearing caches, the way it'll work is like this. So I, anyway, by the way, all this code is
+on the GitHub repository. So please go take a look. And this kind of demonstrates how the
+schedule thread pool executor works. Initially, we create an object called thread pool, we
+created an instance of the schedule thread pool executor, and we pass the size of how many threads,
+two threads in this case, and then we create two runable tasks. So these tasks could be anything,
+it could even be something like the main, let's say the main thread that's running the program,
+and then in the background, clearing the cache in a given time. And afterwards,
+the first one will execute in two seconds, and the second one in five seconds. That's as simple
+as that. So if I run this method, you'll see the first one executed in two seconds, and the other
+one executed a bit later, and then that a bit later. Sorry, that's the current time, I apologize.
+So that was in the execution. So that was the first task, and that was the second task. So I
+shouldn't have said every cache, every cache of both tasks, because this could be, in fact,
+something else, it could be, I don't know, some main task. And then the second one,
+which we scheduled to run in five seconds, could be the cache eviction.
+So that's the implementation of that idea of cache eviction policy, using a schedule
+to try to execute it. And to be, you know, pretty more formally and clearly, Joshua Block states,
+most commonly, the useful lifetime of cache entry is less well-defined, with entries becoming less
+valuable over time. Under these circumstances, the cache should occasionally be cleanse of entries
+that have fallen into disuse. So that's where scheduling a task like this, using these scheduled
+terrible executor could come in handy, because we could time it because schedule a cache eviction
+in a given period of time. And then he even states that the linked hash map does this. So if you
+take a look at the docs for the linked hash map, there's a protected Boolean method called
+remove eldest entry. And that method, what that does is, in fact,
+it's an implementation of what Joshua Block has described here. It is clearing the linkless,
+sorry, the link hash map, by clearing out the old entries. So it says it provides the
+implement of this class with the opportunity to remove the eldest entry each time a new one is
+added. And then we get to the third way memory leaks could happen. So we've discussed how it
+could happen if classes manages their own memory, we discussed how it could happen in caches. And
+the third way is, the third common way is, it could happen when it comes to listeners and other
+callbacks, when a client uses an API with a callback function. So firstly, what's a callback?
+So Rishav Jindal from GeeksforGeeks states that a callback function is a function that is passed
+into another function as an argument and is expected to execute after some kind of event.
+I would also add, it's also an example of how callbacks are implemented is an example of the
+observer pattern, where an object should subscribe to another object and listens to changes in events
+on runtime. And that's what a callback is. It's a function it can pass to be executed,
+you know, contingent on an event during runtime. Even though I've used callbacks,
+obviously JavaScript uses, we'll use promises, but then a lot of JavaScript uses before promises
+use callbacks. And even in Java, we use callbacks. But I didn't initially get the understanding,
+I didn't initially understand how it can work, apropos, weak references, and how the garbage
+collection works when it comes to callbacks. So I did post a cycle of low question, and I got a
+really good answer by this user called Ingo Kegel. I'll leave a link to this question down below
+in the description, go take a look. But using that user's answer, let's try and make sense of what,
+well, in fact, before I say that, I just want to say, just a block states apropos this point,
+if you implement, when I mean apropos this point, that's when it comes to memory leaks
+with listeners and other callbacks, he states, if you implement an API where clients register
+callbacks, but don't do register them explicitly, they will accumulate unless you take some action.
+So what does that mean? What's the action we got to take? The action we got to take would be
+using a weak reference. And what, before we get to the code, I realized I should read out
+Ingo Kegel's answer here. He says, a client of the API has to keep a strong reference to the
+listener. That's how it says that, correct. So we can define the listener here as an interface,
+that's how we would normally do when implementing callbacks in Java. The API only holds a weak
+reference to the listener to do that, so that it does not prevent, that's a type of that, I believe,
+so that it does not prevent the client from being garbage collected. So it allows garbage collection
+to take place if required. When the client is garbage collected, the listener is also garbage
+collected. That's a good thing because we don't want the listener object to exist in memory
+and take up resources, and that's why a weak reference would help. Now the implementation of
+that would be seen here. So this is the example's courtesy of Ingo Kegel, as I said. This is his
+code that I've repurposed to once write this. So firstly, since Java doesn't support function
+pointers, this represents a callback. Effectively, it's a reference to the function which will be
+called. So because we don't use function pointers, we can use callbacks in Java. Function pointers
+can be used in C++, I believe. Don't quote me on that because I'm not a C++ programmer, C++
+programmer. Why am I talking so fast and fumbling my words? Too much of coffee. So this callback
+demo represents the mock API that a user would use. Initially, we have defined the listener here,
+so this listener is of the type, the interface listener. And then we've got to initially
+register this listener. That's what the client would do. So the client of this API would do that
+a bit later because the observer of this API has to use that method and register itself.
+This is a bit confusing. I should have maybe called it, used to separate class and called
+the client, but this callbacks demo class is the client of this API. Just keep in mind.
+So that client would have a strong reference. However, once the registering is done, the
+API itself will maintain a weak reference because then what happens is when this client
+at one point is garbage collected, so would the listener that it registers. And then we have this
+file listener method which checks for the listener, which checks if it's registered and then
+fires an event which we've defined here, which runs some tasks. So that's kind of how it's used in
+the context of callbacks and listeners. And that's why using a weak reference would help
+with ensuring that there aren't any memory leaks when a client uses our API.
+And then to conclude in the final paragraph, Joshua Block states,
+Biggest memory leaks typically do not manifest themselves as obvious failures. They may remain
+present in a system for years. They typically discovered only as a result of careful code
+inspection or with the aid of a debugging tool known as a heap profiler. Heap profiler can
+also be called like a Java profiler. And that's a tool pretty much that monitors the bytecode,
+constructs and operations at the JVM level at a very low level. Using a heap profiler,
+you could monitor your code and examine memory usage, how garbage collection takes place,
+if resources are being used wastefully, if there are memory leaks, all these things we discuss
+could be found through a tool like a Java profiler or heap profiler. And again, all of that is
+definition here. These code constructs and operations include object creation, iterative
+executions, including recursive calls, method executions, thread executions and garbage collections.
+So it's kind of like a way of instrumenting an application and instrumenting a code, let's say,
+and really digging deep into it and examining it at a bytecode level. And that's obviously something
+that I've never done in before in my life. Just on your ID, you can't do that. You need a specific
+tool for that. Therefore, to end it, he states, it is very desirable to learn to anticipate problems
+like this before they occur and prevent them from happening. So that's why this point is great,
+because initially, Joshua Bloch points out what the issue is. He kind of illustrates it,
+but then he also gives us three areas where this could potentially occur. We could kind of
+anticipate where memory leaks could occur when writing code and the three places it could occur
+when it comes to having obsolete object references that we should eliminate is in
+classes that just to reiterate the point in classes that manage its own memory in caches
+and when it comes to callbacks and listeners, when you implement that in your API. That's it.
+That is the item number seven, eliminate obsolete object references. As I did anticipate, it did
+go for over an hour because I did feel, even though the item isn't all that long or all that
+complicated, there were a few points like the implementation of the listeners and the callbacks
+and then the weak references that I felt like we need to dive in a bit more and understand at least
+I needed to make sense of it. As I said, all the code that I used on the GitHub repository and
+the link to that is in the description down below. Please go to look at the code. It'll make a lot
+more sense if you study the code assiduously instead of me kind of explaining it. Again,
+I'm trying my best to articulate myself while I'm also learning as I go. It's kind of how it works.
+You probably can see I'm struggling a lot with some of these concepts,
+but in any case, I sincerely do hope this video brought some value. You learn something from it.
+I shall see you in the next item. It is item number eight, we're still in chapter two.
+And item number eight is avoid finalizers and cleaners. And I'll get to that as soon as possible.
+In fact, I've already started writing the code for it. I'll see you in the next one. Cheers.

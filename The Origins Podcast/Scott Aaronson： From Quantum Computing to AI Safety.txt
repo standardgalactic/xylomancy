@@ -1,0 +1,1829 @@
+Hi, I'm Lawrence Krauss and welcome to the Origins Podcast.
+Scott Aronson is quite simply one of the most remarkable mathematical intellects I've had
+the pleasure to interact with since say Edward Whitten, who is a remarkable physicist and
+string theorist and has really and was the only physicist I know who also won the field
+medal for mathematics.
+Scott reminds me of Ed in the depth and breadth of his thinking and it's kind of appropriate
+that I actually first met Scott in Washington a number of years ago when we were both getting
+awards but he was getting the Waterman Prize which is basically the highest award of the
+National Science Foundation for for young researchers under 40 and the first person
+who'd ever won that prize was indeed Ed Whitten it was so it's a it's a pleasure to have
+known that Scott won that award and since since that time when we briefly met I've come to
+watch and learn as Scott as a computer scientist applies his mathematical expertise to a broad
+variety of areas thinking in particular about quantum computing an area which he's become
+a leader in in pushing forward the theoretical ideas necessary to to think about what quantum
+computing can and can't do and how it could do those things he also writes a fantastic
+blog explaining quantum computing people and then of course recently he's moved to the
+idea of AI safety he spent some time at open AI and and been thinking deeply about how
+one can can implement the kind of safety measures that many people worry about when they think
+about unrestrained general AI in in in our society I happen to think many of those societal
+concerns are overblown but nevertheless fortune favors the prepared mind and and and his mind
+is wonderful and the preparations he's been doing are incredible so we we were able in this episode
+to to talk about everything from computer science to AI safety focusing on this rather esoteric
+idea of computational complexity and so we worked through some rather sophisticated ideas in
+computation to talk about the basics many aspects of quantum computing which compliment nicely my
+earlier podcast with John Preskel who's a physicist just coming who who's coming to that
+field and it's interesting to see how a computer scientist thinks about those same issues and
+then we move to the thorny question of AI safety and some of the remarkable ideas that that Scott
+has wrote with regard to that it was a remarkable conversation he's a as I say extremely deep and
+thoughtful intellect and it was a pleasure to finally be able to spend time with him again I
+thank him for being on it I think you'll find it amazing I hope you enjoy the podcast if you
+want to watch the podcast without commercial interruptions I hope you'll subscribe to our
+critical mass substack site and all of the paid subscriptions for that go to help support the
+origins project foundation which produces the podcast among many of the other public science
+programs that we do and if you if you can't do that you can certainly watch it later on on YouTube
+or of course listen to the podcast in any podcast site regardless of how you do so I hope you are
+as inspired and provoked by the thoughts of Scott Aronson and quantum computing and of
+course the the issue of AI safety which is going to becoming more and more important as AI systems
+become more sophisticated so without further ado Scott Aronson
+well Scott thank you so much for making the time to be here it's great to see you again it's been a
+while actually yes thanks for having me it's you know it's it's I've been looking forward to this
+and as I'll explain dreading it for the same reason because I admire you so much we first
+met I think at least 12 or 13 years ago maybe 14 years ago now 13 I guess I think that was first
+time we met when we were both getting awards from the National Science Foundation and we were we
+shared a limo in Washington yes State Department and I confess so I was getting some public service
+award and was that where you received the Waterman award it was yeah you know I confess maybe
+because I was so into myself that time that I forgot it was a Waterman award till much later
+and it's just as well I'm anyway it was an amazing night it was a lovely evening and it was lovely
+to meet you were I think newly married then or maybe I was yes and yes my kids were not yet born
+yes yeah yes your kids weren't born and it was lovely to see you and your wife yeah a young couple
+so excited about this award I knew I knew it was an award for young people but the Waterman award
+is the highest prize that the National Foundation Science Foundation gives to a scientist under 40
+and I normalize it let me say because I remember when it first was created I'm old enough and I remember
+when they they asked for nominations and it wasn't surprising to me that I think the first recipient
+was Ed Whitten who is I think by almost anyone's standards the smartest person in the world
+and I thought okay well that's a nice bar and I have to say that having thought about I've known
+things you know I've known of your work and read some things by you but deciding to go into
+understanding you I suddenly realized that I had the same feeling that I have when I'm when I was
+talking to Ed who's an old friend of mine and a nice guy as well but the kind of the sense of the
+depth and breadth of your intellect is remarkable to me I'm saying that outright I'm intimidated in
+some sense by it I'm astounding I want to hopefully do it justice I think the problems you were looking
+at are interesting and the way and your attitude is refreshing you add a difference in the sense
+that you also like to write about your problem your thoughts which I don't think Ed does
+but I kind of feel you know as a preview of what we're going to talk about I kind of feel that
+that that when you talk about computationally hard problems
+for me you're a computationally hard problem and this I'm you know I may I may require not
+computing at polynomially time but exponential time to fully grasp
+your your intellect and and and in in that sense and I'm going to say things that people
+understand right now but we'll get to it in that sense I'm hoping that p is equal to np because
+I'm hoping that I can somehow understand how to get to where where where where you are
+um and yeah well you're you're you're extremely kind I mean I have gotten to know
+Ed a little bit over the last five years through the the it from qubit collaboration and things
+like that I'm I will certainly not be able to to simulate him in any way shape or form and you
+know I feel like the you know the the the questions that I work on seem you know ridiculously
+elementary in many ways you know compared to uh what what what what my friends in string theory do
+but uh you know I like I like being in a field where uh uh uh that's relatively young and where
+the questions are very easy to state yeah well some but as you just alluded questions that are
+easy to state are not necessarily easy to answer in fact sometimes they're the hardest ones to answer
+you know my new books about known unknowns and in some sense the as I say at the beginning of the
+book and it really hit me is that the problems at the forefront of science that we don't understand
+are precisely the problems that almost everyone has asked themselves at some point or another so
+it's kind of interesting to see that but I um but you know on the other hand I you know I can
+ask questions without making sure I understand what the questions are in fact I was thinking about
+that because we'll get to jat gbt I'm hoping that we may have a very fascinating discussion
+even if I'm kind of like jat gbt where I don't really understand exactly what the what the questions
+I'm asking are what the or what you're saying is but I know how to get there so anyway let's see
+where we go I I find it fascinating and I should say that you know I I I wanted to talk to you
+as a initially also for a variety of reasons one because I wanted to talk to you but also
+as a compliment as you may know I did a a long podcast with my old friend John Preskell who was
+who goes back to me back to when we were at Harvard together and before he started working
+in quantum computing I like to kind of think that that are the issues we worked on on black holes
+and information are really what may have spurred him into thinking about quantum computing I watched
+that transition happen as we were working on papers yeah no John has been instrumental in my career
+I mean I uh uh you know one of the most important summers uh you know that I ever spent was at
+Caltech in 2001 going to his group meetings and you know just feeling invigorated after everyone
+to uh he's a remarkable teacher I understand what quantum mechanics says about computation
+yeah no and and but he comes out of from it from a different point of view he's not
+training a computer scientist than you are and I thought you know quantum computing which
+we talked a little about a lot about with him I thought the more different directions you can
+come at it from the more useful it might be from the public but I um but I wasn't but I so that's
+what I wanted to start and then when you sent me things to read when you finally sent me things
+to read when I asked you you know maybe some for some sources it will of course one way beyond
+quantum computing and and and and as we'll talk about your interest in the last year at least
+has been in AI safety which is something that's on everyone's mind but in the in in the interim
+what I began to learn about with that your real interest your where your heart is is computational
+complexity I think that's a fair statement the mathematical question of computational complexity
+so I want to talk about how we got there before we start talking we'll talk about quantum computing
+computational complexity and AI safety hopefully we'll get through it in the next day or two
+but as you may know if you've watched any of these and maybe you haven't I like to
+it's an origins podcast and I like to start by learning about the people I'm fascinated by
+about their origins and where they how they got to where they where they now are now the first
+thing I learned when I read a little bit about you is that your father was a science writer
+who then became a public relations executive yes so was his training was was his training
+in science or was his training he was in both of my parents were English majors English majors
+okay perfect um well that does explain some things well that's that's of interesting
+but English majors clearly well in your father's side and I want to ask what your mother a little
+bit because I don't know any better but in your father's side you know I think it's great when
+English majors become science writers because ideally if if an English major can understand it
+then anyone can understand it yeah and and and so it's better they don't get lost in jargon but
+what caused him to be a science writer well uh he studied at Penn State and he actually
+studied with a uh a somewhat well-known science fiction writer named De Phil Klass okay and uh
+and um he was you know extremely interested in well in in in science and in science fiction and uh
+he um um uh you know he he found jobs you know writing uh uh articles about you know the big bang
+about cosmology uh you know he interviewed Steven Weinberg actually you know when I first met
+the Steven Weinberg uh uh uh seven years ago when I was considering moving to UT Austin
+he confused me with my father who he had still remembered for me really having having a being
+interviewed by him in the seven but um um you know he he he wrote for um you know science
+magazines he also wrote for a playboy in penthouse which uh which had which I maintain had great
+articles science magazines I used to tell my mother I mean so he had these and I did he had these
+playboys in his office right but but uh you know he could legitimately say like you know I have an
+an article in here about why is there more matter than anti-matter you know in the year
+and they had great interviews I've uh Claudia Dreyfus is an old friend of mine yeah science
+writer and she used to do interviews for them she interviewed me once and it ended up being for
+Scientific American but but uh yeah no it was it was a great source of it's a kind of yeah so that
+was that was what he did in the in the 70s and then he uh was hired by Bell Labs to be a science
+writer there and uh actually when uh Penzius and Wilson you know won the Nobel for the Cosmic
+Microwave background uh he was involved in you know the the publicity efforts around that right
+and so so he got to know Arno Penzius well and uh uh but um um you know and and and and then you
+know when when congress was you know debating you know breaking up uh AT&T you know uh you know he
+was responsible for you know writing speeches about you know why is this going to destroy Bell Labs
+you know which of course it did destroy Bell Labs you know on the other hand we all got you
+know cheap phone service so that was the trade-off yeah it did destroy Bell Labs and nothing like a
+monopoly if you want to spend time on research yeah and then he and then he and then he and then he
+moved to the to the corporate side and became public relations for Bell for for AT&T yeah yeah
+no he's he was at AT&T uh and then and then it loosened after they spun off or loosened and then
+and then at Avaya so um yeah so did he write did did he ever write any science fiction by the way
+I believe he did but you never saw it uh no years ago I probably read one of his short stories
+but uh no he was he was also you know constantly uh you know giving giving me uh feedback on my
+writing usually just telling me to uh cut cut cut you know yeah admit needless words yeah yeah well
+you know it didn't it didn't completely take that advice well that's okay I like I like
+for me I often especially when I'm trying to understand something more is sometimes better
+um but uh but it explained a lot to me when I learned a little bit about your father because
+you know you have been involved with and in spite of the fact that for many people blogging is the
+death of of of their science I know at least one physicist who I'd say that for but really yeah
+yeah I think I think so I'm not going to mention I mean I mean I I feel like blogs are already
+something that like you you know you look back on with nostalgia like gosh you know people really
+uh uh express themselves you know in depth and back in that lost golden age of blogging right
+well you know it's great I mean that's something yeah you know your blogs have been very useful
+for a lot of people and that's great and but now I understand why why you're motivated at least
+the example of why you're motivated to write because you know your intellectual interest is in an area
+that is is in some sense as far divorced from public explication as you might imagine and
+and especially since involves mathematical complexity two words which generally are an
+anathema to the public um and and so yeah so now I understand why where you got that instrument
+and by the way I I know you've got a great idea for a science fiction story you've told it enough
+that I'm expecting someone else to write it if if no if you don't but maybe we'll talk about your
+science fiction story before we're done because it's a great it's a great idea I agree but you have
+to know enough to know what the what the hook is for science fiction what about your mother your
+mother was an English major yeah so so um my my mom was a remedial reading teacher and she actually
+taught uh uh for decades in in inner city Philadelphia um and uh you know she she uh uh
+you know worked at uh Catholic schools mostly uh but you know the the you know but but but she was
+in an employee of the city right and the the the supreme court you know kept changing its mind
+about whether she was allowed to be in the building or whether she had to be in a trailer
+outside the building uh it was a big separation of church and state yeah yeah yeah yeah but uh uh
+you know she was uh you know you know these you know although kids went to Catholic school if they
+had uh reading difficulties they were entitled to you know a a specialist to help them and so
+she was uh you know and um and and an expert in that and uh you know I think that uh she she could
+have probably been you know uh you know done done done done research in that area and you know and
+and done done much more in it but she she really sacrificed a lot for you know for me and my brother
+I mean she uh you know she wanted a job where she could be there for us so well that's lovely yeah
+now um who which one of the more maybe both was oh you know because he was a science writer is that
+what what sparked your interest in science in the first place oh gosh I mean it's it's it's kind of
+like you know how you know how could you know that there's a I know I mean you hear that there's a
+maximum speed that anything can go at right and a lot of people don't hear that where you must
+thousand miles per second right like how can you how can you not want to understand well yeah but a
+lot of people don't even know what happened if I tried to go faster right yeah sure but where did
+you first hear that a lot of people don't have never heard that I mean I mean my my my my my dad
+told me you know a bunch of these things when I was four or five um you know let me think you
+know I mean I had you know I had science books that I read you know I think you know I uh you
+know at some point you know when I was 10 or 11 I started devouring Isaac Asimov uh me too I was a
+little old to probably 13 Isaac Asimov yeah yeah yeah George Gamow as well but yeah okay yeah and
+then and then after that uh Richard Dawkins uh Carl Sagan uh Bertrand Russell um you know and then
+I just uh started devouring biographies of scientists uh so you know biographies of you
+know all you know Einstein and touring and Ramanujan and just you know uh learning about you
+know the the you know the whole world so you know almost well let's go back I mean that's the next
+thing I was gonna ask so you were you uh it's you got part of your interest in sciences from reading
+and that's certainly with Spartan that's what got my interest going um but was there I assume because
+they're both English majors reading was a big deal now for you you read a tremendous amount when
+you're younger your parents encourage that I I I I I read a pretty good amount I mean you know I was
+I was also playing Nintendo yeah yeah right you know once I once I had that right and uh you know I
+think that uh for a while my my main ambition in life was to uh create my own Nintendo games right
+because you know you know these were these were whole universes and yet you know unlike our universe
+these were universes that apparently someone completely understood because they had created them
+well you know that's not too different it seems to me from where you ended up
+but we'll see um but you know we were joking that your kids like to play with their iPads and I said
+if you were if you were their age now that's what you'd be doing I think but but you so you got
+exposed to science in some sense primarily through your dad and and through the access to books and
+books by scientists and about scientists which of course certainly one of the reasons I write
+is to return the favor um but you also had another experience that I think I assume was formative
+your father went you went to Hong Kong for a year yes and that that took you to a school
+that allowed you to do mathematics way beyond what would have been possible in American school
+it was it was it was a little complicated so you know I I uh for for for nine years all through
+you know elementary I went to a a Hebrew day school and you know it was not because my parents were
+particularly religious it was mostly that the Hebrew day school you know alone among all of
+the schools said okay he can take a math book and he can uh you know proceed at his own rate
+uh and you know uh um and and then you know uh let me step back let me just step back yeah no no
+no I'm sorry but I'm interrupting here for a reason often I don't but no no I interrupt too much I
+know everyone tells me but but you could take a back math book with you you were precocious
+be beyond precocious as a mathematical person where did the interest in math come from as opposed to
+science well that that that says early as I can remember really okay so you just were fascinated
+with you know yeah I know I mean I mean I think you know when when I was three or four I was
+interested in just what are the biggest numbers that that you that you know that I did you talked
+any about that or or did you yeah I mean I I mean to my to my parents and then and then at school
+I had a uh I had a teacher who was uh um you know really formative for me so encouraging teachers
+mrs lecker yes yes and then and encouraged you to keep and and so in in Jewish day school or
+whatever you could you could follow math and they let you do that which they they let me you know at
+least at least uh uh you know be be somewhat accelerated um and then you know in seventh
+grade I went to public school and uh you know was was allowed to be uh um you know to do uh uh the
+the the the uh honors algebra then and then uh I uh and and and then um you know after that is when
+we we all moved to Hong Kong for a year because uh my dad became the uh uh director of AT&T's
+Asia Pacific public relations division and uh uh and and so they they they paid for us to go to a
+um uh you know a a a fancy private school for you know uh you know so you know um um you know
+for for for for expats and for uh um you know Chinese people who could afford it it's called
+you know Hong Kong International School uh but uh there I was placed in eighth grade um uh but you
+know I I um you know it turned out that that uh it would not work for me to you know go over to
+the high school to take math it just didn't work logistically there was also you know bullying
+there was you know a lot of things I didn't like about it and so then you know I'm ultimately you
+know the uh you know we convinced them to just let me skip to ninth grade uh uh entirely and then um
+you know and then and then also you know uh skip more in math I you know math you know in some sense
+was sort of the the excuse you know the uh you know at this point like like as soon as I understood
+that I you know like it was possible to do such a thing then I just sort of wanted to get out
+of the school environment uh as as quickly as I could you know and you know and I still don't know
+whether whether uh I was right right whether whether uh you know things ended up better or worse
+but uh you know when I when I came back to the U.S. the year after then I was like well you know I was
+you know in ninth grade but it was really sort of like tenth grade so really I should be in eleventh
+grade and uh and and so then I you know I did that and you know and then I finished the the
+calculus that year and um and then and then the the school had said that you know I would be able
+after that to just take you know Stanford had this online learning uh course you know I could do
+multi-variable calculus or differential equations uh but then it turned out that I couldn't do that
+you know not even if my parents paid for it right uh you know I I wasn't allowed to even just sit in
+a room to do that and so I said you know again I used that as an excuse and I said uh you know
+there was a program in upstate New York uh called the Clarkson school where you live at Clarkson
+University which is you know way up in in Potsdam and you uh take college courses and you do that
+as your senior year of high school so I said you know why don't I go there uh and you know I had I
+had many reasons for wanting to get out of high school but uh you know my parents uh you know
+after some convincing where we're kind enough to let me do this and uh we had the car all packed up
+ready to go there and like as the car was all packed up then we got a phone call from uh you
+know a teacher at the high school who you know the one who had really supported me and he said
+I have great news I finally arranged that he can take multi-variable calculus but you know by then
+it was too late and then you know I was I was I was 15 when I started college and I um you know
+after a year at Clarkson sometimes your original high school is nice enough to give you a diploma
+but mine would not uh because I was missing phys ed so they said I had to spend the summer
+doing push-ups basically uh you know and and this was a problem because you know I had gotten
+you know you I had applied to other colleges you know as a freshman and and Cornell was nice
+enough to accept me out of all the places I applied to uh so uh so I was going to Cornell
+but uh you know I needed a high school degree and uh to to enroll and so then um you know eventually
+you know the plan was for me to just get a new york state g ed and there was a rule that you had to
+be uh 17 to get it but but but my mom spent some hours on the phone with them and convinced them
+to give me a g ed day so you're what 16 you're 15 I was yeah I was I was 15 at the time yeah and
+and then and then 16 when I started at Cornell when you started now you you your grades it's true
+that not only did you not enjoy your high school because of their restricting you from doing what
+you wanted but your grades weren't that good there either were they yeah I mean I had a you know I had
+a lot of conflict with uh with with it with a chemistry teacher for example who who gave me a
+say you know and I just remember you know the the one thing I clearly remember from that class is that
+like you know when when when you had a calculation to do you know even if you had the right answer
+it would be mark wrong if you didn't write one mole divided by one mole and then cross both of them out
+well you know I'm gonna sympathize a little with your
+namely when it comes to physics often and chemistry is just really a part of physics
+but you know understanding dimensional quantities and uh is very useful for understanding
+how to get the right answer and even what the right right equations are no doubt no I'll give
+him I'll give him but on the other hand chemistry teachers next to math teachers are often the worst
+in the world so so um but but also you know I was you know I it became clear that you know I was
+not good at chemistry experiments yeah well sure and you know and and but but but but high school
+labs are such a weird thing because you know you are graded on whether you get you know the answer
+you're supposed to get and you know the incentive is overwhelming to just fudge things to get that
+answer yeah it's like teaching the opposite of what you want to teach people if they're I agree
+process is what's important yeah no yeah that's a lot we won't maybe we'll get into education later
+on but yeah yeah process and asking questions not the answers especially in a world where we have
+smartphones and soon other and chat gpt um uh but okay you enter cornell and you but now
+by the way at the same time one thing we skipped and this will become relevant later on
+so you're you're prodigious and prodigiously talented in mathematics clearly um but you also
+were you know started at the same time as you learned calculus around age 11 you also started
+to do computer programming yeah it felt like you're already way behind the curve was that because
+you had friends who'd been doing it from the time they're five or just well I met uh when I when I
+was 12 I uh at my junior high school I met another kid named named alex who uh uh had had been
+programming for much longer than me could you know create amazing things in a visual basic and you
+know and it was clear that I was never going to be as good as he was now he became my best friend
+he still is he's now a very well known computer security researcher uh alex alderman uh he's uh
+often in the news for uh uh you know especially in the in the last few years for uh studying the
+security problems with electronic voting machines oh wow you know but but even even when he when we
+were 12 years old he was extremely interested in you know hacking the school computers and uh you
+know and and and sort of showing how ridiculously poor the security was and you know and he and he
+had a sense of sort of what was actually going on in the machines right not not just what could in
+principle be going on but you know but what was and and uh I think I think you know uh uh uh um
+alex was was part of how I learned that you know I am I am not cut out to be a software engineer
+you know well that's but that was probably very useful for you because you could I mean I know a
+lot of smart kids who just get in that morass of of programming and building apps and so of course
+some of them become rich that's a different story but when they could have when they actually have
+the aptitude to do other things to do other things and it's very seductive and of course the money is
+very seductive if you're a young person right well you know there I mean I mean there is this this
+kind of running joke that uh you know we we uh see someone who you know left a phd program and
+start you know start a google or or or an amazon and get you know 20 billion dollars and we say to
+ourselves like man it's so sad they really could have been something yeah yeah that's right I think
+of Nathan mirvold for example if you know that's you know did wasn't able to get a job in physics
+but he did okay right yeah I'm right right I mean I mean I mean I mean that's that that's one
+perspective you can take but you know I did face this sort of decision point when I was a teenager
+like do you know the you know this was the time when you know uh all of the these internet companies
+were being started you know I uh I knew that there was this cool research project at stanford or
+something called page rank then you know these guys brit and page were doing right yeah I had
+also been thinking about you know how do you optimize the web how do you think about the web
+as a directed graph you know those were I that was actually the subject of my first paper which I
+you know did when I was at quarkson when I when I was 15 you could you know so so you know those
+were all things of great interest to me um but you know do I uh try to you know go to silicon
+valley start a company or do I go into uh research and you know I feel like uh you know I I think
+the you know the way I put it recently was that like in in in the end I was too selfish to try to
+get rich like you know like I like if if I if I did make you know uh uh uh you know even if I
+succeeded at making a ton of money which which is not at all certain you know it would just face me
+with with with the burden of figuring out what to do with it and you know how could I have an impact
+on the world it wasn't maybe a lot of money was not intellectually interesting I know that feeling
+when I was younger I certainly had it I mean I mean it might it might it might well have been I mean
+that that you know that you never know that that was that you know in any case that's a different
+branch of the wave function yeah it is a different way from it's a difference it's a different set
+of skills you know I created a program physics entrepreneurship once when I was chair of the
+department and I learned how different having a successful company is and having good ideas it's
+a very different thing and right I mean I mean I mean now I've you know a little bit I'm coming
+full circle because now I'm on leave I'm I am working at open AI I'm out in San Francisco a lot and it
+is you know it's so bizarre to go there right because I still think of myself mentally as like
+this little kid this little teenager right at open AI I think I am literally like the oldest person
+there okay you know just about everyone is you know in their 20s and you know and I'm like you
+know well the way we thought about machine learning back in the 20th century which none of you young
+uns remember okay now um well we're going to get to where you are now but we'll get there almost
+on I want I am intrigued though you you when you entered Cornell you decided to a BS in computing
+and I mean you think like a mathematician when I read you it reminds me of reading mathematics
+so I did a degree in mathematics and wanted physics and I quickly became clear to me even
+though I was good in mathematics that I was a physicist and not a mathematician and I got
+the same sense of impenetrability about some of your thoughts that I do have in mathematics
+and so why did you why did you do computing rather than mathematics yeah uh well okay so
+there's a a sort of silly reason I took enough math to be a math major at Cornell but in order
+to be one I'd have to be in the College of Arts and Sciences and then I would have to take two years
+of a foreign language oh I see and at the time that just seemed like you know you know a big
+waste to me you know just like you know when I had been at a Jewish day school you know learning
+Hebrew it seemed like the biggest waste to me now I'm married to an Israeli and I wish that I had
+paid more oh okay I dropped out of school but uh but you know I never had any uh great facility
+with foreign languages you know I also tried to learn Mandarin the year that I was in Hong Kong
+and that was also uh not a not a great success but uh but but but but uh so so so I was in the
+College of Engineering and uh you know I was doing computer science there and and I did
+you know take take a little bit of physics uh and you know I realized that that my mind just
+does not sync with partial differential equations you know like okay you know I like okay yeah at
+some conceptual level I I understand but uh you know I just you know I wasn't I wasn't good at them
+and uh and and also you know I I you know the the the the the the moments in the physics class
+when I got the most engaged was you know when there was a you know a mathematical point right
+yeah I know it's it's that's fast you know that countable or uncountable yeah yeah it was fascinating
+for me it was a revelation for me I did a degree in math and one in physics and I and and I was in
+you know therefore in the honors math and I was some really good mathematicians and it shocked me
+because I figured if you're a really good mathematician the physics would be trivial
+and and it shocked me that these guys who were light years behind beyond me in in math I felt
+I couldn't you know even introductory physics was uh was difficult and it was interesting to me to
+see that it was actually made me feel better of course and yeah some sense because physics was
+you know the difference for me was that I could I could when I was doing physics problems versus
+math problems I want to ask you this with the physics problems I could see way down where we
+were going and where you know where the future was math problems I could do them but somehow I
+could only see just one step beyond where I was at best I see I see yeah no I mean so I I've spent
+my whole career in quantum computing you know interacting with physicists who are the majority
+of the field you know and very often feeling like an imposter because you know I okay at some point
+I learned what Hamiltonians are I learned how bosons and fermions work right but you know these
+are all just things that I I pick up on the streets you know that's right I mean it's picking up
+you know I think my my you know retirement project will be to really seriously study
+quantum field theory and also general relativity right right okay you you know but but uh but but
+on the other hand you know what what what uh what I realized like uh pretty early on uh you know
+after I had gotten into quantum computing was that uh you know like you know there there could be a
+particle physicists right who are like asking me to explain the bell in equality yeah sure like the
+things that you know that I that were just the most basic to me were often things that the
+physicists didn't you know understand and wanted to understand yeah because they didn't really need
+to know and in some sense the bell I mean you know you work with quantum mechanics you don't need
+to know that's right that's right and and so so I actually you know had a whole like little career
+just giving colloquia in physics departments you know explaining the basics of quantum information
+and quantum computing you know which you know I didn't have to explain quantum field theory
+because they already know that yeah yeah yeah yeah yeah I will say one other I'll
+interject one other thing I don't want to direct myself too much but it's when you say you didn't
+do this because of you don't want to take foreign languages it's intriguing to me because when I
+was reading all your stuff it occurred to me how wrong I was about something the first professorship
+I had at Yale was at Yale and I think I got put on as even as a junior faculty the committee that
+determined science was to determine science requirements because Yale students basically
+didn't have to take science which is not surprising for Yale and and and so we tried to
+sort of double or triple the science requirements and we wanted and and the computer science department
+desperately wanted computer science to be an introductory science requirements we said no
+you know we want to we want to an experimental science and so I remember saying what we could
+make it a foreign language requirement so you know Fortran or or or and now I realize how completely
+here I well at the time it might have been true that the computer science in 1980 was not but but
+at least for undergraduates but it's certainly now that I read your stuff I realized how wrong I was
+about but but well I mean I mean I mean look I mean I mean part of what you know computer
+science majors learn is languages but actually there's a lot of complaints about the computer
+science major you know that it it doesn't prepare people for you know optimally for careers in tech
+because there's too much theory you know too much ideas and not enough languages but you know that's
+that's that's that's what it is right there's but you don't need as the 12 year olds who
+start company show you don't need to go to you don't need to go to college to yeah yeah right
+right I think I think I think a lot of fields have this conflict you know yeah yeah yeah now
+so okay so you chose math rather than computers and now I mean computer science rather than math
+and I understand was to get away by the way that's why I chose a degree in math because it
+because it allowed me to skip doing an experimental physics class
+so you know now I kind of I mean I mean I mean I mean the other thing you know like I I I realized
+that you know I wanted to prove theorems right I like proving theorems but then you know there's a
+question of which theorems right and in math what you have is you know you have such you know
+staggeringly high towers of abstraction right they're like even to get to where the frontier is
+you know even to understand the questions that are being asked at the frontier right could take
+years and then when you finally reach that point then it's very hard to explain to anyone who's
+still at the bottom right and you know I feel like like theoretical computer science in a way
+was much younger like the questions were much easier to understand initially and you know
+which didn't make them easier I mean you know yeah yeah yeah P versus NP seems to be as hard as
+anything you know that's never been asked right but it's pretty hard yeah but but but but but but
+at least you know you know and you sort of see this you know there are these seven clay millennium
+problems that you get the million dollar price for right but when people try to popularize them
+they inevitably end up focusing on P versus NP right because it's the one of the seven where
+you can explain to anyone on the street like you know how could an answer to this question
+change civilization yeah well I hope so we're going to get you to explain that and yeah but
+not I'm not going to get you to explain the punk or a conjecture or something I already solved so
+what's the right that's the one that solved yeah um the so you you went from B from an undergraduate
+I'm almost finished with your life story before we get to the science but all right uh but I found
+it fascinating you went to Berkeley and you decided to work on quantum computing yes that because
+because you let me let me I maybe I'll ask a leading question as a lawyer would say
+all right if I think about your interests now that I know them which are really in
+computation complexity was it because quantum computing was was sort of the most exciting way
+to actually empirically kind of address that problem or was it something else well I mean it
+was a this this new emerging field that sort of brought together computational complexity with
+some of the biggest questions about physics you know like you know is is quantum mechanics you
+know really true all the way up to macroscopic scales yeah right and uh uh how should we think
+about quantum mechanics right you know should we uh you know uh uh believe or disbelieve and you
+know the the many worlds interpretation and uh so uh uh you know so so I mean I think I first
+read about quantum computing in a popular article you know around 1995 like you know just shortly
+after Shor's factoring algorithm was discovered right and it was about that and it was saying
+you know the the usual wrong things that people still say about Shor's algorithm today they say
+you know it works by just trying every possible device or in a different parallel universe and
+then you know magically you get to pick the best one and my first reaction when I read about this
+is like this sounds like garbage you know this sounds like some physicists who just don't understand
+what they're up against you know that you know she was probably yeah she's been an english major
+too and of course it was right yeah no no that uh you know like they you know they don't understand
+you know the church touring thesis right that all you know a different you know laws of physics can
+all you know reasonably well simulate one another and um you know and and and and you know it must
+be some some phenomenon of some small number of particles that they're just illegitimately
+extrapolating to a large number you know but of course I you know I had to learn something about it
+right so I um I uh you know the you know the the the web itself was not that old but you know
+there were already websites explaining Shor's algorithm and Grover's search algorithm which
+had sort of just been discovered you know for searching a list of n items and only square root
+of n steps and you know what what really struck me was that like you know I had I had read popular
+books at this point you know that said you know quantum mechanics involves waves that are somehow
+also particles and they change when you look at them and you shouldn't even try to understand this
+it's you know it defies any you know and I said okay fine whatever I guess I'm never going to
+understand that right uh and and and then when I as soon as I started reading about quantum computing
+it was completely different they said look here's here's the deal you know the state of a system is
+this unit vector of complex numbers and you know they're they're kind of like probabilities you
+know but they're not probabilities because they're complex you know you know you can you know what
+you can turn them into probabilities by taking their squared absolute values right that's what
+happens when you make a measurement but when you don't make a measurement then this vector of
+amplitudes just undergoes this you know linear transformations these you know unitary transformations
+that preserve their norm and I said wait a minute like I I I understood that you know why why didn't
+anyone tell me that before and then you know and then you know with a little bit more than that
+you know what are the basic rules of a quantum computer and then you know and in some sense you
+know you are you know you are playing the same game as you know even you know someone who spent
+their life doing physics right you uh you know you you know the same rules that they know I mean
+yes you know the physicists may you know have all sorts of intuitions that come from scattering
+theory and you know that that will let them think of you know quantum algorithms that you can't
+right a great example of this would be Ed Farhey you know who was my colleague at MIT for nine years
+right and you know he worked with Jeffrey Goldstone and others right and they really
+invented quantum algorithms that I would never have been able to invent by leveraging their
+knowledge of of particle physics right but you know on the other hand you know as a you know
+computer scientist you know I you know I might know things that they don't know right and I can
+bring those to bear and and you know just just understanding that there were these clear axioms
+I mean I mean I mean philosophically you know what you know how should we interpret them what
+do they mean people still argue about that right yeah we'll talk about that although I'm not sure
+the audience but yeah but but but but but once you learn the axioms then in some sense you can
+you can argue about those things too you know as an equal of of of of of of of of of of of of of of
+anyone right and you know you it's true that you know there's a vast amount of physics you know
+beyond just you know the the axioms of quantum mechanics but in some sense you know it's it's
+it's it's kind of like you know with with a classical computing right you know you can you
+know the rules of how a Turing machine works you know that doesn't mean that you understand
+windows that doesn't mean you understand
+you know all all of the software frameworks that were built on top of it right but uh
+you know like most of physics is just you know application software that is installed on the
+upper you know on on the that's why we say shut up and calculate we just we know what they are
+you just can't and you and use that yeah yeah yeah unitary transformation and uh so so uh uh you
+know and and and that was not at all the way that you know uh quantum mechanics was taught in you
+know to physics majors right certainly not at that point yeah yeah sure it's it's finally changing
+it's starting to change now but uh you know if if I had been a physics major I would not have
+learned it that way right what I would have learned was the historical order in which the
+things were discovered which means first you master classical mechanics you know and you learn about
+thermodynamics you know you learn about classical field theory and then you learn this whole you
+know the whole shaggy dog story of all of the anomalies that were discovered between 1900
+and you know 1925 like until people finally figured out what's going on that okay you know states
+are vectors of complex numbers right and you know in in quantum information we do it a completely
+different way yeah it's historical but you know let's let's let's assume you know let's let's grant
+that the experimentalist did a good job and they you know and and and let's try to understand you
+know what what what did they discover and and how do we make sense of it yeah to be fair I think
+people I think I don't want to be labored this but to be fair I think it's often taught that
+when quantum mechanics because quantum mechanics is so hard to understand that you've kind of feel
+you want to lead students gently into it to show why physicists were dragged kicking and screaming
+but they just didn't get this craziness sometimes the best you the the best way to get used to a cold
+pool is to just leap in jump in I know I know um in any case some people argued I number one a friend
+I remember one time in Toronto I he argued he was and they tried it was abysmal failure to
+teach quantum mechanics before classical mechanics because you don't need right no in fact I never
+understood that oh okay I never knew what a Hamiltonian really was until I get quantum
+right well the thing is like I I first knew a Hamiltonian as just you know the instantaneous
+time version of a unitary transformation absolutely you know the thing you exponentiate to get
+unitary evolution and then I had to go back and learn what it had to do with energy okay well
+and where it came from in classical physics right but I mean I think the the the danger in in learning
+things you know the you know in starting with classical physics is that then you're always
+thinking about quantum mechanics as a sort of correction well that's we'll come back to that
+because I think that's part of the huge problem you spent you wrote a whole long article for
+philosophers which shows more patience than I would have um about and one of the big arguments
+as interpretations of quantum mechanics which I would argue is it just a big waste of time
+but um but but but I mean I mean I mean I mean I mean sometimes I feel like it's a waste of time
+and then other times I feel like well you know look you know bell was driven to discover the bell
+inequality by obsessing about Bohmian mechanics yeah yeah yeah David Deutsch was driven to you know
+propose quantum computing by obsessing about the many worlds yeah which yeah and I think I think
+philosophy you know philosophy can be used you know yeah fill softening questions can be nice
+springboards but then then you get then you get away from them and then you don't try then you
+don't harp on many worlds you point out we'll talk about I was me think that his fixation
+with many worlds is misplaced because well we will get there maybe because all right fine
+talk about this in the context of course we can we can go to Harvard who'd really convince you
+you know that this was the world is quantum mechanical why talk about trying to interpret
+it in terms of class mechanics we don't do that with anything else but before we get there um the um
+there actually was um oh yeah but you but by having the way you had we learned it
+what's really useful I just was had a podcast with a well known biologist the other day and he
+had learned quantum mechanics and quickly he thinks quantum mechanics is indeterministic
+which it isn't it's just the linear question it's a second or a differential equation moving
+forward deterministically it depends on what level you look at it yeah I know but fundamentally
+it's a deterministic theory which is a unitary nothing more deterministic certainly if you are
+a many-worlder or or abomian than it is but yeah anyway well I don't think you have to say that to
+do that but we'll get there okay you you went to the institute for advanced study right after your
+PhD I did you talk to I mean I was there for a while and I it wasn't it was there a quantum
+computing group or do you talk well not not exactly there was a you know there was and still is
+one of the leading theoretical computer science groups and it's led by Avi Wigderson uh who I
+who I had known I'd actually spent a semester with him at that point at the Hebrew University in
+Jerusalem and then you know he he moved he was in you know in the process of moving to Princeton
+where where he still is and you know he's he's in the in the school of mathematics so I was I was
+part of his group and okay yeah and and you know it was you know in you know I mean I mean it was
+a very tough decision I also you know you know really like you know the idea of going to Caltech
+and you know working with John Prescoe but you know a large a large fraction of theoretical
+computer scientists go through off it right okay now I understand that let me then you went you
+went to MIT and yeah yeah and but but but I did talk to um you know I actually gave a talk there
+about quantum computing that I was hoping the physicists would come to but the one who came
+was Pete Hutt uh Pete Hutt who's all yeah yeah yeah so I got I I so I did get to know Pete Hutt
+a little I I did uh talk once to Maldesina um uh you know and and I was tell you know trying to
+you know you know that this was like 2005 right when I was trying to uh see you know what what
+my string theory you know say about computational complexity and you know he was reminiscing about
+it with me recently right he was saying like yeah you know there was you know this crazy kid you
+know thinking that that like quantum gravity and complexity theory were going to come together you
+know like you know how do I get how do I get him out of my office I mean you know I mean you know he
+was he was actually very nice he was very polite but of course you know this was this was a decade
+before this integration really started to happen yeah yeah I don't know well yeah it was wondering
+whether whether Ed or or well actually Freeman Dyson I would have thought might have come because
+at least yeah no I I mean I I you know in retrospect I wish that I had been bold enough
+to talk to Ed or to talk to Freeman Dyson and and I wasn't yeah when I was there I those are
+the two I knew but I didn't hang out with the string theorist so Freeman was the one I spent
+time with because he didn't talk to anyone I mean he talked to people but he was right in the middle
+and yeah and he was fascinating but you went to so you went to MIT which of course is a natural
+place to be yeah I also had two years in the University of Waterloo and that was oh yeah that's
+right University of Waterloo yeah that had an institute for quantum computing yeah so I I went
+there and they were they were quite pressing yeah that was that was that was you know very
+important two years in my in my career and then yeah and then after that yeah I was lucky enough
+to get a faculty position at MIT so and that's where I was for nine years yeah and then I wanted to
+ask as because I mentioned you're not the first person I know who left Boston for Austin a lot
+of my colleagues did when I was at Harvard and other places and um well Mike well as you mentioned
+my Steve Weinberg was the first of the bunch to make that to make that and he was he was actually
+involved in recruiting us I wouldn't be surprised I mean I would be surprised if it wasn't the case
+Steve is a hero and an amazing I used to visit Austin regularly to see him just to see him
+probably the only person I used to see there um but why did you move was it was it because they
+created a center for quantum computing or or was it well I mean I mean the the the the immediate thing
+was just that my wife and I had a two-body problem to solve that's why that's why he moved to the
+Austin as well okay yes it's a great way to get good people yes solve that two-body problem yeah
+so we so we did a a a search uh together and uh you know the options that we you know that we had
+I mean you know we were we were we were lucky to have to have options at all but you know they were
+they they ended up being four big state universities it was Michigan, Maryland, Illinois or Texas
+and so we looked at all of them and to tell you the truth I never would have imagined living in
+Texas that was just not on my not on my radar at all but uh we like Texas the most of you know we
+like we like Austin Austin is a nice town we like you know we like the computer science department
+here uh you know they didn't you know have much in quantum computing but they wanted to build
+something and they had a very strong group in theoretical computer science also and then you
+know I should say my wife Donna is also a theoretical computer scientist okay yeah they were very
+strong in the kind of stuff that she does and so you know this this system ended up being what we
+chose okay yeah yeah and they and they did make your director right away of this quantum information
+center which I assume is an interaction with resources I guess I mean that was uh yeah I mean
+we can you know I you know you're you're you're you're reminding me that I'll need to get more
+resources but yeah okay anyway yeah yeah no you'll need now once the universities give you
+resources when they think you may leave and that's what I've always found so maybe they think you'll
+go to open AI and they'll give you more resources in any case in the rest is history and I notice
+among your prizes there are groundbreaking contributions to quantum computing and um
+and uh and those groundbreaking contributions probably the reasons we first met with the
+waterman prize to come full circle and um and which I see behind you because I have mine up in my
+oh I see it right back there mine looks very similar oh yeah yeah we both got this and and um okay
+so let's start with quantum computing and and you know there's so many places one could go
+but why don't we talk about I wanted to I want to get to shore at some point but why don't we talk
+about what it is and what it isn't because you're absolutely right I look I'm I'm guilty of of
+of when people ask me quantum computing of saying well you know an electron could be doing many
+things at the same time so you can do parallel calculations and instead of one calculation
+it's a simple way of saying what happens and and and and you point out rightly that that's
+that's not it but why don't you talk about what quantum computing is and what it isn't and I may
+interrupt you with questions in the intro sure uh yeah I mean I mean I mean you can see why people
+fall for that because the the actual reality of what it is I think is weirder than any science
+fiction writer would have had the imagination to invent that's what's great about science it's usually
+where yeah yeah exactly and uh you know the way that I think of quantum mechanics is that it's a
+generalization of the rules of probability all right so uh uh you know like like you might think
+that you know it's just an axiom of math that you know that it's not even physics to say look if
+you want to know the probability that that something happens like that a particle reaches a certain
+point then the way to get that is you add up the probabilities for all of the different ways
+that the particle could have gone to reach that point and you see what's the total right and
+then quantum mechanics comes along and says that that's not true right there's a you know
+actually the way that nature calculates probabilities you know at the fundamental level
+looks very different from that okay and it involves that different it's just a complex
+number instead of a real one well yeah that's right that's right that's right but you know you
+know there's one change yeah and everything you know everything else is the downstream consequences
+of that one change to the rules of probability okay and and the change is that now we have to
+deal with these numbers called amplitudes which which are complex numbers um although although
+actually you know most most of the stuff we care about in quantum information you would already see
+just with positive and negative real numbers yeah you could already see but the important
+point is that they they have signs right they they have not just a magnitude but they have a
+sign let me let me step back for for the people I don't anyone will have gotten this far if they
+don't know haven't ever heard of a complex number but just for people who know yeah they're they're
+numbers that are more complex it's because they involve the square roots of mine of negative
+numbers but effectively it allows you a much more a much more um rich way of adding up things
+instead of just plus and minus one you have all these other options for adding things away away
+and and that's what makes it richer so I just wanted to step back so people yeah yeah sure sure um
+um so um you know and and uh you know uh complex numbers were you know discovered by you know
+mathematicians in the 1500s right and I think it would have blown their minds at the time if
+you told them that nature actually uses these things you know it's at the deepest level that
+they're that they're not just the human invention right yeah but I mean all this requires them
+it's amazing yeah that's right that's right but um so uh so so basically you know the the key
+well I mean I mean we touched on this before but you know the the the key thing that quantum
+mechanics says is that you know if I want to know how likely something is to happen like you know a
+particle is to hit us to be observed at a certain spot on a screen then number one I have to add up
+amplitudes for all of the different paths that it could have taken to reach that place
+and then number two I take the total amplitude and then I take the square of its absolute value
+and that tells me the probability okay but now the big implication of this is let's say that the
+particle could reach a place one way with a positive amplitude and another way with a negative
+amplitude okay then those two contributions can cancel each other out so the total amplitude is zero
+and that then means that the particle will never be seen there at all okay whereas if I close you
+know I mean I'm saying this you know not for your benefit but you know for people who haven't
+haven't heard this before you know if I if I if I close off one of the paths that the particle
+could take now I only have a positive contribution or only a negative one and now you know the particle
+can be seen there right so by decreasing the number of paths that the particle could take I can
+increase the chance that it ends up somewhere right this is the part that has you know you know no
+analog in in our the basis of the famous double slit experiment exactly exactly and now you know
+what what's you know the you know the you could say like the the craziest part of all is that now
+if I just watch the particle as it's going to you know just see which path it's going then then you
+know I don't get this interference anymore right then then then then the different options just add
+up in you know just the same as they would in classical problems well you just got rid of some
+of those negative paths that's what you're saying exactly it's only it's only when I'll be there right
+it's only when I leave the particle isolated from the whole rest of the universe that I see this you
+know the this summing of amplitudes that leads to this interference okay so so interference is
+something that particles somehow like to do in private you know they don't they don't like to
+be seen while they're doing it right okay so now what's a quantum computer well you know to say that
+you know we have to say you know the you know the the the basic building block of it is just going
+to be the quantum version of a bit what we call a qubit right and what's a quantum what's a qubit
+it's just a sum bit that has an amplitude for being zero and an amplitude for being one okay
+so it can be in as we say in a superposition of the zero state and the one state okay so
+you know mathematically we could say it's a unit vector of complex numbers right it's
+two complex numbers you know amplitude of zero amplitude of one um uh you know but now uh if I
+have let's say two qubits right then I can't just write down amplitude separately for the first qubit
+and for the second qubit right I have to because because measuring one qubit might tell me something
+about the other qubit right and so there are four possibilities for two bits zero zero zero one
+one zero and one one right and you know we've known for a century now that you know that
+quantum mechanics forces us to write down an amplitude for each of those four right but now
+it gets worse because if I have three qubits now you know there are eight configurations of three
+bits you know from zero zero zero up to one one one and so now I need eight amplitudes you know if
+I have a hundred qubits now I need two to the 100 power amplitudes right a thousand two to the
+1000 power amplitudes and now already we have more amplitudes just to describe our thousand
+you know little particles than there are uh atoms in the observable universe right and so
+you know and and this has been a core part of quantum mechanics you know since Schrodinger
+you know wrote wrote down his equation in 1926 right he was very explicit about this like you
+know if you if you read his paper but you know in some sense it is only with quantum computing
+that you know the full staggering this you know of this is really brought to bear and that we're
+really trying to exploit it to do something right so so so quantum mechanics is sort of
+has been telling us that you know just to keep track of the state of a thousand measly particles
+you know nature off to the side somewhere has to maintain some scratch paper you know with
+more parameters than you could write down in you know in the entire you you know visible universe
+yeah and every time something happens to those particles it has to cross off all of those parameters
+and replace them with new parameters right so you know that's a a ridiculous amount of work
+for nature to be going to you know from a computational standpoint right just to just
+to keep track of what a thousand particles are doing and you know and chemists and physicists
+have in a sense they've known this for a long time you know they've known it mostly as a practical
+problem as a practical problem if they want to try and understand even a small molecule
+you have to calculate so many things to try and understand how model quantum mechanically
+how model q behaves much less a much less a nucleotide array or a or a dna or a protein
+no absolutely i mean you know so they've known that there's this exponential explosion in the
+number of parameters you have to keep track of this is why you know very powerful you know
+supercomputers including you know when we have here in austin called stampede you know are often
+used for just trying to solve the schrodinger equation trying to you know simulate uh uh
+complicated quantum systems and you know people have gotten very good at inventing approximation
+methods and shortcuts you know that that that sometimes let you manage it but you know you
+you know but but but but sometimes not and so you know it was not until you know the early 80s
+i would say that a few physicists you know most famously richard fine richard was gonna
+and then david deutch you know started saying well if nature is giving us this you know computational
+lemon then why don't we make lemon it right yeah yeah fine and basically said maybe he could help
+him understand quantum mechanics which is always yeah exactly you know so why don't we build a
+computer that itself you know would be made out of qubits that would exploit uh you know this
+exponentiality of amplitudes and well you know supposing you built that quantum computer what
+would it be good for well fine men really only had one answer uh 40 years ago which is it would be
+good for simulating quantum mechanics yeah i mean and just let's step i mean that was what excited
+him and let's step back what he said is look i can't calculate i can calculate i know how to
+calculate the answer this problem but i can't physically do it but if we use if if the calculator
+itself is quantum mechanical it can do it in a way i can't do and get an answer and yeah for fine men
+that was and he was way ahead of his time of course but as always but um or often not always um uh
+and and uh yeah he said yeah let's make maybe we can make quantum computers so we can solve
+quantum mechanics problems that i can't solve and then maybe i'll better understand quantum
+mechanics understand the aspects of quantum mechanics from interference and other things
+i wrote a biography right now now it's important to say a quantum computer wouldn't be able to do
+anything that's literally uncomputable with a classical computer because if you had enough time
+then with your classical computer you could always just write down the entire list of amplitudes
+explicitly but you know that could be exponentially slow i think that simulating quantum mechanics is
+still today 40 years later you know after everything that's happened uh it's still the most
+important economic application of quantum computers yeah let's stop let's stop there
+room because it's a fascinating thing to say that in the end and i agree and it's something i think
+that that breastlin i talked about because it's not what you get in the media the media that's
+right that's right absolutely right right but you know that was not what put quantum computing
+on most of the world's radar i it was something what what what put it well what what what originally
+put it on you know most of the world's radar including the computer science community you know
+and the math community was you know a sequence of discoveries in the 1990s uh that that culminated
+you know in showing us that that a quantum computer can sometimes get enormous speed ups over you know
+anything we know how to do with a classical computer even for solving problems that have
+nothing to do with quantum mechanics you know purely purely classical problems yeah principle
+you know the the the the famous example here is finding the prime factors of enormous numbers
+which you know for for better or worse there's a problem that that much of the security that
+protects the modern internet uh is based on you know well let's let's face it in my i mean i'm
+problem is hard i watch this from an outsider i watch it explode after that yeah and yeah of
+course and it's kind of fascinating it's the same but it's interesting the reason that physics
+that particle physics and you know exploded and it was because they could build atomic bombs and it
+was and the defense of the nation seemed to be okay well throw as much money as this as we as we as
+you want but maybe there's other things you want to do but we're interested in it for this reason
+and it was amazing to see i think the first i could be wrong but from an outside it looked
+like the first group to start funding was defense for the same reason and if you could factor
+problem large prime numbers you would be able to crack the large financials but yeah and therefore
+we're going to throw as much money as possible at this field and you can worry about your other
+physics questions but right we're interested well i mean i mean i mean i mean that that was
+certainly the discovery that made you know the military and intelligence communities interested
+in this right money you know but but but but but but interestingly and unlike with you know the
+atomic bomb i guess you know they are not the main ones driving it now now not now but that's
+the money involved right yeah that's right that's right now now you know the main ones
+driving it are our private companies you know who are hoping that it's going to be a massive
+accelerant for ai and machine learning and exactly it moved on those things and and no
+and and and and and and those claims are often very iffy ones you know we'll get there they're
+very iffy that you know we can we can we can we can we can we can get it into that but what i
+wanted to say was that uh you know um um you know like you know the the the way that almost every
+popular article will explain quantum computing you know still to this day is just by saying well
+you know a classical computer with classical bits can only try the possible solutions one by one
+right and you know if there's an astronomical number then that could take longer than the age
+of the universe whereas a quantum computer can just try all of them in parallel in superposition
+you know and that's the source of its speed right but you know that that kind of sounds too good
+to be true right like wait a minute i just get this magic machine that lets me you know
+try everything in parallel right and and and and it turns out that yeah uh uh uh uh uh uh uh uh uh
+that is too good to be true right and that was one of one of the earliest things that people
+had to understand is that the only hope of getting any advantage at all from a quantum computer
+is to exploit the way that these amplitudes being complex numbers are different from probabilities
+right and and specifically it's to exploit this effect of interference okay so basically
+the you know the i think i think the right way to think about it is that with every algorithm
+for a quantum computer we are trying to choreograph a pattern of interference right and we're trying
+to make it so that for each wrong answer each one that we don't want to see some of the contributions
+to its amplitude are positive some are negative or you know at any rate they mostly cancel each
+other out yeah they're pointing every which way right whereas for the right answer the one we do
+want to see we want all the contributions to its amplitude to be mostly pointing the same direction
+okay and so that they all reinforce each other right and if you can arrange that then when you
+make a measurement quantum mechanics tells you you're going to see the right answer with a high
+probability right you know of course you know high probability is all you need if you don't get it
+you can always try again until you you know until you get it right because i think i mean it's a
+beautiful explanation but it also emphasizes something else that i know i've learned from your
+descriptions i think that what people don't realize is that you end that you know there may be all
+these qubits but you measure something in the end and so it's you get you get a number out at the end
+and and so that's right that's right you get all these parallel calculations so you could say in in
+some sense this exponential amount of information was there quote unquote you know what i call this
+giant scratch paper you know with all of these these parameters but we never directly see them
+right and you could ask if we never see them how do we know that they were ever there in the first
+place right well we you know we know that we need them to calculate the probabilities of the different
+things that we do sit right but when we look then all we see is you know if i have n qubits and i
+measure them then all i see at the very end is n classical bits and the whole game is to choreograph
+the interference pattern so that those classical bits are the ones that i want the ones that solve
+my problem right now the hard part is you know i have to choreograph this whole interference pattern
+that magically concentrates amplitude on the right answer even though i don't know myself in
+advance which answer is the right one you know if i knew that what would be the point right you know
+and i have to do it all faster than a classical computer could do the same thing or else again
+you know why didn't i just do it with a classical computer right so you know nature gives you this
+really bizarre hammer right and it's not obvious whether there are any interesting nails that that
+hammer can hit you know other than you know maybe simulating quantum mechanics itself right
+and that's why you know it was really a non-trivial discovery you know in the 90s that there are
+classical problems where we can figure out how to you know design this this this this
+interference pattern you know shape it in the right way like that that took more than a decade
+after Feynman for sure that's when people know now you have given and i've read your i think
+probably the first time i really understood i missed admit the really time yeah first time
+i really understood shor's algorithm i was reading your explanation of it um i'll be um i'll be
+open and say that i don't know whether so the the the problem is easily framed once again large
+that you know your it's it's very it takes longer than the age of the universe to take a very large
+number and find the prime factors of that very large well it might it might no one no it might
+no one has proven that right okay that's right so far i've even talked to mathematicians who who
+strongly believe that there is a fast classical way to do it but you know but but but the reality
+is no one knows well you know what's interesting yeah i will tell you this as a physicist maybe
+something yeah an analogy that you haven't heard before um i'm amazed that you don't take things
+seriously until they've been measured and so um uh and i've written a lot of papers about stuff that
+i could have written before but i never really thought about it until something experiment came
+along and that oh you know that and the interesting thing is when we get to quantum supremacy that it
+was only after sort of this claim of quantum supremacy it seemed to me that people started
+to realize oh i've got a classical algorithm that's actually much faster because i'll take it seriously
+and you're right this sort of thing has happened i mean there have even been interesting new classical
+algorithms that were only discovered because people were first thinking about quantum out
+absolutely i think it's interesting how that happens yeah absolutely it's set back it may be
+that it takes long apparently if you don't think hard enough it takes longer than the age of the
+universe to do to to to empirically find the prime factors because you'd have to try every prime
+factor in a big number it's just i mean we know methods that are somewhat better than that but
+they're still x you know some kind of exponential and then methods like the ones that the nsa is
+presumably using to you know uh uh try to you know break uh you know uh cryptographic keys
+they take an amount of time that grows exponentially with the cube root of the number of digits okay
+there we go so it's exponentially anyway and so what what what what was a surprise was that
+there was a quantum algorithm that might allow you to to to uh find the prime factors of a large
+number that was only polynomial in in the number of the size of the number yes well in in 1994
+peter shore proved the theorem and the theorem says if you build a quantum computer and you know
+if it works like the you know the theory says uh then it can in fact factor a number that's
+n digits long using a number of elementary operations that only grows like roughly like n
+squared like so that so that so that is exponentially faster okay now we've taken a long time already
+and we've got a lot left to do so i don't know if i i'm gonna ask you and you may not i mean
+i've read your argument it would take 15 10 or 15 minutes is i mean i mean i mean i mean i mean
+really it's shore's argument i'm just okay okay shore's argument but is there a simple yeah is
+there a simple kind of one minute way of of of saying what the trick is or not if there isn't
+it's okay i mean i can try uh so so so the key is you know it's uh there's there's there's a
+half of shore's algorithm that's got nothing to do with quantum mechanics okay where you know it's
+just about uh number theory really okay where you're taking the problem of factoring and you're
+reducing it to a superficially different problem okay and the different problem looking problem
+that you reduce factoring to is called period finding okay so so consider the problem where
+i have this enormous sequence of numbers right it could be like a sequence of you know a google
+numbers right you know what i'm right but uh and this and i'm you're told that the sequence repeats
+itself with a certain period right so it's a it's secretly a periodic function okay you can compute
+any desired entry of the sequence right you have an algorithm that you know given you know you you
+ask for you know entry number j you know it tells you what that is uh pretty quickly but now your
+task is to discover what is the period right and and so now you know we uh uh so so what what what
+the first thing that shore showed was that if you can solve that problem then you can also factor
+right and the reason you know it's a few lines of algebra basically right it's but uh you know not
+not not not not not not not having on board i probably won't go through it okay so uh but you
+know it's you know the point is you know a lot of interesting problems in number theory
+sort of can can be boiled down to sort of finding this hidden periodic structure you
+know in a in a periodic function okay there's there's something called you know if i if i
+have some composite number there's something called the multiplicative group you know modulo
+that composite number all the numbers that are relatively prime to it and basically what i'm
+trying to do is discover how many elements are in that group and if i figure that out then that also
+reveals to me what are the factors okay so i'm trying to figure out the order of this group
+you know uh and to do that i have to find the hidden period of this periodic function okay so now
+uh you know how can we do that well if i just had a classical computer i could imagine that i just
+pick a bunch of random elements in the sequence and i hope that eventually i get lucky and i find
+two elements that are the same right and if i find two that are the same then i know that whatever
+was the period of the sequence it divides the difference between you know okay the right the
+the uh but uh that would take again an astronomical amount of time right so now so so so here's where
+the quantum computer is going to come in okay so now what what shore says to do you know and he
+was directly building on you know earlier work by uh uh Bernstein and vasarani you know vasarani
+was my advisor at berkeley you know and and then and then dan simon who did you know very closely
+related things but they didn't solve a problem that was you know as high profile as factor right
+and then and then you know uh uh uh you know but but now now now is going to come you know the the
+the step where we uh where we need to exploit quantum interference so we uh we we created equal
+superposition over all of the possible you know you know elements in the sequence right we could
+we calculate all of them in superposition okay so uh you know so now so far we have it doesn't
+look like we've made that much progress because if i just took this superposition over all the
+elements of the sequence and i just measured it right now you know i was impatient all i'm
+going to get out will be a random element of the sequence yeah right and i didn't need a quantum
+computer for that right okay so now somehow i have to exploit interference right and so what what i do
+is um you know i i do a sequence of unitary operations on my qubits that has the effect
+of taking this giant vector of amplitudes you know you know that that encodes my my periodic
+function and replacing it by its four-year transform okay so now you know the four-year
+transform as you know you know but you know for the benefit of our listeners uh it is uh you know
+one of the most basic operations in you know linear algebra and you know and really in in you
+know has been central to quantum mechanics since you know all of these are wrote down the you know
+the uncertainty principle right but it is a uh it's a linear transformation that sort of you
+know it's a change of basis that sort of moves you from you know looking at you know an engineer
+might say moves you from the time domain to the frequency domain right so it moves you
+from looking at your sequence just element by element to looking at it as a sum of periodic
+contributions you know each of which has a different period okay and so so what you do
+is you you know you do this this short sequence of unitary operations each of which acts on only
+one or two qubits at a time but it has the effect of taking this amplitude vector replacing it by
+it's four-year transform okay and now the four-year transform was designed from the beginning to
+reveal periodicity information right and so so now you get like these these giant you get a new
+quantum superposition but that has giant spikes at numbers that you know and you know they you're
+not necessarily you know like the period themselves but they're like they're like close to integer
+multiples of inverses of the period right and so so so now you measure and now you get numbers
+that that are you know that you know if I just see a few of them then just using my classical
+computer I can put them together and reconstruct what the period of the sequence was okay and a
+good way to think about what's going on here is that like for every possible number that I could
+have measured right I you know it has an amplitude that's a sum of many many contributions right but
+only for the ones that are multiples of the inverse period or very close to them is are all of the
+contributions to their amplitude adding up constructively are they reinforcing right for the wrong
+numbers you know I have the contributions are just pointing every which way in the complex plane
+and they're just canceling each other out so that's that's that's that would be I don't know
+if that was like three minutes or but you know that would be five but it was and I think people get
+the idea but that would be now that that would be my summary of Schor's algorithm I mean it's a great
+I teach it when I teach an under my undergraduate course in quantum information you know you can
+just do this in full details in about three lectures yeah it's really amazing um but but it
+demonstrates I mean but now I want to get I'm in some people I'm sure got lost during it but but
+may not well maybe no one did I but I but I suspect some did but I want it but it's important to talk
+about it because now it when one of the things I I think which is clear you've already made clear
+but people don't recognize this the world I would say now and this is something that took me a while
+to realize uh and and you helped me um but over the years um it's when people talk about what
+quantum computers are going to be used for I would argue that that's as like the that cracking
+financial codes or is is going to be the last is isn't is not realistic in the near term I'm not
+sure whether it's ever realistic in the long term and it's probably not going to be the number one
+one activity I mean I mean I mean I mean first of all I think it is realistic in the long term
+okay well it's gonna require if you have it's basically uh I I think once you okay so we haven't
+talked about the the practical problem of how do you crack problem is how do you keep n qubits
+going I mean that's right that's right how do you you're gonna need a large number of cubics that's
+why I want exactly exactly so so so the the main problem is that you need what we call error
+corrected qubits or full power in qubits ones that you know so so so you know uh you know like I
+said before quantum states are very fragile right they're you know like a being in super position
+is something that particles only want to do in private you know exactly and that's really important
+I want to emphasize that because people don't get it when they see the the difference in quantum
+mechanics and class mechanics is or the exploitation of quantum mechanics at a macroscopic level
+requires something it's very unnatural for particles or anything the reason we're not quantum
+mechanical or don't behave quantumic we are at some fundamental level but we don't behave that way
+is it where a mix mash of particles interacting with the all thing which other in my body and all
+the photons from the lights that are and it's all washing out all of those differences that
+make quantum mechanics so special and that's why we don't ever see it and so what you've got to do
+if you've got a bunch of these if you have one a large if you want to have a large number of bits
+I mean you know my my phone has a large number of bits in it um gigabits and you know and and
+but if I'm going to have a large number um then I got to make sure somehow that large number
+remains quantum mechanical and that and if it did exactly then I would be used to it and so most
+of the time it doesn't exactly no you could say that that problem is so staggeringly difficult
+you know how do you keep your qubits like you know almost perfectly isolated from everything
+else in the universe but then also have them interact with each other you know in this precisely
+choreographed way right and you know like something has to come in and tell them what to do right
+it's so hard that there were distinguished physicists and computer scientists in the 90s
+who said this is fundamentally impossible right this is like building a perpetual motion machine
+or a Maxwell's demon or something like that right like they're you know like maybe this works with a
+you know a few qubits but this can never scale to a large number of qubits right and and I think
+you know a priori like okay that was a plausible position right sometimes you can you know write
+something down formally that you know that abstracts away some key feature of the real
+world that would actually make it impossible but you know then there was a key further discovery
+in the 90s that convinced almost all of us that this is quote unquote merely a staggeringly hard
+engineering problem right not requiring any new physics okay and that was this discovery of
+quantum error correction quantum fault tolerance okay Peter Schor was again you know very involved
+in that discovery and then a bunch of other people were as well okay and it common and basically what
+it said is that there are you know in the classical world right when we have noise in a communication
+channel right we deal with it using error correcting codes but you know and this goes back
+to Claude Shannon and and you know Hamming and and many others right but for example instead of
+sending either a zero or a one I might send zero zero zero or one one one right and then if any one
+of the three bits flips then I can still recover the message by just taking the majority of the
+threads right and you know and you know exactly and you could test to see whether it was yeah
+right and now and now that that that doesn't immediately work for qubits because you know
+one reason is that you can't clone you know a a quantum state right if you don't know what it is
+there's no you know there's no way to make a copy of a of a qubit and and also you know errors in
+in qubits could be continuous right it doesn't just have to be a discrete bit flipping it could
+be any little change to these amplitudes and so some people said well this seems like an analog
+computer right and analog computers never you know you know they didn't win in the end right and a
+main reason was was error was you know you know that that uh you know you would just have errors
+that would build up and kill you I mean that's why digital computing won okay but uh but the key
+discovery of quantum error correction is that there are these very clever quantum generalizations
+of error correcting codes right so you know the first one discovered was called the short code
+right it encodes a single qubit a single logical qubit into nine physical qubits okay uh you know
+and it turns out you know nine is not the minimum you can also do it with five okay but you know
+classically you needed three right quantum you uh you need five okay and and what these
+quantum error correcting codes do is that they um um you know they they allow you to make a
+measurement that just that only tells you like didn't ever happen and if so what do I have to do
+to fix it and it doesn't tell you anything else about the qubit but you don't want to know more
+you don't want to destroy anything that would destroy the state so you like you know you know
+you know that that that that joke where like someone calls 911 and says oh my god you know
+this person was you know was was was was shot and you know and was killed and then they said well
+okay and the dispatcher says okay but did you check to make sure that they're dead
+and then they they they they and then you hear a gunshot and they say okay all right now all right
+now i'm now i'm sure now you're what now so you know quantum error correcting codes are kind of
+like that it's like you you know it's like you know if there was some tiny rotation in the amplitude
+like well you know you can say you know was that an error or was that not an error well the way you
+decide is by making a measurement right and you know the result of the measurement might be that it
+just snaps back to where it was before and then okay i guess there wasn't an error or the result
+of the measurement might be that it flips all the way and then okay well i guess there i guess
+there was an error but now the error was discrete because i measured and i made it discrete right
+and now i know exactly where it was and i know what i have to do to fix it okay so so this this
+whole line of work culminated with something called the fault tolerance theorem or the threshold
+theorem which said that if you want to build a reliable quantum computer you don't have to get
+you know the rate of noise you know the rate of interaction between the qubits and the external
+world all the way down to zero you merely need to make it very very very small okay but you know
+there is some you know non-zero rate of noise which is low enough that you can then use error
+correcting codes to push the effective error rate all the way as as close to zero as you would like
+okay so so there is a threshold effect you know it's kind of like you know the critical mass for
+a nuclear weapon right if you're halfway there you don't get half as big an explosion you know
+it's like you have to you have to be able to correct the errors faster than you are introducing
+new errors you know by by by trying to correct them okay but there's some finite rate of error
+where where where you know you where this becomes a net win and you know you could think of the
+engineering goal of you know in quantum computing for you know ever since then you know really for
+the past 25 years has just been trying to get better and better control over quantum systems
+until ultimately you would pass this threshold of fault tolerance and at that point once you have
+fault tolerant qubits then it really is just an engineering problem right like you know how many
+you know you could have in principle as many qubits as you want and they'll stay alive for as many
+operations as you want to do with on yeah which is which is which is the which is the the holy grail
+and right and now that's right that's right and and and it is you know you know if if you look at
+the the numbers you know it's um you know it doesn't it doesn't even look like a totally unattainable
+grail i mean when i entered this field you know in like the late 90s you know it would have been
+spectacular if you could do you know a two qubit gate so just you know an interaction between two
+qubits that was like 50 accuracy right or some number like that okay and then that 50 became 90
+percent you know it came 95 you know with with google's quantum supremacy experiment that it
+announced uh four years ago uh you know they had like 53 qubits and they could get any two
+neighboring ones to talk to each other with 99.5 accuracy right for some short time yeah that's
+right within the last year um you know groups like like IBM Quantinuum and Colorado are talking about
+99.8 percent pushing 99.9 accuracy okay now our best estimate from fault tolerance is that if you
+could get this to 99.99 accuracy then then quantum error correction should start to work should start
+to be practical okay so so you know if you just plotted on a graph it looks like you know we're
+now only about one order of magnitude away okay exactly and then i i should look look so it's it's
+it is a it is nevertheless a an experiment it's it's a it's a well as you mentioned with lots of
+money and lots of time people there's improvements but it's experimentally at the limit of what we can
+do it is and oh yeah i mean these are either amazing experiments but you know i mean a priority you
+might have worried that this would have to go on forever yeah no no in fact i would say that
+i was one of the naysayers before fault tolerance i was saying there's no way you're gonna be able
+to get a quantum system to survive long enough to do what you want it to do yeah and yeah okay well
+now it's still a challenge to get it to survive long enough for enough qubits but but i guess my
+point is right you know so if you have if you have you know 80 qubits then maybe you can begin to to
+do something you know realistic when it comes to the issues of cryptography but what's no no no
+you're gonna need you're gonna need a lot more than 80 yeah okay maybe a lot more basically no
+people have asked have have game this out in a lot of detail at this point so i mean if you want to
+if you want something that's useful for breaking cryptographic codes then you're going to need
+a few thousand logical qubits a few thousand okay and then and then with error correction that's
+gonna translate into millions of physical qubits okay so this is my point i guess what i was trying
+to say yeah as a physicist rather than the mathematician is you're right i don't think
+there's any logical barrier but my point before we leave this area or at least
+sure talk against the conventional wisdom is that with five qubits you can do really
+interesting quantum mechanical problems of that you know molecules and that's feasible what i wanted
+to say is if you're going to get to this realm which one day we may get to of of of doing things
+that are realistic crypto cryptographically well the already the world financial system will have
+adjusted that you can be oh yeah that's it that's it that's a different discussion yeah i guess
+while i was saying is for those who think the world financial system is suddenly gonna be broken
+the timescale of quantum computing improvements with falter correction is such that it's it's
+not gonna may there be other problems it'll help with but but but but the world financial system
+will have long go past that by in some other way yes i know so i did want to talk about these
+engineering issues but i i agree with you that you know breaking public key cryptography has
+never been the sort of uh you know uh you know well well you know it's first of all it's far from
+obvious that it's a positive for humanity if you can do that yeah you know it all depends on who has
+the capability and who else knows about it okay but second of all you know we already know cryptographic
+codes that seem to resist attack even with quantum computers okay now it's going to be a massive effort
+to get everyone to migrate to those new cryptographic codes and you know and the crypt the the crypto
+community for the last decade has been you know pushing that and you know they've actually
+national institute of standards and technology nists just concluded a competition to you know
+come up with the standards for post quantum cryptosystems you know the winner as many of us
+had expected are these public key cryptographic codes based on high dimensional lattices
+yeah yeah no i i yeah yeah and and and you know so so these systems exist they they do require
+like larger key sizes larger message sizes than the the cryptographic codes that currently
+underpin the web so you know so they're a little bit annoying but you know they they can be used
+and people are already thinking about how to deploy them so you know if we succeed at at
+migrating everyone to post quantum cryptography then you know you could say you know like like in
+practical terms you know sure as algorithm could just be this this colossal you know scientifically
+fascinating nothing burger right you know it's you know it'll just you know we'll just all be
+right back where we started right and so so i think that you know the the the the the biggest hope of
+doing you know i mean look i mean i mean for me for me personally the number one application
+of a quantum computer has always been just to disprove the people who said quantum computing was
+impossible okay it's always and and and by and by and by token for me as a physicist you might say
+the number two application is to demonstrate that quantum mechanics works uh yeah that's right
+we can we can we can collapse those and so you know basically the same thing right it's really the
+same thing you know it's doing it yeah it's like it's like it's like a quantum it's like a quantum
+computer as the same sort of thing as you know the LHC or LIGO or the james web space telescope
+you know it's you know you know it's you're just probing nature in a new regime and and of course
+you want to do that if you can right yeah i mean there's some people like me and then i think i think
+the number two thing is to give us this general purpose programmable tool for simulating quantum
+mechanics yeah which might be useful for designing new batteries or solar cells or high temperature
+superconductors or drugs you know but you know i mean i mean i mean the truth is we don't really
+know we don't know exactly we don't know what such a device would discover but you know i think
+there's a there's a pretty strong case that yeah that would be that would be useful to have yeah
+and we know we don't know that just makes it so exciting right right and right and then you know
+i think um um um neither of those things is what has mainly driven the investment over the last decade
+right yeah yeah the the the the reason why there's you know these billions of dollars being invested
+in quantum computing now by google microsoft ibm amazon and then like i think hundreds of
+venture backed startups you know at this point right it is you know what what what what people
+have mainly gotten excited about is the hope that a quantum computer will would accelerate
+machine learning optimization financial problems you know ai problems and and here you know as a
+quantum algorithms person you know i you know honesty compels me to report to you that the
+situation is much much iffy you know uh yes there are some quantum advantages that eventually you
+know you should be able to realize for those problems okay a lot of them derive from grover's
+algorithm which i mentioned before which is you know maybe the second most famous quantum algorithm
+after shores grover's algorithm can be used for sort of searching any list of and possible solutions
+in only about the square root of n steps and so it has an enormously wider range of application
+than shores algorithm does right shores algorithm is really really specialized to factoring period
+finding you know and a few related problems in like group theory and number theory right grover's
+algorithm is for like you know you can just flip through a computer science textbook and like you
+know two thirds of what's there could be groverized in some way right uh so you know you know it could
+it could be you know be a workhorse for all kinds of things but the disadvantage is that the speed
+up is not exponential the speed up is only quote unquote by this square root you know this quadratic
+factor right and now that has to compete against the enormous overheads that it would take to run
+a fault tolerant quantum computer at all right so it's like if you can take a problem of size n and
+solve it in you know you can you know like as theorists we'd say we you know grover solves it
+with scaling that only grows like the square root of n but in practice that's probably something
+like a million times the square root of n right and so now the point is n has to be big enough
+that a million times the square root of n is less than n and you know solve that you know and n has
+to be pretty big right so so um so that that's the main issue with all of these speed ups based
+on grover and so then uh people say okay but you know there were all you know we don't need an
+algorithm with a provable performance guarantee there were all of these heuristic quantum algorithms
+okay and so so so a lot of the excitement over the last decade has been driven by things like
+quantum annealing you know which is like the quantum adiabatic algorithm you know which might you
+know i i alluded to before my former colleague Gadfari and his friends developed this you know
+and these are like you know there are these classical heuristic algorithms you know they
+don't always work you know often don't work actually but but often enough they they do work
+okay a famous example would be simulated anneal it right where i just start with a random solution
+and then i just keep flipping bits you know if it looks like it's improving things right and i try
+to get to as good of a solution as possible and so what people have done is that they've invented
+quantum versions of those heuristic algorithms and then you know and now here's what happens
+okay like as theorists like you know we don't we don't know what the hell these things do right
+but but we can't rule out the possibility that at least sometimes they might solve these ai or
+optimization problems exponentially faster than any classical algorithm right and so then the sort of
+you know uh uh business people or the funding people like that's all they need right then they
+just feel like you know okay so then let's just make the most optimistic assumption imaginable
+right let's just assume that these will get these exponential speed-ups for all of these
+problems that you know but now you know you can see like like there is not a case here that is
+that is anywhere near like the case that that Schor's algorithm helps you with factoring right
+and in fact what is what is turned out again and again is that when people have claimed to you know
+be able to use these heuristic algorithms to get huge quantum speed-ups again and again people
+have been able to decontize them okay to say no actually if we think about it enough we can replicate
+that sort of performance with a classical computer right which is what which is sort of what happened
+and I want I want to leave quantum community a second which is sort of quantum supremacy
+quantum supremacy which the term coined by Presco I guess was uh is the idea that basically
+you know you've got no point when quantum computers can do something maybe not something
+interesting but something in a finite time that a classical computer would take longer than the
+age of the universe well there was a big report 2019 google you know and then but then then IBM
+as you might imagine came up so hold on there's a actually we found out to do it in three hours
+instead of two minutes or something like that and well yeah I should I should say something because
+I was heavily involved in this story yeah I know okay yeah so so you know I mean you know
+you know in my student and I in 2011 you know proposed uh uh you know one of the the the the
+I guess I guess the main um ideas for how you would do this these quantum supremacy experiments
+right and then a year later Presco coined this term quantum supremacy to refer to you know
+things like what we had proposed yeah right uh where you're not trying to solve something that
+is useful you're merely trying to solve something that is well-defined and that is classically hard
+yeah right uh and and it turns out that uh you know if that's your goal then you know it looks
+like the the most direct way to do that would be using what are called sampling problems where they
+don't have a single right answer right you're just trying to output samples from some particular
+probability distribution um like over over let's say 50 bit strings where you could argue that a
+you know plausibly any classical algorithm would need a much much larger amount of time to sample
+you know and so then uh google you know in in 2014 uh uh hired this um you know uh leader in
+superconducting qubits named john martinis and martinis said you know let's do this let's actually
+you know try to you know it wasn't it wasn't my proposal because my you know my my my and my
+students called boson sampling was sort of uh uh best adapted to optical quantum computing
+and they were doing superconducting quantum computing but they said let's adapt boson sampling
+to our setup and we said okay you know you could do that and we we sort of adapted the theory to
+what they were building and then in 2019 they reported a result which was that using 53 qubits
+you know they could sample from this distribution over 53 bit strings you know in a few minutes
+and at the time they estimated that well the best classical algorithm that they know would would take
+10 000 mirrors to do the same thing and you know and then that that number got picked up by the media
+right and and and that was kind of unfortunate right because you know you you always have to
+ask the question like you know do we really know what the best classical algorithm is right and so
+you know since then starting with IBM but you know people have gotten better and better at spoofing
+these experiments classically and and I would say that the situation right now is that some
+quantum advantage remains in these experiments you know if you measure it let's say by you know
+how much money does it take to run the machine or you know how much electricity does it take you
+know I mean the quantum computer needs a dilution refrigerator it's cooling your chip to you know
+a hundredth of a degree above absolute zero right that's that's a decent amount of electricity right
+there okay but you know to simulate it you need a quite large cluster of classical computers right
+and and maybe that's a hundred times more electricity or something like that right so I think there's
+some quantum advantage that remains but it's only by two or three orders of magnitude almost
+certainly you know better quantum supremacy experiments could be done right now that would
+that would reestablish a larger gap but you know but but but now what's happened is that you know
+the big players like google uh IBM like they barely even care about quantum supremacy anymore they
+just say like you know let's let's go straight for our correction right you know I would actually
+like to see some you know better quantum supremacy experiments now okay well let's let's let's see
+if they what happens um yeah look before okay I was gonna talk about you know you wrote some
+beautiful work on well I mean that I found interesting on on what it needs to to what
+how much structure is needed for quantum speedups but I think I think I want to proceed we're going
+to go the three hours just so you know and and and uh I want to spend the last hour of this
+on the harder questions because he spent less time on them because they're harder questions
+but before we leave it in the last few minutes all right there's a quote from you that I found
+interesting there's lots of quotes I have I should say I have 20 pages of notes which I'm gonna of
+which will probably go through four or five um but um here's a quote from you that I I don't
+understand well maybe right if quantum mechanics seems to predict that you can harness an exponential
+number of amplitudes for computation and so much the worst for our present understanding of quantum
+mechanics I don't understand why I think I was no no no I was I was stating that as a possible
+position that someone could take I was not myself endorsing okay oh okay okay good okay maybe I read
+wrong because there are people who somehow think that quantum mechanics is wrong I don't know what
+well I do one of them is great good friend you're out of two of two yeah yeah right yeah that's right
+you know he does believe that you know but he I mean he also you know I mean he has a particular
+idea for a classical theory that would replace quantum mechanics but you know I would say that it
+can't even explain the violation of the bell and equality without postulating like what what what to
+my mind is like a giant cosmic conspiracy theory yeah I agree but he is yeah yeah he has a good
+rack track record so I'm gonna yeah I know I know right to like I say about Bob Dylan he can he can
+he's earned a right to do whatever he wants and so it's you know prior to solve most of the problems
+of the physics in the 1970s um many of them it can do whatever the heck he wants and he's worth
+listening to there's some people I would chalk off but anyway so we will see of course that's the
+great thing coming back to that's right that's right like either way let's find out the truth
+it's like the the the skeptics of quantum computing I first I believe that they're probably wrong
+but if they were right then that would be even more exciting yeah it would be even more exciting
+exactly and uh and coming back to five minutes really come you know his interest was seeing
+learning about quantum mechanics and and we may that's right I would argue we'll get to whether
+it's relevant you know you talk about the philosophers you're at you wrote a whole 50 page
+article which I had to plow through then were you talking to philosophers about questions that I
+may be of interest to philosophers but not to physicists as far as I'm concerned all right
+but but we'll we'll get there because we're going to be led there in the next in the next half hour
+I want to talk about computational complexity which is really your your um I don't know what
+a forte but I think it's what your real from what I can tell your real heart is in understanding
+which is different than so complexity is different than compute computability now obviously we don't
+have I don't have time to do justice to this nor could I I think do justice as much as I've tried
+to wrap my head around it but there are a few things I think we can talk about what one is the
+what why don't you talk about the difference between complexity and computability so um um
+computability is the field that you could say uh Alan Turing you know and his friend started in the
+1930s when they uh created computer science in the first place right uh it said that that you
+know computer science is uh one of the only fields that was born with the knowledge of its own
+limitations right and so so you know in the very same uh paper you know just one of the most famous
+papers of the 20th century where Alan Turing introduced the Turing machine right which is the
+you know the mathematical model for you know what we would now call a programmable computer
+he also proved a theorem that said that you know there are some well-defined problems that a Turing
+machine cannot solve okay you know regardless of how much time or memory you might give it okay
+and the famous example there is called the halting problem right and it's the problem where you are
+given as input a Turing machine or in other words a description of a computer program you know it
+could be in any programming language of your choice and you need to decide whether that program will
+ever stop running or not okay so you know now now like at first glance that problem might not seem
+so hard right like if you think about uh you know anyone with experience programming would say yeah
+I can just kind of stare at the program I can see does it have an infinite loop does it you
+know does it not have one okay but you know uh you you can easily invent you know incredibly hard
+examples so so for example imagine a program that just uh checks all of the even numbers
+four and higher okay and tries to write each one as a sum of two prime numbers okay and and it halts
+only if it finds an even number that cannot be written as a sum of two primes right then this is a
+program that halts if and only if it finds a counter example to the Goldbach conjecture you know
+saying every even number four and above is a sum of two primes that is still an unsolved problem
+in number theory right and so solving the halting problem you know would would automatically also
+solve you know a large fraction of the great unsolved problems in math right which which can
+be phrased as you know does some computer program ever stop running or not right and what Turing
+said is that you know yes there are specific programs where we can figure out whether they halt
+or not but there cannot be any general method you know uh at least you you know using computer
+programs themselves for solving this halting problem and the way he did that was a you know a
+self-referential argument you know which is I think you know a justly famous I mean he was
+inspired by you know Gertl's incompleteness theorem which you know had been proved just a few years
+earlier and you know and even before that by by Cantor's discovery you know of the different
+orders of infinity okay but but what Turing basically said was that you know suppose to the
+contrary that you had a program that could solve the halting problem so it took any program
+and determine whether it halts or not then you could modify this this program you know to to
+basically be one that would take its itself as input take its own code as input okay and do the
+opposite of whatever it does okay so it could analyze itself and if it determines that it is
+going to halt then it would run forever and if it determines that it would run forever then it would
+halt okay and that's a contradiction and the only conclusion is that the program can't have existed
+in the first place so so a computability theory you know in the decade since the 1930s was developed
+to you know a very high level of sophistication you know people discovered that you know there
+there are other interesting examples of uncomputable problems so for example if I just give you an
+equation you know and I ask you does it have a whole number solution you know so solving a
+diopantine equation that is equivalent to the halting problem right okay there could be no
+there could be no general algorithm to solve that problem and again it's not even a question of time
+or memory right they're just it's a mathematical proof right it's a question of finite versus
+infinite right it just you know that there is there is no way to take you know the the infinite
+number of possible solutions and and rule all of them out in a finite amount so in fact let let's
+let's stop for a second in a sense computability is the question of finite versus infinite yes
+complexity is it is it more it's a finer distinction is that you think exactly exactly
+exactly now you know um um when people started building actual computers you know in the 50s
+and 60s right you know they you know like some of the first things they wanted to do was okay
+you know there are all these problems that we know to be computable so let's try to solve them
+right you know some of them were like like for example there was a famous theorem of Torsky
+that said that uh for you know um you know like well deciding whether equations have have whole
+number solutions is uncomputable you know if I just want to decide the truth or falsehood of
+sentences involving real numbers then then then that problem has an algorithm okay that is computable
+right and so they tried to do that with the main frame computers of the 50s and 60s now now but but
+then they they quickly realized the problem you know which is that while Torsky's algorithm you
+know had given an algorithm the amount of time needed by the algorithm could only be expressed
+using like a stack of exponentials it was like two to the two to the right and so you know you
+know this this this is not just a practical issue of like does your program take 10 seconds or 20
+seconds right you know this is this is this is a question of can you do it like within the lifetime
+of the universe right and so so so so by by the 60s it had become clear to people that we needed
+to make a finer distinction you know among the problems that are computable you know which is
+you know an enormous number of problems that we care about but you know we actually need to know
+further which problem which of those problems have an algorithm with a reasonable scaling
+okay and and it took it took a while for people to sort of you know converge on on sort of what
+what is even the right question to ask there right but you know by the I would say by the late
+60s it was clear to people that a really crucial distinction was between the problems that require
+exponential scaling and the problems that allow for polynomial scaling okay so polynomial scaling
+would mean I use a number of steps that grows only like the size of my input raised to some fixed power
+okay such as two or three for example and now you know if if I have an algorithm that takes
+n to the 10,000 time you know n being the size of the input okay then then you know
+technically that would also be polynomial you know even though you know no one no no one would
+ever pretend that that was fast in practice right but you know but then then on the other side of
+this chasm are the problems that inherently require an amount of time that grows exponentially with it
+right such as two to the n for example or you know it could be even worse you know n factorial
+right now you know it's complicated you know there are you know you can be intermediate
+you know between these two okay like you know n to the log n power would be an example right
+you can't you know you can have mild exponentials and you can have you know as I said you can have
+brutal polynomials okay but empirically what people found was that the problems that we care about
+you know in practice tend to organize themselves into you know first the polynomial ones that you
+know usually have a pretty mild scaling such as quadratic you know or cubic at worst you know
+and and even if the first algorithm is discovered is like n to the 10 usually if you put enough
+effort into it you know you can make that n to the five and then you can make it n to the four
+right you know you could you could you can whittle down the exponent from from one year to the next
+and so people people got really really good at that game okay and then on the other side there
+are the problems with exponential scaling okay that have a sort of inherent interactability to them
+right and that's you know not just that contingent statement about you know this year's model of
+computers right that that seems like something inherent right and now you know it could have
+been a priori that that there would just be you know thousands of different hard problems you
+know that would have exponential scaling for thousands of different reasons okay but but now
+but now we get to you know the key discovery in the 1970s which is the you know of the problems
+that have exponential scaling almost always it's you know it just for for for one of the same few
+reasons right and this was this key discovery which was called NP completeness okay yeah so
+what so now I'm good I wanted to get um you know I want let's talk about P and NP sure which by the
+way I I actually yeah anyway let's let's talk about P and NP which I think I only fully understood
+reading you as well all right sure so so P well stands for polynomial time and it's just the class
+of all of the problems that have an algorithm you know on a conventional computer yeah that solves
+you know any instance of that problem you know with with polynomial scaling okay so you can think of
+it you know loosely as the class of all of the efficiently solvable problems yeah okay so examples
+of problems in P would be um you know I give you a map and I ask you you know is every city
+reachable from by every other city right I give you a graph you know are all the vertices connected
+to each other okay um you know less less obvious examples I give you an integer you know say written
+in binary I ask you is it prime or composite okay it turns out that if you just want to know whether
+a number is prime that can be done way way more efficiently on a classical computer
+than we know how to actually find the factors if it's composite right so that's a you know that's a
+non-obvious fact okay but um primality testing was yeah actually was discovered in 2002 to be in P
+linear programming so I give you a system of linear constraints and I ask is there
+a point that satisfies all of those constraints right or you know even simpler than that solving
+you know I give you a set of linear equations I ask does it you know is there a solution like
+is this matrix invertible or not I give you a list of boys and girls and which ones are
+willing to date which other ones and I ask you can they all be paired off in a way where everyone
+is happy that's called the perfect matching problem okay and these kind of problems I mean I you know
+I I couldn't resist this quote that you gave from Turing would you just said you know it's not
+obvious that I mean it's certainly not obvious someone that knowing whether something's prime or
+not it's going to be a lot easier than finding its factors but you know the view that machines
+cannot give rise to surprises is due I believe to a fallacy to which philosophers and mathematicians
+are particularly subject it is this is the assumption that as soon as a fact is presented
+to a mind all consequences of that fact fact spring into the mind simultaneously with it
+it's a very useful assumption under many circumstances but one too easily forgets
+that it is false and if you haven't tried it is false yeah it's a great quote I mean Turing often
+had a excellent ways of putting things but uh so okay so that was p you know that's the class of
+all the efficiently solvable problems and you know when you know undergraduates you know major in
+computer science you know you know in their algorithms class you know they'll learn you
+know many many examples of problems that are in p and and why they're in p right okay but then there's
+np uh which uh it doesn't stand for not polydome yeah which is well for a long time I always
+thought it was that's what's good for yeah yeah right common you know uh uh issue I mean I mean
+look we're just not as good as at naming things as physicists are right you know you've you've got
+names like core you know black hole right we're stuck with you know p and np but uh but np stands
+for non-deterministic polynomial time and you can think of it as the class of all of the problems
+where there is a polynomial time algorithm that is an efficient algorithm for checking an answer
+to see whether it's correct or not right not necessarily for finding the answer or just for
+checking for checking right so so uh you know so so so factoring is an example of an np problem
+right like it might you know if I give you a huge composite number it might be incredibly hard
+to find its prime factors but once you found them you know if someone uh doesn't believe you then
+you know it's easy to convince them you just show them the factors and you know with their computer
+they can easily multiply them together and check that they work and they can even check that they're
+prime right so uh so so we would say that factoring is an np problem okay but you know there are many
+other examples like you know so the famous traveling salesman problem because you know I tell you the
+distance between each pair of cities and now I ask is there a route that visits every city
+with you know at most 5 000 miles total or something like that right and you know this might
+require some you know uh enormous combinatorial search to find that path but if you do if you
+succeed in finding it then it's very easy to check you just add up the distances yeah right and you
+know a huge number of games and puzzles have the same character so you know sudoku right you know
+okay you know many people have experience that you know it can take a while to solve but it's
+easy to check you know jigsaw puzzles okay uh you know have the have uh have the same character um
+you know and in fact you know now now we get a little bit meta but but math itself has the same
+character right if I ask you you know give me a proof of this theorem right like since you know
+the work of Bertrand Russell and his friends a century ago you know we have known completely
+formal languages for expressing mathematics yeah right where even a computer can check the validity
+of a proof right and uh but you know uh uh that still doesn't mean that the computer has you know
+has a way to find the proof in any reasonable amount of time right so so if I ask like is there
+you know I give you a theorem like you know or a conjecture you know like the riemann hypothesis
+or something and I ask is there a proof of it in this formal language that is at most
+you know a billion symbols long right that's another example of an NP problem okay and so now
+we can already pose you know the central unsolved problem the biggest problem theoretical
+theoretical computer science for the last half century which is does p equal NP okay so is you
+know is there a polynomial time algorithm to solve all of the NP problems that is all the
+problems where you can efficiently check a solution so one we know one is a subset of the other
+that's right p is contained in NP so you know if you can solve a problem yourself then clearly
+you can also verify the solution right like you know but but uh uh the question is uh uh
+if you can verify a solution efficiently then does that also mean that you can find a solution
+efficiently right and you know I I I like to joke that like if we had been physicists rather than
+mathematicians we would have just said you know of course not next question you know we would have
+declared that p is not equal to NP is a law of nature you know and maybe given ourselves Nobel
+Prizes for its discovery and if later it turned out that p equals NP well then that could just be
+more Nobel Prizes right okay okay I wouldn't quite so so far but in any case you know we might we
+might we might do and and by the way what we and this will come to the next half hour we might do
+as a physicist to say I have other problems I can solve I'm not going to worry about that one
+yeah no no of course you know you can chew you know and and I mean any I mean especially
+given the experience of the last half century anyone could be forgiven for not choosing to
+spend their time on the p versus NP problem but it's got profound implications yes and I want to in
+sort of I want to lead them in in in directions really the directions of what come what a what
+can computers do yes and be can they think ultimately in my mind yeah sure absolutely no but
+but just just to tie things up I want to say you know now the key discovery that people made in the
+early 70s was that uh you know a huge number of problems that that that you know you might care
+about including the traveling salesman problem including actually Sudoku puzzles it turns out
+including you know finding a bunch of people you know in a social network who were all friends
+with each other you know minimizing the energy of like you know like in of a folded protein so
+you know practical problems also right you know a huge number of these problems actually
+you you can prove that they are solvable in polynomial time if and only if p equals NP
+okay so each of these problems in itself individually encodes the entire difficulty
+of the p versus NP problem okay that that was the non-obvious part okay and problems that have
+this property that they're sort of you know NP problems that are at least as hard as any other
+problem in NP these are what are called the NP complete problems okay and and so what was
+discovered is that like if you come up with some problem that involves like satisfying a whole bunch
+of different constraints you know that might conflict with each other and you know you have
+some combinatorial explosion of you know of ways to set your variables like such problems will
+generally will be NP complete unless they have a very good reason not to be okay now a factoring
+is an exception okay factoring is an NP problem that seems to not be NP complete so there is
+no there are some non-animal complete there are right there are outliers factoring seems to be like
+in a no man's land between p and NP complete but okay now you gave some examples so this
+sounds a little abstract for most people but let's bring it down to earth in a way in another way
+which is the reasons to think that p doesn't equal NP are many from as a physicist let's say
+and one of the reasons is the analogy that I like so this is the idea of NP or problems that you can
+show you can you can verify the solution you can verify it's good in a finite time or
+even if you can't solve it but if that's equivalent to the problems that could be solved in a polynomial
+time then the analogy use well there are a bunch of them but one is would be so if anyone is able
+to appreciate a great symphony they could also compose one themselves so knowing it's great
+is the NP part I can verify that it's great but if it's equal to p then I must be able to do it
+and right I mean I mean I mean most people's intuition would be like you know as soon as
+they understand the question they'd be like of course these are different right of course
+you might need x or no now the tricky part is that there are problems like you know to go back
+to that example from before but I give you a bunch of boys and girls I tell you who's willing to date
+whom right you have to pair them off so that everyone is with a partner that they like that
+problem also seems on its face like it would require an exponential search right like maybe
+that one is NP complete but then it's not there's a clever algorithm for it that lets you avoid the
+you know considering exponentially many solutions well in fact it yeah it's really important I want
+to go back I wanted to say that a lot of times you things just look so hard you give up but smart
+people and one of them one of them which I think it's really important was the misunderstanding
+you mentioned it in one of your articles which is evolution that that one of the mistakes that
+people make who look for intelligent design and and I forget which of the great scientists made
+that mistake himself I don't know if it's Turing but no no no so so so so so so so Gertl had a
+quote I mean it's yeah Gertl it's not that he didn't understand natural selection he just thought
+he dreamed of proving a theorem that would say that it was vanishingly unlikely to have you know
+produced you know intelligent life in in a mere four billion years yeah I mean and that's by the way
+you know that's still the obstacle he was he was kind of a mystic now I would I would not put very
+good odds on being able to prove that theorem because you know yeah exactly I mean I think we're
+accountable but by the way it's really important because there's I every day when I debate these
+people say look how complex even a DNA molecule is you can't do that and so you you you can't make
+the assumption just because something's complicated that it's impossibly complicated that's right no
+I mean I mean Dawkins you know caused us the argument from personal incredulity right yeah
+just because you can't see an efficient way for something to be found doesn't mean that there
+isn't one and that was a lesson that computer scientists you know had to have seared into
+their consciousness from you know very early on right and that's why the p versus NP problem is
+so difficult right because how do you rule out that there's some clever approach that just everyone
+is missed for a half a century okay so so I want to focus because again there's so much we could
+talk about yeah lack of time I want to focus on this idea of thinking I want to I want to focus on
+a Turing test in principle a Turing test is kind of an NP kind of problem right can I recognize
+that I might not be able to do it but can I recognize that a computer is a computer
+or or or a thinking human being and well okay I mean I would say you know what Turing was trying
+to do in this famous paper in 1950 was to give an operational criterion right which you know we
+could decide whether to call something intelligent or not right now now technically you know he you
+know he wasn't saying that it's an NP problem because you know after all he wasn't reducing it
+to a computational problem he still needed a human judge right yeah yeah and you know and and you
+know I want to get back to that you know I mean Turing you know like like many people today might
+well have believed that there is nothing that the human brain is doing you know that can't be
+simulated by by a computer right but but but but in in formulating the Turing test he still had
+the judge be a human being yeah no and and I'm doing this with malice of forethought because I
+want to lead to safety which I think which is related to this I mean okay no AI sentient so
+let me ask you a question um if p does not equal NP yes does that imply that there's no effective
+Turing test that's possible that there's no way to tell ultimate people for a long time you know
+if you're interested in seeing if chat gpt is intelligent if p is not equal NP there's no
+effective way that you can do it ultimately so I don't know if it's intelligent I don't think it
+does to be honest I mean I think that you know the question you know the the the the technical
+question of p versus NP and the you know informal question of how do we recognize intelligence
+right they they do interact with each other in some ways right but they're not the same question
+they cut they they cut across each other you know the reason I'm asking is one of the things that
+upsets me about a lot of the safety stuff to begin with but all and singularity stuff is how little
+time is spent on actually talking about what human intelligence is or sentience and since we don't
+really understand that at all we don't understand the consciousness I wrote a book in the whole last
+chapter is about how little we understand consciousness so we understand human consciousness
+how can we be so concerned about anyway I mean I mean all I mean I would say all of that is
+completely true now what you know the people worried about AI existential risk you know they
+what they would say is that our lack of understanding is not a reason to be calm right yeah okay you
+know and they would say that you know the the unbelievable success you know and just you know
+scaled up machine learning you know that we've witnessed over the past few years you know
+demonstrates that we don't have to deeply understand some you know facet of intelligence
+in order to be able to replicate it in order to be able to replicate but then the question is it
+replicating it and being the same or of course the the million of course of course but you know if
+you are you know so so let's say you know there's a philosophical question yes of like you know is
+the AI truly conscious is there anything that it's like to be the AI how could we ever know that
+but then there's also the practical question what effects is this AI going to have on civilization
+yeah and we'll get that we'll get there in just a moment what the what the AI risk people would say
+is that we don't have to answer the first question yeah of course but I want to deal with the first
+question before we get to the second question in the last half hour which is yeah yeah yeah right
+and no but you could say that that also what Turing was trying to do with the Turing test
+was also to pull apart those two questions in some sense yeah you would say let's set aside the
+question of is the machine conscious and let's just focus on this empirical question of can you
+build a machine that acts in a way that we cannot tell apart from the human yeah I and I and I guess
+that's what my question that's why I asked is that p will not equal to and not equal to np yeah
+because I can imagine that you know there's no polynomial way there's no there's no finite time
+way in which you could do an algorithm by which you could distinguish whether the computer has
+solved what it means by being intelligent that's what I mean by it I mean I you can imagine p
+not equal to np would be a statement that it's plausible it's possible that there is just simply
+no way to ultimately do the Turing test that's why I asked you the question well okay but so so I
+mean now that I'm spending a couple of years you know moonlighting in AI you know working with open AI
+you know I am I am forced to get comfortable with the fact that that in AI you usually don't have
+formal definitions of the of the concepts that you want and you know and you have to deal with them
+anyway you know because they are changing the world right they're changing and so you know you
+could say you know you know even you know without you know having a mathematical definition of of
+when is a machine intelligent and when is it not right you you know you have to answer questions
+like you know how intelligent do we expect GPT-5 to be you know and we can try to operationalize
+that in various ways like will it be able to get a gold medal on the international math Olympiad
+right and you know and and and none of those questions will capture all the facets of what
+we care about but but at least at least at least they give a sub-empirical handle on it
+okay now now p versus np is a technical question right that you know it's a profound one but it's
+one that you know I think um you know it's sort of you know it's neither necessary nor sufficient
+for you know uh for for having human level AI right yeah like you could say even even in a
+world where p is not equal to np okay you know that would mean that no computer program could you
+know uh uh sort of magically guess the answers to you know you know any well posed mathematical
+question you know whose answer is a can be efficiently checked but you know that that that
+wouldn't say anything about the impossibility of AI because after all we can't do that either yeah
+yeah exactly no and now my point is ultimately it may just be a question of semantics to distinguish
+yeah yeah no no let me let me ask you one last question before we hit the heart of this all right
+fine um which is well this isn't maybe it's a relevant if it's irrelevant we'll just do it in a
+minute but it intrigued me sure so you might say there are limits to so human intelligence
+as a classical computer whatever you want to call it can do certain things but it's limited
+and can't do things that um you know certain solve certain questions in polynomial time
+but here's my question if humans can build if humans can build quantum computers and quantum
+computers can solve in polynomial times then have an essentially human intelligence solve the
+problem in polynomial time or is that just a yes well okay I mean I mean you you know you could
+say that you know we are using maybe the way a computer scientist would say is that we are then
+using the physical world as an oracle uh uh to to to do to do something that are that are unaided
+brains could not I mean that again all the time of course of course we already use classical
+computers and that way we use telescopes but use every every bit of science right but but you know
+I mean I mean I mean quantum computing of course also feeds into the discussion of p and n pig
+so you know there is what what my former advisor uh umesh vasarani what he did 30 years ago
+is to define the you know the quantum generalization of the class p okay so the class of all the
+problems that a quantum computer could solve in polynomial time and that class we call bqp
+bounded error quantum polynomial time right and now you have a new set of questions to ask
+one of them is is p equal to bqp right and shor's algorithm then you know which came a year later
+gave some evidence that the answer is no it said if you know p could only be equal to bqp if factoring
+numbers is is in p right because you know factoring you know shor says is is a bqp problem
+okay but then we can also ask the question what is the relationship between np and bqp right
+and we still don't know we don't know that either of them is contained in the other okay so they
+could just be incomparable okay but you know when you ask is np in bqp that's just another way of
+asking could quantum computers solve np complete problems in polynomial time and you know so so
+we of course we don't know because you know we don't even know if classical computers can do it so
+how could we know you know prove that quantum computers can't but you know it's generally
+believed today that the answer is no okay that for np complete problems quantum computers they
+can get that square root speed up from grover's algorithm but probably not more than that right
+and that does not reduce exponential to polynomial okay for those who've born with us for this long
+let's let's let where we i mean we i hope that i think they're fascinating questions but but the
+question that now is in the minds of everybody all right terminator that the future our future
+and and you uh had decided and i and i was going to spend more time into and you've written about
+how you got seduced into into going into this you've taken at least one year off and working
+for open oh yeah in ai it's now a second year also oh you did okay when i last read this okay so they
+should it would it it will be two years and after that i'll have to decide how to spend the
+rest of my life to go back to quantum computing so you've been drawn into onto the dark side um
+and i don't know if it's i mean i mean look i'm working on the safety yeah i know it's the light
+side i'm joking um and anyway this question of that you know i signed a petition about chat gpt
+because and by the way i should tell you where i'm coming from i'm nowhere i'm kind of like
+you i'm not even a reformed um alignment person i'm kind of a agnostic alignment person in the
+sense that i um i'm not as worried as many people are i'm more interested in what ai can do than
+being worried about it destroying humanity but but there's no doubt that there are are these questions
+and um and uh and so you're right that that you that one needs to look and and the reason i
+signed that chat gpt thing was not because i was worried about it i was worried it was being trained
+to be too woke was it the six month was it the call for the six month yeah yeah yes call which
+i agree because at the time i even wrote an article about how woke it was and i was a little upset
+about that it wasn't me no no the the main people advocating for this they're there you know the i
+i can i can assure you that the woke people hate them and vice versa yeah yeah yeah anyway yeah no
+no exactly uh but you also point out well actually kind of interestingly you say there's two aspects
+to ai safety there's the there's the ai ethics groups and there's the ai alignment groups and
+you point out that they hate each other yes that's right and you did and you use the example that i
+use in many other cases which is the uh people's front for jenny of which is people's front for
+yes come on yeah exactly life of ryan exactly why don't why don't why don't in the little in the
+20 minutes we have left or so yes why don't you describe briefly ai alignment versus ethics and
+then i want to talk about alignment and chat gpt a little bit and then i do want to talk about
+the two things you've been working on which i find it fascinating which is sort of water marking and
+and and backdoor all right all right all right all right sure so um you know i i would say that
+that that that that ai ethics is is the the field where people are mostly worried about you know
+current or very near term ai is being used to generate misinformation uh to uh uh you know
+entrench the power of some groups over other groups uh to uh uh you know um um you know
+output you know biased answers to be used for political propaganda campaigns things like that
+and then ai alignment uh is is the the field where people are worried about you know how how do you
+uh uh get a really powerful ai to be aligned with our values so you know if you imagine that ai
+you know at some point just becomes able to do pretty much everything that we can do you know
+better than we do right then you know you you imagine that at some point it is it is basically
+to us as we are to orangutans right and then well you know how well do we treat orangutans right
+well they you know they mostly just survive in a few zoos and jungles that are at our pleasure
+right yeah so so so you know how do you get a super intelligence you know to you know prioritize
+human welfare or to you know to uh to value humanity at all okay and so so the ethics
+people are mostly concerned about some people using ai as a tool to you know get power over
+other people or becoming racist whereas whereas whereas the alignment people are mostly concerned
+about like all of humanity is you know is in this together against the okay so so like a future ai
+and they're both real worries let me not minimize one that's right that's right i i don't i don't i
+don't regard either as absurd things to worry about at all and you know i sort of wish that we were able
+to you know have a scientific field of ai safety that could address uh the full range of things that
+you might be worried about but it's not a but the point is it's not really a fully scientific question
+which is interesting which is the reason you stayed away from it and um well i mean i i i i i usually
+you know like was able to do the best with questions that i could formulate mathematically
+right well i mean that's what is physics you you know yeah you know you got it my you know my
+phd supervisor once told me don't think work but but but yeah in physics our graduate students
+and students want to solve these big problems but but but first you have to solve the small
+problems and and the best thing to do is i solve a problem that's actually solvable or at least
+which you can formulate and you know what the problem is which is itself a major and so your
+point was which i think is interesting is that is that for a long time these things were quite
+theoretical and i have to say i attended a bunch of the early meetings were you at a sylomar i can
+maybe we met each other and anyway i went to a sylomar and i heard these meetings about you
+know ai and all the worries that the philosophers had and it was a lot of talk and i just sort of
+felt it was just like but chat jpt and and the new things you've pointed out to you that i'm sorry
+i'm leading you through it but i want to get to it no it's fine it's fine um is you know hey here's
+here's a here's a empirical example and now we can ask empirical questions
+and maybe make empirical progress instead of just talking yeah is that fair yeah that that
+that is very fair i mean no as soon as i saw you know gbt3 which was you know during the pandemic
+right it was you know like yeah i think at the time there were people saying oh this is just
+another chat spot this is like aliza from the 1960s yeah but you know i knew you know i tried
+aliza and i tried this and it's clear that this is a phase change and you know the capabilities
+that the humans have i think the only you know technological thing in my lifetime that produced
+you know a similar feeling in me was you know when i first saw the internet you know as uh
+you know or the web as a 12 or 13 year old well exactly i mean it is but it is and it
+isn't i mean yeah but well let's let's let's get around if we don't get to it you and i both agree
+and as is everyone but one person the chat gpt is not thinking and and uh well wait wait i mean
+no that that that it all depends what you mean by thinking i mean well it's i don't i don't i don't
+personally regard it as conscious or essentially yeah okay although although even even that i don't
+think it's as obvious as many people may get out to be but you know i don't i don't personally
+regard it as sentient right but you know thinking well that you know that all depends what you mean
+by thinking okay i meant sentient i think yeah okay okay i use the wrong word but let me let me step
+back a bit because you know one of the things that i still don't understand about this alignment thing
+i remember the very i remember a well too well-known philosophers get up on stage and say we have to
+you know like make azimov's rules we have to make sure the computers are aligned with human values
+yes both me and jeffrey sacks got up at the same time the economist jeffrey sacks i don't know if
+you know yeah that what do you mean by human values i don't know what human values are of course so
+what the hell if you want to look at human values by seeing what's happening in the world you won't
+find any human values right so what are we talking about when we talk about alignment of course there's
+the question of whose values you know and that's not that's not lost on any anyone who was seriously
+thought about this well some people some people who were pretty serious but you know i mean i mean
+you know we can we can just we can put this in very practical terms right like you know
+what should you know a company like open ai be doing you know you know they don't want to
+unleash something that's going to you know be horrible for the world right i guess the point
+is that the only human value you can now ask you know there are there are you know immediate you
+know already now sort of moral questions like some people think you know we there's a moral obligation
+to open source you know these models like give anyone access to them let them thinker with them
+so that they're not in the control of a few companies other people think that that's utterly
+insane it's like that it would be like open sourcing thermonuclear weapons right yeah exactly
+and and and and then no like we have to keep these things under very tight control right so you
+know they're like like you know you may not be able to scientifically answer a moral question
+and yet it still doesn't relieve you from having to answer yeah exactly you you said a lot life
+isn't scientific if it was we'd all be scientists in a world to be an easier place to deal with
+but but we i mean yeah you hope that you hope you do hope that science can inform these questions
+yeah yeah you do hope so that's where that's where ai safety comes in yes yeah yeah you you
+do hope that and i get become more pessimistic over time but but um one could say though that you
+know the only that a you clearly a universal human value is to preserve humanity so it doesn't end
+but if you say that then it's clear we do things that you know we built nuclear weapons
+so it's not clearly a universal human value but yeah but so i mean one one one one one idea that the
+you know the um you know eliezer yadkowski who was sort of like the you know the the profit of
+this area you know that he likes to talk about is called coherent extrapolated volition which
+basically means you know what you would really like once you have the super intelligent ai is
+not to tell it you know just copy the values that you see humans you know uh uh uh enacting you know
+in in in real life that would be terrible what you want what you want to tell the ai is sort of like
+simulate the humans you know having a moral philosophy seminar for 10 000 years you know
+where they would refine their their intuitions and get better and better and go through you know
+10 000 years of the same process that led us you know to abolish slavery and to you know give
+women the right to vote and all these things that we you know that we all regard as moral progress
+and and simulate that process until it reaches some termination point and then whatever values you
+know your simulation ends up with then those are the values you should enact you know that's you
+know that that that that that i mean that i mean that even that idea can be criticized as well but
+but you know of course you could say they are you could argue that that moral progress has led to a
+civilization that ultimately is bad for the planet and you might say that the best the ultimate end
+of that is to say well planet's going to be better off if there aren't humans on it you might you
+might argue that's illogical and i mean if you're thinking about right right i mean i'm talking about
+effective altruism i know so you lectured him so i just did a podcast with peter singer and
+might say that if you're if you really think that the the the well-being of all animals is equivalent
+and you might say well then you know the human well-being conflicts with that and yeah i mean
+you you you could also imagine an ai that would reason that you know if humans survive and they
+colonize the galaxy then they are more likely than not to become a scourge of the galaxy that will
+you know wipe out all the other civilizations and therefore you know the whole you know universe
+will be happier if it if it if it if it kills the humans right and so you know now you know i i don't
+you know um you know i think i think that there is progress that can be made in making it you know
+ai's safer and the more immediate you know yeah and you i want to talk about without without needing
+to answer these cosmic now with those big questions and in fact yeah i'm always amazed that people
+just as i'm amazed when people see something they don't understand the sky they decide it's aliens
+and i'm gonna have to do a debate on that later this month yeah but but also automatically whenever
+they think of an quote unquote intelligent ai they see terminator they always see a dystopic future
+they never see a future in which where human life is in many ways better or could be better
+just as i mean look i i mean i mean i i certainly think about the good outcomes right yeah i know
+exactly right you do it's even it's even it's even possible i mean i mean you know if we think about
+previous technologies right like like you know like some like some people say well well you know
+the internet has you know has ushered us into a dystopian reality right but i don't know what
+i what i what i want to what i want the internet to have never been invented you know i'm not at
+all store of that you know so like some people said you know like like after 2016 they said well
+look the original promise of the internet was that it was going to you know democratize you know
+speech and and give you know everyone you know the ability to say with what you know what they
+wanted and to influence you know the national conversation and it delivered on that promise
+and the only problem is that what a lot of people want is absolutely horrifying yeah yeah absolutely
+i mean it's like saying i mean when i know you know this there's a lot of information and misinformation
+but yeah but but what but you can't deny that you know and when i'm not when i was just on the
+tube in london and i remember me being in japan 30 years ago where everyone was staring at games
+uh that's never going to be us but of course no one can be in the tube without the phone you might
+say that's bad but on the other hand look at what they can do and look look at what you can do so
+so yeah um you know it's it's it's two sides of the same coin but yeah great but but but i think
+even even the people who are who are the most deumerous like they completely agree that you know
+that that you know they're generally pro technology right and they think that that ai will will make
+life amazing before it kills us before it kills us but you know at least if we don't get it right
+let's let's there's some reasons for hope that tends to be their position there are reasons for
+hope and i want to try and end on an upbeat no i agree i agree one of them you point out which i
+think is really important is that the big concern is that there's a phase transition and somehow
+things are moving along then suddenly you know it's like in terminator suddenly you know uh one ai
+learns how to lie and and you know and you point out and this is very important that i mean in some
+sense there are current current language models can already lie yeah yeah they can lie and but yeah
+of course they can and they lie in silly ways as you point out as well as good ways and and you
+can often trip them up on as a result but right but nobody like you you can give them a goal and
+they can figure out to lie in pursuit of that yeah yeah exactly but yeah but do it in a way
+where anyway so here's the question is is um so um but you point out and this is important
+that if you look at empirically what's happening is as they learn as you say it's like your students
+you get it's not there's a phase when you see them make the mistakes as they're learning it's not as
+if they're gonna they surprise you and suddenly having learned uh integral calculus when before
+the day before they were learning how to add um and and and uh yeah yeah no they do they they are
+sort of progressing through the curriculum like a couple years ago they were in you know elementary
+school maybe in terms of their ability to do math problems now they're in high school or undergrad
+they're still not in grad school right but you know but but like you could say that progress has
+been continuous but it's also been extremely fast right and so so you know well like one one
+confusing thing about this discussion is that every phase transition right is actually continuous if
+you zoom into it closely yeah right and so you know something could be technically continuous and yet
+on the scale of a human lifetime it could feel like a phase change I think that might be the
+situation that we're in right now that's not quite true though first order phase transitions really
+are but anyway um but yeah anyway but uh but okay so that's a cause for hope but there's a statement
+you make I wish I could spend a half an hour on this instead of tim and we've talked about one of the
+reasons for optimism but another is another reason for pessimism which is to quote from you
+I think that for better or worse we're going to see real harm from AI we're going to see them
+used unfortunately to help plan terrorist attacks to do really nasty things but those things at least
+will be far short of the destruction of civilization so there will be some bad there will be some bad
+and that's one of the reasons you've gotten involved that and the fact you can empirically do things
+why don't you talk briefly in five minutes about watermarking at the very least okay sure so yeah
+I mean I mean you know in AI safety like you're constantly asked to prognosticate like what you
+know is going to happen you know 20 or 30 years from now and I can't do that like no one can if I
+could do that I wouldn't be a professor I'd be an investor but you know I was I was happy that you
+know uh uh in summer of 2022 that at least I was able to see three months ahead okay so before chat
+gpt came out like I had this moment of terror where I was like oh my god like every student is
+going to be using this to cheat on their homework aren't they or at least they're going to be sorely
+tempted to right and and you know I I get all of these trolls on my blog you know some of them
+put incredible energy into their their their their craft I guess right but I'm like wow this is going
+to make you know attacking every discussion forum on the internet so trivial to do right you know the
+Russian government for example could spam every comment section with pro-putin propaganda you
+know you know that seems responsive to whatever came before it right and you don't even need a
+building full of people to to do this right you just you just to just have gpt do it for you
+and so then you know for all of the you know and and you could also have gpt impersonate someone
+right if you have enough examples of of someone's writing you could say produce more writing in the
+same style where this person confesses to a crime yeah right or you know you could uh uh you know
+try to whip up a campaign to get someone fired right so so um you know so so all of these different
+misuses all involve concealing the fact that an AI was involved right and I just thought you know
+if you could only make the outputs of a large language model detectable as such right then that
+would simultaneously address all these different misuses so so how do we solve you know what's now
+called the the provenance problem or the attribution problem right of what came from a language model
+and what did it you know and there are different approaches that you could imagine I mean one
+approach which actually has been tried over the last year is to treat it as yet another AI problem
+so you just train a discriminator model to say you know you know did this text come from a human
+or did it come from a language model right and and you know you can get you know maybe 90 95 percent
+of accuracy with that sort of thing uh but you know you there's there's still too high a risk of
+false positives right where like like people were having fun like we're like with some of these
+discriminator models where like they would say that passages from the bible or shakespeare were
+probably a gpt generator right and you know and and okay but but if you you know um um you know
+or if your discriminator model is falsely accusing students of using gpt to cheat right and that's a
+huge problem right and we've and we've already seen some of that in the last year okay now a
+second approach would be you know as long as the models are controlled by just the few entities
+like open ai google anthropic then they could just store all of the outputs they generate
+in some giant database and then they could let people make queries against that database you
+know you know is this a match for anything that you have generated now it's not obvious how to do
+that in a way that would appropriately reassure people that their privacy is being reserved right
+that that that's the main drawback there okay so then i got interested in a third approach
+which is called statistical water market okay and this is where you slightly change the way
+that the language model operates so you're not going inside the neural net and fiddling with the
+weights okay but you are um you know like like so so so how does a language model work you know to
+step back right it but what it's doing you know it's this big neural net you know called a transformer
+neural net but it it's constantly taking as input a context which is let's say you know the previous
+thousand or so words you know which could be either you know the user is prompt or it could be the
+words that in itself as has already generated yeah right and it feeds those in and then what it outputs
+is a probability distribution over the next word okay or technically the next token you know it could
+be a punctuation mark you know numeral whatever what happened in normal operation is just that you
+sample from that distribution right so you uh you know and and and and you know people may have noticed
+that like you can submit the same prompt to GPT over and over and get a different output each time
+right you know and and people like that right it's it's you know the model is inherently probabilistic
+okay but now we could imagine doing other things okay you know already in in GPT as it now exists
+there's a parameter called the temperature right and if you set the temperature to zero
+then what you're telling GPT to do is always pick the token with the highest probability
+right so in that way you're making it deterministic yeah okay but now with with watermarking you would
+do yet another thing which is you would use this probability distribution okay but generate the next
+token in a pseudo random way okay a way that looks random that looks you know to any ordinary user
+like this is just you know regular GPT output but secretly you know you're using a pseudo random
+function to pick the next token and and you're doing it in a way that biases some score like some sum
+over all the tokens you know over all the the pairs or you know trigrams or whatever of tokens
+of some score which you know if you know the key of the pseudo random function and you have the text
+in front of you then you can calculate that score and you'll see given enough words given enough tokens
+that score will just be systematically larger in a watermarked output then it will be in an
+unwatermarked it's great and the virtue of that by the way is as you point out that if you just
+change a few words it doesn't change anything because you're looking that's right that's right so
+yeah exactly so we have an an approach that is indistinguish you know where it produces output
+that is you know to the end user would just be indistinguishable from normal GPT output
+and you know it produces this this watermark where you know you can you can be you know like with
+with a few thousand words you could be statistically certain basically that yeah you know this came
+from GPT even even with a few hundred words you're pretty confident and it's robust to local
+modifications okay now now what it's I have to be honest here okay what it's not robust to you
+you know the problem that we don't know how to solve is for example you know a student asks GPT
+to write their term paper but in French yeah and then they put it into google translate yeah right
+or or even they ask you know GPT to write their term paper but you know insert a random number
+of exclamation marks between each word and the next you know and then they take them out right
+and you know and GPT for unfortunately you know is smart enough that it can usually follow such
+instructions right and you know I think that in order to you know have something that's robust
+against all of that we're gonna have to figure out how to a watermark at the semantic level
+like not you know which would which would mean going inside of the neural net and doing something
+to the weights okay well um okay yeah okay so I look I I just it's a small insight into
+some things you but what's great about it is it's real it's not talk and and and just so people feel
+look there are people like you who are actually thinking about how to do these things which is
+important now I want to end with the last question okay because this is the one I use a lot when I've
+written about I was gonna say you know the the the the the the the alignment people would say that
+that you know watermarking you know is a band-aid and like a yeah I know they're gonna the world is
+over a true super a true super AI well we'll laugh it off like so much you know tissue paper and
+absolutely and and they might well be right they might be right but it's baby steps but you know
+the hope the hope is that at least we can learn something you know at least baby steps you do
+what you can do exactly you don't buy anything then all you're doing is weight is putting your
+head in the sand and saying wait for it to be over um yeah no and I should say you know I'm not I'm
+not the only one who's trying to do something I mean you know I have lots of colleagues at open
+AI we're trying lots of other things but this is speaking of the I'm excited I'm excited that AI
+alignment is now you know at least partly an empirical subject yeah absolutely and as I I think
+when I hear yeah talk about it yeah but speaking of the alignment problem in the doom there's
+there have been many times a number of times when people have looked at technologies and
+said this is the end of the world and one of the earliest ones which intrigued me when I first
+learned about this and I've written this is what I wrote about in my last book at the end
+is when in the eighth century or ninth century in greek bc in Greece the introduction of the
+alphabet and writing came along and everyone played oh and others argued that it was the
+end of storytelling it was the end of storytelling because people wouldn't remember things anymore
+and they wouldn't have face-to-face conversations and so it was the end and and of course most
+people especially those of us who write would say that writing actually has improved storytelling
+at least hasn't heard it it's changed everything and it changed what means to be human it really
+changed what it means to be human you spend a lot of time reading arguably yes yeah and so so AI is
+going to change what it means to be human but that's not such a bad thing yeah I mean I think you
+know you know like you know the the the the lower bound on you know how transformative AI will be
+is that it will merely be like writing like the printing press you know like the computer itself
+right it will merely be another you know transformative technology that you know does
+destroy you know the old world you know the world as it was before that technology existed
+you know but then there's a new world and and we adapt to it right I think you know the one thing
+people are worried about that could be different about AI is right with every previous technology
+you know you could point to okay but obviously you still need humans for X yeah right like you
+know the printing press you know it you know it copies all the books but obviously you still
+need a human to write the books right yeah you know the you know you know with every previous thing
+you could say you know but this is what you still need the humans for and and and after AI you know
+if you truly have a human level you know AGI then it's not obvious that there's any answer to that
+question anymore yeah yeah okay so yeah I mean the last the really last question is are you
+optimistic or pessimistic I mean I am I often tend to be a pessimistic person I mean maybe it's just
+because you know I was you know like like you know one of the first things I learned about
+you know as a child was the Holocaust and that just sort of set my you know
+my my my my my my mental template for for for what the world is like but you know it's never
+obvious to me which things to be pessimistic about right there's so many of them it may not be you
+know you know AI that gets us in the end it may be something much more pedestrian but you know but
+like on a on a on a day-to-day level you know I'm often pretty happy right I mean well you know I
+want to I've said this yeah heard me say this before I wanted to give you this because it changed
+my life when I first met Cormac McCarthy my friend the writer and yeah such a upbeat guy
+and I'd read his books and I feel like the road or okay for old men and the others and I said how
+come how can you be so upbeat and he looked at me and he said well I'm a pessimist but that's no
+reason to be gloomy I love that motto and I hope but look all I can say is I'm a little more
+optimistic about the world because there are people like you in it thank you so much thank you so much
+that means a lot to me really and I'm saying it my heart so it's been a pleasure and uh and we can
+spend a lot more time and I could learn a lot more and I hope that people have and thank you for
+taking the time and Scott I hope to see you in real life somewhere but you take care and keep
+yeah keep yeah like I take care and thank you for having me on your podcast oh it's it's been my pleasure
+I hope you enjoyed today's conversation this podcast is produced by the Origins Project Foundation
+a non-profit organization whose goal is to enrich your perspective of your place in the cosmos
+by providing access to the people who are driving the future of society in the 21st century
+and to the ideas that are changing our understanding of ourselves and our world
+to learn more please visit originsprojectfoundation.org

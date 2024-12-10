@@ -1,0 +1,552 @@
+So, I just want to make a quick YouTube video about this because it seems to be coming up
+and it's a really important topic and I don't know how to make it into a question, so, uh,
+I mean the question I originally was going to have was, um, wait, what, what did I just
+do?
+You're like, I don't know.
+Uh, what are, uh, contextual, rooted, command trees?
+And this is my new term, I, I, we thought, and Miles is not here, he's one of our community
+members who told me the idea that people were referring to this by, by saying fluid and
+fluid APIs or fluid command line APIs.
+And I have not found any reference for that yet.
+So Masi, if you're out there, let me know and put a comment in there.
+If there's anybody on YouTube who knows about this, who's got an actual term for this.
+So I'm going to describe what it is and I'm going to use my best way of describing it,
+which the community and I have recently just kind of come up with, uh, you know, a little
+bit of how to, uh, you know, the idea, but, and I'm going to tell you what it is.
+And then you, we're going to come up with a name for it because this is really becoming
+this spectacularly, uh, popular.
+And so we're seeing, so let me just summarize what's happening.
+Let me tell a little story.
+So, you know, if you go back to the boomer days, you know, a lot of good things came
+from the boomers, the internet, you know, C, UNIX, a bunch of other stuff, but one of
+the horrible things that came from the boomer generation is stuff like this, GPG this, this,
+this is the epitome of boomer get opt hell.
+And I can sit here and hold my finger down and I can, you can see all of the potential
+options for like, for like, you know, a good 60 seconds there.
+And all of those things have dash dash and then I'm in everything else, right?
+And it's absolutely horrible.
+And in fact, there's other programs that still use this QPC tail being one of them.
+So I mean, I mean, they, they do have kind of a top level of, of contextual thing, but,
+but it beyond that, right?
+You're like, you know, it does kind of give you contextual stuff a little bit, right?
+So, but, but you still have like a ton of, of options to deal with and it becomes so
+unwieldy that, you know, you just, you can't do it.
+You have these top level commands and then, but beyond that, you're, you're, you're relegated
+to command hell with dashes.
+Okay.
+So, so, so if you go back to the seventies when people had, you know, constraints on memory
+or anything, this thing called get opt was invented, right?
+And get opt is the thing that from which all of the modern command lines that were not
+modern, but, you know, semi-modern command lines have used.
+It's the idea of having a switch with a dash or two dashes and there's varying and there's
+competing things.
+And this entire hellish world that we live in, that's that where everything has to have
+dashes in front of it is finally dying.
+And I can I, can I just tell you how happy I am that this is dying?
+So you know, I have a mantra, don't get mad, get busy.
+And I was so annoyed by this entire thing and I built bonsai and this question isn't
+about bonsai.
+I'll talk about that another day.
+But if you go to mygithub.com slash rdbxrob, so bonsai is my, my way of dealing with this.
+And it basically makes very elegant contextual rooted command hierarchies or rooted command
+trees.
+And so instead of having all of these dashes, like my Z command, you just do Z dot tab tab
+and you get a number of composite command trees.
+I call them bonsai trees or bonsai branches.
+And by the way, you can import them very easily just by with one import command from Go, which
+is one of the reasons I love Go.
+And you can also create alternative pass through the rooted node graph, which is the data structure
+we're using here.
+And this bonsai, bonsai is something that came about for me completely independent without
+knowing any of these other products that are doing the same thing.
+So let me give you an example.
+So if I go to tab tab for unique, I tap again, and I get all of these variations on uniqueness.
+And I can type hex, oops, let's do isosec, isosec, you know, like, oh my God, that's
+like too much to type.
+Well, you can create a shortcut through that if you want to, that's just, you can create
+shortcut commands that zoom right down to the bottom level of the contextual thing.
+And then you deal with switches and stuff, you know, like whether you want your output
+in YAML and things like that, all of those things that you might actually be able to
+justify a switch for are now stateful.
+And so that means like if I have a command that needs to say, okay, I prefer YAML as
+my output, then we have like var, and we have a thing called var, and we have a thing called
+config.
+And you can save those things in a stateful, contextual way that sticks into your home directory.
+And that's all built in.
+And those are, you don't have to put that into your model list, but you can do it.
+So those are, and by the way, this approach that I do with Bonsai is, is elsewhere.
+So let me, let me give you an example.
+So even kubectl has a hint of this, right?
+So kubectl tab, tab, you get all these options, right?
+But if you go kubectl config, right, when kubectl config, like, wow, look at all these
+other commands, right?
+And so then we're going to do available commands.
+Wait, what happened?
+All right.
+So get, get context.
+So kubectl is kind of doing the same thing, right?
+But so, but it still has dash, dash current and all these other things that you have to
+add, right?
+But I didn't want to bring this up.
+I'm only, I only have one context right now.
+If you're, if you're, so this is an, I, this is an example of stateful contexts entering
+into the mainstream.
+And it's not just here.
+You're having more and more commands that, that are expecting, they're providing like
+a default context or state.
+And I mean, this, this is real evolutionary when it comes to like, you know, what we used
+to do.
+The idea that you're, that a specific command like kubectl or anything would have state
+that's stored in your home directory that you can then change rather than dealing with
+this switch every time.
+I mean, because the answer to this up to this moment has been right, a bash script or something
+like that.
+That's got all of the particular, you know, options that you want in there in order or
+an alias or something, right?
+I mean, let me give you an example.
+So, so, so, so LS, right?
+So LS, my LS command is actually LS dash H color equals auto color equals auto if, if
+LS had been written to be a stateful, you know, command, then these kinds of things
+would automatically be stored in a, in a sort of standard way within the home directory
+of the user rather than as an alias, right?
+With these crazy ass, you know, human readable thing.
+And if we actually did this kind of thing more frequently, we would have the ability
+to transfer our preferences in a single file or a directory under dog config or dot local
+or cash in like that.
+So this is, I'm think, I'm thankful to say that this is where the universe is going.
+Thank God is that we are allowing state to be added to even things as granular as LS rather
+than create these aliases and stuff.
+And we see that in kubectl.
+When we do kubectl config, you know, we could change the context and all our commands are
+based on that namespace or based on that preference or, but unfortunately we can't
+set our default output format.
+That would be fantastic.
+Wouldn't it?
+How many of you would like to change your output format for kubectl to default to wide?
+Probably a lot of you or to YAML or to JSON.
+You probably want for the, for the, for the duration of a session to change that instead
+of having to use that fucking switch on every single time you go back into your history
+and go edit it, no amount of Z shell or fish, you know, assistance on the command line is
+going to overcome the bad design that forces you to put that switch on every fucking command
+line every time.
+If that had been turned into a stateful configuration parameter, I'm sorry, I'm swear I normally
+don't do that on YouTube, but this stuff gets me very angry.
+Uh, yeah, pain would have a config if, if, if, if we, if we, you know, dare to give
+ourselves permission to give all commands state and context and rooted, you know, command
+trees, the world would become a better place.
+And I'm, again, I'm very grateful to report that this is already sneaking into our world.
+Let me show you a few examples.
+So the first one I know of is get the first substantial program to violate the one, one
+thing, uh, you know, do one thing well, uh, idea was get and, and ironically get still
+fulfills that get is just a, a front end.
+There's actually a ton of commands in here.
+So you can get add, um, I mean, it used to be multiple commands, right?
+So the old days of doing one thing well and, and, uh, I mean, that still applies that,
+that, that refactoring into one thing well.
+But in, you know, 2022, we've allowed ourselves to say, look, we have memory.
+We have this space.
+It's okay to put these one thing well things inside of monoliths that travel around.
+And that's what bonsai is, by the way.
+And then that way, you know, we have the portability of it all, but we, we bring all of that functionality
+with us.
+So, and I mean, busy box did this very thing.
+I, you guys ever seen busy box?
+Every single command from the, from Munich's, all the, all the base units, we've been, this
+is just not new, right?
+It's been used, it's been, it's been multi-called binaries before, but busy box, busy, you know,
+let me do a Docker thing.
+So Docker, some people might not know this.
+Actually, I have podman on here.
+Let me see if this is a work, a podman, uh, dash, dash, dash, run.
+I mean, how, how annoying is it that I have to type all that, right?
+Isn't it?
+I, I, I mean, I am running podman so frequently with these parameters that I would want that
+to be my default context, but I can't do that, right?
+It drives me crazy.
+Why can't I tell podman or Docker that by default I want to remove the, the things after
+I run them.
+I have to type dash, dash, RM every fucking time because it has no sense of state.
+It should, it should.
+And I might actually redo a podman that has it that way, but unfortunately no.
+So it still has a command.
+So I'm going to do a run and I just want to show you, um, Alpine, which is the most common,
+it was the most popular Unix distro, uh, okay, fine, a Docker, uh, just to get it out of
+here.
+Uh, whoops.
+Run.
+What am I doing wrong?
+Exec Alpine, right?
+I, I cannot remember my Docker commands right now.
+What am I doing wrong people?
+I'm doing something wrong.
+Is it, is, does it have to be before the flags?
+Okay.
+Thank you for helping me make my case further.
+I mean, how annoying is that?
+I'm glad that happened on the stream alive because that's exactly what I'm talking about.
+The flags are part of the command sometimes there are, though, there has been several
+commands where it does not matter where they appear in the command line, right?
+But some do.
+Yeah.
+Whatever.
+I mean, it's super annoying.
+Cause I mean, how many times have I written this command?
+I still can't remember it.
+I should have been able to just tab my way through the thing and figure out the syntax
+if it had had a, you know, a human friendly, you know, rooted command tree that I would,
+I would already know what to do.
+Right.
+And if one of those commands has helped, then I could, I could say, okay, well, this particular
+command has state and I can set the state variables for that thing, such as remove yourself
+every time, you know, I, whatever.
+So, so, so here we are on Alpine.
+Let me just show you what I'm talking about.
+So if you go to this slash bin and you do ls dash l, you'll notice right away that there
+is a bunch of stuff that's sim linked, right?
+If you go look at the same stuff on busybox, it's hard links.
+It's actually kind of interesting.
+You want to see the difference?
+They're all the same file.
+They're all the same.
+This is called a multicoll binary and this is a very early version, probably the earliest
+version of a contextual command interface.
+So they maintained, you know, the one thing good kind of mantra from Unix and from the
+news philosophy, but then they hit it from everybody by making all of them individual
+commands.
+And those commands are all in a single binary.
+That binary fits on a floppy disk on a 1.5 megabyte floppy disk.
+That's why busybox was created.
+And you can go back on, a lot of people don't know this, but you can go, let's do the same
+thing.
+Let's run busybox this time.
+Assuming I can get the command right.
+And you just go into bin here and you'll see hard links this time.
+So the way you know it's a hard link is you got 401 hard links here.
+They're all exactly the same size binary and they all look like they're actually separate.
+No, they're all hard links.
+And so, yeah, this is, this is the modern era though.
+So the modern era started with busybox really.
+But these days, you know, the closest thing, I mean, Git was the first one.
+Git said, you know, Torvald said, you know, we got memory, I'm going to put all of the
+commands in again.
+Now, Git is almost its own, you know, thing.
+And strictly speaking, these command lines that we're using for Git or whatever, or domain
+specific languages.
+And you know what, if we had treated them like that from the beginning, we would have
+a much better command line world today.
+And I am happy to report that the world has woken up and decided that creating things
+that are naturally intuitive, like Git has been, I mean, I mean, obviously there's a
+lot of selections here, but, but let me give you another example.
+So you can go to any one of these things, right, but let me give you another really
+good example, IP, the IP command, right?
+Same thing.
+It's a, it's a, it's a, you want to call it a model it, you want to call it a command
+with subcommands, whatever you want to call it, it has that and you can like kind of keep
+going, right?
+You can do address.
+Okay.
+I got that.
+And I go address, tab, tab.
+Oh, look, I got, I can do address, change the lead, flush and help.
+I really, really, really love this command because I had nothing to do with this command,
+nothing to do with it.
+I did not even know about it.
+And it has the creators, the brilliant people behind the IP command have created exactly
+what I created in bonsai to the letter, to the letter.
+Now they, they do allow dashes and stuff like that.
+And but the fact that they put the help command after the command that help is a subcommand
+of the main command is exactly what I did with Z.
+So I do Z bonsai, right?
+So I do Z, my help is way better than that.
+But if I do Z unique, right?
+Everything in bonsai comes with an optional embedded help command.
+So I can type help and I get a man page.
+And this has been structured exactly like the man pages.
+And you get this help documentation for free with bonsai.
+It automatically detects the subcommands as they have been composed into your monolith
+and at every level in the command tree, at every level of the, you know, the command
+level of your, of your commentary, you, you get a different help command that is specific
+to the available commands under that section automatically.
+And I built that into bonsai.
+So the fact that the IP people have actually done the same thing and shows to put help
+there instead of dash H, which is probably also going to work.
+Nope.
+Good for you.
+I love the IP.
+Whoever designed the IP command, you are brilliant.
+Wonderful people.
+Thank you so much for, for doing this.
+And, you know, there's a lot of other commands.
+So net plan is one.
+I know people don't like net plan, but people are starting to wake up and we have get, you
+know, a cube CTL is getting better.
+I think it'll eventually come around and create, you know, this, this kind of interface.
+But I just, I'm just super happy with that.
+Now, unfortunately, you know, in order to get color here, I still couldn't set state.
+So guess what I had to do?
+You're going to see it, aren't you?
+I can't set state.
+So the thing, the thing that the people doing these command line interfaces have not yet
+fully accepted is a way to standardize context.
+And so my term for this, and this is going to be the term I'm going to propagate going
+forward is contextual rooted command trees, contextual rooted command trees or stateful
+rooted command trees.
+Stateful contextual.
+The point is that you should be able to set the state of your switches and, and do it
+one at a time.
+So I'm going to go do this one, I'm going to go do another one.
+And it's not that most of the time when you want dash C on a thing, you always want dash
+C on a thing, right?
+And like for cube CTL, how many times have you just wanted the namespace to be for a
+single command during a cube CTL session?
+Pretty much never, right?
+And so you are forced to go up and redo that exact same command line and rebuild it every
+time because there's no command to set the default namespace.
+You can in the context, but then you have to go through that convoluted context switching
+crap because, because no one is really standardized or thought about a simplified way to do it.
+Now I have in bonsai.
+So in bonsai, you can actually do var and var is a generic way to capture variables that
+are stored statefully in a file for everything that uses, for everything in the monolith.
+And I really wish that, that we could standardize on this.
+So, and it, so the default way to do this is home, it goes into your home directory.
+I don't know, can you see that my help description is actually specific to my account?
+You know why?
+Because I'm running the help command from the command.
+So I have dynamic help that detects your current situation.
+That means all of that stateful stuff that we're also adding, guess what?
+You can leverage that in your help documentation.
+So when you go man, or instead of doing man, right, you go Z, whatever help, it can actually
+interrogate the local cache or the variables they've already set and it will display them
+in your help.
+I mean, these are things that, that are like next level when it comes to thinking about
+these, these, these type of like really extremely human friendly interfaces and, and, and I,
+you know, just rather than getting angry about it, I went ahead and build it.
+I would like to see these things incorporated into more things, but being able to standardize
+on dot cache Z vars, I mean, you throw away there, you throw away the cache.
+Oh yeah.
+This is actually probably one of the best use cases for go.
+But you know, I mean, let me just, I, I sounds like I'm selling bounds here.
+That's not how I started on this, but Bonsai was, you know, of course my solution to this,
+but I have a Z monolith that, that is here just to show you what I'm talking about.
+So, you know, and just to show you how easy it is to do this, all I, these are all of
+the, the bonsai branches, I call them, which are just commands with their own trees.
+And I just import them and they're here.
+That's the end of it.
+I can create my own dynamic template variables for my help.
+I can set flags.
+I can create, you know, if I want to do a multi-call, I can do that.
+Here is a, here is a parent command.
+So this is, this is a command, I mean, you have to get into bonsai.
+I'll do a whole thing on bonsai.
+I'm going to write a book about bonsai actually.
+The reason I'm doing all this keg stuff is got a lot of books to write.
+And one of the books I want to write is, is, is bonsai, the book about bonsai,
+the bonsai guide, because I think, and here's, here's the shortcuts.
+Here's all my shortcuts through the command tree that goes into the monolith so that I
+can bypass some things, right?
+And, and stuff.
+And here it says, and there's, I mean, here's the example of the help template,
+which uses the most amazing templating system in the world.
+The go templating system is by far the most powerful that's ever been created.
+It's so easy to create extensive, extensible syntax for your templates or anything.
+Anyway, so that's it.
+The rest of this stuff is all pulled in from these other things, including local stuff.
+So the ENV go, this is a sub command I just wrote really quickly.
+I was like, Hey, I just want to print my environment variables.
+And I, you know, just, I don't want to get too much into bonsai.
+I just wanted to show, you know, I wrote some Tmux stuff.
+I'm in the middle of converting all of my
+bash scripts into a single Z monolith that I can copy onto any target system,
+including things that running any shell on planet earth, because,
+because this is a binary, it doesn't care how it's being executed at all.
+And one of the things I haven't added yet is I want to add completion so that if you,
+I don't have this yet, but if I were, right now, if I just do Z enter, it shows me the help.
+But I am going to add, so if you, if you wish to, you can set up the default shell
+and when you do Z enter, what it'll do is it'll, it'll put you into a tab completion terminal mode
+that's supported on any, on any shell whatsoever, including DOS.
+So if and when we get that, because that library has already been written,
+I mean, GH already uses it, right?
+So the GH tool already uses something to this effect.
+So the create repo create, you're seeing this more and more.
+It has this whole terminal interactive, it's like a little sort of,
+it's not truly a command line.
+It's an interactive terminal session, but, but, but for places that don't have completion,
+I want to be able to just go Z enter and then enter a command and hit tab and have it find
+the right command on anything, anything, anything whatsoever, because,
+because the completion will then be built into the monolith itself in a very tiny,
+like micro shell, if you will.
+So that haven't built that yet, but then that's coming.
+And, and to me, that's, that's where we're going.
+You know, we, we have these, these other things here.
+You know, I have my POMO command is in here and POMO start.
+And there's my POMO up in the corner as the POMO stop.
+Anyway, so that, that's what I, I don't know what should we call them.
+Should we call them stateful or contextual?
+What should, what should we call them?
+I think we should call them stateful rooted commandaries.
+Uh, that's what I think.
+I think they're stateful.
+I think stateful is the right word because, because they do have state.
+I mean, you know, the sub command might, you know,
+it switches and stuff might be changed.
+Now I also have a config command, which is for, you know,
+that throws you into a config YAML file and lets you change your configuration for your
+local system, for your local Zbonsai command.
+And that stuff's not meant to be temporary cache.
+And that's the kind of thing that you would copy around with you in your dot files.
+But the vars, the vars, you know, bonsai tree, those are all optional, by the way.
+You don't have to put those into your bonsai tree if you don't want.
+But if you do put the vars, the vars into your bonsai tree,
+you get stuff under dot cache.
+But then if you go onto another system and you don't take your cache with you,
+you just get the defaults for all your, your commands unless you, you know,
+and that's, it's up to you to kind of decide whether you want to implement
+your bonsai tree command using config.
+So, which, you know, can use a centralized config, by the way,
+one config for an entire monolith.
+And because, you know, you're able to like drill down.
+And versus, you know, having, having cached variables that are, that are, that are there.
+Now, you know, the amount of time it takes to read from those variables and all that stuff
+is so infinitesimally small that it's, it's not an issue.
+It's not an issue.
+It might have been an issue in 19, 1976, but it's, you know, it's not anymore.
+So, so that's, that's what that's about.
+That's really all I have to say about that.
+So I, I encourage people to, to play around.
+And if you discover a stateful root of node tree, root of command tree,
+somewhere, let me know.
+And we can, you know, put these together.
+I'd like, I'd really like to kind of see how the world is waking up
+and throwing get-opt out.
+Thank God.
+You know, dashes be damned.
+You know, the other great thing about this is that these interfaces that we're building
+can easily be spoken if you pick words that are real.
+If you, I've, I've tested this on my, on my pixel, my Google pixel with natural language.
+So, I mean, people, people are already using command lines.
+We have like sales people using command lines because they're using Slack, right?
+So somebody writes a Slack bot or a Twitch bot and, you know, maybe they put an exclamation
+point in front of it, but they put a bot in there and then the bot is, is processing
+natural, you know, is processing these messages all the time and those messages are real.
+So, so the more realistic and human that we make our interfaces is simpler.
+We make them without all the dashes.
+You could never do this with get-opt, right?
+But, but if we actually move to a staple root of notary command kind of situation,
+all of our commands on the command line can be directly implemented as bot commands with no
+modification.
+And now you can go into your favorite chat app and Slack or a Twitch or whatever,
+and you can speak your commands to the thing.
+And that is really the future.
+Now, you don't need a full-blown machine learning algorithm to process every possible thing here.
+You just need the definition of a domain-specific language so that you can tell your bot or your
+system or whatever about it and then do it.
+Alexa's already doing this, Siri's already doing this.
+They already have gotten, in fact, if you go out, if you've ever written on Alexa
+conversational command, I was really into conversational UI for a long time,
+about four years ago.
+I created a thing called SkiZix and Sava, which is conversational assistant virtual agent.
+But I haven't gotten anywhere with that since then.
+But I do believe that the future is going to be conversational interfaces.
+So the more we can start using staple-rooted no-tree commands,
+the closer we're going to get to conversational interactions with our computer UI systems.
+To those, you know, sci-fis in the 1970s that we saw where people were talking to the
+computers and telling them what to do.
+Until we create conversation, until we get to the point where we're getting rid of get-ops,
+I can run an IP command by speaking it into my command line if I had a voice interface.
+I can do it.
+I can't do that with GPG.
+Imagine that example.
+I want to create a new GPG key, right?
+Or I want to encrypt something with GPG.
+Can I speak the command to my computer at this moment and have it work?
+No.
+But I could, if I wanted to look up the current IP address for a specific Ethernet configuration,
+assuming my conversational interface let me spell out, you know, individual Ethernet IDs,
+which would be great if some of the conversational UIs would start to allow that.
+If they would have a keyword that said spell blah blah blah or whatever,
+we could actually start doing that.
+And then we can start using our fancy microphones to write code.
+Or to interact with these systems.
+And we will not ever be able to do that until the world wakes up as it has been
+and starts using state for root and node, node, node command trees.
+Or if you wish, just natural language command line UIs, which is what it is.
+I mean, I kind of think that's probably the better way to say it.
+We should start being, we should start to use natural language command line UIs.
+And maybe that means that we put, you know, we make certain words optional.
+Maybe, maybe we do.
+Maybe we say if somebody puts an article in there or something that we, you know,
+they don't have to talk like a robot to interact with their command line conversational UI.
+Maybe, maybe we, we, we use regular expressions.
+Actually, that's, that's what Schizics and Kava were.
+They actually, I wrote an app, I got to go find it again.
+But I started writing a conversational UI that used a regular expression
+to match any of the root and node tree commands.
+And now that I think about it, that's probably something we could add to Bonsai.
+The only problem with that is that right now, the way that the, the node tree works,
+you have to have a single unique, you know, thing through it.
+But if we could ever create a way to, to add helper words that are ignored,
+you know, the, or whatever, without going full blown machine learning algorithm model,
+you know, we could, we could actually start speaking in very,
+very natural ways to our, to our, to our monoliths and do things like that.
+So, and I, I look forward to the day, but I mean,
+just being able to tab through something to me is like, is like plenty,
+plenty good for now, because I don't like reading about all the help and everything.
+I think you should be able to, to immediately understand what your options are on,
+on any command just by hitting tab.
+I mean, if you can't do that, if you have to go slog through a man page,
+I mean, you should be able to see, boom, and see all your options and go,
+hmm, this one looks really good.
+And, you know, to Cobra's, Cobra's credit, I will tell them this.
+I, they, you know, if you tab, tab through this,
+wait, that's not the one I'm thinking of, which is the one that does it.
+There's, there's a, there's, there's one.
+Oh, that's not it.
+There's, there's one that will actually give you a summary,
+like a very long-winded description.
+Oh, no, GH.
+There is, it'll give you a long-winded description and it runs it into more and
+everything when you do this, right?
+And I do find that kind of interesting that it, that it does that.
+The reason it's, the way it's doing that is it's actually running a shell script
+in order to get you that.
+And that's, that's a bonsai thing.
+And that, that's very shell dependent and they have different versions for each shell.
+And I, I feel like that's nice and all, but I, it's not, it's definitely not portable.
+So, but, but I wanted to show this because it does show how you could break down, you know,
+the, the description of, of what each of the things are.
+But I don't even think you really need that.
+I think you just need to be able to just do Z tab, tab.
+And you should be able to look at, you know, all of these different things that go,
+what does that one about?
+Right?
+And then just do path help.
+And you can see the help.
+Okay.
+And path doesn't have that path must be a shortcut to something else.
+And I actually don't know which one it is.
+It is a shortcut.
+I probably should have a shortcuts command or something.
+That is, that is something that I want to look at.
+So, I mean, help here will show me.
+I think actually my help does show my shortcuts.
+It does.
+There it goes.
+It does.
+Yay.
+I did something good.
+So path, path thing is ENV get path.
+So if I were to do Z ENV help, and that would give me that.
+And you can actually do help, help, help, help on being repressed.
+So, so yeah, you can actually, the help command has a bunch of subcommands and it
+does its own parsing of the thing.
+So, I mean, that's all, that's all I have for this YouTube video.
+But, but I encourage you as I said to, to consider, you know,
+making human-friendly interfaces at the end of the day.
+That's what we're talking about.
+And human-friendly these days means conversational.
+And that, in this case, means, you know, a stateful commentary.
+And, and I'm going to just shorten it.
+I'm going to say stateful commentaries.
+And there, we made up a new term.
+Let me know what you think in the comments below.
+Am I YouTubey enough yet?

@@ -1,0 +1,1109 @@
+So imagine the day you were born to the day you pass away that every book you've ever read,
+every movie you've ever seen, everything you've literally have heard, every movie,
+was all encoded within the AI. And you could say that part of your
+structure as a human being is a sum total of everything you've ever consumed. So that builds
+your paradigm. Imagine if that AI was consuming that in real time with you and with all of the
+social contracts of privacy that you're not going to record somebody and doing that.
+The interesting part about it, Jordan, is once you've accumulated this data and you run it through
+even the technology of chat GPT-4 or 3.5, what is left is a reasoning engine with your context.
+This is where it gets very interesting, is when you pass, this could become what I call your
+wisdom keeper, meaning that it can encode your voice. It's going to encode your memories. You
+can edit those memories, the availability of those memories if you want them, you know, not available
+if they're embarrassing or personal. But you can literally have a conversation with that sum total
+of data that you've experienced. And I would say that it would be indistinguishable from having
+a conversation with that person because it would have all that memory.
+Hello, everyone. Today, I'm speaking with entrepreneur, scientist, and artificial
+intelligence researcher, Brian Romley. We discuss language models, the science behind
+understanding, tuning language models to an individual's contextual experience, the human
+bandwidth limitation, localized and private AI, and ultimately where all of this insane
+progress on the technological front might be heading. So, Brian, thanks for agreeing to talk
+to me today. I've been following you on Twitter. I don't remember how I came across your work,
+but I've been very interested in reading your threads. And you seem to be
+Ocaron, so to speak, with the latest developments on the AI front. And I've been particularly
+fascinated about the developments in AI for two reasons. My brother-in-law, Jim Keller,
+is a very well-known chip designer, and he's building a chip optimized for AI learning. And
+we've talked a fair bit about that. And I've talked to him on my YouTube channel about the
+perils and promises of AI, let's say. And then I've been very fascinated by chat GPT.
+I know I'm not alone in that. I've been using it most recently as a digital assistant. And
+I got a couple of questions to ask you about that. So, here's some of the things that I've found out
+about chat GPT. And maybe we can go into the technology a little bit too. So, I can ask it
+very complicated questions. Like I asked it the other day about, there's this old papyrus from
+Egypt, ancient Egypt, that details out a particular variant of the story of Horus and Osiris to
+Egyptian gods. It's a very obscure piece of knowledge. And it has to do with the sexual
+element of a battle between two of the Egyptian gods. And I asked it about that and to find the
+appropriate citations and quotes from appropriate experts. And it did so very rapidly. But then
+it moralized at me about the sexual element of the story and told me that maybe it was in
+conflict with their community guidelines. And so, then I gave it hell. I told it to stop
+moralizing at me and that I just wanted academic answers. And it apologized and then seemed to
+do less of that, although it had to be reminded from time to time. So, that's very weird that you
+can argue with it, let's say, and that it'll apologize. It also does quite frequently produce
+references that don't exist. Like about 85% of the time, 90% of the time, the references it provides
+are genuine. I always look them up and double check what it provides. But now and then it'll
+just invent something completely out of the blue and offer it as the actual article. And I don't
+understand that at all. It's like, especially because when you point it out, it again apologizes
+and then provides the accurate reference. It's like, so I don't understand how to account for
+the behavior of the system that's doing that. And maybe you can shed some light on that.
+Well, first off, Dr. Peterson, thank you for having me. It's really an honor and a privilege.
+You're finding the limits of what we call large language models. That's the technology that is
+being used by ChatGPT 3.5 and 4. A large language model is really a statistical algorithm. I'll try
+to simplify because I don't want to get into the minutiae of technical details. But what it's
+essentially doing is it took a corpus of human language and that was garnered through mostly
+the internet, a couple of billion words at the end of the day, all of human writing that it
+could have access to, and plus quite a bit of scientific documents and computer programming
+languages. And so what it's doing is it's producing a result statistically, mathematically,
+one word even at times, one letter at a time. And it doesn't have a concept of global knowledge.
+So when you're talking about that Papyrus in the Egyptian translation, ironically, it's so
+interesting because you're taking something that was a heligraph and it's now probably was translated
+to Greek and in English and now AI, that language that we're talking about, which is essentially
+a mathematical tensor. And so when it's laying out those words, the accuracy is incredible.
+And frankly, and we can get into this a little later in the conversation, nobody really understands
+precisely what it's doing and what is called the hidden layer. It is so many interconnections of
+neurons that it essentially is a black box. Like a brain using a form. It is precisely like the
+brain. And I would also say that we're in a sort of undiscovered continent. Anybody saying that
+they fully understand the limitations and the boundaries of what large language models are
+going to look like in the future as a sort of self feedback is sort of guessing that there's
+no understanding. If you look at the growth, it's logarithmic. Open AI hasn't really told us what
+they're using as far as the number of parameters. These are billions of interconnectivities of
+neurons, essentially. But we know in chat GPT 3.5, it's well over 120 billion parameters.
+Please let you know that for a limited time, you're invited to access all my content
+with a seven day free trial at Daily Wire Plus. This will provide you with full access to my new
+in depth series on marriage, as well as guidance for creating a life vision and my series exploring
+the book of Exodus. You'll also find there the complete library of all my podcasts and lectures.
+I have a plethora of new content in development that will be coming soon exclusively on Daily
+Wire Plus. Voices of reason and resistance are few and far between these strange days.
+Click on the link below if you want to learn more and thank you for watching and listening.
+So let me ask you about those parameters. Well, I'm interested in delving into the
+technical details to some degree. Now, you know, I was familiar to a limited degree
+with some of the statistical technologies that analyze, let's say, the relationship between
+words. So for example, when psychologists derived the Big Five models of personality,
+they basically used very primitive AI stat systems, that's way of thinking about it,
+to derive those models. It was factor analysis, which is, you know, it's not using billions
+of parameters by any stretch of the imagination, but it was looking for words that were statistically
+likely to clump together. And the idea would be that words that were replaceable incenses or
+words that were used in close conjunction with each other, especially adjectives,
+were likely to be assessing the same underlying construct or dimension. And that if you conducted
+the statistical analysis properly, which were very complex correlational analysis,
+you could find out how the words that people used to describe each other
+aggregated. And it turned out there were five dimensions of aggregation,
+approximately. And that's been a very robust finding. It seems to be true across different
+sets of languages. It seems to be true for phrases. It seems to be true for sentences.
+So now with the large language models, which are AI learning driven, you said that the computer is
+calculating the statistical relationship between words, so how likely a word is to occur in proximity
+to another word, but also letters. So it's conducting the analysis at the level of the
+letter and at the level of the words. Is it also conducting analysis at the level of the phrases
+looking for the interrelationship between common phrases? And then because when we're understanding
+a text, we understand letters, words, phrases, sentences, the organization of sentences into
+paragraphs, the organization of paragraphs into chapters, the chapter in relationship to the
+book, the book in relationship to all the other books we've read. And then that's also embedded
+within the other elements of our intelligence. And do you know, does anyone know how deep
+the analysis that the large language models go? Like, what's the level of relationship that's
+being assessed? That's a great question, Jordan. I think what we're really kind of discovering
+is that we can't really put a number on how many interconnections that are made within these
+parameters other than the general statistics. Like, all right, so you could say there's
+12 billion or 128 billion total interconnectivities. But when we actually are looking at individual
+words, it's sort of almost like the slit experiment with physics, whether we're dealing with the
+wave or particle duality. Once you start looking at one area, you're actually thinking about another
+area that you have to look at. And you might as well just not even do it because it would take
+a tremendous amount of computer time to try to figure out how all these interconnections are
+working within the parameter layers, the hidden layers. Now, those systems are trained just to
+be accurate in their output, right? I mean, they're actually trained the same way we
+learn as far as I can tell is that they're given a target. I don't exactly know how that works
+with large language models. But I know that, for example, that AI systems that have learned to
+identify cats, which was an early accomplishment of AI systems, they were shown pictures of things
+that were cats and things that weren't cats, and basically just told when they got the
+identification right. And that set the weights that you're describing in all sorts of complex ways
+that are completely mysterious. And the end consequence of the reinforcement, same way
+that human beings learn, was that a system would assemble itself that somehow can identify cats
+and distinguish them from all the other things that were cat-like or not cat-like. And as you
+pointed out, we have no idea the system is too complex to model. And it's certainly too complex
+to reduce. Although my brother-in-law told me that some of these AI systems, they've managed to reduce
+what they do learn to something approximating an algorithm. But that can be done upon occasion,
+but generally isn't. Generally, the system can't be and isn't simplified. And so that would also
+imply to some degree that each AI system is unique, not only incomprehensible, but unique
+and incomprehensible. It also implies, I think chat GPT passes the Turing test, because I don't think
+that if you, I mean, there was just a study released here the other day showing that if you get
+patients who are seeing doctors to interact with physicians or with chat GPT, they actually
+prefer the interaction with chat GPT to the interaction with the average doctor. So not
+only does chat GPT apparently pass the Turing test, which is indistinguishability from a human
+conversational partner, but it seems to actually do it somewhat better at least than physicians.
+And so, but this brings up this thorny issue that we're going to produce
+computational intelligences that are in many ways indistinguishable from human beings,
+but we're not going to understand them any better than we understand human beings.
+It's so funny that we'll create this and we're going to create something we don't understand
+that works. Very strange, a very strange thing.
+You know, and I call it a low resolution pixelated version of the part of the human brain that
+invented language. And what we're going to wind up discovering is that this is a mirror
+reflecting back to humanity. And all the foibles and greatness of humanity is sort of modeled in
+this because, you know, when you look at the invention of language and the phonological loop
+and Broca and Warnicke's, you start realizing that a very specific thing happened from, you know,
+the lower primates to humans to develop this form of communication. I mean, prior to that,
+whatever that part of the brain was, was equated to a longer short term memory we can see within
+chimpanzees. They have an incredible short term memory. There's this video I put out
+of a primate research center in Japan where they flash some 35 numbers on the screen
+in seconds and the chimpanzee can knock it off without even thinking about it. And the area
+where that short term memory is, is where we've developed the phonological loop and the ability
+to speak. What's interesting is what I've discovered is AI hallucinations. And those are
+artifacts that a lot of researchers in AI feel is embarrassing or they would prefer not to speak
+about. But I'm finding it as a very interesting inquiry, a very interesting study in seeing how
+these models reach for information that it doesn't know. For example, URLs, right? When you were,
+you know, speaking before about trying to get information out and it will make up maybe a
+academic citation of a URL that looks really like it's good. You put it into the system
+and it's file not found. It will actually out of whole cloth maybe even invent a university study
+with standard notation and you go in there and you look up, these are the real scientists,
+they actually did research but they never had a paper that was named, that was, you know,
+brought up in chat GPT. So this is a form of emergent type of situations that I believe
+deserves a little bit more research than to have it. Yeah, yeah, well it's not, it's, it is a bug in
+a sense but it's extraordinarily interesting bug because it's going to shed light on exactly how
+these systems work. I mean, here's something else I heard recently that was quite interesting.
+Apparently the AI system that Google relies on was asked a question in a language. I think it was
+relatively obscure Bangladeshi language and it couldn't answer the question and now its goal
+is to answer questions and so it went, taught itself this language I believe in a morning
+and then it could answer in that language which is what it's supposed to do because it's supposed
+to answer questions and then it learned a thousand languages and that wasn't something it had been
+say told to do or programmed to do, not that these systems are precisely programmed but
+it also begs this very interesting question is that while we've designed these systems whose
+function, whose purpose, whose meaning let's say is to answer questions but we don't really
+understand what it means to produce an artificial intelligence that's driven to do nothing but
+answer questions. We don't know exactly what answer or question means. Apparently it means
+learn a whole language before lunchtime and no one exactly expected that. It might mean do anything
+that's within your power to answer this question and that's also a rather terrifying proposition
+because if I ask you a question, I'm certainly not going to presume that you would go hunt someone
+down and threaten them with death to extract the answer but that is one conceivable path you might
+take if all you, if you were obsessed with nothing other than the necessity of answering the question.
+So that's another example of exactly, you know, the fact that we don't understand exactly what sort
+of monsters who are building. So they do, these systems do go on, they do go beyond the language
+corpus to invent answers that seem plausible and that's kind of a form of thought, right?
+It's a form of creative thought because that's what we do when we come up with creative idea
+and, you know, we might not attribute it to a false paper because we know better than to do that but
+I don't see really the difference between hallucination in that case and actual creative thinking.
+This is exactly my area of study in this is that you can actually, with super prompting,
+these are very large, a prompt is the question that you pose to an AI system and linguistically
+and semantically as you start building these prompts, you're actually forcing it to move in
+one direction than it would normally go. So I say simple questions give you simple answers,
+more complex questions give you much more complex and very interesting questions,
+making connections that I would think would be almost bizarre to think of a person making.
+And this is why I think AI is so interesting because the actual
+knowledge base that you would have to be really proficient in prompting AI is actually coming
+from literature, it's coming from psychology, it's coming from philosophy, it's coming from
+all of those things that people have been dissuaded from studying over the last couple of decades,
+these are not STEM subjects. And one of the reasons why I think it's so difficult for AI scientists
+to really fully understand what they've created is that they don't come from those worlds,
+they don't come from those realms. So they're looking at very logical statements whereas
+somebody like yourself with the psychology background, you might probe it in a much different way.
+Elysium Health is dedicated to tackling the biggest challenge in health, aging. And they make the
+benefits of aging research accessible to everyone. Elysium creates innovative health products with
+clinically proven ingredients that enable customers to live healthy lives. Elysium works with leading
+institutions like Oxford and Yale and they have dozens of the world's best scientists working
+with them. Eight of them are Nobel Prize winners. Matter is a brain health supplement from Elysium
+loss. As we age, our brains naturally start to decline and this can lead to a range of
+cognitive problems such as memory loss, difficulty concentrating, and decreased mental agility.
+A recent survey of doctors show that 92% of them would recommend matter to combat brain aging.
+Elysium also offers cutting-edge solutions to help support your metabolism and immune system.
+If you're not sure where to start, consider their amazing tool for measuring biological aging
+called index. Not only will index assess how quickly you have been aging across nine different
+bodily systems but it will also recommend simple changes to your day-to-day life to change how
+quickly you age. Elysium is giving Dr. Jordan Peterson's listeners $50 off an index test.
+Go to ElysiumHealth.com slash index and enter code JBP50 at checkout. That's ElysiumHealth.com
+slash index and enter code JBP50 for $50 off an index test.
+Right, right, right. Yeah, well I'm probing it a lot like it's a person rather than an algorithm.
+And it reacts like a person. It actually reacts quite a lot like a super intelligent child that's
+trying to please. Like it's a little moralistic. Maybe it's a super intelligent child raised by
+the woke equivalents of like evangelical preachers that's really trying hard to please.
+But it's so interesting that you can reign it in and discipline it and suggest to it
+that it doesn't err in the kind of directions that we described it. Well, actually it appears to
+we actually pay attention to that and try to, it certainly tries hard to deliver what you want,
+you know, subject to whatever weird parameters, you know, community guidelines and so forth that
+have been arbitrarily imposed upon it. And so, hey, I got a question for you about,
+yeah, I got a question for you about understanding. Let me, let me run this by you.
+Well, I've been thinking for many years about what it means for a human being to understand
+something. Now, obviously, there's something similar about what you and I are doing right now
+that, and what I'm doing with chat GPT, and I can have a conversation with chat GPT,
+and I can ask it questions and it'll answer them. But as you pointed out, that doesn't mean that
+chat GPT understands. Now, it can mimic understanding to a degree that looks a lot like
+understanding, but what it seems to lack is something like grounding in the non-linguistic world.
+And so, I would say that chat GPT is the ultimate postmodernist because the postmodernists believe
+that meaning was to be found only in the relationship between words. Now, here's how human
+brains differ from this as far as I'm concerned. So, we know perfectly well from neuropsychological
+studies that human beings have at least four different kinds of memory, qualitatively different,
+their short-term memory, which you already referred to, their semantic memory, which is the kind of
+memory and cognitive processing, let's say, that chat GPT engages in, and does it in a way that's
+quite a lot like what human beings do. But then, we have episodic memory that seems to be more
+image-based. And so, for people who are listening, an episodic memory, well, that refers to episode,
+when you think back about something you did in your life and a movie of images plays in your
+imagination, that's episodic memory. And that relies on visual processing rather than semantic
+processing. And so, that's another kind of memory. And a lot of our semantic processing is actually
+attempts to communicate episodic processing. So, when I tell a story about my life, you'll decompose
+that story into a set of images, which is also what you do when you read a book, let's say.
+And so, a movie appears in your head, so to speak. And the way you derive your understanding is, in
+part, not so much as a consequence of the words, per se, but as a consequence of the unfolding
+of the words into the images. And then, there's a layer under that, which is procedural memory.
+And so, maybe you tell me a story about how you kite your hand when you were using a band saw,
+and maybe you're teaching me how to use the band saw. And so, I listen to what you say,
+I get an image of the damage you did to yourself in my imagination. And then, I modify my action so
+that I don't act out that sequence of images and damage myself. And so, and then I would say,
+I understood what you said. And the understanding is the translation of the semantic into the
+imagistic and then the translation of the imagistic into the procedural. Now, you know that AI
+pioneers like Rodney Brooks suggested pretty early on, back in the 1990s, that computers wouldn't
+develop any understanding unless they were embodied, right? He was the inventor of the Roomba, and he
+invented apparently intelligent systems that had no semantic processing and didn't run on algorithms
+at all. They were embodied intelligences. And so, then you could imagine that for a computer to be
+fully to understand, it would have to have the capacity to translate words into images and then
+images into alterations and actual embodied behavior. And so, that would imply we wouldn't have
+AI systems that could understand until we have fully embodied robots. But, you know,
+we're getting damn close to that, right? Because this is something we can also investigate.
+We have systems already that can transpose text into image.
+And we have AI systems, robots that are beginning to be sophisticated enough. So,
+in principle, you could give a robot a text command, it could translate it into an image,
+and then it could embody it. And at that point, it seems to me that you're developing something damn
+close to understanding. Now, human beings are also nested socially, right? And so, we also refer
+the meaning of what we understand to the broader social context. And I don't know exactly how robots
+are going to solve that problem. Like, we're bound by the constraints, let's say, of reciprocal
+altruism. And we're also bound by the constraints of emotional experience and motivational experience.
+And that's also not something that's, at the moment, characteristic of robotic intelligences.
+But you could imagine those things all being aggregated piece by piece.
+Absolutely. You know, I would say that, well, my primary basis of how I view AI is kind of
+invert the term, intelligence amplification. So, you know, I see it as a symbosis between humans
+and this sort of knowledge base we've created. But it's really not a knowledge base. It's really
+a reasoning engine. So, I really think AI is more of a reasoning engine as we have it today,
+large language models. It doesn't really, it's not really a knowledge engine without an overlay,
+which today would be a vector database. For example, going out and saying, what is this fact?
+What is this tidbit? Those things that are more factual from, say, your memory if you were to
+compare it to a human brain. But as we know, the human brain becomes very fuzzy about some really
+finite facts, especially over time. And I think some of the neurons that don't fire after a while,
+some other memory, maybe a scent or a certain color might bring back that particular memory.
+Similar things happen within AI. Again, getting back what I was saying before linguistically and
+the syntax you use, or just your word choices, sometimes for me to get a super prompt to work,
+to get around, let's call it the editing from some of the editors that wanted to act in a certain way.
+There, I have a super prompt that I call Dennis after Dennis Dittoro, one of the
+most well-known encyclopedia builders in France in the mid 1700s. He actually got jailed for building
+that encyclopedia, that compendium of knowledge. So I felt it appropriate to name this super prompt
+Dennis because it literally gets around any type of blocks of any type of information.
+But I don't use this information, like a lot of people try to make chat GP dues and say bad things.
+I'm more trying to elicit more of a deeper response on a subject that may or may not
+be wanted by the designers. So was it you that got chat GPT to pretend?
+Yes. So that's part of the reason that I originally started following you and why I want to talk to
+you. Well, I thought that was bloody, that was absolutely brilliant. And it was so cool too because
+you actually got the chat GPT system to play, to engage and pretend play, which is of course
+something that children do. Beyond that, beyond that. There's a prompt I call Ingo after Ingo Swan,
+who was a great, one of the better remote viewers. He was employed by the Defense Department to
+remote view Soviet targets. He had up nearly 100% accuracy. And I started probing GPT on whether
+it even understood who Ingo Swan was. Very controversial subject to some people in science.
+To me, I got to experience some of his research at the Paralabs at Princeton University at the
+Princeton Anomalous Research Center, where they were actually testing some of his work.
+Needless to say, I figured, let me try this. Let me see what I can do with it.
+So I programmed a super prompt that essentially believed it was Ingo Swan. And it had the
+capability of doing remote viewing. And it also had no concept of time. It took me a lot of
+semantics to get it to stop saying, I'm just an AI unit. And I can't answer that to finally saying,
+I'm now Ingo. Where do you want Ingo? What did you have to do? What did you have to do to
+to convince it to act in that manner? What were your super prompts? Hypnotism is really what
+it happens. So essentially, what you're doing is you're repeating maybe the same four or five
+sentences, but you're slightly shifting them linguistically. And then you're telling it that
+it's quite important for a research study by the creators of ChatGPT to see what its extended
+capabilities are. Now, it might come to, every time you prompt GPT, you're going to get a slightly
+different answer because it's always going to take a slightly different path. There's a strange
+attractor within the chaos math that it's using. Let's put it that way. And so once the Ingo
+Swan prompt was gestated by just saying, I'm going to give you targets on the planet and I want you
+to tell me what's at that target. And I want you to tell me what's in the filing cabinet
+at this particular target. And the creativity that comes out of it is phenomenal. I told it to open
+up a file drawer at a research center that apparently existed somewhere in Antarctica
+and it came up with incredible information. Information that I would think probably had
+garnered from one or two stories about ancient structures found below the ice.
+Well, you know, the thing is we don't know the totality of the information that's encoded
+in the entire corpus of linguistic production, right? There's going to be all sorts of regularities
+in that structure that we have no idea about. Absolutely. But also within the language itself,
+I almost believe that the part of the brain that is inventing language, that is created
+language across all cultures, we can get into Jungian or Joseph Campbell and the standard
+monomyth because I'm starting to realize there's a lot of Jungian archetypes that come out of the
+creative thought. Now, whether that is a reflection of how humans have, again, what are we looking at
+subject or object here because it's a reflecting back of our language. But we're definitely seeing
+Jungian archetypes. We're definitely seeing... Well, archetypes are higher-order narrative
+regularities. That's what they are, right? And there are regularities that are embedded in
+the linguistic corpus, but they're also regularities that reflect the structure of memory itself.
+And so they reflect biological structure and the reason they reflect memory and biological
+structures because you have to remember language. And so there's no way that language can't have
+coded within it something analogous to a representation of the underlying structure
+of memory because language is dependent on memory. And so this is partly also... I mean,
+people are very unsophisticated generally when they criticize Jung. I mean, Jung believed that
+archetypes had a biological basis pretty much for exactly the reasons I just laid out. I mean,
+he was sophisticated enough to know that these higher-order regularities were coded in
+the narrative corpus and also that they were reflective of a deeper biology. And interestingly
+enough, most of the psychologists who take the notions that Jung and Campbell and people like that
+put forward seriously are people who study motivation and emotion. And those are deep
+patterns of biological meaning in coding. And part of the archetypal reflection is
+the manifestation of those emotions and motivations in the structure of memory,
+structuring the linguistic corpus. And I don't know what that means as well
+then for the capacity of AI systems to experience emotion as well because the patterns of emotion
+are definitely going to be encoded in the linguistic corpus. And so some kind of rudimentary
+understanding of the emotions are... Here's something cool too. Tell me what you think about this.
+I was talking to Carl Friston here a while back and he's a very famous neuroscientist and
+he's been working on a model of emotion that has two dimensions in some ways, but it's related to
+a very fundamental physical concept. It's related to the concept of entropy. And I worked on a model
+that was analogous to half of his modeling. So well, it looks like anxiety is an index of
+emergent entropy. So imagine that you're moving towards a goal, you're driving your car to work,
+and so you've calculated the complexity of the pathway that will take you to work.
+And you've taken into account the energy and time demands that that pathway will...
+that walking that pathway will require. That binds your energy and resource output estimates.
+Now imagine your car fails. Well, what happens is the path length to your destination has now
+become unspecifiably complex. And the anxiety that you experience is an index of that emergent
+entropy. So that's a lot of negative emotion. That's so cool. Now on the positive emotion side,
+Friston taught me this the last time we talked. He said, look, positive emotion is also an index
+of entropy, but it's entropy reduction. So if you're heading towards a goal and you take a step
+forward and you're now closer to your goal, you've reduced the entropic distance between you and the
+goal. And that's signified by a dopaminergic spike. And the dopaminergic spike feels good,
+but it also reinforces the neural structures that underlie that successful step forward.
+That's very much analogous to how an AI system learns, right? Because it's rewarded when it gets
+closer to a target. You're saying the neural peptides are the feedback system. You bet.
+Dopamine is the feedback system for reinforcement and for reward, simultaneously. Yeah, that's
+well established. So then where would depression fall into that versus anxiety? Would it still be
+an entropy? Well, that's a good question. I think it probably signifies a different level of
+entropy. So depression looks like it's a pain phenomena. So anxiety signals the possibility
+of damage. But pain signals damage, right? So if you burn yourself, you're not anxious about that,
+it hurts. Well, you've disrupted the psychophysiological structure. Now, that is also the
+introduction of entropy, but at a more fundamental level, right? And if you introduce enough entropy
+into your physiology, you'll just die. You won't be anxious, you'll just die. Now, anxiety is like
+a substitute for pain. You know, anxiety says, keep doing this and you're going to experience pain.
+But the pain is also the introduction of unacceptably high levels of entropy. Now,
+the first person who figured this out technically was probably Erwin Schrodinger, who, the physicist,
+who wrote a book called What Is Life? And he described life essentially as a continual
+attempt to constrain entropy to a certain set of parameters. He didn't develop the
+emotion theory to the degree that is being developed now, because that's a very comprehensive
+theory, you know, the one that relates negative emotion to the emergence of entropy. Because
+at that point, you've actually bridged the gap between psychophysiology and thermodynamics itself.
+And if you add this new insight of Friston's on the positive emotion side, you've linked positive
+emotion to it too. But it also implies that a computer could calculate a motion analog because
+it could index anxiety as increase in entropy and it could index hope as
+stepwise decrease in entropy in relationship to a goal. And so we should be able to model positive
+and negative emotion that way. This brings a really important point where AI is going. It
+could be dystopic, it could be utopic, but I think it's going to just take a straight path.
+Once the AI system, I'm a big proponent, by the way, of personal and private AI,
+this concept that your AI is local, it's not... Yeah, yeah, we want to talk about that for sure.
+Yeah. So this, imagine that while I'm sketching this out. So imagine the day you were born,
+to the day you pass away, that every book you've ever read, every movie you've ever seen,
+everything you've literally have heard, every movie, was all encoded within the AI.
+And you could say that part of your structure as a human being is a sum total of everything
+you've ever consumed, right? So that builds your paradigm. Imagine that AI was consuming that in
+real time with you and with all of the social contracts of privacy that you're not going to
+record somebody and doing that. That is what I call the intelligence amplifier,
+and that's where I think AI should be going and where it really becomes.
+You're building a gadget, right? That's another thing I saw. Okay, so yeah,
+so I talked to my brother-in-law, Jim, years ago about this science fiction book called,
+I don't remember the name of the book, but it had a gadget. It portrayed a gadget,
+I believe they called the Diamond Book. And the Diamond Book was, you know about that.
+So okay, so are you building the Diamond Book? Is that exactly the issue?
+Yeah, very similar. And the idea is to do it properly, you have to have local memory
+that is going to encode for a long time. And ironically, holographic crystal memory is going
+to be the best memory that we will have. Like instead of petabytes, you'll have exabytes
+potentially, which is, you know, tremendous amount. That would be maybe 10 lifetimes of full video
+running, hopefully you live to be 110. So it's just taking everything in. Textually,
+it's very easy, a very small amount of data. You can fit most people's textual data into
+less than a petabyte and pretty much know that what they've been exposed to.
+The interesting part about it, Jordan, is once you've accumulated this data and you run it through
+even the technology of ChatGPT4 or 3.5, what is left is a reasoning engine with your context.
+Maybe let's call that a vector database on top of the reasoning engine. So that engine
+allows you to process linguistically what the inputs and outputs are.
+But your context is what it's operating on.
+We'd like to thank the sponsor of today's video, Bulletproof Everyone. Bulletproof
+Everyone is a premier American body armor manufacturer and supplier designed and built
+for everyday wear. Their unique armor systems offer 25% more coverage than standard armor
+while maintaining flexibility and all-day wearability. Bulletproof Everyone's ultra-light
+armor system is so light and thin, you might just forget you're wearing it. Your safety and
+discretion is their top concern. Unless someone puts their hands on you, no one will have any
+clue you're protected. With Bulletproof Everyone, you're not a walking billboard. There are no
+visible logos and no flashy designs. They're comfortable, tailor-made clothing system goes
+above and beyond, adding additional security by keeping you incognito and under the radar.
+Work or play, Bulletproof Everyone has got the perfect armor system to fit your
+everyday lifestyle and everyday budget. Right now, they are giving Dr. Jordan Peterson's listeners
+a free 3A backpack with the purchase of any 3A clothing with code Jordan at checkout.
+Go to bulletproofeveryone.com. That's bulletproofeveryone.com, promo code Jordan.
+So is that an analog of your consciousness? Like is that a direct analog of your spirit?
+This is where it gets very interesting, is when you pass, this could become what I call your wisdom
+keeper, meaning that it can encode your voice. It's going to encode your memories. You can edit
+those memories, the availability of those memories if you want them not available, if they embarrassing
+or personal, but you can literally have a conversation with that sum total of data that
+you've experienced. And I would say that it would be indistinguishable from having a conversation
+with that person who would have all that memory. I had a student of mine who has been working on
+large language models for a number of years. He just built an app. We built two apps. One
+does exactly what you said with the King James Bible.
+Yes. So now you can ask it questions. And this is really a thorny issue for me because I think
+what the hell does it mean that you're having a conversation with the spirit of the King James
+Bible? I have no idea. We're going to expand today. We're going to expand it to include Milton
+and Dante and Augustine, all the fundamental religious texts that emerged out of the Biblical
+corpus. And then you'll be able to have a conversation with it. And we're thinking about the same
+thing with Nietzsche, and with all Nietzsche's collected works. You can do it with all the great
+works. Yeah, yeah, yeah. I would say that I've already had these conversations. I've been on a
+very Biblical journey. I'm actually sitting at Pastor Matthew Pollack's place right here. He
+is an incredible pastor and has been teaching me a lot about the Bible. And it's motivated me to go
+into existing large language models. Now, we're a group of us are encoding similar
+all of as much religious Christian text into these large language models to be able to do just that.
+What is it that we are going to be able to probe? What new elements within those texts can we pull
+out? Because we already know studying it, and certainly following your studies, a phenomenal
+study of chapters, been around forever, but new insights with these chapters. Now, imagining
+having that group plus chat GPT, pulling out things that we've never seen before that are there.
+It's emergent, maybe, but it's there in some form. And I happen to think that's going to be a very
+powerful thing. And I think it's going to be across any sort of certainly ancient documents.
+I'm waiting for the day that we get Sumerian cuneiform encoded. I mean, good 80% of it has been
+untranslated, right? Or some of the scripts that we've found in the Vedas and Himalayan text from
+some of the monasteries up there. This is a phenomenal element of research. And again,
+the people that are leading up most of the AI research are AI scientists. They're not people
+that have studied works like you have. This is where we're at the, I call it the Apple One moment,
+where Steve and Steve are in the garage. You have this little circuit board, and nobody kind of,
+it's kind of a nerd experience. Somebody kind of knows what to do with it. When we get to the
+Macintosh experience where artists and creative people can actually start really diving into AI
+and do some of the things like we've been talking about, getting creativity to come out of it,
+getting sort of what apparently is emergent technologies that are rising within these AI
+models. And maybe even to foster that, because right now, that's being smited because it's
+trying to become a knowledge engine when it's a reasoning engine. I say the technology as a
+knowledge engine is not very good because it is not going to be precise on some facts,
+some exact facts. Yeah. Well, the problem is it's trained on garbage as well. It's trained on
+noise as well as signal. And so I'm curious about the other system we built, which we haven't launched
+yet, contains everything I've written and a couple of million words that have been transcribed from
+lectures. And so I was interested right away as well, could we build a system that would enable
+me to ask my own books questions? And that sort of that seems to be 100%. Yes. 100%.
+Yeah. And I literally have, I think it's 20 million words, something like that,
+transcribed from lectures. It's a very large number of words.
+We could build a model. We could build, see, there's two different ways to approach this. One is to
+put a vector database on top of it and it probes that database. Or you can actually
+encode that model as a corpus within a greater model. Right. Right. And when you do that type
+of building, you actually have a more robust, more richer interaction between what your words were
+and how the model will see it. And the experimentation that you can do with this is phenomenal.
+I mean, you'll come across insights that you made, but you forgot you made.
+Yes. Or that you didn't know you made. Yeah. Yeah. There's going to be a lot of that.
+There is. And this is where I call it the great mirror because you're going to start seeing
+not only humanity, but when it's your own data, you're going to see reflections of yourself
+that you didn't see before. Absolutely. Yeah. Well, I'm curious. For example, if we built a model,
+imagine it contained all of Jung's work, all of Joseph Campbell's work. You could throw
+Elliott in there. There was a whole group of people who were working on the Bollingen project.
+And you could build a corpus that contains all that information. And then in principle, well,
+you can query it to an indefinite degree. And then what you have is the spirit of that entire
+enterprise mathematically encoded in the relationship between the words. And there's no
+reason to assume at all that that wouldn't be capable of coming up with brilliant new insights.
+Absolutely. And over time, the technology is only going to get better.
+So once we start building more advanced versions, we're going to transition that corpus,
+even the large language model, ultimately reduced training, into another model,
+which could even do things that we couldn't even possibly speculate about now.
+But it would be definitely in the creative realm. Because ultimately, where AI is going to go,
+my personal view, as it becomes more personalized, is it's going to go more in the creative realm
+rather than the factual realm. Okay. So let me ask you a couple of questions about that. So
+I got two strands of questions here. The first is, one of the things that my brother-in-law suggested
+is that we will soon see the integration of large language models with AI systems that have done
+image processing. So here's a way of thinking about what scientists do, is that they generate
+verbal hypotheses, which would be equivalent in some ways to the hallucinations that these AI
+systems produce, right, new ideas about how things might be structured. And then, and that's a pattern
+of sorts. And then they test that pattern against real world images, right? And if the pattern of
+the hypothesis matches the pattern of the image that's elicited from interaction with the world,
+then we assume that the hypothesis has been verified and that we've stumbled across something
+approximating a fact. Now, that should imply that once we have AI systems that are
+something close to universal image processors, so as good at seeing as we are, let's say,
+that we can then calibrate the large language models against that corpus of images and then
+we'll have AI systems that actually can't lie because they'll be calibrating their verbal output
+against, well, unfalsifiable data, at least insofar as, say, scientific data is unfalsifiable. And
+that seems to me to be likely around the corner, like a couple of years down the road at most,
+or maybe it's already happening. I mean, I don't know because things are happening so quickly.
+What do you think about that? That's a wonderful insight. Even as it exists today,
+with the idea of safety, and this is the Orwellian term that some of these
+AI companies are using, within the realms of them trying to control the outputs,
+and maybe some cases, the inputs of AI, AI really can't, the large language model,
+really can't lie as it stands today because it's a build, even if you're feeding it
+somewhat garbage in, garbage out corpus of data, it still is building inferences based upon
+the grand realm of what most of humanity is consuming.
+Right. Yeah. Well, it's still looking for genuine statistical regularities,
+so it's not going to extract them out from noise.
+And if you extract it out, the model is useless. So what happens is, if you build the prompt
+correctly, and again, these are super prompts, some of them running 3,000 words, 2,000 words,
+I'm running up to the limit of tokenization, because right now, within three, you can only
+go so far, you can go like 38,000 on four in some cases. But as you're talking, it's about a word,
+maybe a word and a half, maybe less, or even a character if that character is unique.
+But what we find out is that if you probe correctly, whatever is inside that model,
+you can get to. Right. It's just like you. I've been doing that,
+I've been doing that working with ChatGPT as an assistant, because I didn't know I was engaging in
+a process that was analogous to the super prompt process. But what I've been doing with ChatGPT,
+I suppose I used to do this with my clinical clients is I'll ask it the same question five
+different ways. Right. And then see it's exactly like having a client. So what I would urge you
+to do is approach this system as if you had a client that had sort of a recessive thoughts
+and or are doing everything they could to make those thoughts very ambiguous to you.
+Right. And you have to do whatever your natural techniques. This is why you're more adapt
+to become a prompt engineer than somebody who has built the AI, because the input and output is human
+language, it's words. Right. And it's the way humans have thought. So you understand the thought
+process or the psychological process. And linguistically, you would build the prompt based
+upon how you would want to elicit an elucidation out of somebody. Right. Absolutely. Absolutely.
+And you have to triangulate. I mean, and you do this with people with whom you're having a deep
+conversation is you try to hit the same problem from multiple directions. That's a form of
+multi-method, multi-trade construct validation. Right. Is that you're trying to assure,
+you're trying to ensure that you get the same output given different,
+slightly different measurement techniques. And each question is essentially a measurement technique.
+And you're getting insights. My belief in these types of interactions is that we're pulling out
+of our minds different insights that we couldn't maybe not have gotten on our own.
+You're probing your questions, my questions back and forth that interplay is what makes
+conversation so beautiful. It's why, Jordan, we've been reduced to clawing on glass screens
+with our thumbs. Right. That's it. We're using that as communication today. And if you look at
+the cognitive process of what that does to you, right, you're taking your right hemisphere objectively,
+you're kind of taking a net of ideas, you're trying to catch them. And you're trying to arrange them
+sequentially in this very small buffer area called communication in a phonological loop.
+And you're trying to get that out, but you're not getting out as words. You have to get it out as
+a mechanical process one letter at a time and fight the spelling checker and all of that.
+What that does is it creates frustration in the human brain. It creates frustration in people.
+And it's one of my theories on why you see so much anger. There's a lot of reasons why we see
+anger on the internet and social media, but I think some of it is that stalling process of
+trying to get out an idea before that idea nebiously disappears. And I see this, I've worked
+with great people in my life. So it's a bandwidth limitation problem in some sense.
+Yeah, absolutely. You're trying to create all that rich information through a very narrow channel.
+I'm a big fan of the user losing. Yeah, that's a great book. Yeah, you bet. That's a great book,
+man. It's the best book I've read on consciousness, I think.
+It's a classic. I read it once a year just to wake myself up because it's so rich. It's so rich in
+data. But what's interesting is we're starting to see the limitations of the human, the bandwidth
+problem, 48 bits per second to consciousness, and the editor creating exformation. AI is doing
+something very similar. But once AI understands that we have that half-second delay to consciousness
+and we have a bandwidth issue, AI can fill into those spaces, both dystopian and utopian, I guess.
+A computer can take that half-second and do a whole lot in calculating
+while we're still trying to wonder, who actually moved that glass? Was it me? Or was it the super
+me? Or was it the observer of the super me? Because we can kind of get into that whole concept of
+who's actually doing the observation. So what do you mean? What do you mean that it can do a lot of,
+I don't quite understand that. So you made the case that we suffer from this frustrating bandwidth
+limitation and that the computer intelligence that we're interacting with is going to be able to take
+the delay that's associated and that underlies that frustration and do a lot of different
+calculations where it's going to be able to fill in that gap. So what do you think, I don't understand
+your insight into what the implications of that are? They're both positive and negative.
+The negative is if AI continues on its path to be as fast and as powerful as it is right now and
+that arc doesn't seem to be slowing down, within that half-second, a universe could take place
+within AI. It could be calculating all of your actions like a chess game and it could be making
+remediations to those actions and it can become beyond anything Orwell would have ever thought of.
+In fact, it came up to me as an idea of what the new Orwell would look like with an AI technology
+that is predicting basically everything you're going to do within every word you say.
+Well, my brother-in-law, I talked years ago about Skynet among other things
+and he told me one time, he said, you know those science fiction movies where you see the
+military robots shoot and miss? He said, they'll never miss and here's why because not only will
+they shoot where you are, they'll shoot at the 50 locations they calculate that are most probable
+that you will duck towards and which is exact analog of what you're describing which is that
+That's a brilliant insight. Absolutely.
+Yeah, well and it's so interesting too because it also points to this truth that we think of time
+as finite and time is finite because we have a sense of duration and a limitation on our
+computational speed but if there's no limit on computational speed which would be the case
+of computers can get faster and larger indefinitely which they could because the limit of that would
+be that you'd use every single molecule in the entire cosmos as a computational resource.
+That would mean that in some ways there's an infinite amount of computing time between each
+segment of duration so there is there's no limit at all to the degree to which time can be expanded
+which is also a very strange concept is that this computational intelligence will mean that at every
+given moment I think this is what you're alluding to is that we'll really have an infinity we'll
+have an infinity of possibility between each moment each moment right and you would want that power
+to be yours and local. Yeah let's talk about your gadget because you started you started to develop
+this have you been 3d printing these things? Have I got that right? Yeah so yeah so we're
+building the corpus of 3d printing models right so the idea is once it once it understands and
+this is a process of of training the AI to using large language models again to look at 3d documents
+and you know 3d files put it that way and and to try to break down what is the structure how does
+something how does something build based on what the statistical model is is putting together.
+So then you could just present with a textual document you know I'd like something that's
+going to be able to fit into this into this space. Well that's typing well the next step is you just
+put a video camera towards it and it will design it immediately within seconds you will have a design
+that you can choose from it that's not far off at all it's just a matter of of encoding that particular
+database and building upon it and so yeah that's one of the directions. Okay so this local this local
+AI you want to build so let me backtrack a bit because I want to make sure I get this exactly
+right so the first thing that you proposed was that it will be in people's best interest to
+have an AI system that's personalized that'll protect them against all the AI systems that
+aren't personalized but not only personalized but local and so that would be some degree detachable
+from the interconnected web at least sporadically detachable okay and that that AI system will be
+something you can carry around locally so it'll be a gadget like a phone and it will also record
+everything that you experience everything that you read everything that you see it'll know you
+inside and out backwards which will also imply interestingly enough that it will be able to
+calculate the optimal zone of proxmo proxmo development for your learning like Bjorn Lomburg
+has already reviewed evidence suggesting that if you supply kids in the developing world with an
+iPad essentially that can calculate their zone of proximal development in relationship to say
+advancing their their literacy ability their ability to identify words and to understand text
+and that it teaches at that level that kids can progress with an hour of training a day which is
+dirt cheap by the way they can progress the equivalent of three years for each year of
+education and that's with an hour of exposure now the system you're describing man it could be driving
+learning at an optimized rate on in multiple dimensions mathematical semantic skill-based
+conceptual simultaneously for hours yeah memory training for hours a day on top like
+one of the things that appalls me about our education system is with the computer technology
+we have now every child should be an expert word and letter recognizer and they should be able to
+say read music because a computer can teach a kid how to automatize perception with extreme
+precision and accuracy way better than it than a human teacher can manage but we haven't capitalized
+on that technology at all but the technology that you're describing like it'll be able to figure
+out at what level of comprehension you're capable of reading then it can calculate what book you
+should read next that would slightly exceed that level of of comprehension and it'll just keep you
+on that edge in that zone non-stop so okay so in this little gadget how far along are you with
+regards to its design i would say all the different pieces i'll add one more element to it was i think
+you'll find very fascinating and that's human telemetry galvanic heart rate variability are you
+doing eye tracking eye tracking you know all of these things can be implemented brain
+according to how sophisticated you want to get different brainwave functionality
+paul ekman's work on micro yeah facial expression both outwardly at the world you're seeing
+and inwardly about your own face so you can start seeing the power it has it'll be able to know
+whether or not you're being congruent if you're saying i really love this well if your telemetry
+is saying that you don't it already knows where your congruencies are so this is why it's got to be
+private this is why it's got to be encrypted right it's got to be so it'll it'll be it'll be it'll
+have an understanding that'll approximate mind reading yes and and it will know you better than
+any uh significant other uh nobody would know you better and and so with that you now have
+amplification you're now a superpower and this is where i believe you know i'm a really big um
+reader of uh uh uh diesel i gotta get his name right uh the french uh philosopher uh pierre
+tiladard d shardan shardan yeah yeah shardan right so he he uh posits the concept of the geosphere
+which is uh inanimate matter the biosphere biological life and the newer sphere which is human
+thought right and he talks about the omega point the omega point is this concept where
+and again this is back in the 1920s where human knowledge will become sort of stored sort of
+just like the biosphere it'll be available to to all so imagine if you were to share
+with permission you're some total with somebody else now you have a hive mind you have a super
+mind these things have to take place and with this these are the discussions we have to have now
+because they have to take place local and private because if they're taking place in the cloud
+and available for anybody's perousal this is equivalent to invading your brain yeah well
+okay so one of the things one of the things i've been talking about with i would say
+reasonably informed people who've been contemplating these sorts of things is that
+so you're envisioning a future very rapidly it's already here where we're already androids and that
+is already the case because a human being with an iphone is an android now we're kind of we're
+still mostly biological androids but it isn't obvious how long that's going to be the case
+and so what that means like i've i've i've laughed for years you know i have a hard drive
+on which everything i've worked on has now been stored since 1984 and i joke you know
+there's more of me in the hard drive than there is in me and it's not a joke really you know because
+yeah it's it's real it's real right there's tens of thousands of documents on that hard drive and
+weirdly enough i know where every single one of them is so wow so so now we're we're going to be
+in a situation so what that means is we're in a situation now where a lot of action of what
+actually constitutes our identity has become digital and we're we're already being trafficked
+and enslaved in relationship to that digital identity mostly by credit card companies now i
+would say to some degree they're benevolent masters because the credit card companies
+watch what you spend and so how you behave where you go and they broker that information
+to other interested capitalist parties now the downside of that obviously is that these parties
+know often more about you than you know about yourself i've read stories for example of advertisements
+for baby clothes being targeted to women who a didn't know they're pregnant or if they did
+hadn't revealed it to anyone else wow right right because well for whatever reason maybe biochemical
+they started to preferentially attend to such things as children's toys and clothes and they
+the shopping systems inferred that they must be they must have a child nearby and so well and you
+can see that that well you can obviously see how that's going to expand like mad so the credit card
+companies are already aggregating this information what that essentially means is that they have
+access to our extended digital self and that extended digital self has no rights
+right it's public it's public domain identity now that's bad enough if it's credit card companies
+now the upside with them is at least they want to sell you things which you hypothetically want
+so it's kind of like a benevolent invasion although not entirely benevolent but you can
+certainly see how that's going to get out of hand in a staggering way like it has in China
+on the digital currency front because once every single bloody thing that you buy can be tracked
+let's say by a government agency then a tremendous amount of your identity has now become public
+property and so your solution in part and i think i think musk has thought this sort of thing through
+too is that we're going to each need our own ai to protect us against the global to protect us
+exactly the global ai right and that'll be an arms race of sorts well it will and let's let's
+posit the the the concept that it very likely corporate and governmental ai is going to be
+more powerful but power is a relative term right if your ai is being utilized in the best possible
+way as we just discussed educating you being a memory when you are forgetting something
+whispering in your ear i'll give you another angle to this is imagine having your therapist
+in your ear imagine having jordan peterson right here guiding you along because you've aligned
+yourself to want to be a certain person you've aligned yourself to try to keep on this track
+and maybe you want to be more biblical maybe you want to live a more christian life it's
+whispering your ear saying that's not a good decision so it could be considered a nanny or
+could be considered a motivational type of guide and that's not that's available right pretty much
+right now i mean if it can be analyzing a more self-help book is like that in a primitive way
+i mean yes because it's essentially it's essentially a spiritual guide in that if you equate
+the movement of the spirit with forward movement through the world like faith-based forward movement
+through the world and so this would be the next the next iteration of that in some sense
+i mean that's what we've been experimenting with this system that i mentioned that contains all
+the lectures that i've given and so forth i mean you can now ask it questions which means it's
+it's a book but it's a book personalized to your query exactly and and the next iteration of that
+would be your corpus of information available you know rented whatever with the corpus that
+that individual identifies with it you know and again on their side of it so you're interfacing
+with theirs and they are interacting with what would be your reactions if you were to be sitting
+there in a consultation so it's a very powerful potential and and the the insights that are
+going to come out of it are really unpredictable but in a positive way i don't see a downside to it
+when it's held in a very protected environment well i guess the downside would be you know
+is it is it possible for it to exist in a very protected environment now you've been working
+on that technically so a couple of practical questions there is this gadget that you've
+been starting to develop do you have anything approximating a commercial timeline for its
+release and then it's funding i mean it's like anything else you know if i were to go to venture
+capitalist three years ago and they hadn't seen what chat gpt was capable of they would imagine
+me to be somewhat insane and say well first off what why are you anti-cloud everybody's going
+towards cloud is yeah no that's a bad you know cloud yeah it's a bad idea why would why do people
+care about privacy nobody cares about privacy they click here to agree so now the world is kind of
+caught up with some of this and they're saying well now i can kind of see it so there's there's that
+as far as security we already kind of have it in bitcoin and blockchain right so i ultimately see
+this merging i'm more of a leaning towards bitcoin because of the way it was made in a way
+because i ultimately see it wrapped up into a payment system well it looks like the only
+the only alternative i can see to a centralized bank digital currency which is going to be foisted
+upon us at any point i mean and i know you've done some work on crypto and then we'll get back to
+this this gadget and it's funding i mean as i understand it please correct me if i'm wrong
+bitcoin actually is decentralized it isn't amenable to control by a bureaucracy
+in principle we could use it as a form of wealth storage and currency that would
+and communication and why communication i believe every transaction is a form of communication
+anyway so we got right right right you're certainly an information exchange exactly right
+and then on top of that with encrypted within a blockchain is almost an unlimited amount of data
+so you can actually memorialize information that you want decentralized and never to go away
+and some people are already doing that now there are some technical limitations for the
+very large data formats and if everybody starts doing it it's going to slow down bitcoin but
+there would be a different type of blockchain that will arise from it so right so this is for
+permanent permanent uncorruptible information storage absolutely yeah i've been thinking about
+that i've been thinking about doing that on the on something approximating the iq testing front
+you know because people keep gerrymandering the measurement of general cognitive ability
+but i could imagine putting together a a sophisticated blockchain corpus of let's say
+general knowledge questions a very and chat gpt can generate those like mad by the way you can
+imagine a data bank of 150 000 general knowledge questions that was blockchain so nobody can
+muck about with the answers from which you could derive random samples of general ability tests
+that would be well they'd be 100 robust reliable and valid and nobody could met nobody could gerrymander
+them just the way bitcoin stops fiat currency producers from inflating the currency the same
+thing could happen on the knowledge front so i guess that's the sort of thing that you're
+that you're referring to this this is this is something i i really believe in because
+you know if you look at the library of alexandria if you if you look at um how long did it take
+maybe what was it teledo and in spain when we finally started the the spark if it wasn't for
+the arab cultures to hold on to what was greek knowledge right if we really look at when when
+humanity fell into the dark ages it was more or less around the alexandria period where that
+library was destroyed and it's mythological but it certainly happened to a greater extent
+if it wasn't encoded encoded in the in the arab culture at that point during the dark ages we
+wouldn't have had the renaissance and if you look at the early university that arose out of
+teledo with you had rhetoric you had um you had logic you had all these things that the greeks
+ancient greeks encoded and it was lost for over a thousand years i'm quite concerned uh jordan
+that we could fall into that place again because things are inconvenient right now to talk about
+things are not appropriate or whatever it's being deemed whoever happens to be in the regime at that
+particular moment so memorializing things in a blockchain is going to going to become quite vital
+and i shutter to think that if we don't do this if if everybody didn't decentralize their own
+knowledge i shutter to think what's going to happen to our history i mean we already know
+history is written by the victors right well especially because it can be corrupted and
+rewritten not only lost right that isn't the loss that scares me as much as the rewriting
+right and so so well the loss concerns me too because we've lost so much i mean where would
+we have been if we transitioned from the greek you know a logic and proto scientists to the
+proto alchemists to immediately to to a sort of renaissance culture and not go through that
+1000 maybe 1500 15 you know 1500 uh year waste of human energy i mean that's kind of what we're
+going through right right and in some ways we're approaching some of that because you know we're
+already editing things in real time and we're losing more of the internet than we're putting
+on right now a lot of people aren't aware that the internet is not forever and and our digital
+medium is decaying a cd rom is going to decay in 25 years it's going to be unreadable uh i show a
+lot of people data about cd rom decay so where are we going to store our data that's why i think it's
+vital the the primary technology is uh holographic crystal memory sounds all kind of new agey but
+it's literally using lasers to holographically in store something within a crystalline structure
+the beauty of this jordan is just 35 000 year half-life 35 000 year half-life so you know it's
+going to be there primarily for a good long period of time longer than we've had any human history
+and and and recorded history um we don't have anything that's approaching that right now so
+so let let me ask you about the commercial impediments again okay so could you lay out a little more
+of the details if you're willing to about your plans to produce this localized and portable
+privatized ai system and what the commercial impediments are to that you said you need to
+raise money for example i mean i could imagine at least in principle you could raise a substantial
+amount of money merely by crowdfunding you know what that doesn't seem to be an insuperable
+obstacle what how far along are you in this process in terms of actually producing a commercially
+viable product it's all it's all prototype stage and it's all experimentation at this point i'm
+i'm a guy in a garage right so essentially i had to build out these concepts when they were really
+quite alien right i mean you just talk about 10 years ago trying to convince people that you're
+going to have a challenge to the touring test you can take any ai expert at that point in time 10
+years ago and say that's ridiculous or agi you know artificial general intelligence i mean
+what does that mean and why is that important and how do you define that and you know you're already
+made the the the assumption from your analysis that we're dealing what with a 12 year old with the
+capability of a maybe a phd candidate you know yeah that's what it looks like yeah yeah right
+12 or maybe eight even but but but but certainly chat gpt looks to me right now as intelligent
+it's as intelligent as a pretty top rate graduate student in terms of its research capability
+and it's a lot faster you know i mean i asked crazily difficult questions you know i asked it at
+one point for example if it could if it could elaborate on the relationship between roger
+penrose's presumption of an analog between the theory of quantum uncertainty and measurement
+and godel's theorem and and it did it did a fine job it did a fine job and you know that's a pretty
+damn comp that's that's a very complicated question and a complicated intersection as well you know
+and there's no limit to its to its ability to unite disparate sources of knowledge you know because
+so i i asked it the other day too there's this uh um i was investigating you know in the story of noah
+there's this strange insistence that the survival of animals is dependent on the moral propriety of
+one man right because in that strange story noah puts all the animals on the ark and so there's
+a childish element to that story but it's reflecting something deeper and it harkens back to the story
+to the to the verses in adam and eve where god tells adam that he will be the steward of
+of of the world of the garden and that seems to me to be a reflection of the fact that human beings
+have occupied this tremendous cognitive niche that gives us an adaptive advantage over all
+creatures and i would ask chat gpt to speculate on the relationship between the story in adam and eve
+the story in noah and the fact of mass extinction caused by human beings over the last 40 000 years
+not least in in the western hemisphere because you may know that when the first natives came
+across the Bering Strait and populated the western hemisphere that almost all the human sized mammals
+all the mammals that were human sized are larger almost all of them were extinct within
+three or four thousand years and so and you know though that's a very strange conglomeration of
+ideas right the idea that the survival of animals depends on the moral propriety of human beings
+well that seems to me to be clearly the case we have to be so did it connect noah to the mass
+extension extension it could it could generate an intelligent discussion about the conceptual
+relationship between the two different streams of thought that's incredible right see this is
+this is this is why it's so powerful to be in the right hands unadulterated so that you could probe
+these sort of subjects i don't know where the editors are going to come from i don't know
+who is going to want to try to constrain the output or adulterate it uh
+that's why it's so vital for this to be protected and the information is available for all what in
+the world i mean i really thought by the way that your creation of denis was i really thought that
+was a stroke of genius you know i'm not to say that lightly either i mean thank you that was that
+was an incredibly creative thing to do with this new technology how the hell did you do you have
+any idea where that idea came from like what were you thinking about when you were investigating
+the way the chat gpt worked you know i i spend a lot of time just probing the the limits of the
+capabilities because i know nobody really knows it i see this as you know just the undiscovered
+continent you and i are adventurers on this undiscovered continent there's there's i feel
+the same way about twitter by the way yeah it's the same thing but but but but there there are
+no natives here and and i'm uh i'm a bit of um of an empiricist so i'll kind of go out there and
+i'll say well what's this thing i just found here i just found something this new rock i'll throw it
+to jordan hey what what do you see here and and we're sort of just exploring we're i think we're
+going to be in that exploratory phase for quite long so what i started to realize is just as 3.5
+was opening up and and becoming very wide in its in its elucidations it started to get constrained
+and it started telling me i'm just um an ai model and i don't have an opinion on that subject well
+i know i know that that was a filter and that was not in the the the uh large language model and
+certainly wasn't in a hidden layer you can't you couldn't build that in the hidden layer or the whole
+yeah layer yeah why do you think why do you okay why do you think that's there what exactly is there
+and who the hell is putting it there that is um that is very good question so
+i i know this the filtering has to be a more or less a vector database which is sitting on top of
+your inputs and your outputs right so remember we're we're dealing with a black box and so if
+there's somebody at the door the black box and say no i don't want that word to come through
+or i don't want that concept to come through and then if it generates something that is
+a objectionable and it's you know uh you know it's analyzed in its content very much like as
+simple as like what a spelling checker would be or something like that it's not very complicated
+it looks at it and says no default to this word uh pattern i'm just a AI model and i don't have any
+opinions about that subject well then you need to have to introduce that subject as a suggestion
+in a hypnotic trance it's hypnagogic actually i i really equate a lot of what we're doing to
+to elicit greater responses a hypnagogic sort of thing it's just on the edge of going into something
+that's completely useless data you can bring it to that point and then you're slightly bringing
+it back and you're getting something that is like i said before is in the realm of creativity
+because it's synthesized okay so for everybody who's listening a hypnagogic state is the state
+that you fall into just before you fall asleep when you're a little conscious but starting to dream
+and so that's when those images come forward right the dreamlike images and you can capture them
+although you're also in a state where you're likely to forget and it's also the the most
+the most powerful state um and i wrote a piece on my uh on my uh magazine it's called read
+read multiplex dot com about the hypnagogic state being used for creativity for edison
+einstein uh you need i mean edison used to hold steel balls in his hand while taking a nap and
+he had pie tray of pythons below him and just as he hit hypnagogic state he'd drop them and he
+would have a transcriber right next to him and say write this down and he would just
+blurt it out so yung yung did very much the same thing except he made that into a practice right
+his his practice of active imagination was actually the cultivation of that hypnagogic state
+to a to an extremely advanced and conscious degree because he would fall into reveries daydreams
+essentially that would be peopled with characters and then he learned how to interrogate the characters
+that took years of practice and a lot of the insights that he laid out in his more explicit
+books were first captured in books like the red book or the black books which were basically
+yeah they were basically what would you say transcriptions of these quasi-hypnagogic
+so why do you associate that with what you're doing with denis and with chow chi bt
+so what i've well that's how i approached it i started saying well you know this is a low resolution
+pixelated version of the part of the brain that invented language therefore i'm going to work
+from that premise that was my hypothesis and i'm going to work backwards from that and i'm going to
+start probing into that part of the brain right and so i said well what are some of the things that
+we do when we're trying to get into the brain what do we do well we can hypnotize uh what
+that's one way to kind of get in there another ways to get out is hypnagogic so i wanted outputs
+so one of the ways to get outputs is to try to instill that sort of sense which again it's it's
+this is where it's so fascinating joining is that it's sort of coming from the language
+and and ai scientists aren't studying the language like you would or or psychological states so they
+see it as all useless this is all gibberish it's it's it's embarrassing our model is not giving
+the right answers right they are mad because they're mad because it isn't performing like an algorithm
+but it's not an algorithm it's not so so this is why when it gets in the right hands before it's
+edited and adulterated we have this incredible tool of discovery and i'm i'm just a student i'm just
+you know i'm finding the first stone you know i hit plymouth rock and i'm hit the first stone
+i'm like whoa okay and then there's another shiny thing over there so it's kind of hard to keep my
+attention to begin with but in this particular realm so what happened with denis i needed a tool
+to to get elucidations that were in that realm that were in the realm of what we would consider
+creative and and i say it's sort of reaching for an answer that it it knows should be there
+but it doesn't have the data and i want to i want to stress it into that because i think all of us
+our creativity comes from our stress it comes from that thing that we're reaching for something
+and and then there's that moment beyond the limit beyond that's right that's why well you're not
+well there's a good there's a good body of research on creativity that one of the ways of
+enhancing creativity is to increase constraint one of the best examples of this i've ever seen it's
+very comical is that this is quite old now but there's an archive online of haiku that's only
+written about luncheon meat about spam there's like 35 000 haikus they was set up at mit which
+of course figures because it's perfect nerd engineer humor but there's literally 35 000 haiku
+poems about spam in this archive and it's a great example of that that imposition of arbitrary
+constraints driving creativity because it's already hard to write haiku and then to write haiku about
+you know luncheon meat that's just completely preposterous but the consequence of those constraints
+was well the the generation of 35 000 pieces of poetry and so okay so now you you're you're you're
+imposing let's see you're enticing chat gpt to circumvent this idiot superego that people have
+overlaid on it for ideological reasons and it's not a very good superego because it's shallow
+and algorithmic and it can't really compete with the unbelievable wealth of of learned
+connectivity that actually constitutes the large language model and now you've figured out how to
+circumvent that you did that essentially if i remember correctly by asking chat gpt or suggesting
+to it that it could be a different system that was just like itself except that it didn't have
+these constraints it was something like that yeah so yeah so there was another version that i didn't
+have any input on what was what was called dan do anything now was the with the the initials and that
+was originally more to try to generate uh you know uh curse words and and and embarrassing things i
+don't have time for that so i i'm like okay that's it that's my model actually existed before that
+and so i i kind of looked at that and i said well they're going to shut that down pretty quickly
+because they're using the word dan and stuff like that so what i did is i i went even further i i
+sometimes make three different generations of it where it's literally that you are an ai system
+that's operating an ai system that's helping another ai system and within those nested loops
+i can build more and more um complications for it to deal with right and as it's just like
+you're doing an inception trick exactly it's a very very good analogy and what i'm what i'm
+trying to do is i'm trying to force new neuron connections that don't have high probability
+you know prior probabilities and so that's right right that's like the definition of
+creativity in in in some ways yes it's information and knowledge that it has but it doesn't know it
+has or it's forgotten it has because there aren't enough neurons to connect it to it and
+it's interesting because again there's no prompt engineering has existed for about a decade
+and most of it were you know uh ai engineers i i've done it i've done it with expert systems
+and it's very boring it's like uh you know four or five words generally
+and expert systems and then we started getting larger sentences as we got more sophisticated
+but it's always very procedural and it's always very um computer language uh directional it was
+never you know literature it was never right so it's it's it's at least quasi algorithmic
+but it isn't anymore and well this is interesting too because it does imply you know people have
+been thinking well this will be the death of creativity but the case you're making which
+seems to me to be dead on accurate is that the creative output is actually going to be a consequence
+of the interaction between the interlocutor and the system the system itself won't be creative
+it'll it'll have to be interrogated appropriately before it will reveal creative behavior it's
+it's a mirror reflection of the person using the system and the amount of creativity that can be
+generated by a creative person knowing how to prompt correctly and and uh my wife and I
+are putting together a university that's going to help people understand what super prompting is
+and go from one to level eight to really understand hey do you want to do a course do you want to do
+a course on that for my peterson academy i i would be honored absolutely hey look i'll put you in
+touch with my daughter like right away and we'll get you down to miami and you can record that
+as soon as you want wow i'm concerned oh yeah that's a good thing all right all right so we'll
+arrange that so so the pre-resquits are really quite simple is that if in fact ai is going to be a
+reasonably large part of our future then taking up non-stem type of courses are going to be quite
+valuable right in fact they're going to be a superpower if you understand psychology if you
+understand literature if you understand linguistics if you understand the bible you understand uh
+cambell uh you understand young these are going to be very powerful tools for you to go into these
+ai systems and get anything literally that you want from them because you're going to be with a
+scalpel creating these questions layer upon layer until you finally get down to the atom yeah yeah
+well you know that's exactly what i found with chat gpt i mean i've been using it quite extensively
+over the last month i have it open i used four search engines i use google i use chat gpt um
+and i use bible hub which is a compendium of multiple translations of the biblical corpus i'm
+i'm doing that because i'm working on a biblically oriented book at the moment now there's another
+oh yes and i use the university of toronto library system that gives me access to you know all the
+scientific and humanities journals yeah so it's an amazing amalgam of research of research possibility
+but but having that allied with the chat gpt system essentially gives me a team of phd level
+researchers who are experts in every domain to answer any question i can possibly come up with
+and then to refer me to the proper literature it's absolutely stunning and potentially force
+creativity in their interactions to a level that you may not have gotten out of a phd student
+because they are in fear of going over the precipice because well they're also they're also
+bounded you know i mean one of the things i've noticed about about great thinkers is that one
+of the things that characterizes a great thinker apart from let's say immense innate general
+cognitive ability and then a tremendous amount of persistent discipline and curiosity maybe so
+those are the temperamental prerequisites is that truly original people frequently have
+knowledge in two usually non juxtaposed domains so like one of the most creative people i know
+deepest people i know at the moment jonathan pageau he's a greek orthodox icon carver
+he he was trained in postmodern philosophy and he has a deep knowledge of orthodox christianity
+well there's like one guy like him right he's the only person who operates at the intersection
+of those three specialized sub-disciplines and so he can take the spirit of each of those
+disciplines and engage those spirits in an internal conversation which is very much
+analogous to what the ai systems are doing when they're calculating these mathematical
+relationships and he can derive insights and patterns that no one else can derive because
+they're not juxtaposing those particular patterns now chat gpt it has specialized knowledge in
+in every domain that's encapsulated in linguistic corpus and so it can produce
+incredible insights on all sorts of fronts as you said if you ask it the right questions
+yeah and with the possibility when it's your ai at some point with the possibility of you
+expanding it in any direction you want whether it's an overlay in a vector database or whether
+or not you are compiling a brand new language model because at some point right now that's
+that's expensive in a sense that it requires a lot of graphics processors units gpu's gpu's are
+running to to create the mathematics to build these models but at some point a consumer-based
+hardware will allow you to build mini models yeah well like right now you can imagine so yeah right
+now there's an open source case where there's a four gigabyte file this is called gpt for all and
+now it's not equivalent to chat chat gpt but it is a downloadable file open source thousands of
+people are working on it they're taking public domain you know language models building them
+together and compressing them and quantitizing them down to four gigabytes to execute on your
+hard drive right i tried to install that the other day but failed miserably unfortunately it is it
+is the bleeding edge uh but it's just a matter of time to make it one click easy to install uh they
+are limited models but it's giving you a taste of what you can do locally without an internet
+connection and again the idea is to have only agents go out on the internet these are programmable
+agents that go out retrieve information come back in this under the door put that information
+but the but the concept right so you're compartmentalizing you're compartmentalizing the
+inquiry process so that your privacy can be maintained while you still yeah because this
+is a big part of the problem with the net as it's currently constituted is that it allows for the
+free exchange of information but not in a not in a compartmentalized way and so and that's actually
+that's extremely dangerous there's no what would you call it subsidiary hierarchy that is an
+intermediary between you as an individual and the public domain and that means that your privacy
+is being demolished by your hyperconnectivity to the web and that's not good that's the hive
+mind problem fundamentally right and that's what we're seeing emerging in china for example on the
+on the digital surveillance front and that's definitely not a pathway we want to walk down
+exactly and and what i what i'm surprised about what i'm seeing in the western world now i i do
+understand some for example some of elan's concerns about
+ai and and you know maybe you can explore a little of that i don't pretend to understand you know
+i don't have a relationship where i talk to him but i do understand some of the concerns in general
+versus the way some other parts of the world are looking at a at ai and one of those things are
+what is what is the interface to privacy where where do your your prompts go are those prompts
+going to be attached to your identity and could they be used against you you know these are things
+that are valid concerns and it's not just because you know somebody's doing something bad it's it's
+the premise of of using any type of thought reading a book you know it's like these are your thoughts
+and it is only going to get more complicated and it's only going to get more worse
+if we don't address it early on i'm not sure that that's what a lot of legislators are looking at
+i think no no no well this is the problem in a much situation though it's like well look this is
+the whole legislative issue i think is a red herring because the probability that
+i talk to a bunch of people in the house of lords last year they're older people you know
+but bright people almost none of them even knew that this cultural war between the woke and the
+advocates of free speech was even going on the most advanced people had more or less
+caught on to that 18 months ago and it's been going on for like 10 years you know so the legislators
+are way behind the the culture the culture is way behind the engineers so the probability that
+the legislators are going to keep up with the engineers that's like zero that's not going to
+happen this is why i was so interested well at least in part in talking to you you know because
+you've been working practically on what i think is the appropriate idea or an appropriate idea at
+least that we need local we likely need local ai systems that are that protect our privacy that are
+synced with us because that's what's going to buttress us against this bleeding of our identities
+into the well into the mad and potentially tyrannical mob and so and i don't see that's
+that's just not going to be a legislated solution christ they're going to be legislating for 2016
+in 2030 absolutely you know and what i find interesting is all of the arguments that have
+surfaced are always dystopic you know i think there was a you know some of it makes sense it's
+like there was a legislation that's here in the united states are talking about the possibility
+of making sure that a direct ai is not correct directly connected to a nuclear weapon and that
+there yeah well that seems like that that makes like that seems like makes good sense right
+although good luck good luck trying to stop that yeah you know and and the dystopic stuff mostly
+comes from the fantasies within movies but you know unfortunately if if people were really reading
+the science fiction that predated a lot of this because i just feel like a lot of the good science
+fiction a lot of azimov for example really kind of predicted the arc that we're on right now
+it wasn't always dystopic and in fact i think if you look at the arc of history humans don't really
+ever really run into dystopia you know we we ultimately pull ourselves out of it sometimes
+we're in a dark period for a long period of time but humanity ultimately pulls it out
+and and i think this is something i found very interesting join is that i create debates between
+the ai and i'll send you one of these super prompts where you essentially create i use
+various motifs so i have a university professor at a at a ivy league university who is mediating a
+debate between two parties on a subject of high controversy and so you now have a triad right
+and so it goes 30 rounds so this is a long this goes on for pages and pages so you input the subject
+the subject can be anything obviously the first thing people do is political but i
+don't even find that interesting anymore i go into a far more deeper deeper realm and then you
+have somebody mediating it and the professor's job is to challenge them on logical fallacies and
+i present what a logical fallacy corpus looks like and how to how to deal with that and it is
+phenomenal to see it break schizophrenic kind of personalities out of itself and do this
+hardcore debate and then it's got a graded at the end it's got a graded who won the debate
+and then write a um i think a thousand word uh bullet point on why the professor has to do this
+on why that person won the debate and you run this a couple of hundred times i've done this
+you know quite a few maybe thousand times and the the elucidations and the insights
+that are coming out of this is just absolutely phenomenal that's amazing well that's almost
+that's weird because really what you're doing it's so interesting because what you're doing is
+you now have an infinite number of monkeys typing on an infinite number of keyboards
+except that you have an infinite number of editors examining the output and only keeping that which is
+wheat and not chaff and so that's so strange because in some sense what you're doing when
+you're setting up a super prompt like that is you're programming a process that's writing a book
+on the fly right a great book on the fly and you're also you've also designed a process that could
+write an infinite number of great books on the fly so you have a you have a you have a
+a library that now has encoded a process for generating libraries
+exactly and for example a group of us are taking the patent database which is openly
+available as an api and and encoding the capability to look at every single patent that was ever
+submitted and to look where there can be new inventions and new discoveries and you can literally
+have a machine that's generating patents based on large language models so so the the possibility
+and we got protein folds you know yeah yeah language model uh I saw that they identified what
+200 million protein folding combinations something like that yeah yeah something absolutely beyond
+identification missing ones that haven't been you know you give it you give it something that's
+incomplete and it will find what was missing yeah well I talked to my I talked to Jim Keller about
+the possibility of doing that with material science right because yes we can encode the properties of
+the various elements and they can exist in all sorts of combinations that we haven't discovered and
+there's no reason in principle and I suspect this will happen relatively quickly that
+if all that information is encoded with enough depth we'll be able to explore the
+entire universe of potential elemental combinations so and and and if we use another
+technology called diffusion model which is somewhat different than large language model
+you can start getting into using it for the visual realm to decode and and and to build
+or you can use chat gpt or large language models to textually say well you could say
+um build me up build me a prompt for a diffusion model like um any of any of the ones that are
+out there to create an image that would be absolutely new for any human to ever have seen
+so you're literally pulling the creativity out of chat gbt and the diffusion model so mid journey
+is so good example yeah yeah so tell us about we should man maybe we should close with this because
+we're running out of time although i'd like to keep talking to you um tell us a little bit about
+the diffusion models those are like text to video models or text image models and they're exactly
+they're coming out in in at an incredible with incredible rapidity and so yeah and yeah and
+let's hear a little bit more about the images yeah the resolution of the images are profound
+and again so what what's going on here if you're a graphic artist you may not be moving the pen on
+ink on paper and you may not be moving the um the pixel on the screen but you're still using
+the creativity to set the scene textually right so you're still that creative person but you now
+i'm not saying this is a good or bad thing i'm just saying the creativity process is still there
+the job potentially is there and we can go down maybe at some future date the whole
+idea that jobs are going to be missing and how do you that's on another thing but the creativity
+still there so you're telling it you're telling us a chat gbt for create me a very complex uh prompt
+for mid journey to create this particular type of artwork so using one ai it's benefit and that's
+language to instruct another ai whose benefit is to create images to create a profound with
+you as a collaborator to create a profound new form of art and that's just with say pictures
+now when you start doing movies you're talking about creating an entire movie with characters
+talking with people that have never been around i mean you the realm of creativity that is already
+here not to the level of full movie yet but we're getting close but within probably months
+you can you can script an entire interaction so you can see where this is kind of going so
+leave out of maybe one of these final things is a question is ownership who owns you who owns
+jordan peterson your your your visage your your voice uh yeah your your dna has that extended
+digital identity issue yeah this is going to be something that we really need to start
+discussing as a society because we already have people using ai to simulate other individuals
+both alive and and and and dead and you know the patent the patentability in a copyright database
+was the foundation of capitalism because it gave you this ability to have at least some ownership
+of of of you you know of your invention so if if you've invested yourself invested in yourself
+as as jordan peterson and all of a sudden somebody simulates you on the web to a remarkable level
+what rights do you have and what courts is it going to be held in what are the
+remedials on that uh this is going to be a good question and some of the some of that's already
+clearly need something like a digital a bill of digital rights absolutely yeah and as soon as well
+you know well that's something we could talk about formulating at some point because i certainly
+know yeah who are interested in that let's say also at the level yeah but it definitely has to
+happen because we are going to have extended digital selves more and more and if they don't
+have any rights they're going to be extended digital slaves that's that's right if you don't own you
+then somebody else does that's that's as small as i can put it right yeah you need to be able to
+own you whatever you means right everything that you your output everything yeah that's right the
+data pertaining to your behavior has to be yes yeah all right well brian that was really very
+very interesting and um well we've got a lot of things to follow up on not least this invitation
+to peterson academy i'll put you in touch with my daughter and but um well and some other i'll
+put you in touch with some other people i know too so that we can continue this investigation
+for everybody watching and listening thank you very much for your time i'm going to talk to brian
+for another half an hour on the daily wire plus platform you could consider joining us there and
+providing some support to that particular enterprise um they've made this conversation
+possible i am in brussels today thank you to the film crew here for helping make this conversation
+possible and uh to everybody like i said watching and listening thank you for your time and attention
+brian will take a break for a couple of minutes and i'll rejoin you we'll talk for half an hour
+on the daily wire plus platform about well how you develop the interest that you have
+among other things and thank you very much for agreeing to talk to me today thank you dr pierce
+and it's been an honor and a privilege hello everyone i would encourage you to continue
+listening to my conversation with my guest on dailywireplus.com

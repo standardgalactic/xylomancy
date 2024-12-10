@@ -1,0 +1,70 @@
+Hey, you want to see a really great way to copy a file between two systems, even if those
+systems don't have a SSH installed?
+Yeah, we found it, I mean it was suggested, to be completely fair, ChatGPT suggested it
+because I was looking for alternative to baseband and they said, yeah, just use Netcat.
+So the answer is use Netcat.
+And it's actually really cool, we actually had some contributions from people in the
+community who suggested that this is a way to, I'll get to that later, you have to wait
+until the end of the video.
+So anyway, so NC-U, we'll talk about that later, it stands for UDP-L, this can be separate
+if you want, and then the port number, 666, because we're going to be really mean and
+various.
+This number is over, it was a 1024, so I don't need root access, right?
+If I was anything under 1024, I don't know, say 53, spoiler alert, then you could do that.
+And then this says, hey, just copy all the outputs to Tempu.
+So to show you that it works, let's actually zero out Tempu.
+Hey, did you know you can zero file out by just piping it to it like that?
+Yeah.
+That's right, or redirecting to it.
+So now let's, we'll do our command again, it's going to start up a listener, it's listing,
+and over here, this is a Mac, by the way, this is my laptop.
+And then over here, I'm on one of my Proxmox servers with my case controller, and I actually
+was like tinkering away on a script and I have read-only Git cloning happening.
+So I wanted to be able to transfer between, and I could SCP it, I could start up an SSH
+server, or I could run SCP from my laptop and I could copy it over, but what if I didn't
+have SSH, it's just so much cooler to do that.
+So I went ahead and checked it out.
+So I have this Installer script to install QVIP, which if you don't know what that is,
+watch another video.
+This is setting up a virtual IP from a Kubernetes cluster, and it's a script I want to run
+on all of my nodes, all my control play nodes, but I wrote it and compiled it here, composed
+it here, and I was like, I didn't want to Tmux copy it, because then you get the extra
+extraneous spaces and stuff in there, and so how can I get it over there without having
+to have any problem?
+Well, you just run Netcat, and we're setting it to UDP just for fun, you could just leave
+it without that if you want, and then we pass the IP number of my laptop and the ports,
+and then we give it the file, and then we can wait around for that, but when you control
+see it, it'll actually close the connection down.
+On the other side, because we're doing UDP, it doesn't close the connection down.
+If you want to leave that off, it'll do the same thing.
+Let's try it without UDP really quick, just to show you.
+Same idea, a little bit less to type, and if you're just doing a simple thing like this,
+and then you can just control C, and when you feel like it's there and it will shut down
+both sides, because TCPIP has this idea of a connection, and then you can actually cat
+this file or VI this file tempu, and you can see that my script has come over perfectly,
+and it's completely binary compatible, so that's kind of a cool little technique.
+But I'm going to end you with this, this was suggested by somebody in our community who
+is in the security group, in the security land space, and you could do this, you could
+do this here, and 53, and then run UDP-L, and now you are sending, as long as you put
+53 on the other side, you're now sending your traffic as DNS traffic, so your packets are
+completely disguised as DNS traffic, and the port 53 is likely not going to be blocked
+on any path along the way, you can just use an HTTP server and a source directory.
+You can fire up an ACP, there's a lot of fun ways to do this, this is basically just
+all completely in the open, and you don't have PaySpin available, or you don't have
+Eeks.io, which got shut down, which was my favorite, and you're not giving any of this
+data out to any external entity, so it's kind of a cool little way to copy stuff, you got
+to be careful though, if you're doing this in an enterprise environment, and your admins
+find out that you're opening up, you're exposing ports on your login servers, that's like a
+firing offense, be careful with that, make sure you don't do stuff like that, but that's
+a fun little thing, make sure you learn about Netcat, Netcat is good for all kinds of reasons,
+you can transfer binary files, and deep packet inspection will absolutely get you, any Palo
+Alto router won't allow this, we used to use the trick of tunneling through SSH ports,
+or HTTPS 443, we would set up a list of SSH servers on 443, which is normally HTTPS web
+traffic, so that board students and their school classrooms could actually log into
+Skillstack and do their coding, and stuff like that when they were bored in their math class,
+and that got shut down, as soon as they've got a Palo Alto router, they started detecting the
+traffic packets were not, they said, oh, this is an SSH packet, so packet inspection is getting
+more common, it used to be expensive to have devices that would do that, school districts
+didn't have the money, but they do these days, so yeah, so if you try to do this and you try to
+just send random data over 443, and there's a Palo Alto router someplace along the line,
+it'll shut it down, it might even flag you, so if you do that, at your own risk, bye.

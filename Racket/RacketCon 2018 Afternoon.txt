@@ -1,0 +1,2716 @@
+start. Okay. How to ask for the time in Racket. As it turns out, three choices. First of all,
+in Racket Day, you can ask for the current day. There we go. If it works out, just fine. There's
+also a library called SRF519, scheme request for implementation 19. Here you can see there's
+actually two options. You get the current day, or you can get a particular offset from UTC.
+All right. And then the third option is the one that I'm going to be spending most of the time
+talking about. This is my library called Brever. And I've given you three options, although arguably
+you could say that the first one is a non-response, because I did say how you ask for the time. This
+actually is just a date, so I don't know about that. Now, as you see, there's something called the
+date time, which is both the provided date and time representation. And the third one gives you
+what is perhaps not so wonderfully known as enrollment, which is actually a particular appointment
+time that's determined, actually. You can see it has UTC offset, and it has something that neither
+of the other libraries have. I'm going to talk about that more as this goes on, and that is a
+proper time zone. Okay. So, that is how you ask for the time in Racket, and I could just stop at this
+point. And given the amount of time I spent setting this up, I don't think I have my
+reasonable thought. Okay. So, one of the things is that given that there were already two libraries
+in existence, the other first two that I showed before this predated Gregor, you might wonder
+why I brought this writing record on, right? Or another way of thinking about that question is to
+say, I might need to want to use Gregor as opposed to these two other libraries, or one of the two
+other libraries. And in fact, for many purposes, you might not cross this Gregor. The functionality
+there, there is more functionality, but you might not necessarily need it, right? But when you do
+need it, it's the only one that actually provides it. So, I'm going to be talking specifically
+about the things that Gregor does that the other libraries don't do. That's the main purpose of
+this term. So, the first of those things that I'm going to talk about are dates. And in fact,
+that gets right to the first thing that's right there. The one that doesn't exactly answer the
+question of how you ask for the time. That's actually one of the most important things in my
+opinion that Gregor does offer that the other libraries don't. Because dates are not to be
+confused with date times. And yet, many, many libraries, including both of the other ones we
+looked at, plus ones in many other languages, don't have a proper date representation. They just say,
+well, look, we have a data structure that has a date, and a time, and a UTC offset, and maybe
+some time zone information, some other stuff. It includes a date for what you need and anything
+else. You can just zero out all of the other tables and use it, right? The thing is, sometimes,
+sure, you can get away with that. But other times, however, it can cause problems because the consumers
+of these data structures have to treat it as if it represented a particular point of time,
+not a date. And that can really come back to bite me sometimes. I understand that
+proximity is a desirable quality in one of these libraries, but there are such things being overly
+personal. Yes, and I think this is an example of that. So let's give a, let me give you an example
+of a place where this tends to actually come up. A very popular programming language,
+JavaScript, which is implemented in all of these web browsers that we use all the time.
+This has something called a date object. And the date object in JavaScript is a date and time,
+and UTC all sets of representations, not a date. Now, let's have you write in an application and
+you are storing your users' work dates, either to keep their age or maybe because here we want to
+do some pretty patient Facebook stuff or give them a happy birthday or work or something like that.
+And, you know, like any proper, you know, wonderful modern web app, you send down the
+information via an API or the information is encoded in JSON. Of course, JSON doesn't have
+a date type, so you would code the date as an ISO 8601 date to string, right, which looks, you know,
+something like that, right. That's fine. And then, anyway, so then on the,
+on the, what are the JavaScript documentation, you find out, hey, wonderful, the JavaScript
+date objects constructor actually takes ISO strings and parses them, right. So, you know,
+cool. Okay, it actually takes date time strings because it really takes time representation,
+but maybe it will work with date strings, right. So, you need to try that out. You can say,
+something like that. You probably see this as a date, and what's actually going on here? Well,
+it actually is doing more or less what we said before. It's taking this as a date string,
+it's sort of saying, well, yeah, let's interpret that as a date time string because I need to
+construct a date time. So, it zeroes out everything else, right, and it considers it a UTC timestamp,
+and then it says, oh, I want to be extra helpful here, and I want to localize it to your browser
+as in the hell, which in this case, as you can see, it's in the central time. And so, it takes this
+and it gives you back the same point in time, right. Midnight UTC at the start of the year 2000,
+except localized to your browser, which happens to be the date before the date fields have actually
+changed, right. So, now what you actually wanted to represent the date, now you have to correct it
+again for the UTC offset to get the right information. So, this has actually turned out
+to be a problem. This is one, this is actually a pretty common case, but it's one of the reasons
+why you really want a proper date type and not just the date time. Okay, so, the first thing that
+Gregor offers is actually a proper date, right. That's something that I just wanted to stress.
+So, what about dates in Gregor? Dates in Gregor are very, very simple. They are, in fact, they just
+represent dates in a Gregorian calendar year, month, day. And you'll notice something here,
+which is that, and this is common across all of the temporal object that can show up as a
+brighter, you can, you have to pass at least one argument to it. It always takes the most
+significant unit approach, right. You don't have to pass one, and you can omit the rest,
+and they will all default to the earliest possible. So, these actually all are representation
+of the same date. But, you'll notice that in both SRF by 19 and in racket-based libraries,
+the units are in the opposite order. So, you start off in seconds, and I think that this is
+actually a much better default. So, also, the other thing that I want to point out about
+dates in Gregor is that they take the Gregorian calendar as the name suggests very seriously.
+So, in racket-based, for example, you might do this. So, I've just constructed a date,
+which, as you can see, is Sunday, February 31st, 2019, which it might surprise you that
+happens to be the very day that, oh, there we go, the very day that these peanuts expire.
+I suppose that in the upshot of, you know, bad time representations is peanuts that
+magically never expire, it sounds like that. I actually trusted to eat these, too.
+In Gregor, on the other hand, if I tried to represent the same day, it tells me,
+you know, that's really not going to work. And, you'll notice that there's actually a
+dependent contract in here, right? The contract for the day of the month depends upon both the
+year and the month, obviously, because it is different. So, anyway, it's pretty obvious.
+So, that's the first thing. Proper dates also insurance to Gregorian calendar.
+The second thing that Gregor offers that the other libraries now is proper terms on support.
+But what we need by proper terms on support? The other libraries, both from the UTC offset,
+but UTC offset and the time zone, at least in the sense that I'm going to talk about it,
+aren't the same thing. It's true that in ordinary language, we often will have heard of things that
+say, like, central standard time as a time zone. But really, central standard time is just sort of a
+nice way of referring to a particular offset from UTC. This is usually minus six hours, right?
+And central daily time is UTC minus five. These are both different offsets. They're probably
+in the same time zone, which is known as America, Chicago. And I apologize to St. Louis. I lived
+in Boston, our time zone is called America, New York, so I feel your pain.
+He did the Tesla data database uses the most common ones, the IEMA one, which is also known as
+TZDB, Zone Info, the Olsen database. He probably used it before. And what it really is, it's a set
+of rules that map absolute points in time to particular UTC offsets. That's really good time
+circuits. And Gregor has support for the other libraries now. And yeah, so that brings me to the
+third part, which is probably local date and time arithmetic. And unless you actually do a lot
+of data time arithmetic, you might not realize that there's different things. And there really are.
+Time arithmetic is actually the simpler one. Time arithmetic is the matter of answering questions
+like, what time will it be any seconds after now, or any seconds after some arbitrary amount of time.
+And you can talk about seconds, you can talk about hours, you can talk about it for actually a
+second or whatever. They're all interproperty. They're all the same problem. Also, the other thing
+is that all of this stuff works fine. There's no gotcha cases that currently play with time
+circuits. As long as you have time zone support, you can always do this by just saying, well, look,
+I've got this local time, I'm going to translate it into something like, you know, a POSIX timestamp
+or something like that, or UTC time, then I'm going to answer it. I'm going to second-student,
+I'm going to translate it back. You get the right answer. Another way to think of this is that if
+you start off with a valid point in time and you add some number of seconds to it, you will always
+end up at a valid point in time. The same cannot be said for data arithmetic. Data arithmetic is
+trickier precisely because you're trying to answer questions that correspond to sort of the ordinary
+language questions like, well, when would it be a week from now? Now, normally that doesn't sound
+like it's a dramatically different question, right? But the problem is, what happens if there's
+like a daylight saving time transition that intervenes between those two points, right? Because
+it's not the same thing, or at least not what most people say. They don't mean the same thing,
+but what will it be a week from now, and what will it be seven 24-hour periods from now, right?
+That's not really what people mean by it. Data arithmetic tries to accommodate the one week from
+now on a type of arithmetic, and that's a more difficult thing to do. It's not dramatically
+difficult, but it is more difficult because there are a lot of cases in here. Additionally,
+one thing that I should point out is that there's also a difference between doing data
+arithmetic on days and doing data arithmetic on months, for example. On-through arithmetic is a
+separate problem. Again, not a particularly difficult one, but I just want to mention that
+because most of the other libraries allow you to do, say, Julian's data arithmetic,
+which gets you part of it. They all have the time zone conditions, but they still offer a
+lot of data arithmetic in the absence of that. One of the things you can do when you're doing
+data arithmetic is you can end it up.
+One of the things that can happen when you're doing data arithmetic is that you can end up
+writing. We're in the middle of the data saving time transition. When we set the clocks ahead,
+there ends up being a gap in time over how it is supposed to exist. The question is,
+what do you do with that circumstance? The greater offers is something called an offset
+resolver, which allows you to actually determine that. You can create your own offset with offers
+that you're going to want. In this case, previously, as well, we're going to go to the
+moment that's immediately before the gap. Post is the moment to go to the moment to push.
+It pushes it out the length of the gap. If you're supposed to end up at 2.30am,
+if you're 3.30am doesn't exist, it pushes out the length of the gap, which is one hour
+slower than 2.30pm. Also, you can also raise an error at that point in time, as well.
+Constructors for moments take a resolve offset argument. In case you just try to construct
+a bad point in time, the default in that case is actually to raise. On the other hand,
+for arithmetic, as you can see here, the default is not to raise. The default actually
+is what's called a puncture. It takes you to the first moment of the gap. There's a similar story
+to be told for the end of the day, let's say, at the time, where there's an overlap in an hour,
+where you repeat the hour from 1 to 2 twice just like a different UTC offset. The offset
+resolvers, in fact, comprise a way of dealing with gaps and a way of dealing with overlaps.
+You can program that how you want. There's a number of built-in things that you're
+probably going to do. You're probably going to want to choose one of those things,
+but if you don't want to, you don't have to.
+Probably the local date and time that I'm going to take is the next day,
+and the last thing that I want to bring up is good localization support for formatted
+parsing. Formatted parsing is the main reason why people tend to choose SR519 over built-in
+rapid libraries, because it actually is far more featureful in that area. I'm not necessarily
+going to say that Gregor offers more functionality in terms of parsing. It may, I'm not entirely sure,
+but what it does offer actually is, do you really need to do this in just about any local
+block? Now, that's not because I went through and, you know, to know the translation of every
+single language I wrote. Instead, I'm using the CLDR, which is a common local data repository,
+which is a team-wide data code consortium, and it's an independent or almost database
+of localization information. In fact, the daytime stuff is pretty very, very small part of it.
+But, as you can see, you can use the current local parameter in a bracket to determine
+the parsing and formatting. These are just cases where it's not going to be tripping
+in this date, so we start off with a particular date, we formatted in a local specific pattern,
+and then we parsed that in the very same representations. There's one in American English,
+there's one in Spanish, and there's one in French, and there are plenty more that you
+also choose from if you want to. Okay, so those were the main reasons why I built Gregor, but I
+haven't really gone through exactly how to use it, and I don't really have time to go through that,
+but I did want to mention that what's in the library? Well, you only know there's dates.
+There are also times, which I have shown you, and that's just representation in the time of the day.
+You don't often need that, but when you do, it's kind of nice to have. There are also date times
+that don't have time zones. One of the things that I want to stress, just like you want,
+just a date representation, you also want to avoid using time zones when you don't need to,
+because they end with complications. So the date time type is there just to allow you to use
+a date time. You don't actually need any sort of time zone information, and there are moments,
+which is just a date time that has times of information as well. On top of that, there are
+generic interfaces, so they implement various interfaces, like a date provider,
+where time and moment influence that. So if you want to get the year from either any of this,
+then you just ask, you just use the two year function, right, on any of those. So there are
+generally, similarly with Proliptic, there's a date with Proliptic providers, so if you want to add
+months or add years to all these objects, it's the same function you call in all of them. There are
+separate functions for date, date time, and there are facilities for getting the cursed date time,
+et cetera, which you saw at the very beginning of this, and there's a full amount of processing
+libraries, and there's a few other things in there. I encourage you, if you want to use this, to look
+for documentation, and, yeah, I think that's all the time, so thank you.
+So while our next speaker is connecting, we can have a question for you, John.
+How did you find out about all the gotchas for the test form?
+That's actually a real great question. One of the things I skipped over when I was talking about
+this that I plan to say was, what prompted me to write the library to begin with was not so much
+that I had an application that needed to use it. It was that I had been doing work a lot of work
+with date and times and other languages, and I'd been astounded by the number of, like,
+solid bugs that came up, and actually not just in the code, but also in tests for the code
+that were all date and time related, especially with time zones as well. I was like,
+it doesn't initially seem like a terribly problematic area, but if you do a lot of it,
+you realize that it really is, and so I became fascinated in my annoyance with it.
+The fascination wears off after a while, but that was really what prompted me to write the library.
+So, thank you very much, John. I hope you can all appreciate why this is one of my favorite libraries.
+He has thought of everything. Every time I go to the documentation, I can't believe that this
+has been included. It's amazing. Okay, so let's thank John and welcome our next speaker, who is Stephen
+Foster, who is in charge of this organization, Foxsem, and he'll talk about their work. So, welcome.
+Thank you, Eric.
+Thank you.
+I think it's Gregor, by the way. I don't know what you're doing. Oh, there you are. Sometimes I
+put libraries out there and I don't know if anyone uses them, so I just want you to know I use yours.
+Okay, I'm going to pull screen this here.
+Okay, so the title of this talk and program was, I pivoted my startup to use Racket. It can be
+pivot for the world, but it was a little bit melodramatic and it was a little long, so I
+shortened that to a Racket story. It's in three parts. And the first two parts are actually
+very rigid in the past. I said present, but really it's the recent past. So I'll tell you those
+parts of the story. And then when we get to the future, obviously, it's not written, but maybe we
+can co-write it together. I don't know. That's kind of part of my goal here in this talk. Let's do it.
+So I'm going to head over here into the past.
+Okay, so I was born.
+This is true. That was a fact. I wish I could say that I discovered Racket immediately upon arriving
+in this world, but that would have been historically impossible back in 1985. But I was very
+about it. I was lucky to be introduced to programming at an early age by my mom because
+for weird reasons, I grew up there. And at that time, women were not often dry, but recently
+changed, but at that time they could not. And it was kind of inconvenient to leave the house because
+she had nowhere available. And so although it was nine years of inconvenience from my mom,
+I feel very sorry for her. It was very convenient for me. She stayed home and taught me a lot of
+things like programming. And again, I wish I could say that I learned Racket at that time,
+but it wasn't Racket, again, from what I understand. I think in the 90s, we deal with schemes. It was
+just beginning. What I learned was basic on our Apple 2GS. I will get to Racket in just a moment.
+There's one more important point here. In high school, I took, this is the gap portion right here.
+I had a really, really terrible computer science class, and it made me decide I would
+undid all of my mom's hard work staying home and saw your idiot teaching me to code on Apple 2.
+So I went off to college as a psychology major and I dropped down. I decided I wanted to get
+a sci-fi and fighter, and that didn't pan out very well either. Something interesting happened,
+though. After two years of sci-fi writing, I ended up panning out. I went back to college,
+and I was a philosophy major. Are you also a philosophy major? I know you're just a band of
+college. I took a programming class, and I wish I could say it was because I wanted the program,
+but I didn't want to take a math class. Philosophy was kind of relaxed about that.
+But in that class, we used a piece of software. Maybe some of you have heard it. It was called
+Dr. Scheme. It was a while ago. It was a good experience. It was very cool. I liked the
+environment, I liked the language, and I liked the curriculum. It inspired me to take another
+coding class. I think that's the important point here. That next coding class, that wasn't
+back at Haskell. Actually, they were almost the rest of my education was in Haskell and
+Dove and other languages. But I had a very soft spot in my heart because that first class, the one
+that gave it to me back into computing after deciding I was never going to do it again, was a
+class called Dr. Scheme. Okay, so that is the past. Because of that past, by the way,
+I thought about calling this talk how that could save my life, but it seemed melodramatic. I didn't
+call it that. Let's pass forward to the present. All right, so I got my PhD from UCSD,
+knew the undergrad school I started at a company called Boston, and our mission was at that time
+still is to teach computer science to kids. I did it because as I grew older, computing became
+more and more obviously relevant to the world. I became more and more grateful for my mom for
+teaching me coding and more and more grateful to my college professors for pivoting me back into
+it. And when we began my teaching scratch, it was kind of an obvious thing. We added on some
+Java and some icons and C-sharps and Ruby, some HTML, some JavaScript. You got to go on the whole
+thing. Basically, anything we thought would be interesting to kids, we would teach. It worked
+okay. Yeah, it was fine. I think it was really successful during that period. But the whole time,
+it was sort of like that.
+you
+Rackets in that time. And all of the curriculum that I had used had gone
+a couple of design iterations. Basically everything was fantastic.
+So great IDE program design is awesome. All of this was fantastic. All this stuff you probably
+already know. Kind of imagine my feeling of a fortune, just sort of the first thing I googled.
+Short question. So in January, what I started doing was pivoting our company so that we would,
+from that point on, develop all of our educational technologies using Racket. And my dream, my vision,
+which we did execute this summer, was that students would take the same range of topics
+in our classes that they had taken before. And we had a fairly wide range, brain science,
+web development, virtual reality, robotics, Minecraft modding, a lot of stuff that feels
+the case as well. But I learned that same range of topics, but I wanted students to be able to take
+one class and then go to another one and not have to have to be like cognitive
+on the ease of switching from Python to JavaScript to C-Sharp. I was thinking,
+it's probably painful. Anyway, so we've had some of these up as lens and libraries. And I want to
+just switch off this talk and just go to the browser and do a very, very fast overview. It
+really is brief. If you're interested in any of the ones I surveyed, I'll definitely talk about
+it afterwards. Bear in mind, these are not necessarily ones of phishing to you to use,
+because I don't think they were K through 12. Maybe some of you know some people who are,
+in which case, feel free to recommend these. But we use these as teaching languages, essentially.
+So this one is a, this is for modding a game called MindTest. It sounds like Minecraft. It
+actually is very similar to Minecraft. It just has to be open source, more easily modeled as a
+pool or modding API. All that. It already had that. I just made my name's bracket for it.
+So you define your blocks, find some game rules, again, super brief. You press run and you're in
+the world that has the stuff you created. That's cool. And I'll do that in the details.
+We have a VR lens for doing virtual reality sort of scenes and games. So here I'm kind of defining
+the box and the sky. And it's not very interesting as the black sky in the blue box.
+You're developing your access to server, and so that's the virtual reality scene. And you get
+the full benefit of that. You know, I'm not going to update my workflow. I'm mapping some
+functional realistic boxes right here. There's some stars, stars.
+Some more stars. I think I got a little bit too excited about stars.
+But I texted some of them and you can see the text is in line. It's not directly
+sent passing. It's just incredibly easy to do. And that's a more coaxing text.
+Anyway, moving on. So this one is called PyFizz, which is kind of a fun name. It's a
+fun material physics simulations. And it actually compiles the racket down to Python.
+It probably sounds weird. But we did it because we teach classes in Python. Python is a popular
+language people want to learn it. And we were able to build a really cool curriculum
+on the racket to make the high-level specification of their physics simulation.
+And then out of the Python program that they can continue to hack on to learn our entire Python.
+It's kind of fun. And lastly, this is one for coding a microcontroller called the
+cpx, which is pretty fun and sounds and accelerometer and stuff like that's pretty cool.
+That's me. That's me as a young racket programmer.
+All right, go back. Okay, so that's it. So that's the present. I built a company down
+back again. I built some cool stuff for them that I just showed you. Let's go on to the future.
+This is the point where it's not written yet, obviously. But because it's not written,
+you kind of imagine whatever we want, right? So this cannot sit. I'm beyond idealistic.
+I have kind of a vision. I'm going to lay it out for you, okay? So I really want to live in a world
+where everyone knows how to code, like where coding is taught as a basic literacy. It's all
+alongside mathematics, reading and writing. It's interwoven with those things. And I can
+count on, I just run into someone on the street and they know how to code. I think that would be
+a really cool world to live in. I think coding is a thing that makes you a more effective human
+being. I think that's true for me. Probably that is true for you. And just as a thought
+experiment, I want you to kind of imagine that whatever it was in your life that made you into
+a coder. It was my mom teaching me in the Middle East because I couldn't go outside. For you,
+it's probably something similar. I don't know. But this is a man to manage. It didn't happen. Or it
+turned out a different way. You didn't learn to be a coder. You didn't learn to use the most powerful
+machine that was ever invented by mankind. That's just another skill set you're going to have.
+I point at the MacBook Air for that. Computing in general, not necessarily the MacBook Air.
+So, I think if you ask yourself, would I be a more effective human being in that parallel world?
+I think you would probably say no. Being a coder allows you to magnify your own impact,
+impact of others around you. Now, what happens for a moment, which is still a thought experiment
+here? What happens if you assume everyone in the world now has that skill set and everyone can
+maximize their impact? I don't know actually what the world looks like there. Some parts of that
+scare me, actually. But I do think that on average, people human beings are fundamentally good,
+loving, caring people. And if you give them a skill that allows them to maximize their impact,
+they'll maximize mostly on average those skills, those good things. So, how do we do that? All
+right? So, that's fluffy, right? I want to end the talk on something concrete. I think I still
+have a few minutes to do that. So, teach the world how to code. That's fine. I don't know.
+That's difficult. So, let's try to concretize it to something else. What I currently concretize
+that to for myself is, let's see if we can get Dr. Rackett on all the computers in the world.
+I think that would be really cool. I didn't get the same plan with the Java conference.
+But, you know, I think that seems more achievable. Because I look around, I see a lot of computers,
+and a lot of them have the same software on them. They don't have a web browser. I'll get
+word processors and spreadsheet programs and stuff like that. Things are generally useful for
+everyone. I look at Dr. Rackett and I see something that is of similar perhaps much greater power and
+value. And the problem is that it's just not apparent or relevant to many people outside of
+this room. And Dr. Rackett is up for less value. So, again, we've done a reduction here. It might
+seem we didn't reduce, but we'll just go over again. Teach the world how to code. Put Dr. Rackett
+on all the computers. Show people that Dr. Rackett can be relevant and valuable to them.
+How do we do that? Why is this a reduction? Well, this last part, I feel like that's much
+more trackable. That's what my company does. We make coding relevant to kids. We do that by
+creating lengths that link coding, in this case, Rackett, to a domain they already care about.
+They already cared about robots. They already cared about playing mind testing. They already cared
+about being creative. So, we didn't convince them coding was cool. We made coding a tool that could
+do something with that they already wanted to do. And then after that, I'm not saying teaching is
+easy. Teaching is always hard, but after that, things are easier. They actually want to learn,
+and giving them to install Dr. Rackett is super easy. Giving them to take a coding class is super
+easy. Now, I'm just down the road, but that's the key first step. So, I think we can do it.
+I think we can do it, and I think I am a sort of an example of it having already been done,
+because I'm new to the Rackett community. I got pulled in because I was looking. I had a domain
+I cared about, just making cool stuff for kids, and I found the tools and resources already there
+built in the Rackett ecosystem for me, but not by coincidence. People in this room built those
+tools. They didn't build it for me, but those tools existed. So, it was a powerful, relevant,
+obvious choice for me. And so, I think every time we do that, every time we put out something that's
+going, that's something that allows someone to be productive in a way they couldn't be before.
+It's a chance to bring people in. Not all of those people will pay it forward and make another
+library that brings more people in, but some will. I am trying to, and I think if we all work together
+on it, we can probably do it. So, last but not least, I'm happy to announce that we actually
+have gotten another NSF grant, so we're going to take a lot of the technologies that just laid
+out and put them online through online courses. Projecting, again, I'm young and idealistic,
+I'm a trainer. We're projecting to get to half a million users in five years, which I know
+sounds crazy, but we've been doing this for a while. We already have sold coding education,
+not Rackett based, but coding education software to about 100,000 users since we founded our company
+and it doesn't multiply that by five, you get five million, so I think it's conservative,
+but I'm young and idealistic. So, anyway, I thought about following this talk,
+how Rackett saved my life and how we, the Rackett community, can save the world,
+but that was too melodramatic as well. I'm sure that that may be, thank you all.
+Most children don't speak English and most children's only computer looks much more like
+this one than the one in here. Yeah. How are we going to, what's the plan? I don't know, do you
+have one? I said we're going to work together, I can't come up with all the ideas, but I'm
+starting where I know how to start, but it has to be a small all of that, right? I don't know,
+but some people do, man, we're cool and smart. Thanks. How do you reach kids? How do you get to that?
+Specifically me, in San Diego, we run after school programs, summer camps, that's how we
+kind of reach people face-to-face in San Diego, put stuff up online and to our mouth,
+that's where it's, you know, I mean, kind of like the news market and basically, yeah.
+Yeah. If everyone in the world learns to code, yeah, you think we would have less stuff going on,
+like stuff that's going on in the world today, and news coming up, all the news,
+and you listen to other broadcasts. I have no idea. I have no idea. Well, I wanted to get super
+political right here at the end of my talk, but I don't know, I'm talking about human values
+and whether learning to code will help people become better human beings.
+That's what I believe, yes, for sure, but I mean, don't get idealistic, that's so hard for your
+time, but I don't know, but I do believe that. If we want to address people who are good,
+loving parents, people I think can give you the tools that better themselves and better
+those qualities as well. That's what I think.
+Thank you all.
+Next up will be another person who, in an entrepreneur, has made many startups.
+So, David's source, he's on his fourth startup now, maybe?
+I don't know what he counts there, it's Dylan.
+Yeah. And he'll be talking about how he has used Racket and is working.
+So, let's welcome David.
+Hey, how are you doing? Nice to see everybody.
+Okay, I have been told that I've got 15 minutes to talk, something like that.
+And so, I have a speech prepared, but I'm going to cut out the last
+three days. So, my name is David Stores. I am, battery is included in commercializing
+Racket. And I would just like to say that my inner critic is sitting here going,
+the mic's not working. No, my inner critic is sitting here going,
+so, let's review. Step one, the guy who literally wrote the book and is talking about one of the
+key scheme compilers in the entire world, upon which Racket is built. Since then, successful
+entrepreneurs, people are doing seriously hardcore stuff. People who are bonkers enough to do
+fake math libraries. And now me. Great. Okay. So, this is batteries included.
+Right. So, this is going to be a lot less sexy and exciting than the ones you've seen so far.
+This is pretty much me talking about our company and how we have used Racket in it and also
+some modules that are out there that have been pretty useful to us that
+maybe are not so well known. I mean, maybe I'm going to show these. Nobody here is going to go,
+get off the stage. We know all of those. So, please, I hope you can prove. Okay. So,
+I'm David Stores. I'm the CEO of Biomantica. James Platt is my co-founder. And James spent 20
+years in cancer research. He and I spent 20 years in coding. And we came together.
+Sure, let's go. That's kind of weird. Whatever. We're solving problems. We shouldn't really be
+able to solve or it shouldn't have to solve in 2018, but we do. So, we are. And like it says,
+it's a big data transfer analysis and all that. And Racket is, of course, our secret weapon,
+as you can see on board. Okay. So, major problems with Racket because, you know,
+start with the negative and then go positive. Close. I think that's a good start. Whatever.
+Anyway, the older pool for Racket is narrow. It's a small community and finding people with
+Racket skills is not something that you can just go to your average footer and say,
+hey, I need a Racket guy. And it's going to go, we only do legal. We don't actually do criminal.
+I think it's already inconvenient. I mean, if you're wrong guys, they worry about you.
+Now, the pool is very deep. The people that you can find tend to be extremely good.
+This is also a problem because you're not the first one to realize that they are already
+employed at far higher rates than start looking, okay. So, I think this is very conservative.
+All of you quit your jobs. It's not like we're looking for people or anything. It's not like
+this. It's the reason you might be interested in this community.
+So, things we find issues with. The documentation. The Racket documentation is good. It is not always
+comprehensive. The guide. The reference is incredibly comprehensive. But if you're not
+already familiar with the subject, it can be a little challenging to learn from. When somebody
+first pointed me into the concept of plumber, which is a thing I really needed for my testing
+model. Plumber. Those guys are like $100 an hour. I don't know if it is a Racket thing.
+Okay, right. Sure. Copy. Thanks.
+The GUI system is a little challenging. We're having some learning curve with that.
+There's some issues like, you know, the buttons will stretch both ways on Windows,
+but only one way on Mac. And so, that makes layouts kind of challenging. So, whatever.
+My interface often tells me that that's not Racket's fault. I should fold it.
+Neither pros or Racket business. The Racket users list, you guys are amazing. I cannot thank you
+enough for being out there and for any random stupid, you know, I can wake up at
+any hour of the morning and go, hey, this is incredibly obscure in the question because I'm
+going to, you don't understand this. And like, it comes back and answer in 20 minutes from some
+enormously brainy person who's like, oh, here's exactly how you do it. Come on. Thank you.
+I've had pro-desk contracts. I've paid people to provide support for my companies and my money
+pool did not have response time. They're good. And most of them, they come back to you. And
+if the answer is even related to your particular trouble they get in the first place, it starts
+with something like, okay, can we turn it off and on again? Okay. So, early caveats, the documentation
+is amazing. It is, once you have a general understanding of the subject, the reference
+is fantastic. The guide is really good for getting the documentation. The language itself is amazing.
+A lot of code that you would have to write in other languages, you know,
+like, oh, for fun. Okay, great. We have a four-fold, you know, on F-O-R slash, not like
+F-O-D-U-U. Yeah, so, multi-parallel support, we can write our GUI in object-oriented,
+we can write our back into functional. All plays nicely together. And the
+module ecosystem, great. This has made my life so much better ever since we did this.
+So, I'm going to go through and talk about some modules that perhaps are not as well known.
+Protocol buffers are great. It's a GUI, a Google, where it's starting with G. That actually is not
+in my plan. That was actually a real bother, so whatever. Thank you for rolling with it.
+So, Google invented these things. They're fantastic. It's a binary structure format
+that serializes and deserializes. It makes network transit very straightforward. The, I don't know
+who Murphy is, but if you happen to be in the room, you are my Lord and Savior. You give this thing
+a text document representation of the protocol you want, and you run a tool on it. It generates
+all the objects for you and all the racket code. I think they may have been mentioned earlier in
+this conference. Somebody said something along the lines of trying to write the code yourself.
+So, yeah, this is really convenient. It's fully introspectable. Just pull up the racket, the
+protocol buff reflection module, and you can ask it, hey, describe your entire structure for me.
+Give me all your, emulate all your accessors and your mucators and targets and whatever.
+Well, use them. Love them. They're great. Feature profile. So, profiling is a thing that we should
+all probably do more for like me. Probably don't do it enough. I don't know. It's fantastic.
+And this has been not really its focus.
+You
+You
+You
+You
+You
+You
+You
+You
+You
+It's with lots of chunks and I get a tripod in pre-lock.
+it goes in, updates the database to say, I'm going to be using all these chunks, right?
+So nobody else touched them. And then I do whatever else I'm actually doing. And then
+in the finding lock, it goes in unlocks. And it's really, that's the name. Okay, and
+MBVB is, so the built-in MBV module has rows to bits, and it's called, which will
+take a set of rows and turn it into, is that it has just for you? It also has group 5 functionality
+on it, but it doesn't work the way I want it to work. It returns it, whatever. You can
+read the documentation yourself. This is what I wanted, but I say, you know, here's
+some, here's some keys that I want my hash to have. Here's a select. And maybe this
+runs against all the keys. I mean, you have a whole array of things back. Make
+transform data fun. You can use this. This is actually in the list. It's the most
+modular. You can use it anywhere. It basically says, I'm going to give you a bunch of data.
+And I'm going to give it to you. If I give you a SQL note, make it a hash up instead.
+I'll give you a PG array, run this function over it. You can have as many as you want.
+There's make transform data fun, which doesn't guarantee you the order that these
+things happen. And it only does the first one it finds. With a star, it says, do them
+all and do them in work. So you can actually have things like, you do arrays, lists, you
+know, lists, filter out any simple mull entries. It's handy. And it also does things like,
+you can pass the arguments as a list or just as a series of items. So if you're mapping
+something in, you don't have to apply this to the list. It unwinds it. And pretty useful. You
+also get to, you can transform the data before it becomes a dictionary. You can transform the
+dictionary after it's become a dictionary by like, set a key that says, you know, this was
+generated at this current second. Or, you know, this came back from the database in a particular
+format. So like, run string fram across all of these things. You can also post process the
+entire list of, if you wanted to say, reverse the order of the items, instead of using order by
+using your SQL query. Okay. I'm out of time. I have one minute left. So, boom, we made it.
+Is there, is there a, is there something that super seeks it?
+Nothing that I was able to find.
+Yeah, I don't think there's a moderate person. I think that we have a great volunteer ready,
+though. Yeah. And second, second thing is, have you ever used, I was embarrassed, but the lady
+who learned last year about the Manship O, the Manship O, opened something from a collection,
+any collection you want? I don't use Dr. Rapid. I don't talk about Dr. Rapid.
+Yeah, I don't use Dr. Rapid.
+I don't use Dr. Rapid. I'm sorry.
+You maxed it out.
+And then you go, yeah, I've all seen Control-X, Control-X goes the same way.
+Isn't there, isn't there like a Medi-X SQL one?
+I don't know. Isn't that the one you're talking about?
+Yeah. Okay. Great. Thank you. Good to know.
+He told me about the decision to you.
+Yes. Okay. Next question.
+James and I founded it, and James decided to trust me on using technologies,
+and I thought to myself, okay, what language do I want to use as well? I can use Java,
+or I could knock out my eyes out, and I said, oh, I can use this, right? Let's use this.
+And a few years ago, I went to learn Listed again.
+I did a giant survey of all the variations of Listed that are out there. I ran one by
+and feature sets and libraries and activity of the community and speed and security and all this,
+and Racket was the winner. Not on every axis, but overall it was clear and decisive winner.
+Okay, we'll just take time.
+And with that, let's thank David for saying that he won.
+Okay, we'll have a 10 minute break until 3.20, and then we'll come back for the next one.
+Okay.
+Okay.
+Okay.
+But I was actually going to ask you a question later too. Let me go down my cube.
+Okay.
+Okay.
+Okay.
+Okay.
+Okay.
+Okay.
+Okay.
+Okay.
+Okay.
+Okay.
+Okay.
+Okay.
+Okay.
+Okay.
+Okay.
+Okay.
+Okay.
+Okay.
+So our next presentation will be from a duo of speakers, Chris and Morgan. They have very
+interesting bios which I encourage you to look at on the site and let's welcome them and get started.
+Hi everybody.
+Oh, that's difficult to post. Hi everybody. I hope your afternoon is going pretty well.
+This is Rackett for everyone, parentheses else. And this is Morgan Lumberweber who is
+an art historian and is currently writing her dissertation in Skribble, actually,
+and is also has been doing a number of visual humanities projects and has been working with me
+on some of the stuff. And is actually the main person behind the workshops that we're doing
+discussing today. And this is Chris Lumberweber and they have been a free and open source
+software developer at KIT for longer than I've known them and we just have our 10-meter
+living anniversary. So let's let them all out.
+And they also work on distributed circle networks. You may know them as the co-author of
+Activity Club, which is the main thing using that as pasta bomb. And somewhat pertinent to the
+digital humanities workshops, their degree is in interdisciplinary humanities and then switched
+to programming. All right. So what is Rackett's target audience? So I think if you look at this
+graph, it's the general belief of what the programming world is from the graphic community.
+We have computer science freshmen, middle schoolers, then we jump over here and get
+work with researchers. And that's a world, right? There may be something missing. Also
+getting notifications from astronauts. So there's these two question marks. What could they be?
+So the first one may be non-computer science math type programmers. And Morgan is going to talk about
+that. All right. So as Chris said, I am a PhD candidate in art history. And for most of my
+adult life, I have been working with art and archaeology of the ancient world. And as part of
+that, I worked for two years on a file maker database that was basically cataloging the artifacts at
+the excavations at Sardis for my advisor. And that was the fact that my husband was a computer
+engineer and a software engineer. And I worked with material culture, made me the most qualified
+person in my department to a digital humanities project. And a professor in my department got
+a grant that she didn't want to give to someone outside of our department. So I was hired to
+come up with new and innovative forms of data visualization for public humanities. And when
+I asked what that was, she's like, I don't know, you're going to come up with it. So I spent a
+summer and I learned Python. And it was fairly horrible. So the thing about learning Python
+from the Python manual is my two main problems were, one, most programming tutorials use math
+as the universal language that everyone knows, right? So they're going to teach you how to do
+programming by showing you how to do math things in code, which is great. But if you don't know how
+to do the Fibonacci sequence as a math concept, then doing that as a programming tutorial is not
+going to help much either. And as an art historian, I've seen that image pasted on top of lots and
+lots of Neoplasma paintings. That doesn't mean that I actually know what to do with it. And the
+other problem with the Python tutorial is that it is full of inside jokes. So a lot of the things
+you do on there have to do with Monty Python skits, which is fine if you know a lot of Monty
+Python skits, but it could also lead to you spending hours and hours and hours trying to figure out
+what's wrong and why the parrot is still dead when you're doing everything that the tutorial tells
+you to do until someone finally says, wait, you need to actually look at the sketch. So there are
+some barriers to entry for Python for me. I'm also dyslexic and dyscalculic. Those are the
+two hardest words for Google dyslexia to say. And so math has always been hard for me. So math
+as a gatekeeper for a long time made me think that I couldn't be programming. And another problem
+that I ran into was with text editors as a concept that I didn't really get. So when I
+learned Python, I was using Deedit because that's kind of the easiest, simplest thing to do.
+They used Emacs. And at one point there was a problem that I couldn't figure out. And I was
+lucky enough to have someone in the house who could help me. But we sat down, had the computer,
+and he pulls up Emacs and just starts typing and explaining things while they're typing. But
+he's got like six windows open on two different monitors. I know he would know what Emacs looks
+like. So like five minutes talking. And at the end of the day, he just looked at me and was like,
+see? And I was like, honestly, just broke down crying. I didn't even know where to look.
+So, and then the third problem I had with Python, I wrote all of the content and developed a website
+completely from the ground up for a digital humanities project. And then the professor
+decided that instead of my custom static site feed, one had a Drupal installation because it
+would be easier to maintain for people who weren't me. So we hired someone from who was an
+inter-science student to rebuild the site using Drupal. And this was the first time someone other
+than the two of us had ever looked at my code. I wrote the entire thing myself. They made it a
+point to never write any code for me, which I'm very glad of because otherwise I wouldn't have
+been able to be so furious about this next thing. So first time ever that anyone other than the two
+of us looked at my code, I got an email back from this guy saying, I just looked at this Python
+pile. It looks great. I'm guessing your husband wrote it. Thank you for that reaction. Never say
+that to someone. Especially by your boss. Yes. That kid, after the yelling I gave him, that kid
+ran out of my office in January in Wisconsin without his coat. And it was about 10 minutes before he
+worked up the courage to put them in my day's coat. So because of all of these things, about a year
+ago, actually not even a year ago, last December we were on a car ride from a family thing and
+Chris was like, hey, now that I have some free time, maybe we should do some workshops on
+digital humanities to programming to humanities majors who think that they can't do programming.
+And in the one hour it took to get from Milwaukee to Madison, we had basically come up with an
+entire semester syllabus on how to teach programming to humanities people. And then we decided that
+was not feasible because no one has hired me to teach at this point. So we scaled that down
+to a workshop. And this is the poster we used. So on one side it's, you know, nicely
+formatted. On the other side we printed out the source code. So this was really great when I was
+talking to people, go ahead and note through what I was talking about. So I just showed them the
+scribble source code. And I was like, this is basically what we're teaching you. And if you'll
+notice there is nowhere on here anything about gender or anything on those lines. What we did say
+is that, you know, you don't need to count numbers, we're going to use pictures, and that it is for
+humanities for everyone. And of our first workshop we had a total of eight participants and seven of
+them were women. And there's also nowhere on here anything about one of the presenters being a woman
+either. So just the way that you market it opened up that demographic to us.
+I just got through three cards without looking at them. So for the workshops we had, we decided that
+since you can't learn programming in three hours, I'm guessing a lot of you learn programming in
+three hours. It was best to come up with independent deliverables that were a little bit more easily
+attainable and directly applicable. So first we did a quick little tutorial on how to build Snowman
+using the picture language, which is an introduction to Dr. Rackett as a text editor and also
+Drackett as a programming language. And then more correctly relatable to humanities majors is
+then we basically taught them how to write an academic paper using scribble. So they can go home,
+they can say they built the Snowman, and they also learned the basics of the markup language
+enough that they could go write a paper, format it, do their bibliography and turn it in. So that's
+something that they can directly apply to their daily lives. And we pointed them in the direction
+of a lot of the documentation that this wonderful community had already had out there for them.
+So we viewed it as the workshops as kind of a gateway drug to programming and hopefully we've
+got some people hooked. So we also wanted to also we started with having them copy and paste a plain
+text, this block of text, and then we marked it up, had them go along with us in the workshops. And
+then we wanted to build on that. So then from there you can automate your image lists and your
+figures. You can do your bibliography. Eventually you can start building your website using frog
+because you've already learned, you know, incrementally these things.
+And I have some thoughts on reaching non-traditional programmers, but first I'm going to let Chris
+talk for a while. So we're out of this thing. We discussed the areas that may not be covered.
+I left this question mark thing in the middle. So we see on this background still we have people
+who are kind of in the introductory stage. Now we have this large gap where we have language
+researchers on the other end. And so what's in the middle? So I'm calling this general programmers,
+even though I think that that's a little bit unfair. Maybe you didn't say work a day,
+maybe you'd say, you know, just people who are trying to practically get things done.
+What's interesting to me is that I talk to a lot of
+people who are trying to get things done. I talk to a lot of people who are trying to get
+things done. I talk to a lot of people who are trying to get things done. I talk to a lot of
+people who are trying to get things done. I talk to a lot of people who are trying to get things
+done. I talk to a lot of people who are trying to get things done. I talk to a lot of people who
+are trying to get things done. I talk to a lot of people who are trying to get things done.
+I talk to a lot of people who are trying to get things done. I talk to a lot of people who are
+trying to get things done. I talk to a lot of people who are trying to get things done.
+Please.
+Well, they could have required it.
+By trying to make it so simple that we had moved them over to a length that just
+gave them just those things, they actually didn't know how that they could compose these things
+together. I thought that was kind of interesting.
+In fact, this was me for about 10 years before I started to get into
+in Python. I was just an everyday Python web developer in many senses. And I think that
+sometimes Python gets a really bad rap in this community. But what's nice, you may have
+seen this Python, this XKCD comic before, and you know, this person's like, I just import
+anti-grab, and I was able to do these things. And that's what was really exciting to me
+as a Python developer, to grab things in anything I wanted to do almost, there was something
+I could grab and start building that dream immediately. And what's interesting is, you
+know, since this gets kind of a bad rap that's being like, well, that's just a glue programmer,
+right? You're just doing glue programming. I think that might be a little bit dismissive.
+I like to think of it more as, you know, legos. We're building, we're building composable pieces.
+And in many ways, I think that actually, legs are really great. But most composition, and the
+reason why I think Python has taken off is, often happens actually at the library level.
+And Racket actually doesn't. You know, sometimes legs are actually the appropriate route to be able
+to accomplish some things you couldn't do before. But often what you really want is composable
+libraries. And we're actually doing really good here. We're not advertising them.
+So, also, I'm really interested in Lispy languages. And when I try to have historically
+tried to tell somebody why I'm excited about Gioskeam, or Common Lisp, or, you know, blah,
+blah, blah, blah, blah, they're like, okay, great. How do I get involved? And I'm like,
+what offers to learn ENAC, or three pieces of SQR, I can think, and do all these things.
+And then you can start learning this, right? Which is why it took me so long to learn how to
+Yeah. So, but the thing is, one thing that's really nice about Doctor Racket is, how do I
+learn Racket? Or sorry, I already gave it away, right? You know, we have Doctor Racket, which lowers
+the barrier to entry significantly. And this is really important because I work on a lot of
+application projects. And one of the problems that I have had in other languages that are Lispy,
+is I ask people to get involved, and they aren't able to jump past that initial barrier to entry,
+even if they're really excited. And I didn't have this in Python programs. And in Racket,
+finally, I have an answer in which I can end up getting people to be involved best. I think this
+is really great. So I actually think Racket really is ready for the general programmer. We may give
+a really hard time about Python. I know that, like, it seems that most of the talks that I hear
+where Latias is talking, at one point ends up complaining about Python, blah, blah, blah,
+doing it wrong and teaching people the wrong way. And that may actually be true. But if we really
+want people to do things the right way, we should be targeting this middle audience,
+so that they can deliver on their data. And why not? We're actually well positioned to do it
+if we choose to do it. So anyway, here's the vantage credits. And Moran is going to finish
+her stuff before we get to questions. I didn't want to just take all of the time. So I have some
+thoughts on reaching out to non-traditional and by that I mean non-math and computer science
+backgrounding people as programmers. And I think we've made a good start with the workshops that
+we've been doing. But one thing that we need is practical deliverables and resources, which Racket
+is doing great on. I went through the picture language tutorial in an afternoon and was able
+to understand it. And as we've established, I am not the best programmer. And one of the things
+that I think makes me effective in these workshops is that I speak their language. So I'm qualified
+for this because I've only had three years of programming experience at this point. And I remember
+what it feels like to sit there almost crying because you can't figure out what parent is dead.
+And sometimes if you've been programming for 15 years and you're trying to teach someone who hasn't
+even been exposed to this before, the way that you explain things, you just don't even realize
+like Chris going on Emacs and saying, see, it's easy. And then you're breaking down. So speak
+their language, have practical deliverables and resources. And also, there's some things we could
+do better. If we want to market Scribble as a way to write academic papers, if we had an ODT
+exporter, that would be great. If anyone wants to give me something great for Christmas,
+an ODT exporter for Scribble, that would be wonderful. Also, more standard citation formats
+like NLA or ADA that are commonly used in undergraduate coursework. And my last point is
+keep full classes on programming for non-computer science people because usually,
+introductory computer science classes have pretty high pre-rex in math or computer science that
+humanities students just don't have. And also, they're often full of computer science students
+who need them as requirements. So people like me can't get in. And I think that you really just
+need to teach programming differently to people who aren't going to go out and do programmers full
+time in their lives. And Morgan has put together a syllabus, a prospective syllabus, so if you're
+interested, you should talk to her about possibly an op-ed in math or hiring her. I don't know if
+we have time for questions. Do we have this point? We have time for questions. Well,
+okay, great.
+Can you tell me about the problem that people come back to today? I want to know more about
+how do you do this, how do you do this, how do you do this, how do you do this?
+Yeah, so I got emails from quite a few people saying, hey, I started doing this. Can you
+tell me how to finish this? So that's good because if I can help, I do. If not, I'm going to
+do the documentation and hope that they can figure it out. Also, I've had a lot of feedback
+we want to do more. So building websites with CROB is we wanted to do this as a series of
+workshops and we had a second one scheduled at UW-Madison last year, but then there was a
+free schedule arm in April and no one was able to come on the day that it was scheduled and it was
+too late in the semester to schedule another thing. So this semester, we're hoping to do more as a
+series so that we can kind of build further and give them more building blocks before they set
+off on their own. But yeah, I've had pretty good feedback so far. Awesome. Let's thank Chris and Morgan.
+Thank you.
+All right, the next up is Philip McGrath who will be talking about a different digital
+humanities project. Philip is a musicology major. Yes, and he's got a really interesting
+result. So let's welcome Philip.
+Hi everyone. I am Philip and I'm here to talk about digital work with her and how
+that is helping us to do research on the humanities. And first I want to start by giving
+some background about our project. We are a digital humanities project which as I hope you've
+all just learned, is that we use software to ask questions about traditional humanities
+disciplines like history or literature. And our project is focused on Paul Ricker who is one of
+most influential philosophers of the last century. You're looking at a square in Paris named in his
+arm. He has been recognized with some of the most prominent prizes in his discipline, including
+the Kyoto Prize for thought and ethics. You'll be interested to know that there's also the Kyoto Prize
+in information science. And the first one was given to John McCarthy for his work on whiskey.
+So there are some philosophers who are very important to the discipline of philosophy.
+What occurs one of the rare philosophers is important to the humanities as a whole.
+And in fact some of these ideas are applied even in disciplines outside of the humanities,
+like medicine, education and psychology. You don't need to know anything about philosophy for the
+rest of this talk. Let me tell you that we have thought about the philosophical implications
+of what to name some of our APIs.
+What you do need to know is that Ricker published it a lot. In his native French,
+he wrote about 40 books and about 800 articles. In English, he also taught for a number of years
+at my dear alma mater, the University of Chicago. He had 40 books which are not all the same,
+that is the 40 books in French, and about 240 articles. His work has been translated into 30
+other languages and there is an enormous volume of secondary literature. In 2008, bibliography
+was 300 pages just with a secondary literature section, another 300 for the primary literature.
+So what means are we trying to address? First of all, this is an issue of access.
+A lot of Ricker's papers were published in the Stuart journals to which very few
+university libraries subscribe. Even if you were lucky enough to have access to a world-class
+research library, it can also be very hard to know where to look in Ricker's work for information
+about the topic you're interested in. For example, he might make a very important observation
+of Kierpegaard in an article with a title about hate. Second, we want to look at the big picture
+and here I'm sure everyone in this room is thinking, well we have lots of data, what do we
+want to do? We want to write programs to look at it. So yes, we want to look at trends in
+his work over time. We want to see what kind of picture we can form of his works as a whole.
+And this is an area where computers aren't just letting us find answers to questions we already
+had. They're helping us to formulate new questions that we wouldn't have been able to really face
+without the technological advantages. And a third major parameter shaping our approach is that we're
+for his 20th century philosopher. So all of his works are still under copyright. This means we
+can't just do the obvious thing and put all of the digitized data online and let you download it
+and run whatever programming you want to run it. And go on the way you would do if you were talking
+about a sister or a baby or somebody. Yet, this is a problem because no one researcher is going to
+have the resources to digitize this enormous body of work for their one project. So what are we
+doing about this? We can digitize or purge publications under fair use under US copyright
+law. Meaning if we have the original, we're allowed to scan it and use it ourselves.
+We develop analysis tools to work with the data. We provide access to the tools in the
+online forum, which lets our users see things like metadata and statistics or excerpts of the text
+and sort of Google book style, but not to reconstruct the full texts. And the important
+goal of our analysis tools is that we want to enable other researchers to ask new questions
+and in particular, we want to make digital humanities methods accessible for
+the researchers without technical evidence. I want to really underscore the point here.
+The tools don't need to be technically groundbreaking to have a huge impact. Our killer app right now
+is the Inconsearch. We are just using an off the shelf solution that you can type in, for example,
+computer, and you can find it on page, such and such. What if this book actually says something
+about recursive functions and it will tell you how to go find that. A collaborator told me that
+this would have saved him a year of grass. So where are we now? We launched the portal in October
+of last year with several years of planning, but less than six months of actual development.
+We have digitized all of our first work in English, and we are currently in progress on
+the French, German, and Spanish work. And the tools have been really enthusiastically
+succeed by the recursive humanities community. We have users from over 20 countries in North
+and South America, Europe, and Africa, and Asia, and we're particularly pleased we've been having
+a really steady growth rate of new subscribers joining the site. I was going to say a little bit
+about who we are behind this project. We have a small core team of academics and humanities
+disciplines. I'm in psychology. My collaborators are in fields like philosophy, religious studies,
+law. Some of us do have extra skills. I have been a freelance web developer, therefore I will
+simply realize most of my life. One of my collaborators was formerly a software engineer,
+another was formerly an electrical engineer, but we also have several collaborators with no
+technical background at all. We are distributed across five countries on four continents,
+and none of us are working on this project full-time. So how do we do this with this group of people
+and this scope of a project? And the answer, of course, is we use Racket. So for the rest of
+this talk, I'm going to tell you two stories of how we use Racket in practice focused on two
+points from the Racket Manifesto. First of all, Racket internalizes extra linguistic mechanisms.
+As I said, digital recovery involves several years of planning that I got involved
+as they were beginning the implementation phase. Our initial goal was that we should have a
+portal website that would integrate independently developed tools and provide uniform access control.
+One of the initial tools that we wanted to use was point, which provides some great visualizations,
+and we've been really pushing Voyant beyond the context to which it was originally designed.
+And I want to take a moment to thank Stephenson Claire McGill for his work in sending Voyant
+and helping us to configure it for application. Voyant runs its own web server that does its
+UI and JavaScript, and it supports embedding via the HTML iframe tag, which means that we will
+need to run Voyant tools by an proxy to do access control. It turns out that doing this
+is not so pleasant to many other systems. And I have CGI in mind in particular, but there's
+some similar issues in a number of other languages. So you have a server, and you have an application
+in most of these models, and really that means you have a config file, and you have a server,
+and you have an application. And then if you start running virtual hosts and proxies,
+you'll have a few config files and a few applications. And usually the virtual hosts and
+the proxies and config files and the access controllers and the applications, and maybe
+they're applications in completely different languages, Voyant is in Java. And this really
+becomes a problem for our use case. On the other hand, in Racket, everything is delightful.
+Servers and handlers for requests are just functions. If you want to compose them,
+you can use the library combinators, where you can write your own with the full Racket language.
+And what does this mean for us in practice? I could prototype the proxy server and the access
+control mechanism and the portal in an afternoon. We could launch in less than six months. The
+point is delightful. It runs the same way on my laptop or on our server. And this has had a
+similar impact for us with cross platform UI tools and other areas. The other thing I want to talk
+about is a Racket is a programming language programming language. We use several Racket DSLs
+in different projects. I want to tell the story of how the largest evolved from a simple library.
+So our data files are in a standard XML format. You describe the identity as called TDI.
+And XML, it turns out, is a great place to start if you're working with Racket because we have
+X expressions. So the XML syntax on the top is the same as the Racket syntax on the bottom.
+And the first thing we wanted to do is we added an interface. So maybe we'll do this in an object
+oriented way. And then maybe we'll make a subclass for something we're particularly interested in.
+And that's great. Next thing we wanted is to get more checking. TDI is enormous. It does provide
+tools for customization, but there's some useful requirements that are difficult or impossible
+to express. This is a very pathological document that contains absolutely nothing. It is valid
+under our current DTD that we are using in production. So if you want more checking in Racket,
+of course, you use contracts. And here you're already starting to see some ESL-ish stuff
+in the way we express our children and attributes. And I want to also point out that contracts are
+giving us good enough error messages through the built-in infrastructure that can drill
+deeply nested elements that we can actually show them to my collaborators who are non-technical
+and have no idea what a contract is. And they get enough information from the error message
+that they can fix the XML file. So we have these requirements. Now we need to tell some humans
+about them. So the first one we tried to do was literate. That's nice. We have some pros and
+it'll embed the pro component. And I like that. But maybe you don't like that so much if you don't
+already read Racket code. Also, all of the code end up in showing you is wrong. It has to do with
+a contract. It has to do with the way it interacts with div classes. And maybe you're seeing it now.
+The div class expects an n attribute. And the contract says there isn't an n attribute. So
+you're going to have an error at runtime. Similarly, we had lots of piece statements in our whole
+system, essentially, doing manual linking that would always fall out of sync whenever we needed
+to update our schema. So to address this, we took the next step and built a domain-specific
+language. This is an actual program in our language. It compiles, it runs. It's a little simplified
+from the real definition of this element so that it performs like. But you could use this as a
+definition for the root DEI element. And you see we're mixing some documentation time and runtime
+code together in the style of P2. You see here we have some specifications generating the contract
+sort of like what you were seeing with the contract before.
+And this version, though, checks at many times statically that all of the elements referred to
+have been defined somewhere else in the language. You can also see down at the bottom,
+we're starting to construct a runtime data type to deal with this. That's sort of inspired by
+some of the features of the class system and also the fact that all of our things are initialized
+with named attributes of the body because they're from XML elements. Unlike the class system,
+our initialization is purely functional partially through the use promises. And you see here we can
+attach some properties to our structures and implement interfaces. And generally everything
+we need to build a nice layer of abstraction so that our client tools don't have to worry
+about the details of the XML schema. And in addition to the contracts and the specification for the
+runtime data structures, we also generate scribble documentation like this, which is a bit
+better than what we thought was LPC. It's putting these things in English. It's telling you specifically
+what's required or make a sentence to tell you if the plain text is required. We get all the lovely
+things that you've got with scribble like magical linking. So if you were to click on TDI header
+over there, it would take you to the definition of that element. I really hope you take away from
+this topic is that technologies that may seem obvious to you can be transformative for others.
+Rapid is helping us by letting us use linguistic contracts. They're linguistic constructs rather
+than an external state which makes prototyping fast, deployment delightful. Our non-technical
+collaborators can run these programs and don't have to think about how they're implemented.
+And then you can grow languages incrementally to express problems in a natural way that gives
+you better features. Thank you so much. And in particular, thank you to all of the people in
+this room for work on Rackett itself and the wonderful community of libraries and the community
+of users that you'll really make this system possible for us. Any questions?
+That's your very question. Sure. That's something we're very interested in. We recently released
+the part of the library that deals with handling the XML files as an open source free software
+system. There are some parts that would definitely require a refactoring to be used by someone else
+like we have a hard coded requirement that there must be an author named Paul Recover on every
+document. But we're very interested in doing that work. There's someone out there who wants to work
+with us. Yes, I believe that the things that are completely ready and loaded on the server
+are about 35 megabytes of Excel right now. Our process has been evolving. What we're currently
+doing is that they are OCRs with a proprietary tool that I'm not particularly involved in.
+Then we get a plain text file with characters indicating page breaks. And we now have a
+Rackett URI program that our contributors can use to fill out a nice form and do the first
+step of encoding without actually having to write in the XML. Do you have that answer? Yes.
+I would love to see some kind of experience report presented in this level of convincing this
+to a wider audience. Just to pitch Rackett and show that he can go to the side and let these
+technologies be used in order that the browser has the properties and we can have a bunch of stuff.
+In other words, take this argument in the next level too. We'll be doing a broader
+question. I'd love to see you here. Thank you.
+Thank you.
+All right, so our next speaker will be David Christiansen. And we'll be talking about
+his plug-in for Dr. Rackett. So he doesn't have to feel awkward for it. He just published a new
+book with David Christiansen called The Little Piper, which is about some really cool stuff.
+So ask him about it later. Yeah, and by it. Okay, so let's welcome David.
+Sometimes when I'm doing a thing, I don't finish it. I'm like, I'll be working on it. I'll be like,
+oh man, first thing. Save some of my programs for later. And it's how you get to do this, right?
+And we all have to do this. We put them in comments. We say to do it all caps and
+you have like the plug-in in maggot that says like finds all the to-dos and you get refueled.
+It's pretty fun, but I think we can do better. But I'm going to start with like one of the worst
+jokes I know because I just love terrible jokes. Where does Swiss cheese come from? Holy cow!
+Many programming languages actually let you leave behind the roles in your programs. So you
+can get back to them later. This is one of the earliest ones that I know about. And this is
+not actually an old screenshot I took in about a week ago. This is a programming language called
+Epigram that was developed at the University of Durham by Connor Dick Wright and David McKinnon
+and many students. And it's got this like sweet two-dimensional syntax, which is not what I want
+to talk about here. But what I'm doing here is I'm making the natural numbers. So I'm saying like
+gnats are tight and zero is a gnat and if k is a gnat, then add one of k is a gnat. And then I'm
+saying if j is a gnat and k is a gnat, then plus jk is a gnat. But then I've got to define what
+plus means. I've got a problem to solve because I've been able to kind of refine it and I'm going
+to recursion on j and then I'm going to do a k-split on j. And then over here I've got these two
+problems that come out of k-splitting on j. And one of those problems is what is plus zero k.
+And I've got a little to the square bracket over here and I've written in there, well it's got to
+be k, but it's not yet k. Like this is just free text, which is yk instead of being this inviting
+purple down variable color is just the plain text color. And plus add one of j and k, well it's
+going to be add one of something, but I haven't written anything there yet. I've left a hole in
+my program. And when I put the cursor on the hole, I find out a lot about what's going on because the
+language understands rules. It's not just error to do. And then I can see, well I've got this j
+which is a gnat right there. And I've got this like weird recursive structure over j that I go
+recommend trying to read unless you spend hours and hours suggesting k as an epigram.
+But this thing here basically says we can do recursion on it. And then I've got the k.
+And you know, so what I'm going to do is I'm going to write plus jk in there and all of that
+recursion stuff will work. Depending on the type of programming has gotten a little bit easier
+since then. I also took this screenshot like about a week ago. It's using canoeing max as an
+xemax. Actually epigram uses xemax as a dump termo because it was I think it's because it's
+easier than like person findings, but right now it's still back in the day. It's still like
+flat out like xemax e-list. But this is an interest program. It's doing just the same thing.
+In interest, we name the holes and they start with a question mark instead of being square
+brackets. And I get a list of holes out which is kind of fun. And I've got a little rebel here.
+I didn't write anything in it. But you know, I can look and I can see, well these things
+are in scope, but I can use them. I've done my epigram. Let's be right things in holes.
+I also took this screenshot about a week ago. And so I can write things in the hole and in the
+hole. I can find out I got to make in that and we'll close up some things that I've got and
+that sort of thing. Even Haskell these days has some sort of support for this. It identifies
+holes with like special purpose errors where the compilers like the else of you. So there's a lot
+of stuff around here. You can kind of see like this is what we care about and this is what we care
+about. Hackett has holes which we'll get back to. And then one of the most exciting things is this
+project that like Cyrus Omar and every hammer and their collaborators are working on. This is a
+language where editing with holes has like the positive editing itself. They know all the
+better theory and they've got the sweet bubble paper about it. I think that's really cool too.
+So as Jay said, you thought I wouldn't be shameless.
+You have way too high a opinion. So Dan and I just put out this book and in this book we
+What's the key button for giving you the slide numbers? I forgot. No. So we wanted a
+dependent language but none of the ones out there were sufficiently simple to do what we wanted.
+So we made one and it's called Pi. If you're at Bratcom, last year you saw a demo, but here's a
+quick demo. I can say, well, you can't really see that gray color. I'm going to solve my to-do
+by doing iteration on Jay and in the case where Jay is zero, my answer is K and
+he'll get some water. We mined it to do for the rest of plus.
+But like that's cool if I can do it in slides, but we had to like teach a class at IU using this
+and I'm going to be like, okay, so I'm going to fire up your PowerPoint. So we had to find Dr. Wreckett.
+Right, so it's now like, I can do something similar. Hey, check this
+to the point you're on to do and like this thing down here says, hey, you've got to, you've got it
+to do. You want to have an app. And so they didn't have this for like most of us in the kind of life
+here. They just had to struggle through like a spirit of jumping out and shouting at them.
+For all of you in the room who are in that class, I'm sorry I didn't get my act together
+on full support here. And also I do another project where we also needed this. But yeah,
+so here I can say, oh, see, I've got more stuff. This time I've got to take a nap and make a nap.
+And then now we see we've done that. And if we come in here,
+this is a weird thing to do.
+Well, anyway, if I have more space, then I can actually see that.
+So will we implement with a panel drago please?
+Please help me someday. You can actually see that we've got this thing all like so far in scope,
+which is, which is, which is an app. So, uh, as a, oh, Robbie Watson.
+I actually think it's probably might have I read it in your book, but I just haven't managed to like
+actually formulate sharing other things. So, uh, so I, I, I like having the ability to lead both
+roles in programs. So I figured maybe we could lead roles in some more programs than just the ones
+written in high. Um, the, the postdoc I do with Sam also had a need for this. So, you know,
+so, so we're going to start with something like this, where we, uh, find the states in text
+participation. Anyway, uh, so, so here's a sort of initial implementation of how one might be
+able without any tool support for it. Right. So we're going to, we're going to get some syntax in
+and we're going to let it have whatever old stuff it wants to have. And then we're going to, you
+know, figure out where it is and convert that into something we can, we can shout at a user
+angrily. And, and then we're going to crash at runtime. We're going to say, well, it's coming
+from it to do, and we're going to stick our source location together with some sort of
+representation of what was in the whole, so we can take a look and say, okay, that's where I was
+in my program. So if it crashed here, I'd better go grab for that. But actually that's not really
+what we want because it's, it's happening at the wrong time, right? Because actually what we really
+want is something like this, where first we get the source location at, at macro expansion time,
+we dump out where the hole is. And then at runtime, we also dump out where the hole is, because maybe
+I want to try a program if I wanted to part of it. But this is getting kind of big and like,
+I don't have to like watch the console for stuff. And there may be other stuff coming out. Maybe
+I'm like interacting with my program through a web browser. So I'm not even going to see what's on
+my console. I don't know. I think this is madness. You've seen this interface a couple of times now.
+Slight numbers.
+Yeah, animations. So, like, you could be trying to remember the key branch or not. So,
+so what I would much rather do is write this code. And now you can also write this code, which is
+that we, we parse our syntax like we normally would, we expand to the to do error just like we
+normally would. But then we just stick on a little syntax property. And those who don't know, like,
+we can stick arbitrary key value pairs on to get to syntax as they're coming out. And then something
+in the background, if you have this, Dr. Rackett plug-in install will take careful note of the
+fact that this to do thing was there and the end string on it. And it was pop up from the little
+reminder. Hey, that's it. That's all it takes. Like this is a complete and working to do macro
+for your language. Right. And so here's a screenshot. We see that the message I had right
+there, that came into this message, it got turned into a datum and stuck in there and then we end
+up with it right here. So I think that's a nice quick way to get started if you want to.
+We don't always want to do the things that are quick though, because as you sign pie,
+it'll give you the type expected of the to do on the left hand side in the list of all the to do's.
+And then you click on one or you move the cursor over to the source, it'll also give you the types
+of all the bound variables in scope. If your screen resolution is sufficient or your window
+dragging is sufficient. And so if you want to do that, you need to use this struct here.
+So note that it's prefab, which means you're not actually going to depend on this to do this plug
+if you don't want to. So and this lets you have a full description and a summary. So the full
+description appears on the right and you click on it and the summary appears on the left is a list.
+So now if we want to do this, you can say we're going to define a summary, which will be the
+message the user wrote, where you're going to find the full version, where we stick on some more
+information, which is something appropriate to whatever language it is that you happen to be
+implementing. And then we stick with this to do item prefab struct onto the, onto this indirect
+property instead. Right. And now I had to zoom out just a little bit on this. Can you read it in the
+back? Okay, great. So now we see that I click on here and I see a whole bunch of stuff coming up
+out of the source. I don't think that's a huge amount of code to get something useful.
+But there's even more. So as you saw in Epigram and Agda and Idris and sometimes in Haskell,
+if you can make the magic tool install and cantation work exactly right through version of
+GHC, you can do things like, hey compiler, this whole expects to be this. Help me out here and
+it'll help you out. So like in Idris, you can say, oh, go find me, go find me in the invitation,
+let's do it. Or you could say, like, is there a thing in scope that might work? Try it out.
+And different languages will have different ideas for this. You might want to, like, go talk to an
+SMT solver and have it write something for you. You might want to do something utterly simple,
+autocomplete. It really depends on whatever it is you want to do. So there's also the ability to
+associate editing commands with these goals. So we have one more little prefab strike. So you
+give it a name and the name is going to show up in a right click menu when the person right clicks
+on the hole. Then give it a module path and a function name, which will just be passed right
+on into dynamic require. And then a list of arguments. And then when the person picks the
+thing from the menu, it calls the function, expects it to return a string, and then replaces the
+hole with that string. And you can arrange for that string to have the appropriate people read
+contents, if you want, to have another hole. And that's all fine too. And it'll get read back
+or expanded. And then that hole will appear in the list, which would be one. So a little demo
+of these because these are not well suited to this kind of thing. So I've got my demo here,
+but I've added two commands. One of them is called magic and one of them is called
+double your numbers. And now if I right click in my hole, I've got a command. I can say double
+your numbers and 23 becomes 26. Yeah. Or I can write with a guide and I can get to magic and
+we find out that it becomes aeromagic. And the implementations of those are not absolutely huge.
+So here's the implementation of magic. And double just, it's double locks and double locks goes
+through the object and tries to find number like things and double that. Yeah. And about that,
+like, let's go back. So this to do right here, well, that's going to be a nap. Let's try something
+a little bit more entertaining. So I'll say claim that foo will be a function from pairs of the
+trivial type and trivial type to pairs of the trivial, oh, two new brands.
+And now I can say foo to do. Now I actually have a couple of commands. Anybody in here
+who's planning on actually trying to learn pie and use the book ignore this mess a little bit
+because they make your life too easy. I can say auto. Oh, hey, let's try auto. Whoa.
+But there's also a little command in there, which was called warm auto.
+So if I open up our game, whatever that is, I will contract it. And here's the actual implementation
+of that. It's just a short little recursive function. And it looks at what the type is
+that's expected, which the type checker finds and sticks on that syntax property for the commands,
+which get passed into this thing, like it's a name required. And then it only does something
+when there's only one thing you could possibly do for that type anyway. It never makes any choice.
+So actually, it probably won't remind you of learning that much, except perhaps learning
+how to type pre-lead as a doctor racket, where you write backslash pre-lead a name and then get
+some magic combo. Yeah. So that's about all I have to demo about it. I hope that you can find
+some uses for it or maybe extend it in a direction that makes it more useful for your project.
+There's a couple of partial prototypes that support the type racket that's never quite
+been gotten finished yet, because I keep getting distracted. And I think Andrew had an undergrad
+working on it who didn't do it. Josh has got it almost working. Oh yeah, cool. So I hope that
+finishes soon. But yeah, some more things you can do. Put this in all your hash length, because you
+don't need to depend on the library unless you want to link to the docs, from your docs. You can
+add GUI widgets to the details view. That's the thing I really want. So when I think it'd be
+super cool, I can type, for instance, when it says the type of a free variable, I can mouse over
+that and get a binding arrow to the source file. The talk after this is on this quickscript system,
+which kind of inspires you to do the editor commands. And so getting it so you can interoperate
+between the two would be super fun, because why not? And also, it only appears on the bottom.
+The fonts are kind of ugly. It'd be great if somebody wanted to make a preference dialogue
+for that, because I had a time to do that. So I have another really, really bad
+question. I have much, much worse than my last video. Where do finished programs come from?
+Only for over here now.
+It seems like a little under time budget. So I can start asking questions and keep my
+thank you to people who are, I think it is the racquet way from which I created a lot of
+code design things for like getting the background macro standard to talk to a Dr. Rackett tool.
+But any questions? Yeah. First, thank you very much for asking us. You've been talking a lot about
+using the GPU system in the game, yes, house. Yeah. I've been using it just as a library.
+This is just right there. And use it as cool.
+Either just to leave jokes to myself from the source that don't raise an error that
+you get highlighted at the bottom of the editor, or errors that get highlighted at the bottom of
+the editor. So it's not just crash lines. Awesome. So yeah, he's saying that he's using it for
+non-inclusive to-dos in source files where you don't actually have to consider making
+a tantrum error but just leave notes to oneself. That's super cool. Do you have a good macro for
+that? And if so, would you be willing to send a full request? I have one that is, I'm not sure if
+I'd say it's good, but it's live on the package server. It's part of a big library, so we need
+nice. Okay, because it'd be cool if you could just like require to-dos,
+standard bracket to-dos. One more question here. So if I'm a heretic and you use
+Racket Mode in E-Max instead of Docker Racket, I'm hoping to talk to Greg about that later today,
+because I would also like that to work. But right now, no support. I don't really know where to go,
+how to go about doing that, but I also probably write about four fifths of my Racket in E-Max,
+so it'll be cool for me to- Let's thank you.
+All right. Next up is another massive contributor
+to the practice system. There's so many practices that Laurent has that are up there.
+I am really interested in this R-Wing package, which is a
+window manager, that's a lot of other cool applications that he has.
+And today, Laurent will be talking about something else. Let's welcome Laurent.
+Hi, Laurent.
+Yeah, so this is a Warsaw website, but it's actually in the slideshow.
+I wanted to say in advance to stay in the gallery for the name,
+because the previous name of this thing was the script plug-in, which is a very cool name.
+Now it's called Quiz Script. Quiz Script is better, but it's somewhat
+more difficult to pronounce though. So, okay, let's dig in directly.
+Suppose you have a project currently that you're doing in Dr. Racket and you're very
+happy with it, and as you showed with Dr. Racket, because Dr. Racket is amazing,
+and Racket is really amazing. Now, there's something that for some reason you do oftentimes
+in this project, which is to reverse some bits of strings.
+Idea what that project could be, but this is what you want to do.
+And, well, the question is how do you go about that? So, there are lots of ways to do that in
+the course of your program. The first idea probably is simply to copy the string in the
+delegation window, go to the interactions window. Okay, that's a bit small.
+Apply your Racket foo, get the transform string, and copy that bit, and paste it back in the
+definition window. So, that works. It's a bit cumbersome to do, if you have lots of things
+like that to do that are anywhere in your file, and for some time you just forgot,
+you just forget what kind of functions needs to be applied.
+All right. So, the second idea would be to use divinings, so you can normally do that,
+and you can do lots of things with divinings.
+On me to just text, but Dr. Racket itself, and it is great. It does what it needs to do,
+and it's just then a key fork at the way from transforming your strings. Great.
+Now, the problem is that you need to do it with the key maps, which is not exactly what you
+want to do when you reverse the strings. It's not ready to go into the question that often,
+but it's still something that goes slightly in the way. But then you also need to remember
+these key bandings, and if it's just a temporary thing that you need to do when you reverse the
+strings, you're going to do that for that project, but not for the next project. Which key banding
+are you going to use? How do you remember all this? So, you have lots of little
+scripts like that to introduce, then it gets really cumbersome in your own human memory.
+So, basically what you want to do is to have a small menu item that tells you,
+okay, this is the name of the function. Right. Yes, limited number of divinings, although
+there's quite a large number of possible ones. But, yeah, my number is really bad, so I can't
+rely on that. So, the third idea is to use the popularized plugin system, which is
+really amazing. You can do almost anything with that. In particular, you can have your menu item.
+This is great. You can reorganize tabs. That's a lot. The problem here is that for such a small
+script, you need to deal with the whole plugin system, which requires a particular startup
+of the rocket design to make a modification to your plugin. So, the plugin for that is not really
+well suited. It's not for such small scripts.
+In particular, it doesn't require you to start the project, and it allows you to add some
+menu items. And, of course, the divinings that come with that. It's easy to organize,
+and you can do lots of things about the rocket itself.
+So, once you install the script with the usual rocket.pkg install line, you get a new menu item,
+which is the script one, and then it says empty, except for the managed script menu. And you get
+this new script item. You just click on that. And, as soon as you click on that, it asks you for
+the name of your script. So, that's probably the hardest part, because you always have to find
+a name. And when you have something that you know what you want to do, but you don't know how to call
+it, sometimes it's from the script. But, yeah, you have to go through it, through the name.
+So, once you have this name, so, after an hour later, you can, you are given a file that is
+put in your user script folder, filled in with a very small template. That is called here,
+Stronger Reversed. All right. And there's already in the script menu an item with the name Stronger Reversed.
+So, you don't even need to reload the menu. It's there. All right. So, that I default,
+it's a small scripting file. So, it's just a rocket base. You can, of course, control this as you
+want, and require more libraries and more modules. And you just load this small file script, which
+is just giving you this form here, Define Script. Sorry that it's not really readable from the
+hardware community. So, it's Define Scripts, Stronger Reversed, Label, Stronger Reversed,
+Lumber Selection, Shove. So, Stronger Reversed is just, this one is the name of the script that
+is going to be attached to the name of the procedure for the script. And the label here
+is what appears in your menu item. Okay. So, by default, this does nothing. And basically,
+what you want here is to replace your selection, because you think you're intersecting in the
+ego, with your attitude. Right. So, by default, this procedure takes what is selected, because
+I found out that this is very often what you want to do. You want to do something about the
+selected text. But it's not always that. So, give you the selection, but you may not have to use it.
+And this returns a string, and this string is going to replace the selected string by default.
+So, it's a choice I made. Maybe it's not the smartest choice, but I figured that for me, at least
+it was the one thing I was doing most of the time. Then we can just save it. And actually,
+I will change the name of the label. And of course, that's going to happen back on the menu item.
+So, now I just, I do need to reload the menu through the menu itself. You can use the
+bindings if you really hate using the mouse. And then you're going to have a new string Reversed
+in Caps, in your menu, in the Script menu. Right. So, then you can select the string
+somewhere in your definitions, or actually even in your interactions. And you create
+them to slide down, and it reveals it is helpful. So, I prepared to do some
+live editing, because usually that plays for me. So, I prefer to slide like that. But maybe
+use of data. Right. So, what you can do, you can also use the new bindings with the end
+percent and change how you navigate through the menus. You can organize your script with a new
+menu path and some menus. And you can assign keyboard shortcuts to that. I found some times
+that it doesn't work, which I think, but I have a weird boss setup. So, that may be the reason.
+No, it's just me sharing my thoughts.
+All right. So, use the mouse to copy the selection to the interactions window.
+So, here, I need to do something in the interactions window. And this is a bit weird,
+here I'm changing the definition of my procedure or my arguments to take an argument,
+a keyword interaction. So, normally, that's not the way this works. Right. You ask for something,
+and here it's the question. So, the colleague is asking for something. So, basically, there are a few
+keywords that are special to the script, and when it sees them, it's going to adapt the
+code to which keywords are required. Okay. So, what this does is it takes the selection
+wherever it is, probably in the definition window, and it is the interactions with the
+insertion of the string, and returns sharp F, meaning that nothing is changed in the
+south where the section is. Right. So, there are a few keywords like that,
+special keywords that you can request as the colleague. So, the interactions, we've seen
+definitions also, because the pair of them, the editor, which is wherever you are, either
+interactions or definitions. And the frame, which means that once you have this frame and learn,
+you can change a lot of things about the program. It's like all the menus of the task. You can add
+menus like re-organizing types, like I've got to figure out all the rules. And you can have all
+those go on the file path, which is very useful once you want to open a terminal where you are
+in your field. For example. Right. So, this is a more complicated script. Okay. So, you have a
+string here, which we'll show later, so that you have one script. You can actually have
+several scripts in the same file with the volume relations. So, this string here applies to all
+the scripts in the file. So, you can try it. Now, there are some properties of these. So,
+we've seen these first ones. Output two is sometimes you don't want to output into the
+keyboard. So, you don't have to remember what it means to handling the keyboard. Actually,
+you don't have to use the GUI system. So, you don't have to require the GUI. The message
+does a new tab, and so on. You can restrict to which OS types this applies, but you won't
+do all of them, but you may want to say it doesn't work for some time.
+And finally, you have this possibility. Okay. So, that's really all there is to it,
+but you can do lots of things with that. Right. And there's, yes, this Perl system keyword that
+I didn't talk about yet. Probably does what you think it does. Basically,
+by default, the script is not a Perl system. That means that once you've created a menu item,
+it's going to create a new namespace, exactly the script in this namespace and destroy the namespace.
+And but sometimes you want your scripts to be longer lived, like that you are counter that
+how many times you've called something or checking load something in memory,
+loading some files and so on. And you don't want to do that all the time. And in that case,
+if you want the scripts to not be destroyed, but just have a clicking on the item. So,
+you can just map them as per system. The scripts and loads versus some scripts
+allows you to just remove it. Right. Now, on top of put script, which is the base
+plugin system, there's a put script extra, which is a set of useful scripts that are
+useful for myself. That are, of course, running a script. What I've done is the regular special
+replace, you take some text, then you can apply information with a regular expression.
+Table format, you have a list, you have a set of numbers based in, or partly based on your file,
+you want to place them in the tables, provided that you have a keyword in the middle from which
+module it's provided by. So, this one, for example, is persistent because you need to
+have lots of modules and provided definitions by this module, but you don't want to do that
+every time you click on this thing. And you also want to do that on the old event,
+because it works something wrong. Dynamic completion to complete with whatever
+strings there are on your file, lots of different snippets, and you can re-open
+as the title however you want, open the terminal in different terms.
+Also, for example, the quick script extra library, so you can add a new character as you want,
+so you can place your script in a different directory, and on the right side you see the
+scripts of the directory. And you can enable them, disable them quickly, and this without
+restarting the paragraph in fact. You can edit quickly the scripts also, because you don't
+always remember where they are exactly in the file system, so you have the name, okay, this one.
+Okay, and the last thing is the shadow thing. So, one problem that I had is imagine that you
+are installing something like quick script extra or some other library that has a number of scripts
+that are maintained by someone else, tell me. You want to use these scripts, but they're not
+really fit for the needs, like the name is terrible, the key value is horrible, and the part is
+visible. So, you want to change some properties of these scripts, but you don't want to change the
+script itself, because it does work and it's fixed by the maintainer. Well, you want this
+back to this fixed for you without having to do anything about it. So, the copy paste thing and
+the attribute to your needs is fine, but that's not going to be very useful here.
+So, the idea is, oh, it's very simple, basically it took me a while to figure it out. You just
+create a shadow script, which is just a script that requires the other script, and you can make
+transformations of the original script, and then just go. For example, you have a script in the
+quick script extra or abstract variable that does something like that. And you say, okay, I don't
+want to call it exactly what it is, I want to call it something else, I want to call it somewhere
+else, and so on. And then you just call the script function. So, every script is basically a function,
+so that's basically the end of it. I hope that you will find it useful. If you have any difficulties
+with the documentation, or if you think that something should be done better than what it is
+going to be, please send me an email. Don't be shy. And if you are just saying that you find it
+useful, please send me an email. Thank you very much.
+By the way, I want to thank you all for your next table.
+It seems like, I'm wondering if you thought it all about sandboxing, it seems like it would be
+really easy, this would be a wonderful vector for installing a script that, you know,
+downloads all your files, or really it's everything, or returns your, you know,
+definitely can suffer by one character every five minutes, but have you thought all about
+any kind of sandboxing for this? I thought a little, but I mean if you're installing a package
+whatever it is, you're going to have the same problem. That's clearly very true, I'm just
+being, it seems like this might be even easier to, yeah, then they'll happen. Yeah, maybe there's
+something that can be done without them.
+Better yet, distort the unused app.
+You think we could integrate this to do this thing? It's easily adding a couple of possibilities
+to like, to run them as like a keyword argument, like current to do, and then if there's one
+active, we'll get that. Do you think we have to work harder to make our stuff work together?
+Maybe, and maybe it's easy. I don't think that's how to change the right technique. Let's go.
+In terms of just adding menu items, I don't know if you can have your list in the menus,
+that's super easy to do, but you do a lot more stuff like in the bottom right.
+Yours is way easier for you to customize, and most people want their own custom
+automation, so it'd be super cool to think of you working.
+We're now going to break for 20 minutes, and we'll come back at five o'clock for a few more talks.
+I think it's a good idea to have a little bit of time, but I think it's a good idea to have
+a little bit of time, and then we'll come back at five o'clock, and then we'll come back at
+five o'clock, and then we'll come back at five o'clock, and then we'll come back at five
+o'clock, and then we'll come back at five o'clock, and then we'll come back at five o'clock,
+and then we'll come back at five o'clock, and then we'll come back at five o'clock, and then
+we'll come back at five o'clock, and then we'll come back at five o'clock, and then we'll come back at
+five o'clock, and then we'll come back at five o'clock, and then we'll come back at five o'clock,
+and then we'll come back at five o'clock, and then we'll come back at five o'clock, and then we'll come back at
+five o'clock, and then we'll come back at five o'clock, and then we'll come back at five o'clock,
+and then we'll come back at five o'clock, and then we'll come back at five o'clock, and then we'll come back
+at five o'clock, and then we'll come back at five o'clock, and then we'll come back at five o'clock,
+and then we'll come back at five o'clock, and then we'll come back at five o'clock, and then we'll come back at
+five o'clock, and then we'll come back at five o'clock, and then we'll come back at five o'clock,
+and then we'll come back at five o'clock, and then we'll come back at five o'clock, and then we'll come back
+at five o'clock, and then we'll come back at five o'clock, and then we'll come back at five o'clock,
+and then we'll come back at five o'clock, and then we'll come back at five o'clock, and then we'll come back
+at five o'clock.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+I hope you enjoyed it.
+Because you enjoyed my work.
+We were actually just talking about putting together a pair of light boards for the manager to talk to the people who use the cracker.
+Would you be interested to know that our color is not a really bad color, but it's so really good.
+Oh my God, I'm a guy with a collection of these.
+Excellent. I've done a little work with archaeological collections.
+I just shared five of them. I've been using them for five years.
+Yeah, and our project, the entire project, they paid for five subscription things.
+So it's like the entire project, all of them paid for five logins.
+And then you'd have to like, call someone and be like, hey, so I need you to go off of that for now, because I need to access something.
+And you have to keep paid for, yeah, when you can just individually make a new piece.
+I've been in the wild for like 20 years now, and I've been with every one of them.
+Yeah, I'll do that.
+I'll remember coming back.
+Well, then also, I'll pay for yours.
+So you don't have to keep paying $800 every four years.
+Yes.
+But yeah, we should definitely talk later.
+And if you're interested in doing a panel at a human resource conference, talk about that.
+Ryan, I forgot to remind you.
+Yeah, I read them.
+Very good.
+All right, everyone, thank you.
+So the next speaker will be the Dean who is from Berry College.
+Now, he is an unassisted professor at Berry College, but actually, probably the best way to say it is he is a computer science professor at Berry College.
+Because there's just him.
+You're happy to have him.
+So he's an enviable position of being in complete control of a computer science curriculum.
+It tells you that some of the tools that he's built for his class are welcome.
+All right, thank you, Jay.
+All right, so I'm going to try to go live here as well with a bunch of tabs.
+Take your mics off.
+Yes.
+All right, so hopefully this will go all right.
+So I teach an introductory programming course, and I use the student languages, all of the how to design programs, textbook, curriculum.
+And one of the things over the years, you know, there's different things we try as constructors and motivate students.
+They're just like interesting, or, you know, when you tell them to write a program that reads in a number and Fahrenheit and convert it to Celsius and operate,
+it just doesn't get people excited anymore, or in the whole world, even, or whatever.
+So there's things like Big Bang, which help to create animations and things like that.
+And another popular domain or context that I've thought about using it in a course,
+introductory course to get students excited is to be able to connect to whatever functions they've written, whatever programs they write to actual real live data.
+And to make it, make them feel at least that they are writing stuff which can actually work with, you know, it's a real program, so to speak.
+And they're not just giving it like fake test input, you know, type in your numbers and it kind of sticks this stuff back at you.
+So what I've developed is a library that allows you to connect to data sources, connect to data sources on the internet,
+that are in some standard formats, XML, JSON, CSV files.
+So the goal of this library is to make it as transparent as possible, like make it work like magic.
+So we're talking students who have never programmed before, again, and we're using a racket on top of it for those students that have programmed before.
+And so the goal here was to not distract from the rest of the curriculum, kind of integrating this particular domain.
+So the name of my library is Symbab.
+It's a rough acronym for automated structure, inference, and binding of data.
+But it also appeals to like Symbab before kind of bringing in IT, you know, exploring, you know, places.
+All right, so I'm going to run through a couple of sites here that provide data.
+So the National Weather Service, it's got this page here you can find and, you know, you can get data feeds in XML, current weather conditions,
+and we can find like St. Louis Airport, you know, there's some kind of airport code, and we could get the URL that will give us data that's current conditions.
+So we require Symbab library here, and I've just set this up with the station code separately.
+And what I'm going to do is the library primarily provides the sale to form where we give it a URL and it sails off to there.
+Okay, and that really doesn't actually do much yet, but we can load in this URL and it gives us a data source object.
+So what it has just done is gone over to that URL, downloaded the data, it actually caches it, and analyzes what type of data is it,
+and tries to figure out a schema for that data.
+If we want to, we can then look for a manifest of that data source, and it'll pop out for us like basically what is in that data.
+In this particular case, I think it's XML, right, so it's a hierarchical data structure there, and this kind of describes well.
+These are all the labels of data that are available, there are some nested labels in there.
+And now, if we want to get stuff out of this, we could ask for, let's fetch, for this data source, the location, the current temperature, and Fahrenheit, and weather.
+You know the labels of the data that you're trying to pull, you can fetch that out, and it pulls it out, and this is not accurate, I don't think, right?
+It's actually, this is stuff that I pulled off this morning.
+So one feature of this library is that when you download that URL, it caches it on your machine.
+So this is good for me, if something goes to a network here, all the examples that I'm using actually are attached on my machine.
+But we can also kind of combine all the steps that I just showed into one form here, so we can do a sale to that same URL.
+I can tell it to load it and show me the manifest, right, the schema of the data at the same time, and I can specify a cache time.
+So say, if so much time has passed since the last time we...
+I'll try fetching out some stuff this time, and right now this is probably a more accurate report of the weather conditions here.
+All right, so what else can we do here?
+So you notice that when we do this fetch, right, with several fields, it gives it back as a list.
+Now one of the things following the other design programs, if you're familiar with it, it kind of progresses through stages of complexity of the data that you're working with.
+And one of the things that's used early on is we have structured data, so we have structures.
+So what I wanted to be able to do is allow students to have their definitions of structures, but then take the data that's available and instantiate objects of data-defined structures.
+So it's not, as if they feel they're being led into a particular direction, they've actually written the code.
+So here's an example.
+Let's say we define some structures.
+We've got a structure here for locations, latitude, longitude, and then I can give an assignment to students to define a structure that represents weather observations.
+And they can choose the names of the fields and what order they want to put it in.
+And we can tell them to write all kinds of functions on this stuff.
+But ultimately, then, we could use this fetch and tell it to not just fetch the data in those particular fields, but actually run a function, like a constructor-type function for that.
+So when you see a grid of objects that's been loaded, and I have this expression later on down in the file.
+So basically, the result of this there is that it actually makes, it'll make here an observation structure and pull in the pieces of that that are being provided by the same source and pull in that structure.
+So this way, we can give assignments to students, they define the structures, they define the functions.
+At the end of it all, it's kind of like the icing on the cake.
+I can tell them, look, here's the data source.
+Connect the fields that are in the data source to the order of the arguments or parameters that your constructor expects.
+You're going to get live data.
+And then whatever functions they have written, such as maybe one that produces an image of all of this data.
+It's kind of small there.
+So this is a student assignment, for example, where they have to take a structure and write a function that produces some kind of image.
+So this is just to get them used to using the image of the functions that are provided in the library.
+A little bit of trigonometry here.
+Maybe not trigonometry, but arithmetic or something to generate like a compass of wind speed.
+So this actually represents real weather conditions.
+And they have fun at this point because then they want to check their hometown weather.
+And so the program that they've written connects to the real world and has some impact on that.
+Let's see.
+So I've just got a couple of different examples here.
+The US Geological Service has like a feed of earthquakes that have happened.
+In this case, weather observations, you're just getting essentially just a single structure of data.
+If we go to the USGS Service there, they have a couple of different types of data available.
+And it's essentially a whole bunch of lists.
+It's lists of all the earthquakes that have happened around the world, right?
+On an hourly basis, on a daily basis.
+And so we could connect to this data source.
+And let me just put down here.
+So if I connect to this particular website that's loading all the hourly reported earthquakes and show the manifest here.
+It kind of shows me what's in that.
+Again, it's a very nested hierarchical structure because it is JSON actually.
+And so things are nested in there.
+And once again, similar idea like let's say we define a structure for locations, a structure for quakes.
+Well, let me do it here.
+Well, one thing is, in this particular case,
+if I want to find like a nested, pull out a piece of data that's nested several levels down,
+we just use a path separated by slashes to kind of go through that.
+And so we could pull out the first place in the report, reported earthquakes.
+If I do the full fetch call, that actually gives a list of all the data that's out there.
+I can do a fetch.
+And once again, use a constructor, provide like a constructor or a constructor type function here.
+That'll take in the pieces of data that I'm interested in and give me back a list of things.
+I don't think this list is too big, so I can actually display it.
+So once again, students can give assignments where they have to write functions that process lists of quakes or whatever.
+And maybe it sounds artificial to them at first.
+But then at the end, you can say, well, here's the USGS service.
+Let's go ahead and pull live data.
+And their functions might be things like, let's see here, is write a function that generates a string.
+And it's pulling all the quake data.
+And essentially, this is a function where they have to take all the latitude, longitude coordinates and format it in a string.
+Create a string that will be a URL that we can then pass off to Google Maps API.
+And if we use a provided function in the library that opens up the browser to that URL,
+they then get a little map that pops up and it's got little pins at all the places where earthquakes are happening right now or have happened recently.
+So again, making that data live.
+Let's see.
+One more thing I'll do here.
+I was looking for St. Louis's data, but they don't have very good content data on their bike sharing service.
+But New York City, Chicago, several other cities have these bike share services and all their data is available.
+And this is pretty extensive data here.
+So this is the system data.
+And it's all anonymized, obviously, but it has information about different types of customers, either customers or subscribers.
+And if they're subscribers that have an account with the service, then there's information about gender and year of birth, as well as individual trip data.
+And this data is monthly for the last several years.
+So we could pull these things.
+There are a huge amount of records in it.
+And so just this week, I've had students work on some labs.
+And we do simple stuff, which we probably do anyways, like write a function that computes the smallest value in a list of numbers.
+And that's kind of a boring sort of thing, but we motivate it by saying, well, if we have all this data, what do you think is the age of the oldest rider in that data?
+And to answer that question, we need to figure out who's got the earliest birth meter.
+So we kind of motivate it with that.
+We go through, have them as a lab exercise, write this function, and then we can load in all of the years of birth, which is just a matter of connecting to our data source.
+There's it up there.
+And then doing a fetch to pull in that list of numbers.
+And we'll go ahead and say smallest of all years of birth.
+And that's not very helpful because there's obviously bad values in the data, right?
+And sometimes, like we were doing in class with one month's data, and it came out 1888, right?
+And so that leads to a discussion of, is that real?
+And all that kind of stuff.
+But that's great because it leads into our next function that we want to write on this anyway, which is one of that kind of filters list, right?
+So we want to go through and find all, keep all the numbers that are greater than a certain threshold.
+So we'll have them write that function as well.
+And once they've got that, we can now apply that function right to this data source and clean it up a little bit.
+And it really connects them to some real work data.
+All right, so how much do I have left? Five minutes?
+Okay.
+So that's a sense of what this library does.
+Again, it tries to make things as transparent as possible.
+Some of the features, like I said, it supports different data formats.
+As much as possible, it tries to invert the data format just from the URL.
+But there's about JSON and there's about XML as soon as it's that.
+Otherwise, you can specifically say, well, this is JSON.
+It's not immediately obvious from the URL.
+There's caching of behavior that can be controlled here.
+You can also have URL parameters.
+Well, you could also, like, put URL parameters in there into the URL itself like that.
+Or you can specify them separately as clauses of the C02.
+What else do we have here?
+Some data formats have special options that you can set for them.
+So for example, comma separated values, a lot of times those spreadsheets will have a bunch of rows that are just metadata.
+So you can tell it, like, go ahead and skip a whole bunch of rows if you look at that data.
+And you know that there's so many rows.
+Sometimes CSV files don't have a header.
+So there's an option where you can supply a header for that.
+And the library also handles, if the...
+Well, let's try this one.
+This is kind of a local data set.
+And it is CSV format, which I've said.
+But it actually comes in as a zip file.
+And within that zip file, there's actually several files, right?
+You know, there's some metadata things in there.
+So there is an option where for zip files, we can tell it, well, I'm just interested in this particular one.
+And so when it loads that in, it loads it, parses it, skips the rows and figures out what the header is based on.
+And also, if as an instructor, I don't want students to have to, like, wait for all of this,
+like, what I want this library to be able to do is, like, I can give students open-ended projects,
+like, tell them, go find your XML-based source, right, and formulate some kind of a question,
+and write programs to solve it and access the data.
+So as much as possible, I want, you know, less work for me and make it easy for them also to connect to their data source.
+But at the same time, if I wanted to package everything up, this library has this notion of specification files,
+where it's just a JSON document, where you can kind of set all the options, the formats, the parameters,
+like specify that certain parameters are required because they're needed as part of the query string
+or path parameters or whatever.
+And that way, students can just sail to the URL of that spec file instead.
+It applies all of the settings in a little bit in that way.
+Yeah.
+In the name of lazyness, since you've got this keeper-based sale option,
+do you have something that PhotoGenerates has based on file from all like that?
+Yes.
+All right, so let's see.
+Implementation or, well, after Kent's thought this morning, like, I'm ready to throw this away and rewrite it from scratch.
+This was a quick prototype.
+I've actually used it now the second year in a row, and so it is fairly stable, like, but I'm welcome,
+you know, anyone else who's interested in using it and making sure it breaks,
+and that will kind of force me to relook at it and implement it better.
+It's kind of designed with an idea of a plug-in system where you can plug in different, you know,
+support for different formats.
+The common intermediate data representation, everything that's converted to is the JS expression
+that's defined in the rocket distribution.
+And anyway, there's just a big class which loads data, does some caching,
+it does like a basic schema analysis,
+and then fetching data requires you to unify essentially the signature that the user is providing
+against what's actually the scheme of the data.
+So there's some interesting stuff going on there.
+Like, the data might not be a list, but the user wants a list, right, or vice versa,
+and so the library tries to do as much as it can to just always give back something
+according to what is being requested.
+But there are some simple macros and things to get it going.
+And on the website, if you do teach a course like this...
+There are a set of labs, tutorial-style labs, if you want to, adopt this.
+That kind of sequence of topics and how to design programs on textbook.
+And so wherever you are in that level of complexity of data, there's a lab that goes along with it.
+Some of them build on top of the others.
+And then a really informal survey of students.
+This is just this weekend that we're coming here.
+And a little midterm survey of various features in my course.
+Then teaching right now is what features of the course you like or dislike.
+There's a bunch of things that I asked them about.
+One of them is the real data.
+And you can see this is a scale of five for some of the areas that some people don't like it.
+But usually it's they somewhat like it or they like it a lot.
+And this is the big bang of responses here a little more excited about it.
+But we haven't really done our big bang program in this last year yet.
+But anyway, so it seems to get the students interested and intrigued.
+Do you have time for questions?
+Absolutely, so...
+I'm hoping to expand it and make more of us.
+It's out there on the package already.
+So you're welcome to try it out and let me know where it breaks.
+There's a similar thing in F-sharp.
+They call it time providers.
+You can see a lot of ID integration like auto-completing field names and such out of data sources.
+Do you think you can build that on top of this?
+Or would that require a massive rewriting?
+It's open source.
+Anything's possible.
+But yeah, I think I'm a little familiar with that.
+Your API references are all four or fours right now, but it looks like I don't know if you've done that.
+It would be wonderful also if you...
+I hope this is a great time.
+If you can do documentation for the whole cloud application, is this what you find rare?
+Yeah.
+Okay.
+Let's take the game again.
+So next up we'll have Puzzle.
+So, you know, I came to a conference about your name.
+And so, I've been dying for some verification.
+That's my verification.
+Come on.
+Thank you, Jay, for the introduction.
+It's very exciting to speak to all of you.
+And also, actually, thank you, Jay, for inviting me.
+I think the somewhat disingenuous introduction was because this talk is maybe a bit of a surprise to Jay as well.
+I suspect he asked me to come speak about a totally different property,
+which is a program I released a few years ago.
+It takes point-to-point expressions and rewrites them so that the expression can be computed as point-to-point error.
+But that's not what I'm going to talk to you about.
+I'm going to talk to you about tasks that I've been involved with on for the last few years,
+which I can surprise very broadly by programming language and software engineering and thinking the web page designer.
+That's not necessarily a big leak because, as you know, some parts of web pages are just programs.
+So, for example, on the server side, most web pages have a back-end that's written in Python or Java or by the way, brackets.
+There is a wonderful web server library.
+And these are all general-purpose programming languages that you can just imagine for your program,
+but that's not what I'm going to be talking to you about.
+And also JavaScript is usually written in JavaScript, though it can also be written in Racket.
+Either through Whalesong or here there's a more modern version.
+And JavaScript is also a general-purpose programming language that you can imagine treating as a program.
+And as you can tell by the suspiciously blank third portion of the screen, I'm also not going to be talking about it.
+What I actually want to talk about is web page design, web page layout, as something we can...
+So the HTML and the CSS that define the appearance of web pages.
+And that's what this talk is about.
+So I'd like to begin by trying to convince you that web page layouts, designs, visual things are actually programs.
+I have a demo video, but I think it will be more compelling if I just go on the internet and show you a web page.
+This is healthcare.gov for non-American instances, how Americans buy health insurance.
+Plus...
+To see that this is a program, what we can try to do is vary the influence.
+Like this, the page appears static, but I can resize the browser window.
+And after I pass a certain threshold, the page layout itself will change.
+And it continues changing as the browser with genes.
+So that's one input to web page layout, but there are others.
+So for example, I can also increase the default browser response.
+And you can see again that the layout changes as I do that.
+So not only can we think about layouts as programs, it might actually be valuable to do so.
+And to show you that I'm going to demonstrate that these programs can't be wrong.
+So I'm going to increase the browser font size again, and I want you to pay attention to this search button.
+Right?
+Yeah, so if the browser font size gets big enough of the search button,
+because this strange thing is three pixels too wide, you don't want to do.
+And as a result, it's very difficult to ask.
+This happens at 170% enlargement.
+That's not ridiculous.
+The usual recommendations are that to support users with a core vision,
+you can allow them to go to at least 200% for anything that happens on your own.
+So if web pages are programs, then we can think about them like programs.
+For example, we can think, how should this program behave?
+So I'm talking about our specifications for our programs.
+And for web pages, the specifications aren't, don't crash, because web pages don't crash.
+Nor are they, you know, doesn't steal my data, which might be useful, but the web page layout isn't what's doing that.
+Instead, it's things, it's visual properties, like that no text overlaps other texts that pages sufficiently high contrast,
+or that all the clickable buttons are on screen.
+And not only are these properties, properties you want to satisfy as a good web developer,
+but also best practices for implementing things like the Americans with Disabilities Act.
+So these are not only things that you want to ensure are true, they also have some legal black tooth.
+So generally speaking, and as Jay alluded to, the programming languages research community
+has spent the last decade or two developing ways to prove that programs satisfy certain problems.
+Unfortunately, it's not really clear how those techniques apply to web pages.
+So I basically spent the last few years trying to fill in these question marks
+and understand how we can apply PL thinking to web pages.
+And that has meant satisfying three challenges.
+So the first is, we need to understand how a web page rendering works.
+Obviously, everyone has a web browser on their computer, but that doesn't mean we know how we understand it.
+The next is, we need to find a way to write down properties of web pages,
+properties that web pages should satisfy.
+In other words, we want to know how web pages behave and how they should behave.
+And the final bit is that we want to reason about web pages one piece at a time,
+because it's how web pages are written,
+and those pieces have more significance really than the pages themselves as they're reused from pages.
+So let me start by telling you how we know how web pages behave.
+It's sort of a split-brain kind of answer.
+On the one hand, there's a group of people called the World Wide Web Construction,
+and they publish a long English language document that purports to tell you how a web page rendering works.
+Like a long English language document, it is both informal and kind of ambiguous.
+So for example, up until the latest version, it was incompatible with the existence of scrollbars.
+Separate from this English language human readable specification,
+there's also the actual reality of the situation,
+implementations in web browsers of how a web paper rendering begins.
+So these are great because you can run them and see how a web page appears,
+but it's millions of lines of C++ code.
+And those C++ codes have been written over 23 years.
+That's how long it's been since nesting.
+So they have accumulated some weird odds.
+So I wanted to find a way of combining these two to get some human understandable yet executable data here.
+And I basically said that by taking conformance tests written by the World Wide Web Construction,
+these were unit tests run by browsers that define all of the various edge cases of that specification.
+And these conformance tests that can pass through existing browsers
+to understand what is the desired behavior on all of these edge cases.
+And that's let me basically create this, well I don't know if I can call it bullet proof,
+but it will claim proof description of how a web page is working,
+covering a fairly large portion of the CSS.
+And I'm not going to go into it too much, but I will mention it.
+We also use this tool called Z3 to not only describe how web pages work,
+but also allow the computer to automatically reason about it.
+So for example, what sort of CSS code would you write in order to center a piece of text?
+On the topic of centering text, I wanted to make this a little more concrete
+and show you an example of what this process is like.
+So let's talk about centering text.
+In CSS, the text-aligned property tells you how text is aligned.
+And this document is the worldwide web consortium standard for how that property works.
+You can see it gives the value that that property can have,
+like left, right, center alignment and justifying.
+Some various relatively inscrutable types, like media visual and applies to web containers.
+And also a textual description of how it works.
+Unfortunately, the textual description is less useful than you'd like.
+So here, for example, it explains the center property of the center text.
+That's fair enough if you think you know what centering text is,
+but what I hope to demonstrate is that you don't.
+Luckily, there is an additional description in this section on inline format.
+It contains a lot of text, but somewhere in here it says that
+the horizontal distribution of things within a line of text is determined by textuality.
+Pretty much all it does to explain what centering text means.
+And I'm confident you think you know what text alignment is.
+It's a center text.
+It's that the gap on the left-hand side of the text is equal to the gap on the right-hand side of the text
+between the text and the containing line.
+But here's one of the unit tests that comes from the CSS standards line.
+You can see what these unit tests look like.
+There's a line of English at the top that explains what it means for the text to pass.
+And then there is some text that, you know, will be rendered one way or another.
+So here it is clear that Firefox, the browser I'm using, passes this test.
+However, if we open this up and...
+Ah, okay.
+I suppose we should have been talking about the right alignment,
+because I told you there's a right alignment unit test.
+But you can see that here that text is plausibly not what you meant by right alignment as well.
+In particular, it is not inside the box at all.
+Or if I center it, you can see that its rendering doesn't change at all.
+And this is because CSS happens to include this odd exception to the usual alignment rules.
+Namely, if the thing you were trying to align is too wide,
+or the thing you just placed it, it is actually left aligned no matter what you say.
+That's where it is.
+So here is the code that we've written that influences this.
+Now, I understand this is much more code than I often don't at the audience,
+but I want to just give you some sense of what implementing a web browser is like.
+So this is the code for text alignment.
+You can see that we compute for the line the difference between its right and left edges.
+And then ask, if that space that we have in the line portal is greater than the width of the box,
+then the left edge of the first child is equal to the left edge of the box.
+That tells us that a line box will have the first child aligned to the left.
+Assuming that the line doesn't have enough room to contain all the content.
+You can see that that takes precedence in this conditional
+over anything that looks at the next line.
+So that's the sort of code that we've been writing to implement
+the behavior that we've seen in the unit tests.
+So once we have some idea of how web pages behave,
+and I assure you it was a lot of work.
+I just don't want to talk too much about it.
+Once we have an understanding of how web pages behave,
+the next step is to figure out how they should behave.
+In other words, what properties would we like web pages to satisfy?
+And this is basically another language design program.
+It's a problem to design a language in which we can describe properties of web pages.
+So I'm going to show you what that's like by just showing you an example.
+Here's a property that you might want to be true of a web page.
+I know it's a little inscrutable, but what we're saying is that for every box,
+so think of that as just some rectangular thing on the page,
+maybe a piece of text, maybe a menu.
+For every box on the page, if that box is an anchor,
+that's what HTML calls links.
+Then it should be inside the root box,
+and what that means is it should be within the browser window.
+In other words, for everything on the page,
+if that thing is a link, it should be within the browser window.
+All the links on the screen, all the links should be on the screen.
+And generally speaking, the sort of things that we want to say,
+what do we talk about properties of web pages,
+or we want to talk about the set of all boxes on the page.
+We're going to make some claim about the properties of the HTML,
+what sort of role those boxes apply,
+those elements apply on the page, like here links,
+and also some geometric properties,
+like here that that box should be within the browser window.
+So I've developed a logic, a language,
+that basically allows you to say these three things and not anymore.
+So this is pretty simple, but yet expressive enough
+that we've been able to encode 14 of these accessibility guidelines.
+We take them from things like the Department of Justice, TDA guidelines.
+And we can not only write these down, but we can also ask,
+does a web page satisfy this guideline for all possible reservoirs?
+As I mentioned, we now understand both how the web page renders
+and how it should behave.
+But both of those really talk about the web pages a little.
+And web pages, especially big complicated ones like healthcare.gov,
+aren't written in one piece.
+What we'd actually like to do is be able to decompose this page
+into what I call individual components,
+things like the header, the toolbar for these buttons.
+And of course, this decomposition can be recursive.
+So we can end up with fairly small pieces of the web page
+that we can reason about independently.
+In other words, we can write down a property of this component
+and check it without thinking about the rest of the pages.
+And that's valuable not only because that's faster,
+but also because these components might be reused
+like the header of the toolbar across multiple pages.
+So in order to do this,
+we need to write down a property of a component.
+The property of the component is not the same as the property of the page.
+So how might those relate?
+Well, here's that property that I talked about a moment ago
+for all the boxes on the page.
+If that box is a link, it's on screen.
+And here's how we can take that box
+and that property and reason about it
+into one piece of the web page.
+We're going to think about each component of the page independently.
+And we're going to say that for all the boxes in that component,
+if that box is a link, then it should be on screen.
+So here we've replaced reasoning on the whole page
+with reasoning on one part of the page.
+But that actually is almost certainly not true
+because one piece of the page will be off screen
+if all the links in the piece of the page will be off screen
+if that piece itself is placed off screen.
+So we're also going to need to establish some sort of condition
+on the rest of the page for how that component is rendered
+before we can talk about its contents.
+So this expanded way of writing down properties in web pages
+so that we can reason about them one piece at a time
+is something that I've developed.
+So it reasons that each of these components in parallel
+checks that property and then glues together all those facts
+to check that the overall whole page property wanted to be true.
+And so I can give you a little example
+of what that looks like.
+So here is a web page that I use a lot as a test.
+This is literally a yoga studio.
+And if you just scroll through the page of the whole,
+you can see that it clearly has kind of three components.
+It's got this header part up on top.
+Then it's got this body element where it describes
+basically the ad.
+And then you've got this cluttered component
+where it has the social media buttons and so on.
+So if I want to talk about this page,
+I'm going to start by...
+I have an automatic translator into this S Expression case.
+So this is basically an S Expression form of the CSS of the page.
+You can think of this tag body as the selector body.
+And then here I have some properties.
+So this is translated into this S Expression format.
+We also have S Expression information about the fonts
+used on the page,
+how the page is rendered by the browser.
+And this we use for basically sanity testing,
+whether our model of how browser rendering works correctly for this page
+and also the HTML for the page.
+So again, this is an S Expression format,
+not too different from what you use in actual writing.
+And if I want to prove something about this page,
+check some property of this page,
+I can load that yoga page from the file.
+Here I'm specifying the possible widths and heights of the page
+as well as the font sizes.
+Then write down the property that I want to check.
+And finally I have a proof here.
+What I mean by proof is just a list of properties
+of individual components that imply that property.
+So I've named my three components,
+the header, the body, and the clutter.
+And now I am just asking my system to establish certain facts
+about those components.
+Non-negative margins, some facts about floats,
+and also some facts here for the header
+that if the header is on the screen
+and we're looking at a link,
+then the link is on the screen.
+So that's what I've accomplished with this tool so far.
+I hope in the future to expand this
+to a reason about some of these other components
+that I have left out.
+So I'm hoping, in other words, to reason
+not about concrete web pages,
+but about web pages with some abstract bits removed.
+And that would allow us to prove a property
+of any page that a certain backend can produce.
+That's for the future.
+For now, if you're interested in this work,
+please do check this out.
+It's called Cassius, and it's available at this year on.
+Thank you very much.
+I just want to say as a moment,
+you've heard the last of the children's problems,
+and heard the people say,
+thank you so much.
+It really is an understudied problem,
+but one that just a little bit of attention
+and a little bit of tooling could do a lot to the game.
+So the compositionality of the proof seems to rely
+on a different method of not being able
+to change the rendering of something else,
+not in use.
+It's not actually the case for CSS.
+Maybe I should bring that up.
+It does not rely on that.
+And the reason is when we establish a property of a component,
+we establish that it's true of any possible
+of a page that might contain that component.
+So that means that it might be more difficult
+because you have the right for preconditions
+on how that page behaves.
+But it means that the current component reasoning
+doesn't make any assumptions about the rest of it.
+And it is possible to establish in any possible approach?
+Yeah, it turns out that you cannot.
+So why don't you start in your startup?
+What was the most amazingly sellable?
+Well, I did not only show you the good parts, of course.
+I think the technology is really interesting.
+If you are the sort of person who starts startups,
+you know, you'll bring in a problem.
+I want you to talk to my bangle.
+It's so bad.
+See that?
+The issue is that I don't want to talk to your man.
+Have you experienced synthesizing layouts that meet certain rules?
+I have. I tried that for a while, and it was too hard.
+But I can give you more details.
+All right, great. Thank you, Paolo.
+So next up, we'll hear from Georgie Rant.
+He's been at, like, every Ractic Con and summer school.
+I've seen him. I've never actually been able to hear
+about what he's working on.
+So I'm very excited.
+For me, this is like a top-of-the-line
+in the making of that.
+Really, I want to hear about him.
+Let's welcome him to work.
+Thank you, Jay, for the introduction.
+So I'm Jurgen.
+I'm living in Berlin.
+I'm finishing my PhD now.
+I'm in the process of writing now.
+And my topic today is patternets in Racket.
+And before I begin, I want to say a few words about software engineering.
+So usually, when we think of software engineering,
+what we associate with this is that you're having a sheet of paper
+and you're drawing a model on it.
+And when you actually want to implement that model,
+then you're throwing a piece of paper away,
+and you're opening it up and hacking it.
+So this is a bad thing.
+So the separation of the model and the code is a bad idea to me.
+And what we want to have instead is we want to drag the model
+into the realm of the executable, into the realm of the testable,
+so that we can use it like any other piece of software architecture.
+And this is what I try to do with patternets.
+So the reason why I love patternets so much is because, first of all,
+then, obviously, they will have a code representation on Racket.
+And also, they have a visual representation to it, and we understand.
+And if you compare this with, you will have to scroll through source code.
+And an image that fits on the slide is really much better.
+And maybe this helps understanding what the software is about.
+And the other thing that is very cool is that patternets have a defined semantics.
+So this means that we can ask for properties like,
+does this program terminate, or is it live, or are other things, or an invariance.
+For example, if you have a system that passes data around,
+we could ask whether this data never disappears, and that would be an invariance.
+And we can come up with a notion of correctness and verify this.
+And the other thing is that it is a complete description of a piece of software.
+That means that we can, in fact, execute it and test it.
+And that is what we're trying to do now.
+So first of all, let me, for those of you who are unfamiliar with patternets,
+I really wish for the introduction of what you've just seen.
+So patternets are made up of passive components,
+which are like the box where you can put something in, or a piece of storage, or a buffer.
+These are represented by these circles.
+So this is a place with a name down, and it holds a piece of data.
+So like a box here, there can be something in there.
+And the other thing that we find in patternets are the active components,
+which we call transitions, represented by boxes.
+So what a transition does, it takes a piece of data from its preset
+and produces data in its preset.
+So here, the down place and the busy place are in the preset of the down busy transition,
+and the idle place is in the preset of the down busy transition.
+And when there's a token on each of these places, they would be consumed
+in an atomic operation, and a token on the idle place would appear.
+Now, the third component, or the third aspect that is important here,
+is that these patternets live in an environment.
+So they're not closed systems that just live in a closed space,
+but they are communicating with their environments.
+So there has to be a order that separates what is part of the system from what is outside.
+There needs to be an interface.
+And the interfaces here are all the places that are on the bottom line.
+So these kinds of, yeah, one more thing.
+So what we can pass around here is arbitrary record data,
+and the operations that the transitions can perform are also arbitrary for these.
+And when this is the case, we have an environment,
+and we call this a high-level interface next, which is a special kind of interface.
+So arbitrary data, arbitrary functions in the transitions make it high-level,
+and the fact that there is a boundary to the outside makes it an interface.
+And these are the kinds of models we're trying to implement.
+So let me make an example.
+This is the patternet model of a cookie vending machine.
+It has a coin slot, and when a coin is coming in,
+then the coin goes into the cache box, and also the signal is produced.
+And the signal makes a cookie box appear in the compartment, and you can take it out.
+This is a very bad cookie vending machine, because once all the cookie boxes are consumed,
+it will just eat coins.
+So this is actually very bad.
+But for the sake of demonstrating what we're trying to do, it's just fine.
+So when I try to express this in the record,
+oh, this is small.
+First thing, so I'm implementing a few callback functions.
+And in this case, the callback function is called white set,
+and the back is set that contains all the names of the places we've seen.
+So there's coins, now, a cache box, signal, storage, and compartment.
+And these six, five places are part of the place set function.
+So what I also need is a hash table that gives me all the presets of all the transitions.
+So here we're having two transitions, A and B.
+And the A transition has the coin slot as a preset, and the B transition has the signal and the storage.
+To go back, here's the coin slot, it's a preset of A and B has two places as its preset.
+So this is also what I need to do.
+And the third thing I need to have is a function that tells me about the initial marking of the set.
+In this case, we only had three cookie boxes on the storage plates,
+and all the other places ahead, empty initial markings.
+The fourth thing I need is a predicate.
+It tells me whether a transition is enabled.
+In this case, it's always enabled.
+Whenever I can consume a token from a place, I can actually fire this transition.
+And the last thing I need is a call detection that tells me what happens when a transition actually fires.
+In this case, if the transition A fires, we put a signal on a signal place and a coin into the cache box.
+When the transition B fires, then we put a cookie box into the compartment.
+That is, these callback functions define the structure and the behavior of the device.
+And now I'm trying to tell you why I'm actually doing this.
+So I'm maintaining a distributed programming language called Qniform.
+As implemented in Erlang, there I already have all this stuff.
+But I also wanted to see what is possible.
+And the first step of importing any component from Qniform into Reket is that I actually have a machine that can execute the special.
+So this is a hypothetical application.
+I have done this in another language.
+And now I'm just presenting the first steps of how it would work.
+And a few words about what Qniform does or is.
+Well, first of all, it's a functional programming language.
+From the functional property, what we get is that several expressions are independent.
+And from this independence, we can derive parallelism.
+And also, it's a distributed language.
+So all the tasks are distributed on multiple machines that are available.
+And the third property is that it integrates other languages.
+So for example, when I'm writing a function in Qniform, I can say, OK, I want this function to be in batch.
+And then I'm calling a command line tool.
+Or I want this function to be in R.
+And then I'm using my favorite R library.
+Or I want this function to be in Reket.
+And so because it integrates all these languages, it's open.
+And because the lambda calculus, that is the basis of the functional programming paradigm,
+it's a universal model of computation which makes it very general.
+But this combination of all the stuff, so that you have a universal model of computation,
+that you can integrate all the stuff that is distributed to my knowledge quite uniquely.
+And this is an example of a piece of source code.
+So here I'm defining a function f, which takes an argument txc out of the type file.
+And out of the Reket, that has a single y, also a type file.
+And the function should be pro.
+And here should be pro code.
+And then I'm defining a list of files with content a and v txc.
+And then I'm iterating over this and applying the function f to each of the types.
+So this obviously has ugly syntax.
+I hope everyone's OK.
+So and this is how you expect problems.
+And what happens underneath is that Uniform has three kinds of services that are composed together.
+The first one is the client, which holds the interpreter of the language.
+The second is the master, which is essentially the schedule that sorts out which worker computes what.
+So when I'm giving the client an expression e, what happens is that it will do some work on it,
+like interpreting it, and then a few applications will emerge.
+These will be sent to the master, which then schedules these applications to the workers.
+And then the workers perform their work and reply with the answer.
+And this gets communicated back to the client.
+When everything is done and all the four applications are computed,
+then maybe the program has terminated and the value gets back to the user.
+So what this shows here is that we have three kinds of interfaces.
+The first interface is here the interface between the client and the user,
+where you give an expression and get a value back.
+The second is the one between the client and the master.
+And the third one is the one between the master and the worker.
+And this somehow results in a closed network.
+This is a client in the middle of the master, and the third thing is the worker.
+And all the three together compose or distributes this.
+And we would do this on top of red places.
+Yeah, client. I was using this one.
+And we're only looking at the middle component here, the master.
+And the role of the master is to provide a cache,
+so that when I'm trying to compute things multiple times,
+I only get the first component, gets computed, and the rest is asked for the cache.
+And we have the scheduler.
+It should be forwarded, so when the worker dies, the process should continue.
+And the whole thing is also language.
+So whether I'm using this thing with Kineform or some other language,
+it should play well.
+And this is the question of the master.
+So essentially a request goes in here,
+it's handed to the worker, and answers are coming back on this model.
+And the scheduler sits here, this is the scheduler component,
+and this is the cache.
+And also, the workers can be added over this file,
+and if the worker dies, then I'm getting this thing over this file.
+Here I'm able to have clients,
+and here is the...
+Here comes the message that told me that I'm trying to stay.
+And all this together is then...
+So what we're doing with this,
+so the main application of Kineform is bioinformatics and next generation sequencing.
+So we're using this on DNA data, a lot,
+but you can use it for anything.
+So to wrap up this talk,
+first of all, this is not the first thing,
+the first time that this has been tried.
+So there's also a tool called TnTools,
+which is a graphical editor for Petrinets,
+and it's a Erlang code if you want to.
+And this also has the color of Petrinets,
+which is also pretty similar to what I've tried to do.
+So sorry, Petrinets are a wonderful programming model,
+and you can do it in all these systems,
+because it has a visual interpretation of the code,
+which is pretty fancy,
+and you can compose distributed systems,
+because on the inside you're modeling your application on the Petrinets,
+and on the outside it's a record place,
+but this is the other way.
+And here I thank you for your attention.
+Thank you.
+Any time for questions?
+So, it's really interesting.
+It's about the domain.
+If you generally assume that the person that has TnT participating in this network
+is generally trusted,
+or is this,
+okay, trusted in the atmosphere when I work at school.
+I mean, certain entities in the network
+may be trying to send messages to other entities
+to either freeze them up,
+or shut them down,
+or do bad things.
+So there's no default mechanism to prevent anything,
+but if you want to use it in this kind of untrusted environment,
+you would have to have your own checks.
+But that would be possible.
+There's another question.
+Do you have transitions that use arbitrary directive functions
+that you claim they have to be atomic?
+How do you enforce that?
+Yeah, so, exactly.
+So, they're atomic on a higher level,
+so what you're probably thinking about is that
+on the processor,
+these are multiple instructions, right?
+But, yeah, the result of the function is used,
+and nothing can interfere with this function,
+as long as it has to.
+But this is also the case for other regulated functions, right?
+They don't usually interfere.
+So, from the outside,
+from a user perspective, they are atomic.
+And I'm saying this on the screen.
+Let's thank Jeremy.
+So, we have our last talk today.
+We'll also be about the distributed programming,
+and Eric will be talking about the system neuron,
+which is a data flow programming language.
+We'll hear about that.
+Welcome, Eric.
+We'll be talking about high-level network programming.
+Before we get to that,
+I want to tell you a story about a buddy of mine named Nick.
+Nick is a PhD student.
+You can tell from his tire he's not an engineer.
+He's passionate about his cure of cancer.
+But the way he's doing this is he's taking a whole genome data set,
+which is about 750 megabytes a piece,
+and he's running a data mining machine
+running operations on them to call quality
+of cancer prognosis and prediction technologies.
+So, it turns out that this is really expensive.
+You generally need super computer access to a super computer
+because one data set is almost a gig,
+and he must operate.
+He must compute over many thousands of them at a time.
+He must, his purpose is to continue growing
+to improve the quality of the results.
+And super computers are really expensive.
+They aren't really going to have them out there,
+so there is some competition for time.
+So, one of Nick's pet peeves is these sorts of Facebook schemes
+to get people to like or share posts,
+sort of like quality,
+with the promise that Facebook will donate money
+to sick children to cure the, to treat their diseases.
+And the reason that this is a problem is because
+it gives the people who participate a false sense of accomplishment
+which may prevent them from doing the right thing
+when the opportunity presents itself.
+So, is Facebook here to answer?
+Probably not.
+But wouldn't it be great if clicking that like button
+actually did something useful,
+like pledged computing resources to projects like Nick's?
+So, that's why I work on Neuron.
+And Neuron's Labor of Love, I've been working on it
+for many years now, it has a lot of weird corners.
+They all go into just enough to show you how to get it
+and working on the network and doing some simple stuff.
+I don't know if you call it distributed computing yet,
+that's the next phase.
+Definitely we have some concurrency and some interesting
+networks that are going on at the message level.
+So, Neuron is a framework.
+It's for building a high level or a message level
+network programs and eventually program languages.
+It uses a concurrency model based on lightweight processes
+and a simple but feature rich messaging API.
+And it includes a library of useful construction
+and management tools just to get you going.
+I expect the library to continue growing
+as I keep working on it for days.
+So, what is the process in Neuron?
+The process is essentially a thread.
+Under the hood, instead of an inbox,
+it has a pair of channel-wide exchange constructs
+for passing values to available processes.
+So, that's how processes communicate with each other.
+And these channel-wide constructs,
+I call them exchangers, are synchronous and asymmetric.
+And by synchronous, I mean, in the same sense,
+as channel operations, unbuffered channel operations
+are synchronous and asymmetric in the sense that...
+So, given this asymmetry, there are two cases
+that we need to consider.
+A simple exchange involves exactly two processes.
+So, in a pull-based exchange,
+so there's push and pull, sorry,
+in the push-based exchange,
+a giver explicitly references a taker.
+And you can imagine that these commands
+are being run from within a process body.
+And in a pull-based exchange,
+the receiver is explicitly referencing an emitter.
+So, another kind of exchange is immediate exchange,
+which involves three or more processes.
+And this is where things get interesting,
+sort of diverge from what you can do with channels.
+So, in this case, we're still...
+we have giver explicitly referencing a taker
+and the receiver explicitly referencing an emitter.
+But there's this process in the middle
+that all of these exchanges are being proxy through.
+And the interesting thing to note here is that
+the synchronization behavior, in this case,
+is indistinguishable from the simple case,
+from the perspective of either end of the exchange.
+This is useful for proving properties about
+mediated exchanges.
+So, that's how the processes communicate with each other,
+how they communicate with the outside world.
+So, Neuron encapsulates serial communications
+into a kind of process called an endpoint,
+which is really just a fancy word for processes that manage ports.
+And there's two parts to an endpoint.
+There's a socket and a codec.
+You can look at this like a socket is a data structure
+for just tidy work at the light level.
+And codecs are functions,
+or kinds of functions that project
+between light level and value level messages.
+Sockets aren't that interesting on their own.
+It's really just a structure with some structure properties
+to pair an endpoint and an output port.
+This simplifies the messaging API of it
+and makes it easy to prevent hat open connections,
+which I have a lot of trouble with,
+so they're up for now.
+So, codecs are slightly more interesting
+because they're functions.
+I made an unfortunate main choice here,
+printer and parser.
+It turns out that Racket has ideas
+of what those words should mean.
+Maybe better words would have been reader and writer.
+And the encoder and decoder functions
+are really just for taking these
+lower level functions and lifting them
+into the value level messaging API.
+So, here's what the signatures of these functions
+might look like.
+They're really just rewrite,
+and then JSON at the end of your frontend person.
+And on the codec side,
+there is the decoder command,
+which will take the parser or reader,
+take the read command,
+take the read function and a socket
+and produce a process
+that represents the endpoint
+that reads messages from that socket.
+So, the function that comes out of this decoder command
+I call a decoder constructor.
+It's similar to the encoder,
+but now I'm just writing to the socket
+instead of reading,
+and the encoder just combines it together
+for reading it.
+So, now that we know about sockets and codecs,
+we can jump right into our first endpoints.
+UDP endpoints are pretty simple.
+They are unidirectional,
+so UDP endpoints, such as a source,
+can emit messages that it receives
+from a UDP datagram
+on the host and for information that is specified.
+And the UDP same just works in the opposite direction,
+writing messages out to UDP datagrams
+to connect to the information to get it.
+TCP endpoints are quite a bit more interesting.
+So, we have clients and servers,
+and I'll get to the service in a second.
+But a client is really just an endpoint
+for a client when you run the TCP client command
+and you tell it where to connect.
+When the connection is successful,
+it returns the socket.
+So, it's your responsibility to wrap that socket
+in a codec, so that you can send messages to it.
+The TCP server takes connection information.
+In this case, I'm just giving it a port
+and using the default, which is all of the interfaces.
+And it will return,
+for every connection that it receives,
+it will emit the socket,
+which you then must wrap with the codec
+in order to message at the high level.
+So, the TCP service kind of takes care
+of some of that work for you at the server level.
+You can see that this call is being made
+very similar to the TCP server,
+only now it's only going to use this codec
+whenever the server remits the socket.
+So, it also will take the process that the codec creates
+and index it based on a key,
+the default key for a TCP service is the full TCP address.
+So, let's put all of those.
+Sorry, before we get into how to use this,
+one interesting thing to note is that the TCP service
+is a legitimate endpoint.
+It sits on its own.
+What is TCP when it will appear,
+connect the client,
+sends a message through the service.
+The TCP service will take the message
+and the address of the sender,
+and you can both together as two separate values.
+When you send the message through TCP service,
+you give it an address and a payload,
+and it figures out which client to send it to
+based on the address.
+So, all of that is relatively transparent
+and allows you to treat the messages at this level
+like you might think of an email or something,
+but then it will.
+Now that we know a little bit about how to talk on the network,
+let's put it all together and do something kind of fun.
+How about a multiplayer game server?
+So, there's three parts to this.
+The first part is the TCP service to register clients.
+So, when the client connects,
+I want that to persist and when they connect,
+I want them to give me the UDP port number
+so that I can connect a message to it
+and broadcast the updated world state to it
+at some regular rate.
+And then I also have a simulator process running in the background
+and the default 10-site was per second,
+just crunching numbers and doing math
+to tell me how things in the world may be moving around.
+So, TCP service is pretty much like what we saw before.
+There's no magic there. There's nothing new to explain.
+Other than, here I'm using a beautiful line format, right?
+So, what we have to do with things with the TCP service
+is somewhere at the bottom of my program,
+I'm going to root forever.
+On every iteration, I'm going to take the T,
+which is the full address,
+and the message that's coming out of my service.
+And I'm going to inspect the message.
+So, I have three commands here.
+Set just says, add this to your list of UDP
+and Sinks to broadcast to regularly.
+Drop, reverses that.
+And move changes the components of the velocity vector
+for a character in the world.
+And these commands kind of do what they're being said.
+I don't think we'll have enough space to cover what they do,
+but they're one or two lines piece.
+The next part is the UDP Sinks.
+So, each time you have the client connect
+and tell me where to set the UDP address for them,
+I'm going to create a sync
+that uses just a regular S expression writer
+on the host and port that it tells me to.
+So, the final piece to our game server here is the simulator.
+A simulator is just a process with a forever loop
+in the middle that tries to delay
+and call itself as often as you tell it to.
+I can run simulations far faster than 10 hertz
+on a low end computer,
+and it works fine.
+Anyway, what you're doing.
+So, somewhere in this update world,
+there's a bunch of numbers being crunched, like I said before.
+This is a great place for a matrix,
+but I don't even know what to do that quickly.
+And inside the update world at the end,
+when all of the new values have been computed,
+where all of the characters in the game are standing,
+and potentially how their velocities have changed,
+I want to broadcast that to each UDP,
+and at a UDP sync endpoint.
+And just send it out a list,
+basically an association list,
+a list of the current state of the world.
+So, here it is all together.
+You can see I've omitted just a couple dots here.
+Those are mainly just number crunching and setting up
+some of these simple data ranches.
+There's some hashes at the top.
+I have the world, which is the thing I want to broadcast.
+And that's really all there is to it.
+I've actually got game servers like this running.
+You build any of them at home for fun.
+And it works pretty well with simple front-end like you're doing.
+So, to summarize,
+Neuron is a compositional framework for creating
+data flow network programming languages.
+And I'm careful to add the word network programming in there
+to distinguish that from data flow programming,
+which I believe is something quite different.
+And the purpose of the project is to make
+network software development easy and fun.
+Hopefully I've demonstrated that to you.
+But if you're wondering what happened to Nick,
+it has some bad news.
+Nick got so frustrated his beard fell off,
+and he gave up.
+He got discouraged because he couldn't figure out
+how to solve the computing problem,
+which was not his primary problem.
+Eventually he moved on because he lost access
+to his supercomputer and graduated.
+So, I think this is really unfortunate.
+And I think that the reason that Neuron exists
+is so that people like Nick can talk to people like us
+and figure out how to explore the space
+of high-level network applications
+so that people who are most likely to understand
+how to best use this technology
+don't need to spend a whole lot of time
+learning things that are tangential to their passions
+just to get basic things done.
+Thank you.
+Thank you.
+So, you mentioned a little less than I gave you
+data for computer sequencing,
+what level of processing is it?
+Level of processing?
+Yeah, yeah.
+So, the raw data is actually going to be
+more like 200 gigs.
+And then it can be making mutation calls
+or something like that,
+but the actual mutation calls are much, much smaller than that.
+So, sort of wondering,
+maybe it's the...
+Tell us more about your data.
+Yeah.
+First of all, it's not my data.
+The kind of point of the story is that
+people like me spend a lot of time making tools
+don't know anything about bioinformatics.
+And so, we need to get together and have a conversation.
+Let's begin.
+Any other questions for Eric?
+I agree.
+Well, let's thank Eric.
+Alright.
+So,
+I've had a great day listening to all these
+awesome talks.
+Let's talk a little bit about what will happen in the future.
+Okay.
+So, as I mentioned, next to why,
+we have the entire Racket Week.
+I want to tell you a little bit more about that.
+So, the first part, the How To Design Languages,
+is this five days since the class.
+We'll talk about a lot of the implementation techniques
+and tools that are available in Racket.
+This will be instructed by the TIS,
+by Robbie, by me, by Sam,
+sort of the main core people that you hear about.
+And it sort of corresponds, yeah,
+Matthew, of course.
+And it corresponds to the,
+what we did previously at the Racket Science School,
+so it's a three-gaming entrance,
+the How To Design Languages portion of Racket Week.
+Next, Matthew Butter will be teaching a two-day class,
+going through beautiful Rackets.
+Three days.
+Sorry, yes, three days.
+Yeah, sorry, three days.
+I can't read properly.
+Three days on a beautiful Racket.
+So, if you're familiar with the book,
+it'll be a nice, gentle introduction to that.
+It's sort of designed for people that have
+much less experience with Racket,
+as opposed to having languages
+which take people who already know
+quite a bit about how to do programming
+and teaches one of the tools that are available in Racket.
+Then finally, of course, we'll have RacketCon
+at the end of that.
+So, if you go to either How To Design Languages
+or a beautiful Racket, your sentence at RacketCon
+is complimentary, or you can just go to RacketCon.
+We'll be sending out some mailing about this
+on the mailing list, and we'll be on the website.
+Feel free to ask people tonight or tomorrow
+any details about this that you're curious about.
+All right, let me tell you a little bit
+about what the plan is for tomorrow.
+So, in the beginning, we'll have a keynote-style presentation
+from Matthew who will give us a recap on the state
+of what's going on in the Racket development process
+right now.
+And then after that, we'll have the office hours,
+and then we'll be on lunch at Megaode Ryan's.
+Let me tell you about the office hours.
+So, there's two phases of it.
+Basically, we have little workshops
+run by individual experts in the Racket world
+to either give you a tutorial on some topic
+or lead a bunch of contributors
+and they're working on some tasks.
+So, for example, like Jesse will be talking about,
+so I'm going to develop the work,
+so they'll be teaching about how to build WebAPIs
+and then helping people choose WebAPIs
+and starting with them now.
+So, both the tutorial and then building some useful work.
+Ryan will be talking about macro questions
+and actually Ryan would like to ask you all
+a little bit about what you may be interested in
+from the outside right now.
+Yeah, so I don't have a specific set of things
+that I think that everyone needs to learn.
+So, if you want to know more about something in particular,
+if you can find me and tell me what you're interested in,
+I can try to prepare something
+or otherwise just show up and we'll improvise.
+And if it's not totally clear,
+these teams of workshops will have them in parallel.
+So, basically, like, we'll be in different portions of the room
+with little presentations right on at the same time.
+And then, David, we'll be talking about how to implement
+the dependent types.
+Do you want to say a little bit more about that?
+Yeah, so essentially I had a workshop
+prepared for something else later on anyway,
+so if you're glad to do it.
+And so I'll give you a quick walkthrough
+of a couple of techniques that people use a lot
+when implementing dependent type languages.
+In particular, something called bidirectional type checking,
+which is a nice way to construct type systems
+that scales up to lots of fancy features
+like dependent types or subtyping or other things like that.
+And then, also, a technique called normalization by evaluation,
+which is how you sort of...
+one of the ways that you can compare
+to see if two types are the same
+in the presence of dynamic programs.
+So it'll be much more intensive,
+let's say, than what we had today,
+so there'll be longer term.
+So basically there's time for three teams of workshops
+in there, and each one will be basically
+like an hour and a half sitting together.
+So that's what the plans were, Julia, right?
+Where and what kind of setting?
+Sure, yeah, so we'll be in the
+Jefferson and Nicaraguan rooms.
+And I believe that we've asked them to set up
+round tables.
+So basically, it won't be like this.
+There'll be a bunch of round tables,
+and there'll be basically one table per team
+slash workshop.
+And, yeah.
+Yes.
+Where is the opening talk?
+Yeah, so the opening talk will be in the same space.
+And the workshops?
+Yeah, that's the workshops.
+Yeah, and there is a big projector there.
+And I believe that we do plan on live streaming it.
+Okay, we're so far...
+We're not promising anything, but it's easy with Will.
+That's how we do it.
+Wait, I'm sorry, we're so far not planning on doing anything.
+I'll show up.
+Okay.
+Now, finally, the thing that's happening next
+is that at seven o'clock,
+at the Morgan Street Brewery,
+we're having a social event, so there'll be, you know,
+like, hors d'oeuvres and drinks,
+and jingling, and talking, and that kind of thing.
+The Morgan Street Brewery, the address is up there.
+If you've got it in the train,
+it's about a 15-minute train ride right over here,
+and we're right at the train station,
+so it's quite fast to get over there.
+If you were to walk, you'd easily walk there
+and about 30 minutes.
+If you take the train, it's the left stop on this side
+of the bridge, so...
+So, that's it for today.
+Thanks everyone for coming. Let's thank all of our speakers.
+APPLAUSE
+APPLAUSE
+APPLAUSE
+So, I will see you all at Morgan Street Brewery
+and tomorrow morning.
+Good luck.
+THEY CONFER
+THEY CONFER
+THEY CONFER
+THEY CONFER
+THEY CONFER
+THEY CONFER

@@ -1,0 +1,811 @@
+When the organizers asked me to give a talk in this seminar,
+I told them that I have no new results or maybe no old results
+even in number theory.
+And I can talk about some general topics
+in my field of interest in complexity theory.
+And they said that it would be great or good.
+So I'll talk about randomness, which
+is one of my favorite topics.
+I want to talk about this randomness.
+It's something that I guess mankind was always interested in.
+And it's a topic you can talk to almost everyone on the street
+about lack and chance and unpredictability and informally.
+But you can, you know, mathematicians
+studied randomness in variety of forms in probability
+and statistics and so on.
+And then physicists are extremely curious about randomness
+and the meaning of randomness and a lot
+of scientific interest in randomness.
+So it's a very, very broad topic.
+And people have sometimes very strong opinions
+about randomness and its meaning and so on.
+So what I want to tell you about today
+is this computational complexity point of view of randomness.
+And of course, this is a very general, high-level,
+non-technical talk.
+It will be a lot of things you'll see you would have known.
+Or what is the, I would like to stress
+is a new conceptual element.
+So there'll be lots of examples.
+And I'll tell you when something new is coming of importance.
+OK, so now it's OK.
+The plan is, first of all, I'm going
+to talk only about discrete events.
+For number theory, this is usually OK.
+So what's perfect randomness for me?
+The perfect random event will be a coin toss, something
+that has probability of heads and tails equal to half.
+And if there are many of them, they are independent.
+So I'll just show this slide.
+Which of these two sequences of 20 letters is more probable?
+I know the answer.
+They're equally probable.
+So that is what we would call the uniform distribution
+or the distribution with full entropy.
+This would be like an ideal model of randomness,
+perfect randomness.
+And for the first 15 minutes or so,
+I'll just go through examples of different applications,
+you can call them, or ways in which randomness is used,
+places it is used.
+And the main thing in the back of our mind
+should be, can we really do that?
+In what do we do if we don't have perfect independence?
+Can any of them be done without it?
+And in order to understand this, we'll
+move to define pseudo-randomness, which roughly speaking,
+is just a, you can think of collectively
+deterministic structures that share some properties
+with random ones, some properties.
+And we'll talk about different such properties.
+And that will help us understand that.
+We'll see many examples.
+And then I will go back to the basic question of what
+can we do in a world in which there is no perfect randomness?
+Maybe there is weak randomness or no randomness,
+and we'll roughly discuss the meaning of this,
+all pretty informal.
+Of course, underlying these main messages
+are formal theorems that prove them,
+that you can quiz me about that.
+OK, so let me start with the utility of randomness.
+And as I said, the back of our mind,
+you'll see this icon in every slide.
+You can ask yourself, or maybe you have asked yourself,
+where are the random bits for this coming from?
+And we'll discuss that later.
+OK, so the most basic example that everybody
+gives to the power of randomness is just sampling.
+You want to know what will be the fraction of people
+who will vote red in a particular country.
+You just, even if it's huge, it's millions of people.
+If you sample 2,000 at random, but completely at random,
+a perfect subset of 2,000 at random,
+then you know that with probability at least 99%
+over this choice, the percentage of red votes
+in the sample and the red votes in the population
+will be within 2% of the actual percentage.
+And we know it's hugely powerful.
+First of all, we know that these numbers, 2 and 1%,
+don't depend on the size of the population.
+That's basically the law of large numbers.
+It's a very powerful way of using randomness.
+And of course, the main point is that if we didn't have
+randomness here, it's not clear how we would get even an estimate
+up to 2% without asking 98% of the population what they think.
+So that's a very, very strong demonstration.
+And I want to move to less obvious ones.
+Here's one.
+I give you this portion of the grid.
+And I ask you, in how many ways can you tile it with dominoes?
+You don't have to look at the colors here.
+Just in how many ways can you tile this region with dominoes?
+Can be this rectangular region.
+It could be any other region.
+And this is a basic question, a basic counting question.
+Of course, it doesn't come out of nowhere.
+I mean, it's picturesque, but it's also important.
+It's got a dimer problem in physics.
+And for diatomic molecules, it captures
+the thermodynamic properties of that matter.
+You can understand from it free energy, phase transitions,
+and stuff like that.
+So it's also an important problem.
+But the main problem is that there can be,
+even the region is small.
+It's 1,000 by 1,000.
+The number of such configurations can be used.
+And here's a very important result.
+From about 20 years ago, Jerome Ciclial Vigoda,
+they found a way to approximately count
+the number of dominoes tiling in any region.
+In fact, it's more general.
+It's the number of matchings in any graph.
+It doesn't have to be planar.
+The type of algorithm, I'm not going to describe algorithm,
+but the nature of it is, some people know,
+it's what's called the Monte Carlo method.
+The number of matchings can be exponential
+in the size of the region, so the size of the graph.
+So you cannot just write it down or look at all of them.
+There's a sort of Markov chain analyzing this.
+And anyway, figuring out that this Markov chain
+converges quickly is highly non-trivial.
+And that gives a probabilistic algorithm for this problem,
+for approximately counting the number.
+We know that counting exactly the number
+is a difficult problem, and I will not go into this.
+So this approximation problem can be done fast probabilistically.
+But the best deterministic algorithm known
+requires exponential timing.
+We can do really better than just trying all possibilities
+and adding them up.
+So I want to stress that this is the best known deterministic
+algorithm.
+There may be faster ones that we haven't discovered yet,
+and actually we'll see at the end that maybe there
+is the faster one.
+OK, so there are many, many such examples,
+and this is really the key application
+that I want to eventually discuss.
+What can we do of randomness, namely,
+to probabilistic algorithm, understanding
+the power of randomness in computation?
+Many examples, many of them, they are all over mathematics
+in every field of mathematics.
+In number theory, the problem of finding large primes,
+just give me a 1,000-digit prime.
+We don't know any deterministic way to do that.
+We can certify primality quickly by now,
+but we don't know how to just find a large number, which
+is prime deterministically.
+Factoring multivariate polynomials over finite fields,
+it's another example approximating
+the volume of convex sets in high dimensions,
+computing large free eco-efficient of multivariate
+functions that are given by a program, say, that circuit.
+In all of these things, in all these cases,
+and there are many more examples, there
+are fast probabilistic algorithms.
+In many cases, they are highly nontrivial.
+And on the other hand, the best known deterministic
+algorithm for each of them requires exponential time.
+So we'd like to know whether there are deterministic ones
+or not.
+Sorry, Avi, can I ask?
+For finding a large prime, why don't you just start?
+If you want to find a prime above n, you start at n,
+and then you use, we know the prime is in P.
+So you check if n is a prime, then check of n plus 1
+is a prime, and by the prime number theorem,
+it should take you log n steps before you find one.
+If you believe the prime, no, no, it will not take you log n.
+I mean, the best we know is root n,
+or something like that.
+We don't know that there is a prime.
+You need cramming.
+Prime number theorem does not guarantee
+that every interval of log n is a prime.
+The gaps between the primes.
+OK, so that part of it is still probabilistic,
+even if I can check the numbers.
+Yeah, yeah.
+We don't know.
+I mean, any advance on any of these questions
+would be extremely interesting.
+Yeah, I mean, just think.
+I mean, there was a large project in this,
+I forgot what the last one.
+Polymath.
+Sorry?
+Polymath.
+Yeah, Polymath, the project that Tim Giles and Terry Tao
+organized some 10 years ago just focused
+on this particular problem, finding large primes.
+And yeah, this was one of the Polymath's failures.
+I mean, I think it was really interesting what went on there.
+But anyway, yeah.
+But it's good to just stress that when
+you say n, log n, we mean like 1,000 digits.
+So our number, we start with 1 and then
+has some 1,000 digits after it, and it's prime.
+Find one deterministically.
+Yeah.
+I'll just interrupt for a second.
+I mean, in practice, you can find large primes very quickly
+because we know that you don't have to go very far
+to find a prime.
+It's the quick thing.
+There's no privacy.
+I want the theorem.
+I want the theorem.
+Yeah.
+You'll be just as along Alex's side.
+Yeah, there are lots of heuristics for lots of problems.
+And, you know, but yeah, anyway, these are just examples.
+It's just a no surprise that you are interested in this one.
+But, you know, I think it's a good challenge for numbers here.
+It's a really interesting one.
+Of course, we have an algorithm that is deterministic,
+that is conjectured, too, to work very rapidly,
+but we cannot prove that.
+Yeah, but this is the only question.
+I want something provable.
+I want the theorem.
+So in all these cases, you know, the probabilistic algorithm
+will guarantee to find with the anti-unprobability
+of prime, and it will certify that.
+And we want to do it without randomness.
+Can we do it?
+And let's stop the discussion of this.
+Sorry, I make progress.
+But yeah, it's a great problem, this particular one.
+OK, good.
+So these are examples of probabilistic algorithms.
+I want to give you examples of just some other things
+where randomness is used of a different nature, several one,
+several such examples.
+This is computation.
+Randomness can make not just an exponential improvement
+in time, but an infinite one in that they
+can make some problems that are provably impossible,
+become possible with randomness.
+These are two picturesque examples
+of fundamental problems in distributed computing.
+One is the dining philosophers problem.
+The second is the Byzantine generals problem.
+As you can tell, these guys know how to pick names
+for their problems.
+So in both cases, I will not explain this.
+It's a bit beside the main course of the lecture,
+but I want to stress that these are fundamental problems
+in distributed computation, in asynchronous distributed
+computation.
+One is about consensus, and one is about coordination.
+And theorems that there is no deterministic solution,
+whatever that means, I didn't define it.
+But if the actors in this distributed system
+have randomness, then it's possible to solve them.
+And in fact, this randomness, these algorithms are used.
+So here, the gap can be arbitrary
+between randomness and determinism.
+And that's provable.
+So we will not talk about applications here,
+but another demonstration.
+Here's another one that goes even beyond the randomness
+to do things.
+It also helps to define things.
+In game theory, which is supposed
+to model rational behavior, we try
+to understand in strategic situations
+what would actors, players, agents do.
+Here's a very simple example from a game of Auman
+called the chicken game, which is often done in game theory
+represented by a matrix of payoffs for two players.
+In this, you can imagine that this game represents
+two sort of macho drivers driving towards each other
+on a narrow road.
+And they can either, each of them
+can either sway to the side or continue to drive,
+and like being cautious or aggressive.
+And the payoffs to each of them are written here,
+where you can see in the bottom right
+that if they are both aggressive,
+let me know no one deviates.
+They both basically die.
+But anyway, you ask what would players do in such a situation?
+What would be a rational behavior?
+And as I'm sure most of you know,
+there is a key concept that John Nash defines,
+the Nash equilibrium.
+You want a strategy for each pair of strategies,
+such that given the other one, you would not change yours.
+So it's kind of a stability requirement
+on a solution concept.
+And it's a very natural one to choose.
+And of course, Nash didn't get the Nobel Prize just
+for the definition, he also had a theorem,
+is that every game, every strategic game of this nature,
+no matter how many players, no matter how many strategies,
+there is always such a solution.
+This solution concept is universal, it always exists.
+What is interesting and important for us
+is that, again, as many of you know,
+this depends on the ability of players to toss coins.
+So the strategies they will choose,
+the strategies that exist, are mixed strategies,
+namely the random strategies.
+In this particular game, there's a unique such equilibrium.
+With these numbers, it happens to me
+to be cautious with probability three-quarters
+and aggressive with probability one-quarter.
+If you know that the other driver behaves like this,
+you will stay with your choice.
+Anyway, the main point here is that if you require
+or you don't allow them randomness,
+if they are deterministic, there's no equilibrium.
+So here's another place, so there are several points here.
+This is something that exists with randomness
+and does not exist without randomness.
+Another is that you can ask yourself, here it's really important.
+I mean, are people in life in economic situations
+picking strategies like this?
+And are they using randomness and so on?
+Anyway, but that's just another example.
+Example closer to computer science
+and to life of everybody is cryptography,
+where randomness is basically, you know,
+you can't live home without it.
+Everything depends on it.
+The very definition of a secret needs randomness.
+I mean, if you, you know, Shannon already pointed out
+that the formalized using is the notion of entropy and so on.
+A secret is basically as good as the entropy in it.
+I mean, if you pick your 90s password randomly,
+then my chances of guessing it is exactly one in 10 to the 9.
+If, on the other hand, you pick it
+as the phone number of one of your friends,
+then I probably have a better chance of guessing it.
+It will have much less sense of it.
+But then, of course, randomness is absolutely essential
+to any notion we define in cryptography, basically
+everything, and also there.
+And this is something that's practically used all the time.
+You can ask yourself what randomness is used there
+and is it perfect as the definitions,
+all assume perfect randomness like the public scargoite,
+all assume perfect randomness.
+Where is it coming from?
+Yeah, randomness is used in lots of other places, of course.
+And also there, you may want the random bits coming
+from in the casinos and so on.
+So that's about the set of examples I wanted to talk about.
+And it's clear that randomness is an essential part
+of lots of our lives.
+So now I want to ask the question we asked before.
+Where are these random bits coming from?
+Let's say in particular applications that we have seen.
+And I don't know about you, but when
+I don't know the answer to a question, I ask Google.
+I'm sure you do many times.
+So you feed Google through random bits.
+What do you get?
+Well, 10 years ago, when this slide is formed,
+I got 4 million answers.
+Probably today there will be 400 million answers.
+But you start at the answer more or less is basically,
+you buy them.
+You want good random bits, you buy them.
+At least there are lots of companies
+that will sell you random bits.
+And then you can ask yourself, well,
+where do they take their random bits from?
+And OK, well, you can read what they say.
+I mean, some take it from various physical phenomena,
+which is interesting because they seem somewhat unpredictable.
+Some take them from other physical phenomena, which
+are maybe more unpredictable, like quantum behavior.
+If you wonder about casinos, at least some years ago,
+they were all using this chip of this company.
+And you can wonder whether it works or not.
+I mean, whether what they are doing
+does generate random bits or random in what sense.
+Anyway, we would like to understand this question.
+What is randomness?
+In fact, what is randomness to any particular purpose
+that randomness is good?
+And so now I really want to come to a central definition.
+And yeah, this time to the next slide
+is maybe the most important slide of the talk.
+We are trying to define or understand
+how to define the randomness.
+So it's taken from a fundamental paper of Blam and Michali
+from the early 80s.
+And here I invite Alina to unmute herself and join me.
+It's OK, Alina.
+Alina, are you there?
+Yes, I'm here.
+All right, yes.
+Enthusiastic, as I can see.
+OK, so yeah, I'm going to sort of do
+an experiment.
+We are trying to understand.
+We said that the post-typical random event
+is a coin toss, half tails, half heads.
+So suppose I'm holding a coin, and I'm
+going to toss it in the air.
+I'll toss a coin.
+And you should guess just as it leaves my finger.
+So maybe we assume we are in the same room, let's say.
+As in the picture, you are watching me.
+And maybe it spends two seconds in the air,
+and you should guess just as it leaves my finger
+whether it will be heads on tails when it lands on the floor.
+OK, what do you think the probability
+that you'll predict it correctly will be?
+Good.
+I told you not to worry.
+Good, OK, so I agree, and I think most people
+will give this answer.
+OK, let me ask you another question.
+Suppose you're holding a laptop.
+In fact, I know you have a laptop that you are watching.
+You can use it.
+So as I currently leave my finger,
+you can do whatever you want.
+What do you think is the probability
+that you will predict it correctly?
+Still, huh?
+OK, we are in agreement.
+And again, I think everybody will have the same view.
+OK, so now let's change it again.
+And suppose I give you any number of video cameras that
+are trained on my fingers, and they
+are all connected to a great computer and a supercomputer,
+and it is connected to your laptop.
+And they are all ready to go just as I toss the coin.
+What do you think will be the chances
+that you predict the outcome correctly?
+Well, depends how well positioned.
+It is as powerful as you want.
+It is as powerful as you want.
+I guess closer to one, right?
+Yeah, wow.
+The right person.
+Thank you.
+Yeah, so what's the point about this?
+Again, I think that you can imagine
+that with sufficient machinery, one
+can calculate the angular momentum of the coin
+and the air pressure and the humidity in the air
+and the distance to the flow with perfect accuracy.
+So that's almost surely you'll get the right answer
+certainly in far less than two seconds.
+OK, so what is the point of this?
+There's a major point here which deviates
+from all previous views of randomness.
+I want to stress that the experiment,
+me tossing the coin, the random event,
+suppose the random event, the event,
+anyway, we are using, didn't change.
+My behavior didn't change here.
+I'm tossing the coin, I'm the random generator.
+I didn't change at all, right?
+This is the point.
+So what is happening is we are seeing a property of randomness
+that distinguishes between different observers
+of the random phenomena, right?
+Depends, you know, randomness somehow,
+I mean, the ability to predict how much entropy
+is in the coin depends on the, maybe not the eye of the beholder,
+but the computational power of the beholder, OK?
+So this is very different than, you know, basically
+every prior point of view till the 80s.
+It's an objective definition.
+Sorry, so it's unlike the previous objective definition
+of randomness.
+This is a subjective one.
+It depends on the observer and it's operative, you know,
+so we look at what the observer would say
+or what's the probability that the observer will say something
+about what they see.
+OK, so we are going to take now this, you know, point of view
+and going to study pseudorandomness or notions,
+various notions of pseudorandomness
+because they too will depend on observers or on properties
+of events that are being looked at.
+So I'm switching now to the second part.
+And if there's an important question or somebody in the chat
+that Philip saw that is, you know, I need to answer now,
+I'm happy to.
+So I just repeat the message is that we are now considering
+randomness as a property of the observer.
+How much randomness, how much entropy,
+or what is what is what we call random depends on observers
+or on properties of what we are seeing.
+OK, so let me just start giving examples.
+So now I'm moving to the second part
+and this about pseudorandomness.
+And this slide is a bit abstract
+and then there will be many examples.
+So don't worry if this is a bit abstract.
+But anyway, it should be appealing still.
+We are looking now at deterministic structure.
+So imagine that the universe of objects,
+these objects can be, you know, of any type.
+There can be numbers, graphs, sequences, tables, works,
+and quotes, and so on.
+Lots of possibilities, but discrete ones.
+And in it, we want to understand
+what is the random-like behavior or a typical behavior.
+And it will, I'll call it a property.
+And its property will be just a subset of this universe.
+And the definition will be really simple.
+A pseudorandom property is any large property, any property,
+any subset that occupies most of the universe.
+So think of a hay in a, you know,
+in a haystack.
+So a property that's held by most elements of the universe.
+Equivalently, it's like the hay in a haystack.
+Or, you know, another way to think about it
+is if you pick a random element from you,
+it satisfies this property.
+So this, I will call it for the, you know,
+this example that will follow.
+This will be for me a pseudorandom property.
+I want to stress that both math and CS
+have lots of questions about pseudorandomness.
+And we'll see them.
+The typical task, such question in mathematics
+is whether a particular object has a pseudorandom property,
+which is defined.
+So we study, you know, this random-like properties
+of natural objects.
+This x0 may be natural.
+We'll see examples.
+In computer science, it's a different angle.
+Mostly, we look, you know, we want an algorithm
+to find any element of this, with this property.
+So basically, we are looking for finding objects
+that have random-like properties.
+We know that most of them are like that.
+So it's like sort of searching for hay in a haystack.
+And, you know, as we'll see, I mean,
+this is not an easy task, despite, you know,
+the popular culture.
+We are not looking for needles.
+We are looking for hay.
+OK, so let's see examples.
+And, you know, you'll get familiar to my terminology here.
+First, I want to say just why, you know,
+yeah, the popular culture does say
+that we should easily find hay in a haystack.
+Why is this not true in the problems
+we are really interested in?
+First of all, that, you know, we are talking about huge objects.
+And typically, we see very, very tiny parts of them.
+So we may see closer to us maybe needles.
+And we also often tend to search, you know,
+using the tools we have, but they may not be sufficient.
+I just want to give two sort of popular examples.
+You know, we may look at this and say, oh,
+this is green everywhere, even though we know most of it is red,
+but we have to cut it first.
+And another example is I like a lot is this issue of exoplanets.
+I mean, for up to about 30 years ago, 25 years ago,
+I think people had no evidence that other stars,
+which are, of course, suns in the universe have any planets.
+There was no way to see them.
+You need the particular new techniques.
+So you could have predicted that, you know,
+no suns have planets except maybe ours, but it's not true.
+OK, so sometimes we don't, these are huge objects
+and we may not have the right tools.
+So let's see, you know, a more mathematical example.
+Let me start with codes, because most people are familiar with them.
+Of course, codes are extremely, air-correcting codes
+are extremely important to, you know, lots of things we use in our daily lives.
+And embedded in all of the storage and communication devices
+are good air-correcting codes.
+They have, you know, large rates and distance, if you want.
+There's a formal definition of what a good code,
+what the properties of a good code is.
+But, you know, let's fix some such notion.
+The basically is that Shannon, you know, opened the door for this amazing theory,
+coding theory was the first of all, the observation that a random code is a good code.
+Almost all codes are good codes.
+I'm not defining formally the space and so on,
+but some of you know and some of you can imagine.
+But regardless, a random code is a good code.
+And the first thing I want to take from this is to, you know,
+instill in you that, you know, my notation.
+This, that means that good codes is a being a good code is a pseudorandom property.
+Why? Because it's, you know, almost every code is good.
+OK, that's one point.
+And then what do you want to do?
+If you want to put it in various devices, you need to be also useful.
+You want to be able to describe it, decode and code it, decode it and so on.
+And this is a hard problem.
+I mean, that it took, you know, some 20 years
+and we are still looking for other, you know, even better ones.
+But to find explicit codes, you know, efficiently usable codes, this is a hard problem.
+So this is an example of problem of finding an element of a pseudorandom property.
+Here's a very different element, a very different example.
+I'm sure you are all familiar with this number.
+So here is a, you know, a property that you would like.
+Maybe this random to satisfy or is believed to be a property of pi.
+If you look at the number of occurrences of the digit 7 in the expansion of pi,
+it looks like it appears about one-tenth of the time.
+If you look at any pair of digits, let's say 5, 4.654 occurs one-hundredths of the time.
+If you look at any triple, one-thousandths of the time, et cetera.
+So let's demand that.
+Let's say we are looking at real numbers, maybe between 0 and 1.
+And we want all these properties.
+It's a countable number of properties.
+We want them to hold about this real number.
+And moreover, we want them to hold not only in base 10, but in base 7, in base 15, in base million, and 1, and so on.
+Still a countable number of properties.
+And what do we know about this?
+These are called normal numbers.
+The number satisfying all these properties are called normal.
+And basically an observation that just because they're only countable in many conditions,
+that the random real number, let's say between 0 and 1 is normal, with high probability, except with probability 0.
+So again, this means that normality is a pseudo-random property.
+It is held by almost every number in the universe we picked.
+And mathematicians study this question.
+For example, particular natural elements, like pi, like root 2, or e, or whatever, are normal.
+And I should stress, these problems are still open.
+Maybe some of you are working on them.
+I don't know.
+Anyway, so there are open problems that are naturally formulated in this language of randomness.
+Give me an object that looks like a random object, here in the pseudo-random property is normality.
+So this may be not a central example in mathematics, but I want to say that problems that can be expressed in exactly this form
+is a natural object, pseudo-random, are absolutely fundamental in both math and computer science.
+And I want to give you another example, which you particularly will know in a number of theories.
+But in general, there are major problems that concern or can be phrased at questions about pseudo-randomness.
+And usually, if I have a room, I'm talking to and can see people like us, young ones, what are major problems?
+How do you know that the problem is major?
+Well, one answer is that there's a lot of bounty money offered for it.
+So here's one set of such problems, the clay millennium problems.
+And one is gone, there's still other ways to make a million dollars.
+What I want to say is that at least two of these problems are really naturally expressed as questions about pseudo-randomness,
+our main problem, computer science, and maybe your main problem, the Riemann hypothesis.
+I will not spend much time about this.
+First one, give a sample, but say briefly, why is it a pseudo-randomness question?
+Well, what's the pseudo-random property?
+Being hard to compute is a pseudo-random property.
+Random functions are hard to compute.
+And we ask whether a particular function, let's say the traveling settlement problem or solving
+systems of quadratic equations over finite fields, your favorite,
+whether a particular problem, natural problem, is also hard to compute.
+That's basically the Piva's NP question.
+So it's a question about pseudo-randomness, whether a natural element has a pseudo-random property.
+And I want to talk about the second one, I'll elaborate on this, I don't need to read it,
+but again, we'll see a pseudo-random property and many of you, of course, will know this result.
+So let's express the Riemann hypothesis as a pseudo-random property of something.
+And if something will be, you know, the universe will be a collection of walks.
+So here's a canonical description of the drunkard walk.
+You think that there is a pub in location zero in this street, if you want, and somebody walks into it.
+And after a few beers come out and start walking up and down the street, maybe a bit drunk.
+So takes each step up with probability half and down with probability half.
+And then you can, you know, just run an experiment, just toss random coins and see
+where the person gets to after 100 steps.
+And even if you didn't know math, you would observe immediately that something weird happened,
+that despite the fact that the person took, you know, 100 steps, he or she would be only about 10 paces away from the pub.
+So something happens, which we know.
+And of course, it's an exercise to prove that after 10 steps, almost surely it was very high probability,
+the distance from the origin will be about 10 steps.
+So it's an exercise, of course.
+And more important for me, it says something we see as pseudorandom property here, right?
+So the property of a walk staying close to the origin, about root n from the origin,
+is a pseudorandom property, because almost every walk has this property.
+OK, good.
+So now let's talk about the particular walk, which you all like.
+The Mabuse walk, you know.
+So here's the definition, you know, for an integer p of x, you know, the number of distinct prime divisors.
+And we just define mu of x, a Mabuse function.
+It will be 0 if the x is a square divisor.
+And otherwise, you know, it's obviously the minus one hidden.
+So it's minus one if it's odd.
+I wonder if I can fix this so that it will be visible.
+Here is the minus.
+OK, sorry about that.
+OK, anyway, that's a Mabuse function.
+And Mabuse function can think of it as described in your walk.
+I mean, it just tells you for every time step, first step, second step, third step, what to do,
+whether to go up the street or down the street.
+And let's suppose we allow also that sometimes you stay where you are.
+So I'm changing a bit the definition of a walk, but that doesn't matter much.
+And now what are we wondering about is this particular walk is just a description of a walk like before,
+but only it's deterministic, not random.
+And we ask whether it has its pseudo-random property.
+Does it stay close to the origin?
+And as probably most of you in this audience know, that's basically the Riemann hypothesis, right?
+If for every and this work state around the origin, then the Riemann hypothesis is true and vice versa.
+So it's another formulation, a very convenient formulation,
+the one that you can tell your family and friends about without zeta functions about what the Riemann hypothesis really is.
+So, but anyway, very conveniently stated as the pseudo-random is a question about a particular pseudo-random property.
+Okay, so these are basically the examples we see one more soon, but I want to get now to the point I was talking about in the beginning.
+How does this point of view, what did it lead us to understand about applications of randomness,
+especially to probabilistic algorithms and some major results, both technically and conceptually understanding some fundamental tools about the power and limitation of randomness, at least in computational settings.
+Okay, and actually quite beyond, but I will probably not have time to talk about this.
+Okay, so let me summarize this on one slide and I'll elaborate a bit on one.
+So the three possible worlds I want to consider are the following.
+One is the world in which we have perfect randomness in which we could do everything we want.
+It just guaranteed a stream of unbiased independent quantos.
+The second world is a world that was maybe alluded to by some of the companies that use physical devices or physical phenomena to create random bits, also the random bits.
+This is a world where we have some unpredictable phenomena, you can think of sunspots or stock market behavior or radioactive decay or quantum phenomena, your favorite.
+In each of them, we feel there's some entropy, we feel there's some unpredictability if we want to know, you know, of course, they are not independent events, if you want to know whether tomorrow it's probably a good guess to say that it will be like today, so they are correlated.
+And they are not, they are sometimes biased and so on, of course we can manipulate them and try to use them then in one of these applications.
+Anyway, this is a world in which there's some entropy in the sequence we see, but it's not necessarily independent unbiased, you know, uniform distribution.
+And the third world is, you know, the world is deterministic, there is no randomness at all, it's all in our imagination, everything's predictable, what can we do then, we can just, everything's deterministic.
+So, you know, we saw these applications in case we have perfect randomness this question what survives.
+Otherwise, and are in the next two boxes are really major this major understanding so in the first standard that all probabilistic algorithms can be made to function as they did, even in the presence of very weak randomness.
+This is the subject of what is called extractor theory, randomness extraction, long long sequence of works, and it is all about purifying randomness, taking, you know, weak random sources sources that are biased and dependent, and somehow extracting audience or extracting
+Anyway, their entropy in pure form, they may make to look maybe shorter sequences but they look like they were perfectly random. So that's one, you know, one theory one major result sequence of results.
+And one is what happens if the world is deterministic. And in this case, we just don't know how to move an inch without an assumption, but it's okay the assumption is something that we live with it and believe.
+I don't assume I put it in quotes because I don't want to formally define it.
+Well, you can ask me but, but something like P is different than MP.
+You can satisfy yourself at least in that the whole electronic commerce world you live in assumes far less than that right it's assumed that factoring or discrete logarithm or some other computational problem in MP is difficult.
+It's exponentially difficult.
+That's the nature of the assumption that we need. Okay, so we assume something like there exists a house function. That's what we assume. And now, under this assumption, again, you know we don't need randomness.
+The first algorithms for which for every practical purposes are all algorithms fast I mean those we can run in our lifetimes for all efficient algorithms that are probabilistic can be replaced.
+Say, every fast probabilistic algorithms has a deterministic counterpart.
+Another algorithm which is deterministic does exactly the same thing has no error.
+And it's not much slower than the original.
+This is a consequence of another theory which, you know, but sort of the paradigm underlying it underlying it is the hardness versus randomness paradigm and you can use house function to generate good enough randomness deterministically.
+The consequence of work several decades spent and the consequences this understanding.
+So in other words, it seems like, you know, randomness for the purpose of algorithms is far weaker than may have been suspected initially with their, you know, their power or the seeming success in the absence of deterministic algorithms for lots of problems we want to solve.
+Okay.
+I want to say something about this you are doing with time.
+Just give a hint. Okay, good.
+I started the seven minutes late so that's good.
+Take five more minutes of your time.
+I want to tell you something about this structural theory and randomness to your vacation.
+And, you know, we saw that perfect randomness has lots of applications.
+And supposedly the reality we have, you know, this is a sort of weak random sources is biased dependent sources.
+And I want to assume for this, you know, this is only part of the story.
+I want to assume that the, the, there are several of them, and they are independent of each other so let's say we have three or five or 10 such phenomena that we can tap.
+They're all weak, you know, they all contain maybe an NB sequence will contain on the N over 100 bits of entropy or maybe square or 10 of bits of entropy.
+But, but I have several of them. So I want to assume that, you know, sunspots don't affect stock market behavior.
+Some people believe that it does actually but let's assume it's not so I have several sources.
+And the question is, if I have such a, you know, collection of outputs of such phenomena.
+Transform it into maybe a shorter sequence of something that looks, you know, exactly or almost exactly statistically exactly like the uniform distribution.
+That's a subject of example theory and I want to give you a hint into one result that, you know, uses a pseudorandom property.
+Two parts of the topic.
+So I want to talk about one more through the random property.
+It's a property of tables of matrices of numbers. Okay, so think of a random and by a matrix with entries in them think you're working more than or elements between one.
+Okay, and what, when do I call, you know, what's the property I'm after the property is that if I look at any submatrix small submatrix.
+Okay.
+Then I see lots of numbers. So let's quantify this.
+Yeah, this is certainly the, you know, what you will see in, you know, in such random examples.
+Every small window, which is a summates the summates this I mean in general a subset of roles crosses subset of column.
+I would say, you know, if I pick a K by K window, the K rows and K columns and I look at this K squared entries. I see significantly more than K distinct entries, I mean, you would expect actually it will be close to K squared if case small enough, and K is small enough case maybe
+and to the point one. So in a random table, you know, surely you'll have this property for every window I want to stress I want for every window.
+So, you know, this property is say it's an easy theorem counting argument to prove that a random matrix will have this problem.
+And here's a question of the same nature, can such matrices be constructed that is either, you know, just give me a matrix of numbers.
+And then makes it well of course the family of matrices so that every K by K window has at least K to the 1.1 distinct and say,
+Okay, I mean the, you should, I mean, we mathematicians have lots of examples for the matrices we like that look random in various ways but I mean, let's start from, you know, every case could give you a matrix right I mean.
+In grader can give you the addition table. So here's a here's the matrix. Let's say we wrap more than the numbers I didn't do it here but we have the numbers more than.
+Is it good is this to go on in this sense, does every small window have few entries, well of course not I mean, we've seen in in if we look along and arithmetic progression in rows and columns we will see just a linear number
+of distinct entries so it's only bad.
+Okay, well we can go to third grade and think about the multiplication table.
+And we can ask whether this is good and of course the answer is no for the same reason if we look at the rest of the time it doesn't show it but if you look at the geometric progression.
+If you look at the geometric progression.
+Long rows and columns again you'll see only a linear number of entries.
+And this somehow reminds me of a lesson that von Neumann was saying or attributed to for my mother, anyone who considers a medical method to produce random digits is of course in a state of sin.
+Anybody who knows the history knows that von Neumann ignored his own advice and of course use to the random generators based on medical means.
+And, in fact, you should do it in this case too and what I'm going to say is the result that probably many of you are familiar with is that while each of these tables each of these matrices the addition one the multiplication one is bad.
+Their combination is good.
+Starting with other similarly in the case of integers and then we'll get passed out in the final field case, let's say more, more than more p.
+If you look at the prime, then every window will be good in one of these tables. So, if you look at the union of numbers you see in the, you know, in the window above and window below, there'll be plenty of entries as much as many of you as you need.
+So, what does it mean in terms of so first of all, we found, you know, by cheating a bit by taking two tables, we found elements that have this to the random property which are explicit in fact they are very simple and easy to compute.
+And this is this was used in one of the early solutions to the this problem of extractor randomness.
+Basically, some and products are independent. That's the message from this very important theorem and mixing them increases entropy. So one way to view this extractor
+is that if you have three such sources.
+You can add the first two and multiply by the third, you know, they think of them as integers more p, the entropy, total entropy will have increased the entropy rate will have increased and therefore you can repeat it several times and approach.
+So that's the perfect randomness. So that's one example of an extractor using this particular pseudo random property of tables of matrices.
+Okay, so let me summarize.
+We have seen some important messages.
+I want to go back to this really important point that you know randomness is in the eye of the beholder or the computational power of the beholder this is a subjective definition and this very important point of view that leads to this understanding it's also pragmatic in the
+sense that you can study the use of the of randomness or the intended use of randomness and maybe by understanding it, you can, you know, remove the use of randomness in it.
+And the, the impact of this kind of point of view is that you can remove randomness from probabilistic algorithms, even in situations where you have very weak random sources, or even assuming hardness in a world which is just purely deterministic.
+And here that because you are familiar with this example, but may not be familiar with the, you know, the, how related it is to the lecture so you all know that there is a deterministic polynomial time algorithm to certify prior to determine whether the number and integer is prime or not.
+You also probably know that there are lots of probabilistic algorithms for this before the deterministic one was known and of course the question of doing this sufficiently is extremely old, Gauss talks about it quite explicitly.
+Paul Granville has a beautiful survey in which he sites in the beginning this except from Gauss's discussion on this arithmetic arithmetic, where he basically calls to the community basically says it's a disgrace we don't yet have an efficient algorithm for either primality or factoring.
+Anyway, the way what was, I think less people know is that the way the deterministic algorithm was obtained by Agarwal Kayal, Agarwal Kayal and Saxena was the following they've designed a new probabilistic algorithm for primality testing.
+And then, in fact, this was earlier work of Agarwal and, and others to that.
+The work was, Agarwal Kayal and Saxena is a de-randomization of this algorithm is a way of understanding the way the algorithm uses randomness and constructing a specific pseudorandom generator which fools it and therefore makes it deterministic.
+Okay, so anyway, there are many other probabilistic algorithms for which we know it only under some assumptions like P differently.
+The next pseudorandomness so what was used is the general very high level definition of pseudorandomness, which connects basically like in the example of primality connects the property, the pseudorandom property with the application in mind, maybe the algorithm you want to the
+The study of pseudorandomness captures many basic problems and areas both in math and in computer science.
+I could have talked another hour on you know structure versus randomness paradigm which is very much part of pseudorandomness study.
+And you know capture things like some of this name I think was given by Tao gave surveys of examples like this and you know many like some of the regularity lemma.
+So it's used in the high mass progressions in the primes it's used in boosting in machine learning and it's used basically the other applications of it in in analysis and PDEs and you know that's definitely in in number theory.
+And, yeah, so it's, it's, it stems from a very, you know, pseudorandomness like approach to a very wide array of problems.
+And the last thing is that pseudorandom objects that you you build for particular purposes in particular, you know, extractor for extractor theory or expand the grass for various codes or something.
+Turn out to actually there were initially designed for full tolerant circuits.
+Or that's at least what pins car has in mind as an application.
+They find many, many, many more applications than they used to there they somehow fundamental turn out many of them are fundamental.
+Other context and you know, you know, the thing you must have heard of his high dimensional expander, another example of a pseudorandom objects of mysterious nature that we are trying to understand.
+And, yeah, there are many more. So let me end with this. Thank you.

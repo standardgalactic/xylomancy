@@ -1,0 +1,162 @@
+Last week, I think it was maybe the week before, Apple had one of their usual press conferences
+and they announced their latest, possibly last, version of the M1 chip, which was the M1 Ultra.
+And one of the things that they said as they launched it was that they designed it using two
+M1 Max chips, basically stuck together using something called Ultra Fusion to join them together.
+Now, Ultra Fusion is just a marketing buzzword, and literally all they've got is a
+high-speed interconnect between the two. Silicon dies to transfer data between them. But one of the
+things that they said, which was interesting, is that the reason they'd done this was so that you
+didn't have to write the software in a different way. And I thought it was interesting just to
+pick up on that and to explain why, if they hadn't made that interconnect fast enough,
+you would have to write the software in a different way. Because if you think about it,
+all they seem to be doing is adding more cores to the CPU, making it a 20-core CPU instead of
+a 10-core CPU. And you think, well, if it's a multiprocessor system, and if you've watched the
+videos we've done previously on multiprocessor systems, you're going to have to write the software
+to split the tasks up over the multiple cores to run. So why are you not going to have to write
+things differently with this architecture of chip? So I thought we'd have a look at that today.
+So to understand what Apple's done, we need to go back to basics and think about how a computer
+actually works. And we'll go with the von Neumann model. I know technically most modern CPUs are
+modified Harvard architecture, but the von Neumann model is good for what we want to look at. We have,
+at the center of our system, the CPU, whatever we want. And that is then connected to some memory.
+And I'm just going to write RAM here so it fits into the box. Of course, some of it
+would be ROM and other things. And then the other thing that we have in there
+is we have the IO and things. And that's basically the model we use for a computer. We've got the
+CPU talking to the RAM, where the instructions and data are stored, and it can talk to the IO to
+talk to the rest of the world. So that's things like your disk controllers, whether solid state,
+hard disk, your graphics card, your network card. Now, what happens when we have a multiprocessor
+system? The general way that we build multiprocessor systems, certainly the ones that we use in laptops,
+we use in desktop computers, is using what's called a shared memory model. So just as before,
+with the von Neumann architecture, we're going to have a single block of RAM. And that's going to be
+connected not to one CPU now, but we'll give it two CPUs. So we've got two CPUs that it's connected
+to. So it's connected to a shared bus between them. And then each of those CPUs are connected to it.
+Now, effectively, that's how you build a multiprocessor system. There's a bit more
+involved. For example, you need some sort of logic here for bus arbitration. So we'll call that the
+ball, the bus arbitration logic. So you need something to sort of control. Well, which CPU can
+talk to the RAM at any one point? Now, one thing I need to say here is that I've drawn this as the
+CPU talking directly to the RAM. If you think about it, if you watch the video I did many years ago on
+CPU caches, you need to have a cache here because otherwise, only one CPU can ever talk to RAM at
+the same time. If there's no cache, this CPU tries to talk to RAM, this one can't. If this CPU tries
+to talk to RAM, that one can't at the same time. It would effectively result in serializing the
+operation so you wouldn't get any speed up. You need a cache in there. And that sort of leads us
+to the first part of the problem. Only one CPU can access the RAM at any one point. Now, if we've
+got a cache in our system, and I'm going to draw that as a red line, which sits between the CPU
+and between the RAM, that's not a problem because as a CPU accesses data, it stores a local copy
+in its cache. So when it needs to try and fetch that data or those instructions again,
+it can fetch them from the cache and not access the RAM. So that's absolutely fine. Most of the time,
+we want to get it so that the CPUs are satisfying their data and instruction fetches
+from the cache and then only occasionally they go to the RAM. So that actually whenever one of the
+CPU goes to the RAM needs to go to the main memory to fetch a value, then effectively it's unlikely
+to be being used by the other. Occasionally you'll get the situation where they both try and access
+a value in main memory at the same time, at which point that's why you have the bus arbitration
+logic to say this CPU is going to fetch the value, then that CPU is going to fetch the value.
+So we can build a shared memory multiprocessor system like that. I'm going to say relatively
+straightforwardly, there's a lot involved, but that's the basic idea of what's going on. And we
+can extend that to have more CPUs. So we can just add another CPU in up here. So we could have a three
+CPU system. Normally you'd probably go up to four and things, but I've run out of paper. It's got
+its cache as well. And you could extend that for as many CPUs as you like, except there was a slight
+issue. We said that there are occasions where one CPU might be trying to access the memory at the
+same time as another CPU. Hopefully we can build the cache system. We can load more data than we
+need each time we fetch things. And so we can build an intelligent memory system that can
+satisfy this so that the probability of that happening is relatively low. But if we think
+about it, if we add more and more CPUs onto the same shared memory bus, then we're going to end up
+with more chance of a collision happening of two CPUs trying to access memory at the same time.
+And the caches on each CPU mitigate that to some effect so that they reduce the probability
+of two things trying to access at a time. But a bit like the old birthday problem, you know,
+the sort of question you ask, if you've got a class of school children, what is the probability
+that two of them share a birthday in there? Turns out it's quite likely once you get about 20 or so
+children in the class, the same thing applies here. As you increase more CPUs, the chance that
+two of them will try and access memory at the same time increases as you add more CPUs. And so this
+will scale, but it'll only scale up to a point. Once you get past a certain number of CPUs,
+you will find that you're back to the point where actually it's more likely than not that two of
+them will be trying to access memory at the same time. So we can scale this up to a certain number
+of CPUs. So does that form a limit? Is there a limit on how many CPUs we can have working together
+in the multiprocessor system? Well, not as such because there's another way we can design a
+multiprocessor system. So this is what's known as a uniform memory access system. And the reason
+it's known is that for any location in RAM, any of these CPUs can access it with the same sort of
+speed. It doesn't matter whether it's coming from CPU 1 up here or CPU 3 down here, it'll take the
+same amount of time for them to access the value in that memory location. Different memory locations
+may have different speeds. Your ROM might be slower than the RAM. You may have things mapped in there
+which are slower still and so on. But for any particular memory location, each CPU can access
+it in the same time or within the same nanosecond ballpark so it makes no difference in reality.
+As we said, that will scale up to a certain number of CPUs. But if we want to take it to
+beyond that, then we need to change that system. We need to build a system that no longer has
+uniform memory access. Rather than from a memory location, each CPU being able to access it at
+the same speed, for each memory location, the speed it takes to access it or how long it takes for it
+to access the data value there depends on which CPU core is trying to access it. So it might be that
+for one CPU core, it takes, I don't know, let's say 100 nanoseconds just picking a time off the
+top of my head. But for another CPU core, it takes 200 nanoseconds. They're just ballpark times and
+not all the magnitudes are just sort of showing there's a difference between the two. Okay,
+let's have a look at how we build a system like that. So what we're talking about is what's referred
+to as a non-uniform memory access system. So a non-uniform memory access system or NUMER for
+short. So how does that differ? Well, let's think about it. It starts off in the same way. We have
+a block of RAM. I'm going to turn the diagram around. RAM like that. And that is connected
+to our CPUs just as before. I'm missing out the caches and the arbitration logic from this diagram
+just for simplicity. So this looks relatively similar to what we had before. We've got a
+some RAM and some CPU cores sharing access to it. No difference there. With a NUMER system though,
+we also have some other RAM that's part of our system connected to a different set of CPU cores
+over here. Now, at this point, you've got effectively two computer systems. These CPUs can
+access this RAM. These CPUs can access this RAM. The difference in the NUMER system is that there
+is actually a link between the two systems here. And you've got a distributed shared memory system.
+Think of it like a sort of network, but it's often done at the CPU level and things even within on
+some between cores. Now, what this means is as far as the program's running, there is one block of
+memory. So this is if this was 16 gig and this was 16 gig, the programs would see 32 gigabytes.
+They're not separate blocks of memory. They're seen by the programs as one block of memory.
+But the difference is is if we've got a program running on this CPU over here,
+it's got direct access to this block of memory here. So let's say it takes, I don't know,
+it takes 100 nanoseconds again to access memory. So we've got 100 nanoseconds to access memory.
+If he wants to access memory in here, it will take 100 nanoseconds to access that memory value.
+But if the data it's trying to access is over in this memory over here,
+a CPU over here could access it in 100 nanoseconds. But for this CPU over here,
+it's got to go over this distributed shared memory connection from this set of RAM and this set of
+CPUs to this set of RAM and this set of CPU cores over here. And that would take a significant amount
+of time. I mean, it would take 100 nanoseconds over here to get from here to here. So to get
+from here to here plus this, let's say this is 200 nanoseconds, I'm just making a number up
+over here. It's a longer amount of time. I'm making these numbers off of the top of my head,
+so I don't take them as any sort of things other than so it's longer to go from here over here.
+So we'd have to go over here across the distributed shared memory link to get the value
+and then we could bring the value back. So rather than taking 100 nanoseconds,
+it would take in the order of 300 nanoseconds. It would take a significantly longer amount of time.
+So if we build a computer system like this, we have the situation where depending where an
+instruction is in memory or where data is in memory, it could either access it very,
+very quickly on this CPU core if it can go directly to the RAM that it's directly connected to,
+or it would end up taking a long time, this relatively, to access it because it would have
+to go over the shared link and fetch it from the other block of RAM over there. It would still appear
+to be the same memory system, but we've now got the situation where the access to it depends
+on which CPU is trying to access it. So we have what's called a non-uniform memory access system.
+Now originally non-uniform memory access systems were the sort of domain of high-end cluster system
+and sort of SGI type workstations and things, but these days you've actually seen it drop down
+onto sort of workstation type machines. Some of the AMD Threadripper, some of the higher-end
+Intel processors are all numer-based systems. And what this means is if you want to run that
+CPU at the fastest possible speed, you need to write your software to take into account
+which CPUs have fast access to which bits of RAM so that you can put the data that those CPUs
+are processing and you can put the instructions that they're running in that block of memory
+and have the CPU instructions and the data that's being executed on these CPUs in this
+block of memory over here so that they can all access it very, very quickly and you only have a
+very small amount of data which is needed to synchronize things and keep things working,
+passing over the shared memory network. Now you can do it and it works great, but you have to
+write your software knowing where things are and in fact if you look you can find papers and
+presentations from companies like Netflix where they're really trying to optimize the performance
+of their service to serve the videos to you. I'm sure YouTube's doing the same as well,
+but Netflix have actually written about it, really optimized the speed of serving the videos to you
+so they actually have to take into all this account so that the network card is connected to one
+CPU, gets that data and doesn't have to go and pass it over the shared memory link to another
+one which then passes it over to another one to fetch the data from a hard disk and so on and
+feed it back to you and you get everything's passing over the slow link all the time, you really
+have to take into account where things are. Which brings us back to Apple's marketing buzzword of
+M1 Ultra Fusion. What have Apple done with M1 Ultra Fusion? Well effectively they have built
+a system like this, they've taken two M1 Max chips and glued them together so you've got
+two 10 core M1 Max chips each accessing their own blocks of memory or two blocks each which is why
+you can get up to 128 gig on there because you double the amount of CPU cores, you can double the
+amount of memory that they can access and what they've built in the middle the thing they call
+Ultra Fusion is just a very very fast distributed shared memory link between the two and I think
+what they've actually done is they've just made it so fast that actually the time it takes to go
+across from one CPU core to the other to get the value from the RAM and push it back into the CPU
+is so quick the latency is so low that effectively it behaves as if it was a uniform memory access
+system, it's fast enough that when the CPU requests the data it gets it before it actually needs it
+in which point it doesn't slow it down. So it's a nice system because it means as a programmer
+we don't have to worry about where the data is in relation to the CPU cores, which one's attached
+to which core and things to make things run as fast as possible, we can just write our programs
+and let the operating system and the design of the hardware sort out the hard problems of executing
+it as fast as possible. All chunks and do them all at the same time so one way for example to make
+sandwiches faster is that you butter the bread faster, you put the filling in faster, you put
+the bread faster the other person. It's also got an analysis of where I went wrong says Fred Brooks,
+why did he make his name with that and what was it all about?

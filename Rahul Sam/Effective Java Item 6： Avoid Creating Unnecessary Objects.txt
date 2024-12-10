@@ -1,0 +1,383 @@
+Hey everyone, welcome to yet another episode of my video series on Joshua Block's Effective Java,
+where I cover and expound on the items that he has emulated in this book.
+And of course, what I've been trying to do in the previous videos or episodes is to flesh out
+and try and make sense of what he's talking about in the different items in this book.
+And hopefully, as I try to make sense of them, the purpose of me
+sharing this publicly and uploading these videos is that you too can gain some value from it.
+That's one, I would say that that's a primary purpose. But the other is of course that there's
+that sublime effect where by me trying to teach someone a concept that I really fundamentally
+don't still properly grok or understand, paradoxically, I understand it better. So
+yep, it is sublime indeed, and it works well.
+Saying all that without further ado, let's get started. So as per usual, I'm going to repeat the
+introduction that I've sort of repeated in all the other episodes. I just feel like I need to do
+that kind of due diligence as a sort of ethical duty, let's say. So if you do want to skip it,
+of course, please go ahead because I'm just repeating the same old points. I don't want to waste
+your time. This is not a tutorial. That is the first caveat in this proviso. This is not a tutorial.
+I am not a teacher and I certainly am non expert. In fact, a point that I've been repeating at
+Norseum is that the more I've understood Java and the concepts he's outlined in this book,
+Java and OP in general, I'm realizing how much of an expert I'm not. So that's really interesting
+and very humbling indeed. And I don't mean that in a false modest sense. I mean, that's sincerely
+an analogy or yeah, probably an analogy I'd like to use to explain what I'm trying to do here is
+the blind, living the blind. I am as naive or perhaps even more blind and ignorant and naive
+and oblivious. All of those things as much as you are. And yeah, even probably even more.
+So this is not not a tutorial. I'm not trying to teach you anything. So whatever I say,
+please do take it with a grain of salt. This is a exploratory exposition. Another analogy I've
+been using is what one would see in a university tutorial where we've got a tutor, a bunch of
+students trying to make sense of and understand a problem statement or some programming principle,
+which is why unequivocally I will inevitably make mistakes. So please point them out,
+not just for my sake, but even for anyone that's watching these videos. If I do make a very fundamental
+crucial mistake, I'll try my best to rectify by leaving a comment myself. But if you do pick it
+up, I shall pin those comments just so that I don't mislead anyone with any
+fake news to use a politically overloaded term. And of course, as this is a programming video
+series, all the code that I've been using for this effective Java series is available on my
+GitHub. I've got a separate repository for each item. And as I go through these, all the code will
+be published here. Anyway, now that we've got the proviso out of the way, let's get started with
+item number six, where Joshua Block states, avoid creating unnecessary objects. And this is quite
+an interesting one because I certainly am guilty of doing this, of making these mistakes.
+So it's valuable and worth our time, I think, as Java or generally OOP programmers to understand
+why, you know, just sort of creating objects at a hawk without putting any thought into it
+is a bad idea and perhaps even an anti-pattern. Of course, this we're still in chapter two
+in creating and destroying objects. So before we get to any of the content in the book,
+I kind of want to get some fundamentals, real OOP basics out of the way. Look, if you don't know
+what objects are, this video series really probably is a bit above your level. I'd say go and watch
+some basic OOP fundamental videos on YouTube, just watch like a basic tutorial. But the definition
+we all hear of an object is that it is an instance of the class. And the class is what acts as a
+blueprint as to how it defines how an object behaves when it is instantiated. But something
+a bit more formal is the definition by the Oracle docs. And he goes like this, software objects are
+conceptually similar to real world objects. That is true, something I truly admire and appreciate
+about object oriented programming. I think it's brilliant that they've created that connection.
+In fact, sorry to go off on a tangent here. If you do start following some of the design
+patterns a bit more seriously, so for instance, the 23 patterns popularized by the Gang of Four,
+you'd see a lot of those patterns to have many deep connections to engineering patterns in the
+world. That's, let's say, not the conventional, sorry, the conventional world, which doesn't
+pertain to software engineering, but sort of the, let's say civil engineering or some other
+kinds of engineering. Anyway, sorry, sorry, I'm going off on a tangent. Back to the definition.
+Software objects are conceptually similar to real world objects. They too consist of state and
+related behavior. And objects totes, so it's state in fields, which are variables in some languages
+and exposes its behavior through methods, of course, and we shall see a few examples of that
+in this item, which are called functions in some languages. Methods operate on an object's internal
+state and serves as the primary mechanism for object to object communication. Hiding internal
+state and requiring all interaction to be performed through an object's methods is known as data
+encapsulation, a fundamental principle of OOP or object-oriented programming. So once again,
+if you don't know what encapsulation is, what inheritance is, those really fundamental ideas
+in OOP, I think this video is a bit above your level. Yeah, so that probably should be caveat
+for this item in particular. Okay, so now let's try to understand from a JVM and memory management
+perspective. Well, more from a JVM perspective, we're not going to go too deeply into memory
+management. How these objects exist, at least apropos the Java virtual machine. Now, again,
+you would know what the JVM is. JVM is what allows to execute Java code on any machine,
+which is what makes Java quite popular, because it can work on any operating system,
+for instance. So we have the cold stack, of course. Here's where we make calls or we give
+instructions to call different objects and whatnot, different methods, sorry. And the JVM
+primarily divides the memory into two spaces or two domains. Now, of course, oops, I had the
+microphone. Now, of course, it's okay. So firstly, it's the stack memory and the heap space. Now,
+of course, these two high level demarcations are also further divided into, let's say subdomains.
+So the heap space, for instance, would have the dynamic meta space, which holds static content,
+and we'll get to that too. So the stack memory is used for static memory allocation. That's
+correct. What static memory allocation sort of means for all intents and purposes is that
+an object created statically, let's say, once it's in memory, it will remain in that state
+throughout the application lifecycle. Whereas dynamic objects change state, they can change,
+and they don't live in the stack memory. So also the stack memory, again, pretending to the JVM
+and Java holds primitive values. So values like int or char, these types live in the static memory.
+And of course, as I said before, well, I don't think I did say that before. Anyway,
+there are references to dynamic objects that live in the heap space. Now, look, all these
+definitions are fine for starters, but the best way to make sense of it is, of course, to an example.
+So if we take person here, in the person method, this int value that you're passing,
+that would live, because it's a primitive type, and it's a primitive variable, that would live
+in the stack memory. Also, I apologize if I did say static memory before. I should have said stack
+memory. And then string, which is a class, and it's a class, it can create an instance of that class.
+What would live in the stack memory in that case wouldn't be the object itself, but rather a memory
+address or a reference to the actual object which lives in the heap space, in the string pool in
+this instance. And that's dynamic. Its state can change, unlike some of the static types.
+So, yeah, as I've written down here, there's a few notes I took just to make sure that I
+stay on track. It's used for dynamic memory allocation of Java objects and GRE classes at
+runtime. So that means when applications running, its state can change. Also, new objects, which
+sometimes seem to be short lived, live in the heap space. I shouldn't just say it outright,
+tends to be short lived. There are some long lived objects. And here's where, you know,
+the different algorithms in garbage collection. That garbage collection is essentially memory
+management. Here's where different algorithms play a role and allocate objects into, you know,
+like, for example, the permanent space. I think it used to be called the nursery,
+different parts of the heap space. I'm not going to go into that. This video is going to be way
+too long if you're getting to memory management and Java. But the point is, these objects are
+dynamic. And the references for them are stored again in stack memory.
+And on that note, of course, now that you understood sort of how objects exist at a very,
+very high level pertaining against Java and JVM, let's get to the item. And the item essentially
+is telling us how to reuse objects and why, in fact, it's better to reuse objects than creating
+new ones. And how doing so will make the code cleaner, more stylish, more professional, if
+you could use that term. And even as we shall see with some examples, make the code run faster.
+And that definitely is a benefit. So the book starts off with a rather ridiculous example as
+what not to do. So as Joshua Block has pointed out, he has left a comment saying an extreme
+example of what not to do. I've never seen this done by any programmer, to be honest. But
+this certainly isn't something one has to do where when we already have this string,
+we create another instance by using a new keyword. This is sort of how most of us do it. So the
+proper way, the improved version, he calls it, but let's just say it's a proper way.
+Here's what Joshua Block states. The statement creates a new string instance each time it is
+executed. And none of those objects, object creations is necessary because the bikini
+can live here. And then it could just point to that, all the references. One object can exist in
+the keep space. But if you have this new keyword, every single time it's invoked, a new object is
+created. And that is a completely inefficient and ridiculous waste of space and time.
+The argument to, sorry, I'll show, let's go down, the argument to the string constructor bikini
+is itself a string instance that is correct. Functionally identical to all of the objects
+created by the constructor. If this usage occurs in a loop or in a frequent frequently invoked
+method, millions of string instances can be created needlessly. So here's an example
+of what he definitely shouldn't do. And just like the Bible, we're going to go from the
+Old Testament where God says what he shouldn't do. And in our case, the Java code, Joshua Block,
+tells us, don't do this. That shall not do this. To the New Testament, what you should do and what
+you should consider when writing code as to how these techniques can allow us to reuse objects.
+It's interesting how I just converted this into a theology session.
+Hmm. So the first way one could easily reuse objects is something we already covered
+in item one is in fact, using static factory methods. I should say as Joshua Block stays
+here, in fact, I'll just read it out. You can often avoid creating unnecessary objects by using
+static factory methods in preference to constructors on immutable classes that provide both.
+So the example here would be the Boolean class where value off is a static method.
+And that is indeed preferred over using the constructor. And I think since Java 9,
+yes, just say here, this has been deprecated. We can't even use this constructor because it's
+been made private. So the static factory method doesn't require a creation of objects every
+time it's invoked because static members are common to all instances of a class. And again,
+the way I think about it, oh, I guess this is exactly the way one should think about it is
+it belongs to the class. Therefore, all the instances of that class will share this static
+member. So that member itself can be shared amongst all objects whenever that class is
+instantiated. And as I did mention a bit before, static variables live in something called the
+dynamic meta space within heap memory. And also an ancillary point, he also adds, in addition
+to reusing immutable objects, you can also reuse immutable objects if you know they won't be modified.
+So for reusing objects, they don't have to all be declared final and static and make for them to
+be mutable. Rather, even if we know a certain object is mutable, but still it won't change,
+we could reuse that using static factory methods. So there could be some operations where it's much
+more computationally expensive to keep invoking a certain function. And here's the example
+Joshua Bloch has used. So before I do get to the example, probably I'll just go through his
+justification. He says some object creations are much more expensive than others. That's right.
+If you're going to need such an expensive object repeatedly, it may be advisable to cache it for
+reuse. Unfortunately, it's not always obvious when you're creating such an object. That is true.
+However, here we have a solid example where this could be computationally expensive. And that is
+using regular expressions. So this is a very, very simple class. What it does? Well, the class
+has these static methods. Practically, it should only have one method called is numeral. But just
+for demonstrative purposes, we have is numeral slow and is numeral fast. And we shall see why we
+have those two methods in a bit. So firstly, the slow method, what it does? Okay, so let me take
+a step back. What this method does is it returns a true or false. And what that true or false tells
+us is if a string we pass on to this fulfills a certain regular expression. And what that regular
+expression is looking for really is if the string we pass on to is a Roman numeral.
+And here though, this is the slow way. What happens here is every single time we invoke this method
+and we pass the string, the string class invokes the matches method, which uses a finite state
+machine, which we shall get into what that is a finite state machine to do the matching.
+And that is computationally expensive. So every single time a pattern instance has to be created
+here. A pattern instance is really that won't change. But we know that. Why would we not reuse it?
+But every single time the method is invoked, we're creating this finite state machine instance.
+And then after it's done, it has to be garbage collected and the JVM has to take care of it.
+So that is computationally expensive. So this is a slow way. But what he does propose instead
+is to cash it. So we have the regular expression instance, we call it Roman here, and we use
+this compile method in the pattern class. And we explicitly compile it into an immutable pattern
+instance, which we still hear and we call it Roman, as I said, and then we just reuse that
+in the esnemeral fast method. Simple as that. And to put it more succinctly, he states,
+while string dot matches is the easiest way to check if a string matches a regular expression,
+which is what we've sort of done here. It's not suitable for repeated use in performance
+critical situations. He continues, creating a pattern instance is expensive, because it
+requires compiling the regular expression, as I said, into a finite state machine. So let's get
+a quick understanding of what a finite state machine encompasses because it pertains to the
+topic. This definition I found from brilliant.org by Calais Moore and Deshan Gupta is a system where
+particular inputs cause particular changes in state can be represented using a finite state
+machine or using finite state machines. And this is a really good example I found. It was a 10 minute
+video by Valhalla data systems and the book here, he not only explains quite simply with brevity
+what a finite state machine is, but also afterwards shows a solid implementation in Java code.
+So I'll leave a link to that video down below in the description. It's well worth the watch,
+but this is one snapshot of the video. And here's what happens. So when we pass a string, which is
+really an array of characters in Java, it'll take each character and start going through the FSM.
+I'm just going to call it FSM because it's finite state machine is a mouthful. So it's going to
+start off with state zero. And if it's an at sign, it'll go to one. Oh, by the way, this
+pattern it's looking for is simply for an at sign or a hashtag. So this has nothing to do with
+the reg X given here, because this is for checking if it's a Roman numeral, but this is a different
+example, just so you don't get confused. So all it's looking for is if the string contains an
+at sign or a hashtag. So it starts, as I said, with state zero, if it contains an at sign goes to
+state one, if it's a number between or an integer to use proper terminology between zero and nine,
+it'll go to state two. If it's a hashtag, it'll go to state three. And it sort of loops. It'll
+remain in that state because so if it's an at sign, it'll go back to state one. So for all
+the intents and purposes, this state represents at signs, this state represents the hashtags,
+and this represents integers. That's really what a FSM is. But for our problem, we don't want this
+computation happening every single time this method is invoked, which is why we create one
+instance and we store that object with its state in a constant. This is our constants are declared
+in Java. So let's look at the time differences. Now firstly, I'll invoke the slow method. If I run
+this program, you'll see that's how long it takes. Let me zoom in a bit there. So this is
+milliseconds, isn't it? This is always a nanoseconds. Man, I'm not even sure. I think this is a
+nanoseconds. I looked it up. But in fact, both my options were wrong. It's actually microseconds.
+There you go. That's my ignorance. So it takes around 115 microseconds
+for this function to run. And now if we do change it to fast, now keep in mind what the
+fast does. What this method does is that it doesn't invoke the matches method in,
+well, sorry, it doesn't work the matches method, but it doesn't compile a new pattern every
+single time because we just use the cached Roman instance here. So if we run that, it'll be much
+faster. There you go. Half the time, 60 milliseconds, 12 milliseconds for the next computation.
+And Joshua Block states in his machine, it was for a eight character input string,
+it was 6.5 times faster, which is why he says the improved version of his numeral
+provides significant performance gains if invoked frequently. Then it continues. And that's a
+really good point. He sort of touched on this in item number one, where you could in fact give
+static methods or even static values a name. It's more clearer. It's more, it's quite clear that
+this pattern is a Roman pattern, a Roman numeral pattern. So not only is the performance improved,
+but arguably, so is clarity, the clarity because we know what the pattern we're using here.
+Making a static final feel for the otherwise invisible pattern instance allows us to give
+it a name. It's more explicit and clear, which is far more readable than the regular expression
+itself. And then he makes a bit of an ancillary point just to clarify about lazy loading because
+now, as I said, when we do it this way, when we declare it in a private static final field
+and cache that object, this belongs to this class. So it can be reused. All the objects of this
+class, all the instances of this class will reuse this. But what if we never use this object?
+It's just going to be created for no reason at all. And it's going to exist in the heap space.
+Sorry. Yeah, in the dynamic meta space in the heap. And here, you know, he says, oh, look,
+we could probably lazy load. However, perhaps it's not required. We don't have to over complicate things
+for optimization as don't commute. And I think it was apocryphally attributed to him.
+Premature optimization is the root of all evil. And he continues, not only is the performance
+improved. Oh, sorry, I already read that part. If the class containing the improved version
+of the is numeral method is initialized, but the method is never invoked. So what if this
+is numeral fast method is never used? And this just exists there.
+The field Roman will be initialized needlessly. It would be possible to eliminate the initial
+initialization by lazily initializing the field. The first time the is numeral method is invoked,
+but this is not recommended. As is often the case with lazy initial initialization.
+Why can't I read the word? Those two words together, lazy initialization,
+it would complicate the implementation with no measurable performance improvement. So
+it's not required. It's fine to create an object, even though it may potentially not be used,
+especially with how fast JVM, the JVM and processes out these days. And with that,
+we move to a bit of an interesting problem here. What about less obvious situations for
+object reusability? I'd say this one seemed quite straightforward. Well, I don't know if it was at
+least for me, but when I saw the code, trust your book is written, it came together. I was like,
+Oh, that makes complete sense. But if I'm being honest, I probably would have done it this way
+and made the mistake of invoking this pattern instance every single time. So it's probably
+not so obvious for inexperienced programmers like myself. But nevertheless, keeping aside the self
+fragilation, what about when it's less obvious? So he says when an object is immutable, like the
+Roman object here, it is obvious that it can be reused safely. But there are other situations
+where it is far less obvious, even counterintuitive. Now, the example that Joshua Block has used for
+that is adapters. Adapters simply are an object which backs other objects by allowing two incompatible
+objects to communicate together. It's used a lot in the adapter pattern. And even though Joshua Block
+doesn't talk about the adapter pattern here, it's I think it's worth going through a few
+definitions as to what the adapter pattern does. But of course, I'll leave some good articles down
+in the description. There's a good one by Vile Dung, where he goes through a few examples as to how
+the adapter pattern is used and how adapters these objects are used. So the first definition is by
+refactoring Guru. Adapter is a structural design pattern which allows incompatible objects to
+collaborate. The adapter acts as a wrapper between two objects. It catches calls for one object and
+transforms them to format and interface recognizable by the second object. On the
+adapter pattern, I would recommend that you grab the book if you want to get a good understanding
+of the adapter pattern. This book, Head for Design Patterns, goes quite deeply into the
+adapter pattern with some really good examples. So I'll leave a link to this book down below in
+the description too. And I'm hoping to cover some parts of this book at least after I'm done with
+this, which is probably going to be next year. So the next definition that I found for the adapter
+pattern is an adapter pattern acts as a connector between two incompatible interfaces that otherwise
+cannot be connected directly. It could be due to type mismatch, whatnot. An adapter wraps an existing
+class with a new interface so that it becomes compatible with the client's interface. The main
+motive behind using this pattern is to convert an existing interface into another interface that the
+client expects. It's usually implemented once the application is assigned. So one example as to how
+an adapter is used. And even though I read some definitions of the adapter pattern, I wouldn't
+say that the adapter pattern has been used here exactly or precisely, but it's worth looking to
+how the adapter pattern is used. And that is in the map interface. So of course the map interface
+contains a method called a key set. And our hash map, which is a concrete class, will implement it,
+which you see here. Now what I did do, so as a client, what I would do is I would create a
+hash map, I would add key value pairs. And what the key set does is it returns a bunch of objects,
+all the keys, which are functionally identical. So we can cache that value. The key set value we get
+can be cached. And that's exactly what we see here in the implementation of key set. So this
+method, which is what returns the key set, first checks if the key set is present. If this key set
+value is null, which why isn't it going there? Oh, that's interesting.
+I was clicking the wrong variable. Look, sorry, it's been a long day. If this key set variable,
+which is in the abstract map, if this isn't available, so if it isn't cached, then a new
+instance will be sent. If not, there's a requirement that same instance, same object can be reused.
+So here's what where we see that an object is being reused a good implementation in the JDK.
+So again, to print more formally as to how this example makes sense, theoretically, although
+the return set instance is typically mutable. So that's the set that's returned here.
+All of the return objects are functionally identical. When one of the return objects changes,
+so do all the others, because they're all backed by the same map instance. While it is largely
+harmless to create multiple instances of the key set view object, it is unnecessary and has no
+benefits. So some of the point is, because what this method returns is a set view, so of type set
+of the key set, while this key set, the values in the key set can change, it's functionally
+still the same. So the adapter, the outer layer, which it returns is still the same,
+and that's a set. So that's why it could be cached. Another example of reusing objects where it's
+less obvious is, of course, auto boxing. Now, what that does is, of course, it allows programmers to
+mix primitive and non primitive type. So primitive would be int, a non primitive type or a box type
+would be integer. While this auto boxing does give the object more flexibility and give it more
+functionality, it's not always a good idea to auto box because what auto box does is create
+a new object every time it's involved. So the example we've used or the example that Joshua
+Block has given is in this sum class where, in fact, I changed it to the proper way. So this
+is the bad way to do it, where we have used an auto box type, long. And in fact, the idea, look
+at that, it's even warning us to not to use this, but rather to use a primitive type. Now with this,
+if we do run this loop where it's running two to the power 31 times, an unnecessary number of
+objects of long instances are created in this loop. So if we do run it,
+it takes so long, look at how long it takes, it takes almost 3000 milliseconds and it keeps going.
+I'll just zoom into that. But simply by just not using an auto box type and rather using a
+primitive type, we save a lot of time because there's no object creation involved here.
+If you run it again, it's much slower. That's the advantage of using primitive types over
+auto box types. And again, one has to be careful. And the good thing is the way you saw IntelliJ is
+beautiful. You got to love it. The IDE will normally warn you, but you know, in good programming
+etiquette, one should be aware of that. And that's why he states the lesson is clear,
+prefer primitives. So this here is the proper way to do it using a primitive type.
+To box primitives. And that is a wrong way using a box primitive, which the IDE warns us against.
+And watch out for unintentional auto boxing. And then finally towards the end of the item,
+he does give some caveats and something I always appreciate about this book. Every single item
+has pros and cons. It's a well written work because it looks into both sides of the equation,
+let's say, and discusses the trade-offs. So the first caveat is that it's not the case that
+object creation should be avoided at all costs, especially with how fast the processors are and
+how optimized the JVM is. It's not that we should try our best to not create objects. Again,
+do the whole premature optimization thing. That's why he states this item should not be
+misconstrued to imply that object creation is expensive and should be avoided. On the contrary,
+the creation and reclamation of small objects whose constructors do little explicit work is cheap,
+especially on modern JVM implementations. Creating additional objects to enhance the clarity,
+simplicity, or power of a program is generally a good thing. And then we go to a classic example.
+The classic example of an object that does justify an object pool is a database connection, which is
+why, conversely, maintaining an object pool, in this case, would be a better idea unless the
+object is significantly heavy weight, like a database connection. So it depends on what the
+object we create as to whether it makes sense to optimize it and to reuse it or just simply
+create an object if it's lightweight, for instance. The cost of establishing the connection is
+sufficiently high that it makes sense to reuse these objects. This is something we see a lot
+with frameworks, for instance, a spring with dependency injection, something like a database
+connection could be injected into different components in the object pool or the object graph,
+in this case. Generally speaking, however, maintaining your own object pools clutters your code,
+increases memory footprint, and harms performance. So what it means by maintaining your own object
+pools really is what we saw here in the Roman numeral example. This is kind of like what an
+object pool is. We define all these objects in our class and let's say we have 20 of these,
+that can cloudy your code and make things a bit complicated and make the code unreadable or more
+difficult to read. So since modern JVM implementations have highly optimized garbage collectors
+that easily outperform such object pools on lightweight objects, it's not necessarily the
+case that why should always avoid object creation. And then we get to an interesting sort of
+conclusive point in this item and that's the idea of defensive copying.
+What defensive copying, the simplest way to think of defensive copying is that it's used
+to maintain immutability of an object. And before we take a look at the example which I have here
+for defensive copying, it's, when you get it, it's a rather simple concept, but it's used a lot
+across frameworks, for instance. Sorry, defensive copying, I'm not sure. I confused
+reflections with defensive copying. But regardless, it's a known concept in Java programming.
+So what defensive copying is, is where to maintain immutability, instead of passing back
+a reference to the object at hand, a reference to a new object is passed with the same values
+making it a copy for all intents and purposes. What that means is, you know what, without me
+trying to theorize more, let's look at the example here. So we have a class called full calendar here
+which, despite ostensibly looking immutable, is in fact mutable. And this example is courtesy
+of ABC study guide. The link to this blog post article is down below in the description. So
+as a client, when we use full calendar, what we're doing is we are passing this original date
+object of date type into the constructor. And the constructor assigns that to this private final
+date object, which we think is immutable. But what happens is, because we are passing this
+when the class is instantiated, so in line number 30, if, for instance, let's say this original
+date value changes, the value of standard date also changes because they're both pointing
+to the same location and memory. Therefore, even though we've declared this as private final,
+and we think it's immutable, it's in fact not. And here's where we can easily create a defensive
+copy. So the right way to do this would be, in fact, when the class is invoked, or when the
+class is instantiated and the constructor is invoked, we create a new date object. We get the
+value of it, so we create a copy of that, the date we pass here. And then using that value, we create,
+in fact, a new object and then pass, set that in standard date. That defensive copy ensures
+immutability of this class. And the same thing when we are returning it. When we are returning it,
+we want to return a new instance and not the one that was here, because that too could change.
+And that's why we're passing, we're not passing in this case, we're using the new keyword and
+creating a new date instance. So yeah, that's sort of my still, I'd say, high-level superficial
+understanding of defensive copying. But whenever I do think of it, I always connect it to maintaining
+immutability. But of course, I'll leave the code, this code, and also the article that I got this
+code from in the description so that you could look a bit more deeply. And to conclude, here's
+what Joshua Bloch says about defensive copying. The counterpoint to this item is item 50, which
+is on defensive copying. So this item is about avoiding creating unnecessary object. And here,
+you would think we're creating an unnecessary object where every single time a new object is
+created. So that's why he says it's a counterpoint. The present item says, don't create a new object
+when you should reuse an existing one. While item 50 says, don't reuse an existing object
+when you should create a new one, like in the example of defensive copying. Note that the penalty
+for reusing an object when defensive copying is called for is far greater than the penalty
+for needlessly creating a duplicate object. Failing to make defensive copies where required
+can lead to insidious bugs and security holds. Creating objects unnecessarily merely affects
+style and performance. And of course, we need to always, at least in my opinion, prioritize
+security over efficiency and performance, which is why it's a good sort of way to end this item
+with the caveat that this certainly doesn't mean that we should avoid creating objects
+at all costs. There are costs, a cost could be security, and that could be detrimental.
+And that's it. That is item number six on the avoiding of creating unnecessary objects.
+I hope you found that insightful. Please do tell me how I can improve
+in the way I communicate and articulate these concepts, but also as to how I
+demo and show the code. I would like to maybe even be a bit more slow and leave more comments,
+but perhaps the best thing to do is go and take a look at the code yourself. This video,
+think of it as only a prelude. Thank that. Thanks a lot for watching. I really appreciate it. I'll
+receive a few comments here and there on these videos, and it means a lot to me. It means a lot
+to me. And it's always nice to see that there are people, actual human beings watching these videos,
+and it's just not me rambling like a raccoon tail. Okay, enough rambling on the, okay, enough rambling
+on rambling. Ridiculous. Thanks for watching. Cheers. See you in the next one.

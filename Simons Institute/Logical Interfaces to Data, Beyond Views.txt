@@ -1,0 +1,795 @@
+There was one that your colleague helped me with earlier, it's now gone.
+No, no, that's right.
+Can you hear me?
+Most of you have heard about this notion of great thoughts time.
+We were discussing it at lunch.
+The idea is you have imposed a discipline on Friday afternoons.
+After lunch, you only think about great thoughts.
+And I had the notion that I, and also with you,
+had great thoughts about the foundations of data interfaces,
+radically rethinking the notion of logical interface to data.
+Friday afternoon.
+It's Thursday.
+I'm not Richard hamming, so I need some kind of warm up.
+Thinking maybe some trivial thoughts, maybe mediocre thoughts,
+as a kind of stretching exercise.
+And so that's what this talk is.
+I'm going to go over some projects which I think will maybe give the notion
+of the goal of rethinking interfaces to data.
+And that will prime the pump for, not even for questions.
+I won't be at peak great thoughts time by question time,
+but maybe by tomorrow afternoon.
+I'll be ready for great thoughts.
+So first I have to explain what I mean by an interface to data,
+because this is what I want to rethink.
+Well, an interface to data in general is something you have a class of users
+and you want to restrict, you have some source data,
+and you want to restrict the kind of queries for that class of users
+that they can answer.
+So I'll give some examples of this later.
+This is not what you normally think of.
+Maybe this is not even the best way to think of an interface.
+You normally think of an interface as maybe a layer,
+like an ontology layer where you have a different vocabulary,
+a different data model, or different API that users have.
+But from the point of view of expressiveness,
+this is, I think, one way to think of these interfaces.
+The bottom line of whatever you give to users, restricted language,
+different data model is that there's a limit on what they can ask to the source data.
+And you can begin to compare different interfaces this way.
+One person uses this vocabulary, one uses this data model, one uses this semantics.
+If you want to compare them, you'd compare what,
+based on what class of queries the user can extract,
+what information they can extract from the source database.
+And we'll also look at this in the setting of multiple databases,
+autonomous distributed over the world.
+Then an interface will be a restriction on what users can ask to the global database,
+the union of the sources.
+But it will have to be compatible with this notion of autonomy.
+It should be something that factors into an interface at each source.
+So there'll be examples later,
+but the canonical example is traditional database views,
+say SQL views.
+This is an interface at least based logically on making some derived data available.
+So you say, well, here you, class of users,
+here's the stuff that you're able to see,
+go wild with any query that you can do that only uses this data.
+That's a traditional view database.
+Abstractly, you can think of a view-based databases.
+You have some function on the source instance,
+or in the case of distributed views on the source instances.
+And this function extracts some data.
+That's the stuff that a user can see.
+Any query that only uses that stuff or is answerable based on that stuff is the restriction on queries.
+So I'll use some terminology in the distributed case.
+I'll talk about distributed views.
+A distributed view is just, and every local source,
+I have some derived data that I at least logically export from that local source.
+Okay, so views can be in these arbitrary functions.
+We'll be interested often in classes of views,
+like, say, CQ views.
+CQ, a conjunctive query D view is at every local source,
+I have a conjunctive query over the atoms known to that source.
+That's what that local data source is exploring.
+So the idea of this great thought exercise is to try and go beyond views.
+And lots of people have gone there before,
+and you can begin to think of lots of mechanisms that have been proposed.
+I mentioned some of them, access patterns.
+This is another way of restricting what a class of users can see that's not derived data.
+You say, okay, you need to give this value here to access this data from this functional API.
+That's different from derived data.
+And then, so that's something that has been studied in the database literature.
+Alan Nash and his colleagues, people at Stanford,
+Chen Li and Edward Chang, Deutsche National Literature.
+Views with access patterns, something that hasn't gotten that much study.
+Nash, again, and his colleagues, Antoine and some colleagues at Telecom studied this.
+You say you have logically some derived data,
+but you restrict access to traditional access methods, disciplines.
+There is data exchange, virtual data integration mechanisms.
+There's lots and lots of them in the history of databases.
+These can be thought of from the point of view as trying to get beyond views.
+There's an interesting formalism from Kautus, Deutsche, and Anose,
+query specification pattern language, something like that,
+where you use a restriction and automaton running over the syntax tree.
+And you say, here are a class of users.
+Here are the things that you're allowed to see.
+Here's a number of queries.
+This is going beyond views.
+They talk about this as exporting an infinite class of views.
+And so this is the kind of thing I'd like to look at.
+I mean, I'll talk about two projects, one from a couple of years ago
+with Pierre-Louis Jacquet and F.E.Somora,
+and another that's current work with Udi Roshavsky at Oxford,
+are in the space of how do we get mechanisms that go beyond views.
+Okay, the first kind of mechanism, this first project,
+it's based on the notion of minimally informative query answering.
+The notion here is we specify a set of queries.
+We call them in the paper utility queries.
+These are the things that we want the user to answer.
+But we don't want to give a mechanism that just says
+you can only ask these five queries.
+We want something more robust.
+So what we say is, well, let's give out the minimally informative
+traditional views within a class that support these queries.
+I'll give an example in this slide.
+So here, this is something we've also discussed extensively at lunch.
+Dodge tool versus science.
+Computer science, conference, etc.
+Very theory-friendly.
+They both have programs with different participants.
+Many people here have gone to both.
+And they have both autonomous data stores that store names of participants,
+which program, which year.
+And they get together and they say, we're going to create an interface.
+We want our interfaces to support some queries that span the sources.
+Like, are there researchers who are attending both programs in the same year?
+You can write this as a conjunctive query over the union of the schemas.
+So it's a join between Simons participants.
+And we want a mechanism that will support this query,
+but give out the minimal information among distributed views
+that will support this join.
+So we have to formalize this notion of what it means to support a query
+and what minimal information means.
+And I've seen, I'm coming late to this program,
+but I've seen that a recurrent theme in this program is information
+and information theory in Shannon.
+Relative information.
+We're not going to use any of that.
+We're going to do something less quantitative
+that I think is one of the things I'd like to advertise.
+It's Sogaphan and Vianu's notion of determinacy.
+Sometimes in some of Dan and Paris' papers,
+they emphasize information theoretic determinacy.
+So it has a similar feel.
+What is determinacy?
+You have a query and you have a bunch of views.
+So the query is determined by views if any database,
+two databases that agree on the view agree on the query.
+Very simple definition.
+Another way to think of this is that the query output is a function of the view output.
+So we'll say that a distributed view supports a query
+if the query is determined by the view.
+But the way you want to think of determinacy is, you know,
+information theoretically.
+It says, well, these views contain all the information you need.
+These views have more information than Q.
+And the information theoretic notions,
+you don't care about the computation.
+How complex it is to reconstruct Q from V1 through VT.
+Who cares?
+V1 through VT.
+Have enough information to answer Q.
+And we'll formalize the notion that the views are minimally informative,
+again, using Sogaphan and Vianu's notion of determinacy.
+We say distributed view is minimally informative, supporting Q.
+Within a class of queries, see if the view supports the query,
+using determinacy, Q is a function of the views.
+The view has to be based on queries in C.
+And any other distributed view, V prime, that uses queries from C,
+it has more information.
+That means that other view, V prime, determines each view.
+So, remember, the notion of determinacy,
+if V prime determines each view in V,
+that somehow says V prime has more information than each view in V.
+And so, this is the natural way, if you accept,
+determinacy is the notion of information capacity of a view.
+This is the natural way to say that these views are minimal information.
+So, let's go to Simon's and Dodge Tool.
+At least, in our minds, go to Simon's and Dodge Tool.
+They wanted to support this interface that supports this join
+and give the minimal information that does this.
+It's pretty obvious, intuitively, what the minimal information you need
+to support this query is.
+You need to know, Simon's needs to reveal the name and the year
+to support this join, because name and year are the join variables.
+They cross the join.
+Dodge Tool also has to reveal the name and year.
+And so, what Simon's should do is,
+they should publish the projection on name and year.
+And Dodge Tool should do the same.
+Give the projection on name and year.
+Intuitively, that's the minimal information.
+And in our formalism, using determinacy, that's the minimal information.
+Does this make sense?
+The minimal information is just true or false.
+The answer to the query.
+It's a static notion.
+This is not instance determinacy.
+It's determinacy over all instances.
+Back in our notion of determinacy, it's overall D1, D and D prime.
+So, it's a static.
+It's a data-independent notion.
+So, on a given instance, of course,
+I could say the answer is true or false and so on.
+But the minimal information views are views
+that will have the minimal information
+defined in terms of instance-dependent, independent determinacy.
+I can play the same game.
+You give me your instance.
+I'm going to compute the view, which is just the answer to your query.
+These are autonomous data sources.
+The distributed views are views in each source.
+So, I can't go...
+Simon's is not allowed at data time, at query time,
+to go to Dodge Tool and say,
+tell me what's going on and then export the data.
+This notion of distributed views says that each source has to do its own thing.
+It makes a lot of sense. Thank you.
+Yeah, but if I may.
+It seems in this particular context, you want to be as respective as possible.
+So, the instance level seems to be what you want to go into.
+And it could be something like a zero-knowledge proof thing
+that's in a protocol between Simon's and Dodge Tool.
+Yeah, I talked...
+So, the question about what happens...
+So, okay, the first thing is...
+So, of course, if you do instance-dependent things,
+here there's also some questions about these epistemic paradoxes.
+You say, no, I can't answer your query
+because that would be giving out too much information.
+But, okay, so here there's a question about
+whether other mechanisms could do more than these views,
+which is the question I'll get to...
+Well, crypto people have looked at it,
+and actually, well, I've looked at it too in a couple of slides.
+Okay, what's an example of ever-results?
+I won't, of course, completely address your question in a couple of slides,
+but maybe it'll be more clear.
+So, in this paper, one of the results says you take any utility query.
+Not necessarily conjunct for an SQL arbitrary function on the global schema.
+Then these minimum of informative devues exist.
+I'll say a little bit more about what they look like in a few slides.
+For CQ utility queries, they're expressible as traditional views
+in relational algebra.
+And we show that the same holds in the presence of integrity constraints
+in each local source, like TGDs, EGDs.
+So you always have these minimally informative things,
+and sometimes they're expressible in relational algebra,
+but there are CQ utility views where the minimally informative devues
+are not CQs themselves.
+So you don't know, they're not always the obvious ones,
+like in the previous example.
+Maybe if we have time, I can give an example.
+We also look, within the class of CQ views,
+say you're committed that you're going to use CQ views,
+basic SQL queries, set semantics.
+There's, for CQ utility queries, you have minimally informative CQ views,
+and these are almost the obvious ones.
+After you minimize the utility query,
+they turn out to be the same as the others.
+So I'll come back to this a little bit later,
+but I wanted to say what we were doing in this paper,
+the perspective was to analyze the trade-offs in view design.
+You look at questions of the form,
+are there distributed views that support this query,
+but which do not reveal any information about this other query?
+This is what we were interested in.
+Here, so back to Simon's and Dogstuhl,
+but making it a little bit more abstract.
+Simon's has a binary relation R.
+Schostockstuhl has S and T binary relations,
+and I'm interested in supporting the intersection query.
+Well, obviously, I could support this,
+I could design sources to answer Q,
+each source just exports its data,
+all of R, all of S, all of T.
+But I want to know, well, is there some way to do this
+while keeping the query, there exists X, R, X, X, private?
+We analyze this for several notions of privacy,
+but one notion of privacy would be,
+on no instance should the attacker,
+the external party know whether there exists X, R, X, X is true.
+It's sort of a negative version of privacy
+that has been in the database theory literature.
+I think it goes back to Mendelssohn as a student.
+So intuitively, any views that support Q
+must disclose P on some instance.
+And okay, it's actually not so,
+this example with no integrity constraints
+is not so difficult, but using the prior results,
+we can compute the minimal information views,
+show that the minimal information views disclose this thing,
+and therefore nothing you can do that supports Q,
+there's nothing you can do that can support Q,
+but make P a secret.
+That's a simple case.
+We also, well, we have several examples
+where the privacy utility query is less trivial.
+Here's one of them, we look at the case
+where there's partial synchronization mechanisms.
+We look mostly at replication as a synchronization mechanism.
+Now Simons and Dogstall are not completely autonomous.
+There's a relation S,
+the relation S that is in the query
+is replicated between Simons and Dogstall.
+But nothing else, there's no other mechanism.
+So obviously they need to communicate
+as data updates come in in order to do this.
+And we have the same utility query,
+and now we ask the same question,
+can we support this query while keeping this,
+there exists XRX private?
+And the answer now turns out to be yes,
+there is an interface mechanism,
+actually a view of a certain sort
+that can achieve this trade-off.
+It can support Q while keeping P a secret.
+So this is just meant,
+what were we trying to do
+and what kinds of results we have?
+We actually have a general result
+about what you can do with certain kinds of replication
+in managing these trade-offs between utility and secrecy.
+So what is the moral I wanted to give?
+Well, first, it's not really an answer,
+but it's my attempt at an answer.
+We were getting at the idea
+of comparing the expressiveness
+of different interface mechanisms.
+So in this case,
+what can you do with a CQ view
+versus what can you do with relational algebra views?
+What can you do with arbitrary functions?
+I thought this is something that is an interesting direction
+that I haven't seen much of.
+And you can look at the same thing
+with a more interactive method mechanism.
+We didn't do it, but it was an obvious thing,
+as well as suppose you have access methods.
+And now you can interactively ask multiple queries,
+can you achieve these other kinds of trade-offs?
+And then the second thing I want to highlight
+is this notion of information theoretic determinacy,
+the database theorists information theory.
+This has been used,
+certainly by a number of people,
+Paris and Dan and other people
+that Washington used it in the pre-oppressing work.
+I've used it in many papers,
+but it's on information disclosure with Balder, Pierre,
+other people, also KR people at Oxford,
+I think also Daniel Kieffer in some of his work.
+Yes, yes.
+But I don't think it's really been developed rigorously
+and uniformly.
+Here you have some information lattice on views,
+that's the idea in actually in the pricing work
+and in our work,
+and you can begin to explore this.
+So I'll come back to this in a little bit,
+but I want to talk now a little bit about
+what's the idea of this other work
+about indistinguishability this year.
+And it's motivated,
+so first an indistinguishability relation
+is just an equivalence relation on databases.
+I say here are the two,
+here's the pairs of databases that are equivalent.
+And this gives an interface,
+somebody is interacting with the database,
+what is the queries they could answer,
+so there's two possible semantics,
+one is that they can answer any query
+using the certain answer semantics
+and the certain answer semantics would be,
+well what they're really seeing is the entire equivalence class
+of this database,
+and they get the intersection of the answers
+of the database.
+There's another semantics which says,
+oh it's the answerability semantics,
+they can only ask queries
+where the answer is invariant
+under this equivalence relation.
+So this would be more like what's called
+answerability in access patterns
+or answerability in views.
+So the main point is
+you have some way of specifying an equivalence relation,
+I'll talk about some ways you could specify
+an equivalence relation that's giving you an interface.
+And it's interesting in that
+it's a way of giving an interface
+that's different from what we're used to.
+Okay, you can of course
+think of this as a view,
+a view I said from this general
+mathematical point of view it's a function
+of the instance or the local instance
+that exports some stuff.
+And you can say what I'm exporting
+is the equivalence class.
+But of course we're representing it differently.
+Let's give you an example.
+I can say
+G and G prime are indistinguishable
+if they have the same triangles.
+So
+these are two graph databases
+I can say for all x1, x2, x3
+there are a triangle
+in database G if and only if there are
+G prime.
+And this
+that's an equivalence relation.
+It's actually a first-order
+indistinguishability relation.
+It's given by a first-order sentence
+in the language of two copies of the schema.
+So it's first-order
+not in the sense of what we usually say.
+Now
+if you take a typical
+first-order sentence in the language
+of two schemas, it's not going to define
+an equivalence relation. This is a semantic property.
+These things
+for all x1, x2, x3 and if and only
+if between G and G prime
+that's going to be an equivalence relation
+but other things are not.
+So I'm interested in the
+first-order sentences in two schemas
+that will do this.
+And I can generalize
+while the triangle example is one of them
+you give me any relational algebra views
+they give a first-order indistinguishability relation.
+The same kind of thing.
+Well one database satisfies
+the views.
+For every tuple
+in the union of the databases
+it's in the view result in one if and only
+if it's in the view result of the other. I'm using this prime notation
+just like the G and G prime
+to say the prime copy
+of the database agrees with the unprimed copy
+on this derived data.
+Michael? Yeah?
+The universal quantifiers are quantifying
+over which domain?
+They're quantifying over the union
+of the active domains.
+So this came up in the prior work
+I said these minimally informative
+devues exist for arbitrary
+utility queries.
+And how do they
+work? Actually they're the way we
+can present them is as an indistinguishability relation.
+Obviously
+we can show that you can't always get
+very natural cases you can't get
+relational algebra but you can always
+get this indistinguishability relation
+presentation. Actually
+I think in a second-order indistinguishability relation.
+And then there was this example I talked about
+with replication. I said well
+we could support
+Q without revealing P.
+How did we do this? We needed some interface
+mechanism beyond relational algebra views.
+We could show that you couldn't use any generic
+query to do this but we
+define a simple indistinguishability relation
+that actually looks at the data values
+and we show that's the way
+you can achieve this trade-off.
+So you can achieve certain trade-offs with
+indistinguishability that you can't
+achieve with traditional
+views.
+This is a super general notion.
+We study this
+mostly over infinite structures
+focusing on first-order and infinite
+terralogic. There are a few
+results that I can
+mention that apply to the finite case
+to finite models to databases.
+I said that traditional relational
+algebra views give a first-order
+indistinguishability relation and you can ask
+what are the other first-order
+indistinguishability relations?
+Well, nested relational
+calculus gives you another class
+of first-order indistinguishability
+relations.
+I don't want to explain what nested data is
+a nested relational calculus but I'll explain by example
+if I have a binary relation rxy
+I want to
+export all the adjacency sets of elements
+in my database. This is
+a set of sets for every element
+I take the set of things that are adjacent to it
+and then I take the set of sets
+by varying the x.
+Well, that's a set of sets. I can say
+two databases agree
+on the set of sets in first-order logic
+in this dual signature, the
+r and r prime signatures. For all x
+there exists x prime
+for every node in one there's
+a node in the other database who's
+adjacency set agrees.
+So in general
+okay I can do sets of sets of sets
+uh
+in the same way. That's the general
+idea of nested relational calculus.
+I build up these sets of sets of sets
+you know it's a different query language
+and agreement on a nested
+relational calculus query.
+So let me jump
+since I'm running low on time
+to the
+the open question here
+we have various results about this but
+an intriguing open question is
+is every first-order indistinguishability
+relation given by nested relational calculus?
+We look at the infinite case where
+this is not true and we find lots of phenomenon
+that go beyond nested relational calculus
+and of course we don't use the word nested relational calculus
+because
+it's geared towards a different audience
+uh over
+this is a preservation question
+I have some I have a first-order sentence
+in the language of two schemas I impose some
+semantic property.
+Here's a syntax nested relational calculus
+views that enforces it I want to know if
+everything that has a semantic property
+is enforced by this syntax.
+Okay
+so first I
+I'll say this indistinguishability
+bottom line this indistinguishability relations
+they make the world of traditional views
+look very small because you can begin to see
+lots of other ways
+of creating interfaces
+that are beyond views
+and it gets at this
+issue that comes up often in
+descriptive complexity theory and descriptive set theory
+of
+going from an equivalence relation to a canonical representative
+for instance if you look
+at various notions of elementary equivalence
+like n variable equivalence you
+you have a nicely described equivalence
+relation you want to know how efficient it is
+to export a representative
+of this equivalence relation
+you have a nice representation
+of sort of the dynamic notion
+you want to know does that mean that there's a nice
+representative you can choose
+a representative
+concisely
+so I want to stop now with the great
+thoughts stuff if you can give me a second
+to do it
+so
+I want to go back to great thoughts
+and the truth of it is I you know I saw
+Mulham's talk last week
+he gave an overview of relational databases
+and it led to some great
+pronouncement
+you know relational ai is great
+by relational ai
+and other profound thoughts and then I saw
+Joe's talk and he overviewed
+databases for 15 years
+and he gave his own
+pronouncements and morals
+I love Hasselt
+and
+there's important problems with synchronization
+that need to be studied and deadless
+is great and I thought I should have a slide
+that talks about 15 years databases
+and then has some profound conclusion
+I couldn't
+what I want to say is well in the first 40 years
+this notion of logical interface
+expanding it
+and notions of comparing interfaces
+you find it relatively often
+in pods you know there's
+Rick Hall
+did some various things about the notion
+of information capacity
+that I find very interesting
+at the level of comparing schemas
+and then of course there's been a lot of work
+over 40 years
+at looking at funky new ways
+of defining interfaces
+but in the last I'd say certainly
+five years not so much
+so I think there is some need
+to look at this
+I wouldn't say you know looking at the work
+in this workshop
+I don't say that
+people should stop working on machine learning
+and relational algebra like Zach is
+and look about this a little bit
+maybe goes a long way and maybe
+there was too much of this at one point
+but I think going back every few years
+and looking at this is a good thing
+to do with certainly this work has been very
+influential outside of databases
+thank you
+we have one question
+and then is it of the recording
+Sudeepan
+do you know connection with differential privacy
+if you are trying to hide information
+from one view you mentioned Daniel
+keepers works
+so we haven't looked
+in this I think this model is just
+you know I've shown
+this stuff to some
+people who work on privacy say this is
+ridiculously restrictive
+which I think is the right answer
+our notion of
+that I showed you of keeping
+something secret is on no instance
+should the attacker learn the database
+which is something that comes
+in the database theory literature
+also it's in the KR literature
+but of course
+in the end
+differential privacy is much weaker
+you said
+in general the reaction is look
+you know I don't care
+that there's some one database out there
+in the world
+it's mostly used for aggregated queries
+so if you have views like non aggregated views
+so the notion is not obvious
+but yeah
+yeah so
+first of all very interesting
+so I got your framework and it's not
+you're just waiting
+I didn't get a chance to do justice
+to the extinguishing results
+but I can tell you that it's not important
+but can you do justice to communication
+complexity if you look into this
+yeah I mean this so no
+well not really I mean the
+proofs have a very similar feel
+to communication that we're exploiting
+autonomy of this
+and you would think once we put in some interaction
+between the two
+sources we're in extreme case of
+communication complexity I'd say because there's no communication
+between the sources at all
+but they both
+publish something in common so they
+can compute a view
+maybe it's a one round
+half round I don't know
+they looked at all sorts of variations which I'm not familiar with
+yeah I agree
+it's on my radar to look at
+I had a similar question
+but
+I guess it's a differential
+privacy is a weaker model because we only have
+probabilistic guarantees
+so but your model is also
+in another way more expressive
+this indistinguishability
+it's a very simple
+very simple
+what sort of distinguishability
+but there's still no probabilities involved
+even in the indistinguishability notion
+no I know
+I mean like
+your model is not just a stricter
+but also more expressive
+in what we consider to be
+indistinguishable
+I'm mangling
+two works right so on the one hand
+you have this notion of privacy
+that's it
+on the other hand we can be flexible about
+the view mechanisms
+and look at these more powerful
+mechanisms right
+so that's true
+I just want to make clear that some of this
+trade off is in two different works
+yes
+I agree right so I know that indistinguishability
+was basically like
+could be like a trust with the 5C
+but it could also be
+obviously used for
+like the 5C mechanism
+yeah
+I remember I said that I won't
+be ready for great thoughts too
+tomorrow afternoon or possibly Monday
+or maybe next week
+so can you comment a bit about
+the complexity of what you think
+is used because
+determinacies are the side of writing
+so
+very easy
+you can just so in the case
+of CQ utility queries you don't need to decide
+determinacy you can get these minimal
+information
+actually
+what other queries
+well for other
+queries so for other queries
+we don't actually know what the representation is
+so Pierre do you want to contradict
+this?
+okay so
+actually
+okay
+well I mean
+okay so you can get relational algebra
+views without doing minimization
+Pierre
+if you want to get the CQ
+so it depends what format you want the views in
+you can
+you do get the minimal one
+you just don't have it as a CQ
+so it depends on what represent
+I mean you know if I've understood
+your comment correctly there's two results
+one it says okay I can
+get these relational algebra views
+and there we use this construction
+about getting
+these shuffles
+and I think you can do this in p-time
+it is minimal in information
+it's just if you want to there's another result
+that says I can get CQ views and there I need
+to minimize the global
+but then
+after you get
+these minimal views you have to see whether you can do
+disclosure
+and there we have some
+results
+on this for the case without constraints
+we know how to do it
+I mean we know there you just look at the minimal
+at this canonical
+the canonical instance
+and then with constraints
+I don't remember whether we have complexity
+or not
+we have some constraints
+like guarded constraints

@@ -1,0 +1,967 @@
+Thank you all for coming. My name is Shane Seelis. We're going to have Matt Brand give
+a talk on artificial intelligence. Then we're going to have four five-minute show and tell
+slots where you can show something you're working on, something you think is cool, whatever.
+Who wants a slot? I do. You do. You do. One more slot.
+Okay, good. We got our four slots. And yeah, that's it. Matt, take it away.
+Thanks.
+So I'm here today to talk about artificial intelligence and particularly artificial intelligence in games
+because that's my experience with it.
+So just a brief bit about me. I graduated Champlain College in 2012. It was my second bachelor
+degree. I went back to school because I realized that I was programming a lot and I was not
+passionate at all about what I was programming. And I realized that I wanted to be passionate
+about what I was doing. So I kind of put the two together. Passion is coding and gaming.
+And I went back to school for that. And I formed Burnhamwood Games with a few guys, a few people
+at the end of the school. And then we launched out of school, hit the ground running with,
+we made two games, proprietary games, lock and pathogen. And then we became game theory
+and we have since transitioned into contract games. After our second game did well publicly.
+Like it had awesome reviews and was really well received. It hit the app store well.
+It was in like the top, it was featured. It was in like the top. Was this pathogen?
+Yeah, it was great. Yeah, it was a great game. Hit the top like 10 in board games for a while.
+And we just didn't see enough revenues to keep going as a game developer. So we just switched
+over to contract gaming and now we build games for hire. So that's what I do. My specialties
+are 2D turn based games. So games where one person takes a turn, changes the state of the board
+and then the next person takes a turn. And then especially board game translations.
+So pathogen is somewhat of a board game idea. But I've also done actual board game translations
+from GMT games. I made leaping lemmings into an app. And now I'm working on dominant species.
+So what I don't do is provide instructions for world domination or how to go back in the
+future to prevent world domination. So if you're here for that kind of artificial intelligence
+you're on the right place. So AI in games, in 2D games, is really about creating behavior
+that's believable. So you want behavior that feels like you're playing against someone that has
+intelligence, like a human player. But I didn't do it with machine learning. I didn't do it with
+more complex aspects of AI. I did it using simple behaviors that when you put them together
+it feels believable. So if you put a few simple things together, like a few kind of very simple
+decision factors, when put together it feels like there's this complex decision being made.
+But really it's just a few factors that are being weighed. If you try to make too much complexity
+to it, it actually can feel convoluted or can drive the behavior into very specific channels
+that gets very stagnant or stuck in certain ways. So combining simple behaviors is the main aspect.
+And then what you do, or what I do in general is I assemble a list of all possible moves
+or strategies. And then you pick one based on certain criteria. And I'll get into this later.
+And then a couple important factors for creating fun play are ruling out the bad options
+and using some random factors. Because really if you create a list of all possible plays
+and then you pick one just based on numbers, it could be the worst play possible because you're not
+weighing certain other criteria to see if it's just a bad move that a human would never make.
+So you have to rule out certain bad options. And then random factors just throw in and just make it fun
+because if you don't have randomness, then if you're playing against an AI that calculates
+things relatively similar, every time you're going to get a very static experience.
+So Pathogen is a term-based strategy game. It came out in 2013 and early 2014 for Android.
+And basically, I don't know if you guys have played it, but it's like you try to take up most of the board.
+And so at the end of the game, whoever has most of the board taken with their color wins.
+And so you put down pieces, you put down cells, and if you put the same type of cell on top of itself,
+it replicates and spreads out in the board. So you get these kind of very cool spreading behavior.
+And so the way that I designed the AI for this is that I would take a look at the layout of the board
+and for each color, I would assess a point value of what the board is at.
+So for blue, it would calculate all the blue for the different types of cells, calculate a point value,
+and then subtract the other player's colors from that. And I would get an overall value.
+And then what I would do is I'd generate a list of all possible moves.
+So blue can only play A cell and B cell and the virus. So it can't play the B cell.
+I would look at where on the board it can play these two pieces.
+I would generate a list of all those plays, and then I would project into the future what would happen if I played this piece here, this piece here.
+And so just every single move I would project in this giant list.
+And then I would take all those projections and calculate the score for each of those.
+And then I would say what's the difference? I would say do I lose points or game points?
+And then I'd sort that list from top to bottom and say okay, this is the best move and this is the worst move.
+And then, like I said before, you have to rule out these bad moves because there are certain moves that may give you a better score,
+but will set the other player up to just dominate.
+So there are certain moves that I would have to say okay, does this move leave a tactical advantage for the opponent and if it does, take it out.
+So I'm left with this list of possible good moves.
+And then I say okay, for hard difficulty, you take the best move.
+And for medium, you take the top 30% or something like that and you pick a random value in there.
+And then for easy, you take the top 50% and pick a value in there.
+And that gives a nice spread, so sometimes easy makes a really good move and sometimes it makes a dumb move.
+And then you also throw in some random factors, so sometimes easy will just do something totally dumb or random.
+And one of the complexities of this project was that it was done in Flash, so it was done with ActionScript.
+So that was one of the technology tricks, challenges that I worked with.
+So the game I'm working on now is called Dominant Species.
+And what it is, is a much more complicated game where you have phases, you have a planning phase and then an execution phase.
+And in the planning phase, you decide what you want to do in the execution phase.
+There are all these different kinds of turns and in the execution phase, each one of these actions does something pretty different in the game.
+So I couldn't just go in and do a board assessment like I did in Pathogen.
+I couldn't calculate a score and say okay, if you did this, what's the difference in score?
+There were just too many weird random factors going on and too many nuances.
+So what I did was I took each behavior and I made kind of like its own decision making process for each behavior and said,
+okay, what are the possible moves for this behavior and does this result in a better move or worse move?
+And then I take the best move for hard or whatever, same kind of idea.
+And the other weird thing about this game is that there are these cards that do pretty random out there things.
+So you'll be playing and then the AI will do something really, really kind of random with the card like all of a sudden all your population of animals.
+Basically the goal of the game is to have the most territory occupied by animals and each species has different advantages.
+There's insects, arachnids, amphibians, birds, mammals and reptiles and some of the cards will be like eliminating all the species down to one.
+It'll just be kind of like a random rule just thrown in there which is weird when you're actually playing the game.
+I found it was kind of annoying and weird because it just felt so random but when designing the AI it actually was advantageous because it was this weird random factor that the AI would just play a card
+and do something really devastating that you couldn't counter because it was just this kind of weird random rule.
+So that made it kind of fun.
+This game is actually coming out very soon.
+I just submitted it to the App Store and it's got AI so you can play up to six players and it's going to have multiplayer too which I'm not working on so that's fun too.
+And this is in Unity and C-Sharp so it's a much easier technology to work with.
+I'm blowing through these slides.
+So next what I'm working on is, and this may incorporate deeper aspects of machine learning.
+We're not quite sure what the scope of the work is but we're working with the dialogue system to track, assess how interviewers do in their work.
+In their interview process.
+So it's like a person comes to a house and they start talking with a family and doing an interview process and you get to pick the questions and the responses that the interviewer asks
+and then the responder will have their generated dialogue.
+And I don't know if you guys have seen it but there's an awesome talk on GDC's website from 2012 based on dialogue systems.
+And the way it worked is that the guy is just a genius idea.
+Basically he said that the more complex of a system that you build, the harder it is to actually develop anything of use.
+So he created this really simple system that was then able to use for these very complex looking things.
+And the way that he did it was he created a dictionary of responses for particular dialogue and it had weight of criteria that you met.
+And so the criteria check was a bull just either true or false.
+And so you threw in this like chain of criteria for the state of the world or the state of the person you're talking to or whatever.
+And it would just say it'll evaluate like if I'm going to a house and if I've already talked to this person it would check that and so that's true or false.
+And then it's like if they have been in a fight since I've talked to them that evaluates to true or false.
+And so you go through the dictionary and it goes through and it says true, yes, true, yes, true, yes.
+And so you give a weight to the question that has like a weight of four.
+And then the one with the best score you just pick that answer.
+And it's pretty genius so we're pretty excited to implement that into our interview stuff.
+And hopefully some maybe even more complex behavior like machine some machine learning like, you know, that the responder would would learn something about you based on previous conversations and then would be able to respond with that kind of stuff.
+A question.
+Yeah.
+So this is for a future game.
+It's for a game that we're in the design phase where we're starting actual development and job.
+So this kind of combat kind of the other problem like your role playing game, you go to somebody's house, you have the exact same, you know, talk with them every time.
+Right.
+Totally.
+Yeah.
+Well, and in order to deal with that we'll have random factors again, you know, like the when you start the game, it's actually going to be state based.
+So you'll like, if you're using it in Florida, you can say like, have you seen an alligator lately, you know, something kind of very geographically based.
+And then using all those random factors piece together scenario that's that's very specific and unique, you know.
+Are you guys going to be doing any natural language processing or no.
+I don't know what that is.
+What's natural language processing?
+It's when you take the words that are given and you, you again, it's a machine learning thing where you again have like ways to certain words and other relationships to each other.
+And then your program can understand what the sentence is based on all those things.
+And actually a lot of times it's based on a huge parallel, a set of parallel data or like a huge set of data, a huge set of training data.
+Right.
+That's a cool idea.
+We're weighing all these ideas right now.
+So I'll bring it to.
+It's also a natural language understanding.
+Zero network.
+Cool.
+There's a lot of methods.
+But there's some like, like a little bit simpler ways of doing it.
+You know what I mean?
+Like the way that Google would do it, for example, is like not within the region, most of us, right?
+But there are some simpler ways of doing it.
+Cool.
+Yeah, I'll bring it to the table.
+I don't know if there are.
+The lead designer is Marguerite, my coworker, and she's working with this company to develop everything up front.
+You know, and then we'll obviously use development that iterates too.
+So yeah, any ideas would be awesome.
+Thanks.
+So, yeah, I mean, that's all the slides I have.
+I hope that wasn't too great.
+So you're looking at this board game, which we call the search space, right?
+All the possible moves.
+How deep do you go?
+How deep do I go?
+How many moves ahead do you look?
+In Pathogen, I only move one, look one ahead.
+But then, looking at what the possible response could be, at least one ahead.
+I guess you're going to say two moves ahead.
+But I found that just doing one move ahead and looking at the response was enough to get a pretty tough system.
+I have a friend, actually, he's playing it on hard, and he came to me.
+A few months ago, and he was like, man, I still haven't beaten a few of these levels.
+But I felt really good.
+So that kind of speaks to what you're saying about complexity, right?
+That more complexity isn't necessarily better.
+Right.
+Although it depends on the game, like within chess, you need to look at a certain amount of head in order to have anything that can compete well.
+Would you say that the turn-based mechanics of board games lead to a better understanding of artificial intelligence or the way to design it?
+Like larger scope in artificial intelligence?
+I would explain it.
+With the previous question about how far do you look forward, I would assume, or at least to my knowledge with board games,
+they have to look at not only what's the next move, but what is the response going to be, or maybe.
+And beyond that, it's just way too many possibilities to even be worth putting into the coding board of artificial intelligence.
+So that's where my question comes from, do you think that the turn-based mechanics leads to a better understanding of, or at least simplifies the process, would you say?
+Yeah, I would say it does.
+And I think, depending upon what strategy you take, it would lend itself to the more deeper aspects.
+Someone actually suggested for dominant species that I do machine learning, so that as you're playing it, it kind of learns your behavior and then protects against certain things.
+We just didn't have the budget to do it, honestly.
+There's two games that do that, and those are hard.
+I was just going to ask, for testing your AI, do you just have users go for beta testers?
+How do you feel confident about it?
+You don't just have some blind spot, you're like, oh, I haven't seen that situation, I didn't account for it, and the whole thing that I've crafted where it seems smart,
+seems human-ish, just falls apart because we've seen something idiotic.
+Well, honestly, with Pathogen, we didn't have a big tester base, so I got really kind of, I guess I got lucky that I designed a system that played out really well.
+Well, with dominant species, GMT Games has a pretty big following base.
+They actually had already two companies try to make a digital version of this game and fail.
+The first one put out just a terrible version of the app that people hate, that actually GMT Games is giving our version as a free update,
+just to appease their fan base.
+And then the second company stepped in and tried to make another port and failed completely and didn't even put something out.
+So we're the third company working on this project.
+So they have this big following that's been waiting for this digital update,
+and so they got 30 people to sign up on iTunes Connect for the beta.
+So I've just been putting out weekly releases, and I was ready to publish it a month ago, but the head of GMT Games said,
+let's just wait and let's just keep putting it out there, and these guys are really into the game.
+So for me, playing this game was kind of ridiculous.
+When I get a few turns in, I was just like, okay, I'm done.
+But these guys are hardcore, you know, they want to go all the way and they want to see all the nuances of it.
+How many players do they have on their likes or board game?
+How many what?
+How many people are playing their board game? You're taking this from a board game too?
+Yeah, I think they have a pretty strong following. I don't know the specific numbers,
+but they produce these hardcore niche strategy games that people just love.
+And one more thing I want to say about that is that iTunes has made it, I'll just, I don't know if you guys know,
+but iTunes has made it harder to beta test. It used to be that test flight was so easy,
+and you could just put something up and it's boom, it's out, and now iTunes is just kind of a pain in the ass.
+I hope they beta test it.
+Yeah, you have to play people, you have to review, it has to be reviewed, a beta thing has to be reviewed.
+We just updated our app store game, and we just wanted to put, you know, change some loading screens.
+It's like a really trivial stuff, right? You fix a few bugs and you're like, man, no, it's got to go through.
+I know.
+And you wait for weeks.
+Yeah, weeks.
+So there's no, none of this rapid turnaround.
+The beta review actually is shorter.
+Yeah, it is.
+That's the good thing.
+And Google, you just throw it out there, man.
+Google play.
+Well, this could be kind of a follow up on the testing question, I guess.
+I mean, one thing that occurs to me is making AI, you've built a sort of test rig.
+Like, have you ever pitted AI's against each other?
+Oh, yeah.
+And you've ordered the game, so you've gotten things out of that.
+Totally.
+And that's really kind of fun to do.
+Yeah, like with Dominus Species, you just set it up with like six players, and then you can kind of work on a project
+and kind of watch as they like do it out.
+There's a great paper from, it's probably 20 years ago now called TD Gammon.
+This guy developed the AI to play backgammon, and it brought itself to the master's level by playing itself.
+Just back and forth with the person.
+And it's very cool.
+And it's actually a hard game to do.
+To sing it for him.
+Yeah, because it's all based on, well, did you win at the end?
+Fun.
+So if you look up TD Gammon, it's pretty cool.
+Can I add more?
+Yeah, AI successes.
+That's cool.
+One follow-up thing to that, like when you're having multiple players, that's particularly giving the idea.
+Have you ever, it's not going so far as like machine learning, but do you ever have a concept of like a personality for your AI?
+So ones that play aggressively, ones that are defensive, maybe like how do you continue with strategy?
+Totally.
+Be purely random?
+Totally, totally.
+Actually, I'll just go back to that.
+Oh no, this is in Christ.
+Yeah, I think it's a great, it's like you suck.
+For this game in particular, there wasn't as much personality as strategy types.
+So like about three turns in, like I have a basic early game strategy that the AI, all the AI will do.
+Three turns in, I evaluate like how the players are doing in the state of the board and say,
+okay, what do I want my real game strategy to be?
+And there were like four different ones.
+And depending upon what strategy they chose, they had different actions that they would pick.
+And it made for some really cool play because like there's like, you can see the snowflake there.
+So that means that that AI has tundra strategy.
+So it's trying to take the most tundra and get the most species on the tundra tiles.
+And it will be very different from other strategies.
+So like they compete really well and interestingly.
+My teacher developed RIT, the PS2 version of RISC.
+And he said what they did was they had like, they had like world leaders that they kind of simulated behavior for.
+Yeah, the more like protective and defensive leader and the guy who was like super gung-ho and just like,
+tried to attack everything all at once.
+And that sounded cool too.
+So a question about the different phases of dominant species.
+Did you just end up giving the different phases, different weights of what they scored in relation to each other
+and then tally that up to something to determine what kind of phase your AI wants to take?
+What I did was I took a preferential list because each of these phases has like,
+so there's three slots in adaptation, there's two slots in regression, there's only one slot.
+So it's really strange how you play, but basically not all the choices are always available, right?
+So what I would do is in the early game strategy, I would say this is number one,
+adaptation is number one, domination is number two, speciation is number three,
+and I would have like a list of preferential behaviors and I would go through the list,
+I would say is number one available? No, bounce to number two, is number two available?
+They're always perfect moves in the game?
+No, no, and there's some random factors too.
+So okay, what I would do is I would say is, so if adaptation wasn't available,
+we'd look for domination, right?
+And if domination is available, then I would calculate a percentage chance
+whether it would use domination or not.
+Okay.
+And then I would just throw a random roll and I would say, do I hit that?
+So if the chance to use domination is only 50% and I throw a 30%,
+then I don't use domination, then I go to the next choice.
+And that way it gave it some like, some randomness, but it was like a good feel too, you know?
+It made sense why they wouldn't use it.
+Okay.
+So for all of these AIs, I guess the focus is never to make your AI play perfect games
+because that doesn't necessarily feel good, it probably feels pretty good.
+It's boring, really, and you don't want the player to get crushed.
+You want them to have fun playing.
+And also I guess these games have complexity that's just too huge to really calculate out.
+This did.
+Yeah, this particularly was, this is actually a really difficult game to design AI for.
+It took me, we're way over scope.
+And I'm like, I'm happy with it, but honestly, like I could put another couple months in
+and refine it to a pretty awesome degree right now.
+It's good, it plays well.
+And like, I have a feeling that the hardcore players are going to kill it,
+but that it's going to play well enough to give the average player a good chance.
+I think they'll come back to you and have you redo it.
+Maybe.
+That'd be cool.
+I don't know if this game has any hidden state, like in poker, nobody can see your hand,
+but when you're writing the AI sometimes you avail yourself of everything that's available
+to just get it to do the right thing.
+So did you have to do anything that, you know, made you feel unclean or like cheating?
+Oh, that's good.
+I can see your cards.
+It's all my poker.
+What kind of thing?
+I don't think there is, I think everything is laid out seemingly in this game.
+Is there hidden information?
+No, there's no hidden information.
+And it's the same with Pathogen.
+But that would be interesting to play with too.
+You know, make it harder.
+You could, you know, a little fudge factor.
+If you knew what cards everybody had.
+Right.
+Yeah, the only cards here are like public cards, so everybody can see all five cards that are available.
+Oh, okay.
+So there's magic in this comment.
+So does it fill something up?
+It kills me.
+Any other questions, comments?
+Do you have any existing games that are like inspirations to you or things you study, like other game implementations of AIs and games that are out there, and they're somehow publicly available?
+I don't know.
+I haven't tell you reading about it.
+That's a good question.
+I mean, most of the stuff that I've really been inspired by hasn't been along these lines, honestly.
+Honestly, it's been like, you know, my favorite games are just like kind of hardcore indie platformer games.
+Like Super Meat Boy, Spelunky, Bitshirt Brother, that kind of stuff.
+With AI, it's really difficult.
+But I played a lot of these kinds of games as a kid, but I didn't, I haven't played a lot of strategy board games like this.
+This kind of came out of nowhere.
+For me, Pathogen, our designer, came up with, and I was like, okay, I just stepped into the role of creating the AI on it without much personal passion for it, but it kind of grew out of that.
+So did the fact that, so back to Pathogen, the fact that you were only thinking like one play ahead, was the fact that you had random factors coming in make that work better?
+Because otherwise, I would think if I were playing, I would guess how the AI was going to wait something, right?
+Like that's what you do, right?
+You start knowing how the game is programmed.
+Totally.
+And like, I would use more random factors early in the game, because early in the game, you have so much of the board available, you don't want it to always pick like that.
+If it always picks that one, when the board is empty, you're going to notice it, right?
+But then later in the game, it's usually never looks the same.
+It usually looks different based on what the player does and if there's some random factor, what the AI does.
+So later in the game, if it has very specific choices that makes that's okay, because the state of the board is usually very different from game to game.
+So it was really based on visual, not on gameplay?
+Yeah, it's about believable.
+It's like, what is believable to the player?
+Like I would play it against the AI, it would be like, oh, it keeps doing that one thing.
+I don't want it to keep doing that one thing.
+And then I would kind of look at the code and say, okay, that's the decision that it's making.
+How can I make this more fluid and more flexible and more believable?
+Does this somehow, it seems to somehow parallel the game, ancient game, gold?
+Yeah, that was a really big inspiration.
+The other one looks like Settlers of Katan.
+Right, yeah.
+Definitely inspiration for both.
+Yeah, my co-worker Zach, he actually works for Disney designing games now, which is awesome.
+He kind of moved on, but he came up with this.
+I love the game, I feel like it's a really genius idea.
+And it is really simple, really simple and beautiful.
+Anyone else?
+Alright, great, thank you very much.
+I want to say that you explained statistical theory in a way that was much more successful and interesting than I've ever heard before.
+Like all the weights and everything, that usually is not how I was explained, that was much more interesting.
+In decision trees, you explained that much.
+Thank you, I was hoping I didn't gloss over too quickly that people weren't following me.
+I thought that was a really, you should, you know, statistics professor should take some of that.
+You should use something like pathogen to use a game to explain statistics.
+Well, contextual examples just go a long way.
+Yeah.
+Well, thank you.
+So, quick overview, we're making me, that's Zach, and another guy, and then two other guys that aren't here.
+It's a company, not a hipster coffee shop.
+We make mobile games, so this is our latest game.
+We're working with some other designers from Champlain College who recently graduated.
+We also just graduated since the last meeting.
+So, it's a puzzle game about lining up lasers.
+It's called VividGrid.
+It's kind of like, I'll kind of like hold it up.
+This is like the level select, and then you go into a game, and it's kind of got a grid,
+and then there's buttons on the side that you tap that rotate turrets that are in a line,
+and then so there's like a starting point that the laser comes out.
+The lasers aren't visually in the game yet, so you just have to like follow the arrows.
+So, this is about three weeks in development.
+We're hoping on finishing it up the next week or two, and just kind of throw it out there.
+So, it's good, it's a quick project.
+It'll be like 50 levels. It's kind of based on visuals, and sound, and colors.
+Yeah, so it's being developed for iOS in Unity 5.
+Once that's out, we'll look at...
+How are you doing the laser lines? Do you know yet?
+Like visually? So, like right now, it's a pretty...
+It's basically just like an array that keeps track of everything.
+So, the visuals and the data model.
+I don't know about the visuals yet. It shouldn't be too complex.
+We used something called Petrosity.
+Petrosity.
+Yeah, an asset for Unity to draw lines, and glowing lines, and laser, so...
+That's good to know, because lines are...
+Yeah, I've been looking for a way to like do shapes.
+Is it like, is it just a vector kind of drawing?
+Yeah, it's a vector drawing.
+It's basically like an abstract upgrade to the line memory.
+Yeah, okay, yeah, because like that's the biggest issue that I have with Unity,
+is like there's no way to just draw shapes.
+Like if you want like a nice clean circle, you have to have like a really high resolution.
+Okay, yeah.
+Petrosity.
+Petrosity, yeah.
+It might be a little...
+Yeah, it might be a little too like for this project, but for the future,
+like that's the biggest thing it doesn't have, but...
+So...
+And unlike, I guess you had bad experience with the test flight.
+I've never used the old one, but I love test flight.
+Like we just uploaded our build yesterday, got proved...
+To iTunes Connect.
+Yeah, so we got, we put it up yesterday, and it's available now,
+and then as far as like we used it for a senior project,
+and every time we had an update, we just said,
+now there weren't any big changes, and then it just goes through immediately.
+So, I mean, you still have to like invite testers and stuff.
+I don't know how the old one worked for that,
+but I could throw a link up on the page if anybody wants to sign up.
+We have up to a thousand spots, so it doesn't really matter.
+So if anyone has an iOS, I think it's eight and up.
+That's the other big issue is it only works on iOS 8 or higher.
+So that's, I mean, at this point, if you have a recent device,
+you should probably be upgraded, but if you don't, then sorry.
+So I'll pass this around real quick as...
+Well, it, the build runs as low as six,
+but test flight requires the test flight app,
+which only runs on iOS 8 or higher.
+So once it launches, yeah, so once it launches,
+it'll be available on down to iOS 6.
+But for the beta testing period, we're locked to eight and nine.
+So yeah, so when the next person's coming up,
+I'll pass this around.
+You guys can check it out real quick.
+And then I'll post a link, and if anyone wants to get in on the beta
+in the next couple weeks, it's gonna be a longer list.
+I'll post it in the next three weeks.
+So these buttons on the side, when you tap them,
+it will be like this one, that takes all of them.
+Yeah.
+Do you want to, you know,
+the apple and then see your...
+Wow.
+Oh, yeah.
+It's still very placeable.
+Okay, man.
+What do we, what do we do?
+I don't know about that.
+Yeah, so...
+There it is.
+So it's...
+Actually, can you, uh...
+Yeah.
+You set up queues that way.
+Yes.
+Okay.
+Okay.
+Okay.
+Okay.
+What's that?
+Camerican queues.
+Evil.
+I like that.
+All right, so this is a strategy game.
+It's actually a good follow-up to the talk.
+So your name and...
+My name's Corey.
+Corey.
+Okay.
+And this is a game I've been working on
+for almost seven or eight years off and on.
+So the name is SSG, and that's...
+It's actually the working title,
+but I got to know it really well
+because I just know what SSG is,
+so I decided to deploy it as that.
+So it's on the Android store
+and iOS today.
+It's like RISC.
+I'll just show you the...
+So you get random...
+Random maps.
+You can use...
+Type to attack.
+So are you blue there?
+Yeah.
+Okay.
+So I decided...
+I had a really hard time
+with easy, medium, and hard difficulties
+because there's just so few moves you can make.
+It's a simple game.
+I've said to go with two very predictable AI,
+which is aggressive.
+You just attack whoever's weakest.
+And honorable.
+They attack whoever's strongest.
+You actually can't lose on that one.
+It's actually very...
+It takes me like two or three other moves to win.
+And strategic was my attempt at a human type AI,
+which does okay sometimes,
+but that was a little difficult.
+How did you create the AI?
+Very similarly.
+I think it's called heuristics or something like that.
+So I just took one turn ahead.
+I evaluated the board,
+made the list of all the moves,
+chose the best one based on, you know,
+that sort of different variables.
+That's all I can say.
+Any questions?
+Cool.
+Did you say that you were releases?
+Yes, released.
+SSG.
+So this was under flash, and then...
+Yeah.
+So how did you get it on to Android and...
+The users of...
+Android, iOS.
+Yes.
+How did you get it on to iOS?
+Yeah.
+I used flash develop.
+Yeah.
+And it became the best mode.
+Oh, you came up with it.
+It became...
+I thought you were, like, using flash.
+Now, this is all free.
+I didn't pay for...
+You know, I use this flex, which is free things.
+Cool.
+What do you use?
+What's that?
+What are you using?
+Flash develop.
+Okay.
+You use flex.
+Yeah.
+Well, you asked me back.
+Action script?
+Yeah.
+It takes...
+I think it's flex, but it doesn't bind the seams.
+Yeah.
+Cool.
+So are you done with it after eight years, or...?
+It depends on how well it does.
+I have a lot of ideas.
+Yeah.
+Things I want to improve on.
+Different AI options to work with.
+But it took so long.
+I actually worked on...
+I have two other apps now.
+Yeah.
+So this is just something I keep going back to.
+Just going to figure out how long I want to be set up.
+So how long has it been out on the store?
+Just a couple of days.
+Oh.
+Have you had any feedback so far?
+I did a beta test, so I got a lot of feedback from that.
+Okay.
+I've heard a number since then.
+How was the feedback on the beta test?
+I found it difficult, so...
+Most of the playlists I'll actually show you.
+I added...
+Handicap here, so...
+Is that the actual units or normal?
+Uh-huh.
+Alright, just a couple.
+Cool.
+Wow.
+Does anyone play Dice Force?
+That was my kind of inspiration.
+What are the maps of the concert?
+Uh, they're random.
+Okay.
+Have they seasoned or regenerated, or are they...
+Yeah.
+I'm not sure exactly.
+I just...
+Yeah, I pick a point and then just...
+One territory at a time gets created.
+It's actually...
+It's playing the game itself right now.
+Yeah, the computer's going.
+And so you're going to lose if you don't start taking turns, right?
+Well, on a large map, it's usually pretty easy to win against aggressive,
+but it's a smaller map, so I'm not going to go without it.
+Okay.
+Cool.
+Alright, that's it.
+Alright, alright, man.
+Cool, thank you.
+Sorry.
+Okay, so we're ready to go.
+We put Cubotic, which is our robot game, out on Google Play and the App Store
+a little more than a month ago, I think May 17th.
+So we put it out there.
+We've had about 7,800 downloads.
+We had 8 or 10 people actually paying money.
+Not many.
+Not enough to put my kid through college, honestly.
+She's halfway through.
+So one of the things that came up is that people said,
+oh, you've got to have a trailer.
+You've got to make a trailer in a row.
+It made a big difference.
+So Aaron and I said, okay, we're going to make a trailer.
+So we made a trailer in one day.
+And I'm going to show you the trailer and see what you think.
+And one thing we did learn, though, is that the trailer's a minute long,
+but if you want a trailer for the App Store, it's Apple again, right?
+30 seconds, not a second more.
+That's your trailer night.
+They take that.
+So if you are going to make a trailer for your game, think about that.
+I'll talk about what tools we used to do this.
+So many of you may recognize it.
+Let's try to get this full screen.
+Where's that full screen on this thing?
+Oh, here it is.
+I thought there was one down here.
+Okay, let's see how this works.
+Oh, my God.
+Wow.
+So I had a former coworker who was in Malaysia.
+He watched the trailer and he played the game and he went...
+Not really like the trailer.
+I mean, it is, but it's like, he's expecting like robots to be breaking in.
+So that's our trailer.
+I think that's the one that's funny, though, right?
+Like, it's super, like it's an action, it's like mission impossible.
+It's supposed to be like, you know, big boxes and small boxes, right?
+It's very tongue-in-cheek, right?
+Yes.
+I mean, come on, it's a game with cubes and a little water on it.
+It's like a big spy launch.
+So some of you may be familiar with the tools we used, or I used iMovie and they have trailer templates.
+So this is one of the trailer templates.
+And that's why we could do it so quickly.
+Because the trailer templates gave us sort of a script and told us how long we needed to make each clip.
+There's 21 clips in here and most clips last two seconds to two minutes.
+There must be more than 20 visits.
+Yeah, it's a minute long.
+We have some stuff in between 22 and 23 clips.
+And then I edited them down in iMovie and then put them in.
+I never used iMovie before.
+So in one day we did an iMovie that template thing.
+Does it have all the effects too?
+Oh, yeah, yeah.
+It has all that stuff in between and you just put text in for that.
+Because it would have been a month otherwise.
+Yeah, that's great.
+Yeah, the effects and stuff are nice.
+Did it have the music too?
+Yeah, the music's in there too.
+And you can do lots of music.
+Yeah, I just took everything.
+It's nice that I guess I'm going to create a comments or whatever from Apple.
+And the only thing you may run into is if you do use these templates,
+when you put them on YouTube, you might get that copyright notice.
+But if you look online, there's a guy who's already written to YouTube about it.
+So you cut and paste his letter and send it to YouTube and they'll clear you.
+So what we do with ours, just to show you kind of how we do this.
+Do this.
+Just a little sleep.
+Come on, baby.
+Oh, okay.
+The video's over.
+And then I will yield the floor.
+Just to show you what we've also done.
+And this is because you look at the numbers, right?
+And you go, oh, great.
+800 downloads and not enough money to buy lunch.
+So we created a website, kebab.com.
+I mean, our company is Xemarin.
+So we start with this thing and, you know, it's just sort of a landing where you go
+and you do it here and you go like this.
+It scrolls up and then we have our trailer right here.
+And then you can play the trailer, right?
+Lead you back to the website, which is where you are.
+But hopefully you'll make your way to the app store and the Google Play.
+So we have this thing.
+And this is really meant to be sort of on tablet or phone.
+So the screen's kind of big for it, right?
+But some of the stuff that we're having to do just to try to get some attention, you know?
+And the trailer leads to this and this leads to the app store.
+We put our videos on Vimeo.
+We use Vimeo.
+We don't use YouTube.
+We will put copies on YouTube, but it's easier to serve your stuff from your website
+without advertising all that crap that YouTube puts in.
+So that's it.
+So where does your marketing strategy go?
+Yeah, well, that's where we really need help.
+And we're about to enter phase two with National Science Foundation to do our full robotic game.
+So believe it or not, Cubotic was just something we threw out there to test some of the robot ideas.
+It wasn't meant to be our commercial game.
+So we have to decide, oh, do we spend time marketing this, or do we get back to what we're supposed to be doing,
+which is we're supposed to be making robots walk and get up off the floor in a very natural way.
+But anybody who wants to work on marketing comes in.
+Because it's not my specialty.
+Not that I want to, but that's not what I'm reading my head.
+Your graphics look so great compared to last time I saw your game.
+Oh, right, right.
+That was, I'm not sure when, but yeah.
+Probably like six months ago or something.
+Yeah, so I'm really embarrassed.
+I did the graphics for the game, and I since hired,
+well, I hired one person to work on a 2D game,
+and all of our stuff in the future will be done by a professional graphics person.
+That's great.
+Yeah, thank you.
+But that's as far as I can take it now.
+That's really important for games though, right?
+Is the visualization and getting all this on board?
+Yeah, little cubes, my face, the personalization thing is really nice.
+Like you had a decent personalization before, but that's like so much better.
+Yeah, the cubes.
+So we're going next week, we're invited to Rosie's Girls to the camp.
+So this is a camp for teenage girls in trades.
+And we're bringing Cubotic along, but we're also bringing real cubes with their faces on them.
+So I'm colored in orange, and so I'm painting cubes at home.
+And so we're going to have them actually do the stacking of the cubes themselves
+blindfolded while somebody else is guiding them so they can understand
+what are the limitations of movement with a robot arm,
+and then they'll go through the game and try it.
+Wow, that's a great idea.
+That's a great merchandising angle too.
+But I'm starting to think that we might have to make more money on the cubes
+than the robots on the cubes.
+Now you're in position.
+Then you can bring like cubes like, um, cubelets and stuff like that.
+Yeah, the cube dynasty.
+Somebody has sunglasses here from Kid Robot.
+I tried to talk to him, but he's so busy to get in the same.
+So you have marketing and promotion and everything.
+If anybody has any, you know, companies or any places they use,
+I would love to hear about it because, you know, I don't know,
+if you just try to rely on a publisher for that or what,
+anybody has any experience with that?
+I should get a meetup, right?
+Yeah, that should be a meetup.
+If anybody wants to give a talk on that, I would love to, you know.
+For Pathogen, we used a publisher called Gamebler out of the Boston area
+and they hired a publisher.
+And they did a really good job.
+What was the name again?
+Gamebler, G-A-M-E-B-L-Y-R.
+Got a solid guy.
+So they're a publishing company?
+They're the publisher and they hire into marketing.
+They actually gave us a cash to finish development of Pathogen.
+So we got actually paid, you know, and then they took a,
+we got a certain cut of the sales until a certain dollar amount.
+I mean, Margie was talking about that during her talk.
+I don't know if you were here for it.
+And she said that, you know, that things have really changed
+and that it's around no one's given you a cash to do a game anymore.
+You have to come with a game finished and then maybe they'll look at it.
+Yeah, this was two years ago.
+It's only two years ago that they've changed.
+I think publishers were throwing out money for the next big idea
+and now they're much more conservative.
+So the first meetup that we did, I told you guys about a crazy idea
+where, you know, maybe you could do some sort of like,
+essentially a marketing angle, but instead of like going through
+and doing something global, doing something where you advertise AdWords,
+you know, doing something different where maybe you did something, you know,
+cheap and local.
+And, you know, the idea was to have some kind of a self-sufficient game demonstration.
+And I told you guys about a kit.
+So I actually got one of these kits and put it together.
+And it was fun and it's really cool.
+You know, it's got the old kind of like, you know, arcade feel to it.
+Cool.
+It's got buttons at the bottom.
+I know.
+It takes cheap by the way.
+Yeah, totally.
+You know, I don't know.
+Like MakerBot, right?
+Yeah, yeah.
+So this thing right now, it runs off a Raspberry Pi.
+And it's basically supposed to like run like old ROMs.
+But, you know, the vision that I have for this is that this could run, you know,
+locally made games.
+And I went and I talked with the guys at Tilt and, you know, presented this idea.
+I was like, you know, you guys do local food, you guys do local beer.
+How about local games?
+And they were totally into it.
+They were like, oh, this is great.
+They were a little bit surprised about the size of this.
+They were like, it's smaller than I expected.
+It's easier to carry than that one.
+So, I actually don't have anything to do with those.
+But it happened.
+There's a light on the top, on the underside of the board.
+Oh.
+Oh well, it doesn't matter.
+It works in my home.
+So anyway, they're totally into the idea, which is great.
+I told them I would get the game I'm doing ready probably in about, you know, a month's time.
+It's going to have a different faceplate instead of having this, you know, which is great.
+It's going to actually have, you know, the leap motion kind of embedded into it.
+So it'll just be that.
+And that'll actually then be two-player.
+There are two-player kits.
+But anyway, the other thing that I suggested to the guys at Tilt was, you know,
+maybe I could get like kind of a local game of the month happening,
+like something where you can have your game instead of being presented for a day,
+like a demo day, but actually get like a month's time, like counter space, attention.
+You know, maybe I'll do an event with this group.
+You know, we all go out to Tilt.
+We all have some beers and, you know, celebrate.
+Whoever's game it is, it's, you know, being shown that month.
+I don't know how much work this is going to take for other people to do this.
+My thought is, you know, this can offer you essentially a, you know,
+if you can do, give me some device that will fit in the back of this thing with, you know,
+an HDMI out, audio out, and accept essentially a USB keyboard that says, you know,
+up, down, left, right, you know, AV, you know, whatever.
+Then, you know, your game could run on this.
+Do you can run the game on the pod, no?
+Depending.
+You know, maybe.
+You know, so the pod loves Linux.
+It all, it all kind of depends.
+In order for me to be able to do my game, which is Unity, and requires Elite Motion,
+I'm going to have to have something that runs essentially an Intel chip set.
+And I refuse to, you know, pay for a Windows license,
+because that would be like half the cost of this whole thing right here.
+So it'll, you know, be running some, you know, some Linux.
+You can get a free Windows license.
+Join BizSpark.
+BizSpark.
+Free software, free software, three years.
+Yeah.
+Have you ever thought about just streaming the content to a screen, just on the pod, and then...
+Yeah, you could do that.
+I mean, you could also, like, you know, do some tricks and just have, you know, just take the cable,
+you know, have the HDMI cable reach under the, you know, the desk.
+Right, exactly.
+I mean, I've already kind of, I already, I did a test run with that just to have the, you know,
+the screen doing its thing, and I was like, yeah, it's halfway there, but...
+Is the pod probably runs mobile games and older ones?
+Well, I mean, there's lots of...
+It could do lots of stuff, because, you know, you could also, like, load up Android,
+so then all the Android, you know, games could be, you know, available to run on this kind of a thing.
+Do you have any questions, like, physical, how are the limitations of, like, how powerful the game is?
+This, yeah.
+You don't have a graphics card.
+Well, let's see.
+I mean, so, well, I wish this...
+Yeah, there's graphics on high, there's, like, and it runs some...
+Yeah, I mean, this will run, like, ROMs, you know, this runs DOOM, it runs, you know,
+all the emulators for different old systems, and that's basically what this thing is made for.
+Like, you have a catalog of old games that you can play with, you know,
+hopefully you own all those games, but, yeah.
+What's the difference between, like, making, like, a cool box and just, like, sticking an iPad in it?
+I know that just sounds...
+Yeah, I mean, you can do it.
+However it is that you want.
+I just mean if you want it to be kind of more of, like, a public physical thing, you know,
+to give it, like, a little fanfare, you can give it, like, its own little home sort of...
+I mean, it's not as much fun as if you don't have buttons and stuff.
+You're actually, like, using a touchscreen.
+Sure, sure. I mean, there are kits out there that essentially do that.
+Oh, that you can stick your iPad in and...
+Yeah, yeah. But all told, this is...
+This option is cheaper altogether than one iPad.
+So, you know...
+So, you know, anybody who's interested in possibly, you know, trying to host their game on a system like this,
+you know, send me an email.
+I'm not sure exactly, like, this is, for me, is a marketing effort.
+This is about, like, getting the game that I'm making, like, the name out there, trying to sell it locally.
+But, you know, so I'm not trying to take on too much of a burden myself of, like,
+doing a different kind of business where I'm essentially selling game advertising.
+But, yeah, let me know if you're interested.
+And, yeah.
+What's your game about?
+My game is Quadra Sumo. I did a demo of it.
+Oh, it was a couple of times back.
+You tried to knock the tower?
+It's kind of a King of the Hill thing where you control a robot using the leap motion,
+which is a...
+Hand tracker.
+Yeah, hand tracker. So, basically, what your hands, what your fingers do, the robot's legs mimic.
+So, you try to, you know, knock the other guy off.
+Yeah, yeah, exactly.
+So, again, not to critique that, which is very cool.
+But if a bunch of people did want to participate in this,
+maybe everybody could, like, split the cost of, like, one iPad,
+you know what I mean?
+Just to simplify being able to present the games,
+just because that's cool, but it's a lot more complicated
+to get your game to show potential than that.
+True, yeah.
+Well, so my position here isn't to try to, like, take a monopoly on, you know,
+what tilt is going to present.
+If you have a, like, different attractive option
+in which to present your game in the way that's, you know, best for you,
+it's easiest for you.
+Like, if it is, like, creating something like this
+with an easily accessible, you know, touchscreen iPad underneath,
+like, great.
+Like, it's, you know, I don't want to be the middleman,
+like, in, you know, interfering with everybody else trying to, like, present their games.
+I just want to start, you know, getting tilt and other people to start, like,
+thinking about, ah, support locally made games.
+I just think it's super fun to have these in, like, a whole bunch of different bars,
+like, go over town, like, you know, in one game a month.
+That would be, I think it's a great idea.
+Yeah, absolutely.
+I mean, yeah.
+One of the people that I'm interested in should get together and talk about it.
+Yeah.
+I'm definitely interested.
+I don't know, my game won't run on that hardware though.
+No, mine won't.
+I mean, I'm running an extremely slow.
+Yeah, mine neither.
+So, yeah, we'll see what this actually looks like, you know, when I'm substituting out
+the Raspberry Pi with an Intel Nook and, you know, we'll see what that looks like.
+Can I even, like, get somebody a generator to make, like, a nice case for you?
+Mm-hmm.
+One thing I wanted to show you, and I don't know if anybody else is interested,
+I bought a 17-inch Android tablet.
+And just to bring it to show, so that you could be in a room with four or five people
+and show it to them and not worry about having to look everything up on some monitor
+or just work.
+That's a sweet business expense.
+That's just 400 bucks or something.
+Really?
+Yeah, 450.
+It was cheap.
+I mean, in comparatively, considering you pay down on how much for a super-churn iPad.
+Right, 700.
+I would be good at it.
+Anybody interested, I'll bring it back in the show.
+Cool.
+Super-churn.
+All right, great.
+Well, thank you all for coming to the fourth.
+Fourth one.
+Fourth Vermont Game Developers Meetup.
+Yeah, we're officially done.
+You can mingle and do whatever.
+Show other stuff you got.
+Thank you.
+I love the questions, man.
+I know.
+There's totally arcade quality, right?

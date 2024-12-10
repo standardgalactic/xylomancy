@@ -1,0 +1,1503 @@
+What I'm going to tell you about is some recent work
+we have done in trying to understand the learning
+dynamics in the neural network, feed forward neural network,
+from based on a statistical physics point of view.
+So you will see.
+It's like, got it, OK.
+OK, so I will start with some basic introduction,
+what I call the central dogma of machine learning.
+Focus on two main things, which I think
+is very important, which I think physicists
+can contribute to optimization and generalization,
+to understand these two things.
+And then I'll talk along and talk about the topic.
+One is really about the dynamics of learning
+in feed forward neural network.
+Topic two is about in this highly over-parameterized
+region in neural network.
+You can find many solutions that you
+know which solution is better than the other solution.
+So the basic generalization problem.
+These are basically based on these three papers
+we published recently in the past few couple of years.
+You want to look at the details, go check it out.
+All right, so central dogma.
+So you have DNA and RNA and protein, right?
+So you have training data.
+That's the data you want to train.
+And you have a model.
+The model basically is the neural network.
+You're building a model with parameters in it, right?
+This is the input output model.
+And the inside the model are these parameters.
+And these parameters in the feed forward neural network
+are just these weights.
+We're going from one layer to the next.
+And then you build a model.
+How do you build a model?
+You build a model by finding out the parameters in this model.
+You have the model.
+The structure of the model is fixed,
+given by the architecture of the neural network.
+The parameters are determined by optimization.
+Given the training data, you construct a loss function.
+I'll show you what a loss function looks like.
+Basically, how well does your model capture the training
+data, the kind of input you have and the kind of output
+that you actually try to predict,
+actually agrees with the actual real output.
+So you do that by optimizing the loss function.
+So this optimization is the main thing here.
+The first part, so if you know about central dogma,
+there's also two main things there.
+One is transcription, and the other one is translation.
+So this part is the optimization is how
+do you build a model that explains the training data?
+But the data, as you see, can be fitted
+by many different models, actually the same model
+but different sets of parameters equally well,
+in many cases, especially in the over-premise regime.
+So the next question is that, OK,
+so you can have all these, what we call solutions,
+the model based on the training data.
+Now, are any of these solutions equal or they are different?
+How do you distinguish them?
+Distinguish them by looking at the test data.
+That's not part of the training data.
+You say, OK, now you have a model.
+Now I have a new image.
+Can you predict the dog or cat?
+Even though you haven't seen it before,
+it's in this very image.
+So to determine among all the solutions you find here,
+which one is better is the problem called the generalization.
+Which solution is more generalizable
+that can be used to better predict data
+that you have not seen before, test data?
+So there's really two key set of questions
+in deep learning or machine learning in general.
+One, to me, at least, is how do you find the solution?
+So I cast it as a dynamical system
+that you start from initial guess of these parameters,
+somewhere tight dimensional parameter space.
+And then eventually, through optimization,
+you find a solution.
+The process of finding the solution, what I call dynamics.
+Here, dynamics is not in real time, physical time,
+but in training time.
+Each iteration corresponds to a delta T, each step, training.
+So how does the system find solutions?
+That's one question, number one.
+Question number two, what makes a solution generalizable?
+Is it good or bad?
+How do you compute a different solution
+that you find through the process?
+That's topic two.
+All right.
+Why do I even ask this question about generalizability,
+which solution is better?
+Because in physical system, highly complex system,
+like a protein folding problem, it's still
+also a high dimensional space.
+But the landscape, the lost landscape,
+the equivalent of lost landscape there
+is, of course, a free energy landscape.
+So you want to minimize this free energy.
+And here, there's a unique solution,
+the folded state of the protein that
+corresponds to the lowest, the minimum of the free energy.
+The landscape looks like this.
+It's kind of complex landscape with local minimums
+and so on and so forth.
+So the difficulty in this problem,
+protein folding problem, is to find the solution.
+There's only one unique solution.
+The folded state of state.
+I mean, is that really true?
+I mean, lots of states are really close.
+You're drawing a very nice quadratic.
+I didn't draw it.
+No, that's actually kind of a textbook.
+The final picture?
+Right.
+No, I understand.
+But could it be like there's lots of little local minimums?
+No.
+No.
+Actually, this is part of protein design.
+Actually, a designable protein sequence
+is that it actually have a really unique ground state
+that it always fold to.
+Otherwise, if you have many different conformation
+that at least have a similar energy, you're in trouble.
+Because the function depends on a particular fold.
+And you just want that.
+You don't want your protein, depending on whatever way
+you fold it, to end up in some wrong conformation.
+I'm going to ask you the same question
+when you come to your other models.
+OK.
+So here is what the lost landscape
+looks like for machine learning problem.
+The machine learning problem, we're
+just throwing so many parameters, so many weights
+into the system.
+Chachi Pethi has trillions of parameters
+that the space is so large that you actually can find.
+This is actually a highly simplified picture, right?
+OK, this is a one dimensional picture.
+But it looks like this.
+Basically, in the lost function, you have minimum.
+There's a global minimum in terms of its actual absolute value.
+They are roughly the same.
+This is a picture that you have in your mind.
+But there are many, many of them, right?
+So then the question is the hard part of the question is not
+I mean, finding a solution is still
+interesting optimization problem.
+How do you find them more efficiently, and so on.
+But the more difficult, even more difficult question
+in this problem in neural network,
+over-premise region is actually, which one of this solution
+is better, right?
+It's not to find the solution.
+It's not the many solution.
+But which solution is better?
+So can I ask you which one solution is better in terms
+of generalization?
+Take a guess.
+No idea.
+The flatter one.
+The one with four local minimum.
+That has a more kind of broader attraction
+base, if you wish, that allows you to have.
+Yeah, anyway, so I talked about this, the second part of the talk
+if I get to it.
+So all right.
+So OK, so the first part of the talk
+is really about not about which solution is better,
+but really about the specific learning
+algorithm people usually use, namely stochastic gradient
+descent.
+How does the system driven by stochastic gradient design
+find a solution?
+And it turns out the solution actually
+have turned out to be more likely to be a flatter solution,
+SGD, because the noise in the SGD algorithm.
+OK, so let me just step back and tell you a little bit
+about what exactly we're trying to do
+and what is set up in the problem, right?
+So this is the feed forward.
+This is actually, this is the input, this is the output,
+this is our feed downward neural network, OK?
+So here's the input.
+What is the input?
+Input are just the image, each image is the input, right?
+And you want to get output to say, OK, what is the character
+encoded by the pixels of all the pixels in this image?
+What is it?
+Is it 1?
+Is it 3?
+So the input is 20 by 28 by 28 pixel.
+So you have 784 numbers here.
+And you feed in and from input to the output,
+you go to the neural network.
+This is just a perceptual model fully connected.
+So this is the model.
+This is the model, right?
+The output depends on the input and the parameter of the model
+at all these weights.
+So what do you do?
+You just add linearly sum, weighted sum of the input.
+Next layer will be just a nonlinear filter
+of this weighted sum, right?
+So just simple neural network architecture
+and feed forward way of building a model.
+Can I just ask, what decides the number of layers
+and how much you reduce this number of nodes?
+There's no regular.
+Basically, the more parameter you put in,
+the better performance it seems to be, at least
+within certain regions.
+But the other side is that computation
+may be more demanding and independent.
+So there's optimal impracticality.
+But in terms of if you just want to get better result,
+so that's why I think all these trapped GPD models,
+they just put in a lot of parameters.
+So that question is slightly differently.
+I might say that there's architectures that
+are preferred for different kinds of inputs.
+So we use convolutional neural networks,
+which have different kinds of layers in them,
+which do convolution over the image, and then pooling,
+and then, you know.
+There's convolution over the image.
+OK, so there's a special architecture
+that helps you find features in the image at different scales.
+That's what competition is.
+So the CNM basically corresponds to the convolution.
+So these pixels have special relation with each other.
+So the next layer, what you do is
+you have, for example, a particular mask,
+which is like 3 by 3 matrix.
+These are the weights.
+Only have nine matrix elements.
+What you do is you scan the image using the weight.
+Weight doesn't change, but you scan it across it.
+So the next layer would be just the convoluted.
+The image convoluted by this mask.
+Right, and so when you think about deep learning models,
+it's helpful to think about what they're doing.
+So often, image models are these very set architectures
+that have convolutional portions and other portions.
+But when you talk about the GPT, the generative pre-trained
+transformer models, then the transformer part
+there is actually talking about a particular architecture.
+And the best thing to think about that architecture
+is it's one of the first models we came up with in the machine
+learning community that you can train in parallel.
+And that's what made it so, so, so important, right?
+Because up to then, if you have a top-down model,
+you're training it serially.
+And so transformers did two things.
+One is they also take as input unlabeled data,
+whereas often convolutional neural networks
+and everybody take labeled data.
+What came about at the same time was
+that we now realize that if we had sequences of data,
+we could mask out parts of the sequence
+and we could ask the model to come up with.
+The training example would be figure out what's masked.
+And so we didn't have to label anything.
+So all of a sudden, we came up with an unlabeled method, which
+let us use tons of data, and we came up
+with an architecture that we could run in parallel.
+And when you put tons of data in parallel
+through these very, very high-dimensional models,
+this is where you get to now, where
+we've got these very, very large loss landscapes, which
+have both thin and wide bowls for optimization, optima.
+But when you ask the architecture question,
+unfortunately, the community has gone
+in different directions.
+Yeah, there are many, many different architecture
+which determine the model itself.
+What I'm talking about is, independent of that,
+what I'm interested in talking about here
+is that given the architecture, this
+is the simplest fully connected perceptual model.
+You have CNN, you have Transformer,
+but that amounts to how you relate each individual input
+together through this matrix.
+But once you fix that architecture,
+then what's the model, the flexibility of the model,
+is represented by the change of the parameters.
+So the rest is basically trying to find the parameter
+within that architecture to optimize,
+to minimize this loss function.
+And if you take all these old family of GPT models,
+what's remarkable about them is that we call them large models
+because they have over a billion parameters.
+So when you talk about just how small the input layer is
+dimensionally and how big the number of parameters are,
+that's the real crucial thing here.
+It's like, how are we not over-learning the data?
+How are we not over-learning that you could just memorize
+every piece of input that you push into these networks,
+given the billions of parameters you have,
+but we're not.
+Our optimization method is pushing us into these bowls
+that he's going to tell us a lot more about.
+But that's the general gist of it.
+I think it's just for people who want to take it away.
+Yeah, right, yeah, yeah, yeah.
+Yeah, so that's actually a very important crucial point
+where I'll get to it.
+But then all the experiment,
+numerically, say, in this business,
+people call this experiment,
+that you run through this numerically and you show.
+So basically what we try to do is to build up
+on top of the experiment some theory, right?
+Physics-style theory, not math theory,
+because I run into trouble with, I call this theory,
+it's just, where's the theorem?
+Where's the theorem?
+Where's the theorem?
+Where's the, whatever, sorry.
+Actually, I'm not kidding, this is actually real.
+That's why I don't submit to New York, so they think,
+I don't, if I do, I don't call this theory,
+I call it something else.
+Okay, so anyway, so let me just step back,
+I think this may be not necessary,
+but I think we'll just set up the problem like,
+you have a loss function,
+it's summed over all the individual training sample
+from one to M, this is all a loss function.
+What is Z?
+Z is the predicted, so Z, oh, sorry,
+Y is the predicted output that depends on the input, X,
+and all the parameters in your system,
+in your neural network, okay?
+But you want the predicted output
+to be as close as possible to the actually true output,
+where D is the distance measured between the prediction
+and actually the actual true output, right?
+So people in this business usually use,
+you can use square, mean square, distance,
+but most people use this,
+what we call the cross-entropy loss.
+Basically, another way of measuring the distance
+between this two factors.
+To get another poorly understood preference
+in the community, it's very empirically-based,
+it's not mathematically or,
+it'd be great to have another physical space,
+explanation of it too.
+Yeah, I think, to me,
+this more naturally connect to free energy,
+other than the square distance.
+Okay.
+Okay, so say, okay, now you have a loss function,
+you obviously want to optimize it,
+minimize this loss function, so what do you do?
+Well, we know how to do it, we do gradient descent, right?
+So we just say, okay, now you have a loss function
+for particular parameter theta of i,
+the change, every step, I change it along the direction
+that lowers the loss function, gradient descent.
+They actually, people think it's two problems,
+gradient descent, but it really is one problem
+that leads to SGD.
+The problem is that it's very clumsy
+to training large data set,
+because imagine you have M equals 10 million data,
+and every time you have to calculate the gradient
+based on summing over 10 million data,
+it's very consuming, time consuming.
+So what people come up with is this very clever idea,
+most at the same time, the way it was first developed,
+is to say, well, okay, so for each time step,
+instead of constructing the loss function
+out of all the samples, all the training samples,
+I subselect, I just randomly select a subset,
+and the subset is kind of given by mu.
+The size of the mu is, it's called a B, right?
+B is much, much smaller than M,
+which is the overall size of the training data.
+So I just do that, so every step,
+imagine every step, I just randomly pick a subset,
+and I construct L of mu, what I call mini loss function,
+and I go down gradient of that, okay?
+That's just SGD.
+The stochasticity is not showing,
+as physicists used to have random noise,
+or thermal noise flowing,
+it's really caused by the fact that every iteration,
+you are using a different sub-sample,
+you have different subset of data, okay?
+That's where actually very important.
+So now you see, we can still write down
+in continual limit, d theta dt,
+t is now iteration, not in real time, right?
+Physical time, so minus alpha, gradient of L mu, right?
+So L of mu, of course, is not equal to L,
+the loss function.
+So the difference, the difference is all stripped
+into what they call the noise.
+So this noise term will be different each time step, right?
+The saturation step.
+So now I can write down this equation,
+and what's the noise?
+So this looks very familiar,
+it should be very familiar to you,
+or any physicists, this is just the long-drain equation.
+So if you have a free energy of the system,
+we do the same thing.
+So the dynamic stuff that system can be written down
+as gradient descent plus thermal noise, right?
+It will be thermal noise in the equilibrium physical system.
+Whereas here, it's not thermal noise,
+because eta is just alpha gradient of delta L of mu.
+Delta L of mu is L of mu minus L.
+The difference between the mini-batch loss
+and the overall loss.
+Of course, I mean, the average of mu
+over all the ensemble of mini-batch will be zero.
+So that's very different, it's noise with zero mean.
+But the variance, or the covariance of this noise vector
+is very interesting.
+It's this thing, right?
+So if you look at it in contrast to,
+it has a lot of structure in it, right?
+We'll get to that.
+But this noise in the physical system in equilibrium
+with a heat bath, with temperature T,
+this covariant matrix would just be identity matrix
+with a constant coefficient that correspond to two alpha KBT.
+If you plug that in, and you look at the steady state,
+distribution of theta, you recover the Boltzmann distribution.
+That's why you have this fluctuation-dissipation relationship
+that leads to, or Einstein relationship,
+that leads to the Boltzmann distribution.
+But this noise is what I call, SG noise,
+neither homogeneous, so this noise is homogeneous,
+everywhere in your primitive space, it's the same.
+No more isotropic, that's actually more important.
+So it's different in different places,
+the primitive place.
+Also, it's a matrix, it's a true matrix.
+It has direction, certain direction has a larger noise,
+certain direction has a very small noise.
+So we'll get to that.
+That's actually the main finding of this study.
+So this noise is very special.
+It's actually, I would say, not equilibrium dynamics,
+but that's probably not relevant to this talk.
+So the physical picture I have, or you could have,
+is that starting with some starting weight, right?
+The dynamics of theta would be governed by gradient descent,
+plus noise term.
+So in the beginning, you probably dominated by this term,
+so it was probably downhill, pretty fast.
+But at the end, this term started to be relevant,
+so you started to wander around.
+That's the physical picture.
+So this can be, so this is a high-dimensional space,
+so this is a high-dimensional,
+this is the drift term in the lingo of physicists,
+and this is the, I say, funny-looking,
+non-homogeneous, anisotropic noise.
+So this is theta, yes.
+It makes me think back,
+I'm a computer scientist, I'm not a physicist,
+but one of the algorithms we used earlier for search
+in computer science was simulated annealing.
+I'll get to that.
+Oh, okay, because it feels very much like
+simulated annealing.
+I'll get to that.
+So like, the question I have is like,
+in simulated annealing,
+you decrease the temperature with exponentials,
+and that's what I'm wondering is like,
+we could do the batches and batches.
+So I'll make exact that analogy,
+but it's a self-tuned simulated annealing.
+Similarly annealing, you have a schedule.
+This one doesn't.
+It's just based on what it sees,
+it's automatically slowed down,
+lower down the noise,
+and automatically adjusted the nesotropic.
+Well, but one hammer you have on that,
+one knob you have on that is batch size.
+Batch size and learning rate.
+She's the noise.
+And learning rate.
+And learning rate, yeah, exactly, yeah.
+Those two.
+Okay, so you're way ahead of me.
+But I'll get to that.
+I'll get there.
+Okay, so what I think I hope to convince you
+is that it's actually not a high-dimensional
+drift diffusion dynamics.
+It's actually low-dimensional.
+And second is that the funny noise,
+it's actually not funny,
+it's actually very smart.
+Smart in the sense that it's emulating the simulated annealing,
+but in a much more self-organized way.
+Okay, so why do,
+as a first point, it's low-dimension.
+So how do we know dynamics,
+dimension of the dynamics itself?
+You do PCA, right?
+So it's simple.
+So what you do is you take a look at the dynamics
+of these weights in the particular layer.
+So now I'm looking at the subset of the weights
+in the particular layer,
+because these weights are equal in some sense, right?
+Equal footing.
+I mean, they represent the same information.
+Same level of information.
+So if you look at the weight dynamics,
+as time goes on,
+it looks just to PCA, right?
+And you look at the,
+so basically what you do,
+you calculate the variance in different direction
+to dynamize the covariant matrix of the weight fluctuation.
+What you find is that actually,
+after a certain dimension,
+let's say here, 40 or 20 or 30,
+has a very fast decay.
+So a lot of the height,
+a lot of the dimension
+has you had very little fluctuation.
+It doesn't really move there.
+I'm sorry, I'm not sure I understand
+the meaning of the x-axis.
+Oh, just the components.
+So this is the rank-ordered principle components.
+Oh, okay, okay.
+So component one has both for direct order,
+number one has largest weights and so on.
+Exploration phase means the phase
+before you get into the...
+No, actually phase once you get down to the bottom.
+The noise phase.
+But this happens also in the,
+we break it down into fast learning phase,
+and exploration phase.
+So we get this exploration phase,
+but if you go back to the fast learning phase,
+it's the same thing happened.
+Actually, of course, not in the very, very beginning,
+but after one or two epochs,
+this behavior, this freezing out of the residual dimension,
+actually happens very early on in the learning process,
+not until the very end.
+So what you're saying is if I have a layer
+with like 2,500 parameters in it,
+then only a few of those parameters matter.
+But it's a linear combination of all.
+Right, so you cannot pick and choose.
+Yeah, you can't pick and choose, but there's a linear, okay.
+That's why you need those 50,
+just 50 times 50 to start with,
+but then eventually when you find solution,
+that solution lives in the much lower dimensional space.
+So if you look at the cumulative variance,
+of course, that becomes more evident
+that actually the top, the first 40 components
+of 2,500 degree actually counts for 99% of the variance.
+That means that it really is not really doing much
+in these other dimensional space.
+Okay, so we're talking about the dynamics of weight change,
+but you can also think about,
+meaning as soon as you can think about the landscape itself,
+the lost landscape itself.
+So once you decided,
+once you determine the, using PCA,
+you actually set up a very nice coordinate system
+for you to look at the variation of the landscape, right?
+Otherwise, it's a high-dimensional landscape.
+How do you even think about it?
+So we did that.
+So we look at the landscape
+around a particular direction, I,
+from the PCA analysis.
+So we were looking for some glassy type of behavior,
+a lot of wiggles at the bottom.
+It never happened.
+Very flat, very smooth.
+So because the smoothness,
+we actually can define the width of the region
+in this particular direction, I,
+that within which the change of the loss
+is within the factor of two.
+That's how we define what we call the flatness parameter.
+The F is bigger, the flatter the landscape,
+in that direction, the bigger the F, right?
+So this is the flatness parameter in that direction.
+So we can do that for all the direction,
+2,500 direction, based on the,
+along the PCA direction.
+So we can do that.
+This is what we did.
+So I told you about the PCA,
+give you the variance of the weight fluctuation.
+This is all about weights, right?
+Nothing to do with the landscape.
+There's about the flatness in this direction.
+Okay, so you see, this one is going to rank order.
+So it goes down.
+This one actually,
+we didn't rank order this,
+just using the same eyes here, it goes up.
+I'll let you steer at it for a minute.
+The flatness is not actually computed
+from principal components.
+No, no, no.
+It's not at all.
+No, just no, not at all.
+So we calculate principal component of the weight fluctuate,
+weight fluctuation of weights,
+and that tells us the principal direction.
+Then we just take the principal direction
+and slice it through the landscape
+and look at the landscape.
+I measure it.
+Right.
+Okay.
+This is very weird.
+So the weirdness comes out
+when you plot F of i versus sigma of i.
+You plot the flatness versus the variance.
+So flatness versus the variance of the weights
+in that direction.
+I'm going to read it down.
+So the flatter you are,
+the smaller the fluctuation.
+The sharper you are,
+the bigger the fluctuation.
+So I said, are you surprised?
+Yeah, a little bit.
+You should be jumping on your seat.
+This is what I call inverse Einstein relation
+because Einstein would say,
+okay, this should be the other way around.
+The flatter you are,
+because here's the physical picture
+and it's what in the physics jargon
+is breakdown of fluctuation theory and so on and so forth.
+So basically, this is a physics picture
+that you have a noise of a gradient
+of some energy landscape, i.e.
+And the flatter you are, the less resistant you are,
+so therefore you have fluctuation more, right?
+But that's assuming eta has a constant strength.
+You have a constant strength of noise.
+So this shows up in sigma squared
+should be going delta, right?
+Over alpha E zero F squared.
+F is the flatness.
+So this should be proportional,
+that should go, you know, diagonal,
+the other way as compared to here.
+So this is assuming, of course, eta, the constant,
+delta is a constant, noise has a constant strength.
+That's not true in SGD, right?
+So, yeah.
+Yes, because we got a learning function that's updating, yeah.
+Yeah, so basically the noise in the physical system
+coming out of the thermal fluctuation,
+just circling around with a constant strength
+that depends on temperature.
+Whereas here, the reason you have noise at all
+is because instead of updating your way
+based on one landscape, capital L,
+every iteration you are having a random landscape.
+And the average of the dotted line
+give rise to a red line, but every iteration,
+you just randomly pick a curve here
+and go down according to the slope for that landscape.
+That's where the noise comes from, right?
+So if you go through some calculation
+and you find indeed that the fluctuation,
+it goes like one over F squared.
+So basically it's very simple to understand.
+If you have a flatter landscape,
+if you fluctuate a little bit,
+the variation of that slope at the point is very small
+because it depends on the flatness itself.
+You go one over F and if you want to have F squared
+and then you work out the mass,
+it actually comes out to be reasonably good
+in a consistent with the numerical experiment, yes.
+I think that's assuming though
+that noise also is non-stationary,
+but here noise is not non-stationary
+because your delta N, your noise as the parameters
+get more and more tuned,
+then that's what's causing the landscapes to shift
+as much as just the fact that we're trying.
+So right now I'm looking only at very close.
+Remember, this is all the simulation
+but down in the exploration phase,
+where you actually, you just wander around here
+instead of actually having the downward, net downward movement.
+So then you can discount kind of the learning
+between the different landscape estimates
+and you can still just average them.
+Just average them, right, right.
+So over to mathematically,
+is this connected also to the ensemble modeling?
+We're trying with ensemble models
+to arbitrarily flatten the landscape
+because we're looking at different samples
+and we do this in neural nets.
+That's, you know, there's neural nets that work well
+by dropping out arbitrarily.
+Yeah, yeah, yeah, I think so.
+So I think they're all kind of connected.
+Yeah, so dropping out is another example
+that you can actually can do this landscape,
+you know, changing the landscape,
+not injecting actually external noise.
+You're just changing the, in some stochastic way.
+So that actually, so at the bottom of this, I think,
+okay, so this is probably intuitive.
+So if you want to know more detail about the direct derivation
+and the argument, quantitative argument,
+you can go to the paper,
+but I think I would want to just give you, lead you.
+So this is a, so I think the key
+as I go back to the contrast to the Einstein relation
+is that the noise actually really has a lot of structure,
+not only temporally, but spatially means
+it varies in the parameter space.
+So for example, if you take,
+if you characterize this fluctuation by summing the,
+by looking the diagonal matrix element
+of this covariant matrix of the noise,
+which is basically what the temperature is,
+but at least in the homogeneous isotropic system,
+but here the temperature is defined mathematically this way.
+This corresponds to the fluctuation of the noise,
+eta in a particular direction, right?
+So you can, you can sort of understand it
+as the temperature in a particular direction I,
+at the PCA direction I.
+And you see that temperature,
+effective temperature in a particular direction I
+actually knows something about the flatness.
+In a flatter direction,
+this is all the micro simulation, by the way, experiment.
+So in the flatter direction, the noise is smaller.
+In the sharper direction, the noise is larger, right?
+So that's in terms of anisotropy.
+Also with respect to training time,
+this is what you were asking, that it also goes down.
+So if you take a particular, this resolution is bad,
+but anyway, particular direction T of I,
+and at a particular location, at the minimum,
+at the local, at the position of the current position,
+but when you change it with different time
+at a different location, as time goes on,
+this effective temperature,
+but first of all, the last function goes down.
+Well, that's what you're training for.
+But if you look at all the noise in different direction,
+they all go down, together with,
+so here's a plot that you cannot really see,
+is that then we plot a T of I in a particular direction,
+let's say five, 10, in that direction,
+the noise strength in that direction versus log of L
+is highly correlated,
+meaning that as you approach in the solution,
+as you become, the loss function become lower and lower,
+your temperature become cooler and cooler,
+but all proportionally,
+because they still maintain the anisotropy,
+meaning that the flatter direction is still,
+have a larger noise, a smaller noise,
+than the sharper direction,
+even though both of them are actually decreasing
+as time goes on.
+So this, that's what I say,
+the spatial temporal structure of the SGD noise,
+actually allows it to appear,
+what I call self-tune,
+you know what I'm saying?
+It's a self-tune annealing algorithm.
+So it's tuning itself, basically,
+in the sense that it's actually,
+it's highly connected,
+highly correlated with the loss function structure itself,
+in a way that allows it to be,
+to cool down, that's the annealing,
+and also maintain an anisotropy,
+which is exactly what you think,
+allows you to freeze out, you see?
+The flatter direction has no fluctuation, right?
+Where is more amount of fluctuation?
+Which means that those directions are not relevant.
+It's not exploring that direction, right?
+It's not doing any jiggling and searching.
+Most of the searching is down here.
+That's why the solution,
+living in a low-dimensional space.
+What's, these two facts are connected.
+Okay, so,
+yeah, so, I mean,
+once we have this physical picture in mind,
+we actually can construct a toy model for the loss landscape.
+So here we construct a toy model for the loss landscape
+with a valley of degenerate minimum,
+but they're connected.
+So,
+y equals zero for different x,
+independent of x, y equals zero are all minimum.
+So this is the landscape looks like,
+y equals zero is l equals zero.
+So that's lambda is positive, of course.
+But at different point,
+at here, for example, the larger x is sharper
+because it had a larger curvature,
+and at the smaller x, it's flatter.
+So we wanna understand, if you drop a ball here,
+using SGD, of course,
+this is the landscape.
+So imagine you have a shaking landscape,
+the average to be this,
+the shaking landscape like this,
+and you drop a ball here,
+but it end up, would you stay here
+or have a net drift towards here?
+So this is a simple model, of course, not realistic.
+So we know the loss function,
+we construct the loss function.
+We also constructed a SGD landscape,
+basically, based by rendering shifting
+of the overall landscape, right?
+Shaking of the landscape.
+Then we did the analysis based on solving,
+by solving the focal point equation,
+and you can actually solve it in two dimensions,
+analytically, and what you find indeed,
+the SGD dynamics leads to a effective loss
+that has the original loss in it,
+but then have additional term,
+so by the way, kappa is bigger than zero,
+so this is a negative term,
+that actually favors larger f, right?
+So it basically tilted landscape
+towards the flatter direction,
+because, so it all depends on this delta,
+this delta is not the delta I had before,
+but this delta, by the way, depends,
+it's basically alpha, learning rate,
+divided by b, the batch size.
+So just so I get an intuition here,
+so the noise is coming from the fact that your,
+the loss landscape is stochastic.
+Because you're doing different mini-batches,
+but you're sort of saying when the flatter,
+the flatter directions, those are more similar.
+The difference between the true loss landscape and the,
+because that's simple to understand,
+also visually that if I flatter landscape,
+if I shake a little bit,
+this and this is very similar,
+because the flat doesn't change very much,
+but if I have a sharper one,
+if I shake a little bit, it changes by a lot, right?
+So the noise would be higher.
+Yeah, that makes total sense.
+Yeah, yeah, so that's basically the intuition
+and we can, you know,
+figure it out or mathematically, you know,
+in a physical model.
+That's a really quick thing you just quickly said.
+Like delta somehow is related to the mini-batch,
+I'm very curious, those parameters
+that are hanging out there,
+mini-batch size and learning rate
+are still under our control,
+but you must be, you can tell us,
+it's gonna control the noise.
+Of course, yeah, so that's the overall factor.
+Are you gonna tell me how to choose them?
+Cause that's all it is.
+Oh yeah, so that's a tricky business.
+So we don't know.
+So, but it's very interesting point to me,
+maybe because, okay, so you say,
+okay, this term is favoring the flatter minimum.
+You want this term to be big.
+So I said delta is alpha over b, b is batch size.
+So the smaller the b,
+the better, the more selective you're driven
+to the flatter.
+But as you know, when b,
+batch size becomes smaller,
+or the learning will become larger,
+you are right into the danger of divergence.
+Yeah, yeah, that's true, right?
+Actually, yeah, you won't add, yeah, okay.
+So there's some critical regime
+with just the boundary of divergent,
+that's actually the best regime.
+So that's, so we have a whole phase diagram.
+So if you're interested in that,
+we have a whole paper,
+PRL paper recently, just earlier this year
+that we published that actually have a phase diagram
+like what you were eluded to.
+So basically the choice of, yeah,
+so based on the very simple toy model of SGD.
+We also did that for real MNIST data set.
+And indeed it's true.
+So you can push your batch size to be smaller and smaller
+and the solution, generalizability of the solution
+become better and better
+until it doesn't come rich, right?
+Yeah, so there's a lot.
+I think in practice, how do you choose that sweet spot?
+Yeah, so we don't have any concrete.
+That would be amazing.
+So at the beginning of the talk,
+I think you were saying that we do want the solutions
+to get to these flatter minima
+because they're more generalizable.
+And so, yeah, so A, why?
+And B, is there like a problem
+that there are gonna be lots of these flat minima?
+So I'll tell you, there will be the topic too
+exactly about the first question, why?
+And the second question,
+I think there are not so many of them,
+but they are there and you can find them, yeah.
+I was gonna say it has to be,
+I mean, so we had a world where we never made our models
+so much higher dimensional than our inputs.
+And we were using stochastic gradient descent,
+which is what I think is a really sort of good comparison,
+right? And then we went to these really,
+really over dimensionally open models.
+And that created, I think it created these flatter landscapes.
+Yeah, that's a good scenario.
+But that's the scenario, the best, yeah.
+So like what is the right, is there some nice regime
+where we can pick the over specification of the model, right?
+So where we can actually have enough parameters
+to find these flat landscapes,
+but I don't have so many parameters
+that we have to spend so much time.
+Exactly.
+Distinguishing between the best.
+Well, training.
+Training, yeah, training.
+You remember, so do you know,
+there was this thing in machine learning
+called the lottery ticket hypothesis.
+I heard about it.
+Yeah.
+So it was this idea that you create some neural network
+architecture with say random weights,
+but within it, there is some sub network
+that is gonna generalize well,
+just even with random weights.
+But you have to find that sub network
+and that's what learning is.
+Network, you mean subset of parameter?
+Subset of the parameters.
+With architecture.
+Subset of the parameters, yeah.
+And that was, and so the learning was basically,
+and so I think possibly that connects to this
+with saying that that was kind of giving this flatter.
+Yeah, okay, so let me get back to these questions
+after my second part,
+which I hope I can get to a little bit, right?
+So yeah, yeah, yeah.
+So okay, so this is the second part.
+What makes the solution better?
+It's in the first place.
+So why do I say, I think we have a lot of intuition
+that flatter one is more robust.
+It's, when you change the weight by a little bit,
+it's still pretty good, pretty much in the bottom.
+Whereas a sharper minimum, if you change your weight.
+But we're not changing weight.
+We're testing between the test set.
+We're changing data, right?
+We're changing from the training data set
+to test data set.
+We say, okay, it performs well on the training data set.
+That's why I train it for how does it perform
+in the data test data?
+We're not changing weight, right?
+So what's the deal?
+Okay.
+So this is actually a question
+that bothered me for the longest time.
+We didn't have an answer until more recently
+that actually based on a actually
+exact duality that we discovered.
+This is a totally surprise.
+I mean, the system has been studied for this
+and yet they have exact result.
+Anyway, so let me walk you through.
+The rationale for this was the picture
+I showed you very beginning that
+if two solution, the blue curve
+corresponds to the lost landscape
+for the training data, right?
+Now the training data with the weight, W.
+So these are all equal in terms of the training loss.
+But what do you really wanna distinguish this
+is by the test loss.
+So if you change your data from training to test data,
+your lost landscape will change, right?
+I just naively shifted it,
+but the change can be actually other shape and form.
+But what I wanna show is that
+you wanna have a solution.
+The solution is better if this jump,
+delta L is smaller, right?
+This is what we call the generalization gap.
+This gap is smaller is better solution.
+This solution is better than that
+because delta L star is less than delta L W star star.
+Okay.
+So how do you compute this delta L?
+Well, you just plug in the data,
+test data with the same weight, right?
+You just compute it, right?
+Crank it, compute it.
+That's no insight whatsoever about, you know,
+what the solution should be.
+And that allows you to determine
+whether it's generalizable or not.
+Alternatively, if you have a,
+what do I call, now I call duality relation,
+meaning that instead of changing data,
+you say, okay, I don't wanna change data.
+I still wanna use my training data
+because I know the landscape look like.
+Instead of changing data from training to testing,
+maybe there's an equivalence
+between changing of data and change of weight.
+So this is just illustration.
+So this, the loss function for this green dot
+set the same height as loss on this green dot,
+which is on the blue curve.
+So the blue curve is using training data,
+but on the blue curve, you have to shift your weights
+so that they get the same height, right?
+Okay, that's easy said and done.
+So how do you find the shift in the weight?
+So I just change the shift in data to change in the weight,
+but how do you find it?
+Okay.
+So how do you find the dual weight?
+What I call dual weight is that,
+this is the way that it's a shift from the W star
+by delta W, which will depends on delta W star,
+of course, and also depend on data,
+training data and test data.
+So how do you find it?
+It's not obvious, but then you look more carefully
+that actually, not only they exist,
+there are many, many of them, many, many of them.
+You imagine, okay, but this is of course
+for a fully connected network
+or a densely connected network, right?
+So for example, what you want to do is that,
+okay, I have the original X, the input on the training,
+I have weight W.
+Now what I want to do is to have another set of weights,
+W star, operate on original X,
+which is equivalent to the, if I change data from X to X prime,
+using the old weight is equivalent to use the old data
+but with a new weight, right?
+You want to find W prime.
+It's actually easy because the constraint,
+number of constraints is number of nodes next layer and two.
+A number of W prime you can change is N1 times N2.
+So you have infinite family of solutions, right, for this.
+So basically you want to change,
+when you change data without changing the weight,
+it's equivalent to changing the weight
+without changing the data.
+And this W prime in the W space
+has actually the many, many solutions.
+So you actually can find a special one.
+The special one that we chose is the one
+that actually the closest to the original weight, okay?
+And if you work out the math is very simple
+and the shift delta W for the closest to your solution
+is a linear combination of the original weight
+and the linear coefficient has to do with the data.
+X of Y, X is the original data,
+delta X is the shift in data
+and X square is the norm of the original data,
+right, the training data.
+So as you see, if delta X is zero,
+you're still using the training data
+of what is become zero, right?
+You don't have to shift.
+So the shift depends on how different the data is,
+normalized by the size of the data.
+So it's a relative change, right?
+Which then multiply.
+So it's like a, I think it's very similar
+to gauge transformation.
+I have no proof of it, but this is very much like it.
+So this is very nice because then you can say,
+okay, now you, but the shift in the delta W,
+the shift in the weights depends on the data here.
+I have one training data, one test data,
+depends on the delta X there.
+So every pair at the shift differently, right?
+But the shift delta W forms a distribution
+around the original weight, right?
+So then how much the shift is measured
+by the standard deviation of that shift.
+So that's what they call sigma,
+so sigma W of G.
+And there's another factor here,
+which is sigma G of N.
+What that is is that the slope around here
+also changes when you shift.
+So that the variance of that standard deviation of that,
+the slope can be positive, negative, or flat,
+or whatever it corresponds to sigma G of N.
+So basically we can decompose the generalization gap
+into contribution from different direction.
+And the contribution from different direction
+is just the product of these two sigma.
+One characterizing the standard deviation,
+the spread of the dual weights.
+Another one characterizing the standard deviation
+of the local slope, right?
+And then if you work a little harder,
+well, not a little harder, we cannot prove it.
+Only in the delta X equals to zero case,
+we actually can show that the variance in the sigma G,
+in the slope, really is proportional to the Hessian
+in that direction.
+And then numerically for actual data,
+delta X, of course, is not zero,
+but you can actually correlate.
+So the sigma G of N square is really highly correlated
+with sigma H of N, which is Hessian in that direction.
+So in other words, sigma G of N square
+measure the sharpness.
+The larger it is, the sharper the landscape
+in that direction.
+So what about sigma W?
+Sigma W, you actually can write down the expression
+for sigma W, it's basically a distance measure
+of the weight to the origin
+with a data dependent distance metric, right?
+This is a positive definite metric.
+It just have to do with delta X,
+some correlation of delta X.
+So basically, but then for real data,
+we can correlate that,
+that's actually very highly correlated
+with actually the size of the solution,
+namely the L2 norm of the solution itself.
+It looks, that measure over there
+looks like a kind of intelligently weighted
+regularization kind of thing.
+Right, so yes, and so is this.
+And I'll get to that, related to regularization.
+It is true that most modern neural nets have some regular,
+they always are turning regularization somewhere.
+So I'll tell you my take on this, right?
+So these immediately suggest two things.
+You wanna lower delta L, right, to make it better.
+How do you lower that?
+By lowering that, you can lower the sharpness,
+you make it flatter, right, that's number one.
+That's not the only factor.
+You can also make it smaller.
+The small solution, given the same sharpness,
+if you find a smaller solution,
+just in the pure sense of the solution
+being having a little smaller weight,
+you actually have a better generalization.
+Small number of weights or smaller weight?
+Smaller weights, just the L2 norm.
+Just a straight, okay.
+Yeah, that's what regularization is gonna do.
+That's like, yeah, regularization weight decay, yeah.
+Exactly, so that's exactly what was found to weight decay.
+So the first, how do you lower,
+how do you make the sharpness smaller?
+How do you make it flatter?
+You by increasing the noise, the SGD noise,
+how do you increase the SGD noise?
+By either increase the learning rate,
+I didn't show it, or by decrease the batch size.
+They'll act equally.
+So when alpha increases,
+this is what I call the sharpness spectrum,
+sigma versus n.
+So see, only a few modes are sharp.
+All the rest are pretty flat,
+to where you're relevant.
+So these sharpness spectrum is suppressed
+when you have a larger learning rate.
+If you push it further to be 0.2, it diverges.
+So that's what I'm saying.
+You basically, by having a larger learning rate
+or smaller batch size,
+you actually flatten the sharper direction.
+You don't change very much the flatter one.
+It's already flat.
+But you actually flatten the sharper direction,
+without changing the size of the solution,
+which is the measure.
+So that's basically what SGD is doing,
+is to find better, more general level solution
+by finding flatter minimum,
+which is consistent as we learn in topic one.
+Now, the second factor, sigma w,
+is really relating to weight decay, as you imagine.
+So you can actually produce a parameter.
+So basically what people do in this business
+is that instead of having a loss function like L,
+you also put a beta L2 norm.
+Basically, this term penalizes larger solution.
+So have a weight decay, you look at the dynamics.
+This will basically minus beta w term,
+which is sort of shrinking the solution.
+So as you see, when you increase beta,
+you make the weight decay stronger and stronger,
+you'll actually find a solution
+that does not have significant changes in the sharpness.
+So you'll find almost equally,
+the sharpness factor doesn't really change,
+but you'll find smaller solution.
+So that's how you have a better generalization,
+because you're finding better, smaller solution.
+So which thing does Dropout do here?
+Oh, Dropout will also study.
+Dropout is kind of funny.
+Dropout, does it dropout?
+Dropout is, right?
+Oh, yeah.
+So what Dropout is that every iteration,
+you only update the weight for a subset of weights,
+but every time you drop,
+that's called the rest, you drop out.
+You don't update, but every iteration,
+you have another set of random weights.
+So the fraction is called whatever, it's called a row, right?
+So row equals one is that you don't drop out at all.
+Row equals zero, you drop out everything, that's not good.
+So we did study on the-
+It really improves the performance.
+Yeah, it basically prunes the,
+you don't want to be too dense,
+you just basically more sparser.
+So what we did was we changed the row.
+So you do find smaller solution,
+but it also becomes sharper.
+So that's a sweet point.
+Yeah, absolutely, right.
+Because if you generalize,
+if you over generalize, then you can't-
+Yeah, so actually that, or I didn't show you here,
+but that's exactly it.
+We can actually map all the existing
+regularization scheme using this sort of simple framework
+to say, okay, this is doing this, this is doing that,
+this is a combination of both.
+That is exactly the ridge regression thing,
+and that actually has very strong Bayesian foundations to it.
+You can pull that regularization,
+make sense under a certain prior.
+Yes, yes, yes.
+So we can, we haven't-
+It works in neural nets, but that's how it works.
+It does.
+So these ideas, I think weight decay
+and regularization based on the actual,
+just all two normal ways,
+it's the first one people from computer science
+using the prior and you wanna have a small,
+basically people use KL or whatever thing to regularize it
+with the idea that smaller is better
+because you're not using so much parameter,
+so much in predicting the thing.
+But I think the flatness comes a little bit on the surprise,
+but it turns out empirically, sharpness works out better.
+I mean, sort of more predominantly people realize
+the sharp flatness solution is better.
+But I think now this picture,
+really put two things naturally together, right?
+You, this is a multiplication.
+So I'll tell you a very simple argument
+why that has to be true, right?
+So this would, I think, Sid would be happy.
+This is a simple physics dimensionality analysis.
+You want to minimize delta L, right?
+What is flatness?
+Flatness define as the Hessian.
+What's Hessian is L over W square, right?
+Second derivative of L with respect to the weight.
+That doesn't have the same unit as L or delta L.
+So how do you make the same unit?
+They multiply by W square.
+Well, that's the weight, overall L2 norm of the weight.
+So actually, I say that because it's actually exactly
+the reason people are very highly skeptical,
+I mean, highly sort of doubtful about sharpness
+because they found a symmetry.
+I think this is Benjio's paper, Benjio's group.
+Basically it says, okay, you say sharpness is good.
+Let me, the counterargument is being at all,
+counterargument is like, okay,
+I know in the Fourier-Connect network,
+you can do the following.
+This layer, all the way multiplied by P.
+Next layer, at least in the real loop.
+And the next layer, everything multiplied by P,
+divided by P, the way that the loss one doesn't change.
+Now in that new weight, rescaled weight,
+if you look at here, the flatness increases.
+Here, the flatness decreases.
+How can you say, meanwhile, the loss one doesn't change.
+How can you say sharpness determines the generalization?
+You can, but that our new, the two co-acting factor
+counter, I mean, explain that exactly.
+When you do this, your sharpness does get increased
+by a factor of P, but it also increases,
+you also increase the weight, right?
+So that's canceled out.
+So that, of course, doesn't change.
+All right, so I think that's the end.
+Basically, I think this duality is very important in general
+because it really relates data or your activity to weights
+in some very simple way, very intuitive way.
+So you can take it for many directions,
+like effective noise in data
+and how does it affect adversarial attack
+because your country with weight constraints are also,
+people believe that the actual, remember that I said
+the number of dimension that's relevant
+is much, much smaller than the weight.
+I think people believe that actually the origin of that
+is really in the data itself.
+For example, if you do MNIST,
+using just PCA and also MNIST, you'll find.
+So what is MNIST?
+Oh, this is the digit data I've shown you before,
+like 60,000 such 28 by 28 pixel images of digits
+from Zirut, actually from Canada.
+No, no, CFAR, CFAR is not CFAR,
+so another data, famous data is from Canada.
+MNIST was from like the labs, right?
+MNIST is a NIST.
+NIST, yeah, right, right, right, right, right, right.
+Anyway, so I think this has a lot of direction
+we can take it to, we just happened to study generalization
+because that's data to our heart,
+which I think we found something quite interesting.
+But I think this duality thing can be taken
+in different ways, in an interesting way.
+So yeah, so that basically, I don't know what to tell you.
+Okay, thank you.
+So I'm gonna ask a question that is like something
+that I've talked about with Melanie for the past two years.
+And again, I know nothing about all of this,
+but this issue of brittleness,
+like suppose you have your training data,
+you train it on like a bunch of digits,
+it seems to work well,
+and then it sends you a test data,
+which is digits, nicely formed and everything,
+but with a few like pixels, like sort of sabotaging it.
+How, I mean, this is the fact, so people know,
+so if you just randomly swing noise, it doesn't,
+but not randomly.
+It means an adversarial, adversarial task.
+Yeah, that's a famous example, yeah.
+So, okay, so that's, I have exactly the answer for you.
+I mean, I have a hopeful answer.
+Basically, when I think this is what I've been gonna talk,
+one of the point I want to make,
+because if you think about adversarial attack,
+but what it is that you can actually train
+the neural network to find those most vulnerable direction,
+basically you do gradient ascent,
+you say, okay, I want to perturb my data
+in such a way that my loss function increases, right?
+And I also limit the number of direction
+I can change my data and so on and so forth,
+I can find the best attack, right?
+Most.
+So, I think the best attack in the data,
+because of the dual relation,
+corresponds to the sharp direction in the weight space.
+So, the direction in the data space that corresponds
+to the most deadly attack,
+corresponds to the sharp direction in the weight space,
+right, for a particular solution that you find.
+So, you want to, if you want to regularize your system
+so that you actually can avoid that,
+you can probably do something about it.
+But at least the first step is to realize
+there's a connection between these two.
+They're not just learned.
+Because the haunting thing with these adversarial examples
+is we can all find them in all sorts of different ways,
+white box, black box, we actually don't know how to fix them.
+Short of, you know, as you almost have
+like a very simple discriminatory boundary
+and all you're doing with your adversarial example
+is pushing one over to the other side
+by a slight perturbation in its input description.
+Now, what we basically have to start doing
+is weaving a much more careful decision boundary,
+which we would get by sort of taking some of these
+adversarial examples and adding them to our training set.
+And short of doing that, if we do that ad infinitum,
+then we basically got a very, very, very tightly learned
+function instead of the generalization we want.
+Yeah, so I think, well, I haven't done it,
+but I think we have the hope of using this
+to maybe help solving that problem,
+or at least help, yeah, yeah.
+I think there'd be no progress really made
+other than the training.
+Yeah, so, okay, good.
+You identified yourself as a Canadian
+because you just said progress.
+Whoops.
+That is out of the bag.
+I have a practical thing that I think
+it might be related to this thing.
+Places where neural nets don't work very well for me
+is when the inputs have kind of strange distributions.
+They're not, they're very different.
+So, you know, traditional neural net,
+you normalize these things,
+but normalizing, they may be highly skewed.
+Also, I'm wondering if your kind of systems
+may break down in those,
+or that they, in that,
+maybe that explains why they don't work for me.
+Yeah, so they are the same actually pretty,
+I mean, you probably know,
+it's called out of distribution learning.
+So basically, a lot of the good property
+come out of the distribution itself is very compact.
+So if you have a double hump,
+then this thing can cause a lot of trouble
+because depending on the task.
+So if the task is identified,
+let's say, okay, you want to identify cats and dog, right?
+So cats and dog, of course, have its feature,
+so have a very detailed physiological feature, right?
+The head, the size, whatever.
+That's, you know, you take a lot of things
+to characterize it.
+But if you put all the cats indoor,
+all the dog outdoor,
+you can easily figure out how to distinguish them
+based on these other spurious information.
+If you look at the distribution of the images,
+you will have information captured by this pixel
+that capture the actual distinction between cats and dog.
+But you also have a little bit distribution there
+that says daylight, indoor and outdoor, right?
+So, and you know, that was notorious.
+It's a lazy guy, it's a lazy learner.
+It just find the simplest solution that we've done with it.
+The solutions are even worse than that.
+Okay, yeah, so we actually working on,
+our image recognition is pretty easy
+because they're all like pixels.
+Yeah, so actually, that's a very important question.
+Don't like glass that.
+This is easy.
+Yeah, I don't know how, but that's actually very,
+very important.
+The actual data, which can be much worse.
+Yeah, but that's actually a real question
+we're trying to tackle.
+Yeah.
+Yeah, no, it's super interesting.
+Good, all right.

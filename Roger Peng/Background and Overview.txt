@@ -1,0 +1,181 @@
+Hi everyone. Welcome to Computing for Data Analysis. This is the first lecture and in
+this lecture I'm going to give a little overview and a very brief history of the R statistical
+programming environment. So the very first question I think is most obvious, which is
+what is R? And the answer is actually quite simple. It's basically R is a dialect of S.
+Okay. So that leads to the next logical question, which is what is S? So S was a language or
+is a language that was developed by John Chambers and at the now defunct Bell Labs. And it was
+initiated in 1976 as an internal statistical analysis environment. So an environment that
+people at Bell Labs could use to analyze data. And initially it was implemented as a series of
+FORTRAN libraries to kind of implement routines that were tedious to have to do over and over again.
+So there were FORTRAN libraries to repeat these statistical routines. Early versions of a language
+did not contain functions for statistical modeling. That did not come until roughly version 3 of
+the language. So in 1988 the system was rewritten in the C language and to make it more portable
+across systems. And it began to resemble the system that we have today. So this was version 3.
+And there was a seminal book called the Statistical Models in S written by John Chambers and
+Trevor Hasty, sometimes referred to as the White Book. And that documents all these statistical
+analysis functionality that came into the version, that version of the language. Version 4 of the
+S language was released in 1998. And it's the version that we more or less use today. The book
+Programming with Data, which is a reference for this course, is written by John Chambers,
+sometimes called the Green Book. And it documents version 4 of the S language. So R is a
+implementation of the S language that was originally developed in Bell Labs. So just a little bit
+more history here. In 1993 Bell Labs gave a corporation called StatSci, which became Insightful
+Corporation, an exclusive license to develop and sell the S language. In 2004 Insightful purchased
+the S language completely from Ellucent. So Bell Labs became Ellucent Technology for $2
+million and became the current owner. In 2006, Alcatel purchased Ellucent Technologies and
+it's now called Alcatel Ellucent. So Insightful developed a product, which was an implementation
+of the S language under the product name S Plus. And it built a number of fancy features into it,
+for example, graphical user interfaces and all kinds of nice tools. And so that's where the
+plus comes from in S Plus. In 2008, Insightful Corporation was acquired by a company called
+TIPCO for $25 million. And that's more or less where it stands. TIPCO still develops S Plus,
+although in a variety of different types of business analytic type products. And it continues to
+this day. So you can see the history of the language is a little bit tortured because of the
+various corporate acquisitions. But it still survives to this day. The basic fundamentals of
+the S language have not really changed since 1998. And the language that existed in 1998 looks more
+or less like what we use today, at least superficially. And it's worth noting that in 1998,
+the S language won the Association for Computing Machineries Software System Award,
+very prestigious honor. So in a document called The Stages and the Evolution of S,
+John Chambers, who was the original writer of the S language, the original creator,
+kind of laid out his key principle with designing the S language. And it's very important, I think,
+to see this, which is that basically, they wanted to create an interactive environment where you
+didn't have to think of themselves as programming, right? Then he says, then as the needs became
+clearer and their sophistication increased, that you should be able to slide gradually into
+programming when the language and system aspects will become more important. So the basic idea is
+behind the S language, and then later the R language, is that people would enter the language
+in an interactive environment, where they could use the environment without knowing about any
+sort of programming, or whether having to know very detailed aspects of the language. So they
+could use the environment to look at data, to do basic analyses. And then when they kind of
+outgrew their environment, then they could get into programming. They could get into learning
+the language aspects and learning to develop with their own tools. And the system would promote
+the kind of transition from user to programmer. And so that was the basic philosophy of the S
+language. So that's enough about S. Let's go back to R. So what is R about? So basically, R is a
+relatively recent development in 1991. It was created in New Zealand by two gentlemen named
+Rossi Hakka and Robert Gentleman. So, and they talked about their experience developing R in a
+paper published in 1996 in the Journal of Computational and Graphical Statistics. In 1993,
+the first announcement of R was made to the public. In 1995, Martin Mechler convinced Ross and
+Robert to use to license R under the GNU general public license, and we'll talk a little bit more
+about that in a second. And that made R what we call free software. 1996, a mailing list of
+development. So there's two main mailing lists, one called R Help, which is a general mailing
+list for questions, and R Develop, which is a more specific mailing list for people who are
+doing development work in R. In 1997, what's called the R Core Group was formed. And this
+contained a lot of the same people from the S Plus who developed S Plus. And the Core Group
+basically controls the source code for R. So for the primary source code for R can only be
+modified by members of the R Core Group. However, a number of people who are not in the Core Group
+have suggested changes to R, and they have been accepted by the Core Group. So in the year 2000,
+there was a major milestone where version 1.0 is released. And today in 2012, we have the most
+recent version of R, which is version 2.15.1. And it was just released on June 22nd this year.
+So some of the features of R, the first one, which is important to kind of back in the old days,
+when people were still using S Plus, but the syntax is very similar to S, which made it easy
+for S Plus users to switch over. This feature isn't quite so early than today, where most people
+generally go to R directly. The semantics are superficially similar to S, in that it looks
+like it's S, but in reality are quite different. So we'll talk more about this in a future lecture.
+One of the main benefits of R is that it runs on pretty much any standard computing platform or
+operating system, Mac, Windows, Linux, whatever you want, even on your PlayStation 3. And there are
+frequent releases. So there are annual major releases, and often there are bug fix releases
+in between. So there's very active development going on, and so things are happening.
+The Core Software of R is actually quite lean. Its functionality is divided into modular packages.
+So you don't have to download and install a massive piece of software, whereas you can
+download a very small piece of fundamental core kind of functions, and then add things on as you
+need them. So its graphics capabilities are very sophisticated and give the user a lot of control
+over how graphics are created. And in my opinion, are better than most stat packages. It might even
+be the best for kind of a general purpose statistical package. It's very useful for interactive
+work, as I said before, but it contains this powerful programming language for developing new
+tools. So it eases the transition from the user to the programmer. And fundamentally, actually for
+a language like this, is that there's a very active and vibrant user community. So the mailing lists,
+the R help and R develop are very active. There's many posts per day. And there's also a series
+on Stack Overflow where questions can be answered. So the user community is one of the most interesting
+aspects of R. It's where all the R packages come from. And it creates a lot of kind of interesting
+features. Of course, one of the probably the most critical feature of R is that it's free,
+both in the sense of free beer and the sense of speech. So what I mean by that is that it doesn't
+cost any money. So you can download the entire software from the web. And also it's free software.
+So I'm going to divert for a second to talk a little bit about free software. So with free
+software, there are four basic principles, right? You have four basic freedoms that you have. The
+freedom zero is the freedom to run the program for any purpose. So you don't need there's no restrictions
+on how you can run the program or when you can run the program or what you can or cannot do with it.
+Freedom one is the freedom to study how the program works and adapt it to your needs. So this happens
+almost every day, which is that you can look at the source code for R itself. You can make changes
+to it if you want. You can improve it or make a better version of it. You can sell changes to
+it if you want. You can modify the program any way you want and adapt it to your needs. Of course,
+so you can look at the source code for this to get freedom one. Freedom two is that you have the
+freedom to redistribute copies so you can help your neighbor. And so the idea is that you can give
+copies to other people, you can sell copies, you can do whatever you want with it. And lastly,
+you have the freedom to improve the program and release your improvements to the publics of the
+whole community benefit. So this is freedom three. And the idea is that when people make changes to
+the program, they can release them to the public so that everyone gets those changes. And so these
+basic freedoms are outlined by the Free Software Foundation. You can see more about it at their
+website there. So there are a couple drawbacks of R. I won't go through all of them and probably
+other people have many other complaints. But there's some basic drawbacks, which are one is that
+it's essentially based on 40-year-old technology. So the original S-language was developed in the
+70s was based on a couple of principles. And the basic ideas have not changed too much since then.
+And so one of the results of that, for example, is that there's little built-in support for dynamic
+or 3D graphics. But things have improved greatly on that front since the old days. And there's a lot
+of interesting tools now in packages for doing dynamic and 3D graphics. Another drawback of
+R that I hear a lot about is that the functionality is based on consumer demand and basically user
+contributions. So if no one feels like implementing your favorite method, then that's your job to do.
+And so there's no corporation, there's no company that you can complain to, there's no help line
+that you can call to say that to demand a specific implementation or a specific feature, if the
+feature is not there, then you have to build it. Or at least you can pay someone to build it.
+Another drawback which is a little bit more technical is that the objects that you manipulate in R
+have to be stored in the physical memory of the computer. And so if the object is bigger than the
+physical memory of the computer, then you can't load it into memory. And then therefore you can't
+do something in R with that object. So there have been a lot of advancements to deal with this too,
+both in the R language and also just in the hardware side, there are computers now that you can buy
+with tremendous amounts of memory. And so some of those problems have been resolved just by
+kind of improvements in technology. But nevertheless, as we enter the kind of big data era where you
+have larger and larger data sets, the model of loading objects into physical memory can be a
+limitation. And finally I'll just say that R is not ideal for all possible situations. And so many
+people, I think in a way this is a good thing, they have very high expectations for R, they
+expect to be able to do everything. But it doesn't do everything. And so you should go into this
+knowing that fact. So the basic R system is divided into two, we can think of two conceptual
+parts. There's the base R system that you download from the CRAN, which is the comprehensive R
+archive network. And that's kind of the go-to place for all things R. And then there's kind
+of everything else. And so the base system contains what's called the base package, which has all
+the kind of low-level fundamental functions that you need to run the R system. And then there are
+other packages contained in the base system, which includes, for example, utils, stats, data sets,
+graphics, and a bunch of other packages that are kind of fundamental packages that more or less
+everyone might use. And then there are a series of recommended packages. So boot for bootstrap,
+class for classification, cluster, code tools, foreign, and a variety of other packages. These are
+the commonly used packages. They may not be critical packages, but they're commonly used by
+many people. So all of these packages come with the base R system that you download from CRAN.
+Now, but there's much more than this, obviously. And on CRAN, there are right now, there are about
+4,000 packages that have been developed by users and programmers all around the world. These packages
+are user-contributed. They're not controlled by the R core. And they are uploaded to CRAN
+every day on a periodic basis. And CRAN has a number of restrictions and standards that have to
+be met in order to get a package onto CRAN. So one of the nice things about CRAN is that the packages
+that you download have to meet a certain level of quality. And so there have to be, for example,
+there has to be documentation for all the functions that are in the package,
+and they have to make sure that they pass a certain number of tests. So CRAN has a lot of
+different packages written by users, and the number is really increasing every day. So it's
+very exciting to see all these packages on CRAN and to see new ones come up every day.
+There are also packages associated with the Bioconductor project, which is a project designed
+to implement R software for kind of genomic and kind of biological data analysis. And of course,
+there are also all their packages made that people make available on their personal websites,
+and there's really no reliable way to keep track of how many packages are available in this fashion.
+So there's really thousands of packages out there written by people that you can discover
+and use to analyze data. So there are a couple of documents that you can find on the R website.
+As you're learning to use R, you've been wanting to flip through some of these.
+One is an introduction to R, which is a relatively long PDF document now that kind of goes through
+the basics of how to use R, how to use the language. There's the Writing R Extensions Manual,
+which is really only useful to read if you're thinking of developing R packages,
+which are these extensions to the Bain R system. The R Data Import and Export Manual,
+which is useful for getting data into R in the various different ways.
+The R Installation and Administration Manual is mostly useful if you're on it,
+build R from the source code, and I'll talk about that in another video.
+And then the R Internals Manual is a really technical document for how R is designed,
+how R is implemented at a very low level, and it's not really for the faint of heart.
+But if you're that kind of a person who wants to know how R works at a very,
+very low level, this is the document for you. So I'm just going to end here with a couple of texts
+that are kind of standard or classic texts in this area. Of course, the books by John Chambers
+Software for Data Analysis and Programming with Data, both published by Springer. And then there's
+two books by Bill Venables and Brian Ripley. One is called Modern Applied Statistics with S,
+and another one's called S Programming. Although they talk about S in the title,
+these books are both very relevant for R programming too. There's a book by Pinheiro and
+Bates, which is Mixed Effects Models in S and S Plus. That's also quite useful for R programmers too.
+And finally, Paul Morel, who designed the R Graphics System, has written a book called R Graphics,
+and actually it's currently in its second edition right now. So a couple other resources. One is
+that Springer, the publisher Springer, has a series of books called Use R, which is a lot of very
+kind of relatively short books on how to use R for different types of topics, different application
+areas. And this is quite a nice series of books that you may be interested in. And there may be a
+book written for your particular area of application. And there's a longer list of books on the R website.
+So that was a brief overview of R and the history of how it kind of came to be.
+And starting with the next video, I'll start talking about the details of the R programming
+language and how we can use it to analyze data.

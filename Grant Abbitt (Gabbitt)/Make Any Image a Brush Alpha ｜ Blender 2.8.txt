@@ -1,0 +1,107 @@
+Hello again, in this series I will be looking at how you can add minor details to your sculpts
+quickly and easily using texture brushes.
+You can find the first two videos in the description and there will be cards in the corner.
+This video will be looking at how you can create your own brushes and you can find this
+course and other free courses like this on gabbit.co.uk and do ask any questions in the
+comments below and I'll get back to you.
+Alternatively, you can go to the Discord server and ask questions there, or just chat and
+maybe join in some of the competitions.
+Now before I begin, I want to show you a video from John Mervin and I'll put the link in
+the description.
+He's done an exceptional job of explaining how to do this.
+It isn't in Blender 2.8 but the process is exactly the same.
+So I don't want to recreate the wheel and do the same thing as he's done.
+So this is a great way of creating textures.
+It's relatively complex but it does create good results.
+Now what I'm going to show you in my video is how you can take any texture and turn it
+into a texture brush or an alpha as it's more commonly known.
+So I've typed into Google Texture and I'm going to find a random image texture.
+I've got it labeled for reuse and modification and I'm going to scroll down and find the
+jagged rock texture here and get a high resolution of it.
+So make sure your image is high resolution and I'll download that.
+Now I'll quickly set up my workspace, control 5 on my cube, apply the subdivision surface
+modifier under the spanner that's been created and then add a new modifier, multi resolution
+modifier.
+I'll subdivide it a few times, probably turn it up to 5 and I've got 6 million faces.
+That's quite a nice number for my computer to handle.
+I'll go across the sculpt mode, zoom in just a touch and I'll bring out my panel on the
+side and I'm going to create a new one just here and change this to the textures and also
+I'll minimize this little menu here.
+So that was fairly quick but that's in the previous episodes.
+I'm not going to create a new brush this time, I'm just going to use the texture draw
+just for demonstration and under the texture I'll create a new texture that creates over
+here as well and I'll open up that texture that I've just downloaded and there it is
+just there and I will change my brush type so I'll just minimize the texture for a moment
+and I'll change the brush stroke to an anchor so I can now pull out and you can see the
+results of the texture.
+So there's a fair bit I need to do before this texture starts working, you can see that
+there's far too much detail in it but it's quite clever that you can take any texture
+and bring it in and get some sort of result but ideally this needs to be a black and white
+texture and it needs to be blurred just a bit and kind of turn into a displacement texture.
+I'll just undo that.
+Let's see what happens if I turn the strength right down and see what it looks like.
+So it's good to know you can take any texture like this and bring it in and it does kind
+of work as long as you've got it on a low detail because of the high contrast within
+the image but we want something that looks more like jaggedy rocks so let's undo that.
+So in order to turn this image into an image we can use I'm going to use materialize.
+I'll put a link in the description for a quick start guide but you can follow me along here
+I'll also put a link in the description for the download it's completely free so all I
+have to do here is I want to create a diffuse map and then from that I create my height
+map or sometimes known as a displacement map and yes it is worth noting that any well
+made displacement map you will be able to use as a brush alpha.
+So let's open up an image.
+There's my jagged rocks I'll click on that and press select and that brings it in.
+All I need to do now is create my height map so press create over here and you can see it's
+given me half the image and show me what it's going to look like.
+Now this is still a bit too sharp so the contrast between the lights and darks is a bit too
+clear.
+If I click on displace now that will give me quite a nice map.
+So almost any image you can just bring it into here, create your height map, press displace
+you can change the final gain if you think it needs a bit of editing.
+So there's my displacement map.
+Like I say you can usually just press displace and that will do a pretty good job.
+Usually speaking you want something that's fairly blurry looking especially if you want
+bigger details.
+If you're just going for fine details then you can go for something a bit sharper where
+it says details for example or default.
+So I'll set that map go up to the S and press save I'm going to call this test to rocks
+and select.
+Now when I go back to blender and I load up that texture instead by clicking on the folder
+just here and finding my file.
+Now when I draw I'm going to put the strength up a bit and undo that strength up I've created
+some nice rocks.
+Now there is one tiny issue if I zoom in a bit it's what's called banding.
+Now it's my understanding that that is because this is an 8 bit image and that means the
+gradients of your texture have what's called this banding going on and therefore I need
+to convert this to a 32 bit image which is a bit of a pain if you haven't got something
+like Photoshop or the Gimp and it's just some more steps hopefully soon Materialize will
+have that option of saving us 32 bit.
+You can get round this by making your brush quite big and just quickly smoothing it out
+but we do lose some of our detail.
+So in order to convert it we go over to Photoshop and I bring in my rock texture.
+I go up to the image menu click mode and then change it to 32 bits.
+Now what I've found is if I save it now it doesn't actually remove any of the banding
+because I haven't actually done anything to the image.
+So I just quickly go into the filter down to the blur and choose a Gaussian blur.
+Yes this will blur your image slightly more but just bring it down to about 0.1 press
+OK.
+You can hardly see any difference but now when I save it file save as.
+You can use just a Photoshop image and that will work fine and a TIF image works well
+as well.
+So I'll save that make sure it is on the 32 bit and press OK.
+Now when I go back into Blender I'll undo what I've done here and I'll open up the texture
+I just brought in this TIF one here.
+Open the image and now hopefully you can see there's still a tiny bit of banding still
+there which is a bit of a pain and that means I needed to blur my image slightly more.
+So when you're in Materialize and you're setting your height map if you want to make it a really
+good brush then perhaps go to the default rather than the displace.
+Then from there take it into a program blur it make sure it's 32 bit and you'll have your
+brush.
+Sounds like a bit of a process but it is worth it for being able to use any image texture
+as a brush especially when you can't find a particular brush to do the job.
+Hopefully soon Materialize will have an option to save in 32 bit so that will negate doing
+the last step there.
+So that's the end of this particular course in sculpting.
+I'll do more tips and tricks in future episodes so do get along to gabbit.co.uk and look out
+for those.
+Thanks for watching and I hope this helps.

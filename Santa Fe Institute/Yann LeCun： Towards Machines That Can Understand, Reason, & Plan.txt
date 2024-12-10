@@ -1,0 +1,396 @@
+Alright, okay, first machines they can understand which means also reason and
+plan. It's gonna be a lot of overlap with what Josh said at least in terms of
+motivation but not in terms of solutions. Okay first statement is that
+machine learning sucks certainly compared to what we observe in humans and
+animals and their ability to learn and learn efficiently. You know until
+recently most of machine learning was based on supervised learning, required
+enormous amounts of label samples. What has taken over over the last few
+years is self supervised learning which does not require as many label samples
+but still requires a huge amount of samples and in the end those systems
+are still relatively brittle, makes stupid mistakes, do not reason or plan
+compared to humans and animals that can learn new tasks extremely quickly
+because they understand how the world works presumably and they can reason and
+plan and have certainly some some level of common sense. So in our systems of
+today most of them anyway not absolutely all of them but many of them have a
+constant number of computational steps between their input and output which
+means that whatever reasoning they do does not change depending on whether it's
+a difficult problem they're trying to solve or not. They cannot really plan
+the only systems they can plan at the moment are the ones that are designed to
+play games or to control robots but things like LLMs do not plan. So you know
+how do we get machines to do like humans which is to understand how the world
+works, predict the consequences of actions they might take, perform change
+of reasoning with a potentially unlimited number of steps and plan complex
+tasks by decomposing them into sequences or subtasks. So let me start with this
+idea of self supervised learning which really has taken over the the world of
+AI over the last few years and it's the basic idea of essentially presenting
+an input to a system let's say a text a window of text or video or a few images
+and hiding part of it and then training the system to capture the dependencies
+between what is observed and what is not yet observed but eventually will be
+observed whether it's the future of a video or a different view of the same
+scene from an image or you know words that have been obscured and I say
+capture the dependency I don't say predict because I'm going to talk about
+models that don't actually predict but capture the dependencies. So a very
+successful example is language models so self supervised language models and the
+idea goes back a long time to do this I think the first paper to really kind of
+experiment with this was paper in around 2010 by Colbert and Weston where they
+had this idea of essentially taking a piece of text corrupting it in some
+ways in in modern versions it consists in removing some words from the from the
+text and then training some giant neural net to predict the words that are
+missing or just merely to tell you whether the text that is here is legit
+or not legit that's a different way of doing it. So this is how every modern
+NLP system over the last four or five years has been trained and that has
+completely revolutionized not just the research in NLP but also the practice of
+it so all of translation content moderation, hate speech detection all
+that stuff from social networks it all uses this kind of stuff and performance
+went up by a huge amount. Okay so a special case of this is generative
+LLMs and similar things are used in images and video and there the part of
+the text that you're hiding is just the last word so you train a giant neural
+net to just predict the last word in a sequence and then you can use this to
+produce outputs autoregressively which means you give a window of text you
+get a system to produce a word and then you shift that word into the input by
+you know shifting everything by one predict the next next word shift that
+in predict the next next next word shift that in etc that's autoregressive
+prediction is a major flaw with this approach this is how every single LLM
+today works but we should call them autoregressive LLMs because I think
+future LLMs are not going to be like this but basically you know every single
+one of them some of which you've probably never heard of so the ones from
+Fair, Blenderbot, Galactica, Llama, Alpeca which is fine tuning of Llama there is a
+new one now also lambda barred from from Google, Shinchilla from DeepMind,
+Chai GPT, GPT4 etc they're all autoregressive LLMs and they train on
+gigantic amounts of data so we're talking one trillion tokens or something
+like this it would take a human reading eight hours a day something like 22,000
+years to read this so obviously those things can swallow a lot of a lot more
+digest a lot more data than any human and the performance is nothing short of
+amazing but they do make stupid mistakes they are extremely fluent so we
+can use them to generate text but they make factual errors logical errors
+inconsistencies they have limited reasoning ability there is no way to
+control for things like to CCT and stuff like that and they really have no
+knowledge of the underlying reality except in one case because of course they
+only trained from text except in one case and that that case is code
+generation because and they work really really well for code generation and the
+reason they work well is that the underlying reality of code is very
+simple is deterministic it's just the state of variables of a program and so
+that's observable fully observable deterministic and everything so works
+really well and you know they can generate fluent text but in this
+particular case this is a joke that my colleagues made it on me it's completely
+made up okay I never actually did a rap album
+yeah I asked them if they I don't actually like rap that well so you know
+I'm over jazz person so I asked them to do the same thing with jazz and they say
+there's not enough training data and I cried okay so what are they good for
+they're good for writing assistance you know generating first draft
+polishing a style code writing assistance obviously very efficient for
+that they're not good for producing factual and consistent answers because of
+hallucinations and they're not good for taking into account recent information
+because you need to retrend the entire system to take into account yesterday's
+in real time and that's just not practical they don't behave properly or
+at least they're hard to control to do so they don't do reasoning they don't do
+planning they don't do math as we saw this morning they're being modified to
+use tools such as search engines calculators stuff like that but currently
+it's kind of like you know using duct tape and staples and we're easily fooled
+by their fluency into thinking that they are smart but they are not that smart
+now there is a major flaw with this autoregressive generation which is that
+it's a exponentially diverging diffusion process so if there is a probability
+e for every token that is produced to be outside of the set of correct answers
+let's assume that errors are being independent then if we generate a
+sequence of n tokens the probability for that sequence to be correct is 1 minus e
+to the power n and that decreases exponentially so those things just don't
+work it just don't work my prediction is that five years from now nobody in that
+right mind would be using autoregressive it's just a bad phase okay they are
+useful though they're very useful so as I said they have a constant number of
+computational steps between input and output for each token generated they do
+not reason and plan Jake Browning who would be talking Wednesday and I wrote a
+philosophy paper I mean he wrote it on on the fact that there are limitations to
+the you know purported intelligence of systems that are purely trained from
+text because I would argue that most of human knowledge is not textual I mean
+certainly most of what babies run before all of what babies run before six
+months is non-textual and everything that animals learn is non-textual so you
+know that knowledge is still and attainable to current AI systems so how
+do we get machines to understand how the world works and predict the
+consequences of their actions you know all the limitations have been pointed
+out by you know a number of different papers including one by the MIT crowd
+that fluency is really not the same as thinking and basically you could you
+could argue for the fact that what elements are good for is perhaps modeling
+the very key and broker areas but not much else in the brain and that's like
+tiny little areas right that's out of the brain so we we we need we need
+something else but I can't what are we missing you know this is a chart that I
+like to show whoops the animation is bad but was put together by Emmanuel Dupu
+who kind of tends to indicate at what age babies learn basic concepts like
+object permanence for example you know this was talking about that stability and
+support and intuitive physics which you know only comes up fairly late actually
+around nine months and and the question is what type of learning is taking place
+there no AI systems today really kind of does this properly although there's been
+several attempts by a few of us so I think perhaps it's this type of learning
+that is the basis of common sense and we should really try to figure out how to
+reproduce this with machines so I think there's three challenges for AI research
+today learning representations and predictive models of the world allowing
+machines to predict what's going to happen perhaps as a consequence of their
+actions learning to reason so this is more like you know Daniel Kellerman
+system to current autoregressive LLMs are basically system one right they just
+view one word after the other without really planning ahead and so that is the
+question of you know making reasoning compatible with learning you know Josh
+has particular proposal for this which I don't agree with but but that goes in
+the right direction and then learning to plan complex action sequences so I've
+made a proposal for this almost a year ago now which I posted on this website
+so people can make comments and tell me I'm wrong and which references I missed I
+guess several technical talks about it as well and basically it's sort of a
+modular organization of an AI system that would be capable of reasoning and
+planning and I can't say that I've built it but we're kind of building pieces of
+it so it's composed it's basically centered around the award model which
+will allow the system to predict ahead what the consequences of its actions
+would be and it has a cost module think of it as kind of visual ganglia stuff
+where and the only purpose of the system is to optimize that cost some of those
+costs are essentially intrinsic hardwired immutable costs that sort of
+drive the busy behavior of the system and some of them are trainable costs that
+the system learns you know as it goes and what the system does is that it plans
+a sequence of actions that according to its model will minimize those costs and
+of course it needs to be able to estimate the current state of the world
+which is done through perception and maybe access to a memory and then
+depending on the task that the system is focusing on it can be entirely
+configured by a configurator that will sort of focus the system on the task at
+hand so that's a cognitive architecture which you know some people in
+classical AI have been proposing but in sort of different forms and there's two
+ways to use it mode one which is just a reactive perception action cycle
+get an idea of the state of the world and coding into an abstract
+representation of the state of the world as zero and then running through some
+other neural net that produces produces an action reactively but a more
+interesting mode is mode two which is like kind of an system to where you make
+an estimate of the state of the world and then using your word model predict
+ahead of time what's going to happen according to an imagined sequence of
+actions that you might take and then the agent would optimize that sequence of
+actions so as to minimize a particular cost function okay representing the
+tax the tax to be fulfilled and then it would just take the first action and
+actually send it to the actuator or maybe the first few actions well this is
+completely classical in optimal control it's called model predict control except
+the problem here is how you learn the model there's a way to kind of turn
+system two into system one which I'm not going to go into okay so how do we train
+the world model only for the fact that the world is not deterministic or not
+entirely predictable if even if it is deterministic so we're not gonna have a
+neural net observe the input and just predict why and then minimizing a
+prediction error that's not gonna work because that can only make one prediction
+so in fact if you train a big neural net to predict like you know these are
+cars from a top-down view of a highway if you try a neural net to try to predict
+what's gonna happen in this video you get blurry predictions because the system
+cannot predict if a particular car is going to break or accelerate or or turn
+left or right and so it makes this blurry predictions same for natural video
+that's an old work on video prediction so you have to account for the fact that
+the world is not completely predictable and you have two solutions there either
+you adopt either you build an architecture with latent variables that
+parameterizes the set of possible predictions or and those two are not
+incompatible or you abandon the idea that you're going to predict everything
+about the world and so this is what I'm suggesting so this is a generative
+architecture generative architecture observes X encodes it then predicts why
+okay the variable whose dependency you're trying to predict and then you
+measure the prediction error you mean my side by training etc but I'm proposing
+is a joint embedding architecture where both X and Y are go through encoders
+neural net and the prediction takes place in representation space what that
+allows the system to do is basically eliminate a lot of irrelevant information
+from why when it encodes it into sy so that it doesn't have to predict all all
+the details right so there's a lot of things here and a lot of information in
+this room that we cannot possibly remember or predict the precise texture of
+the wood on the on the floor things like that but it's kind of irrelevant you
+know we only need to have sort of a relatively abstract representation of
+it so I basically recommend you to abandon the whole idea of genetic
+models okay unless you want to produce pretty pictures or produce text if you
+want to learn how the world works you should not reconstruct there's actually
+several versions of those joint embedding architectures the simple one
+deterministic but ones that can predict and then non-deterministic ones that can
+predict where the predictor can have latent variables okay so that's kind of
+the most general architecture and the latent variable you know can can be this
+this variable a here can be a latent variable you infer or could be an action
+so imagine that this is a world model this is the current state of the world
+that you observe your encode this is an action you might take in the world maybe
+combined with some latent variable which represent what you don't know about the
+world and then you make a prediction and then you can compare that prediction
+with what actually occurs if you want to learn to train your your model and
+that's a predictive model that will allow you to predict what's gonna what's
+gonna happen under as a consequence for your actions now because we're not
+generating anything and because we can't turn a model of this type into a
+probabilistic model of t or y given x we have to abandon the whole idea of
+probabilistic modeling and now Josh is going oh my god
+isn't it just approximate probability at that point is it no no no it's energies
+okay so so basically the name of the game here is that you need to understand
+the system as computing an energy function that captures the dependency
+between x and y so imagine a data point so you are those black spheres the
+energy function should take low values around the black spheres and higher
+values outside okay and whether this energy function represents the un
+normalized log of some probability is irrelevant you just want the energy to
+be higher outside of the manifold of data and it will have captured the
+dependency between the variables and there's nothing more you need now the
+next question is how do you train a system to give low energy to stuff you
+observe and high energy to stuff you don't observe and there are two methods
+contrasting methods which consist in generating fake contrasting points whose
+energy going to push up and then regularize methods which I'm going to
+explain in a second so so let's say you have training samples your system
+currently gives low energy to this sort of peak area here and you know it's not
+a good model of the of the data here because it gives high energy to data
+points and low energy to areas that have no points so what you can do is generate
+green points here whose energy you're going to push up okay and the energy
+function is going to take the right shape or you could use some sort of
+regularizer that minimizes the volume of space that can take low energy so that
+whenever you push down on the energy of some regions the rest has to go up
+because there is a limited amount of volume that can take low energy so I
+kind of in the context of joint embedding architecture I kind of invented
+the contrasting methods that's called sine is nets in the old days but I'm
+now arguing against that in favor of regularize methods and the big question
+is how do we train them I'll tell you about that in a minute but I'm asking
+you to abandon generative models abandon probabilistic models probabilistic
+modeling in general abandon contrasting methods of course abandon
+reinforcement learning but that you know I've been saying this for years those
+are four of the main pillars of machine learning that makes me super popular
+among my colleagues okay so what are those regularize methods for joint
+embedding architectures so essentially there is a big issue that you have to
+fix which is that when you train a system like this one of those japa
+architecture joint embedding predictive architectures you show it an example of
+x and y and you tell it just you know train all the weights of all those new
+networks so as to minimize the prediction error it collapses basically what it
+says is that well I can just set sx and sy to constant and you know set the
+prediction the predictor to some constant thing and ignore x and y all
+together and that would be a collapse system that gives zero energy to
+everything in your space you have to prevent that from happening and one way
+to prevent that from happening is finding a way to maximize the
+information content of the representations that come out of the
+encoders that actually has the effect of minimizing the volume of stuff that can
+take your energy indirectly so one way to prevent the outputs from being
+constant is that you can force the variance to be non-zero right so you
+put a cost function on top of this vector here that says over a batch of
+samples I want the variance of each variable coming out of that neural net
+to be non-zero to be above one let's say so that's a hinge loss that says the
+variance needs to be above one it's not enough because the system can still
+cheat by making all the variables the same or very highly correlated so you
+have another cost that says I want them to be decorrelated so basically this has
+the effect of enforcing the covariance matrix of that those sx vectors over a
+batch to be close to the identity and it's not enough because the variables
+can be non-collapsed uncorrelated they're still dependent and so there's
+another trick that we do and we have some theory that shows that it's not
+stupid which is that you take the sx vector you run it to some neural net that
+expands the dimension and then you apply those criteria on the covariance
+matrix to the output and that makes the variables of sx kind of more
+independent now there's a major flaw with this which is and that's the theory
+which I'm not gonna talk about is a flaw with all of this which is that we're
+basically we have an upper bound on information content and we're pushing it
+up hoping that the actual information content will follow and it's stupid but
+it kind of works okay so you can test those pre-training for image recognition
+for example you show two different views of the same image train the network to
+produce identical representations for two different views of the same image and
+then you freeze the network and basically train a linear classifier on top
+with ImageNet and measure the performance and this v-crag method I
+just described works just as well as isn't the top pack let's say right there's
+a bunch of different methods that have similar performance and they are in the
+top pack I'm not gonna bore you with details you can try to do segmentation as
+well here's another method somewhat similar but closer to the JEP idea which
+uses a different criterion to prevent collapse which I'm not going to explain
+and this one takes a partially masked input image together with a full input
+image runs both of them through encoders and then trains a predictor to
+basically predict the the representation of the full image from the
+representation computed from the partial partially masked image this is
+called IJPA image JEPA and it works amazingly well and it's really fast to
+train very good performance in terms of performance even though it's this this
+type of masking does not require any knowledge about the nature of the input
+essentially or very little the still you get the same kind of performance that
+you would get if you used self-supervised learning method that
+exploits the fact that those that you're doing image recognition like like Dino
+or iBot or Simclear for example okay now how are you going to use this in the
+end what I'm really interested in is to use JEPAs as world models inside of a
+system they can do system two type planning but even better than this they
+can do hierarchical planning and the idea there is that you when you when you
+think about a task you you're not planning this task at the lowest level in
+terms of millisecond by millisecond muscle control right you're playing a
+task like you know I want to go from Santa Fe to New York or let's say from
+New York to Santa Fe that's an example so you first decompose this into two
+subtests first thing I need to do is go to the airport and catch a plane right
+how do I go to the airport well to go to the airport I need to get on the street
+and have a taxi which you can do in New York City not in Santa Fe how do I get
+down in the street I need to get out of the building I'm in etc how do I get out
+of the building I need to stand up for my chair walk to the door how do I get up
+for my chair you know so you kind of decompose this all the way down to the
+lowest level millisecond muscle control but you're not going to plan the
+entire task of going from New York to Santa Fe you know all the way down to
+millisecond muscle control you do a hierarchical planning we think humans
+that we are the only ones who can do this animals do this too you observe the
+cat planning a trajectory to jump on a piece of furniture they definitely do
+hierarchical planning so basically what you do what you need for this is a sort
+of hierarchy of jpeg architectures of predictors that progressively produce
+more and more abstract representations of the state of the world so that in the
+very abstract space of representations you can make long-term predictions
+whereas in the sort of lower levels of abstraction you can make short term
+shorter term prediction but that more accurate in the short term right so
+that's this is a two-level architecture low level you can make short term
+predictions high level you can make longer term prediction in a more abstract
+space that have less details about how the world works now we've been able to
+train a particular instance of Jepa that semi-toddyssey learns teachers that are
+good for image recognition and motion prediction in images and it has I'm not
+going to go into the details of this is pretty hairy but it's kind of hierarchical
+and it's got predictors that are you know pretty make pretty strong assumptions
+about the type of prediction that can occur and simultaneously learns invariant
+features for image recognition and this works really well for things like image
+segmentation depth estimation tracking etc it's called MC Jepa which means
+motion and content Jepa and with this hopefully one day we'll be able to build
+architectures that can perform hierarchical planning of the type that I
+was thinking about so observe the world computer abstract representation and
+even more abstract representation even more abstract representation make a
+prediction to minimize a particular cost function that defines your task I'm
+assuming this cost function is differentiable so we can do this inference by
+gradient descent in first some latent variable that may represent the macro
+action you're going to take or some unknown variable about the world and
+then the state you're going to obtain through the first prediction is going to
+constitute a cost function for the lowest level okay so the predictor the first
+predictor at the top tells me I should be at the airport okay I started from
+New York I should be at the airport the cost function below measures how far I am
+from the airport and so the second predictor says go down in the street
+take a cab to the airport and so the cost function at the bottom here
+says like am I on the street likely to catch a taxi and you know all the way
+down to the actual actions that you can take in the real world all right coming
+to the conclusion so steps towards autonomous AI systems self-supervision
+only we need a recipe that allows us to train systems to learn how the world
+works on video I can't claim that we have achieved this we're kind of partially
+there only you can certainly in the prediction in the prediction that's
+with a combination of this JEPA architecture understood within the
+context of energy-based model potentially with latent variables which I
+didn't talk about that would allow us to learn world models from observation
+hopefully hierarchical world models possibly with interaction as well and
+exploration and now what we have is an architecture capable of reasoning and
+planning I mean the the whole architecture I presented is this idea of
+system 2 that you can decompose complex tasks into simpler ones and then plan the
+sequence of actions before you take the action something that's solely missing
+from current autoregressive systems so you know is is this a potential path
+towards sort of human level AI possibly yes but it's certainly not for tomorrow
+this is maybe a tenure plan maybe to get to get to cat level intelligence or
+something like that now interestingly those those machines will have
+inevitably some sort of emotion consciousness forget about this but
+emotions certainly because emotions are kind of an anticipation of outcome most
+of them I mean some of them are immediate deception of outcome like pain and
+things like that but most of them are anticipation of outcome and this cost
+function is exactly what this is and so if the system sort of predicts a
+particular set of outcome that you know results in a bad outcome you know it
+might feel something similar to fear or something of that type anyway so common
+sense is a collection of world models or perhaps a single world model that is
+configurable I'll come to this in one second understanding really means being
+able to predict I think prediction is really the essence of intelligence here
+and better better mental models need to better understanding or are the
+substrate if you want of understanding and as a consequence also of good
+reasoning and planning action plan the complex part in all of this is going to
+be to design intrinsic cost functions that drive the system towards learning
+appropriate things and it's quite possible that in the case of leaving
+things it's easier for evolution to hardwire your cost functions into us
+than to hardwire your behavior hardwiring behavior and you know physical
+models and whatever it's super hard like as a neural net person I would have no
+idea how to architect neural nets to do this but I can certainly design a cost
+function that if minimize the system will learn those those basic concepts and
+that there is a lot of hardwiring in there no question so one module I didn't
+talk much about it's the configurator and what it's supposed to do is configure
+all the modules in the in this architecture for a particular sub tasks
+that the system needs to be focusing on at the moment and I'm imagining that
+there is actually a single world model engine in this architecture that is
+reconfigurable for the task at hand but it's not like the system would have
+multiple world models for different situations it's a single one that's
+configurable the advantage of doing this I mean for humans and animals is that it
+might actually fit in your in your skull but there is a another algorithmic
+advantage or if you say make advantage which is that a single one model can
+share knowledge between different situations where as if you had kind of a
+separate world model for different situations we'd have to kind of retrain
+it independently for each of those situations so how to make this
+configurator work I have no idea but that's a good hypothesis so that would
+explain the fact that there is a single world model it would explain why humans
+and many animals can only focus on the single conscious task at any one time
+because we only have only one world model we can only do system two on one
+task at a time and I just leave the question for
