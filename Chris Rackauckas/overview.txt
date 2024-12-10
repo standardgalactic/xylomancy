@@ -1,0 +1,25 @@
+Processing Overview for Chris Rackauckas
+============================
+Checking Chris Rackauckas/Using Juno for Interactive Test-Driven Julia Package Development.txt
+1. **Setting up the environment**: Use an environment like the Julia environment provided by packages like `Juno` or `IJulia`. These allow for interactive coding within a Jupyter notebook interface.
+
+2. **Creating and structuring your package**: Define the package with the necessary files (`Manifest.jl`, `src/MyPackage.jl`, `Project.toml`, and possibly a `README.md`).
+
+3. **Writing tests**: Write tests for your functions using `pkg.test`. Create separate test files for different aspects of your package, such as continuous differential equations (`simple_diff_eq.jl`) and the Euler-Meredith method (`simple_em.jl`).
+
+4. **Interactive development**: Use an interactive workflow to quickly switch between your package code and test files. This allows for rapid iteration and debugging.
+
+5. **Exporting functions**: Ensure that the functions you want to export are properly `exported` in your `MyPackage.jl` file. This makes them available to users of the package.
+
+6. **Testing and committing**: Run your tests using `using DifferentialEquations`, `simple_diff_eq()`, and `simple_em()`. If changes are made, commit them after reviewing with tools like `git status` and `git add`.
+
+7. **Pull requests**: For collaboration or submitting code to a shared package, use pull requests (PRs). Fork the repository, set the fork as an upstream, and submit your changes through a PR in the main repository.
+
+8. **Version control**: Use version control systems like Git to manage different versions of your code and collaborate with others.
+
+9. **Code review and push**: Before pushing your changes, review them to ensure they are correct and well-tested. If you're working on your own repository, you can push directly to the master branch. If you're contributing to a shared repository, submit your PR and wait for it to be accepted by the maintainers.
+
+10. **Collaboration**: When collaborating with others, communicate through issues or pull requests, and coordinate changes to ensure compatibility and functionality within the package.
+
+In summary, test-driven package development in Julia involves setting up a package structure, writing both package code and tests, using an interactive environment for rapid iteration, committing changes, and managing pull requests for collaboration. This workflow emphasizes the importance of testing and version control in maintaining high-quality, collaborative packages.
+

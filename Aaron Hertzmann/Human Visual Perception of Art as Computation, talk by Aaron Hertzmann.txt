@@ -1,0 +1,928 @@
+Okay, great, well thank you so much for inviting me to speak.
+I'm gonna talk about how we as humans perceive art.
+It's obviously something that people have thought about
+and studied and had insights about for centuries,
+exploring cultural and social and historical
+and many other aspects of this question.
+Here I want to talk about how computational models
+can give us insights into the perception of art.
+And specifically things, ideas from computer graphics
+and computer vision can help us model the visual process.
+And this will give us, and can give us ideas
+that were not easily available to other approaches
+for study art and can build on and be complementary to them.
+And in particular, I'm gonna explore two specific areas
+or two parts of this talk.
+The first is about line drawing
+as a special case of realistic illustration.
+And the second part is about ambiguity in art
+and which is relevant for abstract and contemporary art.
+And so I'll start with line drawing.
+And I wanna also, I wanna begin with the assumption
+that our visual perception is evolved,
+or should we say optimized for real world scenes.
+We have visual systems so that we can navigate
+and survive in the real world.
+And as a result, we're able to very quickly
+and accurately understand the content of a scene
+with objects that we've never seen before.
+We've never seen the materials.
+We don't know the lighting or shape in advance.
+And yet a brief viewing of one of these images,
+we can tell very quickly a lot
+about what's going on inside of it.
+So this is a problem for art
+because line drawings are not a real world percept.
+We don't see line drawings walking around the real world.
+And so there's a big question of why is it
+that we should be able to understand
+what's going on in a line drawing so easily?
+Why don't we just see these at black marks
+on a page or on a wall?
+And this is something that philosophers
+have discussed for some time.
+One idea is simply that depiction styles are learned.
+So just in the same way that you learn
+to read and write written language,
+maybe we also learn to read and write
+to understand pictures.
+But I find this a little bit hard to believe
+for various reasons.
+One is that some of the key elements of drawing
+seem to persist centuries through cultures and so on.
+And also there are a variety of perceptual studies
+on untrained subjects.
+So maybe the most peculiar and most famous one
+was one by Hulkberg and Brooks
+where they raised their newborn child
+in a way where they avoided exposing him
+to any images whatsoever
+the first 14 months of his life.
+And after 14 months, they showed him a picture, a drawing,
+and he was able to recognize it as a car.
+They showed him a photo,
+he can recognize it as a car as well.
+And they ran various other images.
+And since then, there are many other studies
+that replicate that basic evaluation
+in a more rigorous way.
+Visiting members of various tribal societies
+that don't have pictures and so on.
+And the conclusions is pretty clear
+that someone who has never seen a drawing before
+can still recognize what it's in it.
+And there's even similar studies for chimpanzees
+that have preliminary but similar conclusions.
+So that's really a question why it's not.
+Now, of course, as I'm sure everyone knows,
+there's been a considerable amount of study
+within the perception and computer vision literature
+on the geometry of including contours.
+But this work doesn't really answer the question
+of why it is we're able to identify including contours
+or how we do it in the first place.
+So the sort of idea that I think is sort of a conventional
+wisdom among a lot of vision and perception researchers,
+Ali Salaf that I've talked to,
+is based on the observation that if you run an edge detector
+on an image, on a photograph,
+often you get something that looks like a line drawing.
+And moreover, we know that the human visual system
+in early visual processing,
+specifically in the visual cortex,
+includes edge-sensitive neurons.
+So there is something like edge detection
+happening in the human visual system.
+And so this idea is sort of like people treat this
+as kind of an explanation for line drawing.
+But when you actually try to turn these observations
+into an actual theory,
+then you run into a lot of problems.
+And in fact, the only technical article
+I've found that is to articulate this as a theory,
+points out there's lots of issues with the theory.
+In particular, first of all,
+edge images are not drawings.
+So if you take an arbitrary rendering or photograph,
+such as A here, and you compute its edges,
+you get a lot of lines that a typical artist would not draw.
+And so you will also lose edges that are often would draw.
+And there's some images for which the edges
+give you a completely different percept
+than the original image.
+And it's also, we're obviously sensitive
+to other things besides edges.
+We have, even the visual cortex,
+we can respond to colors and textures, bar features,
+center-surround features.
+Why are, this theory doesn't really answer the question
+why we ignore all of these other features
+when proceeding line drawings?
+And it still really begs the question of why this would be?
+Why is that that edge image?
+Why should we understand line drawings as shapes
+when they're not percepts from the natural world?
+So my goal in this first part of the talk
+is to explain line drawing
+in terms of realistic image perception.
+So in other words, given a system like the human visual system,
+that is very good at taking a natural image's input
+and perceiving shape in that image,
+why should that system be able to infer shape in line drawings?
+In order to address this question,
+I want to take a bit of a detour,
+so I'm going to talk about non-photorealistic rendering
+for a while.
+And non-photorealistic rendering
+is a sub-field of computer graphics
+where our goal is to develop algorithms
+that will take 3D models or images as input
+and produce artistic images in some way.
+So this is an algorithm that,
+the output of an algorithm that takes the 3D models input
+and produces line drawings from them.
+This is a sub-field of computer graphics
+that's been around for 60 years.
+And there's lots of really nice research in the area,
+lots of algorithms that can produce
+many different kinds of visual styles,
+often looking quite good.
+And algorithms from this field have made their way
+into a variety of video games and feature films
+and short animations as well.
+And in some way, I think non-photorealistic rendering
+provides us a generative model for representational art.
+It gives us an abstraction of what are the things
+an artist does when they create a realistic depiction
+of a 3D scene.
+Like every model that's incomplete,
+it doesn't describe the whole process.
+There's many things that it does in model.
+But like many models, it is useful in some ways
+in understanding some aspects of how we make images.
+So one of the core building blocks
+of non-photorealistic rendering are occluding contours,
+which as I mentioned, originate,
+the study of occluding contours is from perception
+and computer vision.
+So for a 3D scene like this, we can,
+here's a 3D object,
+we can complete its occluding contours
+and make a nice tuned rendering of it.
+And we can also stylize those curves
+to make a stylized rendering.
+The conventional description of occluding contours
+is geometric.
+And some of you may be familiar with this,
+that occluding contours are points
+where the view vector, it grazes the surface
+or n dot v is zero.
+The details are not important
+if you're not familiar with this.
+There's another way of understanding occluding contours,
+however, that is, I think, more useful for perception.
+And that's as follows.
+Suppose we have a 3D scene
+and imagine that we paint all the objects white
+with a diffuse material, so a Lambertian reflectance,
+get rid of all of the lighting, except for a headlight.
+So it's as if the viewer is wearing a light
+on their, above their eyes.
+And then we get a rendering under that model
+that looks like this.
+And in this model, the reflectance of the pixel
+was n dot v, which means that the pixels
+where the pixel values are zero
+are exactly the occluding contours.
+Tracing out the pixels with zero reflectance
+gives us the occluding contours.
+And that can produce a rendering like this.
+Now for this model, obviously the occluding contours
+are a little bit empty,
+even though they make sense as drawing curves.
+But we could actually extend that idea a little further
+and trace lines along this image,
+not just where n dot v equals zero,
+but where there's a darker valley,
+where there's dark rigid valleys in the image,
+so that we get this basically.
+And this set of curves are called the occluding contours
+and the suggested contours in this image here.
+And as you can see, it produces results that,
+to me, I certainly think it looks a lot more
+like a line drawing that a human might make.
+We can even go a little further than that,
+which is to thicken these strokes
+based on the thickness of these dark bands
+in the diffuse rendering, I get this image,
+which is getting, I think, closer and closer
+to more typical line drawing styles.
+Here's another example with the 3D model.
+And again, you can see that even though it's just a model,
+it's not perfect, it captures a lot of elements
+of how people draw line drawings.
+One way we can evaluate this is qualitatively.
+So this is an example where my student built
+this 3D model on the right based on this drawing,
+and then we animated it with one of these rendering algorithms.
+And as you can see, it does a decent job
+of generalizing two different viewpoints.
+In this case, there's only two or three parameters
+in the algorithm, so there's no machine learning here,
+there's no big, deep network with lots of parameters
+to tune, it's a very simple analytical model.
+There's much more rigorous evaluation
+that was performed by Forster-Colon colleagues,
+where they printed out renderings of a bunch of 3D scenes,
+asked a set of human artists to draw
+facial accurate line drawings of them,
+and compare those to the computer-generated line drawings.
+And they found a very good overlap between the two sets.
+Not perfect, but there's a lot of features
+of real line drawings that these algorithms
+accurately capture well.
+As you saw, those previous methods are a little noisy,
+and we had a paper at CDPR earlier this year
+that cleans them up by combining ideas
+from machine learning together with these geometric algorithms.
+So with that background, we can now come back
+to the perceptual question, why is it line drawings work?
+And this is a paper that I published
+in the Perception Journal earlier this year.
+And again, I believe that, or I wanna start with the assumption
+that we are good at perceiving shape in real-world scenes.
+And my main hypothesis is that the human visual system
+interprets a line drawing as it would
+some corresponding realistic image,
+or as if it were some realistic image.
+So in particular, given this line drawing,
+there's some corresponding 3D rendering
+that is similar to it that we would be perceiving it as.
+In particular, this line drawing roughly approximates
+a scene where we have some unknown geometry.
+The scene has a limber, shun white material.
+We have a point light source,
+which is roughly the headlight location
+or behind the viewer's head.
+And even though these lighting conditions are not together,
+something we would normally see in the real world,
+they're all individually things
+that are quite common in the real world.
+And it's reasonable to expect
+we could understand this real scene with these conditions.
+And these are the conditions essentially
+of non-photorealistic rendering line drawing.
+So there's a more generalized version of this hypothesis,
+which is simply that line drawing perception
+is a consequence of realistic image perception.
+So for the reasons that I stated,
+this system, a system that can perceive shape in real scenes
+can perceive shape in line drawings.
+And moreover, when can predict that a model trained to do,
+that can, a model, a computational model,
+that can perform a human level robust shape perception
+from a single natural image,
+ought to be able to also perceive shape in line drawings.
+And in the first version of my paper,
+I wrote this down and a reviewer said,
+well, current vision model is pretty good.
+Maybe you should try it.
+And I didn't really think it was gonna work
+because we have just so much problem with domain shift
+across different computer models,
+but I figured I should try it since that's what the reviewer said.
+So I got one of the then state-of-the-art
+single-limits depth prediction methods.
+So this is a method that has a deep network
+that takes a photograph as input, produces a depth map.
+It's trained in a large set of real photograph
+and depth map pairs.
+It does not include any art, artistic drawings
+or paintings with data set, all real photographs.
+And I found a few places where it didn't get perfect results.
+I had to really hunt for these.
+Like there's some places where qualitatively
+the results are really off.
+But overall, qualitatively, it seems like it did a really good
+job of estimating relative depth.
+So I applied it on some line drawings and actually I was,
+I was personally surprised that it actually worked pretty well.
+Qualitatively, a lot of the depth relationships
+in these scenes are accurately estimated.
+And you can get a little sense of where, you know,
+how it's getting a rough sense of accurate depth
+from these sort of 3D animations.
+I hope the animation is playing over video.
+There are certainly cases where it didn't work well,
+but these are scenes that don't really exist
+in the methods trained in this,
+that the method didn't see Apple's clinic space
+or experience in this guy.
+So that seems like solid evidence
+in favor of this hypothesis.
+Moving beyond that, in fact, we can then start to see
+interpret a lot of kinds of realistic artists
+as sort of inverse vision.
+And people have expressed this idea in various ways
+in the past that suppose, we can think of art
+as an answer to a falling problem.
+You're an artist and you have a model,
+the three you've seen that you wish to convey.
+And you can only do that with a black pen on white paper.
+You're not allowed to draw hatching,
+you can only draw outlines.
+What are the sets of lines you can draw
+such that a viewer of natural scenes
+or a person who has only seen line drawings
+ever before in the past, sorry, let me reset that.
+A viewer that has only seen real images in the past,
+how do you draw lines such that they will perceive
+the shape that you intend or as close as possible?
+And what I've described is an explanation
+for why line drawings that we know
+using included contours are a solution to this problem.
+Moreover, this suggests that we can think of,
+we can generalize this idea of artists
+as sort of perceptual optimization for stylization algorithms.
+And there's been a few approaches in the past
+that treat stylization and images as optimization
+for a viewer, but there's a lot more opportunities
+to explore this idea more in the future.
+So I think that's a pretty compelling,
+or plausible hypothesis for smooth curves.
+So far, I've only talked about
+including contours, suggested contours on smooth objects.
+There are a lot of other types of curves that people draw
+that require other explanations.
+And my goal has been to try to,
+I wanna convince you a little bit
+that other kinds of curves will fall into the same theory.
+For example, hatching is a very important thing
+for example, hatching is a very simple example
+of very realistic hatching.
+It's very easy to see how this can be interpreted
+as an approximation to a natural image.
+Inverse lines where you draw with light,
+strokes, and a dark background,
+I think can be viewed as a form of rim lighting.
+So these images here are, these are three photographs
+with it, which have some form of rim lighting,
+which is a photographic technique
+where you set up light sources
+off to the side of your subject.
+Creases are a little bit more difficult
+to explain and describe.
+So in the, what I mean are like,
+C1 discontinuities in objects.
+In what, why do we draw these sharp edges?
+And in the paper, I describe a couple of
+different possible explanations for creases.
+So more generally, if you look through
+the perception literature,
+you kind of get the impression that
+perception researchers in the past
+have treated line drawing with photographs
+as completely separate concepts
+that use separate explanations.
+But I really think they should be explained
+within the same framework.
+There's no really any clear separation
+between these concepts.
+I really think there's a continuum in visual styles.
+We added slightly more and more amounts
+of hatching and shading and color,
+sippling or various other techniques.
+There's not a clear boundary where you can say
+these are art images and these are photographs.
+And there's a real question of
+how do we perceive shape and identity
+across such a variety of styles?
+Moreover, how is it that we're able to identify it?
+Somehow some strokes are really about style
+and they're really approximate depictions
+and some strokes really represent specific objects.
+And how is it that we're able to interpret
+all these different styles in terms of shape
+and factor out the style of the patient?
+So I think there's a lot of interesting
+further questions that this approach
+of viewing image art as approximate realistic opens up.
+Now let's switch gears to talking about ambiguity in art.
+Of course, line drawings have their own sorts of ambiguities,
+but really in the modern contemporary art,
+we see ambiguity explored very heavily.
+In order to talk about ambiguity,
+I want to begin by showing this image,
+which at first may seem completely abstract,
+a pattern of shapes.
+As you look at it, you might see a shape in here,
+specifically there's a frog.
+Maybe I'm being told there's a frog, you might see it,
+or maybe you might see it after being shown the frog.
+And after you've been told this after some time,
+then hopefully you've been to recognize it
+at a frog and see it at a frog.
+So to think about ambiguity,
+I want to discuss or start from two principles
+of perception and action.
+The first is that certain images and scenes
+are naturally ambiguous and there's different kinds
+of ambiguities and different kinds of things
+that we might struggle to understand.
+And that we seek to resolve uncertainty.
+It is valuable for us to navigate the world
+and to survive in the world, to gather information.
+And in certain situations,
+our ones that often suggest that we could find more information
+if we worked a little bit harder.
+And in particular, to think about uncertainty
+and discuss it, I personally think about the notion
+of the Bayesian brain, that we have probability
+of distribution sort of explicitly represented in a brain,
+even if they're not explicitly represented.
+So a simple example, image on the left after some time,
+you have a very simple distribution,
+clearly it's a type here.
+The value of resolving some of the images
+should be pretty obvious.
+Some of the very specific kinds of images are bistable.
+So this is the famous young woman,
+old woman illusion that could be interpreted
+in two different ways.
+So even after perceiving it for a while,
+there's implicitly a distribution
+that you could perceive it either as young or old.
+And really you can flip back and forth
+between these two interpretations.
+And again, resolving these ambiguities is useful
+for making choices and choosing action in the future.
+So we really have a desire to resolve these ambiguities.
+One other key observation is viewing duration matters,
+as I've sort of indicated.
+So initially you might not perceive any shape
+or object in a scene,
+and it's having a uniform distribution
+over explanations about where it came from.
+And then after some time,
+that might resolve into a more specific
+or more concrete interpretation.
+Now, especially when talking about modern contemporary art,
+I want to use the notion of visual indeterminacy.
+This is a term coined by an artist's researcher
+named Robert Pepperoll.
+And it's something I've found really useful
+in my own appreciation for contemporary art.
+And he uses this term to describe images like this.
+So this image here is something where at first,
+your first impression often is it looks like a real object,
+some simple object with three points.
+But as you study it,
+it never resolves in a coherent shape.
+It defies coherent interpretation.
+And so indeterminacy is the notion of,
+it's described an image that at first appears
+like it ought to be simply interpretable,
+and yet it never resolves into a coherent explanation.
+This is something which has existed
+in some form throughout art history,
+but really started to show up in the past few hundred years.
+So Turner is one example of artists
+who produce a lot of images that refer to real scenes.
+So this is a sunset.
+And I think it makes sense as a sunset,
+and yet identifying the individual objects,
+you might think it's possible,
+but it seems very difficult.
+Indeterminacy became an important, valued concept
+in the modern art era.
+So for example, Picasso said,
+when looking at a picture,
+one should say that the more associations
+it can open up, the better.
+So indeterminacy is really something that,
+and ambiguity in general,
+something that people deliberately tried to create
+within modern art.
+The painter, Gerhard Richter,
+more simply has simply said,
+I don't like pictures that I understand.
+And this is one of his works,
+which is called Annunciation and Appertition.
+And Richter has actually,
+even though he's an artist,
+described this process in a perceptual description.
+He said, we only find paintings interesting
+because we search for something familiar.
+And usually we find this for similarities,
+table, blanket, and so on.
+When we do not find anything, we are frustrated,
+and that keeps us excited and interested.
+So he's basically saying that,
+he's describing this perceptual theory,
+that we look at images searching for,
+searching for coherent physical explanations,
+and this search keeps us interested
+in these ambiguous artworks.
+Now, these ideas have been explored quite a bit
+within the psychology and neuroscience literature,
+through a variety of perceptual and neuroscience studies.
+And there's a lot of really interesting work to discuss
+and theorize about different kinds of ambiguities in art.
+But a lot of the studies have been kind of high level,
+and I think there's sort of two reasons for that.
+One is there's a question of,
+how do we get good stimuli for performing these studies?
+Usually the stimuli are sort of put together
+by the researcher themselves.
+For example, in one study,
+the researchers found a set of McGreet paintings,
+modified them in Photoshop to produce less ambiguous
+versions of the McGreet paintings,
+and then asked participants to compare
+which ones were more interesting.
+And there's a lot of sort of fairly obvious issues
+with this methodology,
+but maybe the researchers paintings were not as good,
+it's not as interesting as the McGreet paintings,
+just because the researchers were not professional artists.
+And there's a second question
+of how we measure ambiguity in these images.
+And so far these studies have just simply asked people,
+which images are ambiguous or not?
+And we really like to get to a richer,
+more nuanced notion of the types of ambiguity.
+So one answer to how we could address these questions
+comes from a different part of computer vision,
+computer graphics, which is generative adversarial networks.
+And in fact, GANs are generative adversarial networks
+have been used by a lot of artists in the last few years.
+There's a variety of both established
+and sort of up-and-coming digital artists
+who have used these three artworks.
+This is an installation piece by Mario Klingemann
+that was auctioned that I think it was Sofie's last year.
+But both established artists like Trevor Paglen,
+up-and-coming artists like Helena Starran
+and Sophia Crespo and many, many others
+have been exploring and sort of taking to GANs
+as a tool for making art.
+And I actually think this is not a coincidence.
+I think that GAN art, GANs naturally are predisposed
+in producing this visual indeterminacy,
+this thing that makes them look like abstract art.
+And in a paper that I'm presenting next week
+at Siggurav, published in Leonardo,
+I sort of expanded this argument
+that I think GANs are sort of naturally predisposed
+to indeterminacy.
+And if you use Art Breeder,
+which is a website created by Joel Simon,
+which that lets you sort of reuse and explore
+the space of images created by one of these GANs,
+you really get a sense that it just naturally
+seems to produce images that are evocative, intriguing,
+and suggestive that don't resolve into clear, coherent,
+3D interpretations.
+So for the final part of this talk,
+I want to describe the work that we're presenting
+in Transactions on Applied Perception next month,
+where we're doing a very preliminary exploration
+of how we can explore ambiguity using our images from GANs.
+And this work was done by a PhD student,
+she's Wong.
+She's recently graduated.
+She's looking for a job.
+So please contact her if you're interested.
+Also, we collaborate with Zoe Bielinski and Robert Pepperon.
+And so our set up is as follows.
+This is, again, generally images from Art Breeder.
+We asked a crowd worker or mechanical chirp
+to view it for three seconds and then to describe it.
+And when we do this, the set of descriptions
+are pretty consistent.
+White cat, white cat, white cat, and so on.
+People generally agree it's a cat.
+On the other hand, for this image,
+we ask them to do it for three seconds and describe it.
+Our descriptions are all over the place.
+It's a commchelle, it's a robot-looking swan, a giant snail.
+And so our main idea is that the variability in descriptions,
+we think, reflects the perceptual uncertainty
+in these images.
+So specifically what we did was we
+can take all of the nouns that were used in these descriptions
+and combine synonyms.
+And the histogram is very consistent for the image
+on the left.
+Almost every description is a cat.
+And this other category down here
+are singleton nouns that only occurred once.
+For the image on the right, the descriptions are, again,
+used all sorts of different nouns in these descriptions.
+And if we compute the entropies of these descriptions
+we get 1.8 bits for the one on the left,
+3.5.5 for the one on the right.
+So we see that we essentially have a measurement
+that for this more ambiguous image on the right,
+since the entropy has more bits.
+So for this project, we went through the most popular images
+on our breeder.
+And we gathered a data set of 150 images.
+And we sort of roughly categorized them
+as being abstract, flat abstract, indeterminate, dichotomous,
+meaning that they have two separate concepts within them
+and recognizable.
+And then we ran this the same experiment again
+and measured the entropies of people's descriptions
+of these images.
+And again, I want to emphasize that this
+is a very preliminary exploration.
+We won't be able to draw any strong conclusions
+from this result, but I think hopefully you'll
+agree that it's provocative and intriguing
+and suggests future directions.
+So here are the images that had the lowest entropy
+in this experiment.
+And these are all images that are fairly recognizable.
+You can easily identify them as familiar objects.
+These are the images with the highest entropy.
+And they're all quite indeterminate.
+They all are very suggestive of very different kinds of scenes,
+but none of them is recognizable.
+And moreover, one interesting thing we found
+was that the images that were highest entropy
+were the ones that were most indeterminate
+by our initial classification.
+Whereas the purely abstract ones, or the ones that are just
+really more flat-shaped of color,
+had lower entropy by these measurements
+than the indeterminate ones.
+That is, people viewed them as less suggestive,
+provoking fewer ideas.
+And this aligns a lot with Picasso's notion
+that the most valued images are the ones that
+suggest the most associations rather than being
+most ambiguous.
+Now, as I mentioned, the viewing duration,
+I think, matters as well.
+And so we ran the same process using
+two different viewing durations.
+And so as you see for this image,
+after half a second, so a very short viewing time,
+people had a smaller distribution.
+There were fewer words that came up frequently,
+as opposed to when people had three seconds.
+And there's a whole set of words people used
+to describe the same image in seconds
+that they did not use after half a second.
+So we thought that we could also start
+to see whether any categories emerged
+by using these two different measurements.
+So here are images that all have high entropy
+after three seconds of viewing that
+had the greatest decrease in entropy.
+So a large entropy after half a second and less entropy,
+but still high entropy after three seconds.
+And you can see that they're all fairly complex, evocative.
+But you can start to see them cohere
+into more consistent interpretations.
+If it's one on the right, you might
+seem like a mask or a face or a monster of some kind.
+Whereas after just half a second,
+you can't really tell anything.
+Here are the images with the greatest increase in entropy.
+People just sort of thought one or two things
+after first viewing are smaller set of things.
+And after a longer viewing than their set of associations,
+increased over time.
+And here are images that are all less ambiguous
+after you've had some time to look at them.
+But they started out ambiguous.
+So for example, it's one in the middle.
+After just a short viewing time, you
+might just see a flat field of colors.
+After a few seconds, you might just
+start to see a temple or a buildup facade of some kind.
+And we found dichotomous images were
+the converse that became more ambiguous over time
+or more varied.
+So at first, you might see this as a mushroom.
+Then you might see it as a mushroom with eyes on it
+or a mushroom, some kind of mushroom creature.
+And we could also plot the attributes of images
+where we plot the images by their entropies.
+So the vertical axis is the entropy after three seconds.
+Horizontal axis is entropy after three seconds.
+The vertical axis is entropy after half a second.
+The recognizable images all have low entropy.
+Dichotomous images start low and increase.
+The indeterminate ones are all clustered at the top here.
+So to summarize this part of the talk,
+our hypothesis is that the easy variability
+in these free form Texas responses
+is some form measure of the types of ambiguity
+in the integrity in the images.
+And we see that categorization emerged
+from these measurements.
+Now, obviously, our methodology is very simplistic.
+I don't even have time to list all the problems
+or all the limitations of what we did.
+But hopefully, there's a bunch of obvious ones
+that should be fairly obvious.
+And we haven't yet correlated these measurements
+to aesthetic judgments.
+And we've done a little bit of studies
+trying to ask mechanical torque workers
+which images do they find more interesting or evocative?
+And they all prefer realistic images of cats and mouths.
+So somehow we're not getting the...
+We're still investigating
+whether there's any sort of thing we can do there.
+But again, hopefully you find...
+I think that this suggests that this approach has promise
+and that could be built on in the future
+to get more solid conclusions.
+So to summarize, my main claims here
+is that line drawing perception
+is a consequence of real world, real image perception.
+And this suggests that we could in the future
+begin to describe more kinds of realistic art,
+perception of realistic art images
+in terms of our real world image perception.
+And that indeterminacy can be understood
+in terms of perception ambiguity
+and perceptual uncertainty.
+And then we can begin to measure this sort of indeterminacy
+and types of indeterminacy
+through these sorts of crowdsourced experiments.
+And more broadly, this is a theme here
+that computational thinking gives us insights
+into the perception of art,
+thinking about vision and art creation
+as computational processes
+gives us interesting insights
+that complement and build upon insights
+from other types of academic study.
+Thank you.
+Okay.
+Thank you very much, Aaron, for that talk.
+It was very interesting
+and we've already got questions coming into the chat.
+So I'll stop to read some out
+and then you can perhaps answer a few.
+And we've got 10 minutes to answer.
+Okay.
+So we have one from Angelo Canawasca.
+And they say, I love the entropy analysis.
+Have you noticed a relationship
+between interterm and disease
+and the quality of GANs trained?
+For example, GANs that are not trained properly,
+older GANs that do not produce photorealistic results.
+Can they generate...
+Sorry.
+There's a whole load of questions in this.
+If you want to impact this, it might be easier.
+Yes.
+So, yeah, this is an excellent question.
+And I think there's definitely a relationship.
+So all of the images we showed there from big GAN
+and an art breeder actually,
+I think when people are using art breeder,
+they are actually manipulating big GAN in a way
+that it's not meant to be used
+because it's using invalid class embedding vectors.
+I think there's a sort of uncanny ridge
+that the...
+So our early texture synthesis methods
+didn't produce great results,
+but they're all making me pretty accurate.
+Sorry, my slide's not animating.
+But in sort of like the most artistic images of GANs,
+like big GAN is trying to produce natural images
+from ImageNet, which is really hard.
+It's not doing a great job.
+And so we get these really interesting artistic images.
+There's other GANs, like StyleGAN,
+on faces that just produces these great, great results
+over and over again.
+It just seems like StyleGAN is so good
+that you really have to manipulate it
+and mess with it to get artistic images.
+And we see artists doing this,
+like Mario Klingemann has these neural glitch images
+where he is deliberately manipulating StyleGAN
+to produce glitchy results
+that are really cool and really interesting.
+So, yeah, I hope that answers your question.
+Okay, thank you.
+We have another question from Emily Spratt.
+How are you precisely defining ambiguity in arts?
+What about individual or cultural differences in perception?
+And there's a few more.
+Maybe you start there and we'll keep going.
+Sure.
+So, my presentation is purely about perceptual,
+inter-interversing perceptual ambiguity.
+So, I completely agree.
+There are many kinds of ambiguity.
+There's categories in the middle of this difficult,
+even when in perception,
+there are many kinds of ambiguity.
+Part of the goal here is to begin to analyze them
+in more detail.
+But, you know,
+and I think there's meaningful analogy
+between this kind of ambiguity and other kinds of ambiguity.
+So, for example, in novels and storytelling and movies,
+people, you know,
+people say the same thing that you want to engage with the characters.
+You want to question what are the motivations?
+What is morally right and wrong?
+And these, you know,
+more conceptual ambiguities keep us engaged in narrative forms of art.
+I think that sort of analogy is meaningful.
+But the work that I'm presenting here,
+it's really purely about the low-level visual perception of shape.
+And really, actually, all I'm doing in this work is for object identity.
+I'm not even like this,
+the kind of ambiguity in the impossible trident.
+We're not even analyzing this ambiguity here,
+a figure-around ambiguity.
+And yes, so this is, yeah, sorry.
+No, sorry.
+I think that answers quite a question into the continuation.
+Perhaps we could open it up to the panelists
+if there's some other questions the other chairs and such would like to ask.
+Could I just ask briefly about that?
+You mentioned the extra work that's being presented this year at CVPR
+on converting two line drawings,
+that it includes a CNN or some kind of machine learning.
+Is that basically a kind of attention mechanism
+where things that are semantically important,
+like maybe eyes or noses,
+get lines that they don't merit by their geometry alone?
+Or is it something else?
+Sure. Thanks for having me again.
+In this work, we're not doing anything high-level or object-centric.
+It's purely, there's a geometric pipeline,
+which is just, you know, contours, including contours.
+And there's a CNN pipeline, which is essentially pick-to-pick.
+So we have training sets of, you know, crowd workers have labeled,
+this is a better line drawing than that one.
+And we're merging, we have a,
+we created a joint network that includes both the geometric and low-level
+pick-to-pick style, CNN image translation.
+We haven't looked at all at sort of a high-level choice
+of emphasis or attention right now.
+And, you know, obviously interesting questions for the future.
+Thanks.
+Okay. Thanks, Leo.
+I was just curious about the one thing if there is still time,
+what the work you presented here,
+which actually is super cool, actually, I liked it,
+is focused mainly on the V1 neuron,
+which are marvellous in detecting edges and border.
+But there are indeed other parts of the visual cortex.
+For example, LM, Li, LL, LL neuron,
+which can capture more complicated features and concepts in some way
+that are created aggregating simple information
+like the one coming from the V1 neuron.
+So maybe I'm speculating a bit,
+but to try to reply to your initial question
+and why we are perceiving a line drawing so easily,
+you probably need to look at also those parts of the brain
+from a pure neuroscience point of view, I would say.
+Because maybe it's not just the V1 that leads us
+in understanding the content of the image,
+but also we need to grasp more, let's say deeper,
+information.
+Yeah, I agree.
+I don't think you would understand line drawing
+or perception of arches by looking at visual cortex
+or the V1 through whatever.
+And then really, I mean, kind of my argument here
+that people in the past have focused on V1
+as an explanation for line drawing,
+but I think you have to look at the whole perceptual system
+as a whole.
+There's clearly top-gen effects.
+Really, my argument is the whole visual system,
+taken as the whole using all the elements of visual perception
+can somehow perceive shape and scenes.
+And the question is why is that?
+I really don't know much enough about the details
+of the visual system to explain it.
+And I think that these high-level,
+it's really hard to work bottom-up and just look just
+at neural processing and come up with explanations.
+You need these more theoretical explanations.
+Thank you very much for your time.
+Thank you.
+Thank you.
+Thank you.
+Okay.
+So that brings us to time.
+So thank you very much, Aaron,
+for your talk.
+It was very, very interesting and sure.

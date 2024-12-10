@@ -1,0 +1,184 @@
+You are ready for your talk.
+I am ready.
+Fantastic.
+Yes.
+So let me let me.
+Dimitri will explain database for an expert system, very interesting.
+So go ahead Dimitri.
+Yes, thank you.
+Unfortunately, I'm on another device.
+I have no camera, but I will be doing lots of screen sharing.
+Let me share my screen from now.
+Okay.
+And what I'll try to do is tell a bit of a story about how I started looking into this expert system thing.
+So some of you might remember when I presented before on a prologue being implemented implemented in fourth.
+I have seen my posts on the Facebook group.
+Now, the objective of this was to try and explore certain parts of artificial intelligence using fourth.
+So I worked on reviving this old implementation of prologue in fourth, and I, I managed to get what was written in that paper to run.
+I was pleased.
+And what the author had done is he had used prologue to implement expert systems. Right.
+So you have an expert system which implemented in prologue, which is implemented in fourth.
+And the advantage was, since fourth can run on devices with limited memory,
+you'd be able to have an expert system on your device.
+But now for those who perhaps don't know about expert systems, it's one of approaches of a symbolic AI in the past.
+And the idea was that if you could put someone's knowledge into a computer and then guide a user through questions, it could be like having an expert working with an inexperienced user.
+So the computer has all the knowledge. It tells the user what to do and why it thinks certain things should be done and so on.
+One of the most common examples is actually for medicine in the medical world.
+Even as of recently, I had some pain in my ear.
+And I was like, well, this is bad. I need to go to a doctor. So I go on the app and I have to answer all these questions. Right.
+Now, these questions don't get sent to a human because it's within seconds of filling out those questions, you get a response to say, you probably have this and the reason we think that is blah, blah, blah.
+What you need to do is so and so, which is just reasonably intelligent. Right.
+So I thought, great.
+So I began looking into prologue and expert systems. And this was the book that I refer to me.
+I don't know if you can see that. Okay, building expert systems in prologue. It's, it's respected by many people. And it helped me to learn about these things.
+You know, backwards chaining systems where you know what the result is going to be such as with an illness. So, you know, common cold has certain symptoms.
+So you've identified by the symptoms, but there's also another kind called forward chaining where what you do is you don't know what the result is going to be like but you have rules that guide the process.
+Say, for example, designing a PCB printed circuit board design.
+Now, you can't say based on these components, this is exactly how the result should look, but you know that the result is going to conform to certain rules.
+You know that there's going to need to be some capacitors on certain pins, you know that certain tracks need spacing. And obviously you need to make sure that wires don't touch that shouldn't be touching.
+So a little bit of an overview of expert systems. Now, I was really sold in this idea until I got to the appendix which I'm just scrolling to now if I can, and I saw the engine that was being used.
+So this is the engine written in prologue for an expert system that is with the book.
+What I can tell you basically is this uses some concepts in prologue that are considered unclean like the things that you're not really encouraged to do.
+I looked at this and I thought I was expecting prologue would allow you to construct an expert system more easily. I was a little bit disappointed.
+So I looked at a tutorial from my teacher who's been teaching me prologue. And again, first thing he's saying, use a domain specific language.
+And again, he shows that and it's not extremely hard, but it wasn't as simple as I expected.
+So then I said, well, why not just implement an expert system language in fourth.
+And that's what I did and that's what I have on the, on the left here, sorry, in fourth win.
+And I will guide you through this to explain how this code works. It's very simple. Right. It's actually very simple the functionality.
+The other ways of express things could be simplified, but we'll come back to that.
+So the resulting program looks like this. Right. So ignore the first few lines, go to the database.
+Now, I understand that COVID-19 can be a bit of a sensitive issue for people.
+So please don't don't see this as a fact or don't see this as a medical advice. It's just for illustration. I did use this when I became ill some months ago, and I actually was able to diagnose myself.
+But please, if you if you're unwell or have concerns, see a doctor.
+So what we have here is a language that I've created essentially in fourth.
+And what the system will do is ask you questions.
+Now, if the answer to those questions are yes, then you know the diagnosis. For example, COVID-19 Delta variant has these symptoms.
+COVID-19 Omicron has a different set of symptoms.
+And common cold has another set yet again.
+So I'll show you how you use it.
+All you do is you type in solve.
+And OK, that's because I haven't loaded the script. Let me just run that.
+I'm just double checking that everything is as I.
+Yes, this this should be correct. OK.
+Solve.
+And see, it starts asking you questions.
+OK.
+And all you've got to do is answer.
+Those questions and then you'll find out.
+What you most likely have.
+Now, I actually did this.
+And so I'm just trying to find.
+My record of when I filled it out. Yes, here we go.
+And so he asked me the slow build of symptoms. Yes, it took a few days to have headaches. Yep.
+So throat. Yes.
+Running nose. Yes.
+Fever. My temperature is fine. I don't have a fever.
+OK, no.
+A cough. Yes, I have a cough.
+Fatigue. Yes, really, really tired.
+Tiredness.
+Exactly.
+And congestion.
+Yes.
+And this was an interesting one. No loss of taste or smell.
+Because some some variants have this and don't.
+In my case, it was yes.
+And there you go. It tells you COVID-19 or micro.
+So.
+This is a simplified example. Of course, it only has a few.
+Few illnesses in the system, but for a hospital.
+This could contain, say.
+All of the most common kinds of colds infections and viruses.
+And you can automate some of the process, you know, rather than the patients having to take up a doctor's time.
+They can fill in some answers here. The computer will then refer them to the right person.
+For those who are building robots and other things.
+This could be a system that a robot uses. The robot could be probing its environment, asking questions about it.
+Is there is a wall here? Is there a wall there?
+And perhaps even the robot can diagnose something that's wrong with itself.
+So how does this work? What allows me to write in this language here, which doesn't even look like fourth?
+I mean, this looks more like prologue than it does fourth.
+Let me show you.
+Simple expert system language.
+Define a constant.
+And then on the next line, you see the really, really key parts.
+Create is a word that allows you to basically define your own data types.
+I would say it's the.
+It's the version of, of data types or structures that is built into fourth.
+Of course, you can implement C like structures in fourth as well, but create always exists in implementation, as far as I know.
+And what we do is we define in this word question.
+It's a data type.
+It's going to create something in a dictionary with two spaces.
+One is for the answer to the question.
+One is to say whether the question's been answered before.
+If a question has been answered before, we don't want to ask it again, because that's tedious, you know, why do this, you could have thousands of questions in your database, you want to be efficient.
+Here is just an accessor word.
+So I've kind of quickly formed my own struct.
+So this just says basically that this slot here is the one that contains the answer. So the one must before must say whether it's been answered before.
+And we define some other words too.
+So dot question prints out the question.
+It uses this word, which is a fourth wind specific, but there is usually a way to do it in your fourth implementation.
+What it will do is it will take the address of the question.
+And it will find the word. Okay.
+So, say for example, you pass it slow build of symptoms.
+So that goes on the stack. In fact, let me show you that goes on the stack as an address. Okay.
+If I do word by address.
+It manages to find the words that corresponds to that address. So it's just a very easy way of implementing symbols.
+Right.
+This I think makes forth as powerful as this.
+So I'm very keen on this this concept.
+This is just to interact with the user asking them yes or no questions and updating the database.
+And after that we get to the idea of rules.
+So, again, you can see here a similar thing I'm creating a data type called rule.
+A rule contains questions. Okay, so COVID-19 Delta is a rule.
+It contains questions, which, you know, defined above.
+Essentially what the algorithm is. So notice here I've even got a colon and a semi semi colon, you know, I try to mimic the syntax of fourth.
+But I'm creating my own language, you know, not writing in fourth by the time I finish this.
+So, the engine, the real engine of it starts here and it's too very difficult to pass words.
+I'm looking at rewriting them because it doesn't have to be done this way.
+But the basic concept is this.
+Let me prove the rule what we're doing is we we need to we need to ask it we need to ask each question.
+And when a when a question is answered no, we finish. Yeah, we stop asking questions because it means that you don't this rule doesn't apply.
+So if you're at, you know, if you're identifying COVID-19 Delta, and your answer to slow build of symptoms is no.
+Well then it's obviously not COVID-19 Delta, you know, so it might as well move on to the next rule.
+This is expressed by this Boolean value.
+So you ask each of those questions until it gets to the end it will give you a Boolean. Yes or no.
+Did you prove it or did you not prove it?
+And then the layer on top of that is solve, which is essentially doing the same thing for each rule.
+So while proof asks the questions within a rule, solve is going through all the rules until it finds the rule that matches.
+But what I've done just before this meeting is I've experimented with creating this new word here more rules, because it used to just say this, which is meaningless but more rules make sense you know, if there's more rules and something
+else, then you want to prove each each rule.
+So when we get to the end we give the answer, which is done by a little bit of arithmetic at the end, and using my favorite word by address word, any type out.
+So, as you can see here in how many lines is this maybe.
+Well, maybe 15 lines 10 or 15 lines and just doing it at a glance.
+You can write a program that looks nothing like forth, it's your own language to solve your problem.
+And what I'd expect from a user is that they would take it's the database really that they would create for their program and I actually did this because the original database was just an animal identification
+program it just said asked questions and he identifies it a duck, is it a bird is it a snake, you know that kind of thing but I said, that's not a very practical example so let me come up with something more practical.
+And so I, I rewrote the database which is simply a case of adding the right questions and rules for different illnesses you can have.
+So this is my expert system, it is on.
+It is on get hub is so I will give you the link to this for anyone who's interested.
+If you are concerned about running it, you just want to run it.
+Again, if you just search for forth when you can now have this for 2020 setup scripts.
+I'm on a new machine here around this script and installed forth, forth when just before the meeting.
+So, it's very easy to do.
+You know, if you're new to forth and you're testing this out or you just run it without problems, go this way. If you're trying to port it to another system.
+Feel free to get in contact with me as like Francois did.
+And I will help you to implement this.
+I understand I'm a bit running over on time, but just to give a final sort of comments.
+I'm looking to rewrite this however, because I don't like the idea of iterating over some code and interpreting it that's essentially why I've written an interpreter.
+But why don't I just use colon colon does exactly that in forth.
+So, what I would do instead is I would make a question able to ask itself.
+Just once experimenting here.
+So, questions asked themselves, and all the rule would be is a colon definition, you know, rule.
+One q2 q3 and let forth iterate through that list.
+They should simplify the program and make it easier to run on on more devices.
+So, stay tuned, because that's something I might attempt doing.
+And at this point I'll open to questions.
+Excellent, you made it fantastic. Thank you very much.
+I need to say that I used an expert system myself in the late 80s for the CNC machines.
+I detected that customers were asking all the time the same questions for the first time customers.
+And I implemented this also in force but my system was huge was not so well designed so simply as Dimitri did.
+I'm very, very happy to see that. And also, the second part Dimitri is explaining us is exactly what people should learn about force that force is full of tools.
+To be clever, you can tweak these tools and have almost no code force programs almost itself, but you need to be clever.
+It's the like sort of more advanced level of fourth but when I say advanced, I'm only speaking from the perspective of all programming right as someone who's learning for you can actually be introduced to this, probably fairly early on and grasp it but in
+thinking this way it's, it's, this is what I think makes forth very different. And one of the reasons why I liked using it I, I couldn't see myself creating a language like this in something else I probably write an interpreter, but here I've not written an interpreter
+just extended forth so

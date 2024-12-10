@@ -1,0 +1,479 @@
+So Geyom, you have 20, 25 minutes to give your presentation.
+OK.
+All right.
+So yeah, I'm going to talk about my thesis today.
+It's on probably quantum fields, measurements,
+and quantum energy teleportation.
+Let's go ahead and get started.
+All right, so the relation between information and energy
+has been of central interest in many subfields of physics
+for many years.
+And the usual context of study are thermodynamics,
+Maxwell-Thiemann, black holes, area laws,
+entropies, cosmologies, and we're working on entropic gravity.
+There's holography, theories of emergent spacetime, ADS-CFT.
+And today, we're rather going to be
+focusing on relativistic quantum information.
+In relativistic quantum information,
+one of the main tools is probes.
+And we probe the quantum field with a first quantized system
+to a qubit or harmonic oscillator.
+And that provides a window onto the quantum field's
+Hilbert space.
+And it narrows our focus onto a subsystem in the field
+because the Hilbert space of the field is so large,
+it's kind of unwieldy.
+So by focusing on certain subspaces
+that we couple to with probes, then we could do certain.
+We're more flexible in our analysis
+of the information-theoretic structure of the fields.
+So one caveat is the information that you get from the field
+depends highly on the type of probe you use and how you couple.
+So today, we're going to try to create
+unobstrucive views using qubits, qubits, oscillators,
+so that we have a clear window onto the Hilbert space
+of the quantum field.
+And we could do more powerful things than is usual in RQI.
+So an overview of what we're going to cover today,
+and there's a lot of content, just follow my voice to get lost.
+OK, so we're going to start with different types of probes.
+We're going to see there's analog, quantum analog,
+quantum digital using qubits, qubits, harmonic oscillators.
+And then there's the question of which
+is exactly the subspace of the field
+we are probing when we couple by some local smearing to the field.
+And we're going to build the Hilbert space, the quantum field,
+out of a bunch of smeared observables.
+And then we're going to express the Hamiltonian
+in terms of these observables.
+And that's going to be very useful for many calculations.
+And then we're going to apply these tools
+and see what we get used them for,
+such as measuring the state on a certain subspace of the field,
+in time to harvesting, and quantum energy teleportation
+glass, but not least.
+OK, so canonically in RQI, the typical interaction
+we use is between a qubit and the field.
+It's point-like in space and spread out in time.
+But there's a certain time dependency in our coupling.
+And because we're temporarily smearing the interaction
+we have, we need to perform a time-ordered exponential.
+And basically, we have to do a perturbative expansion.
+And essentially, this is a picture of the coupling.
+It processes in time.
+So the imprint it gathers from the field is kind of as much.
+So that's not ideal.
+And we're going to do theoretical simplifications
+that are somewhat physically less accurate.
+But theoretically, they're more practical.
+So we're going to use spatially smearing interactions
+temporarily instantaneous.
+And that kills off our time ordering.
+And we can do fully non-perturbed interactions
+and unitaries.
+And we're going to do some powerful stuff with that.
+OK, so we effectively coupled a single quantum harmonic
+oscillator subsystem of the field.
+And it's this certain quadrature.
+This is a smeared-out field operator smeared with respect
+to certain distribution.
+We're going to assume they're of compact support very often.
+So we could choose what to probe this subspace with,
+either a qubit and qubits, which form a q-dit, which
+is like an exponentially large atom,
+or harmonic oscillators, which is my personal favorite
+in this thesis.
+So we're going to explore the differences
+between using these different probes, first
+in the context of a measurement protocol.
+And we're going to build some jargon
+that we're going to use later.
+OK, so for a continuous variable measurement,
+what I want to do, let's say I want
+to measure a harmonic oscillator A using a control system C.
+I could start my control system in a very narrow, sharp,
+squeezed state.
+And then I could do a controlled displacement,
+depending on the value of the quadrature of A.
+I displace, by a scalar multiple of that amount,
+my control register.
+And essentially, because we're a very sharp pointer
+variable, if I were to project the control register,
+I get a near-projective POVM, if you know what that means.
+And very often, we're going to actually
+skip the projective measurements
+and just keep everything coherent,
+because it's easier with the formalism and its equivalent.
+OK, so every time I use, so sorry, this is an adder gate.
+And you add the field, you displace one
+by depending on the value of the other's quadrature.
+So we're going to use this very often.
+So the analog to digital kind of conversion,
+the similar kind of gate, is the following.
+And this is a very classic algorithm in quantum computing.
+It's called the phase estimation algorithm.
+So basically, we want an adder, but now our control system
+is made of a bunch of qubits.
+So we want our readouts to be a binary kind of readout.
+And basically, the trick is we start with spin-ups,
+and then we create, we do a Fourier transform,
+which if we consider the virtual qubit that these guys form,
+is this state after the Fourier transform
+is a uniform superposition.
+And let's say we expand our target state in eigenstates
+of the observable we're trying to measure.
+Then if you act a certain exponential of an operator
+out to an eigenstate, it becomes a phase.
+And the phase, as we all know, kicks through tensor products.
+So we call this a kickback.
+And so because these are controlled unitaries,
+they depend on the state of which superposition in here.
+Then each different superposition will pick up
+a different phase.
+And then when we inverse Fourier transform,
+these relative phases get converted
+into actually the standard basis 0s and 1s.
+So essentially, this is like a shift operator,
+but it shifts the binary value and gives us
+an approximate value, binary readout.
+And you could use a lot more qubits,
+and it converges to a new project of measurement,
+like the squeeze state, implement a very large squeeze.
+And what's really neat is that we actually
+use single qubit to oscillator interactions
+and pre- and post-processing to form a qubit.
+And these are kind of like on a regular sigma z
+couple to field.
+So very often, I'm going to use the harmonic oscillator version
+because it's a simplest and the cleanest,
+but keep in mind that we can always
+emulate the harmonic oscillator with a bunch of qubits
+this way with the Fourier transform.
+OK.
+So a couple, a bunch of probes, we
+start with this smeared observable.
+So what subspace of the field are we helping to?
+Usually, we factorize the Hilbert space, factorize,
+but using a maximum commuting set of observables
+to field at every point, for example.
+That's a very typical cartoon we use,
+is a bunch of coupled harmonic oscillators being quantum field.
+And we have a canonical commutation relations
+with a phi and pi at every point.
+And out of these operators, we construct every other observable.
+OK.
+So now we would like to, instead of writing
+in a spatial decomposition, write it
+in terms of smeared observables.
+So for each phi, we could build a pi,
+which is just a smeared pi with a normalization.
+And we obey the canonical commutation relation.
+And suppose we have an orthogonal basis
+for the L squared integral functions,
+then we could build out of this basis
+a maximally commuting set of observables.
+And we get a harmonic oscillator for every basis element.
+And the Hilbert space factorizes into the Hilbert space
+of the subspace of each smearing.
+And often, we're going to just have a bunch of this joint
+compactly supported smearing, and then
+we're going to assume there exists a basis completion
+in some sense.
+But we don't need to work with these directly.
+It's just kind of abstract formalism.
+But it's very practical and shortens calculation like 10
+fold.
+OK.
+So what's useful about this is that we could rewrite the Hamiltonian.
+Usually, we write the Hamiltonian like this.
+We have the derivative coupling.
+If you expand the derivative as a finite difference approximation,
+then you get a nearest neighbor like quadratic coupling.
+Usually, we decouple.
+We diagonalize the Hamiltonian.
+We take Fourier transform, right?
+So the Fourier transform is like the kind of eigenbasis
+of the, it's like the meta eigenbasis of the Hamiltonian.
+So in terms of smearing observables,
+it's not diagonal.
+It's more like the space.
+But we have something like this.
+And we have a quadratic coupling here.
+And if we assume that our basis is made of
+compactly supported functions, then the derivatives
+are also compactly supported.
+And these guys only couple to a handful of other guys,
+maybe uncountable, whatever.
+And so it's like a virtual lattice, just like this
+is a lattice of harmonic oscillators.
+So we could use this to port over some calculations
+from actual lattice calculations later on.
+OK.
+So a quick review of ground states, lightning review.
+So ground states of quadratic Hamiltonians
+are Gaussian states are fully specified by where they are
+and how they're squished.
+And the phase space grows linearly
+in the number of oscillators.
+So it's really nice.
+You could do nice detailed calculations of energy
+and entropy and whatnot.
+That's what we use.
+And any quadratically generated unitary,
+like the one we use for the aggregates,
+preserves Gaussianity.
+So we're going to be working the Gaussian state formalism.
+And it's powerful formalism that allows for our calculations
+to be very attractive.
+OK, so the ground state of this quadratically coupled
+Hamiltonian is Gaussian in terms of the smeared observables.
+So that's very practical.
+So more or less the central theme of the thesis
+is what I call the local versus non-local duality.
+So the ground state is unattangled
+in the Fourier factorization.
+The Hamiltonian is diagonal, so it's
+a product state of ground states.
+But when you have couplings, you have entanglement
+across tensor factors.
+And that's what we use for entanglement harvesting,
+the entanglement between the different smears.
+And conversely, if I do a local operation that's
+compactly supported, when I take a Fourier transform,
+it's non-local in Fourier space.
+Something that's local in space is
+non-local in the metaheism basis of energy.
+So energetically, a local action is non-local.
+That's what we use for quantum energy teleportation.
+We use both this formalism and Fourier modes
+for the calculations of the thesis.
+OK, so entanglement harvesting.
+That's our first application of probing.
+We've done a lot of background now.
+So the goal of entanglement harvesting
+is you want to swap entanglement that's
+living between these subspaces of the field
+onto certain probe.
+I choose harmonic oscillators because they're
+the most compatible, in some sense, and easy to work with.
+And I do a continuous variable swap gate because it exists.
+And basically, if you know quantum computing,
+this is extremely familiar.
+This is how you build swap gates with usual qubits,
+qubit adders.
+But in this case, it's harmonic oscillator adders.
+And essentially, we swap the state locally, here and here.
+And whatever entanglement we have between these two
+subspaces gets transferred onto the probes.
+And you can harvest all the entanglement
+that was in between these two subspaces for the ground state
+or whatever state you really want.
+So Gaussian interactions are easily computable.
+I can do the thesis.
+And again, you can swap it onto a digital registry
+if you want it, and using Android interactions.
+OK, so quantum energy teleportation, different application.
+So this is the basic protocol.
+Usually, we use a single qubit, and we
+couple to a certain subspace.
+And basically, we want to harness the correlations
+between these two subspaces such that once we measure here,
+we gain some level of knowledge about the fluctuations
+over here, because we don't know much about here.
+It costs energy.
+When we couple, we create fluctuations.
+We inject energy.
+And then when we transfer over the information to Bob,
+because we have some knowledge of B,
+we can suppress these fluctuations.
+And what kind of gate do we do?
+It's just an adder gate.
+But we tune the coupling in the right way.
+And basically, here, I do a fully coherent protocol.
+And there's a theorem that says you could do this.
+You could skip.
+Instead of measuring the qubit after Alice
+does her interaction in sending classical information,
+you could just send quantum information.
+And it's theoretically the same protocol.
+So just for formalism, it's easier to stay coherent.
+OK, so this is the calculation I did.
+It's the same protocol, but on steroids in some sense.
+You have multiple sites where you measure and multiple target
+sites, and you use harmonic oscillators.
+And we want to use the correlations
+between every pair of sites between A and B.
+And we want to do this in a smart way.
+So again, we use adder gates to do a measurement using
+squeeze states, as we saw.
+And then we carry over the information.
+And then we couple each to each.
+And then we suppress the fluctuations.
+So it's one to one here and all to all there.
+But you could split up the interactions.
+And here's a circuit representation
+using our adder gates we mentioned.
+And you have a coupling.
+You have to tune for each a coupling matrix.
+And then the calculations, I found the optimum for energy
+teleportation.
+What you want is to create negative energy density
+at the target site, which means you have lowered the energy
+from the vacuum energy density.
+So we can calculate this using our formalism.
+This is one of the cleaner answers
+I was able to copy from the thesis.
+In the limit of very large squeezing,
+we get the optimal energy.
+Well, this is change in energy, so it's negative.
+It is a correlator, in the case of the distance,
+divided by some variance and some norm.
+And basically, the self-variance of this is basically Alice.
+That's considerate as noise.
+It's like fluctuations that are not from correlations
+with Bob.
+OK, so for numerics, we could port over all our formalism
+to actually use an actual finite discrete lattice
+and write it on a computer.
+And we could, well, it's not showing very well,
+but we could compute entanglement entropies
+and we have more freedom that way
+because we have the power of Gaussian state formalism
+and numerics.
+So here are some plots.
+There are many more.
+But the most basic thing we're to expect
+is that you want this to be negative for more energy
+extraction, but you extract more energy
+as the mutual information increases.
+Something more surprising is on the right
+is that you actually, when you extract energy at site B,
+you increase the entanglement entropy of B
+with its component.
+And that's interesting because a good measurement actually
+breaks entanglement, right?
+If a certain subset is entangled with a bunch of other things
+and you perturb it with a probe, then you break the entanglement
+it had.
+And you inject energy by doing so.
+But when you extract energy, you actually increase the entanglement.
+So there seems to be a nice little relation there.
+And for me, it'd be some deeper implications.
+Maybe I'll talk about that later.
+OK, so other calculations.
+This is just the laundry list.
+Measurements.
+So yeah, so for the multi-point measurement,
+computed energetic costs, information gain, broken entanglement,
+qubits, qubits, harmonic oscillators,
+for general multi-point measurement,
+it's an entanglement harvesting.
+Calculated the energetic cost of swap gates
+using formalism, it was a clean calculation.
+Then for quantum energy, delveritation,
+information gain versus entanglement breaking
+for the measurements, and all the energetics
+for the multi-point continuous variable case,
+which we saw, the finite discrete harmonic lattice,
+which was in collaboration with Jason for that mention,
+the numerics.
+And for clock-like qubits, which I didn't mention,
+but it was a paper with Eddie and Akeem.
+But I don't have time to talk much about that.
+And numerical analysis.
+OK, so this is the bonus round.
+This is some of the cool stuff that I've come up with
+towards the end of my thesis, but I had time to finish.
+So the best measurement for quantum energy
+delveritation is about breaking entanglement.
+So I wonder, how could we break all the entanglement
+in a certain region with its exterior?
+Well, in general, if I have a certain entangled pure state,
+I have a Schmitt decomposition.
+And say I measured A in the Schmitt basis,
+then I go from an entangled state and a product here
+to a GHC entanglement.
+And that breaks the entanglement between A
+and its complement completely.
+Well, it breaks a big chunk.
+OK, so now let's say we have a spherical region
+and it's causal diamond.
+And there must exist a Schmitt decomposition
+for the bipartition between the whole space of this
+and its complement.
+And the Schmitt basis is necessarily
+the eigen basis of the modular Hamiltonian.
+If you have something like this, you take a trace.
+It's going to be something like this.
+The modular Hamiltonian is like the log
+of the reduced density matrix.
+So when you do a singular value decomposition theorem
+for your Schmitt decomposition, it's
+kind of like optimizing the local Bogoliubov transformations.
+And in quantum field theory, Bogoliubov transformations
+are like coordinates, and they're
+a change of basis of modes.
+So I was wondering, can you construct a set of Schmitt
+basis modes, because when you have a basis for a quantum
+field, it's a bunch of modes.
+So working backwards from some recent work by Jacobson,
+constructed some modes.
+And this is an example.
+So usually in the Rindler case, when we have one horizon,
+we have a chirp near the horizon, and then it redshifts.
+But since here we have two horizons,
+I have a double chirp.
+That's interesting.
+I have actually some geometric intuition
+using path integrals and stuff.
+Maybe somebody can ask me about that later in the next slide.
+So the next steps are to compute Bogoliubov coefficients
+and then compute energetics.
+When I break all the entanglement,
+how much energy did I inject?
+And could I use this for some ultimate QDT protocol?
+And what's interesting is that, what's
+interesting with these modes is that basically when
+you optimize over local unitaries,
+when you find the Schmitt basis, you
+kind of filter out the self-correlations
+with an A and with an A bar.
+You only keep the correlations that cross A and A bar.
+So when we were sampling a bunch of points,
+if I sample a bunch of points in this region,
+if they're neighboring, then they're highly correlated.
+So my information would be highly redundant.
+But in this way, if I sample this way,
+it's kind of diagonal.
+It's like the Rindler decomposition of the state
+in terms of Rindler modes.
+So I get completely uncorrelated information.
+So instead of having to process the information in QDT,
+we did some optimize over couplings
+to undo some self-correlations with an A. This just
+gives you the perfect raw information.
+OK.
+So in conclusion, some key messages.
+You can collect quantum information,
+or classical, about a certain observable,
+about subspaces of the field by some probes.
+And you can record this information
+on quantum digital, or quantum analog,
+and the digital analog in a certain limit there equivalent.
+You could collect quantum information
+at multiple locations, and the entanglement of the field
+gets swapped onto the probes.
+You could perform an optimal quantum energy
+teleportation protocol that harnesses
+multi-point correlations.
+And in terms of our main theme of energy versus information,
+we've got something interesting.
+Measurements seem to cost energy.
+Measurement of the vacuum seem to cost energy
+and break vacuum entanglement.
+And when we extract energy from the local volume of vacuum,
+it reinforces the vacuum entanglement.
+OK.
+So that's it.
+Thank you.
+Thank you very much.

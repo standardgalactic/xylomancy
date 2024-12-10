@@ -1,0 +1,260 @@
+Hi folks, if you own a MIDI pad like this, which I found on eBay for 15 bucks and you
+want to do stuff like this, hey, OBS started and switch your scenes, you'll need a software
+called MIDI Key to Key and watch this video.
+So, if you have a core nano pad like this or anything else that produces MIDI, then go
+to the page 75r.de slash MIDI key to key with the two as a number.
+And you see the home page of my program and there's a download section here and download
+this Windows install file, it goes into my downloads, it's an MSI file for Windows, there
+it is, it is small, everything will go very fast.
+So then open it up and if this happens, that says in English the computer is protected
+because this installation file could be dangerous, but it is not, okay.
+Then this is the setup wizard, copy the program into program files x86 and produces a short
+cut, that's all it does.
+Now it is in my start menu under the letter M, MIDI key to key and here it is.
+So first of all, you need to select a MIDI input device, since this nano pad is connected
+to the computer via USB, there it is, select this and then you're ready to go to produce
+your action you want to do.
+Just click the lock to window button and this opens up the MIDI lock and then nothing happens
+because you need to push the start button.
+So now it's listening to the MIDI input and you see when I play these buttons or press
+the buttons, all events that are happening and the MIDI input are recorded and newer
+events appear at the top of the list.
+So this nano pad is set to its default settings, that means pressing a button produces a note
+on event that's the same like you would play a key on your keyboard on your synthesizer
+or piano.
+So on what we use will be a note on event.
+Each time I press a button, it produces a note on and a note off.
+So you can use both of them, but we only need one.
+So we take at first the first button and see how here in the list this is a note on playing
+a C4 with the velocity, the speed I hit the button and now we double click this and can
+reduce a keyboard action or starting a program with that.
+We will start a no program, we just generate a keyboard action.
+It's done by clicking into this blue gray box and then hit your special keys like control
+alt or shift first.
+I use control alt and shift the same time to be sure that no other program will use
+these key commands.
+You press the one.
+You see it has received these keys and the blue box shows you what you pressed in the
+white box.
+You can edit these if you wish to add more special keys like windows because when I press
+now the windows button, go into blue box, clear blue box, windows button, oh, yeah, I
+recognize as the when L left windows button, but if you tap the tap key, it won't record
+it.
+It tries to do some action on this.
+So if you wish to use the tap key right in tap, but normally you will use the control
+alt or shift buttons.
+That's all.
+Plus a normal key that produces any output in your text editor, a letter, a number, whatever.
+So again, control alt, shift one.
+And you see the one on my main keyboard is written as D1.
+If I push the numpad buttons, it will write down numpad two.
+That's the difference.
+So these just then type in instead of D1 numpad one.
+But we will stay with that.
+Now there are two other checkboxes here, react on the first value and react on the second
+value.
+The 9037F data on this key, a MIDI event, means 90 is a note on on channel one.
+If there's another MIDI channel, your device producing this number would be different.
+Even it was a note on event two.
+So in the 30 and the 7F are two data fields.
+The 30 means it's the key C4 and the 7F is the velocity you pressed on the pad or keyboard
+because this little pad is also capable to do velocity recognition.
+And what we want to do is just react on pressing a key, no matter how hard I hit the key.
+So if we would turn on the second checkbox, it would react on the second value, 7F.
+And to produce your action, you would need to hit the key exactly with the same velocity.
+What's really hard to do.
+So we ignore the second value and just take the 30, react on the first value.
+That means the key C4, that's important.
+So and then save the new action, 9030XX was saved.
+The XX means we ignore the second value.
+Okay, that's it.
+So now let's have a look into OBS again.
+I already programmed to have my hot key, control alt and shift plus the one to react
+and switch the scene one on.
+Let's see what happens.
+There it is.
+No other key, do anything.
+It's fine for now.
+Now I show you how fast it is to set all the six scenes I have to be set up in both,
+in MIDI key to key and also in OBS.
+So the second key, I look for the note on event, double click, shift control alt, two,
+save, next three, double click, number three, save, press the four, double, four, five,
+double click, five, and six, six, save, that's it.
+Now in OBS, settings, hot keys, follow our scenes, the same hot keys and you see that's
+done really quickly, four, five, and the number six is here.
+So and maybe we mute the desktop audio, then let's take the letter S in connection with
+control alt and shift and program that later on our nanopad.
+So that's it.
+So and this is working not only if now OBS in the foreground and has to focus, just let's
+take another program, the explorer now is in the foreground has to focus, but OBS is still
+recognizing our commands.
+That's important.
+If you play a game in stream, you don't have to bother.
+So that's all it's up and running.
+What you can do is close the lock window and minimize it.
+It will minimize always to the tray.
+And if you open the tray, here it is.
+You can double click it to reopen it or right click to open its context menu.
+You can open the main window, stop listening.
+If you do that, no action is executed.
+You can start the action again, start listening.
+There it is.
+Or exit the program, double click opens it.
+So what else can we do?
+What about starting OBS or the mute button?
+I forgot that.
+Now let's program the key number seven on the nanopad to mute and unmute the desktop
+audio lock window.
+Just one press on this key has to be done.
+That's it.
+You see the speaker symbol in OBS is already read means it's muted.
+We can talk about that key.
+Now if we want to start a program with MIDI key to key, it's no problem.
+Let's program a shortcut to OBS itself.
+But doing this, I will take the key number 12.
+Here's the note on of this event.
+We do not need a keyboard action on that.
+We need to start a program.
+We need to set this on active.
+So you can type in a program name manually and you can choose it with this button.
+This is already the directory where OBS 64 bit is in.
+I take this and you see it's encapsulated because there are white spaces in and if you
+have white spaces, put these around.
+So some programs need to know where they live and OBS is such a program.
+Without saying the working directory of the program, it won't start or reduce error messages.
+So we need to know where the working directory of OBS is normally.
+It is this path.
+But to be sure, this is a shortcut to OBS that was generated by the OBS setup program.
+And let's have a look.
+This is execute in, this is the path we need.
+So press Ctrl A and Ctrl C to copy and just copy it.
+You also could choose this dialog box to navigate to the directory you know.
+But it's always better to use a shortcut of which you know it works.
+So now our path is gone again.
+So here we are.
+Hit save and that's it.
+See what happens if we push the 12 button.
+Yeah, there is OBS started and the other keys also work.
+What happens if we hit it again?
+Now OBS is a program that wants to be alone.
+It does not allow to open a second instance.
+So this is not working with OBS.
+Other tools will work again.
+Okay.
+Now if everything is set up, you can't check Autostart listening.
+That means if MIDI key is started, it's listening already and then try this, OBS starts, okay.
+And if you check this, check box minimize to tray, this works only with Autostart is active.
+And the program now MIDI key to key when started directly minimizes to tray.
+And given this message is minimized and is listening.
+So check this out.
+F12 starts OBS.
+And now don't be confused if we use our other buttons, they don't work.
+Just once click OBS, then you can leave the focus and then they will work.
+Okay, this is what we can do with the Autostart.
+And what else is possible?
+Now we can edit or delete an existing action.
+The actions are here in this drop down.
+The numbered one to eight and which MIDI data is in and which note on or any other event is shown.
+Let's take the last one we made.
+This is starting the OBS program, hit edit.
+Now this dialogue looks almost the one when creating a new action.
+Start program is active these parameters.
+So now we can edit as you saw it before these or we can even add a button, a key command to it.
+Save this and you will have on this MIDI node two actions at the same time.
+Now this does not make much sense because when OBS starts it needs some time and the keyboard action will be executed almost at the same time.
+But let's produce, let's generate a brand new one, lock to window.
+Let's take the nanopad button eight, double click on this.
+Let's do a keyboard shortcut.
+Take the number two and start another program for small test.
+Just put in, this is the calculator.
+Save, okay now hit the button number eight.
+It starts the calculator and at the same time it produced the key number two.
+Let's do the same, switch over to scene two and start the calculator.
+So you can use generate keyboard action to start a program at the same time when both is active.
+And there's a third thing that's not chooseable.
+It's an idea, it's prepared to work to let the buttons work like a folder.
+You need open virtual folder and then hit another button that is already assigned to another action.
+But think of it like a shift button.
+So you can extend your 12 or 16, whatever paths you have, two more functions.
+I don't know if I will put this into the program.
+It's an idea.
+Tell me what you think about it.
+So there's a little more to explore.
+These checkboxes can only be changed by stopping the listening and listen to system exclusive messages means these are special commands for MIDI devices.
+Normally they dump the program settings and make special things.
+This is an experimental function.
+Check it out, but don't expect actions that you really can use with MIDI key to key lock to file.
+Let's you choose a file and then what's in your lock window is shown will be written to that file for later analysis.
+The channel listeners always on that means the program listens to all 16 MIDI channels.
+You can filter channels out by turning them off.
+My Nanopad is turned to switch to channel number one.
+So this works.
+If I set it on the channel number two, it does not show any events.
+So you can filter different devices out if you want to.
+And at last, this start stop menu acts the same as the start stop button here or just start stop button in the tray menu.
+You can load and save settings, but this is actually not needed.
+MIDI key to key, save its settings, everything you edit it automatically when you exit the program.
+And it loads its settings when starting.
+Save settings could be useful if you do a lot of changes and are afraid that your windows crash.
+So you can save in between the settings and go on working.
+The settings are stored in your documents folder.
+This is the documents folder and it produces a folder called MIDI key to key.
+And there's just one single file settings.
+This is your settings file.
+And even if you remove uninstall the program, this file will remain.
+And you can copy this for backup or move it to another computer.
+Uninstalling the program is easy, as you know, from their software.
+Go to the system settings, the control panel, programs and features and look for MIDI key to key in the list.
+MIDI key, M-I-D, here it is.
+And you can say uninstall.
+It's removed completely, except your settings file.
+And the last thing in the help menu, you will be led to the website.
+This is the main website.
+Push the help button.
+It opens the help side.
+That's the same instruction I gave you in this video.
+And you can check for update and see if the version is the last one.
+Check for updates, says the checking succeeded, but your version 1.6.0.8 is the latest version.
+OK, if there's a new version, go to the website and go to download and download the latest version.
+You can just run the MSI installer file and there's no need to remove the old version.
+You should close MIDI key to key before doing that, but it will automatically update your existing version.
+So that's it for MIDI key to key.
+I hope you enjoyed it and I hope you find it useful.
+And if you have any comments to that, put it down below or use our feedback form, which is here.
+Contact.
+There are just the topics to do that.
+I found it back if you find anything or I need help.
+I want you to suggest a feature that's very important to me.
+If you have any ideas, just fill out the form and tell me what you would like to have built into MIDI key to key or just leave a comment.
+Please use this.
+And in the end, please buy me a beer if you like the program.
+Just a little thing.
+Donations are not still not available.
+I put this into just a little PayPal donate button.
+So this is MIDI key to key.
+I hope you find it useful.
+And I show you quickly another little program I did if you are a Twitch user.
+If you are a Twitch user and stream offline and stream different games all the times, you will edit your Twitch page all the time.
+Now, this is saying I play Battlefield one and I'm a noob.
+And if you change the games very often with Twitch control,
+you can set predefined presets.
+You can make new ones and now switch from Battlefield to CS Go.
+Just activate.
+OK, it says CS Go.
+It's not enough.
+This is my channel name.
+Activate.
+And now, channel update was successful.
+And let's see what it says.
+Reload the Twitch page and see Counter-Strike low level and CS Go.
+OK, so you can save your presets very quickly and just select one and, say, activate.
+Let's switch over to Flight Simulator.
+Successful.
+This is very handsome if you often switch games like I do.
+So there is flying FSX online.
+So you see this little tool is also nice to have.
+You can download it for free from this web page, but I will provide all the links down in the comments of the video.
+It's 75x.de slash dl slash Twitch control.
+OK, thank you for watching.
+Leave some comments and see you.
+Bye bye.

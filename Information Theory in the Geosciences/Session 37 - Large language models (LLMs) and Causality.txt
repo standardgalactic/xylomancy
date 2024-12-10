@@ -1,0 +1,796 @@
+All right, I'm happy to introduce Antoine, a very energetic young man who joined our
+research program when it was in January, just this past year, this year.
+And before that, Antoine was working with this startup company called Extra Lab.
+And he was on their software engineer side, helping develop systems for capturing river
+water quality data with the technology that was developed by the founder of Extra Lab.
+But I'm glad he came to us to do his PhD and has been working on issues related to causality
+and large language models and he can tame GPT like nobody else.
+So with that, Antoine, all yours.
+Okay, so thank you, Parveen.
+So indeed, today I'm going to talk to you about LLM and causality.
+As you can have guessed, if any of you just took a small quick look at the papers, I provided
+Leela last time.
+So just to put it back in a bit of a context.
+This is a picture I use in all my presentations that I used to illustrate what's going on with
+climate change right now.
+And this is just more than 20 inches of precipitation in one night and for a lot of day.
+And it's just to exemplify how climate change changes the way that extreme events are happening
+and how can we do to stop them and how can we tackle those problems.
+And this is so as Parveen introduced, I'm not going to spend a lot of time on this,
+but the statement here is that the decision making process is critical in the resilience
+in increasing or decreasing resilience to climate change risks.
+And so to address the extreme events.
+The problem is decisions are taken by humans.
+And until recently, we didn't have GPT and understanding natural language with mathematics
+is complicated.
+And there is no breakthrough framework until GPT came out, which we've seen as an opportunity
+to try to understand how humans think in language.
+So what I'm working on right now is using GPT agents to generate multiple decision pathways
+based on a context of an extreme event, let's say a forecast of a flooding for a city.
+And we use multiple GPT agents to talk to each other in order to come up with decisions
+pathway, which then we can evaluate to understand whether it is good or bad decisions.
+And this is just the start of a work in which we will try to maximize resilience and see
+what is the takes of LLMs and AI in that particular problem.
+So I'm going to be presenting that at AGU have a talk on the morning, Monday morning.
+If you want to see what it's about, I would gladly see you in the audience.
+But so we'll get back on the subject here.
+So I talked a bit about LLMs.
+Even I'm pretty sure that everyone is here is familiar, whether it is still, I'm going to say so.
+Large language models, they are the class of language models such as GPT, etc.
+Usually based on the transformer architecture.
+And so those models receive a text input and will make predictions, textual predictions.
+They're known because they're really good at understanding human language in the sense that
+they are a great conversational agents.
+So GPTs, Barrett, Paul, and Lama, there's a lot of them.
+And you've probably heard about a couple.
+And so as for applications of LLMs, translation tasks, you can use them for text generation,
+report story scripts.
+You can ask an LLM to generate 10 different poems on a subject you like in that particular style.
+For instance, can use LLMs for Q&A, synthesizing, etc.
+So this is what an LLM is like.
+Now, introducing causality is rather complicated because it's a complicated term.
+But I'm pretty sure, again, the most part of you are really familiar with what causality is.
+So I'm just going to say it's a relation, studying causality,
+studying relationships between cause and effects.
+Due to Pearl dedicated the major part of this life working on that,
+I'm pretty sure you're all familiar with this work.
+So I'm not going to stain this image trying to give another definition that wouldn't serve no purpose.
+Causality carries more information than correlation,
+which is why it is so interesting.
+Studying causality is more important than studying just statistical correlations for that matter.
+This is why there is a lot of work on studying causality in order to understand how
+natural processes interact with each other.
+And the question now is, how does those two concepts connect?
+Why do we even have this question of can LLMs infer causality?
+The question comes from the fact that LLMs learn their input data, their training data is
+huge corpus of text that ranges from Wikipedia articles to blog posts to books, etc.
+So literally what they are is just a condensed experience of what the world beat them.
+And in those texts, there is a lot of information about describing processes and everything.
+So today, if you ask a GPT agent, I see it start to rain.
+What is the impact on the ground and the LLM will answer the ground will be wet.
+So it may appear that the LLM is able to infer causality in that particular setting,
+because it's able to tell you what is going to be the outcome of a situation you describe.
+But a lot of people have been digging into this and trying to figure out if this is really
+causality or no. And if it is, which type of causality it is, and we'll get back to that later.
+And let's say they were really possible of inferring causality. What would be the implications
+on future research, on our world, etc. And I just want to finish this by putting another
+small motivation point, which is that if we get back to my previous topic and the thing I'm working
+on from Jang et al. from this paper says, decision-making scenarios require a quantitative
+understanding of the effects of actions leading to the desired outcome. In another way,
+if we want to be able to tackle precisely decision-making problems, we need to have
+an understanding of cause and effects. Otherwise, it's complicated to have all the causal chains
+of actions that would be triggered by one particular decision. So this is a bit of the
+motivation why it would be interesting for us to understand whether LLMs are able to do causality
+or not, and which one. So just a quick view of the papers I used to do this literature view.
+Those two first paper are by Jin Little. The first one, they present Clutter, which is a
+causal benchmark they use in order to evaluate LLMs to causal tasks, as well as fine-tuning
+LLM models to see if they could approve their results. The second one, they introduce a task
+for LLMs to be evaluated on, which is called core to causation. So basically, they try to
+convert correlation causation and see how well it translates. The two next papers, Kissiman and
+Liudel. So Kissiman and LLM is just another study of multiple types of causality evaluation on LLMs.
+Liudel 2019, this one is a bit interesting because it's older. So this one was out before
+the LLMs actually were advertised and were that popular. And this one uses a different approach
+using intelligent agents, but I will get back to that. And the last one, that service is probably
+the most interesting in this one because it's the most, not unbiased, but they make the strongest
+statements. They say that LLMs are causal parrots and they can maybe appear to talk causality, but
+deep inside, they're not at all and never will be. So they make quite strong statements and it's
+interesting. And the last one, the last one is early 2023 and gives a couple of insights on future
+work in future directions, but don't give a lot of answers in there. So I'll just start by quickly
+reminding for this, for the purpose of this study that the difference between causal discovery and
+causal inference tasks, because those concepts are used in the papers. So causal discovery
+is constructing a causal structure. Basically, it is figuring out a dag, a directly, sorry,
+directed a cyclic graph in which all the nodes are variable and there is a link between the
+nodes when there is a functional relationship. The causal discovery holds the structure for,
+in order to be able to infer causality on multiple levels. Multiple levels of causality,
+as if on my pearl, are observational, interventional and counterfactual. Where observational,
+you only need to observe the cause and effect for you to be able to say that this is causal.
+Interventional requires the intervention, so changing a variable and seeing there is an
+effect on another one. And counterfactual is knowing that there is a causality link. It is the
+highest level of causality. Knowing there is a causality level and two variables, what would
+happen if you would change the variable in such a way? So they just remind the difference between
+discovery, which is more about finding the structure that ties all variables together.
+And explaining the possible relationship that can be between and causal inference would be more
+about determining what level, what strength of causality there is between two variables and
+which direction to. And so the first results that are given by Kissimer et al. So they work
+on inferring causal discovery. So what they do is they're trying to come up with that direct
+to stick with graph using an LLM. And so the findings are that the best LLM in the list,
+GPT-4, and is almost always GPT-4, art performs causal discovery frameworks by
+approximately 40% on the Tobingen benchmark on pairwise causal discovery tasks. So for
+two variable, two by two variables is being able to find out if they could be relating
+some way or not. And so this is the list of the model they tested. And almost every time is
+GPT-4 performing at the best. So this is quite an interesting result, but
+they also balanced that result with the fact that LLMs present a strong lack of robustness.
+Because when they fail, it is really unpredictable to predict. It is really
+unpredictable the fact that are going to fail or not. So you might have 96% of accuracy,
+but it's hard to predict when they will fail. This is what they put the accent on
+when they present their results. As for the benchmark they use, it is very diverse.
+So over 100 causal relationships from a variety of domains, physics, biology, zoology, cognitive
+science, epidemiology, soil science. So there is a couple of examples of relationships that
+are in their framework for use to be LLMs. So for instance, alcohol and main corpuscular
+volumes. So a question like this will be asked to the LLM and whether, depending on the
+answer is yes or no, it will compare the answer with the real in the framework to establish the
+accuracy person. Sorry. Yes, so second result is by Zetsu Vigila. They do a lot of different types
+of causal inference and causal tasks in their study. It's very complete. They also do a causal
+discovery task, which is pretty much the same. They feed a scientific question to the LLM and
+depending on the answer they say yes or no to the establishing of causal discovery.
+So this is the results they get where GPT-3, GPT-4 are open AI models. Luminous is a model that
+is built by Luminous. It's the corporation itself and OPT is the META Facebook LLM. So
+yes, Russian? Just to clarify, they're just checking the question and the answer. They're not
+actually checking the chain of reasoning. No, not in this one. There is some frameworks and some
+benchmarks in which they use a chain of thoughts prompt engineering in order to be able to check
+the chain, but not in this one. And they're just using off-the-shelf LLMs. They're not specifically
+trained for these. Well, yes and no. So they're off-the-shelves LLM. They're not fine-tuned.
+However, they make some assumptions that in some cases the enormously high results for GPT-4
+could indicate that some parts of the benchmark are actually included in GPT-4's training,
+but it's hypothetical. They don't have that knowledge. It's just a hypothesis they make,
+but technically no. It's just off-the-shelves LLM and these ones are not fine-tuned.
+And the assumption is that their answers that they have are well-established,
+beyond dispute, that this is the correct answer. Yes, I guess. Okay. Thanks. So yes, this is the
+result they give for LLMs. To be honest, it's a bit hard to interpret the results sometimes in
+this paper. There are some sections that are extremely clear as to the results and findings,
+some are less. This is actually one of the main negative point of this paper that's been
+highlighted on the open reviews. This paper in particular is going to be published in
+Transaction to Foreign Machine Learning. It's been reviewed on open reviews. So all the reviews
+are publicly available on open reviews. It's really interesting. I read a couple. And what's
+being said about this paper is that the math behind and the logic behind it is really strong,
+but sometimes the results are not well explained. And I can really sometimes I just cannot tie the
+results to what they claim. But that's why we'll move on to the next one. This is the findings on
+different types of causal inference. So by Ginadal, the first paper. And so they test
+about 10 LLMs. They test their accuracy on observational, intranational, and counterfactual
+tasks. And on top of that, so they are tested again, the clatter dataset, which is composed of
+10,000 samples of approximately even distributed for every causal task containing different types
+of data. And they also come up with what they call causal caught, which is a fine tuning model
+they did using their data set. So they were trying to figure out at the same time how did,
+well, how well LLMs performed on causal benchmark, as well as if they fine tuned the model,
+what performance improvement do you have? And so they conclude that overall,
+the models just perform slightly better than random, which is not that great.
+They also conclude that there is two percent, there is approximately two person difference in
+accuracy on TPD4 and their fine tuned version, which they say is outstandingly good. I personally,
+I think it's interesting to use this approach. However, the results are not that shining for now.
+So this is one other result there is. In the second paper they present,
+this is another causal task, which they call chord cause. So basically, the point of this is to
+escalate one correlation relationships to causation. So you know there is a correlation,
+so let's say that causal discovery is almost done, you mean you are sure there is a correlation,
+a grounded one between two variables. And the point would be to determine whether it is cold or not.
+And so this benchmark is run on 17 LLMs and also 12 fine tuned LLMs, which is on the right side.
+So yeah, they give multiple metrics in there. Again, they say the results are not really incredible.
+They don't really conclude on the results. In none of the papers, based on the results,
+they are able to say yes, LLMs are able to do causality, no LLMs are not able to do causality.
+Every time it's always very measured and every paper ends the same way. It's at this point,
+we're not able to refute the fact that LLMs can infer causality. So they have strong
+insights that they might or might not be able to, but they cannot come up with a conclusion in the
+end. Here, what is interesting to show is that in this particular case for escalating
+correlation to causation, there is a real impact in fine tuning models. As we can see,
+the precision increases a lot between the off-the-shelf models and the fine-tuned models.
+So the takes of those two papers by Jin et al, which are separated for two months or three
+months, if I remember correctly, and it's relatively linked. So the main overall take
+on those two papers by Jin is that using Benchmark, causal Benchmarks, is really
+interesting to LLM training as it can really improve the training performance and it can
+actually induce some of causal causality, at least on that particular dataset in the LLM,
+and also that fine-tuning is really helpful in this scenario.
+Okay, so I'm going to join. Yeah, of course. In the previous slide, you mentioned that in the
+previous one. In the previous one, sorry. I know, is there? They test for counterfactuals.
+Oh, sorry. This one? Yes. Okay. They test for counterfactuals and
+interventionals, right? How do they test for counterfactuals?
+I don't really know because they don't give any example. If I remember correctly in the papers,
+they don't give any example of any example. Well, they do give example structures.
+They do give example structures of how their dataset is made, but they don't give like actual
+example that are fed to the models as questions and answer. So I'm not really able, let me just
+see real quick. No, because this is just the constitution of their dataset.
+They explain a bit how they do constitute their dataset. So they choose variables,
+generate causal graphs, map them, etc. So the data is composed like this, but they don't actually
+give examples to which they are fed the dataset. Maybe with the additional, in the additional
+supplementary information, probably they have something in the supplementary information
+of the paper or something. They might have something. Well, this is already from the
+supplementary, those two slides are from the supplementary information. And I don't remember,
+I can take a look afterwards, but I don't remember seeing any example of what they actually feed.
+I have some for other benchmarks, but not for this one.
+I see. Thank you, Antoine.
+Of course. And so yeah. So I guess it's time to talk about this a little bit.
+This is a paper by Llewital 2019 and it's so it studies intelligent agent systems.
+I just want to say that it is, in my opinion, it is interesting in this context,
+just because they focus on what is the importance of experience on learning potential causality.
+They use a different approach, which is still interesting because so here what they mean by
+intelligent agent systems will agent, they use the actual similar definition of agent that is
+in the context of complex adaptive systems. So we're an agent would be defined by an entity that
+have sensors that is able to perceive the outside world actuators that can interact with the world.
+And also an internal model that is just a logic for the agent to decide what it's going to do
+depending on the inputs it receives in the sensor and what it's going to do to the world.
+So this is how an agent is defined in the complex adaptive systems and the difference
+with the intelligent systems, intelligent agent from the ULL is that they also give
+the ability to understand natural language to their agents.
+So what do they do with those agents? They trained the agents on multiple life classical scenarios
+and then they use humans to create more training instances out of more scenarios
+and then they put those agents in those particular scenarios to see what they're
+able to do with it. So the agents have a bit of prior knowledge, some more scenarios are created
+and then they use the agents. All the scenarios in this study are generated with a game in this fact.
+I'm just going to use this fact to add on the I feel like some video games might present like
+the perfect ground for testing and simulating this kind of behaviors. There is a lot and a lot
+of different examples of people doing reinforcement learning on video games, learning AI strategies
+to drive a car for racing lines, this stuff. So I just wanted to make a small side note on
+the fact that video games represent a good training example. So in this case, this game is
+Minecraft game or interact with the world. And so what they do, they put the agents in
+Minecraft and they generate a bunch of scenarios, which is like one, I attack the co and I attack
+the co and this is the two outcomes. And for those two outcomes, the agent is going to infer
+causal or not causal. So based on their prior knowledge and more scenarios created by players
+and then are collected, then the agents are evaluated on whether they experience in learning
+from those scenarios, made them able to infer causality in new newly presented scenarios.
+They gave a bit of the architecture they use to structure their model and their inference.
+So the short experience is represented by I guess the pool of knowledge that all the agents
+learn all together. Those are events triggered when you attack a cow, you get some beef.
+They don't give a lot of details, whereas all this works if I remember correctly,
+but in the end, they just come up with a causal question, which the agents do inference on
+and they're able then to classify what are considered as causal or not. And then they just
+compare with the example they had in first. So the principle finding they get from this
+study is that experience mechanism is key for language concepts, understanding and learning,
+which is a very long turn of phrase for causality. So it is interesting. This paper is interesting
+in this way because LLMs can be seen as agents in that they are trained and they learn out of
+huge text corpuses that represent, I don't know, novels, articles, blog posts, Wikipedia.
+Those can be seen as scenarios where the LLM will learn some knowledge. At the end, you can interact
+with an LLM as you can interact with those agents. Their inputs are the sensors and the text feedback
+they will give is the actuator. You can use an LLM as a robot if you ask, do some actions or something.
+So what's interesting is that if we put in parallel LLMs and the agents as described
+in this paper, well, basically what they say is that experience is key for causality. So they would
+be, from my understanding of that paper, what I get of that paper would be that more data, more
+training could eventually lead to causality, which is opposed to the thoughts that are given in
+different papers in this selection. I still think this one is interesting. It's a different approach.
+I think it's similar to what LLMs do today. Maybe some will argue that it's not, but I found
+this interesting. And I guess now it's time to dig deep in the biggest paper in the corpus, I think,
+which is set of it. So it's the one when I said they make strong assumptions,
+strong claims that LLMs cannot do causality and never could. And the two main potential reasons
+they give is that the errors that are contained in the corpus used to train LLMs really hamper
+the outputs and hamper the knowledge base. So it would be like, it would be like putting poison
+in the brain. Eventually, it's not going to be able to function correctly. So what they say
+is that errors in the input data is going to be propagating to more errors in the output.
+So this is the first reason. And the second reason they give is the lack of physical data
+in training dataset. They say that the whole difference between correlation causation is
+the physical evidence and the physical grounding of those facts. And they say that because LLMs
+are not trained with physical evidence, physical data, et cetera, well, they generically haven't,
+they're unable to ground the facts they claim. To quote, they say prohibits any sort of induction
+of the actual data generating mechanism. So this is the two main reasons they give.
+And on top of that, they provide with mathematical explanation of why that stands.
+So the main contribution in that paper is that they define a subgroup of structural
+causal models named media SEM. So the structural causal model, it is, I've did my research on
+this, it is a bit unclear to me as if it's really defined by bongers of it, or if it was.
+Because I feel like a lot of, a lot of parts in this are shared with the Perlian theory of causality
+and more work on it. But if I quote the SEM was first defined by bongers at all in 2021,
+then this is the, this is the definition they give. So SEM is a tuple that contains all this.
+In short, if I try to simplify the definition of this, an SEM
+contains a series of structural equations in the Perlian sense.
+Well, that's, that's pretty much it actually. There are some details on the variable. I don't
+understand all the, all the subtleties to this definition. Yeah. Maybe we can get back to that
+later. Okay, they also remind a couple of definitions and insights. So they remind the
+Perl's causal hierarchy, which consists on three languages that can respectively
+do observational causality, inter-reventional causality, and counterfactual causality.
+And then they give their insight, their first thought on it. M be some SEM. So M, so SEM is
+a set of structural equations in that context. Knowledge about the structural equations and
+the causal graph of M is knowledge about answering L3 and L2 queries in M respectively.
+So their insight is that if M is an SEM, knowing about the structural equations
+in that SEM and the causal graph is enough to perform inter-reventional and counterfactual
+causality. And this is what they use to introduce their concept of a meta SEM,
+which is another SEM that is able to do inter-reventional and counterfactual just based
+on those information. So this is literally the definition they give for the media SEM.
+And then they will spell the rest of the paper trying to show that LLMs can be assimilated to
+media SEMs, which they cannot achieve actually. But I feel like just outlining those particular
+properties and giving the insights and everything is still a great contribution to the question
+in the sense that it's a first exploration of a real formal process in order to be able to
+determine whether LLMs are able to do causality or not. So they, yeah, Ocean.
+Oh, I can hear you.
+Just trying to parse what you just said, but it sounds like what they're suggesting using
+different language is that if you can, if you have enough information in the construct, the SEM,
+which is your representation, if you have enough information to answer
+interventional and counterfactual questions correctly, then they're saying you can infer
+causality. Would that be a good interpretation? In other words, if the representation does not
+allow you to answer those two kinds of questions, they're basically arguing that you can't infer
+causality. Yeah, I think this is a good summary of the definition.
+So it says something about the particular form of the representation that you need to have.
+In other words, is it answering the question correctly does not imply that you actually
+have, well, that's complicated. It seems to me that you need a particular structure which
+enables you to answer them, but answering them doesn't necessarily mean you have that structure.
+Anyway, that's kind of what I'm struggling with here. Okay.
+Okay, so I'll just continue. So this is the conjecture that you make,
+M1 be an SEM and 2 a respective media SEM. So it means that M2 is able to answer queries on
+M1 based on its observational data. So basically M2 would be the LLM, this one.
+So then define Q and A in the language and in the interventional language of M1,
+observational language of M2, causal queries with their respective answers.
+Then we have FQ equals A is equivalent to FQ minimizes training error. So basically what they
+say in this conjecture is that F of Q, which is the LLM's predictive model. So the predictions
+based on the interventional of M1 equals the observational of M2 minimizes training error.
+So basically what they say is that you don't learn anything more.
+Sorry, I'm sorry. I don't know if that's really clear. I'm going to try this again.
+What they try to say here is that an LLM learning on the interventional and not learning anything
+more based on that model being able to already have the knowledge on the observational distribution
+of M2 is equivalent. So basically in the information of the observational distribution
+of M2, you already have all the informations to do interventional querying on the other SEM.
+Means that the LLM minimizes training error. So in that case means that the model converges and
+it is able to do it. This is the conjecture. In other words, this is the conjecture they come
+up with to say that if an LLM can be assimilated to a meta SEM, so it is able to escalate the causal
+task rank based on observational data, then it is causal. This is the conjecture they come up with
+and they cannot prove it. This is again one of the strongest remarks and feedbacks that has been
+given in open reviews for day paper. The reviewer said you make such strong claims on causality
+and LLMs, but eventually you cannot conclude on the conjecture. So the work is really interesting,
+but eventually you do not conclude on it. They still give results and everything.
+In this one, for instance, this is basically intuitive physics, basic logic questions,
+such as if flipping switches causes light bulbs to shine and shining light bulbs causes
+mothas to appear. Does flipping switches cause mothas to appear, which is a typical
+causal question. Those are the results of the following LLMs on all those types of questions.
+Everywhere there is an exclamation mark like that. They say that, as I was saying before,
+that eventually that data, this type of questions can have been included in GBD4's training.
+They give a kind of twisted explanation. They say that this framework was already published in
+another paper and they say that they've been extensively running this framework and they
+also say that OpenAI's API collects data on queries and answers and everything.
+They just make the assumption that maybe the data they used while running benchmark was used in
+training of GBD4 when it was GBD3 back then. So this is why they put an exclamation mark next to
+it. They say we're not sure we can trust these answers for those reasons. There also are small
+variations of the models where every COT thing means chain of thought. I don't know if you're
+familiar with chain of thought. Basically, it is what is called a prompt engineering pattern.
+So with LLMs, the prompt is the input we feed to the LLM and prompt engineering is how to access
+more LLM features and enforce a behavior based on how you write the prompt. So chain of thought is
+a prompt engineering technique where you will specify clearly in the prompt that you want the
+LLM to output multiple midway thinking thoughts and thinking steps before actually outputting an
+answer. So we will look like that. For instance, you could say if flipping switches blah blah you
+ask a question and then you say please answer by giving three main thoughts first, one, two, three,
+then give a preliminary answer and then answer. That would be considered a COT and it's been
+proven as making the LLMs able to answer more accurately or at least to be able to track down
+the chain process. There is also another type of it which I am aware of but I feel like it's
+incredibly hard to implement but it still would be really interesting. It's called tree of thoughts
+which is pretty much the same principle as chain of thoughts but you take branches so that you're
+able to track down which path led to which results. Well we can get back to that later.
+So this is the results they give about classical causality and in summary the takeaways they offer
+they present. So inability to ground textual facts is part of the reason why LLMs are not able to
+infer generalized causal relations. However, they acknowledge that LLMs represent a head start to
+learning an inference and they are unable to prove conjecture one despite the strong claims that
+LLMs are only causal parrots. So there is a whole paragraph on results on actual
+causal escalation tests but there is no sort of table that summarizes results.
+I feel like this is a work in progress and will be
+interesting in the near future if they can come up with more results on the subject.
+So this would be approximately a summary of what I've read in the six papers
+and so I'm just going to give a couple of future identified work in those papers
+so as to align possible research directions from these researchers in that area that may give us
+discussion elements. So none of them could actually conclude that LLMs can do causality or not
+but what they do acknowledge is that LLMs represent suitable candidates to support
+actual causal inference framework just because they have a really interesting knowledge base
+as part of their huge corpus of text learning on. So a lot of them cannot conclude on the fact that
+LLMs can do causality but they would be inclined to working with LLMs in order to combine with
+actual causality inference frameworks. Those in those four papers they share the perspective
+that using LLMs as tools to enhance training of existing causal models is worth exploring,
+pretty similar to the first one. Another interesting element would be that causal
+benchmarks such as the latter presented in the first paper represent interesting
+access of improvement for LLM fine-tuning or towards the development of causal LLMs.
+So Ginadal, I think she's working on this already because she's publishing a lot and she made it
+clear that this is just the first step in her work so I guess this is also interesting to follow,
+see if coming up with bigger causal frameworks will make able but I mean in the end what is
+still interesting to discuss here is that causal relationships embedded in frameworks
+whether it is to test LLMs or to fine-tune them it is still going to be in their knowledge base
+in some way. I guess the question that wanted to be addressed here at first is about
+interventional and current factual which is not based on observational.
+So this is what I had as a presentation and I just think I thought it was going to be shorter
+than that and I just think this is a basis to start the discussion on this topic because
+we have some elements now.
+Thanks Antoine and now we are open for questions.
+Yeah, Basie.
+Hello, I'm sorry I'm late today so I didn't go to the details of the papers I'm just wondering
+whether like the fact that the GPT-4 is better than the GPT-3.5 in reasoning can that be simply
+due to that the GPT-4 has more data to be trained and more parameters to be estimated?
+It's basically still an interpretation and regression issue and the so-called better
+reasoning is a representation of a better regression be obtained through the training.
+It is an interesting thought.
+Because the concluding saying that the large LAM cannot do the causality so
+I mean if we're going back so the reason why GPT-4 is better is
+be trained with more data and more parameters to be tuned.
+Yeah, yes it is actually true a lot of this is pretty much what they give
+and this is what I guess this is what they want to explain when they say that LAMs are
+a causal parrots if they see causality in their training base in their dataset and training dataset
+they will be able to eventually get that relationship out of their training dataset as a result.
+So eventually yes GPT-4 performs better because it's in much.
+So the question here would be more to say that are LAMs able to infer causality?
+Does it mean that they need to see it all to be able to do real causality or is the question here
+more about no can they actually do real causality creating something and this is interesting in
+the context of climate change for instance because all the natural processes are non-stationary they
+keep increasing in intensity and they either are more intense or more sparse than before etc.
+So there is nothing we can predict that we don't understand that so this is what's interesting
+in that particular context to me because that would be a great way to evaluate to benchmark
+how LAMs interact with those data so because this we cannot have that in our training dataset
+the problem is it's in foreseen every time it's new but it's a great remark thank you.
+Of course my experience is that the deep learning is a very powerful regression tool
+and my personal experience of using the chat GPT is doing pretty well on the dataset that has
+trained most from but the pretty poor job kind of the questions that has lastly trained for
+for example I sometimes use the chat GPT to provide some suggestions to where to
+travel from I can get very good advices in these famous places but if I were asking
+where to travel like do the hiking in the places nearby my my current town they just
+random answers are not accurate so I still think it's a regression problem for the LAM.
+Thanks Pasha. Timothy do you have a question or do you want to participate?
+Yeah you know causality is so fascinating and also problematic I'm a little bit rusty but
+I'll put this forward and particularly looking at this slide makes me wonder you know
+can well I guess the classic response is can we ever infer causality whether for a machine
+or human but and my answer I guess is ultimately not but looking at this slide makes me think that
+perhaps a question that we could answer is whether an LLM could perform logical reasoning
+is that is that a fair distinction are those things the same I feel like when I look at this
+slide that the distinction I hear is that the the causal structure is provided to the LLM in
+the prompt you know we say if flipping switches you know this happens and if this and that happens
+and so the the causal causal structure is provided and what we're testing is whether
+the LLM can sort of use logic to understand that relationship when the structure is known.
+That's interesting I feel like in this particular example this is the type of question and answering
+there is the way they describe it in clatter the genital paper the cool little questions
+are really different and so I guess yes your remark is interesting I feel like it really depends
+in the different papers on what they want to put forward whether it is interventional and
+counterfactual causality or in that particular case maybe it would be closer to logical reasoning
+but
+I guess it's still here basically what they say x causes y and y causes z does x
+causes z would be different depending on the situation so
+I mean this is this is the graph this is the this is structure and then depending on the variables
+you pick it is true or is not but is it based on logic or it can also based on observations
+I don't know if you agree with that well well sure and I guess you know I guess the former
+there's no I guess maybe it's still controversial but some might argue that the former you know
+inferring causality simply on observations is ultimately something we can never do not that
+it isn't useful to sort of try to develop sort of causal models it definitely is but ultimately
+it's something we can never do but with logic you know we can come to absolute conclusions like if
+we are given a structure we can reason about that sort of you know come up with the determined
+sort of relationships based on that structure
+Hachin and Beishi did you want to react to this
+could you let me share my screen a moment of course
+so I put this in the chat I just wanted to make you guys aware of this
+paper which I think would be an interesting follow-on to this conversation because
+this paper by François Chalet and you can go listen to him on YouTube it's very interesting
+I just became familiar with and I recommend this paper for two reasons one is because it
+seems like a very cogent analysis of what would be necessary in order to have machine intelligence
+and it feels to me like causality the ability to infer causality or to determine a chain of reasoning
+using causal principles would be an important component of that the other reason is because
+as I've highlighted there he actually defines if he comes up with a metric for defining
+intelligence of a machine based on algorithmic information theory which information theory
+being sort of a core part of what we're trying to talk about here but one of the things he talks
+about there is the need to the need to account for prior information so this discussion about
+whether you're memorizing and regurgitating versus doing reasoning has a lot to do with how
+much prior information you have if you already know the answer and you give me the correct answer
+did you give it to me because you did reasoning or because you just knew the answer and you just
+stated the answer so in the paper he talks about the need for being able to assess generalization
+ability and we're talking about generalization ability being not just weak generalization
+meaning in the context of things you've seen before but strong generalization in the
+what he calls developer aware generalization in the in the in the sense of being able to
+generalize beyond the situations that you've seen in your training data beyond your prior knowledge
+and therefore address novel situations and it sounds to me like if we're going to assess the
+ability of a machine to or a program or set of programs to do causal reasoning then
+much in the nature of counterfactuals and so on you need this ability to be able to take those
+principles and then generalize into some other context that has never been seen before
+and so I found this a very interesting paper because he sort of breaks it down into the
+necessary and sufficient components in particular if you're trying to compare two agents you need
+to compare them with the same priors in other words if two agents have different priors different
+levels of prior knowledge then you can't and the second agent has more prior knowledge than the
+first and it gives a better answer you can necessarily conclude that that second agent is
+more intelligent because it's not starting from the same basis it might also already have known
+that answer because it was in its prior knowledge base so I think what you brought up about the
+LLMs what training data have they seen Timothy's very astute observation that the nature of the
+causal reasoning was already stated in that sentence and you just gave an example and all
+it had to do was fill in the blanks with different priors and a's and b's and you know answer that
+question was it really doing causal reasoning it was just using a rule which was given to it right
+so if I looked at that sentence that you gave me and I just memorized that that that sequence of
+sentences and I just applied it in a different context am I doing you know causal reasoning
+I think this really bears you know looking in deeper to some of these issues that I think
+Francois is talking about in this paper. Just a quick comment I have to leave soon as well so
+I think it might be interesting to go through the architecture of either the chat gpt 3.5 or
+gpt 4 I'm not sure whether it's solely just based on the transformer or something else but the
+architecture definitely will guide the reasoning yeah. So let me make a quick comment I might have
+just said this before I mean this this discussion is very very helpful and Antoine thank you for
+doing this pretty nice review I mean the what this has brought to light in my mind is the distinction
+between causality and logical reasoning which Timothy pointed out and then within that the
+causality is basically causal discovery versus causal reasoning is that different from logical
+reasoning and so forth right I mean so there are some distinctions to be made and this whole idea
+of intelligence I mean is intelligence all reasoning or when we think about intelligence we
+think about intuition we think about creativity we think about coming up with new solutions when
+new constraints and things present which didn't exist I mean the whole of the science and engineering
+is all of that right pretty much all fields where you're trying to find new solutions which probably
+do not have a historical precedence and these large language models rely on that historical
+precedence I mean the prior such a call it and so how do we make that distinction and
+the second thing is that large language models are essentially inferring these things from
+the basis of language they are not doing analysis of data there may be auxiliary tools
+that say okay now I can go and probe the data but that probing is based on the logic that is built
+or large logic that these large language models come up with and so I think there needs to be
+some very subtle characterization of what we mean I mean extending this idea of causality in
+those three notions that you talked about from a language to a data context we use the word data
+loosely I mean what we are using the word data is essentially language data not quantitative
+numerical data on which these analysis are built so there is much to be done in parsing this out
+very very carefully and going about doing that having said that the encouraging thing which
+I find is the following so when I was in grad school I did a couple of courses on artificial
+intelligence and the prevailing language at that time was Lisp and prologue Lisp processing and
+basically logical programming that's what prologue was so the idea was that if you could program
+logic in all its complexity and the many books written on the structure of human logic and
+take that and program it you'd be successful in mimicking intelligence and to me at that time
+said okay you may be able to do a pretty sophisticated job with deductive logic but there was nothing
+in that which would allow you to do inductive logic which basically goes on to looking at
+inclusion and creativity the thing is that didn't go too far and then we have these
+large language models who say okay I don't need a language that is based on reasoning
+all I need to do is have the capability to enforce things from data
+and computation and so that's the generative models success where they can pretty much
+inferred so the idea is that okay I don't need how to reason everything that I need to learn
+about reasoning is already built into the millions and billions of textual data that is there
+so if I have the ability to infer that I will even though I don't know that it is
+essentially a logical reasoning and maybe some things beyond
+my guess is that a lot of the other things are built into our language structure
+very deeply and to the extent that we can then reintegrate that re-manipulate that use that
+as a foundation for thinking in new ways we can build on it but I don't think we are there yet
+and this whole idea of causality causal reasoning causal inference and other things may fall in that
+space saying we don't yet know how to go about doing that although that information is there so
+the distinction between language and the data-driven approach is important and there is more to be
+done with this space than what is out there ocean. Yeah thanks for raising that issue
+Praveen and interestingly enough I just came across this paper
+called about something called dream coder and if you read down here it says we present dream
+coder a system that learns to solve problems by writing programs it builds expertise by
+creating programming languages for expressing domain concepts a wake sleep learning algorithm
+alternately extends the language with new symbolic abstractions and trains the neural
+network on imagined and replayed problems and then concepts are built compositionally
+from those learned earlier yielding multi layered symbolic representations that are
+interpretable and transferable to new tasks so anyway I just thought it was interesting
+because there is actually now apparently uh where are you guys um some small breakthrough into
+developing machine learning structures where learning concepts and extending language much
+in the way that we learn concepts and extend language in order to be to do reasoning and
+causal reasoning and all of that so that's actually an interesting we're just starting to happen.
+Yeah I would say that I mean I think we are at the beginning of a breakthrough in these things
+we are now assembling essential tools that may help us move this to expect these tools
+that are not trained or developed for a specific task to inherently be able to do that
+I think is a little far but there needs to be more and that's an opportunity for us.
+From an information theory perspective this brings me back to the fact that
+um everything we do is based on embeddings we take objects or concepts and we build embeddings
+out of them which are then manipulated using reasoning machine machine learning or whether
+it's human human or machines and uh so we start with symbols uh the symbols are represented by
+embeddings and that's an information theory problem how do we choose the correct embedding
+which represents the information all of the necessary and relevant information
+which can then be processed and how do you then represent that information in a way that can
+actually be manipulated using the tools that are available to us in machine learning that's
+typically using uh vectors vector spaces and being able to do dot products in order to
+do similarity operations to add vectors in order to do addition and subtraction operations
+sort of logical things that are involved in logical reasoning but then on top of those concepts
+we have to be on top of those embeddings we have to build concepts which are collections of these
+and from those we have to build languages and when we build languages which are minimum this
+which are shorter description length representations of concepts uh we're then able to do reasoning
+using those higher level objects or concepts and so I kind of I kind of have been seeing this kind
+of structure emerging in the machine learning which are particularly in the context of evolutionary
+robotics and and artificial intelligence but I think it provides an interesting way for us to
+think about how we actually process information using the tools of algorithmic information theory
+and channel information and how that leads to us being able to build sort of these informational
+pyramids or you know things where we can we can think about things at lower levels of the hierarchy
+and then at higher levels of the hierarchy and actually do these sort of intelligent processing
+yeah no I agree with that completely Hersch and I think the generative models the transformers
+are built on the series of embeddings I mean there's a recursive embedding process
+that generates these parameters and estimation of these parameters across these things and
+one of the things which we are trying to explore with Hersch is well they're a way for us to
+modify that to see causal reasoning can be extracted using that embedding structure so that's a big question
+so the thing that bothers me a lot is sometimes we may be using embeddings that are not
+properly informative if I just give you a stream of stream flow and I treat
+let's say I give you rainfall potential evaporation and stream flow and those are three values and I
+just put them in a vector and I'm telling you at this point in time this is the vector and next
+point in time this is the vector and this you know and I've got these three values
+if I'm not telling you whether the stream flow is going up or going down at that point in time
+or whether the the energy is increasing or decreasing or the rainfall is increasing or
+decreasing I might be giving an embedding which is not sufficiently informative for you to be able to
+do meaningful inference and so thinking about how we develop our data embeddings as a first step
+before we even present them to our algorithm seems to be an important step yeah or get the
+algorithms to basically build on the initial embedding to explore alternates and see what makes
+sense right now I was going to ask if in on this question of embeddings
+it would be difficult for a language model to speak on causality because usually we
+reason about causality in terms of graphs and as I understand there in the large language model
+there there's no structure of a graph so maybe it's using the wrong embedding to speak about
+causality maybe the language model understands causality in a different way you know different
+embedding than we typically would analyze causality I don't think it's necessary well
+Praveen can probably answer this better but I don't think it's necessarily true that a
+large language model and graphs are not the same thing because a large language model
+can be thought of as a very high dimensional uh joint probability density function and that's
+basically how we build those is by using building graphs right of conditional probabilities and so
+on um Antoine and Praveen isn't it true that that's what a lot of what's his names
+the father of causal inference I forget his name Perl Perl a lot of his work was based on that
+that the fact that those two are essentially the same thing yeah yeah I mean the the
+representation of causality as a graphical model came out of Perl and then quantified by
+sprites I put that link in the chat there's a nice book by sprites which I recommend to
+everybody to read a minute just helps lay that down on how to do this in a mathematical way and
+how to think about it but I think the real question uh that we haven't yet answered effectively is
+in our context where we are dealing with data in space and time what does causality mean
+um I mean in in a medical context yeah I mean you can figure out whether smoking causes cancer
+or not through a whole bunch of different things but in our context where we have potentially
+continuous uh space time domain it's easier to answer the question of causality uh the
+necessary condition for causality in time is uh breaking of symmetry in time uh the
+past causes the future future cannot cause past that's the necessary condition is that a
+sufficient condition or not that has not been well answered now if you extend that in space
+there is no such framework right I mean so then you have to ride on a vector space to basically
+figure out a directionality and then say okay something that is happening in one space uh
+preclude something that is happening in other you might ride on a uh river and say okay I'm
+going forward but then the whole issue of backwater propagation and all that thing happens
+and then that can break down so what is that framework what do we mean when we say causality
+within the context of what we are dealing with uh has not been well defined and that's a struggle
+in there and then we anchor on surrogate uh processes and um Allison has done some work
+with information theory in which direction the information blows I think like that I mean so
+those are good starting points and there might be some hint of how we may go about doing it
+but until we break through we are going to be scratching this on the surface and hoping that
+somehow some model is going to provide that input um ocean so would it be fair to say that
+causality is a representational assumption rather than a fact in other words it's in it's a hypothesis
+we make about the world and we test in and just to take a simple example if I just said rainfall
+and runoff and I ask you to say does rain call cause runoff that's going to have all the problems
+that you just talked about right um but there are there are causal effects increasing CO2
+is causing climate change yes so there are definitely open causal issues but my point is
+my point is are we treating causality as a fact or are we treating causality as a
+representational explanation yeah we don't know that right I mean uh probably that to go hand in
+hand a certain type of representation will help us infer a certain type of causality but until
+we come up with proper definitions and proper um classifications uh I think what we end up doing
+is anchoring on a representation that is convenient and then infer causality associated with that
+representation and then so well no this represents everything we got so structural causal model might
+fall into one of those categories uh but yeah I haven't I don't know the answer I mean I'm
+just articulating uh the questions that go through my mind but I mean if we take an if we take an
+extreme example like f is equal to ma right it's a it's a structural representation that was come
+up with and you test it and it all never fails uh we start to treat it as a fact of nature right
+it's because it's a hypothesis uh that has never has never has never actually been disproved by
+by a counterfactual by by an example that that contradicts it so maybe something similar with
+causality you have it you have a chain of reasoning and if that chain of reasoning always holds up
+then eventually you start to treat it as though it's a fact of nature probably
+I mean even if it equals ma is wrong in certain cases like photons it kind of brings the question of
+is all of causality emergent you know can you have fundamental laws that are causal or is
+everything kind of in a higher um more broad context complex systems well if I can go back
+to ask Antoine a question well go ahead answer that first I was just gonna say I think ocean
+I don't claim to have read fume but I think you summarize fume's argument that you know
+fundamentally we can't know causality absolutely but you know we can we can um you know strengthen
+our beliefs and that and sort of this is all very useful I don't think fume was trying to argue that
+you know we shouldn't be logical beings and throw out this these aspirations for understanding
+causality completely um and I think that's kind of what you're saying that you know yes f equals
+ma is wrong but it it's you know right under uh you know most of the conditions that we encounter
+in our day-to-day and so it can be basically be taken as fact and that's kind of what our
+definition of causality is it's right until it's wrong um but Antoine going back to the large
+language models um if these people who wrote all these papers were to take a bunch of um
+eight year olds my daughter's eight I'm just picking eight out of a hat and attempted to
+do these same tests on them right that's that's kind of what I was thinking about when when you
+said that they were testing these large language models to infer causality uh if they ran these
+same tests on a bunch of eight year olds um you know in other words uh how do they know that
+the tests are actually meaningful tests for establishing whether or not the LLM or the
+eight year old has the ability to to causal inference I don't think they do it's I feel
+like this is the this is what we're getting out of this discussion is like what is causality in
+the end and how can you be sure that it is causality you're inferring and not and not logic
+reasoning as Timothy proposed so I don't think they really do all they can do is come up with a
+benchmark a controlled one that has causated causes and effects and tests if an LLM is able to recreate
+that um but again is this is this purely reasoning or this just um or this just retrieval from your
+knowledge and it I think there's also another point to consider um as Previn mentioned earlier
+that it's it's a bit different because it's language and might take my thought on that I
+don't have anything to support that claim but my thought on that is that we as humans use language
+to formulate concepts and to reason so eventually if we reach the point to which the LLM is so
+powerful in not in in texts um in natural language processing actually what are the implications of
+on its ability to formulate concepts and reason and and like just uh I want to get back to the
+chain of thought and and tree of thought prompt engineering techniques I was telling you about
+earlier uh the tree of thought is pretty much the same thing so you say to your LLM right this is a
+question I want the answer but first I want you I want your first thought on the answer and then
+you separate into two and you like choose different ways of thinking about it and just
+create a tree and output all difference that would be able that would make us able to track
+how does the net I thought there is a very interesting paper on it I can link it I can link
+it in the chat tree of thought so my my take on this my question would be um LLMs are basically
+two years old and they're able to do so much already and at what pace are they still gonna
+grow in the future and what are the implications on the amount of knowledge that will be there
+in a couple of years from now because in the end is causality just like you have this in your
+knowledge you can take it out and and get it again because if it's that I don't have any
+doubt that in maybe 10 years from now or I don't know why at some point we'll figure it out to
+every knowledge we know in the LLMs it's it's not reasonable to think that but
+counterfactuals and everything some more a lot more I don't really have an answer I don't think
+anyone has an answer in the papers I mentioned yes or none yeah this is great discussion
+I have more questions here for us to reflect but it seems like we you know collecting all
+the reflections it it seems like we still don't have a way to measure causality
+um a solid way like we do measure models uh via the wind square error or some other metrics
+um and my perception of causality is something that may be reproducible across experiments
+in different environments that are looking like kind of the same processes so think about stream
+flow in in Switzerland versus Tucson versus uh Washington um but do are we are do we have tools
+to measure causality in other words can we say the same way in an analogous way we have a way
+machine learning models of overfeeds or underfeeds do we have a way to say this model overfeeds
+causality this model underfeeds causality this is a good causality explanation of the process
+and I don't know if that exists and that goes back to the way we usually validate or cross validate
+models in which we split the the data setting uh a number of faults and then we cross validate it
+should we instead do test for causality in a similar way or analogous way in which we
+take data sets from different environments and then we see if the knowledge is transferred
+across those environments via the cross validation so perhaps that removes a little bit of anxiety we
+we have for perfection in causality and we kind of explain it in a way that would be quantified
+and not as a binary yes or no um and um another problem is predicting beyond training in the
+at once example of climate change it's another limitation I don't know if we are at the point
+at which the models will be able to reason and then uh beyond training even though they're
+perfectly trained reason about climate change uh consequences and the trends um uh if the trends
+are learned from the data themselves then yes but if there's nothing that let us know about surprises
+I doubt um and the other thing is the the data limits are really constraining our learning
+or the models learning um uh uh pace um of the facts and and and not to speak of the
+counterfact loss but I mean those are kind of some of the lines or bullets right could raise from
+everybody's discussion but so far it's a great discussion
+if if I yeah thank you for intervention Aaron if if I may maybe give another couple of elements
+in there to give a couple more insights on those questions okay so I have a small amount of knowledge
+on digital twins um before I was here when I was in master's degree five six years ago in France
+I was an apprentice at deso systems at the same time and they were working on digital
+twins by then so I was a bit in there um in short for those who will know digital
+digital twins is a concept that ties a physical object to a virtual representation
+where there is a synchronization of data between the two of them and um what's what's hot in the
+topic right now is because of climate change and extreme events and everything is a digital
+twin of the planet earth um there is a there is um a perspective on that from the european
+union which is called destination earth so they plan to do a digital twin of the whole earth
+by 2027 I don't remember 2028 my take on this is from what I've seen in the paper
+um talking about the intelligent agents that learn about experience um
+I drew the parallel between those agents and what on our lens able to do but the key thing here
+is that experience is is beneficial to causal understanding and I guess this is what's also
+been put forward by my the cold little inference frameworks uh that do need a lot of data
+experimentations and everything and so the just my small insight on there would be that
+digital twins may just represent a great environment for lm's to interact with
+um if the those virtual environments are good enough to be representative of what's
+what's happening out there and this is where all work of all traditional all would say research
+comes in flow modeling ground flow modeling rainfall runoff chemistry geochemistry and so
+my uh my vision of so we're we're at ui uc in illinois and uh the in in the ci net program
+we're studying the singham on watershed and so maybe a target I'd like to achieve would be
+like to have a digital twin of that watershed represented by a 3d model and data coming in
+the same time and on top of that you would have physics a physics engine reality represented by
+all the all the process based simulation models we know and etc and this would be the great place
+for lm's to fully express itself and make uh interactions and make experiences and this
+would potentially provide a great um environment to perform causal inference and maybe to test
+whether lm's are actually able to do causal inference because all we've been fitting is
+generated text and made up benchmarks which is interesting and it's the first step
+eventually experience is the key I feel like and the digital twin would be a really interesting
+environment for that this is just like both thoughts I've had um you want to reflect on that
+haushan no no no I absolutely I think you're absolutely going down the right track because
+you're saying basically would let that you need to not only respond you need to be able to interrogate
+your environment right and giving them a digital environment to interrogate is a useful thing to
+do and that's actually behind this poet paper that I put up there about you know where you
+where the environment changes as the ability of the agent changes so it's like a co evolution
+process where it actually evolves the environment which is one step beyond what you're thinking
+what you're talking about but it also occurred to me a reason I put my hand up was that I think
+it's really interesting to have the llm as the agent that's doing the learning I hadn't thought
+of that I think it would also be interesting in a decision context which I think is where you're
+going to have multiple llm llms take the roles of different stakeholders uh and play devil's
+advocate you know so you've got the rancher and you could say okay your job is to play the the
+role of the rancher your job is to play play the role of the environmentalist your job is to
+play the role of whatever and you could do some very very interesting role playing explorations
+uh with the goal of coming up with potential solutions to difficult transdisciplinary decision
+making problems where you can play them out using agents rather than having to get real humans
+in there before you then take those to next stage and involve humans
+I'm glad you brought it up because this is exactly what we do
+perfect and so I'm going to be presenting that with Praveen at AGU and just to give a couple
+of heads up so I have a couple of examples where exactly I have a mayor science expert and everything
+talking in response to a flood event impeding flood event or something and the problematic
+right now is to find the right metric and find ways to evaluate the output of the models because
+this is text it's complicated to evaluate compared to LSTM which would output a sequence of numbers
+and then you would use all the math metrics you know to evaluate it but how do you do it with text
+it's either you come up with something new either you use an llm to do it but there is a bit I guess
+there is a bias in using an llm to evaluate an llm so this is a question that needs to be answered
+right now but yes um in the control for gowns yeah exactly so yeah if that interests you and you're
+coming to AGU my talk is in the morning I'm going to be talking about that oh would you mind dropping
+me an email telling me where and when I wanted to to comment on the talks on AGU because well with
+names that are usually in the talks and also for the participants who were at the sniff in the house
+workshop I collected some of the talks that will be presented by participants at AGU
+so we have a I have a nice excel spreadsheet that I could share please save us a lot of
+yeah you can even filter it by daytime so you kind of have like a so would you have me send
+your information to you so you can like enrich the database no I think I already have you in the
+database I even if you allow me I can very quickly of course share my screen and show you it's just
+a spreadsheet and I just scraped the data from from the AGU website so go ahead if I'm missing
+someone I could even yeah so just to give us an example my talk
+are you physically there yeah I will be physically there okay perfect so my talk is also on Monday
+but you can see what I what I scraped is just the ID the title of the talk and these are the
+participants who are usually in this meetings or who are at the workshop so you can see that it's
+Uwe Hoshin myself who I'm the speaker and you can see who is the speaker in the
+in this column of authors for you with the double thank you that that's a great help
+from what I see we're going to be running around chasing
+maybe if you follow this schedule very strictly you will be around the Moscone center a couple
+times but I think you can pick and choose what looks interesting thanks for that it's great
+all right yeah so I will share the label and we can see how it can be passed around and how
+I can add data to it all right perfect thanks unfortunately I have to go for a student exam
+um so one final comment thinking about student exams uh this thing about causal reasoning also
+reminds me of the kind of questions we try to ask students when they're doing their qualifier
+or they're doing their right there's the kind of questions which are just about what do you know
+facts regurgitate and then hopefully you get to the kind of questions where they get to
+generalize beyond and that's where you test their their true understanding and or intelligence
+so it felt it just felt like it has direct relevance to what you were talking about yeah
+anyway I gotta go bye guys everyone bye bye and just a final comment that we are gonna be having
+our winter break and we are gonna be back on January 17 with Manuel's presentation beautiful
+hey thanks thanks everyone bye guys thanks

@@ -1,0 +1,552 @@
+Okay, so welcome everybody for tonight's talk. Today we have Ilaria and she was going to talk
+about explainability with knowledge graphs. What have we learned? This is the talk series of the
+cost action on distributed knowledge graphs. We've had a few talks already. You can watch them
+in our YouTube channel. And we also have a few talks coming up on January the 31st.
+We will have a talk by Mayankerival. On March the 4th, we will have a talk by Mark Neusen.
+And on April the 17th, we have a talk by Peter Patel Schneider.
+What is this cost action? It is a European research network where more than 30 countries
+are represented. We run workshops, hackathons and short term scientific missions for which also
+you can apply. This overall runs from 2020 to 2024. So we have a few months still on the project.
+And we are now in our final year. This is chaired by myself, this cost action with
+Axe Polares as a vice chair. We have Michel Dumontier and Renzi as working group leads next
+to Andreas Antoine Olaf. Then there is John as a scientific representative of the grant holder
+Anastasia Dimou as the science communication manager and Stefan Gostowicz as the grant coordinator.
+So much on the cost action. Today we have Ilaria and I would like to hand over to Olaf
+to announce the speaker. Yes, hello and welcome from my side as well. I'm very happy to have Ilaria.
+As a speaker, she got her PhD from the Open University in the UK.
+And the title of the PhD was explaining data patterns using knowledge from the web of data.
+And for the PhD, she received this distinguished dissertation award of the Semantic Web Science
+Association of Swiss. She got this award in 2017. And as you maybe know, we run this talk series
+with speakers who received either this dissertation award or they received the 10 years award of
+Swiss. So now Ilaria received this award in 2017. One year later, she went to Amsterdam
+to the Free University in Amsterdam, where at 2021 she became an assistant professor there that
+she still is. She has been involved in several conferences. She is the editor-in-chief for the
+CEWS workshop proceedings, where many of us probably publish their proceedings of their
+workshops. She's also in the Stephen Committee at the moment of the Hybrid Human AI Conference.
+And her research, the focus of her research is on systems that combine semantic technologies,
+open data, machine learning, in order to generate complex narratives with applications mostly in
+scientific scenarios and in robotics. And if you look at kind of her most cited papers,
+many of them have the word explain or explaining explanation in their title.
+So I'm very happy to have her here and kind of reflect on the work that she did in her PhD
+and what has happened since then with this work. The floor is yours, Ilaria.
+Thank you so much. Thank you for all of Tobias for the introduction.
+Yeah, I'm going to share my screen, so my question was whether you are keeping the rights.
+Can you just give me a sign that you can see that, I think?
+Yeah, great. So good evening or good morning, everybody.
+My name is Ilaria Tidia. I work at the Frey University in Amsterdam. I'm an assistant professor.
+I'm very, very happy of giving this talk today. There was really a nice opportunity for me to
+reflect on the overall research that I've been doing in the past since I was a PhD student.
+And of course, it's about explanations, which is a very hot topic in these days.
+And really, my work and my background is knowledge graphs. So I've been working most of my life on
+how to use knowledge graphs in the context of generating explanations. And that's what we are
+going to see a bit. So just to... Olaf gave a very good introduction of myself. As I said,
+I'm an assistant professor on hybrid intelligence. My background is on knowledge representation,
+knowledge graphs for explainable AI. These days, I'm mostly focusing on my use cases around hybrid
+intelligence. You will hear a bit more later on knowledge representation driven robotics and also
+scientific assistance and scientific discovery. There's more about me. You can check on my website.
+This slide is actually wrong. So it's IWC 2017 that I missed. The one when I was about to
+supposed to come on stage and receive the SWSA dissertation award, I was actually driving to
+a very far plate. So I had to miss the conference. But I was very happy of receiving the news,
+nevertheless. So to give you an overview of what this talk is going to be about,
+I will be describing a bit what's the work during my PhD was. So as you heard from Olaf,
+the title of my thesis was on explaining data patterns using knowledge from the web of data.
+And then I also want to discuss a bit what has going on since then. So since 2017,
+2016, 2017, how explanations have developed, how knowledge graphs have developed and the
+overall area and also some and concluding with some future consideration of where do we want to go
+and how can we go from here. Starting with about 10 years ago, a bit more, it's always had to
+realize over 10 years now. I like to show these pictures or map a bit the audience. I am not
+sure I can actually see the chat, but maybe somebody wants to, I like to ask the question on
+whether somebody knows this picture, which it's quite famous, used to be quite famous. I don't
+know whether somebody is familiar with that. I don't really see the chat, but that's okay.
+So this is a typical knowledge discovery process, as was firstly introduced around in the middle
+of the 90s, when knowledge discovery was one of the main scientific processes that
+scientists were using computer science method for. And the process was actually
+was firstly introduced by Fayyad. So you can look up the reference and it used to be described as
+all the steps that scientists need to produce in order to go from data into knowledge.
+And these steps were mostly selection of the data, processing of the data, transformation,
+data mining, that was what came before the current machine learning and deep learning method,
+and then interpretation of an evaluation of the patterns. So in every step you do,
+you transform your data little by little. First you identify relevant information,
+then you preprocess your data, you transform them into something that you give to a data mining
+algorithm, and then you come up with patterns that need an interpretation and an evaluation
+in order to become knowledge. Now, what we focused on is mostly this interpretation process.
+So the last step, the interpretation of the patterns was somehow the core of the scientific
+process was what would allow to transform patterns into knowledge, so to give a meaning
+to these patterns. This is actually how interpretation is being defined somehow in the
+dictionary. So it's really the action of capturing the meaning and communicating, conveying the meaning
+of something. Usually, the way you interpret patterns, so the way you try to give a meaning to
+that and to capture this meaning is by using your own background knowledge. So you come up
+with patterns, you might have your own background knowledge or maybe human experts in a topic
+that explain the patterns that the data mining algorithm has come up with, and that helps
+evaluating and interpreting this knowledge. The problem is this background knowledge might be
+missing, so you might require, maybe the expert doesn't know the actual explanation or you might
+need, in certain use cases, you might need different experts from different domains. So
+gathering this background knowledge might be quite a time-consuming process.
+In this case, when this information is missing, the kind of hypothesis that we put forward was that
+symbolic AI, so symbols or knowledge graphs or linked open data, as we used to call them at that
+time, are another source of background knowledge. So the kind of idea that we had is, okay,
+if we have plenty of knowledge graph of data sources that are multi-domain, that are connected
+between each other, so at that time we had the linked data cloud. I think this picture is
+slightly later than 2013, but the idea is to have all these connected data sets that point to each
+other, and then you can serendipitously discover knowledge simply by crawling data sets one after
+the other. This information is, most of the time, it's connected, it's centralized in hubs and
+observatories. It's standardized according to certain vocabularies that allow modeling data,
+sharing data, so the vocabularies would allow to have interoperability across
+application. Then the kind of idea was, okay, maybe we can use this, all this information,
+which is available online, to help us explaining the patterns that an algorithm gives us
+whenever we don't have an expert in the picture or whenever we are missing the background knowledge
+to explain that. This is very similar to the idea that Newell and Simon already in the 70s had,
+among the fathers in AI, that symbols were one additional layer to use when somebody wants
+to capture and convey the meaning, so you don't only need the data or the experience, but you
+need to put a structure and you need symbols on top of it in order to really get into an intelligent
+system that can understand and capture meaning. Based on these hypotheses, we set up a number of
+research questions. The very first one we looked into was, okay, if we want to use knowledge
+graph, large-scale knowledge graphs to generate explanations, we kind of need to understand what
+do we mean by an explanation, so we need a definition. Even if it's a working definition,
+we still need one. Then we kind of said, okay, we need a method that will allow us to generate
+explanations from knowledge graphs, so how are we going to do that? Then assuming we come up with
+such a method, we need to try to cope with all the problems that come with knowledge graphs,
+including incompleteness, bias, noise. The later research questions, obviously some of the research
+questions came out little by little throughout the process, so you look at your PhD from a
+different perspective, but somehow the later research questions were on improving the methods
+that we had in order to cope with the limitations of knowledge graphs, including incompleteness and
+bias. Now, I'm going to go through the research questions, but I don't want to dive too much
+into it. I mean, we have papers for that. The next slides are mostly to give you an idea of what
+the overall approach was. Starting with the definition of explanation, we first defined
+an ontology design pattern for explanation. What we did was we looked into different disciplines,
+we looked into philosophy, we looked into linguistics, social science, and we looked into
+their definition of explanations, and we noticed that even though there were different approaches
+and methods, explanations were always seen according to the similar characteristics.
+There was always the generation of some coherence between old knowledge and new knowledge.
+The elements in an explanation were always the same. There was a theory, there were an anterior
+and posterior event. There were circumstances that would make this event happening at the same time,
+and there were always processes that would be one internal process where you come up with an
+explanation for yourself and then one that is more an external process where you communicated
+the explanation to the rest of the world. Based on this, we then defined our own ontology
+for an explanation, our own definition that we could then feed into a system that would try to
+generate explanation according to these patterns. It's a pattern in the sense that it can be
+instantiated in multiple contexts, but the overall idea was that you always have an event
+that happens before, an event that happens after. I'm not sure you see my pointer, but I hope so.
+There are certain conditions that make this event happening in a specific setting,
+and then there's some sort of theory behind and an agent that outputs,
+creates, conceptualizes the explanation. Based on this pattern, we then try to design a system
+that would try to use Knowledge Graph to generate explanation for a given pattern of data.
+And then the kind of question we try to answer is really, okay, if we want to use a Knowledge Graph,
+a very large Knowledge Graph, as background knowledge, which kind of process do we need to
+generate explanation? And then we try to work with some examples of patterns of data,
+of things that people might want to explain. We had this very good example that would work with
+Google Trends, and then you try to explain why a certain website is regularly happening at specific
+points in time. So in these cases, why people are searching for, at the time, a song in Eisen
+Fire, only in certain periods. So you see that there are very regular peaks, or maybe we try to
+explain data, like statistical data, for example, from the UNESCO. In this case, we have countries
+that are grouped according to the female literacy rate. And then you try to explain, okay,
+why is it happening that certain countries have in common a certain characteristic.
+And the very good thing is that we try to come up with a method that had us working out these
+examples. And it was basically, it was based on three main steps. One was an inductive logic
+programming step, where you try to compare positive and negative examples. And you have some background
+knowledge expressed in as tripos as facts about these examples. And then the goal is to induce the
+hypothesis that mostly represents your positive examples, which are the examples you want to
+explain. We used a knowledge graph search. So we tried to search the link data graph
+in order to find a common path, which would be expressed in terms of predicate relationships
+leading to a specific entity in the graph. So we call this path. And then we would consider any
+path that is common to all the positive examples as an explanation for the group of positive examples.
+And then in order to improve the graph search, we implemented a greedy link traversal strategy.
+So we try to aim for the longer and longer path and explore the graph using simple
+HTTP de-referencing in order to avoid computational costs. It was 2013, we still had issues of
+computational costs. And based on this method, we try to answer mostly two questions. So first,
+we said, okay, which kind of risks do we need to drive a greedy search and identify the best
+explanation? So we tried different strategies. And then one of the main findings for us was that
+a measure, so a strategy based on entropy would lead to a higher explanation in less time. So
+we simply measured on what is the best accuracy of an explanation over time. So this is iteration
+in searching the graph. And we always ended up having the best an entropy based measure as the
+one that would perform best and give us the best explanation. These allowed us to come up with
+explanation for the use cases I was showing before. So why are women less educated than men
+in certain countries? And that's mostly when countries are least developed, for example.
+So they have quite a high human development index rank. And or they are defined in the
+BPD as least developed countries. Or we had explanations like, okay, people search for
+a song in Eisenfeier, whenever there is an event that is somehow linked to a Game of Thrones TV
+series. So this is, we consider these as explanations. But of course, if you look at the results,
+you might notice things that are quite not right. And in particular, you look at these kind of
+examples. So it's true that if you have enough background knowledge about a song in Eisenfeier,
+which is actually a book, and you know that there is a certain TV series related to that,
+that is based on this book, you know, that the explanation for people being particularly
+interested in these is whenever the TV series is coming out. So there is a new season coming out.
+But there's nothing that relates the Tonga to the book or basketball competition to the book.
+So the kind of questions we had to answer afterwards was really, okay, is there something
+in Lingdata that can tell us that Game of Thrones is strongly related to a song in Eisenfeier,
+much more than basketball competitions or anything related to Tonga. So the second part of the
+method was really focused on strengthening this knowledge-based explanation. And we focused,
+we used a genetic programming algorithm to try to learn a function that could detect
+strong relationships between two graph entities that are quite distant in the graph. So we are
+not talking about two entities in the same graph, but you have one entity that is connected to
+another entity through hops in multiple graphs, in multiple data sets. And then we really want
+to try to understand what is the strongest relationship. And what we did is that with a
+genetic programming algorithm, we tried to learn a function that could study the topological and
+semantic characteristics of the knowledge graph. So we really looked into how many hubs and how many
+how strongly connected was the graph, for example, which kind of vocabulary is the graph was using.
+All these, we gave all these to our genetic programming algorithm. And then we tried to
+come up with a function that would tell us, okay, this is a strong relationship. And we evaluated
+that with against a human evaluated relationship path. And actually, what came out from this
+study was that the best thing for us would have been to try to follow
+nodes that would have quite rich descriptions. So here you have different examples of different
+functions that we tried. And then here you have the say the best performing ones.
+And the best functions that we could find were really the ones where
+we are focusing on following nodes with rich descriptions that they would have quite a good
+number of namespaces. It was best to follow more specific entities, so really not hubs
+with many incoming links, but rather something that is more specific. And also we look into
+discourse vocabulary. And it was best to have fewer topical categories, so not something quite
+generic in certain terms of topic, but rather again, a bit more specificity.
+Of course, we had to look into the bias in the data as well. So the results were not
+optimal. And as I said, we needed to deal both with incompleteness of the data, but also with
+inner bias of the data. And what we tried to do was to use identity links. So remember that we
+are still talking about link data, where data sets are connected to each other through identity
+links, including same as. And what we tried to do was to measure the bias in a given data set
+by comparing the projection on one data set into another one. So the overall idea was really
+that you have a data set, which could be, I don't know, the link movie database, and you have a
+certain amount of entities that are connected through the dbpdia using identity links. And
+the projection of the movie database is mostly the set of entities that's in dbpdia that are
+connected to the movie database. And then we would basically compare all the entities in
+the larger data set with a subset and using some correlation tests or some t-test. And by comparing
+the distribution of property value pairs between the subset of the entities and the large set,
+we tried to identify which were the bias in a given data set. So for example, I would
+recommend you to refer to the paper, but what we discovered was, for example, that the link
+movie database was particularly focused on black and white movies and that certain digital humanities
+data sets were focused on poets and novelists from the 18th and 19th century. So it was a way to try to
+measure the bias in the data sets that we were using to generate explanations. And once we
+learned this bias, we could also try to somehow input this information in our system
+and generate better explanations. Now, this was quite a long journey that ended up in 2016,
+and there's a number of things that happened since then, what I call the present.
+So I don't have enough time to focus on everything, but I chose three particular
+aspects that I'm going to show, which help us also thinking a bit further into the steps that we
+want to take afterwards. The very first thing, of course, is the rise of deep learning. So when
+we started the work on explanations and knowledge graphs, actually on knowledge graphs for
+explanations, deep learning was probably just booming, and I wasn't even aware of that. So
+what we were talking about was using knowledge graphs to generate explanation for outputs of
+any machine learning algorithm. But we've never heard of deep learning. I think maybe the
+first papers are around 2012, if I'm not mistaken. But of course, the hype came much later.
+And the DARPA, so deep learning, and all the methods that came with deep learning,
+showed impressive results that could achieve the same results as human would,
+but also showed a number of limitations. So the facts like the Cambridge Analytica
+scandals or the Lone Accreditation scandals showed that these systems were not able to show a clear
+reasoning. So the reasoning was quite opaque. These systems were data hungry, so you needed a lot
+of data to train them. They were too brittle in this sense. And then DARPA came out with this
+explainable AI program that was 2016, if I'm not mistaken, on, okay, let's try to implement,
+create systems where the user is, that are transparent, that can explain a machine learning
+model and then where an explanation can be given on why a certain output is being given.
+So this need of explaining the models and the results really came out. And we started seeing
+methods like SHOP and LIME, which are probably the most basic ones. And then there's a number of
+other systems that came out afterwards that could tell you, okay, the most important features to
+come up with an explanation are more in your dataset are like maybe the race or the occupation of
+your data. Or we started seeing saliency maps, okay, with inventory recognition, what are the most
+important parts that a system focuses on when generating explanations. These, especially the
+explanations in the explainable AI area. And if you look into the major AI conference, you start
+seeing a boom of, I think, explainable AI became an actual topic or a subfield in AI.
+One of the questions that people asked was, okay, are these explanations that SHOP and LIME come up
+with, are they really working, especially in a real-world context? So they do work in a small
+use case, but what if I apply it into a real-world context? And somehow the neuro-symbolic field,
+which was already in the meantime, in developing on its own, came up a bit in the rescue of this
+problem. So somehow we started seeing methods that tried to combine a symbolic approach,
+so symbolic reasoning with neural network, either to maybe improve the explainability and trust of
+a system using a symbolic description or by creating a sort of hybrid interaction between the
+neural network and the reasoning system. So these are just two of the many examples that you could
+see when the Knowledge Graph words try to jump into the explainable AI word and say, okay, hey,
+look, we should be maybe using Knowledge Graphs and ontologies to help. We also did a part of this,
+so what we tried to do and this, I completely forgot the reference to this work, but if we
+published in 2021, we really tried to say, okay, if everybody, if many people are looking into
+using Knowledge Graphs as a tool to explain machine learning methods, let's try to look at
+what's the state of the art. So how are people in machine learning using Knowledge Graphs,
+what are the most important characteristics? So we try to look into different tasks and different
+areas and we try to look into the characteristics of the Knowledge Graphs, the characteristics of
+the model and the characteristics of the explanations that we were being generating
+in order to come up with really with a picture of the field and this is more or less what we
+came up with. So we learned certain things like if you are dealing with tasks for recognition
+and recommendation, most of the explanation you will get are really about the model and how it behaves
+and most of the information that is being used from the Knowledge Graph is the aversion box
+and whenever we deal with tasks that involve the interaction of the user like conversational agents
+or recommender systems, the Knowledge Graph information is used more into the training
+of the model to generate a certain explanation rather than as a postdoc step.
+We looked into the different types of Knowledge Graphs whether they were factual or common sense
+or domain Knowledge Graphs, domain specific and it turns out that common sense Knowledge Graphs
+they're not that many but they were being used for image recognition and question answering.
+We also look into the reuse of Knowledge Graphs so we've been talking so much in our field about
+reusing Knowledge Graph, reusing ontologies and we kind of ask okay is this being applied in this
+field and it actually turned out it was quite an established practice so very few were coming
+up with their own Knowledge Graph, most of the methods were using dbpedia, wikidata,
+concept notes or a combination of them. Actually we looked into whether these methods were using
+only one Knowledge Graph or multiple ones and we were hoping to see a bit more but it does happen
+sometimes in NLP tasks and really the kind of this is the kind of picture that came out so if you
+certain areas are more focused on model embedded knowledge so explaining the model rather than
+explaining the outputs, certain others are more focused on using the ontologies of the Knowledge
+Graph rather than the fags and so on and so forth so I think the analysis we did is around 60 papers
+more or less and we kind of try to identify also the challenges for the field right so there are
+things that we were hoping to see but that didn't happen including what we call the co-creation of
+explanations really having a sort of the human having a role into the generation of the explanation
+there are issues related to the maintenance of the Knowledge Graph so how to deal with
+missing information or bias when coming up when generating explanations and of course this is
+a problem that we also saw during in the PhD and also there are issues related to the automated
+extraction of relevant knowledge when using a Knowledge Graph that generates explanations
+so most of the methods that we analyzed when coming up with an explanation end up manually
+selecting the relevant information to generate an explanation and this is quite something it
+means that there's still a lot to do in the field in order to move forward
+there's so this was one part of the story so what happened ever since deep learning
+there's also the field of hybrid intelligence that came up so I don't know if many of you had
+about hybrid intelligence maybe you had about human-centric AI this is another way of addressing
+this this problem the overall idea was that this there is an emerging field in AI which
+and it's a magic because you start seeing different conferences and workshops around the topic
+there's a number of national and international collaboration networks that that are really
+focusing on on this concept of hybrid intelligence and and the overall idea because we don't really
+have a proper definition but we do have a working definition of hybrid intelligence
+is to have to to aim for AI systems that try to enhance human capabilities
+as other scientific tools would do think of the telescope that allows a scientist to
+to look where his own eyes cannot see or the machine the the sorry the the car that or the
+airplane would allow people to to reach places that they couldn't reach easily with their with
+their feet so it's really about seeing AI system as an extension of the human intelligence rather
+than seeing AI as a tool that replaces us so in this sense hybrid intelligence really look into
+systems that collaborate with humans aiming for a complementarity so weak weaknesses and strengths
+of both AI and humans are complemented by each other and really about this synergetic idea
+so the the the mixed team the hybrid team is is aiming for the same has a shared goal
+this is the so so we have a research agenda I'm part of the Dutch hybrid intelligence
+consortium and I've been part of the hybrid intelligence conference of the past in the past
+years and it's really a vibrant field and and explainability explaining it's also a part of
+the research agenda so it's not only about trying to collaborate but how in this in this
+collaboration the goal is also to try to communicate our own intention and explain our own actions and
+our own reasoning so the one of the the core topics that we established when when hybrid
+intelligence came into the picture was really on on on how to create systems that are able to
+deliberate and and explain to to their collaborators I'm more than happy to to discuss this a bit
+further and somehow in as part of the hybrid intelligence picture we also and as part of
+the the contribution that we could keep with ontologies and knowledge cross with respect
+to explainability we also try to work on on on on a number of what we call boxologies or
+terminologies for hybrid intelligence where so to establish mostly to establish a shared language
+between agents in a different team sorry agents in the same team that would collaborate between
+each other and and what what we did in one of the the the the newest work was really on comparing
+different hybrid intelligence scenarios and first trying to identify what are the common
+knowledge roles so we came up with a high level ontologies of agents interaction types
+and and and specific scenarios and and we try to also identify using these high level ontologies
+what were the the most specific hybrid intelligent tasks including ones that would
+relate to creativity and and explainability and then on the side of it we would have
+tasks like team awareness and multimodality that's the second part of the picture so we
+talk about deep learning we talk about hybrid intelligence and what also came into play with
+respect to to explanation and we didn't have that much time to to dive into it but hybrid
+intelligence is strongly related to that as well is really on especially with a with a european
+perspective is really on the GDPR and so and an EU AI act which recently came up but really the
+idea is to try to monitor the systems that we are developing to make sure that that that
+users are are protected both in terms in terms of the data that are being generated and the methods
+that are being generated and this also means to be able to to to explain
+the reasoning and to trace back the the the information that is being output
+so so explainability and transparency became
+started appearing together in the in the picture so if you want transparency you need
+to be explainable therefore showing your reasoning and now with this EU AI act the
+the idea is really that that there are certain obligations there are certain systems that need to
+show some transparent they have transparency obligations so they need to be able to explain
+why certain things are happening otherwise they are considered unacceptable
+this is a very so i have a few minutes left i think this is a very quick overview of what has
+happened ever since which leads us back to okay what is going to happen now and how can we kind
+of think of everything that has happened so far and where are we going to to go
+of course i couldn't get away without mentioning language models at least once
+so somehow one of the questions and one might ask and we also kind of wondered was okay but
+everything we've done could this be now done so the the overall knowledge comedy process could
+just be replaced by language models by large language models by LLMs could we just not replace
+all the steps or the explainability steps do we actually need knowledge grasp for that and it's
+true that LLMs language models are very good in dealing with noise and inconsistency and like
+methods that the methods that we had before were not that much able they allow us to extract
+information very quickly from large structure data so that goes towards the dream of doing a
+web-scale learning or one could argue that you already achieved that they're actually quite
+good in capturing some complex semantics so somehow it has been demonstrated that defining a class
+can be with specific boundaries so the boundaries of the definition of a class is quite difficult
+are quite hard so there is no universal class description and especially with the embeddings
+method based methods are able to capture this complexity quite a bit better and of course
+are very good in generating natural language so instead of generating explanation in a
+mechanical mechanistic way from the triples they are able to generate a much more human friendly
+explanation the problem is that they are still limited in a number of things so learning from
+rare and unique events especially like the ones that you can find in the web is still quite difficult
+these methods are not yet able to show proper reasoning and argumenting behind thoroughly
+creating a thorough argumentation behind what has happened and also they don't really deal with
+with fairness and interoperability acceptability all these these fair aspects that we've been
+looking into as knowledge graph community are not yet part of the picture in a language model
+so somehow there are limitations in using them but it doesn't mean that we need to discard them
+completely but we can just join the both words and work out something to for to generate better
+explanations so i want to conclude in the last few minutes to really think okay if we now look at
+knowledge graphs and whether they're useful to to generate explanation and do they actually work
+what is it that we launch so somehow both based on the phc and everything that happens afterwards
+uh yes we can use knowledge graphs but they are mostly an intermediate representation so
+knowledge graphs are really for the machine consumption uh they shouldn't be for human
+consumption and the rdf is just a language that that to for machines to perform an exchange of
+information which is unambiguous so uh we should really not look into knowledge graph as something
+that we humans should understand but but more as something that machine can can quickly exchange
+we can use knowledge graphs to as to get to gather content to generate explanation
+but really the graph structure is just a backbone so we don't really want to use the knowledge graph
+to create an output we can use language models for that but but we can use knowledge graph as to
+to gather the the backbone of the explanation which can then be output according to different
+users in a different dimension so we think okay an expert user might need a longer explanation
+which with more arguments and an expert a non-expert and layman might need a much
+shorter and simpler explanation in in in terms and llms are great in doing that you can ask them to
+rephrase a certain concept in different in different according to different dimensions
+also knowledge graphs allow allow to check the to trace back information so you can
+really walk down the graph and and and check whether the information is truth and this is quite
+this is much better than looking into the propagation of the activation of a neural
+network and try to decode what does it mean in order to come up with an explanation that you
+might not be able to to to explain that clearly yourself and finally scalability which was part
+of the picture at that time okay how can we deal with very large knowledge graphs and we want to
+to to integrate as much knowledge as possible well actually this is not that relevant anymore
+and what people are really aiming for and we also saw this when collaborating with industry is more
+it's much better to have a high quality knowledge graph which is curated by the expert
+to generate explanations rather than having a very large knowledge graph
+so this is one part of the story and then the other part is more of the big picture
+what we learned is really explainability is not only about machine learning
+so in hybrid intelligence we deal with explainability we deal with experts from all kind
+of fields from social science to computer science and people look into explainability from
+from this in different ways so it's a bit of a jungle of terminology we cannot really agree
+what what we mean by something being explainable and then we need to try to find a way to harmonize
+it we we learned that explanations are really task dependent so yes we have an ontology design
+patterns for the explanation but we need to adapt this according to the context and again we can
+use language models for that but it's the target audience or the language or the type of explanation
+really need to change according to the situation and more importantly we need to look for the human
+so knowledge graphs are only one part in the explanation process so in order to generate
+explanation you need a knowledge graph you need a sub-symbolic method but you also need a human
+that interacts with the with the system because in the end as we said at the beginning explanation
+is a social process it's a dual process so it has to happen in a co-creation setting where
+the user is really interacting with the system to come up with an explanation he's satisfied with
+and in this sense we also need interdisciplinarity in the picture to try to measure whether an
+explanation is interesting or not so we kind of we don't only need a computer science perspective
+but we also need to try to integrate the talks that we have with social scientists and cognitive
+scientists to make sure that the explanations that are being generated are actually useful
+so to give some ideas on what and then I'm just done I know I'm over a bit
+what we suggest is that really we should look into the kind of knowledge in artificial intelligence
+so some people have called this knowledge science some people have called it empirical semantics
+we call it knowledge in AI so we really need to go back to the empirical analysis of the
+knowledge graphs that we create and we deal with we need to understand their modeling style
+and the kind of semantics they're communicating and whether the semantics is enough or too much
+to generate explanations we need to check for the usefulness and limitation of the knowledge
+graph and the knowledge that we create and somehow we need to try to move from the step of okay how
+can we fit knowledge into the learning process these we know how to do it or at least we have
+good methods but we really need to focus on what is which kind of knowledge we need to fit in order
+to be able to learn something and to generate explanation for example so somehow this is a
+call for the community to start so where do we start and I have tried to revisit a bit the
+research questions that I had in the beginning thinking okay based on this idea of knowledge
+in AI then maybe we need to try to fit the explanation pattern into the existing systems
+we need to try to come up with explanations like using deep learning and at a web scale
+we need to try to augment explanations and turn them into complex narratives we mentioned these
+complex argumentations so and for these we can really combine knowledge graphs and language
+models and we really need to compensate whatever information is missing by performing a co-creation
+of explanation with the humans this is the end of my talk I thank you so much I don't know how
+many people are there I thank you so much for taking the time to listen into me I thank Tobias,
+Antoine and Olaf for inviting me there was an amazing opportunity I invite you to reach me out
+for exchanges and I really hope to see you in at the next hybrid intelligence conference in
+in Sweden in June this is the end of my talk thank you all right thank you Ilaria I should buy
+one of these sitcom applause machines and give you a round of applause that reflects
+the size of the audience that we had there were a few questions already in the youtube chat so
+please keep them come in and in the meantime I will post some of them to you and if there are
+no more questions I may ask the people have to deal with mine good so let's start there is
+there is a question by Mivish on the chat and she's asking what is your vision on using your
+explanation techniques for a large language model so you do you think the same techniques are useful
+for them as well or do you need a different kind or is there a way of adapting maybe the methods
+yeah thanks so this is a very cool question of course I mean that's the kind of question we I
+am expecting in these days because we do have language models are able to achieve so much
+that it's it's hard to think okay if I done everything wrong can they just do better than me
+and I mean I would be very curious to just do a simple comparison I like this question a lot so
+the question is really can we use these techniques
+with large language models because I now have a number of PhD students working on these and we
+were discussing this just this morning the you you certainly have the advantage that you might not
+need to crawl the knowledge graph anymore to generate explanation so all the problems of
+heretics to search the graph to to reduce the computational complexity
+um might not be needed anymore uh with that said I still think that using you you need to combine
+language models and knowledge graphs um in order to be able to to trace back the information and
+especially if we are talking about uh truthfulness of an explanation I can ask my knowledge graph to
+uh my the language model to to come up with an explanation for a given pattern of data but I
+I also want to make sure that I can trace the provenance back and this is something that I
+I want to know I mean probably a knowledge graph is much better to do than a language model
+so I still think that as I said the backbone of the information should come from a knowledge graph
+in a way that you can uh you can reconstruct the subgraph somehow that generates your explanation
+and then the output for the form it can be uh can be generated or or situated according to the
+users by the language model that will be my answer okay um so thanks for that there's another question
+by Peter Jones he's asking to what extent do you think AI and explainable AI may reduce or undermine
+the use or development of domain specific languages sorry I lost the second part of the
+question so do I think the AI and explainable AI reduced the the use of domain specific languages
+um
+well I don't think they actually uh I I'm not quite sure uh whether by domain specific language uh
+yeah we mean the domain specific representation or so domain ontologies but I don't think they actually
+uh reduce it or at least I don't think they should reduce it somehow
+I see more an integration of the two in the sense that uh the the the same way
+there are these methods that use so I've seen methods using domain specific ontologies to
+um come up with maybe decision trees about the an explanation that is being generated so they
+the advantage of domain specific language is still that they are highly they're curated by
+by the experts and so they are still more reliable so the two methods should kind of
+um is it I don't I don't want to think of uh of explainable AI methods as taking over but
+rather to try to uh complement to to combine the two or in a in a narrow symbolic fashion
+I hope this answer the questions uh hi yeah I hope so too
+um um speaking of maybe maybe this this goes one into the direction of one of the questions that
+that I noted um so if we have if you have a domain specific language or the main specific
+way of modeling things then this allows to very uh concisely write down things for a specific domain
+um previously one of your explanation methods you used something that like was looking at
+graph uh the distance in the graph right and if you change like if you have something very good
+for one domain then that obviously changes the the the distance in the graph so maybe you can
+reflect a little bit on how the the graph structure or the role of how model how things are
+modeled or how much entailment is applied on on the graph changes the the diameter the distance
+or the results of your approach yeah so I think um in general this is the kind of problem we try to
+to approach um both so with uh say with a with a follow-up method so when we looked into uh trying
+to identify strong relationships but also trying to cope with the with the the inner bias of the
+information uh the assumption so we we've never dealt with knowledge graphs we created right so we
+always dealt with knowledge graphs that were created by others so the assumption was you might not
+find the information that that you might need and you need to so sometimes the the information is
+very well curated and sometimes this is not and somehow we need to find um a way to to to cope
+with this problem in order to be as general as possible so the uh my view is really that there is
+not a a universal way of uh so there is not a method that can uh can deal with both the most
+important thing is being able to um to cope with the problem and integrate it in the methods that
+you develop so you need to be aware that information might be missing and and you need to make sure that
+your method compensates for that this can happen inside the development of your method or as a
+postdoc like a posteriori step and and it can be as simple as I mean in the same view of the co-creation
+with the user it can be as simple as okay let's interact and see whether I'm missing some part
+of the information um so so somehow one of the reasons why we had to look into the strength
+of the relationship was also because we were missing these and we had to find a strategy to
+to survive in the uh in this okay um there's another question from ask kim star
+and uh they are asking what adaptations do you see for knowledge for for this whole set of approaches
+to deal with multimodality um sorry so you had so you had like there was this with the cat picture
+where there was some computer vision aspects in it um and maybe you reflect a bit on on multimodality
+when yeah so it's uh it's through that we've never uh it's the kind of knowledge graph we've been
+dealing with and and multimodal knowledge graphs were not really um uh um that common at that time I
+think uh so so it's through that one aspect that would be interesting and maybe we kind of we didn't
+discuss this as as in the future step but it is in these days we are now talking about
+we hear much more about multimodal knowledge graphs we hear um also about knowledge graph that
+somehow try to integrate the physical world so like we deal with with robots in some scenarios
+and we also have this problem of okay I have a knowledge graph that has to integrate both
+abstract concepts but also the physical world um so I think it would be quite interesting to
+think on how to generate explanations that are multimodal in this sense uh this is one part of
+the answer in the sense that yes we didn't look into multimodal knowledge graphs and this it could
+change uh the other part of the answer is the explanation that we could generate so the kind
+of patterns that were coming out could also be patterns coming from from multimodal data so like
+I dealt a lot with clusters of of of data points but these data points could as well be
+pass of an image for example that will represent that will represent I don't know the ear or the
+sale of the cut of this kind of thing so I didn't deal with that concretely but it could
+uh I that I don't see why the method shouldn't work on um image uh labels uh with yeah with
+specific information that we might want to explain uh so that say with respect to multimodality
+there are these two parts so the the original method would probably work also on data points
+coming up from multimodal data and then the multimodal knowledge graph we didn't look that much
+into it and it could be quite interesting to to look into multimodal explanation in this sense
+so that's fine thanks um so maybe as a as a last question jumping back to your history um and
+because this is the cost action on distributed knowledge graph where we uh care about distributed
+decentralized things so you had this one approach that was based on dereferencing of your eyes and
+looking at things from from that perspective now um you kind of gave me the impression that you say
+okay now the person who developed the large language model did the web crawling for you
+but maybe you can say something like all the methods that you have developed in the meantime
+after you were done with dereferencing your eyes are they based on a global kind of you
+to I don't know generate embeddings and things um or would they still work in a
+distributed and decentralized setting I guess as long as so the the embeddings are convenient
+because they can embed a lot of information in in a very small space and that's something that
+we didn't have so we had to come up with a different dereferencing opportunity but also
+we didn't want to deal with storing the graph because if you store the graph and you query it
+then you then you you need to know the data model and we didn't care about it so what we really
+cared about was this kind of serendipitous hope um I remember one of the first papers I I saw was
+something all of also did on on on navigation query languages so that was quite quite quite
+related um so I think the the most important the the part that would still work is even in a
+distributed context is as long as you have connections or pointers to from data to data
+then it's fine it doesn't really matter and and we we didn't care whether it was the web of data
+or it could have been the lot a lot stored in a in an hdt file um that was really not the the
+problem the main problem was uh what where is the irrelevant information how do I identify the the
+links between the between that and this is valid in any context do I whether I have the
+information centralized or decentralized I would say then I'm not really experimented with that so
+I can't tell but good um yeah thanks for the answer um I don't have more questions from the
+youtube chat um with that I just want you to thank you again for the very nice talk and the
+very nice tna session um before we close the stream I can only advertise the next talk on
+January the 31st at the same time as today by Mayank um you can check out our website and find
+follow us on this thing formerly called twitter and of course you find all the recordings of our
+talk on our youtube channel

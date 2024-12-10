@@ -1,0 +1,19 @@
+Processing Overview for CG Masters
+============================
+Checking CG Masters/Blender Tutorial - Procedural Houndstooth Pattern.txt
+1. **Stripes Placement**: To create a pattern with stripes only appearing in the top left and bottom right quadrants of an image, you need to use a mask that reveals the desired areas. The existing checker texture can serve as this mask if modified appropriately.
+
+2. **Using the Checker Texture as a Mask**: First, preview the original checker texture by holding Ctrl, Shift, and left clicking on it twice to ensure the white squares (value 1) show the stripes and the black squares (value 0) show the base pattern.
+
+3. **Combining with Inversion**: Connect the factor output of the checker texture to a Mix node's factor input, then use another Mix node with an invert value for the top left quadrant. The invert can be achieved by using a separate set of bands (from the initial stripe creation) as the factor for an Invert node, ensuring only the top left quadrants are inverted.
+
+4. **Creating a Master Scale Control**: To control the density of the pattern, add a reroute node to separate the texture coordinate node from its outputs and insert a mapping node after it. Link this mapping node to a Value node, which will control both the scale and rotation of the entire texture.
+
+5. **Finalizing the Pattern**: Adjust the mapping node's scale as needed for your project. You can also apply rotation to the texture through the same mapping node (e.g., setting the Z rotation to 180 degrees).
+
+6. **Applying the Texture**: Once the pattern is complete, you can plug it into a principled shader or any other material settings in Blender.
+
+7. **Course Recommendation**: If this tutorial was helpful, consider checking out The Blender Encyclopedia course for comprehensive Blender learning resources.
+
+In summary, you've created a pattern where stripes are visible only in the top left and bottom right quadrants by using a combination of texture nodes, mixing with a mask, and an inversion node, all while maintaining control over the scale and rotation of the entire texture through a single Value node.
+

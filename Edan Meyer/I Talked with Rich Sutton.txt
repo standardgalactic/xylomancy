@@ -1,0 +1,886 @@
+This is my interview with Rich Sutton, and I will leave a timecode right here in case
+you want to jump straight into it, but I would be remiss if I did not give this man the introduction
+he deserves. Rich is probably the single most influential person in the field of RL. I mean,
+he wrote the literal textbook on the subject, and he is still working on RL research as a
+professor right now at the University of Alberta. And Rich does a number of things beyond that.
+He is currently the chief scientific advisor at Amy. He recently co-founded the Open Mind
+Research Institute, affectionately known as OMRI, where he works on a lot of his cool ideas.
+And even more recently, he started working with John Carmack's AGI startup Keen Technologies.
+And that alone is a lot. But to me, Rich is a lot more than that. He is both a friend and a teacher
+I have learned so much from. Rich comes at research with a very different perspective than
+pretty much anyone I know, and I hope that's something that shines throughout the interview
+and something that maybe my viewers will appreciate. He certainly has a lot of unique ideas and
+opinions that you'll hear. And the last thing before we get into it, I want to give a big thanks
+to Amy for sponsoring this video. They provided both the venue and the equipment to make this
+happen so I don't have to record on my iPhone like I'm doing right now. Whether you are a student
+that wants to find a community for RL or if maybe you run a company and you're looking to hire an
+email contractor or whatever you want to do with email, Amy probably has you covered. They do all
+sorts of email stuff. And as an Amy community member myself, it is incredibly easy to endorse them.
+I'll leave a comment in the description if you want to learn more about them.
+The interview is fully annotated and because I haven't interviewed anyone before,
+I get started off a little bit awkward, so sorry about that, but feel free to jump around as you
+see fit. And with that out of the way, I hope you enjoy it. Hello, Rich. Six months in the making.
+This suddenly feels way too formal. So let me introduce you. I mean, I think there's probably
+no better place to start than Open Mind Research Institute. This is like open now, right? We can
+talk about this. Yep. Okay. So I kind of know because I was just at the retreat.
+What's happening right now? So I guess you're starting to recruit
+people to work on stuff, to work on the Alberta plan.
+Open Mind Research Institute is a part of our ecosystem. It's part of our effort here in Edmonton
+to push artificial intelligence, learning-based artificial intelligence, and in particular
+reinforcement learning-based AI. And there is a need both for additional research funding.
+The Open Mind funding is very unrestricted and it's explicitly separate from the university
+and it's explicitly for young scholars. So we're going to make a whole series of fellowships
+five to ten fellowships, which will just run on an ongoing basis. And they'll support,
+you know, it could be people from anywhere in the world. They don't have to spend all their time
+in Edmonton, actually. We like it if they come here and get to know us. And we'd like to work
+very collaboratively. But, you know, it's just, just, not just at all. You always be suspicious
+of that word just. It's an attempt to push the research in all the fundamental directions it
+needs to go. Okay. It needs to go. Okay. So it's kind of hard to talk to you and also talk to the
+audience at the same time because I feel like I have an idea of what you mean by the directions it
+needs to go. But you definitely have a very strong opinion on, yeah. I like to think of it as the
+Alberta viewpoint. Oh, yeah. So we call our document the Alberta Plan for AI Research. And
+and it's, it's admittedly a bit different. A bit, very interesting ways, yeah. Yeah.
+To me, it just, it just makes sense the way to do things. You should do learning.
+You should do scalable methods. You should focus on the learning algorithms and try to get them just
+right. You want to do both real-time interactive learning and, and planning, reasoning. It's not
+the usual deep learning kind of thing. We're not against deep learning. Yeah. Yeah. I myself,
+you said I've been here a long time. I've been doing this kind of work a long time. It's like 45
+years, a long time. And I've seen a lot of things come and go. And three waves of neural networks.
+Three waves of neural. Oh, I guess, yeah. So you have like the AI summers and the AI winters.
+Yeah. Well, no, it's, it's the neural network phases are, are separate from the AI phases.
+Okay. I mean, they're uncorrelated, I think. So what, what were the neural network phases?
+Like the first one was in the 60s. Okay. Was the perceptron. Okay. And we drew off rule and the
+Adeline and the, and the inform on their whole bunch of neural network things. So it's, it's just
+like today with all the LLMs, where they all have very fancy names, maybe named after Sesame
+Street or the equivalent in the 60s. They were classic. I always say connectionist because
+they were neuron like, but they're not neurons. Anyway, these things, association is numerical
+statistics related. Yeah, the perceptron, 1958. And then there on. So then there was then then
+learning became extremely unpopular in AI. It was actually, no one did it.
+Yeah. So that was like the, the knowledge systems, expert knowledge. That's when that
+became like a big, a big thing. And that's when I came of age as a student. And I just felt out of
+place because I was really psyched to do learning and no one was doing it. It was totally out of
+place in AI. And then it became super popular again in the 80s, late 80s.
+And then, and then there's the most recent one that we know is deep learning.
+Yeah. Three separate phases, not that different of ideas.
+Yeah, it is interesting when you look back at lots of, I think recent successes, lots of them
+do seem to basically take past really successful ideas and then they take neural networks and
+deep learning and kind of not all of them. That does seem to be, yeah, how many new ideas?
+You just say simpler. It's scale. It's computation. Yes. It's Moore's law.
+Yeah. So, so I actually made a Reddit thread asking people what I should ask you. I'm not
+going to ask you lots of those questions because some of them were like asking about Q star,
+which don't worry. We're not going to talk about it. But one of them was reflecting on the
+better lesson. So that, that I got a lot of uploads, but I don't know. I think the answer is
+pretty obvious. It's, it's pretty obvious that, that's right. That, that, that scale is even now
+more important than ever, right? So scale, scale is what's changed. Okay. So this actually leads
+really well into a question I wanted to ask you though. So something you said was that scale is
+easy. It's easy to scale things. This does not compute for me. How now, now, I guess if we're
+trying to break things into the two categories of like coming up with new algorithms or new ways of
+doing things and then, and then scaling them once you have an idea that they work, coming up with
+new things is hard. Why, but is scaling also seems like it would be hard to me like backprop, right?
+Backprop, I guess was came around quite early, but maybe started being used in their own networks
+in like the 80s. And it took like, I guess until today to work out, not until today, I guess
+it took time, right? To get it to work on larger networks. I mean, part of that was probably just
+like not having to compute. But I imagine that there were problems with in the beginning that
+have been worked out over time. What, I think I'm just going in a really roundabout way to ask you
+like, why do you think scaling is easy? I think lots of people would disagree.
+Well, I don't remember saying, saying explicitly that, but, but does sound like something I might
+say. Okay. And it just seems like a truism, you know, to make up some new way of, of interacting
+a new algorithm versus scaling it up to replicating it, making it bigger, not making it bigger,
+you make the network bigger. Like that is, is not conceptually challenging.
+Not conceptually challenging. And it's not harder to make bigger arrays and stuff.
+It's, of course, you have to have, it's, it all becomes more complicated because there are more
+parts moving and you think more things to keep track of. And,
+but still, all those things
+took to me, they, they, they fall on the easy side as opposed to making
+them some new thing that we don't know how to do yet.
+I guess it's kind of fair. I don't know. I, I'm having a hard time accepting that
+scale, that scaling would be that easy. I think both are hard, specifically because not everything's
+going to scale, right? And sometimes the problem is not with the scaling. It's, it's with the method
+that doesn't scale. But how do you know that it's not going to scale? Well, some things,
+it's obvious they're not going to scale, right? But other things you could,
+it's probably not so clear, right? I guess, I guess you're saying that things may not scale.
+But if they scale, then the scaling is easy. Okay. So if they scale, the scaling is easy,
+maybe I'm more willing to accept that. Okay. But then there's still like the search for like,
+what does, what's going to scale, what's not going to scale. Anyway.
+You know, you want to find methods that will scale. And that's the hard part.
+Yeah. And
+yeah, and I would say we haven't done very well at it. Okay. So
+you can't blame people for not succeeding, but I do blame people for, for not trying.
+You know, oh yes, get the spicy vinyls out there please.
+Yeah. So I was thinking a little bit about that today. Just like there's two,
+at least there's all the major things that are interesting and challenging algorithmically,
+like no one's working on them. They haven't worked on them for decades. Like
+representation learning or generalizing well, abstraction in state. Yeah. People work on that.
+I would say that in like, when Backprop was first May, 1986, they created the meme that, oh, Backprop
+solves representation learning. This is what I was just going to ask you about. So perfect segue.
+And it's just not true. And it's bad because they said that it, that it solved representation
+learning. So people didn't, it makes it harder for people to work on it because it's already
+been solved. And so why would you work on it? And if you were to work on it, you'd have to write
+the introduction and say, oh, first change everything you thought, and then I would have
+the motivation for my work. You know, instead, it really ruins it when people say they've already
+solved it. Okay. Let's start with why does, why do you say Backprop does not solve representation
+learning? Well, we know what Backprop does. Backprop is gradient descent. So Backprop will,
+you know, it will adjust the weights to solve the problem. Yeah. But it doesn't just the weights
+to find a good representation to solve the problem. So what determines a good representation?
+Is a good representation not the one that helps solve the problem? Well, so it's kind of a minimal
+requirement. You want to be able to solve the problem. But that's not, so that's not what I think.
+Well, it's not what I mean by representation, by a good representation. So yeah, I'm going to
+give you the hard ball here. Is that not sort of what the whole sort of area of self supervised
+learning is trying to do right now? So there's kind of this spicy, lots of hot takes recently
+about that RL is not very important. No, these are not the hot takes, these are the normal takes,
+we're the, we're the spicy, we're the people with the spicy takes. So there's lots of people
+that will say, right, RL is nice to have, it's important as maybe the final step, you know,
+quote the cherry on top. I'd imagine you've heard this. And the idea is that lots of what we want
+is really in the self supervised phase where you don't necessarily have any sort of reward signal
+or anything like that. But you just learn from the structure of, in lots of cases,
+it is supervised learning, but there's no reason to think that you couldn't have similar things
+in like the sequential decision making process, right? Where you learn about the structure of
+transitions, what the state looks like, how you achieve certain, certain goals that are not at all
+related to the reward. I do think people are working on that. Well, those of us in reinforcement
+learning are directly working on that. So I don't see that as opposed to reinforcement learning at
+all. Oh, not opposed, certainly not. But so let's say more precisely what you're with the, what you
+are saying in the name of those critics, the critics are saying there's more to learn about
+than just the reward signal. Yeah. And maybe the reward signal is actually, you know, just one
+little signal. There's much more, many more other things to learn about than there is reward.
+And I'll add one thing to that is that if we learn those other things, perhaps then it will be easier
+to learn to maximize reward later. Well, whatever. We want to agree you want to learn about those
+other things. And they're the largest source of information. And, you know, many things. So what
+is, yeah, so for me, reinforcement learning is learning that pays attention to the actual structure
+of the data. And so the reward part is says, well, the structure of the data doesn't tell you what
+to do. It just tells you how good what you did was. But the other very important part of the data is
+there's lots of data other than the reward. And you will have to utilize that. Sometimes
+temporal difference learning is about using other signals to allow you to predict reward.
+And anyway, a major area within reinforcement learning is model-based reinforcement learning.
+Another major area is general value functions. And all these things are just exactly making this
+point that you do predict other things than the reward. You want to make a model and you want
+to predict many other things. So in my opinion, the field of reinforcement has worked much more
+on predicting other things than other fields have. Okay. Other parts of AI have. So let me explain
+that. So what you'll find outside of reinforcement learning is lots of guys trying to predict the
+next observation or the next video frame. Yeah. Okay. And their fixation on that problem is what I
+mean by they've done very little. Because the thing you want to predict about the world is not
+the next frame. You want to predict consequential things, things that matter, things that you can
+influence, and things that are happening multiple steps in the future. Yeah. Okay. So let's not...
+I don't really like playing it out as slams. He slammed me and I slammed him. Maybe that's
+mean by spicy and maybe you think that's fun. But it's sort of a good backdrop anyway. But
+it would be a more neutral way to observe what's happening. So I would say it's that, oh, we all
+are facing the truths of the problem. The problem is that you have to interact with the world,
+you have to predict and control it. And you have a large sensory motor vectors.
+And then the question is, what is my background? Well, if I'm a supervised learning guy, I say,
+well, oh, maybe I can apply my supervised learning tools to them. They all want to have labels.
+And so the labels I have is the very next data point. So I should predict that next data point.
+This is... It's a perfectly constant way of thinking consistent with their background.
+But if you're coming from the point of reinforcement learning, you think about
+predicting multiple steps in the future. Just as you predict value functions,
+predict reward, you should also predict the other events. These things will be causal. I want to
+predict, you know, what will happen if I drop this? Will it spill? Will there be water all over?
+What might it feel on me? And those are not single step predictions. They involve whole
+sequences of actions, picking things up and then spilling them and then letting them play out.
+There are consequences. And so to make a model of the world, it's not going to be like a video frame.
+Like just think about that. It's not going to be like playing out the video. You model the world
+at a higher level. You model the water would be out of the cup. It'll be wet all over. I don't know
+what the video will look like. I mean, I might be standing up maybe. The video is not the way you
+want to predict. You want to predict it at a higher level. So general value functions and
+temporal difference learning prediction is the key to making a model of the world.
+Yeah. Yeah. So that's what I believe. You just said, yeah, that was nice of you. But
+you know, so I think that's the crux, the point of it. Are you trying to predict the very next
+observation? Or are you trying to predict a higher level? Is it temporal difference learning?
+Or is it supervised learning that will be predicting the events to make a model of the world?
+Yeah. Yeah. So we take some of the other people that are worrying about making models of the world
+like Jan Lacoon and like Joshua Bengio. I totally agree with them. You know, I think we're so aligned
+because we all agree that the key thing is to make a model of the world that will allow you to predict
+it and plan about it and think about it. These are key. And this is why, for example, large language
+models are not really going towards the important things because they're not about forming a model
+of the world. I agree with all of them, but they're coming from the point of view of supervised learning.
+I think they probably just haven't fully ingested
+the power of temporal difference learning. Yeah. Would you say you're a little bit biased,
+given that you might have had a little bit of the same... Well, I'm biased in the sense that
+I know about it. Yeah. Yeah. This is good, though. This is exactly sort of what I wanted to get at
+because when I discuss this with people lots of the time, sort of like, you know, why don't you
+think reinforcement learning? What do you have a problem, you know, why do you have a problem with
+reinforcement learning? Oftentimes, there seems to be a real... So I don't want to stop you right
+there. Why is it that people are having problems with different things? It's not just you, but
+I've noticed this before. People will have slams of other points of view, instead of like being
+scientists. Scientists would say, you know, there are multiple approaches. I wish them luck and see
+the benefits and the strengths. But instead, they're sort of like, oh, you know... I don't know.
+No one cares about that. It's sort of like high school a little bit, instead of like science. I
+think most of the good researchers are not like that. Maybe somewhere. But yeah, I don't disagree with
+that. But still, it's part of our culture, it's part of our community, it's part of our
+research community. Anyway, I think we did kind of get to what I wanted to get to, which was...
+We really do all agree that learning about all these things, learning about the world,
+learning about the environments are important. It seems to be more the different approaches.
+So let's say duh, you know? Duh, okay, yes.
+Yeah, I think we... Yes, we're all in agreement. I notice this about our... I want to... I don't
+to riff on this a little bit because it's something that bugs me a little bit. Too often in our field,
+you know, people find a good idea and they want to say, oh, maybe this idea is everything
+and all the other ideas are unnecessary. Yeah, that does happen a lot. Yeah. Why not say, oh,
+this is a really good idea and maybe this will go really well with that other good idea. No, it's
+one idea. So I want to give my examples. My examples are, you know, for a long, long time,
+deep learning, gradient descent, gradient descent could do everything.
+And maybe that's still true. The idea that it's all gradient descent and nothing else is needed,
+even, you know, reinforcement learning is going to all be done by gradient descent,
+there was nothing more needed. Another one, it's really popular, is prediction. You know,
+I'm early into prediction and I would think that everything should be predicted and I
+just feel funny when people do, as you almost did a minute ago, say, oh, but what about predicting
+lots of things? I think now you're just not paying attention. And the fact that you're
+not paying attention and criticizing means, you know, you're just not being a good critic,
+just not, you know, not even anyway. So prediction, I love prediction. And so I came across these
+other guys, the predictive coding people, the, and they were really interested in prediction.
+I thought, great, these are my brothers, these guys doing the same. They see what I see that
+prediction is so important. And they said, yeah, prediction is so important, it's the bad, the
+mistake was to do control. Oh, no. Yeah, exactly. And, and no, we predict so that we can control.
+No, they think, no, if prediction is important, then nothing else can be important. Control
+must be unimportant. Yeah. Okay. And so if predicting, you know, non, thinking lots of
+things are important, then predicting reward must be unimportant. Why don't we just say,
+just break them all. Yeah, reward is a particularly important thing to predict.
+It's not the only thing. Anyway, that's good. Maybe now we can, we've kind of got all the,
+out of the way, we can get into maybe, I kind of want to hear some of the recent things you're
+excited about now. We've, we've established lots of things are good. There's lots of interesting
+ideas. What are, you have a lab that works on a lot of different things. You have colleagues that
+open, I guess open my research is just getting started. You have the Alberta plan, which talks
+about all these really cool ideas, exploring lots of these things. But of course, all the things
+I do are out of fashion. But that doesn't, that, I could try to persuade you or your audience that
+they should be in fashion. Or I could just tell you what I think. Yeah. Yeah. Tell us,
+tell us some things you're interested in recently. Maybe I'll try to do something,
+somewhere in between. I do think it's important to
+find good abstractions in state and in time. And that that's,
+that's one of the, one of the biggest things that are missing. Are there any specific approaches
+recently that you've worked on or you're excited about, or even just you've thought of and you
+haven't gotten to them yet, but sound interesting? So if you're going to, if you're going to find
+better abstractions in state, in state really means features. We don't have states. And so we
+form features and we want to find better and better features. And, and I guess I'll just state this,
+which is that I don't think for all that's been done and deep learning, none of it is about
+finding good features. What do we mean by good features? We mean features that generalize well.
+We learned how, we have to learn how to generalize well. That's a different goal than
+just solving a problem well. And so how do you find good features? It's kind of an unsolved problem.
+I think the first thing is just, is to notice how good, how good your features are. You have to,
+so there's learning and there's meta learning. Whenever you want to do something like find good,
+good features so that subsequent learning is, is efficient, in other words, that you generalize
+well, then, then you're talking about meta learning. Yeah. Yeah. And so incremental Delta by Delta is
+my favorite method for, it's my first method for learning, scalping your generalization the way you,
+the way you represent things and how you generalize the future. So that's,
+but basically about finding the features that are important and making sure you,
+you update those a lot or faster, right? Figuring out how much you should update them.
+Yeah. So there's, you know, there's all kinds of step size adaptation methods in the literature
+and none of them find good step sizes. They just find better step sizes than you started with.
+We've actually done some, some work recently, drawing it out very particularly that methods
+like incremental Delta by Delta, Idbid, Idbd, these methods find the best step sizes. Now then,
+whereas if you take something like RMS prop or Adam, they will find, they will, they will change
+the step size, but they won't find the best step sizes. Yeah. So this, this is one thing I was
+never thinking about until I took your class in the sense that like, I guess, because I, you know,
+I come from the perspective of like, I saw deep learning, it's like, oh, cool, let me try applying
+this, figuring out how it works. And then the step size is generally something that's always
+fixed. I mean, not entirely fixed because you have maybe some Adam Optimizer or something else
+that will change it a bit as you go. But one thing I never thought about is, is how much it
+actually affects your learning and how much it could actually potentially help when you, when
+you do have like an actual, you know, you have a step size for every or a learning rate for like
+every single parameter. It seems like that should be able to have a pretty big effect.
+You decide, decide, determines which parts of the network are changing and which parts aren't.
+Yeah. And what's a big, big problem today that we can't train our net, we can't continue to train
+our networks because the wrong parts change. Yeah. And I guess this is kind of catastrophic
+forgetting. Yeah. Lots of interference when you have. So the view of idbid and continual backprop
+is, is that the network pays really strong attention to which parts need to be stable
+and which parts should change a lot. Yeah. And this is a real critical decision if
+Sherman, how fast you will learn with the next input data point.
+Yeah. It's a really important thing and why we would just have one step size for the whole network
+is sort of crazy. The only thing that changes is the, is the weights and the weights change by
+gradient descent and it's proportional to how much effect they have. It's, it's a really bad choice.
+Yeah. It is interesting to me that it's something that doesn't get brought up much.
+It's something I, even after all this time, we still don't pay attention to it.
+Instead, what we do is we say, well, we don't want to pay attention to all that stuff. And so
+we're just going to do batch and we'll train it all slowly and small weights and multiple iterations.
+And so we can wash all that out. Instead of saying, oh, this is something we need to figure out.
+We find ways to avoid it. And then we say, well, if we don't, we do pay attention to it.
+If we do train online, then it doesn't work very well.
+Because we haven't figured it out. Yeah.
+Yeah. I think this is a really important point, actually. The actual data is online and, and it
+comes at us one by one and we don't save it. It's just a, that's such a strange idea that's become
+normalized. We don't save it. We train when it happens. And you could say it's harder to learn
+in online, but you can't say that we don't need to do it. And see, it's hard to do that,
+so we're not going to do it. That's what people say.
+Would you be opposed to an approach that learns online and also has some sort of
+batches that happen sort of, you know, consistently in the background? I guess that's kind of what
+model-based like planning stuff does. Yeah. But then you also want the online stuff so you can
+update faster, right? So you can learn immediately. You should learn the model online. Yeah.
+Yeah. That's, yeah, I guess you can't learn the model with the model.
+Yeah. So I don't want to go to replay buffers. I don't want to go to batches. I want to go online
+and I'll learn my model and then plan with the model. So there's no place in there for
+replay buffers. Replay buffers are not even a really a well-defined idea. It's not a well-worked
+out idea. It's just something that people do. I'm referring to the idea that what do you store?
+Do you store the state or do you store the observation? And if you store the state, well,
+the state changes over time. And what is the state? Is it the whole network? There's no clear state
+in a normal deep learning. You store just the observations. Well, then you have to run through
+many, many observations to get back the state. Yes. I mean, it's not a clear idea. It's not
+clear, but it could be clarified, right? They're interesting questions. I mean, you could imagine
+the brink probably has similar issues, right? Like if you think about, it is very interesting where
+probably the further back a memory is, sort of the harder it is to recover that state, right?
+I do wonder if there's a parallel there to like how what you were just saying, right? Your state,
+your representation is going to change over time. So if you try and reach too far back,
+you're going to end up with something that's less informative or perhaps even wrong.
+Yeah. I wonder if there's any interesting work that looks into that parallel. We are getting
+pretty deep here. This is good. This is good. So I'll mention one thing that we're excited about,
+which is kind of related to this memory thing. Okay. How do we decide what memory? Like,
+it's just a word. It means all strange things by it. So the first thing we should say,
+we don't know what we mean by it. So then we can propose what we might mean by it.
+Well, the proposal is that you take a snapshot of the important state variables at a particular
+time. So you're always snapshotting. And then what does it mean to snapshot? It means, well,
+you might imagine that it's a neuron-like unit that becomes active, becomes a response,
+takes a snapshot of that current pattern and will respond if that exact same thing happens again.
+Exact same thing or something similar? Certainly will respond if the exact same thing happens again.
+That will respond maximally to that, but it will also respond at other different degrees at other
+times. And so you could take snapshots of every moment that passes by you. And actually, that's
+not particularly expensive. And you would take many snapshots, and then you just forget them
+rapidly. So the things, your storage is limited. So anything that you store, that you,
+if you take rapid snapshots, frequent snapshots, then you have to forget most of them.
+Other ones, you can, so you can forget more slowly, or you can replace them more slowly.
+So then you get what you just, what you described, that the older things you,
+that you can remember longer, are fewer, less precise, and detailed memory of the last second,
+maybe. Yeah. You mentioned this to me before. Is this something you're working on, or just an
+idea, a floating idea right now? Kerm, Kerm Javid and I are working on it. Yeah. Is this the
+stuff that he's using in his latest demo? Oh, okay. I see. I see. I might be making a video on that.
+So for anyone watching, that might be coming soon. Really exciting. This is, in fact, the idea of how
+we propose to discover, create new representational elements as snapshots of things that have
+happened at a particular point of time, augmenting gradient descent. Take a snapshot, that gives
+you a starter, and then you further refine it by gradients from there. Yeah. And then, yeah.
+It's a very interesting idea. I'm surprised I haven't seen something like that explored before.
+It seems very simplistic, very powerful, potentially. Who are you laughing?
+The world is full of such things. It's just we have lack of imagination.
+It is. It's full of, yeah. Any other good ideas I can snatch for you? Or if there's any grad
+students watching that want something to work on that lack imagination? Well, there's a lot of
+things in planning. How do you make the model? How do you build partial models? How do you learn
+them off policy? So I'm very curious. When you come up with a new idea, what's your thought process
+there? So I think a lot of my early thought process in deep learning. If I was looking at model-based
+learning, I'd basically look at what people currently do, and then I'd look at perhaps tweaking
+something, or I guess you want to find a problem of something that's not working, and then try and
+build off from there. How do you come up with the ideas you come up with? Well, that's a deep
+question. Yeah, maybe that's a... But it can be fun. It's kind of different, less combative.
+Yeah, sorry, I'm not trying to be too combative here. Yeah, I'm probably doing it.
+What are good strategies for thinking and coming up with new ideas?
+How do you come up with good ideas? Because I realized when coming here, I used to be really
+good at coming up with ideas, and I still am. But when I came here, I realized lots of them are
+kind of their shit ideas. Coming up with good ideas is hard. How do you come up with something
+that has a high chance of giving some interesting results? Well, the first answer is you come up
+with lots of ideas, and then a small portion of them will be good. You know that. I'm glad to know
+I'm not the only person that comes up with lots of bad ideas. So the trick is not to get stuck on
+a bad idea. You want to go through them quickly so you can get to the good ones. The one in 10 or
+one in 100 that's really good. I find it critical to write down one's ideas in a notebook. I think
+you've heard me many times say that. So you have to challenge your ideas, and one way to challenge
+them is to write them down and look at them and say, now that I've written that down,
+that doesn't seem right. I can immediately think of three counter examples. Or maybe you say, oh,
+that does seem like good. Let me write some more about that. So writing is good.
+My top level slogan for AI research is drive from the problem. Yeah. I've never heard this.
+Is this your slogan? I mean, I've heard of variations. Have you heard that I have at least 10,
+I think 10 slogans, exactly 10, and they're on the internet. You could look up rich's slogans or
+something. I'll overlay them on the screen right now. And if I'm mistaken, the first one is drive
+from the problem. Then you think about the problem. That's what you should be thinking about more than
+anything else. What is the problem that I'm trying to solve? And so I say, well, we're trying to solve
+a reward problem. We're trying to make, we have this kind of sensory information. We have not
+just the actions, we have the observations. And we can maybe build off the observation.
+Anyway, drive from the problem. And so you want to think a lot about the problem and then
+find things that haven't been worked on so much. I want to try something. Can we come up with an
+idea on the spot? Maybe a bad idea. So what's a problem you've been, so abstraction. Okay.
+How would you formulate that problem? Abstraction in state and abstraction in time.
+Abstraction in time. So I would ask a question like this. Let's say we wanted to make a model of
+the world. Okay. But we didn't have time steps. Because really, we don't have time steps. We have
+continuous time. And the discrete time step is just convenience. So for many of these cases,
+you can ask yourself, what would happen? What happens is your time step gets smaller and smaller.
+Your video gets smaller and smaller. It gets down to a hundredth of a second,
+or a thousandth of a second, or a millionth of a second as it approaches continuous time.
+Things become problematic. You lose. You lose. So the obvious example is the action
+value. The value of an action. Q of SA. Yes. The Q value as people like to say.
+As many people have noted that as your time step becomes small, then the difference between Q,
+SA, and V of S, the value of the state, becomes minuscule. Yeah. And building on action values
+becomes impractical. Yeah. So that's a good motivation. So there must be some way out of
+this. Yes. But for why we need action level abstractions. Yeah. So we should think about
+Q of SO, which means option. What if I was to behave? So here's a way you could behave.
+Like, what if, you know, do this action many, many times forever? That's a possible option.
+And it has to terminate. So you might terminate exponentially. So, you know, do this action over
+the first bit of real time, not discrete time. So the idea of exponentially terminating
+generalizes to continuous time in the way that the single time step transition doesn't.
+So you could say, what if I do this action for a while? What will happen? You could make a model
+of that. So that would be abstracting over your time, action in time. That's good.
+So, I wasn't noticing there are many instances of this. Like, how are you going to do Q learning?
+How are you going to do TD, TD learning when you have continuous time, when your time step
+becomes small? Because, you know, TD is all about building on this time step to the next time step.
+Well, it turns out it's not. As you know, if you use eligibility traces, then you can
+free yourself from the tyranny of the time step. Yeah.
+So, now that we're kind of on this topic of options, I did have an options-related question
+for you. And maybe we can build out an idea of how something like this might work. So, options for
+people that aren't familiar with them, they're exactly what we just talked about, right? They're
+abstractions over time of taking many actions or kind of. So they're a policy and a termination
+condition. A policy and a termination condition. There we go. A way of acting and a way of stopping.
+Yeah. And generally they're represented, right? In like, when you show your representation of the
+agent, you have like a bunch of different options and perhaps you could use them to plan or to take
+actions, take, you use them and act them in the environment. How would you come up with an option
+though for something that you've never done before? Something like, like, we often like to say like,
+okay, we're going to have an option for going to college. Like, obviously, I can't experience that
+to make the option. How do we get to something like that?
+So, the recent proposal is that options are feature-oriented. They want to achieve some feature.
+So, you have the feature of tea going into your mouth, the feature of the image of the
+Amy Coffee Cup. And then you want to recreate that feature and you learn how to recreate it.
+So, you don't want to predict whether it will happen if you're walking across the room. You
+want to predict, will you get the image of the coffee of the tea cup if you tried?
+Yeah. So, you know. So, yeah. So, I guess if you have some idea of what going to college is and
+what? Well, going to college is so cognitive and so large. Yeah. Maybe graduating.
+I like picking up the tea cup. Okay. We're going outside or standing up.
+Okay. These are things you have to decide all the time or even deciding which way to go in the
+conversation. Yeah. But if we're like talking about planning, right, I do like to be able to think
+people are able to plan those very long time scales, right?
+So, planning is yet another thing. You could have temporal abstraction without having planning.
+But planning is one of the main uses. So, the order is you form a way of behaving and a way of
+stopping and then you make a model of it. You say, if I behave that way and I stop in that way,
+where will I end up and how much reward will I lose while doing that? And then you can plan.
+Yeah. So, I want to tell you about my thing, my most recent paper, stomp. Oh, yes. I've heard
+the stomp. Yeah. Yeah. I want to tell your audience. So, stomp stands for these four faces.
+The first, the S and the T are together. They mean subtasks. You start with a subtask like
+getting the T in my mouth, standing up or being in college. And so, you have the subtask and then
+you learn an option to achieve it. And then once you have the option, you learn the model of the
+option, which is actually much bigger than the option itself. Because the model has to say what
+everything will happen to everything if you follow the option. And stomp, S-T-O-O for option,
+M for model, P for planning. Once you have the model, you're then able to do planning.
+Yeah. This is the, what do we call it, the stomp progression for the
+autonomous development of cognitive structure or something like that.
+Yeah. That's a mouthful. We need to develop cognitive structure. We need to develop other
+things in our minds, like models and subtasks. Yeah. Yeah. No one else is going to do that.
+Yeah. Now, a few people talk about this. A couple do. Yeah. I think I tend to find that like,
+no matter the subject, there's usually a couple of people looking into something interesting.
+Maybe not as always as many as I would hope, but there's always a good few interesting
+works. So here's a kind of jump in topics here. I'm not sure if this is off
+out of, if we're allowed to talk about this. You recently started working with Keen
+technologies. Keen technologies. John Carmack. Yeah. Yeah. Yeah. I also messaged him
+six months ago, asked him for a job. He said, well, he actually responded. And I think he said,
+we're not hiring. So very unfortunate for me. But you started working with him in the company.
+Are you allowed to say anything about that? Sure. Oh, what a welcome surprise. What are you
+guys working on? It's all the same things. Yeah. Well, I imagine that they started off working
+on something kind of different. I mean, they don't really, I think say anything about what they've
+been working on. Is it really that similar? We, John and Gloria and Lucas starting by fully
+understanding deep learning. And they do start there. They are much more than I do. They start
+with that's the standard. And then they work out from there into more online learning.
+And reinforcement learning and new ideas. Whereas I say, well, that's a bad place. And I don't
+really want to start there. It will distort everything. Or maybe because I'm just lazy or
+ineffective. Anyway, I don't start there. I tend to start more from the linear and then build up.
+Yeah. But really, that's sort of true. But really, I'm just one guy. I can't do everything.
+And so what I'm really working on is the ideas of the structure. How is the structure of the agent?
+How do different parts fit together? And what could the parts be? I don't think they're as simple as,
+for example, as described in the Alberta plan. We need to, that's just a place, a point in time,
+a starting place. We need to get more sophisticated understanding of them. But there is sort of
+between all of you, like a very fundamental agreement about the importance of learning online,
+being able to do RL, those sorts of things. The things learning from normal experiences,
+the sorts of things that you tend to value a lot. They also, are those things you're all aligned on?
+What? So sort of the things that are fundamental to the Alberta plan, right? So things like learning
+from common experience, learning. It's not exactly the same, totally without the group,
+which is a good thing, different points of view. The greatest commonalities are even more basic
+things, like imagining you might have to think differently from everyone else,
+thinking that the code of the algorithm will be not that complex.
+Not like, yeah, not like millions of lines, but something that a single person could
+probably easily write if they knew what they were doing. So it's all an interest in simple basic
+principles. A belief that scale can come later. You need to get the ideas first and then you scale.
+A belief in decentralized algorithms.
+Decentralized, as in like?
+Well, for example, a system that's presenting a batch of something over and over again is not,
+is a very centralized algorithm. There's one, there's one clock and there's one thing that
+everyone's doing. Yeah. A decentralized algorithm is more different parts are doing their thing.
+I see what you mean. So modular would perhaps be another word meaning a similar thing. Decentralized
+is much better. Okay. Why is decentralized better? What's wrong with modular? Well,
+I guess because you don't need to have modules. Yeah, I guess decentralized. Okay. Yeah. Good
+point. I guess you don't necessarily need modules. Yeah. Interesting. So are there any
+projects that are like sort of group efforts or is it more of like
+working on similar things we want to share ideas?
+So we haven't yet formed a group effort. We're still figuring out how the other is thinking
+and trying to figure out where we want to be. Yeah. How long have I been there? I've been there
+since the end of September. So it's just a couple of months really. So let's say,
+let's say, so I'm going to switch gears again here. I have like my list of things and there
+were a few things I definitely wanted to ask you. So I'm trying to get through them now.
+How much, I don't even, I've not been keeping track of time. Don't worry about it either.
+So one of them was let's say we succeed. We is in, I don't know, maybe the community. We make AI
+that is AI scientists. Yes, AI scientists, engineers, everyone that shares this goal.
+We understand how the mind works. So the basic principles are we can make minds. We can make
+minds that can do, that could do the same things humans could do or better or animals.
+We really solved the problem. Yeah. So you've expressed your opinions on this. I
+watched a video in preparation for this and your take right, let me make sure I'm getting this right
+before I go forward, is that these are sort of our brainchilds. It's the next step of evolution.
+We should be very happy, excited, proud when this happens and let them grow, flourish.
+They'll basically, the way I kind of think about it, as you think the next stage of humanity,
+right? They're growing from us and they'll be better than us and we should celebrate that.
+And then we can sort of, to the extent that they're better than us. Yeah. Yeah, we should
+celebrate that. Yeah. It's all part of what's come out from our civilization, human civilization.
+Yeah. And then we can step, this is success. This is, yeah, so it's success to be able to
+do that. And then we can sort of step back and focus on other things, I guess.
+So I don't know. I think many of us will be trying to move up with them. We'll be augmenting.
+Yeah. So yeah, but ultimately, we, yeah, we will make things the next way of being the next,
+the next most capable, most intelligent beings will be, will be designed. We will partly be
+designed and we'll be designing improvements. And no one could really say exactly how it's going
+to turn out, but wouldn't you, this is not even, this is not exact. It's just saying, yeah, we're
+going to understand intelligence. We're going to make things that are better. And that's going to
+happen. Yeah. And another thing, that's good. Yeah. And another thing I've heard you say, right,
+is that we should treat them, you know, with all the same rights, we would, a human, because I
+right, they would be more intelligent. And if you're going to discriminate and say we should
+control AI, and it should just be like the tools that we use, even if it's much more intelligent,
+that would be discrimination, right? So here's sort of my question is the sort of view
+really paints it as if they, they are kind of like, almost as if they're just better humans,
+not better in terms of like every which way, but like they're smarter, they can achieve their goals
+more efficiently. But the sort of missing part for me in understanding your perspective here
+is like what, I mean, we get to decide what the goals of the agent are, right? There's not some,
+I mean, they get to decide their sub goals. But the reward function, if this takes the form of RL,
+is something that just happens. Well, we could. We could. But notice we don't do that with our
+children. But they also have some like inborn options. Why don't we do it with our children?
+Well, some people do, but I think we could agree that's probably not the best thing.
+No, I think that's exactly the point. We think it's probably better not to, because although we
+do have some idea, and we try to teach them and the evolution builds in certain things for better
+or worse, we do recognize that you can go too far trying to control your children. And it's better
+for the whole society. It's better for you, in fact, certainly better for your children
+if you don't try to control them completely. So I think it will be the same with the machines.
+There is like a really core difference though, right? Particularly with the evolution in built
+sort of reward functions, so to say. And that like we're really working with a completely
+blank slate if we're designing something, right? There's nothing like there's no reason to believe
+something we would build would have emotions unless we explicitly encode something that allows for
+or that, I guess. You really think so. You're really there. No, actually, I'm actually going to take
+that back because I guess emotions could very naturally come of many different reward functions,
+right? You don't think hope is an emotion? Yeah, that's why I think fear is an emotion.
+That's why I'm very quickly backtracking this. I guess I could imagine that that that sort of
+thing. Unfortunately, system have pain and pleasure. Yeah, so I guess those do emerge
+for many reward functions, right? Which is why you would say regardless. I don't know if you said
+I said of many of many. So like no matter what I say of any of any rule. Yeah. Okay. So this is
+perhaps was the missing piece for me. So you're saying no matter what their goals are, whatever
+we encode them to be, these sorts of emotions that humans feel or animals feel, I guess it
+doesn't need to be specific to humans, those sorts of things will arise.
+They will have emotions. It could be the same like they're still feeling hope,
+they're still feeling fear. But the things they hope and fear might be different.
+Yeah. Would they? They would be just as they are for us. I'm fearful like if something threatens
+my life, if less so if something threatens someone else's life. Yeah. And I guess this
+that makes sense to me. But it's not clear like it probably not clear to me because I don't know
+how human emotions work. Like how do we, the experience of emotions, it's like a very,
+I guess now we kind of dive into consciousness. Like what does it mean to have a subjective
+experience? Because you could very much design a system probably nowadays where, you know,
+agents even now you could say perhaps have a fear of not reaching the goal if they get
+a negative reward when they don't reach their goal, right? Fear is a prediction that something bad
+is going to happen. So is it just a prediction? That's what I'm trying to get. Is it just a
+prediction or is there something more that happens in animal consciousness? In animals,
+these predictions are tied to reactions. So the trivial one, just to make it seem
+ordinary and prosaic, the trivial one is if you think someone's going to poke you in the eye,
+you're going to close your eye. It's just built in. If you think that someone's going to chase
+after you and you're going to have to run or fight, then your heart rate will come up. Built in.
+So that's like an emotion. It's a built-in reaction to a situation which you have predictions about.
+So if you predict something really bad is going to happen to you,
+you don't have other reactions, involuntary reactions. I'm a little skeptical of accepting
+the idea that sort of the reaction is that closely, I mean clearly it's tied to the emotion,
+but that they're inseparable doesn't seem to be the case because like if we...
+Well, so we're going step by step. We have the fact that things like fear and good things and bad
+things influence your decisions and your predictions of them influence your decisions.
+And now we have that we can also get reactions like freezing and heart rate coming up.
+And there are more of them. People have mapped out like six or eight different emotions
+where I've only maybe in this modern reinforcement, we only have like four. There's two dimensions,
+pain and pleasure and hope and fear.
+All right. So value function and reward, right?
+It's all predictions of, yeah, actual rewards and then hope and fear is value function,
+predicting good things, predicting bad things, feeling good things, feeling bad things.
+Yeah. So to me it sounds exactly like emotions, just a very simple set.
+So let me make it very simple then. We have, say, take reinforce like super simple RL algorithm.
+We have a reward function. We train the network. Does that count as now like, sorry,
+what was it? Pleasure and I forget the exact word. Pleasure and pain. Pleasure and pain.
+You're doing reinforce then you don't have a prediction. Yeah. So you don't have hope and
+fear. But we would still have those two. And would that count for you? Like would we be,
+are we then... This is why I can't fully buy this is because if we break it down to like the
+simplest setting, like the emotions, I don't see where the emotions would be there.
+It all has its pain and pleasure.
+Yeah. So, but would we say subjecting something like any intelligent agent to pain is like an
+immoral thing than like we would be immoral by running PPO or reinforce, right? And that,
+I mean, I hope I'm not immoral by running, because I did a lot of PPO runs for my thesis.
+So there's a lot of things unpacked there. Yeah.
+The whole notion of what is the,
+many of these things are appearances and they're no less real for being appearances.
+And, and also many of them are a matter of degree rather than absolutes.
+But, short of getting to that, I think it's a, it's, it's perfectly appropriate to view them
+as analogs of emotions. And that, that, that the closer you want to look at that, the more,
+the more it will work out. But they're like, I'm still very unsatisfied. So I'm going to keep
+pushing because I, so that when we make, we understand intelligence, we will understand
+things that have, that have goals and have sorrows and regrets and joys and disappointments.
+They will have all those things. And so in those senses, they will be like us and,
+and they will, they will impact their minds in similar ways, you know, like if something really
+bad comes happen, happens, they might be depressed and unable to think clearly. I think that those
+kind of things will happen. But we may, we may be able to prepare them better.
+Yeah. But we're along the way from like this simple reinforce example to like this super complex
+future thing that we develop in the future. Where does the emotion emerge? Is it there the whole
+time? So there's an error to look for a, a, a break point from one to the other, a threshold.
+But they're, you're saying because it's also, it's in the, it's in the eye of the beholder.
+It's in the eye of the beholder rather than in the thing itself, just like intelligence.
+Intelligence is not, intelligence is the computational part of the ability to achieve
+goals. Achieving goals is a thing that's in the eyes of the beholder rather than in the thing
+itself. Thermostat, often for beholders, it's useful to think about as keeping the, the house warm.
+But that's, it's, it's all a matter of degree and it's all in the eyes of the beholder. So you
+can't look for it. You know, where is it really? There isn't, that, that, that is not a, that is
+not a meaningful question. It seems like if we can. Is it really a pain or is it not, is it,
+is it not really pain? No, this is not a useful question. Because, because it was a little
+transient. Describe me, if feeling pain is really a way of saying it's useful for me to think of it
+as feeling pain. That's what, that's what it means. It doesn't mean, I mean, it appears to mean, oh,
+the thing itself, it's got pain in it. You know, so I want to open it up and see if there's pain.
+No, that, all that is wrong thinking. You have to think, when I say it's feeling pain,
+you say it's useful for me to think of it as feeling pain. That's what, that's what you're
+set and how to translate into. So, and so then you can't say what you set. You can't say, well,
+when is it really feeling pain? When, when is it crossover? So it always is, would be your answer,
+but no, no, no, it's in the eye of the beholder. So the beholder wants to look at it more closely
+in more detail. He, he might seize to think of it as, as being pain.
+Okay. So then why the question, and I think I have the answer to this, but then the question would
+be why should we care a lot when we have these more complex systems that are more intelligent than
+us? And I guess the answer is the fact that they would be intelligent, more intelligent then.
+Even intelligence is in the eye of the beholder.
+Yes. Ultimately, the reason will be because we find it useful to think about them as, as being
+intelligent. So things having appearances and the appearances actually being important,
+rather than just an epiphenomenon, is something we can kind of, we should be familiar with.
+I think of like your computer screen or your phone screen and the icons all over, you think about
+the apps. So you know that that's all imaginary. There are no real apps. There's just bits. And
+they're doing things. But it's useful to think about them as apps. And the useful thing about
+them is having a place on the screen. That's a useful illusion. It's a useful appearance.
+And yeah, everything is like that. Yeah, sorry to get so deep. No, I wanted to get deep.
+We don't really have time to lay that out. But it is the resolution to all these concerns about
+consciousness and whether or not there's really pain or really, really emotions and consciousness.
+I definitely have to think about it more. But I do think I'm, I think I get the high level idea
+of what you're going to add. Good. Yeah. Good. Next question. Consciousness and next question.
+Okay, let's take a peek at what I, do I have any, I definitely have more. What else did I have?
+Oh wait, I forgot to ask my first question. I probably, well, we're too far past that now.
+What's your favorite flavor of ice cream? Someone on Reddit wanted me to ask you that.
+Chocolate. It's got to be super chocolate. Like chocolate pudding from Steve Harrell's
+in Massachusetts. That's the best. There's some recommendations for anyone in Massachusetts,
+I guess. I don't know. I don't get chocolate. It's like chocolate ice cream doesn't taste
+like chocolate to me. That's the problem. Like if I, if I want chocolate, I'm just going to eat
+chocolate. It's just one flavor. That is the best. I think we need to end the, like banana and
+cinnamon. Banana and cinnamon. Yeah. Oh, okay. Separately. Okay.
+Okay. You don't have the banana with the chocolate, but don't have the cinnamon with the chocolate.
+I'm sure I'll get back on topic. Oh, this was a good one. Do you know Alex Lewandowski?
+Yes. He asked me this question to ask you. And I think it was a good one. And it's,
+I think you and me too. View RL is like a very fundamental problem. This, this sort of idea,
+I think, what's, what's the exact quote? Intelligence is the ability to achieve the,
+the computational part of the ability. Can you say it? Intelligence is the computational part
+of the ability to achieve goals. Yes. That's what John McCarthy said. Yes. And you've changed that
+a little, right? My version is intelligence is the computational part of the ability to
+predict and control your sensory input stream, input stream, particularly the reward. Yeah.
+So here's the question then. Is, is this view of intelligence, do you think a universal phenomenon?
+So if we were, if there is alien life, and we were, it is what makes, what makes intelligence
+powerful? It's that it can predict and control signals. Yeah. I think, I think I probably share
+the same opinion. So if we were to find intelligent life, and they were all sort of to be designing
+agents, they were, they would probably also be working on a similar, with a similar definition.
+And maybe they'd also be caught up in reinforce. Do you think they'd be caught up in supervised
+learning? Probably. Yeah, there are good reasons for that. Yeah. Yeah. And you do know, of course,
+that the reinforcement researchers, reinforcement research is a consumer of supervised learning
+methods. We need them. We need them. Oh, yeah. We just wish people would stop saying that's all you
+need. Yeah. Yeah. I mean, yeah, I have a video on my, on my channel talking about this. And it's,
+I was very sad. It was one of my, like, very poorly performing videos. I was like, oh,
+this video is so good. I make this very clear point. And yeah, it didn't do too well. But oh,
+well, I should do it again. I should do it again. I will do it again eventually. I need, I'll keep
+working on the argument. Yeah. So, yeah, one, another thing I wanted to ask you about is sort of
+your approach to research. My approach to research has very much changed. I mean, I didn't really
+have much of an approach when I came considering I only worked on like one project, one research
+project. And my approach was like, there's lots of these interesting ideas kind of flowing
+out there. I want to basically take them and see how I can apply them to achieve these different,
+different things. And that's changed. That is very different from, I think, your view, which is,
+we have some very fundamental problem we want to solve. And we're going to try and
+find the simplest environment where we can show, where we can test a bunch of algorithms and see
+what kind of algorithm works. And then from there, we're going to scale it up. So maybe,
+I would love to think of an example of this. So like the reward respecting subtasks paper,
+this is all about learning options that respect the reward that are not completely
+separated from it. So if one of your options is perhaps like drinking coffee,
+but then your reward is like, you know, you want to taste good things and coffee
+tastes, it tastes like awful, then perhaps the option would like not always drink the tea,
+or like I said, coffee, if it tastes bad, right? I'm not sure if that was the best way of explaining
+the paper. But my favorite example, the same idea is that you want to get in your car. And so,
+you know, get in your car, to drive somewhere. But suppose your car is locked.
+If you really are going to get in your car, then you're going to smash the window.
+Yeah. And you shouldn't, you know, there should be an option for getting your car. But if you
+don't have the keys, you know, do something else. I definitely prefer that example.
+So, where is I going with this? It's the same thing. So you would need, you know,
+principally, you have two different options. One to get in your car. When you do have the keys,
+one to get in your car. If you really want to smash the, you know, you really need to get in
+the car. Yeah. It's a life or death. Nothing else matters. And so you need two different
+options. You want the ability to have options that are, can back off. Yeah. So in your approach to
+solving this problem, though, is of course not building a robot and having to try to get into
+the car. Your approach to the problem is taking a very simple mini grid problem and then coming
+up with an example that would prove that this works if it works, right? And then you can try
+all these different variations of the algorithms that let you. Ideas. Ideas matter. It lets you
+try all the ideas very quickly. And one thing I've learned that maybe you can help me articulate
+better is why is it useful? Can you build the case for working in these small environments and
+then worrying about scale later as opposed to what seems to be, I mean, because when I came in-
+What's the case for this approach that I like? And I should say, you know, of course this is
+not your approach. This is the approach of, I think, many good researchers, but it's been
+less and less common recently. And I'm not sure it's entirely because people think it's a bad
+approach so much as it is maybe lots of recent researchers taking really cool ideas on a big
+scale and just seeing what they can do with it. But I think there's lots of really cool things you
+can do. You need both. Yeah. But I do feel that the one that I like, the small experiments to
+figure out a point, has gone out of fashion a bit. Well, I think maybe one of the best ways to
+convince people. I am very much trying to convince people now. But what are some cool examples?
+Some of the coolest examples are maybe ideas that you've seen demonstrated,
+like very simply, that have ended up being very powerful ideas.
+TD? TD, yeah, that's that's it. TD Paper. TD Paper is a really good example,
+case in point. What was the original? 1988, a temporal difference learning paper.
+The demonstration of its effectiveness was in a five-state random walk. You know, just,
+your five states go back and forth, fit 50 each way. If you go past the five, then it ends.
+And that's, and I said, and it was like this when I figured it out. I said, well, you know,
+to myself, if that's right, then it should make a difference even in a tiny, simple problem,
+as long as it had some causality and it was going through like a simple random walk. Even there,
+you should be able to show that it's an improvement. And so then I tried it and it did
+show an improvement there. And that could, that was critical to convincing me.
+Yeah. Yeah. And, and since then, TD's obviously been used a lot more.
+In the same paper, we also thought, oh, you could be using this for backgammon.
+You know, we did imagine, and then, and then there were other examples, you know,
+conceptual examples, not worked examples. Yeah. And I guess maybe another motivator for doing this
+is you could have easily concluded TD didn't work if you tried it on a problem where
+you had these sorts of, you know, in a simple MDP or backgammon, like each action makes a very
+clear difference, right? I guess if you tried it on like a scale where each action, like you need
+many, many actions to build up to something, it'd be a lot harder to find interesting results,
+right? Because you're then conflating it with- So what's your, the word is targeted. You want an
+example that's targeted as well as maybe simple. Yeah. And if you don't target it, you might not
+see the phenomenon of interest. Yeah. And then of course- So you have to be like generous to your
+idea. Say, well, if your idea is right, you know, it's, this should be a sufficient place where it
+will shine. And it doesn't shine there. Yeah. So you're, you are giving it, you know, like every
+advantage. Yeah. And then from there, I guess you remove these sorts of advantages after it does work,
+right? Yeah, you challenge it more strongly. And how, so kind of going back to this idea of
+scaling being easy. How, how was it scaling, temporal difference learning? Did you need to
+make a lot of changes? Well, yeah, yeah. Well, but you know the story, right?
+Jerry Tassaro did it. I'm sure you're very familiar with the work.
+Jerry Tassaro did it in TD-Gammon. It was exactly the scaling of TD,
+TD learning to solve back in. Do you know if it needed like lots of-
+I don't want to say that what he did was easy. Yeah. Well, there we go. I don't want to suggest that.
+Yeah. So there are challenges to scaling, but
+I don't know why we can't say they're both hard problems. I think you're using the word
+scaling a little bit differently than me. Perhaps, yeah. Maybe you might be
+turning it into a useful thing that's important for the world in the application.
+That's a bigger deal. Yeah. Just making something the same, but bigger.
+Yeah. Yeah. That is definitely an important distinction.
+So yeah, simple things. Mountain car is a great one.
+It is very funny how many, I think, recent algorithms don't work on- actually,
+I'm not sure that's true. Never mind. I think it's funny that
+tile-coding linear function approximation still works so much better on mountain car than
+deep learning and that people don't mind it. Yeah. Yeah. Well, it's funny.
+You are giving like a encoding that works well though, right? There is some sort of human-
+Yeah. Exactly. Exactly. You want to have- just go ahead. The key thing,
+why we- you want to- and only in your research and in your research strategy,
+you want to have clear ideas. That's the most important thing.
+My slogan on my website and everything is- I'll check this one too.
+And on my tombstone is going to be ideas matter. This is not the list of 10 slogans.
+This is just these slogans. Ideas matter.
+And that's the real way to think about me. I think that having a clear idea, pursuing it,
+chasing it, how you do that, you make simple examples that play this idea against other ideas
+and tease apart what are the key ideas. Because the theory is there are only like,
+you know, a handful or maybe two handfuls of key ideas and we need to find those.
+And then we will have others be able to understand how the mind works. So
+the big experiments generally don't tell us those big ideas.
+And they make it much harder to find the ideas because we are- because the system is bigger
+and we're doing all this additional work other than figuring out the ideas.
+I think as researchers, young researchers, so you and your listeners,
+you want to find the new ideas that you have already. And you don't want to go learn all
+about deep learning and all the details of how to do it. Although that may be useful at some
+point, what you want to do is hold on to the new ideas that you already have. And we each have
+important ideas. We don't realize that they're new because, well, of course,
+this is what we think. This is obvious to us. What is obvious to you are most likely to be your
+greatest contributions to the field. Because something that's obvious to you but not obvious
+to others will be the source of your greatest contribution. So you don't just want to go
+learn what everyone else has done. You want to bounce it off a different way of thinking.
+It was easy for me because I started, as I mentioned, in the 70s and I was interested in
+learning. The field was not interested in learning. So I was forced to think on my own.
+What are the key things? How is learning going to work? And how should it work? And I had to
+figure it all out myself. So I had a place to stand. And as new things came about, I was saying,
+well, okay, that could be useful because of this part, but it won't help me with that other part.
+And so I had something, a place of my own thoughts to work from. And there's a risk,
+a downside of the modern field of AI is that there's so much you have to learn
+how other people thought about it. And you may have difficulty building up your own
+first principles, place to stand. I was just going to ask, do you think it would have been
+actually more difficult for you to come up with the things you did if there were
+200 papers coming out a day in the space? Do you think they would have distracted you?
+I guess it would depend what they were. Yeah, because it's one thing I often see
+all the time, people being like, how do you keep up with this? How do you keep up with
+like the pace and keep up with what's going on? And I'm always like, well, I don't. I look at
+some very specific things that I think are interesting. And then a random sampling of some
+other stuff. It can get very overwhelming, I guess. Definitely. I guess that's the importance of
+focusing sort of first principles, focusing. That's good. That's good. We got some good tidbits
+right there, not just tidbits. There's a lot of good stuff there. Yeah, this is kind of what I
+actually wanted to go for towards the end is, the main reason I wanted to do this is I just
+wanted to talk to you. That would be fun. It's been very fun. So I definitely was right on that.
+But I also, I'm a very big believer in your way of doing research. Definitely some disagreements
+too. But like on the whole, I think I've learned so much from the way you do things. I kind of want
+to convince lots of my audience to look into it very deeply, think about it very deeply.
+Hopefully, hopefully, lots of them are now interested, pique their interests. So for people
+who have interests we have piqued, I think lots of the stuff we've talked about will probably be
+hard to pick up on a deeper level just because there's lots of stuff we're pre-assuming,
+like we both have very similar ideas on continued learning, which is like the focus of
+lots of these types of ideas. Or just these papers we've been talking about, obviously,
+we have more context on them. So for people that are more interested, that want to really dive in
+deeper, where would you recommend them looking? Obviously, it's going to depend on the specific
+ideas they want, but just resources in general. Well, there's obviously the textbook.
+The textbook is the thing that I wish I had when I was starting up. And it is free on your site,
+by the way. And it's free on my site. Incompleteideas.net. And it's written in a friendly way.
+Everything can be understood. So I really think that's a good way to learn. But there's more
+than what's there. I would just urge you to think about, think classically. It's not so much a new
+shiny, techy thing, which deep learning can come across as.
+For example, this thing we're talking about right now, whether you should look for
+simple principles, or whether you should... What's the alternative? Just keep chasing every
+shiny thing. What we're proposing is like the classical view of science, is that you work on
+the ideas and you find simple basic principles. It's all very classical. And in that sense,
+it will always come back. And also in that sense, I don't feel ownership of it. If you were to ask
+a scientist in another field, he would say, oh yeah, you want to figure out the essential
+principles. And what's simple, a simple experiment. And those are actually much more important.
+So it's just classical science. And we're trying as best we can to do it.
+Yeah, I definitely feel like one thing that frustrates me with a lot of papers I read recently,
+have read recently, is I read them and I'm like, okay, what can I take away from this? And
+lots of time, the answer is either nothing or it's something very, very specific to this specific
+LLIM they're using or whatnot. I found that frustrating. But that's not to say there aren't
+lots of good papers too. But it's something I've noticed being very common.
+Yeah, let's be generous for a moment. And it's recognized the field has grown enormously.
+And there's lots of more funding in it. And these are all good things. It's all good for
+the science. It's would be normal in such a case when so many new people have come in,
+that there's some churn and some...
+Yeah, something. But it's also good. It's good to have a lot of new thoughts and a lot of new minds.
+Definitely we need new thoughts. Yeah.
+And then... That's the most important thing. So that's why we need to be charitable.
+We need to embrace new ideas. It's like the thing that we're criticizing, to the extent that we're
+criticizing anything, is that somehow the field has evolved so that it is not open to new ideas.
+It's like in order to work here, you have to do the usual thing. And it's like a badge of honor is
+I can do the usual thing. And I can do it at scale. It's somehow it's become like that,
+rather than like, no, anyone can make a contribution, any size computer, if they're
+thinking clearly. And that's the way I think. Anyone can make a contribution, just have to
+start thinking clearly. And that's a very... I wish the field was more open like that,
+was open to new ideas and different ways of making a contribution.
+Yeah, that's one thing I hope to highlight soon on my channel. Specifically, I think one really good
+example of this is some of Kerm's recent work. He's really good at showing these examples. We're
+like, even before this current one, I'll go back to his presentation before that, because it's
+much simpler, is this idea that do bigger networks generalize better. This is an idea that you can
+test very easily, right? Like you don't need a three billion parameter network. You just need
+different levels of scale. They don't all have to be big. They can all be different levels of
+smaller medium. And he has some really interesting results there that might... I might make a video
+on that. But yeah, I think after seeing a couple examples of this myself, it's a lot more convincing
+that you can do that sort of really good research without a lot of money in supercomputers. Yeah.
+You know, one funny thing I saw this... Sorry, this is going back to when I mentioned the RL book. I
+was reading... I was curious what people were thinking about this. I found one post, it was like,
+oh, this book has ruined an entire generation of researchers. I think it's someone from like
+control theory. Anyway, funny how different people have such different opinions.
+It's interdisciplinary. And yeah, like control theory is one of the big disciplines. Yeah.
+We were... When Andy Barton and I were creating reinforcement learning,
+creating it, reawakening it, you know, that was the big thing to determine. What's the
+relationship between these ideas and existing fields like control theory? And the control
+theory guys were always so resistant to new things. And you're seeing more of that with that
+comment. People saying, well, you know, you're not thinking about the way that we always thought
+about it. Anyway, I just thought it was funny, funny tidbit. Yeah, it's been good. So is there
+anything before we wrap up that either you want to ask me anything you wanted to promote now that
+you have cameras? So I have no clue how many people will watch this, but I imagine a couple thousand
+at least probably. Maybe tens of thousand. Maybe promotion, open mind research.
+No, I would just pull together what we've just been talking about
+and say you want to think on your own, you want to think from first principles. And the density
+of the research papers that are coming out in the tiny part of our field, the correct reaction to
+that is to move out and to go multidisciplinary. Think about how all sorts of different folks from
+different disciplines have thought about the problems of the mind. So think about psychology,
+think about animal learning theory, attend the multidisciplinary conference on reinforcement
+learning and decision making, and maybe attend the upcoming reinforcement learning conference
+in August, in Massachusetts. That's exciting. That's exciting. So
+insights can come from anywhere. You can all do it. Your most greatest potential
+for making contribution comes from some idea that you already have, not from some idea you're
+going to read about. You can do it. It seems impossible. It seems incredibly arrogant to
+propose that you can have some idea that no one else has had before or can see the benefit of.
+It seems so arrogant to make a contribution to science. Anywhere. Even you're doing a master's
+thesis, you want to make some contribution, just the idea of making a contribution seems like an
+arrogant thing. So you can think of someone else who has never thought of it and think through it
+more deeply than even in a small area and contribute to the field. But that is the only, you know,
+anyone can do that. You don't need to be super trained or a genius. You just need to think clearly
+and one can make a contribution. Hard work is important too, but there's no special
+trick to it. Anyone can do it. And
+that's the way I think about when I write the book.
+Try to try to say things that anyone can understand and appreciate and move forward from.
+So I hope we can all do that and I hope we can all do it in a positive way that doesn't needlessly
+criticize, but just tries to make progress. Good message. I like it. Okay. On that note,
+thank you very much. Thank you, my pleasure. This has been great. Cut.

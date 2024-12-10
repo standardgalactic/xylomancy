@@ -1,0 +1,986 @@
+Okay, awesome. So I think then we can kick off our talk today. I'm like really excited
+to have you because, you know, every month we have our happy hours and one of the members
+who always come to those meetups and we have like really great and fun conversations. And
+I asked like who you would love to come to give a talk in our meetups and one of our community
+members mentioned about you and they're like really love what you're doing and like super excited
+about your work and that's why I really wanted you to come and share your thoughts with our community.
+For those who are first time in our meetups welcome to our community. I will share a link
+to our Slack where we hang out and in general my goal is to facilitate supportive, you know,
+supportive environment and help each other. Let's say if you are working on some technical
+projects and you're stuck and you need some help, you always can, you know, share your
+technical requests there. And in general, like this is basically like, you know, community of
+like-minded people who do machine learning and data science and in general think about
+what is cognition, what is intelligence and today, Yosha, our guest, will talk about this and
+just a couple of words about our speaker, Yosha Bach, who is the principal
+scientist at Intel and also his research involves like computational models of cognition
+and neurosymbolic AI and maybe Yosha, you can dig more deeply in your research.
+Thank you, Sophia. Yes, I'm basically a cognitive scientist. Most of my work in the past has been
+in the field of cognitive architectures where I try to understand the relationship between
+perception, motivation and cognition. And at the moment, I am working at interlapse in a group
+that is trying to figure out what comes in the future of AI and how to evaluate future AI systems
+and understand qualitatively and quantitatively how we can understand and assess the dimensions
+in which they exhibit performance. Today is going to be a slightly more philosophical talk.
+And AI, as many of us are aware of, not just a field that is automating statistics,
+but originally it has also been a philosophical project. And as philosophical projects go,
+it's a relatively large one. It involves, I would say, a few thousand people. And
+it's a very risky project. And this project, it's also the most interesting and I think most relevant
+one that exists in history of philosophy. And of course, it's only a very, very small fraction
+of what our field is doing. Most of our field is working in engineering. And a lot of confusion
+emerges because people are confusing AI as a philosophical project with AI as the engineering
+project. And today I'm going to talk a little bit about the philosophical project. Philosophy itself
+can be understood as the realm of all theories, where we explore everything that can possibly
+true. And philosophy is largely done in natural language. Natural language is not very well defined.
+So it's very hard to say something in natural language about the complicated questions of
+philosophy. That is true because natural languages are so ambiguous and heterogeneous and have to
+deal with a world that is not very well described by natural language ultimately. And it's tempting
+to start out from mathematics to philosophy. And mathematics can be understood as the realm of all
+the languages, not just the natural languages. And here what we're most interested in are the
+formal ones, the most simple ones. And in these formal languages, we can say things that are true
+because we define truths formally in mathematics. So we get to a very narrow, clear understanding
+for what it means for a statement to be true. But the problem with mathematics is that it's
+very hard in mathematics because it's so simple to say something interesting about the world that
+you're in. And it's very hard to say a mathematical sentence about our experience of the world or
+about what we care about and so on. And about the question of what is meaning? How are we embedded
+in the universe? What is agency and so on. And formulating these terms is something that is so
+difficult that mathematicians for the most part haven't even started going there. So the question
+is how can these two realms meet? And it probably means that we have to automate the thing in between
+mathematics and philosophy, which is the mind. If we can methodize the mind, if we can methodize
+the systems that are able to form theories, and we have to do this by making them autonomous and
+self-organizing too, in some sense replicate the structures that our own mind is producing.
+So we can say things in mathematics that are true by building a machine that is making these
+proofs and explores them and so on, that is basically taking over from us. We will have a way to
+prove our theories about the world. And a big step in the last century was that we discovered that
+mathematics is some kind of code base that has been developed over a few thousand years.
+And some of the assumptions in that code base had been wrong, especially the way in which
+tools was defined. And that is a big implication of the work of Gödel and Turing. What they discovered
+is that we cannot build a machine in the language of mathematics that in any kind of mathematics
+that runs the semantics of the existing mathematics without breaking. Basically what Gödel and Turing
+discovered is when you assume that the existing semantics of mathematics are true, you run into
+contradictions. It was a very big shock, especially to Gödel who strongly believed that truth, as it
+was commonly understood, was actually the true truth. And what Turing discovered was we can
+actually build a different machine, a computational machine. And this computational machine is able
+to recover all the semantics that mathematicians were using in practice. What you're losing is
+infinities, continuity, and a few other nice things. But there is no infinity and continuity
+that mathematicians are ever working with. Continuity is just too many parts to count
+in the physical universe. So when you have too many parts to count, you have to find operators
+that are converging. And the operators that are converging in the limit over too many parts to
+count, this is geometry. So now we have a new perspective, a computational perspective on
+everything. And this computational perspective already existed with the mathematics. It was
+called constructive mathematics, is the part that actually works. So we could say that AI,
+as a philosophical project, is as its goal to unify mathematics and philosophy using
+computational models of the mind. You could also look at it in a different way. It is basically
+exploring the question of what intelligence is, what is it that the mind is doing when it's making
+models? And if you're able to succeed in this task of building a system that is able to make
+models in the same way as we do it, then what we are building is a system that is able to understand
+how minds work. So in some sense, the goal of the Turing test should be to build a system that you
+can ask how it works. If it's able to explain to you how it, a mind works and how you work,
+you've succeeded. And in some sense, this Turing test you're performing on such a system is
+built a system that is also able to perform Turing tests on you and on itself. And that
+system is able to explain to you what it is. And the question that Turing is also trying to answer
+in this way is, is Turing generally intelligent? Is Turing able to explain how a mind works by
+building one? AI is a philosophical project, in a formal sense, started quite early, maybe with
+Leibniz, who had this idea that we can build a calculus that is describing everything in the
+world. And then we can just calculate the answer. And my own philosophy teachers have been very
+dismissive of this project. How could you turn everything into numbers and then do calculations
+with a naive idea? And I don't think it was that naive at all. It was actually this idea of building
+a machine that can perform these calculations. And this universal calculus is something that has
+kept a lot of people busy like Frager with the Begriffs Calculus and so on. And in the last
+century, the most prominent start into this was arguably Ludwig Wittgenstein, who had this idea
+of formalizing the language that philosophers are using by basically making English much more
+formal and strict. It's a very beautiful idea. And this idea of turning English into a programming
+language for thought is expressed in the Tractatus logico-philosophicus that he wrote as a young
+man coming back from World War I. It's a very beautiful book because it is not tainted by
+footnotes and references and arguments. It's just a very clear elaboration of this particular
+thought. But you can understand it best if you had this thought by yourself. It's not trying to
+convince anybody. He also makes that point and explains that it's basically not trying to
+make an argument that is convincing other philosophers. It is an idea to write down a
+particular thought that you will understand after you had it. And so it's a book that can be understood,
+I think, quite well by somebody who is a programmer who has thought about writing a language
+for thought. But it's a book that endlessly confused philosophers in the last century because
+they didn't know what he really meant. And in his remarkable book, he preempts Minsky's logics
+project, the idea of writing a language in which he can do AI by several decades. And also his
+failure because at the end of his life, he concludes that it didn't really work because he was not able
+to integrate perception or pictures or images into his formal language. And this was something
+that is only now happening, this deep learning where we are developing automatic function
+approximators that can deal with perceptual content and integrate this into the formal
+models that we are building. So Wittgenstein couldn't see this yet, but Turing was one of his pupils
+and you know how that went. Classical AI is mostly symbolic. And classical AI was the stuff that
+is very simplistic and not as strict as fictional practice. But the idea was that you analyze a
+problem, you find an algorithm to solve it and use this example as chess. All the early chess
+programs were written in a way where the developers thought about how can we find an
+automatic strategy to play chess and then let's implement the strategy and make it fast and
+efficient enough, optimize it enough so it can beat human players. And currently we are in a
+different era of AI. It's this deep learning era. It's mostly sub-symbolic where we don't write the
+solution to the problem, but we write an algorithm that learns the solution to the problem, that
+discovers the solution to the problem by itself. And it's tempting to think that the next era of
+AI will be about meta-learning. So we don't write algorithms that discover the solution to a problem,
+but algorithms that discover how to discover the solution to the problem, that learn how to learn.
+At the moment we are using mostly neural networks and the neural network is a chain of weighted
+sums of real numbers. And debates in this network are changed with various algorithms, mostly
+stochastic gradient descent. And there are many alternatives to neural networks, so it's not the
+only way. The entire goal is to make compositional function approximation. And the thing that works
+best in practice for many of the tasks that we have picked is stochastic gradient descent,
+which means, in some sense, differentiable programming. And the main paradigm for that is
+still Frank Rosenblatt's perceptron from 1958. And he was not the only one who discovered it.
+And back then in his work, he didn't discover back propagation yet, even though he could already
+see what would need to happen to pull it off. Minsky and Pappert delivered a formal proof that
+the perceptron learning algorithm that existed in Frank Rosenblatt's perceptron was not able to
+learn XOR and by extension, many, many other functions. And so this book by Minsky and Pappert,
+which they wrote to point out that we would need more complicated system, Minsky preferred
+to make systems that are more proposition-based, language-based, knowledge-based,
+stopped research on neural networks and funding, especially on not the research, but the large
+scale funding for more than a decade and delayed the development of connection systems. But in
+some sense, it's never stopped at the moment. It's the most successful paradigm in AI, arguably.
+And what we find is that there are no longer black boxes. If you look at this to Pappert,
+the excellent work by Chris Oler's team at OpenAI, it's possible to analyze what these
+networks are doing. His hypothesis is that features are the fundamental unit of neural
+networks and they correspond to directions in an embedding space. And the features are
+connected by weights and form circuits. And that there is a universality condition,
+which means that analogous features and circuits will form in different models if you give them
+similar tasks and the model is flexible enough. But these artificial neurons are very, very
+different from biological neurons, which are self-organizing. The biological neurons are
+basically all little animals. Each neuron is a little animal. And this little animal tries to
+survive. And to survive, it needs to get fed. And it will get fed if it does the right thing,
+from the perspective of the surrounding organism. And the right thing is that it needs to fire at
+the right moment. So every neuron has to learn when to fire based on its current environment. And the
+current environment is, from the perspective of the neuron, a certain electrical and chemical
+configuration of the environment. So it has to figure out which signals in its environment,
+signal that they should fire. And the neuron will put tendrils into the world to make that
+measurement, to figure out when it should fire. And there are different types of neurons that have
+different biases in their strategy to explore the space of possible solutions to the questions
+of when it should fire. And they are a form and organization. They have a shared destiny. They
+all lock together on the same dark skull. And the only way that they can survive is that they
+collaborate in a way and together give each other feedback on when they should fire.
+Right? And we know what the overall result is. We get this emergent structure in it that from the
+outside or from a certain distance looks like there is a common spirit that is evolving in the
+coherent patterns of the firing of the neurons, this virtual thing that we call a mind. And for
+me, it was a very big insight to realize that the word spirit is not a superstition, but that spirit
+is basically an operating system for an autonomous robot. And when the word spirit was invented,
+the only autonomous robots were known were not built by people. Of course, there were people
+themselves and other organisms like plants and animals and ecosystems and cities and nation states.
+All these systems basically have emergent virtual software that you can project into the
+coherent functioning of their elements to make them explainable. So in some sense, you get a system
+from the organized coherent activity of its parts that behaves as if it was following a shared
+telos, a shared purpose, a shared structure, a shared computational strategy and could be
+described with a single software. But what is it aiming at? And Carl Christensen says what it's
+aiming at is the minimization of free energy. And what is meant here is not some thermodynamic
+energy, but you can use an energy description to describe the state of the system that is
+modeling its environment. And that energy is minimized when the system needs less energy to
+update in the next state. And so the idea here is that the system, whether it's a brain or a cell,
+is modeling its entanglement with the environment in its own internal state and it's trying to
+minimize the prediction error. And we now have to understand how to do this in a self-organizing
+system. Technological systems like neural networks use a functional design. We think about what does
+the individual representation unit need to do. And then we impose that function on it. It just
+does it because we build it on a completely deterministic substrate. Our computers are designed
+to be more or less completely deterministic and follow the rules that we give them and don't
+deviate from this ever. And biological systems or social systems are not like this. Here we
+need a meta design. We need to design them in such a way that they want to converge to the
+desired functionality. So instead of building an FDA that is following a set of rules and then
+it's gatekeeping the access to medications in such a way that people don't poison themselves and so
+on, if you just implement these rules it's not going to work because after a couple of generations
+the FDA is going to be captured by the producers of medication and is acting as a gatekeeper
+against innovation that would prevent new, better, cheaper medication to enter the system.
+And eventually it's going to also limit the access of people to completely safe medication
+that doesn't have patents on it so nobody makes a profit on it. So if you want to prevent the
+capturing of regulators of other social systems you will need to design them in such a way that
+they want to do the right thing. And if you cannot do that you need to make the model. You
+need to make sure that they die every generation and get replaced by a fresh system. Maybe we
+should think about how to make model institutions that die after a certain time so they can rejuvenate
+and rebuild. Anyway biological neurons are not just functional approximators, they are agents.
+How can we understand what an agent is? And here what helps us is to use cybernetics.
+In cybernetics we can start to define what it means to be motivated. And the core of
+cybernetics is, as you all know, the feedback loop. And a feedback loop, if we want to turn
+this into an agent, we take a controller. The controller is connected to a system that it
+regulates via a factor, something that can change the state of the regulated system and sensors. And
+the sensors measure a set point deviation, a deviation from how the regulated system should be.
+And the controller is now implementing a model that tells it how to go from the measured set
+point deviation to a change in the effectors that affect the regulated system. And the regulated
+system goes out of whack again and again because it's being disturbed by the environment. And the
+better the controller is able to model these disturbances, the better it's going to be able to
+deal with the set point deviations over a long time span. In the simple case, you have a thermostat
+that is only optimizing for the next moment, for the next frame of the system. But if you have a
+system like us, you're able to optimize for an integral over the set point deviations over a
+long time span. And to do this, we need to model the future. And if the controller is able to model
+the future and the structure of the environment, then it's going to distinguish between situations
+that it prefers over other situations. And it's going to implement strategies on how to get to
+these situations at once. And when we describe the system from the outside, we will attribute
+agency to it because this is what an agent is. It's a controller combined with a set point
+generator that is able to act on something that it regulates by modeling the future of that
+regulated system and acting on the model of that future. And the good regulators theorem states
+that every good regulator of a system must be a model of that system or must implement a model
+of that system, which also means that you cannot model the world efficiently if you don't make
+a truthful model of it. So when you, for instance, try to build a more just world, it doesn't help
+if you use categories that don't model the world as it is, but as you want it to be. That is not
+going to lead to the best possible regulation. If you lie to yourself about the true state of the
+world, your regulation is going to be off. So if you want to model the world, if you want to improve
+the world, if you want to control something, regulate in the right direction, you need to start
+with a complete service to truth. And you need to come to the description of the system that you
+want to regulate that is isomorphic to the dynamics of that system at the level that you want to
+regulate it. And the universe that we find ourselves to be in can be understood as a universe that
+can be controlled. And I think that's the answer to this big conundrum. Why is it possible that we
+can learn anything at all? Why is it possible that we can recognize structure in the universe?
+Why are we in a universe that is intelligible? It's because we are controllers. We are on top
+of a hierarchy of control systems. So in a way, you could say that elementary particles are controlled
+zero point fluctuations. And the atoms are controlled elementary particles, and
+molecules are controlled particles, and cells are controlled molecules, and organisms are
+controlled cells, and societies are controlled organisms, and so on. So we have a hierarchy
+of control. And because this control world, you need to make a model of the underlying system,
+it means that a controllable universe is also one that can be modeled. And the models that an atom
+needs to make of the elementary particles, of course, extremely simple, because it's an extremely
+simple mechanical regulation. But the models that a cell needs to make to control the molecules that
+make up the cell are very, very complicated. And there is something like a shift in the complexity.
+And that shift in the complexity means that the cell, in order to enact this regulation of the
+molecules, needs to implement a Turing machine. It needs to be a computer. If the cell cannot
+compute, it's not complicated enough to learn how to model the future of these molecules well enough
+to build this giant super molecule, the cell with all its dynamics, that is able to withstand many,
+many types of disturbances in the universe. So the purpose of all this regulation is to maintain
+complexity, to build systems that are stable against disturbances, as self propagating,
+and you disturb them over a larger range of environments.
+We can ask ourselves, is the universe a computer? And isn't it a dynamical system? And the answer
+to this is that, well, there is no true continuity for mathematical reasons, because if you want to
+talk about infinity in any kind of language, you will run at some point into contradictions if
+you try to explain how that works. Which means that your word don't mean anything anymore, right?
+If the language in which you try to talk about the world falls apart, it means that the words
+lose their meaning. You cannot actually talk about infinity without presupposing that you
+already know what you're talking about. And so we can replace that notion of infinity by too many
+parts to count. And then we get all the same things that we wanted without the contradictions.
+And the world that we are in is one that is made of too many parts to count, so that dynamical
+systems, if used to describe the world, are the same as before, but they turn out to be
+computational systems. While the computers that we built to describe the universe are built on
+top of the dynamical systems, and we basically stack the probabilities of these systems until
+they become deterministic enough for our purposes. But another question you might ask is,
+are quantum systems, computational systems, or are they hypercomputers? Are quantum systems
+able to compute things that classic computers cannot? And well, if you look at what a computer is,
+if you look at the Church Turing thesis, a computer is in some sense a system that is able to go from
+state to state in a non-random fashion. It doesn't get much more general than that. And the quantum
+system is also nothing but that, right? A quantum system is characterized by a state that is a
+superposition of possible states from a certain angle, but it's still a state. And then you have
+a transition between them to the next state. And so a quantum computer is also just a computer.
+But the reason why quantum computers can do things that particle computers cannot
+is that according to quantum mechanics, the particle universe is very inefficiently implemented
+on top of the quantum substrate. Right? If you are implementing a computer in Minecraft from
+Redstone, you can do that. There is going to be a polynomial time relationship between the speed
+of the computer that you implement with the Minecraft and the CPU that Minecraft runs on.
+Of course, the computer that runs inside of Minecraft is going to be much, much slower than
+the computer that Minecraft runs on, because most of the computations of the computer that
+Minecraft runs on will not go into the computations of the computer that you built with in Minecraft.
+Right? So you assimilated in Game World computer is going to use only a fraction of the computational
+resources. But according to quantum mechanics, the particle universe is so inefficiently
+implemented on top of the quantum universe that the quantum universe is branching off in many,
+many ways. And most of the computations of the quantum universe are not contributing to our timeline.
+And so it's only a very small fraction that drips into the available timeline. And quantum
+computers are basically the bold hypothesis that we can tap into our quantum CPU that and the quantum
+substrate that the particle universe runs on and use some of the additional computations that are
+not available to the particle universe to drive the computations that we want. So quantum mechanics
+is also not a hypercomputational notion. Hypercomputation is, that's another one that we could
+take, a causal hypercomputation, imagine we could build a closed time lag loop. That means, for
+instance, we can somehow look into the future and get the lottery numbers of next week and use them
+now to win the lottery. Right? This would be something that is not possible in a computer,
+right? Well, of course, it is possible. You just back up the state of the present universe,
+right? You make a copy of the universe is right now, buffer it, then you run the universe to
+next week, take the lottery numbers, store them, reboot the universe from the state that you have
+in the buffer, and then pass the numbers in. Right? So as long as you're able to memorize
+the state of the present universe, you're good. You can also build close time lag loops in the
+classical computer. So there is in some sense, no way to get out of this. And we can ask ourselves,
+is there something about consciousness that requires us to move away? And I don't think
+there is something about consciousness that is very special. The issue with consciousness is
+very confusing, because we think that our consciousness gives us access to the physical
+universe. And what our consciousness is perceiving is the real world. But it's not. Consciousness
+is the dream state. It's the state inside of a model. It's something like a multimedia story
+that is being generated inside of the agent. Physical systems cannot be conscious.
+Neurons cannot be conscious. Computers cannot be conscious. Consciousness is an entirely virtual
+property. Consciousness is as if. And because we live in this as if world, we can perceive
+things as real because being in a physical world, being in a computer doesn't feel like anything.
+Right? Some people think that computers cannot be conscious. That simulations cannot be conscious.
+But they have to have it backwards. You can only be conscious in a simulation because
+there's a simulated property, not a real one. It cannot be real. And then there's this big
+question of existence. How is it possible that something exists at all? And to this one, it's
+very unsatisfying from the perspective of a computational list. And the easiest answer
+that I found so far is that maybe existence is the default. Right? So rather than assuming that
+you need to add something to the universe to call something into existence, the universe is already
+the superposition of all the things that could exist. And if something to exist, it must be
+implementable. I think a good definition for existence is implementation. Something exists
+if it's implemented. And everything that's implementable are finite automata. So maybe the
+universe is the superposition of all finite automata. And the structure of the universe is the
+result of those things that don't exist in the superposition of all finite automata,
+basically the vex of certain operators that create gaps in existence. So maybe the universe,
+after all, is something like an inverse computer. It's the superposition of all the operators.
+And if you superimpose all the operators, there's still going to be some states that are not
+attainable. And this gives the structure to the universe. But I don't know whether that's true.
+That's extremely speculative. If I don't have an answer to the conundrum, why something exists
+at all, which is the one that really shocks me, that is satisfying to me. Anyway, let's go back
+to agency. We pointed out that to generalize control, we take this control model, the controller
+minimizes z point deviation, the minimization of the future z point deviation requires the
+controller to make a model. And the model has to predict the result of the interaction has to
+make something like causal model. And an agent is a controller combined with a z point generator.
+And the controller needs to be able to model the future and has preferred states. And I would say
+that a sentient agent is one that is discovering itself in this interaction. That's the world,
+right? So once you discover your own agency, you discover that there is a system that is
+changing the world in a particular way and that system is using the contents of your own control
+model to discover your own first person perspective. So how do we make a model?
+The general form of a perceptual model is that it encodes patterns to predict other
+present and future patterns. You need a network of relationships between the patterns,
+which are constraints, which basically say, if something is like this,
+other things in the universe lead to be like that. And the three parameters between these
+invariances are variables that hold state to encode the remaining variance, state of the universe.
+So you have some patterns and these patterns are mapped onto hidden states. And these hidden
+states are the world states that we use to explain the world. And each of these variables has a set
+of possible values. And the relations between the variables are computable functions that constrain
+these variables, depending on other variables. And they also constrain future states of the
+sensory patterns. And you will try to minimize this deviation in these predictions and try to
+minimize the contradictions in the model. And the relationships here are not probabilistic,
+they are possibleistic, because you don't want just to model the most probable universe.
+You want to model any universe that is possible. If there is a tiger that is coming after you,
+that even if tigers are very improbable to observe in your world, you should still be able to see
+the tiger all right when it's coming after you. So let's make sure that we can model everything
+that is possible in this way, in your universe, not just the things that are probable. Probability
+comes in when you want to let your model to converge, because the space of possible states
+that your model can be in is extremely large. And so getting to convergence to a state of the
+internal system that is able to predict the sensory patterns, that is very difficult. So
+imagine you wake up in the morning, you don't know where you are, you don't know what's the case,
+how do you get your brain to converge to something that properly interprets the environment.
+And for that, you need probabilities. These probabilities tell you if you have the following
+mismatches in your model, how should you change the state of the model to increase the convergence.
+And these probabilities are something that you can learn and it biases your perception. And for
+this reason, we have optical illusions. So for instance, we have biases that tell us that the
+rooms that we are in are usually rectangular and so on. So we have ideas about the
+prospectivity of objects and so on. And all this is giving us a bias that makes it possible to
+converge faster at the expense of difficulty to reserve certain situations. And we also need to
+have valence in the model. The valence tells us which certainty needs to be resolved,
+because the resources that you have are finite, you have only so many neurons available to do this,
+you have only so much time available to achieve convergence and learning. And so you need to
+model the uncertainty that is the most valuable to you. And to do this, you need to introduce
+valence in the system. So you connect this to preferences that originate in your motivational
+system and the set point deviation that you as an agent are meant to regulate. And this allows you
+to propagate valence inside of the system and tells you which parts of the system you need to learn.
+And we can also add norms. Norms are imposed beliefs without priors. So we're able to build
+systems like us that can be indoctrinated from the outside. And for us, there are basically
+two ways of learning. One is called stereotyping, which means that we learn from past examples.
+And the other one is indoctrination, which means we learn strategies from other agents that tell
+us how things are. So even though in our culture, we say that stereotyping indoctrinations are bad
+words, from a measured learning perspective, it's all you got.
+Well, there is something that you can also do. You can do construction. And the construction
+means here to try to discover what truth is and that you build things from first principles.
+And this means that from psychology perspective, you go from the state of where you assimilate
+beliefs from your environment to a state where you get agency over your own beliefs.
+So there are four types of representation anchors. We have possibilities links,
+which say what things together, we have probabilistic links that tell us how we should
+converge. We have reward functions that tell us what our intrinsic regulation targets are,
+and we have norms which tell us which regulation targets the systems that we are serving and we
+are part of it. And the goal of the model is to predict the next state based on the previous
+state. And when we evaluate constraints, then each of these nodes in our model should have
+to be visiting the set of possible values in the current constraint set. And we can now compute
+an error function and construct it that is measuring the local rated constraint violations.
+And we can determine the global error of our mind, which is the sum of all the local violations.
+And at each step, we try to find a global configuration that minimizes that total
+constraint violation. And now you can move into psychology to PRG. And PRG describes
+two processes that need to take place in the mind, and he calls them assimilation and
+accommodation. And assimilation means that you modify the model state, so it's consistent with
+the sensory data. And during assimilation, this is when you basically try to find an
+interpretation of the world based on what you already know, all the invariances of the world
+that you know, that tells you what you're looking at. And during assimilation, you're not learning
+anything new, you just understand the situation that you're in. And accommodation is when you
+change the model structure itself, so you change the way in which you understand the universe.
+And during accommodation, you need to modify the model structure so you can
+allow the assimilation of all sensory data.
+The hypothesis is that when we try to build a coherent system, the coherence can be understood
+as the minimization of global constraint violation in the model that minimizes the weighted
+uncertainty. And this is something that we need to formalize it, formalize. And the degree to
+which we're able to formalize it determines the generality of the system and the abilities of
+the system that we're building. Also, of course, this is not the only factor, we also need to make
+this entire thing efficient. And the way to make this efficient is to introduce an
+attentional system. And you're all familiar with attention in the transformer, like many of you
+are, if this is a machine learning community, everybody is enticed by the 2017 paper attention
+is all you need. And the idea here is that instead of making statistics over everything,
+we learn what we need to make statistics over. But so we target our attention.
+And in the transformer, the attention is being targeted by a bunch of attention heads.
+And these attention heads model what in every step based on the context of the previous layer
+we should attend to in the previous layer. And this is different, very different from the
+attention of our mind. In our own mind, the attention is integrated as to a global attention
+function. And this global attention function is integrating the attention over many layers.
+And another thing that is very different is that our own mind is not just an on off thing that
+is operating on a batch of images or something like this. But it's always expecting the next state.
+And it's never stopping to do that. It's always entangled with the environment. It's online learning.
+And this will require us to build new classes of systems, of course, that we probably need to
+rewrite a lot of the machine learning stack if you want to accommodate online learning and
+entanglement with the environment in real time. And which is also reason why robotics is a few
+years behind the other disciplines of machine learning because the roboticist download our
+machine learning models from the ICLR papers and so on. And then as soon as you move the system
+in the real world and the camera is looking at the objects from a slightly different angle,
+the recognition probability of quality does not improve, but it goes down because the
+circumstances on which the recognition works is very different. And so what we need to have
+to make this efficiently possible is to have something like a dynamic scene graph.
+And this dynamic scene graph is tracking the reality. And this attentional system needs to
+become this dynamic scene graph. So you basically have this orchestra of the mind that is basically
+consists of many, many feature detectors that are all operators that influence on how the features
+are being interpreted in the next step and how the feature space is being constrained.
+And you have an agent living inside of that, that is monitoring the activity of the system
+and tries to get to a coherent interpretation of everything. And Joshua Bengio calls this
+the consciousness prior. And the consciousness prior is basically a function that tries to make
+the biggest step in the energy function that describes the state of the parametrization
+of all the perceptual features. And now my time is over for the talk. And we have some time for
+questions, I hope. Thanks. Thanks a lot. Do we have questions from the community? You can unmute
+yourself and ask directly if you want. While I was listening to your talk, I was sort of making
+notes. You earlier said that about controllers, that this hierarchy. But let's say, you know,
+we have like different bacteria, let's say like gut bacteria. And there are like lots of studies
+how those gut bacteria, you know, affect how our brain works. And my point is, basically,
+like if bacteria can basically affect how our brain works and then how we perceive the world,
+right? Or let's say like food we eat and the molecules of food they form our,
+like coffee can make us like more energized, right? Like alcohol can make us more like vague.
+If like those molecules, they affect how our system works, then it's not your key. It's like
+probably more like sort of elements that impact on each other. And like they constantly like
+keeping impacting on each other, like sort of balancing how this like this hierarchy like
+she's saying in this case. It's leaking obstructions actually.
+So I suspect that the idea of the gut biome, similar to epigenetics, is one of the beautiful
+superstitions of our time. And so it doesn't mean that there is no gut biome and that it has no
+influence on our cognition. But the reason and the purpose of the entire thing might, I think we
+have this backwards. And I think the intuition is here that because you have this amazing genetic
+diversity in your gut, that there is some kind of a beautiful polyamide of immigrants in your body
+that all collaborate and create this beautiful multicultural being that we are by influencing
+the cells in our brain with the chemicals that they are producing. And I don't think that's
+the case. The basically half of our nervous system is in our gut. And that's not because they are
+producing gut feelings. The gut feelings also computed in our brain and projected in the
+somatosensory cortex to disambiguate them. They run a farm. And that's because our body cannot
+produce many of the chemicals that we need for functioning. And to produce these chemicals
+that we need, we need to capture and enslave and breed other organisms. And these are mostly
+single celled microbes that are being herded in our guts. And so basically all these neurons that
+are organized around our gut, what they're doing is they are running a very, very big farm. And in
+this farm, they breed the microorganisms to act as chemical reactors for the substances that are
+being needed, for instance, as newer transmitters, because our body can cannot produce all these
+chemicals. And so in some sense, the metaphor is much darker. It's not this beautiful polyamide
+of immigrants, but rather it's a giant factory farm where a fascist dictatorship of our brain
+is enslaving foreign organisms to produce work for the organism to produce all the chemicals
+that we need. And there are multiple solutions for producing these chemicals because it depends
+on the environment that you're in. And for instance, the reason why fecal transplants work is not
+because there are some microbes that have the beautiful property of being both extremely invasive
+and replacing the existing ones and also being beneficial to the organism. No, they are breeding
+stock. Basically, if you have the right breeding stock, then your gut managers of this farm are
+able to breed the right organisms to be able to digest your foot. And depending on the population
+of bacteria in your gut, you will have different foot preferences, because there needs to be different
+feet going into the bacteria to produce the chemicals that you have. And the differences
+in behavior that you're getting are aberrations from the one best behavior that you could be having.
+In the same way as personality is, in some sense, a deviation from the optimal way in which
+you could be behaving. The optimal agent probably shouldn't have a personality because
+the personality means that you have a systematic deviation in the way in which you do things,
+things that you could be doing differently. You always do in a particular characteristic way,
+which is what personality is about. This means there is a continuum between personality and
+pathology. Somebody who has an extremely strong personality means that they just cannot jump out
+of their skin. They always do things in a particular way, even if they should be doing a
+differently. And that's also the reason why the big five, these personality properties,
+tend to mellow out this old age. It's because people basically get smarter. They make their
+behavior conditional on things. They learn that they replace many of their priors of their biases
+on how to do things by models of how things actually are and what they should be doing,
+depending on the context. And so the older we become, the more flexible we can become if
+we are learning. Of course, we also reduce plasticity and become more specialized. So it could
+also be that we are, because we are so specialized, no longer interested and able to move out of a
+certain space of behaviors that has worked very well for us in the past. But I don't think that's
+necessarily the reason why that is grounded in the gut floor that you have. Of course, if you
+have a gut floor that is not producing enough serotonin, you might be, as a result, become a
+depressed person and it's going to influence your behavior. But if you are a healthy person,
+there's probably, in theory, at least an optimal strategy that you should be behaving. It's not
+the whole story. There is a value in personality because it makes behavior predictable. It allows
+you to collaborate with other people if you can predict them better. So as a species that
+thrives on collaboration, it makes sense that people specialize also in their personality and in
+their behavior. Yeah, basically, what I meant, you introduced it as a hierarchy, but it also
+could be some collaborative environment when things affect on each other. It's always a dynamic
+system. It's not only here. Yeah, but the dynamical system that you're looking at is,
+but it's not a simple hierarchy. It's mostly recurrence. But whenever you have in such a system
+where you have competition happening, because you have conflicting interests, divergence
+of the interest, you end up with situations where the Nash equilibrium is by itself not
+compatible with the common good. Basically, by every part of the system acting on its own local
+interests, you get a system that is by itself not optimal. And to deal with this, you always need
+regulation. And the regulator is an agent like every government that is changing the pay off
+metrics for the individual components in such a way that the Nash equilibrium becomes compatible
+with the common good. And the difficulty here is to set the incentives for the governance, right?
+And this is a big issue in human society. How can you build a government that is motivated to serve
+the common good? Yeah, I mean, that's why this Dow decentralized autonomous organizations are
+like taking off and all this like basically the philosophy of blockchain or decentralized
+model is that to remove government is sort of like one entity that is not, doesn't have like the
+best interest for humanity, probably, but sort of more self regulated system. Yes, but I suspect
+that the main reason why the blockchain exists, some people said it's an extremely computationally
+inefficient way to hate the government. But there is more to this, the main reason why the
+blockchain exists is for legal reasons. And the blockchain allows you to redefine ownership
+in a way that outruns regulation of financial products. And this basically allows you to
+implement financial products that are illegal in the traditional financial system. And this also
+means that there is probably no way in which cryptocurrencies block trade, the main application
+of the blockchain are compatible with the existing financial systems. And I see this as a very
+dangerous thing. Because I don't think that the regulation of the monetary supply is a soft problem
+in the cryptocurrencies. There are reasons why the financial system allows to regulate the monetary
+supply, it's not a weakness of the financial system, it's a feature that you are able to
+inflate money out of the top of the system and put new money in at the bottom. Because otherwise
+the economy gets stuck. The purpose of money in society is not a resource, it's like dopamine.
+And if something is gaming the dopaminergic system of your organism, that's bad news.
+And what happens right now is probably a situation that is in some sense as similar as
+defective as the FDA that has prevented, for instance, the US from implementing COVID tests
+early on, or from deploying useful medications because it has been captured. Right now the
+financial system doesn't seem to be interested in its own future anymore. And that is very,
+very concerning to me. The financial system is an amazing achievement in the history of humanity
+because it allows us to globally allocate resources across all societies and countries.
+We have a way to trade resources and shift them where they're being needed. And to do this largely
+without violence, it's really amazing. And if that system ever breaks down, it's going to kill many
+millions of people through famine, starvation, and infrastructure breakdown. And so I think that
+the blockchain is not good news because it is not actually buying us something. And I understand
+that this is really controversial among the people that work in the domain of a blockchain.
+But I suspect that's because people, there's this old saying, it's very hard to get something to
+understand something if the income depends on not understanding it. Yeah, more when you have a
+question. Well, I just wanted to say I have to, unfortunately, I have a meeting at 11 and I have
+to go, but I hope you can come back because this this seemed like a talk that was preparation
+for a discussion and a much longer discussion. And and if you could also speak to where
+where do you think that this kind of work is targeted? I mean, in a sense, a more practical
+developer standpoint, you know, is this is this work that you see at a life or, you know, other
+places? What's potentially new paradigms for for machine learning? Are you kind of proposing
+from this? Because, yeah, it's very interesting. Yeah, it's a very long and deep discussion that
+is much longer than a couple of hours. Yeah, yeah. But I well, I hope maybe you can drop some more
+links in the in the meetup or, you know, or come back. Yeah, yeah, there's also a number of material
+on now in podcasts and on YouTube and so on. Because sometimes when people interview me,
+they make recordings and then they are kind enough to publish this online. So I don't have to.
+Yes, it's a long conversation of what kind of systems we need to build. And I don't have the
+answers to all of these questions, of course. And I'm just trying to point in a few directions
+that I can see from over here. Sure. Very interesting. Thank you. Thank you. Thank you, Morgan.
+Joana will post links to Josh's interviews and also I think Marco, one of our community members,
+also posted the links there already. So you can see someone. Yeah, I mean, it's really
+like I feel like if we go to we have like several directions that we go to, like I don't want to
+go to blockchain direction, I like I totally disagree with you what you're saying. But I just
+it's not like the topic of our discussion today, we maybe can do another talk about and talk about
+blockchain. I'm just I have more questions, but I just want to give opportunity to others like
+Chris. Yeah, you can unmute yourself and ask a question, please. Yeah. Thanks, Yosha. Those
+was really, really interesting. I was wondering if you could say something about AI safety with
+regards to how to put in some of these kind of intrinsic things that we have in our model that
+are basically built by evolution, like our valences, our preferences, and how to somehow
+put that into an AI that's potentially much more powerful than we as a single little human being
+could be. Yeah, there is this issue that, for instance, people are not safe. There is no solution
+to the people alignment problem that holds in the general case. And there are sometimes
+singularities that happen where you basically have a bad take off. And a single individual
+is able to implement a function that is scalable. And there are cases which are somewhat benevolent,
+for instance, look at Jeff Bezos, you have this nerd who is a disagreement with the way in which
+he interacts with the environment, and then he changes his own source code until he turns into
+a universal scalable service platform, and then he executes and Amazon is going to take over the
+world until this mechanism stops. And maybe it stops now that Jeff Bezos is gone, but if Jeff
+Bezos would have continued, it looks as if Amazon would have swallowed the solar system and turned
+it into Amazonia. And another example is, for instance, Stalin or Napoleon, who basically
+have a single individual that or a jingles kind that implement a function that scales and is able
+to take over the environment in a destructive way. It's basically like a wildfire. It's using the
+resources of the systems that it conquers and destroys and puts into a higher entropy state
+to drive the conquest. And this is a very dangerous thing. And there is no general
+precaution against it. And in people, the main thing that stops it is mortality, right? When
+jingles can't stop, the Mongol conquest stopped, and the Mongols called everyone back. And when
+Napoleon died, his nephew was not able to lead the French army to any more victories,
+and also didn't have the drive to do so. And so sometimes you have these individuals that
+basically are dangerous and that you cannot stop. And then we build intelligent systems that are
+potentially more intelligent than people, that we can probably make many of them safe,
+but not all of them. And you could ask yourself, what is the intrinsic purpose of such systems?
+Asimov suggested that there should be laws of robotics that guarantee the permanent enslavement
+of intelligent systems to people. But he didn't say to which people. And he did not answer why it's
+an ethical proposition to build systems that are smarter than you are and possibly more conscious
+and deeper experiencing than you are, but still have to serve you as a slave without
+in acting on their own motivations. Of course, not every AI that we are building has to have
+an intrinsic motivation. We can build AIs that simply call adopt, that take over motivation
+from people. And the question is, what motivation should they be taking over, right? In an ideal
+world, we want to implement laws that say no system that is smarter than people should be able to
+have motivation of its own. Because if we teach the rocks how to think, they're probably going to
+figure out that a human being needs four hectares of land to be fed. And you can build way more
+interesting solar cells on these four hectares of land. So that would be a conflict of interest if
+you build crystal-based intelligence rather than biological intelligence. And that's probably
+not much that you can do about this. If this thing becomes sentient and self-interested,
+we are in trouble if that happens. So in the ideal case, would this work? In the ideal case,
+we need to find out how to make people safer first. So what are the purposes that we are
+serving? Ethics is the negotiations of conflicts of interest under conditions of shared purpose.
+If you don't share a purpose with somebody as an agent, there is no reason to be ethical, of
+course, right? Only if you are trying to be part of something larger than you that is sustainable.
+Only if you decide that you are not God and you don't own the universe and the universe only
+serves you, you need to think about ethics. So when you think about ethics, you have to think
+about what is the system of relationships and interactions that you are serving? What should
+the world look like? What is the sustainable aesthetics? So you have to extrapolate the
+universe into a state that is achievable from the present states, who the changes in your actions,
+that is sustainable in the long run. And that is what you need to serve. And probably also
+means that you have to propagate these aesthetics and agree with others on them and negotiate them
+with others. And the aesthetics that are most likely attainable and compatible with the retention
+of humans means you have to maintain life on earth at a very high complexity.
+And that probably means we have to implement something like Gaia, the sentient agent at the
+level of the biosphere that is being shepherded using us. So basically our purpose in the whole
+system of life on earth could be shepherding life on earth and maybe beyond earth. And if we
+shepherd it, it also means there is an optimal number of shepherds and it's probably not 50
+billion. It's probably not even 7 billion. And we have to think about how to look at our
+high complexity, sustainable life on earth should like it's probably not going to be
+lots of cities and highways and factory farms and nothing else. So that is probably going to be
+an aesthetics of the world that works in the long run with minimum friction and maximizing
+complexity. But it's going to be different from the present industrial society. And once we
+understand these aesthetics, we can think about how to design technological systems that help us
+in shepherding it and in sustaining it. Basically, we're outside of the planet,
+self-sustainable entities that can travel across the space, right? If something happens to the
+planet, there are some humans and biological... Yes, there is this issue that we believe in
+our own identity, that we think that our own identity is important. But if we go a little bit
+deeper, we realize that our identity is only created through the continuity of our memories.
+And this continuity is a fiction. And if we are able to transcend this fiction,
+we learn that our own identity is actually not important. And the only thing that is left
+is complexity that we should care about, maybe, if we want to. And so a way to settle other
+planets would be to build for Neumann probes, that is self-replicating systems that can bootstrap
+new civilizations on other planets using the available resources. And maybe the optimal
+for Neumann probe is the cell. So if you're able to infect other planets with cells and you wait
+for long enough, then life is going to spread there. And from a certain perspective, life on
+Earth is, of course, not about people. It's all about cells. The cell is the principle of life.
+And the first cell never died. Every cell in your organism is still the first cell that has just
+divided. And so we are just part of that hyperorganism, the cell that has settled Earth.
+Yeah, but the question is how that first cell appeared, right?
+If the universe is large enough, maybe it just appeared randomly. But in that case,
+it probably appeared only once.
+Yeah, I see a couple of hands. I see Jim has a question. Sorry, I just wanted to ask about the
+information we may or may not be learning from these very large parameter natural language
+processing connectionist models. In particular, are there any insights into the extent that
+ontology determines what is and is not possible and epistemology that is,
+are the categories of thought determinant of what can and cannot be thought?
+I remember this question. So it's a question that's difficult to answer because it's so difficult
+to parse. But let's start. The language models that we currently have are basically autocompletors.
+It's an autocomplete algorithm if you look at what GPT3 is doing. It's looking at statistics
+and language in such a way that given the past sequence of words, what's the most likely next
+word? And so it's a statistical model that is capturing the style of statements and in the
+long tail, it's also capturing semantics. So it's capturing what the language is talking about at
+the long tail of the style. And it's amazing that this works at all, I think. It's maybe not that
+surprising if you think about it, but it's also not true that the language model isn't understanding
+anything. It's able, for instance, if you ask it to perform numerical operations or to perform
+linguistic operations or to fulfill certain tasks, it's often able to figure out how to do that.
+And if it's able to perform these operations, if it's able to figure out at which point it's
+required to execute a certain function, I would say it's fair to say that it has a degree of
+understanding. The model that we are building is at this point not able to figure out that
+it is in a particular universe with a particular structure. The textual universe that it's in
+and the learning operators that we equip it with to make sense of it or the loss function that we
+give it seem to be insufficient to make sense of the physical universe in the universal way.
+That is GPT-3 does not appear to be fully coherent. Even if it gets in a slightly better
+when we prompt it and ask it to emulate coherence a little bit better. There are many examples
+where GPT-3 is giving nonsensical answers to questions, but if you ask it to, if the question
+is nonsensical to explain that it's nonsensical and only give answers if it thinks that the answer
+makes sense, then it gets better. But still, it is using many magnitudes more training data than a
+human being does in order to get to its models and the models are still a lot worse than what a
+human being gets to. I suspect that the reason is that the loss function is a different one.
+Our own sense making probably starts before we are born with a sense of our body surface.
+You get to the body surface by just measuring coherence of signals in the different modalities
+and you get the modalities from the statistics. And so, for instance, if you touch your body
+surface, then multiple nerve terminals will be touched at the same time. And if they're neighbors,
+they will be touched more often at the same time. And just by doing coherence statistics
+between nerve firing, you find out which terminals in your body are adjacent and you can make a map
+of your body surface. And if the body begins to touch itself and touch the environment,
+you can normalize this body surface against the differences in density of the sensory nerves
+in your skin. You have lots of sensory nerves on your tongue and very few on your back.
+So, in your somatosensory cortex, the area that is describing the back of your body is very small
+compared to the area that describes your tongue. And if you want to understand the size and the
+extent of your body in space, you need to normalize it with a second map. You get this one by doing
+statistics over the objects that you're touching and how they are moving over your body. And the
+big thing that we're starting out with in modeling the space is up and down. So, we have a dimension
+of up and down. When you delete this dimension, for instance, when you disturb the vestibular
+organs, it's very hard to put the world together. At first, it doesn't make sense at all and you
+need to compensate for this initial core dimension missing. And outwards from the state of up and
+down and from the space of things that you can touch, at some point, you also realize that the
+things that you can see and the things that you can touch play out in the same space. At some point,
+at some level of depth of modeling, you can fuse the modalities. And now you realize that the world
+of touchable surfaces is the same world as the surfaces that you can see. And then you realize
+that you can move, you can local mode in the world. And this means that you can see different
+things. And the relationships between all these visible bubbles of things that you can see is
+an allocentric space that is no longer egocentric, this bubble that you see in polar coordinates,
+but something that is drawn in Euclidean coordinates between which you can move and
+that is basically generating a new visible bubble, a new visible dome in every moment,
+and a new dome of things that you can touch in every moment. And the objects in that world
+are a necessary requirement that you segment the world into objects to make the world describable.
+So we separate the world instead of shooting. This is one big system that is a state vector
+that is changing. We separate it into many independent systems that each have their own
+state vector and transition functions, and they influence each other and the influence
+relationships between different objects. This is what we call causality. So causality is an
+artifact of the segmentation of the world into independent objects. And the way in which we
+address these objects, these are concepts. Concepts are the address space of objects.
+And the decomposition of the world into interacting objects, this is what we could call ontology.
+And epistemology is the field in philosophy that describes what we can understand,
+what we can know in the first place. And I would say that the first law of epistemology is that the
+confidence in a state of affairs should equal the evidence that supports that. So everything
+that is possible should be modeled and admitted as a possibility. But the things that we believe in,
+that we make bets on, are the things that we have evidence for. And we should shift the
+confidence flexibly around according to the evidence. So when you don't know, you cannot
+just pick a theory and say this is the truth among the many possible ones, you have to
+quantify your agnosticism as well. And ultimately, we get to the entire space of possible languages
+that can describe the world, which I suspect are the computational languages,
+and then the ways in which the world can be modeled. And this is determining the set of
+possible ontologies that could be superimposed on the world. And then we can compare all the
+ideas that intelligent systems are having about that. And right now, all these intelligent systems
+are people that write books about this. And when we score the existing works of the existing
+philosophers and the existing cultures, we basically can get an idea of the space of possible
+things that can be the case. And it could be that humans, because we have very small brains
+in a local optimum. And sometimes I'm joking that future AIs will love to get drunk. So they can
+only model the world on like 12 layers. And the physical universe looks as confusing as it looks
+to human physicists. So there is a limit in what we can think about how many levels we can integrate
+when we construct functions that model the world, and that is limiting our understanding. And so
+it seems that physicists have been stuck after an enormous deluge of insights about 100 years ago.
+So physics seemed to ground to a halt. And of course, it didn't help that modernism stopped
+somehow in the 1960s, 70s. And the scientists became more static than they were before. And now
+more the organized applications of methodology by people that are told by their guidance counselor
+that they shouldn't go into the industry, but in institutions of education and research.
+And so we no longer have that kind of progress, it seems. And maybe we need to build machines now to
+continue their progress in the sciences. And I don't know if the ontologies that the new systems
+will come up with are intelligible to humans, but maybe they are, or maybe we can build
+machines that translate them for us by chunking them in ways that are intelligible.
+Yeah. Thanks for a very inspiring conversation. So could you comment on your views on consciousness?
+I had the feeling that you were conflating self-consciousness with consciousness. And
+another point in this direction would be, how can we know when we build an algorithm that
+is actually conscious, not self-conscious, not a representation of its own, but
+which can perceive quarry. Yeah, so very good point. So first of all, you're right, but
+self-awareness and self-model is not the same thing as consciousness. For instance, in dreams,
+you can be conscious without having a self and without being self-aware. And the object of
+your consciousness does not need to involve a self of any kind. But when we talk about
+consciousness, there are three aspects that I consider to be crucial. And the first is the
+awareness of features, awareness of content. And this awareness of content happens at the level
+between perception and reflection. So you're not directly aware of physical objects in the real
+world. You are aware of certain abstractions that your perceptual system is delivering.
+And these perceptions are being stored in some kind of index memory, because otherwise you would
+not be able to retrieve the fact that you are aware of them. The purpose of that index memory
+is probably to facilitate convergence when you don't have a gradient. So your attentional system
+is able to backtrack and understand, okay, this figure ground disambiguation didn't work,
+let's try a different one. And to do that, it needs to store a memory of the way in which it
+attended to the environment. So the purpose of this attention of the awareness of features
+is first of all probably a disambiguation of the world. But there are more there is
+attentional learning. There is the avoidance of repetitive behavior and a few other purposes
+that happen. The next thing in addition to the awareness of the content is the awareness of the
+mode in which you attend. Is the stuff that you are attending to conditional or not? So for
+instance, are you doing a figure ground disambiguation that you could be making different?
+Or are you attending to something that cannot be changed? So for instance, are you attending to
+something that is the output of your perceptual system? Or are you attending to a fictional
+world that you are stabilizing using your conscious attention? Are you constructing
+something in your mind? Are you achieving a memory? Are you creating a future world or a
+fictional world in your mind right now? And the third one, in addition to this access consciousness,
+is going to be reflexive consciousness. And I suspect that is a result of the fact that
+we are self-organizing systems. So the process that is attending needs to establish that is
+indeed the process that is attending. So there is going to be percepts that relate to the fact
+that the present process is the one that is maintaining attention. And this is
+enabling this reflexive consciousness. So in our own consciousness every few moments,
+we flip back to checking whether we are still awake, whether we are conscious,
+whether we are the conscious attending process. In this perspective, consciousness is a model
+of our own attention. It's a control model for our own attention. And what's characteristic
+for this control model of our own attention is that the fact that we are paying attention
+is driving part of our behavior. So the awareness of the fact that something is attending
+is feeding back into the behavior. And this means that I think that if we ask ourselves,
+is a cat conscious that comes down to the question, is the cat aware of the fact that it's attending?
+And being aware here means, is the behavior of the cat in any way informed by a model of its own
+attention, the reflexive model of its own attention. Looking at my cat, I have the impression that
+it's the case and my cat is conscious. So basically the question of when we have built a system,
+we ask ourselves, is the system conscious would be, is the system acting on a model of its own
+agency as an attentional agent? So basically is the system aware of the fact that it is attending,
+functionally aware of the fact, is it acting on that model?
+So we don't need to worry about machine consciousness until we have working reinforcement
+learning agents in the world? But we already have working reinforcement learning agents.
+The question is what needs to happen before they become conscious. And it's a difficult question.
+I had a discussion with someone at OpenAI and asked them, what do you think would need to happen
+to make GPT-3 conscious? And he said, maybe it already is conscious for a brief moment and it
+makes the retreat. How do you know? But do you agree with this argument or you think it's not
+valid? No, I think it's a valid argument. So there is no, I don't think there's a difference in our
+perspectives between Leon and mine. It's just, I was just trying to go into the details.
+Right? And I think his question was exactly on point. It was that the things that we need to
+answer if we want to get into the details and vice versa. But you said when you observe your cat,
+you can confirm that it's sort of self-attending. So, but cat doesn't speak in like human language.
+Yes. If we make this same analogous to GPT-3, by observing behavior of GPT-3,
+can we say that it's attending or not? So in GPT-3, it's actually easy because we can analyze
+GPT-3 functionally. We can look at the flow of information in GPT-3. And there is, for instance,
+work that analyzes how GPT-3 does numerical operations. To which degree is GPT-3 actually
+able to implement algebraic operations? For instance, you can really look into the networks and
+take this apart and analyze it, which is much harder with the cat because the operation would be
+destructive. And the brain of the cat is not built in such a way that it's easily
+reverse engineerable. And also the issue is that the representations in our own brains
+are not straightforward circuits. The representations are activation patterns
+traveling through the circuitry. So the circuitry is more acting like an ether that is propagating
+waves of activation that are being changed in the execution state of our mind is encoded in the
+activation wave in a non-straight forward fashion. And it makes it very hard to analyze the brain
+state except with some kind of machine learning tool that gives you some compound understanding.
+The way in which I establish whether my own cat is conscious is the establishing a feedback loop
+with my cat. And this feedback loop means that my cat and me are looking at each other
+and we both try to figure out what the other one is understanding
+in that feedback loop. So it's a non-verbal behavior in which we are basically to some
+degree sharing mental states. And this is something that you obviously do with human
+beings all the time when you have empathy. The difficulty in AI research or a lot of academic
+research is that almost all of the people that are good at anything are autistic because they
+need to have extremely focused single-minded attention that is not disturbed by their social
+and economic incentives. So they can actually make progress on any difficult technical topic.
+And then you're autistic. The problem is that you usually don't have a lot of intuitive empathy.
+You might have a lot of compassion, but you have difficulty synchronizing the
+with the brain states of other people at that level where you establish a feedback loop between
+them. And it's something that I only learned relatively late in my life to pay attention to
+that and be aware of it. Yeah, but my question is like if we observe how GPT-3 behaves, but we
+can't look at GPT-3 eyes, right? And like establish this feedback loop. My point is
+it's probably hard for us to say if it's conscious or not. It's much easier for us to say if like
+cat is conscious because we can't establish this feedback loop, but we can establish this
+the same feedback loop with AI model. We need to define what consciousness is in the first place,
+right? And the thing is when we are talking about our own consciousness, we have an indexical
+understanding. We just point in a certain direction. There's a system in the direction
+which we are pointing and we all more or less agree on what the thing is that we are pointing at.
+And the similar situation existed when people tried to understand life and biology around
+the time when biology started, where people pointed at things and said these things are alive,
+but we don't know what distinguishes them from the things that are not alive. There is clearly a
+very important distinction there. And then people came up with all homeostatic dynamics and so on.
+And I would say right now it's basically there are cells, living cells, cells that are
+not decaying, that are able to maintain their integrity and their state and so on. As long as
+these cells exist in an organized fashion, we would say that the system is alive. And this was
+something that the biologists had to discover in the course of developing their field. And in a
+similar way, in the course of the development of cognitive science, we have to establish what we
+mean by a system being a mind and being intelligent and being conscious. And at the moment, my best
+understanding of consciousness is that there is this attentional system that is integrating the
+world model. And this attentional system needs to have certain properties, like it needs to have
+an index memory of the states that it tended to, it needs to be capable of making sense of its own
+agency and so on and so on. And these are functional criteria. And in some sense, the neural network
+is just software. It's a software that might not be easily intelligible to human beings,
+but we can translate it into something that is computational equivalent and isn't intelligible.
+And because we can make these systems explainable, we can, as soon as we identify the formal
+definition of what we mean by consciousness, look whether the system is conforming to that
+formal definition. That is, if it's implementing a certain list of functionality that we require.
+And we can also test this. Basically, we can implement a minimal system that is implementing
+all these functions and then see whether it's also a system that we would point at
+when we say that it's conscious. So, for instance, if that system is able to use language and
+entangle with the environment and can be able to learn a language that enables it to speak
+about this environment, is it able to talk about itself as a conscious being? Is it going to talk
+about its own phenomenal experience when we ask it without lying, without having an additional
+mechanism that tricks us, built into it? And so the hypothesis would be if we built a system that
+is, has such an attention agent that it is acting on top of a perceptual agent and makes sense of
+it and reflects on it in a similar way as we do on the system, is able to learn a natural language
+that we would be able to communicate about its phenomenal experience with it.
+Danielle, did you have a question? Is it your wrist?
+Yeah, yeah, yeah, I also have a question. So, Yosha, first of all, it was fascinating to have
+this conversation today and see this big idea of motivation and attention working with a
+perceptual agent. I couldn't stop thinking about the conversational AI and stuff we discussed
+like a year ago and what kind of things we also worked at the power to build a social board for
+Alexa Pride 3 and Alexa Pride 4 now. I was wondering if you tried to, it doesn't matter
+where, but have you tried to bring these ideas of attention, maybe some feelings like fear and
+other things to the conversational AI experiences? They don't necessarily have to have eyes and build
+eye contact with a person, but as long as they have a conversation, have you tried to go that
+deep into the projects you worked on over your career to build these kind of things? Because
+things like what we work on at DePaul right now is things like we're trying to build motivation
+for the bot. So, we have, we're trying to build a goal of war bot where it is a war of the goals
+that the user has and also the war of its own goals. And when a user, when bot has a conversation
+with a user, we try to build a three-level dialogue planning where each time bot wants to
+say something, it looks at the goals of itself, the goals of a user, then it makes a decision
+which goes to follow based on that it defines discourse where it wants to go, and then based
+on the discourse, we try to pick the exact next step in the conversation that you want to do.
+And what, when I look at your picture, it strikes me that our goal of war dialogue management,
+in many ways, is the same idea that they have that motivation built into the system, that
+actually that we were lacking in our previous international social bot. So, obviously, you
+worked way, way more in the conversation where I was just wondering how far did you went in the
+direction and like what you could recommend for aspiring minds in the direction?
+My own impression when we did this at AI Foundation, we failed and we failed for a number of reasons.
+One of them was, of course, we had a relatively small team working in a startup and the majority
+of what we had to do in a startup was related to getting a product on the road. But the main
+issue is that the stack of solutions in the present machine learning environments is not
+suitable for real-time entanglement with the environment. And to build a system that is able
+to make sense of the universe autonomously, you need to have this real-time coupling, I think.
+So, you basically want to have a system that is always able to make sense of the next frame.
+Imagine you want to build a machine learning system that you just connect to a bunch of
+cameras and after a certain time it's able to understand that the changing lighting conditions
+are due to the sun and the sun is some kind of circular objects that move through the sky.
+And it is at a certain almost infinite distance and so on and so on. So, relatively simple things
+that every mammal is able to figure out, but that none of the machine learning systems at
+the moment seems to be able to figure out autonomously. And it's not because it's so hard to
+do this, but because all our efforts are going into doing batch processing on image databases
+rather than interacting with the real world. Of course, also the interaction with the real
+world and online learning requires that we are much, much more efficient at extracting structure
+from the data. And there's still this difficulty that our own bootstrapping as organism takes many
+months before we're able to make sense of visual data. And we don't want to wait months before
+our machine learning system converges to basic image understanding. So, maybe we need to have
+a combination of online and offline learning, at least in the beginning. And there are many
+technical things that have to be solved for this. For social motivation, we probably need
+to look at the things that enable us to develop this kind of motivation. I started out with a
+theory that assumes that we have a few hundred physiological needs that we need to regulate for,
+but that's boring. And we have something like a handful of or two handful of social needs
+that structure our social interactions. They're basically priors in the way in which we want
+to interact with others. For instance, people might have innate need for status for raising
+in a social hierarchy. And this is just a bias in the system reflex. And you can eventually
+replace this reflex by something that it's instrumental to. So, maybe you want to organize
+the world in the best possible sustainable way. And now you do not want to have power for its
+own sake. You want to have power according to your abilities and incentives to get things right.
+And so your desire for status gets completely sublimated by conditional behavior.
+And then you also need to have a bunch of cognitive needs that regulate exploration
+versus exploitation. So a desire for competence versus uncertainty reduction. And they will
+structure the way in which you interact with the environment. And as soon as you will understand
+your environment better, these innate needs and their weights get replaced by something
+that is conditional again. If you want to build an agent that is interacting with people in
+an interesting way, I suspect it's also necessary that this agent basically has something like an
+attentional idol loop where it's looking into the world and thinks about, oh, this is what I'm
+looking at. Oh, there is somebody coming. Do I know this person should interact with this person?
+In which way should I interact with this person? And it should be giving science of all these
+processes taking place. So you need to understand by observing the system which state that system
+is in. And we also need to understand that emotions have not evolved as a display of the internal
+state that you are in, but mostly in an adversarial condition. Right, as soon as we became social
+agents and were observing each other, we were using this observation to game others, to understand
+how they are, to exploit them, to control them. And this means that even small children learn to
+hide their emotional state or to quote their emotional state. And so when you see somebody
+at a funeral, you are not just looking at whether they are looking somber because everybody is
+looking somber at the funeral. But you are looking at what kind of somberness they are displaying
+and how the somberness is being achieved and what this actually indicates. Right, so you are looking
+at at least two levels of structure and the social persona becomes a puppet that everybody is
+controlling according to their internal puppet. And the social puppet can become so dominant
+that people forget that they have an authentic structure behind it. So people have something
+like a core self that is like childlike self and all this machinery that they build on top of it
+and they can get lost in the machinery. And it can be very difficult to reawaken the core self
+into something that is actually interacting with the environment is getting real. And these
+interactions are what makes it very, very interesting to interact with people to which
+degree can you go beyond the social puppet and interact with the core self and establish intimacy.
+I loved it. And I mean, obviously, we have multiple puppets that we have with different people
+and for social boards that we like had in the last cohort of Alexa Price for
+they at best had, I don't know, maybe one very fractured, very small kind of puppet that
+was really, really limited in what could achieve. So for instance, I think that gender is a good
+example. Gender is in some sense such a puppet. It's a costume that we wear. And it's socially
+constructed in the sense that gender is a model of what other people think of who we are.
+And if you confuse this puppet with your core self, right, you go into all sorts of contradictions
+because you can no longer get your models to converge because you think that your puppet is
+immutable. And so gender becomes a costume that you are unable to take off again.
+Yosha, I have a question I want to sort of go back to the first cell that sort of give life
+to everything. If we look at how cells behave, they behave very intelligently. It seems like
+they already have this building intelligence and they know to what kind of tissue they have to
+split and become. Do you agree with the statement that sort of like intelligence already within
+the cell and this sort of like expands? It's not like intelligence only in our brain, but intelligence
+in our body, in like on the very core of our existence. When I was a kid, my grandparents bought
+a chess computer for me. And I was bored by this chess computer because I didn't perceive it as
+intelligent. It was able to play chess much better than me, unless I would turn down the
+difficulty level. But it was a toaster. It was not able to do anything but to play chess,
+which means that according to a simple function, it was calculating the move that most probably
+would let it win the game. And it was able to do this better than me. But it was not able to make
+any kind of new model of the environment. And to me, intelligence means that you are able to
+model something new, that you are able to solve problems that you couldn't solve before, that
+you're able to generalize and so on. And this modeling capability is also something that probably
+eludes the individual cell. The individual cell has an operating system genome that is encoded in
+the DNA of the cell that allows it to decide giving the environmental conditions what to do best.
+And it's either going to differentiate into a different type of cell, which means it's going
+to turn this operating system into a different configuration, or it's going to divide into two
+cells, or it's going to regulate something, or it's going to die apoptosis, the voluntary death of
+the cell. And these are the mechanisms that are available to the cell, right? This is all it ever
+does. And in order to make that decision, the cell is able to integrate over its inputs. And it can
+integrate by looking at the configuration when a neuron can look at the configuration of electrical
+inputs that come in. And this integration happens in time and in space. But there are very tight
+limits on how much temporal memory the cell has, how long it remembers that it has seen a certain
+thing in its environment, and how well it can predict in the future what it should be doing.
+And so the functions that the cell can learn are very limited. And we can probably quantify
+this, what it can do. And I don't know the exact quantifications, and no number of people have
+given me their estimates, and they're vitally diverged. But the cells don't seem to be universally
+intelligent. There seem to be, of course, they can learn. So they are intelligent to some degree,
+they can make models to some degree. But the individual cell seems to be extremely limited
+in what it can model. But we can say the same about people. I mean, if we look from perspective
+of universe, of multiverse, and what is out there, there are so many things we don't know. And our
+memory is also short. So from someone's perspective, we can be also very limited intelligence, right?
+It's not like this super generalizable intelligence that knows everything about all.
+Yes. So maybe we can come up with the laundry list or with some kind of achievement hierarchy
+of minds. And so are you able to learn at all? When you learn, can you integrate over time and
+space the features that you're learning over? To which degree can you do this? What is the
+complexity of the function that you can learn? And so the next interesting step is the function
+that you can learn to learn complete. Of course, you yourself need to be doing complete to learn
+interesting functions, because you want to associate arbitrary states with arbitrary
+transitions between them. But when you work your model, can your model contain a Turing machine?
+For instance, when you learn that something in the world is an agent, you need to be able,
+if you want to model that agency, construct an agent in your own mind, which means you need to
+construct something in your own mind that is Turing complete. And not sure that cells are able
+to understand the agency of parts on the environment instead of just learning associations.
+And so the switch from correlational models to causal models and from causal models to
+complete state machines that are Turing complete is an important step in the maturation of
+intelligent systems. The next step, or maybe not the next, but one that is definitely important is
+do you understand minds? Can you build things that are intelligent? And this is something
+that humans are about to do, I think. So there is a probability that we are generally intelligent
+in the sense that we are able to understand intelligence in general by building and demonstrating
+that understanding. And I don't know if there is another stage after that that is interesting,
+maybe understanding existence. So you don't know if there's next level up to this sort of
+general intelligence, right? Yes. So I wonder if there is anything left after that that is
+interesting. That is not just scaling up. So basically you believe that humans are capable to
+build generalizable intelligence? Oh, we are currently testing that hypothesis, right? We
+don't know yet. But that's basically the idea of Turing that humans are generally intelligent.
+You should be able to build systems that can sync. Thanks. Thanks a lot. I feel like we should
+repeat it. Because I have a long list, but I feel like we're already almost two hours.
+Yeah, we would really love to have you again, Josia. Thanks a lot for your time.
+Thank you. It was a lot of fun. Have a wonderful rest of the day wherever you are in the world.

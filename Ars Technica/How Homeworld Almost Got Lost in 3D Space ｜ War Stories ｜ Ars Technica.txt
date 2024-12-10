@@ -1,0 +1,367 @@
+Looking back, the creative and technical challenge of Homeworld seemed so impossible at the time.
+Luckily we were all young and had no lives.
+We literally lived at the office.
+Everybody's girlfriend left them.
+We were all in.
+My name is Rob Cunningham.
+I'm the CEO of Blackbird Interactive.
+This is how we made Homeworld, the first 3D real-time strategy game.
+I first became interested in video games in the early 90s.
+It would have been about 93, 94.
+But my first ambition was to get into film and, you know, make movies.
+I got a job teaching drawing to some video game design students here in Vancouver.
+I got into video games professionally because a friend of mine, Alex Gardin,
+who was actually one of my students at the time in my drawing class,
+just asked me one day,
+hey, you know, do you want to start a video game company with me?
+And I was like, sure, nothing better to do, let's do it.
+So me and Alex and like four other people got together and started Relic Entertainment.
+So when we started Relic, it was the summer of 1997.
+And we were all punks.
+I was 26.
+Alex, I think, was 20.
+We all got together at Alex's house one night to eat pizza
+and talk about this game called Homeworld.
+He described it as a merger of Command and Conquer meets Battlestar Galactica.
+The story is your lost civilization going back to your Homeworld
+and the gameplay is basically Command and Conquer, but in space.
+So there'd be combat production, resourcing set in this 3D environment.
+And that's what was going to be new about it.
+It sounded super intriguing and super cool.
+And, you know, and I loved the RTS's of the day
+and thought that this would be a really cool new thing
+that no one had already seen before.
+And it was like a week later that we actually went down to Seattle
+to pitch it to Scott Lynch at Sierra.
+We had just barely met each other.
+We really had very little in the way of a pitch,
+but Alex was super enthusiastic and contagious with his energy.
+After we left, we stood around in the parking lot.
+It was like an empty parking lot.
+It was a Saturday. There was no one there.
+And Scott phoned Alex on his cell and said,
+hey, you guys are green lit.
+All of our lives pretty much changed that day.
+I think it was like a month later,
+we had a whole bunch of money and started making Homeworld.
+Homeworld was a real-time strategy game set in space.
+But what was different about it was that it was actually in 3D.
+At that time in the mid-90s,
+RTS games were all top-down camera,
+essentially 2D worlds with sprites of the various assets
+and vehicles and units moving around.
+Those sprites were all rendered rotations of the 3D model.
+So it looked kind of 3D, but it was basically 2D.
+It was like a slideshow of 2D assets.
+The idea behind Homeworld was that we would not do that.
+We were going to do actual 3D.
+And at the time, 3D was like a new thing that was just coming out.
+So we had Doom and a couple other games
+that were actually in 3D.
+But this was going to be the first 3D RTS.
+So the plan was to set it in space
+so that you would never have to render the terrain.
+So the terrain would have these huge geometry and texture sink.
+And we wouldn't have to worry about that
+because we were in space.
+That was the idea.
+So therefore, we could pile all of our budget into the ships
+and the textures and the effects.
+Because of the 3D nature of the game,
+we were going to do as close to realistic scaling
+as we possibly could.
+So in RTSs at the time,
+the vehicle that was manufactured by the factory
+was almost the same size as the factory.
+A tank would come out of a tank building
+and the tank was like 85% the size of the building it came out of,
+which of course is completely unrealistic.
+So we thought, how great would it be
+if the fighters and frigates and ships being produced
+were being produced from these much, much bigger ships?
+None of us had undertaken something of this magnitude
+and of this level of technical innovation.
+And to be honest, even when we pitched it
+and started production on it,
+we had no idea what we were getting into.
+That beast just made itself and we were along for the ride.
+The initial budget for Homeworld was $1 million
+and it was supposed to take one year.
+That turned out to be three years and $3 million.
+But every time we started running out of money,
+Alex would rush down to Sierra
+and convince Scott to free up another million
+and we were all amazed that this magic was happening.
+Technically, there was really just one problem on Homeworld
+and that was that it was going to be a 3D game
+and we were going to be set in space
+and the camera was going to be this mad, orbital camera
+that you could rotate around and zoom in and out
+with unprecedented flexibility.
+No game at that time had that kind of camera flexibility,
+not even close.
+You could zoom right into a fighter
+and it would fill the screen
+and then zoom right out until it became three pixels
+and that fighter had to fly in front of a gigantic mothership
+and the texture had to hold up.
+That was a really big deal.
+There was hardly any graphics, cards.
+There was a software version of the game when we put it out.
+No one had solved these problems in hardly any games,
+much less a strategy game
+with so many assets on the board at once.
+We had to come up with all sorts of solutions
+for polygon count, for texture budget, render space.
+Computers were totally crap in 97 and 98, 99.
+I was kind of amazed anyone could even run the game
+when we released it in 99.
+Subsets of the camera problem involved visual orientation
+so you didn't get lost in the game,
+making positive ID on ships so that you knew who was where.
+The scale involved in the different ships was so extreme
+and the distances were so extreme
+that we had to come up with solutions for
+how do you keep track of everything in a strategic game.
+In addition to the 3D challenge, at the time,
+memory budget was a big deal.
+If I'm not mistaken, the entire texture footprint
+was like 32 megs.
+We had to come up with solutions for texturing all of the ships,
+all of the effects and all of the backgrounds as well.
+In the mid-late 90s, there was no off-the-shelf
+video game development software
+so everything had to be built by hand
+so we had to build all of the tools and technology
+that would run the game sim right there in-house.
+Because of the 3D nature of the environment,
+the player had to control the camera.
+We couldn't do a fixed camera for this style of game.
+It would have just been impossible to stay in control of your units
+and know where things were on the strategic board.
+One of our big concerns was the player's losing orientation
+where they wouldn't know which way was up.
+So, Aaron Daly designed this magnificent camera
+that took into account zoom levels
+so that you could zoom in and out on ships very quickly.
+You could refocus on different elements of the ships
+and the environment based on selection set and orbit,
+but then it was fixed at the poles.
+That way, up was always up in the game.
+Aaron Camberts and I designed all of the art in the game
+from the ships to the backgrounds.
+Everything about the in-game environment
+supported this terrifying fear we had
+of the player losing orientations.
+The famous banana mothership,
+the big vertical Kushan mothership,
+I designed that way
+because I couldn't think of a shape
+that was more obviously up-down.
+That wasn't a vertical mothership
+because it was cool looking though.
+I thought it was cool, no one had done that before.
+But it was so that the player,
+no matter where they were in the world,
+they could look at the mothership and know that way is up.
+And so you're never going to get lost.
+Same deal for the Titan mothership,
+which is basically just a horizontal slab.
+Early in the game,
+we knew we had issues with respect
+to the render distance of the computer.
+Like you just couldn't draw everything in the world.
+And as units became smaller and smaller,
+we realized quickly
+that you just couldn't tell what they were.
+So we implemented three basic solutions to this problem.
+The first was an LOD or level of detail system
+where as the unit became smaller on screen,
+as the camera zoomed away from it,
+the geometry and texture of the unit
+would switch between different versions of itself
+at lower polygonal counts
+until it got basically super tiny at LOD 4.
+Now we're talking about a thing,
+literally three pixels across on screen.
+But because pretty much everything turns into a blob
+at three pixels,
+we had to hand exaggerate each ship's profile at LOD 4
+so that its silhouette signature
+from maximum zoom distance was still recognizable.
+So this sounds barking mad,
+but it actually worked.
+The LOD 4 of the Titan fighters, for example,
+they had these little wings on the back.
+The silhouette was very important
+that each ship had its own character
+and you could tell what everything was.
+At LOD 4, the wings were like three times
+the size of the ship.
+So we just basically did that
+with every ship in the fleet.
+The second thing we did was
+at the very limits of the render list,
+even with LOD 4,
+it was really hard to tell who those guys were,
+especially when they're smonging around
+in a great big spaghetti bowl.
+So we implemented what we called the tactical overlay system
+which is inspired by the air traffic controls
+of radar screens.
+There were these little symbols
+that corresponded to each class of unit
+so that you had feedback
+on what the hell was going on in the game.
+And the third and probably the most difficult solution
+to this 3D render and visual identity
+game board problem that we had
+was Aaron Daly's solution
+for what later became the sensors manager.
+So in the early part of the game,
+the plan was you would have a render sphere
+and then when units got to the edge of the render sphere,
+they would create a new render sphere elsewhere.
+You would have to manually toggle
+between the two render spheres of the game
+and we called them away missions,
+kind of like, you know, like in Star Trek
+and the guys went down to the planet or whatever.
+That proved untenable almost immediately
+but Daly came up with a great solution
+where all of the render balls
+were rendered in a single epic render sphere.
+This was inspired by the mini map
+that would usually happen in the bottom left hand corner
+of the screen in RTS's.
+We actually tried that
+and we had this like 3D globe thing
+but it was impossible.
+You couldn't see anything there.
+It was like dozens of units fighting
+in this tiny little corner of the screen.
+So we abandoned the mini map
+and went with a full screen mini map
+which we later called the sensors manager
+and each of the units fog of war
+was rendered as a blue sphere in that environment
+and then we made it like sound cool
+and Ruske gave it that iconic sound
+when it zooms in and out
+and it was like this awesome sort of 3D digital map
+environment and it became a very important part
+of the strategy of the game.
+Those three things are more or less how we solved this
+huge challenge of creating a 3D environment
+for a space strategy game
+but not completely being confused.
+When we started the company and we started the game
+because we was so young and inexperienced
+we had no idea what we were up against.
+So what that created was a production environment
+that was kind of insane
+and the pressure was so high
+that the first solution that we had
+to come up with for each problem
+had to be the final solution
+and there was no iterative process whatsoever.
+These things would come out of nowhere and be final.
+There was kind of an amazing thing that happens though
+when a creative and technical endeavor
+is put under that kind of pressure with those constraints.
+Something intervenes and just makes you come up
+with something great just because you have to.
+It's kind of hard to describe
+but it's kind of like that whole thing
+where the sketch is better than the final piece.
+All of Homeworld was just one huge sketch.
+Looking back in the time since then
+some things have changed and some haven't.
+The creative process hasn't really changed
+and how you really make a game like you plan it
+is pre-production production, post-production bug fixing.
+However, the technology base totally has
+and the systems and the sheer horsepower
+of everything involved.
+When looking back at Homeworld I to Homeworld III
+which we're working on now here at Blackbird
+it's sort of this amazing journey of this creative process
+which is basically kind of like this background rhythm
+that has just never really changed
+but then running past it is this insane technological
+slow-motion explosion that's happening.
+So like for example, the things we're doing now
+routinely on Homeworld III like literally every day
+were and this is gonna sound flaky
+but they were dreams that we were having
+about Homeworld II in 2001.
+For example, massive megalithic structures
+just covered in detail that like mother ships
+would be casting shadows onto
+and strike craft would be passing in and out
+of the nooks and crannies and you know,
+atmospherics and like terrain, gameplay and 3D.
+Like these were dreams we were having
+in the early 2000s which were absolutely impossible
+to execute on and we tried and we failed
+and they couldn't be done and Homeworld II
+got totally canceled and then restarted
+and then we made Homeworld II essentially
+as kind of like a visual upgrade basically of Homeworld I
+because that was what was technically possible in 2003.
+Early in Blackbirds history when we were still in my garage
+THQ went bankrupt and they were the owner
+of the Homeworld IP at the time.
+So I thought it would be great if we could get the IP.
+So we had our legal team unbundle the asset
+from the bankruptcy proceedings so that we could bid on it
+and buy the IP because I thought, you know,
+it's gonna be worth nothing.
+No one's done anything with this thing for years
+but as soon as we unbundled it, it became, you know,
+public knowledge and soon this kind of bidding war happened
+and we got outbid like immediately,
+like blown totally out of the water
+and it went to Gearbox for I believe 1.3, 1.35 million.
+We couldn't believe it and I congratulated Randy
+and I was like, hey, you know,
+why did you guys buy this thing?
+Like you guys are developers.
+You do like Borderlands and first-person shooters and stuff.
+And he's like, we're just fans.
+We, you know, we just didn't want it to go to someone
+that was gonna mess it up.
+And I was like, well, that's great, thank you for that.
+What's the plan?
+And he's like, we have no plan.
+It was an impulse purchase, you know,
+Martell wanted it, I wanted it.
+So I was like, hey, man, you know,
+we've been building this thing in my garage called Hardware
+and it kind of looks and feels like Homeworld.
+You should check it out.
+And so we showed it to Gearbox
+and the Gearbox team thought it would make a great prequel
+to Homeworld one set because it's set on a desert planet.
+And so that's what we did and that became Deserts of Karak
+and that's what launched Blackbird Interactive.
+So the Homeworld story is kind of bound up
+in the story of Blackbird Interactive and Relic
+and kind of weird actually, not I think about it.
+I think the title has aged so well
+because of the uniqueness of the tone
+and the vibe that it captured.
+No one's left, everything's gone.
+Karak is burning.
+There's certain cinematic elements
+to the experience of playing Homeworld
+with the scale and the elasticity of the visual experience
+that really transcend the artistic or technical
+achievement from 99 that still holds up today.
+And the emotional connection that people had with the title
+back then also kind of transcends the medium
+in which it kind of came through.
+Like people looking back remember it better
+than it actually was because it touched them
+and that feeling you had was just so unique and iconic
+that nothing, it's not like anything else.

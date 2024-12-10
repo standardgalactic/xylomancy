@@ -1,0 +1,28 @@
+Processing Overview for Bioinformatics Algorithms： An Active Learning Approach
+============================
+Checking Bioinformatics Algorithms： An Active Learning Approach/From Global to Local Alignment.txt
+1. **Naive Scoring Model Issues**: The naive scoring model for the longest common subsequence (LCS) problem, which assigns a score of 1 to every match and ignores mismatches and indels (insertions or deletions), can lead to biologically incorrect alignments. This is because it does not account for the biological significance of matches, mismatches, and indels, which have different implications for sequence comparison in biology.
+
+2. **Improved Scoring Model**: To avoid frivolous matches and better reflect biological reality, we introduce penalties for mismatches (mu) and indels (sigma). The score of an alignment now becomes a net sum of match scores minus the penalties for mismatches and indels.
+
+3. **Scoring Matrices**: Biologists design scoring matrices that assign different scores to matching different amino acids or nucleotides based on their observed mutation propensities. These matrices are used to guide the alignment process, ensuring that biologically plausible alignments are found.
+
+4. **Local Alignment Problem**: The local alignment problem seeks to identify short sub-strengths of two sequences that have a high similarity score when aligned according to a given scoring matrix. This is different from the global alignment problem, which looks for the best alignment over the entire length of both sequences.
+
+5. **Free Taxi Rides (Manhattan Approach)**: To efficiently solve the local alignment problem, we introduce the concept of "free taxi rides" in the alignment graph. This involves adding edges from the source to any note and from every note to the destination with zero weight, effectively allowing us to "jump" to the start or end of a fragment of interest without incurring a cost. This makes it possible to score interesting segments by paying only for their alignment and not for entering or exiting the segment.
+
+6. **Dynamic Programming Currency Update**: The dynamic programming currency, which originally had three possibilities (vertical, horizontal, and diagonal entries), now includes a fourth possibility for entering a note via a free taxi ride. This entry has a weight of zero.
+
+7. **Insertion and Deletion Penalties**: It is crucial to define appropriate insertion and deletion penalties that accurately reflect the biological costs or benefits associated with these events. Properly chosen penalties can significantly improve the quality of the alignments produced by sequence alignment algorithms.
+
+In summary, to effectively compare biological sequences, we need a scoring model that accurately reflects the biological significance of each event (match, mismatch, indel) and a practical algorithm for finding local alignments that can efficiently handle the large number of potential sub-strengths to be compared. The introduction of free taxi rides in the alignment graph allows us to address these needs by making it possible to quickly explore different segments of the sequences and assess their similarity without being overwhelmed by computational complexity.
+
+Checking Bioinformatics Algorithms： An Active Learning Approach/Welcome to the Bioinformatics Specialization!.txt
+ Certainly! The goal of this series of classes is to pique your interest in bioinformatics, a multidisciplinary field that integrates computer science, biology, and mathematics. The instructors, who are dressed rather uniquely, aim to convey the excitement and novelty of bioinformatics, which has been a significant driver of change in biology and has ushered in the era of personalized medicine.
+
+The course will explore compelling questions in modern biology and medicine, such as identifying the animal responsible for SARS outbreaks, understanding the role of clock genes, and pinpointing disease-causing mutations. To address these biological queries, the course will delve into various computational techniques, including clustering algorithms, evolutionary tree construction, and machine learning methods.
+
+The curriculum promises a journey through time, including a virtual trip back to solve a 300-year-old mathematical problem, an exploration of Manhattan as seen by tourists, and even a narrative about getting lost in a Japanese casino run by the Yakuza. These diverse experiences are designed to illustrate how bioinformatics touches upon a wide array of subjects and situations.
+
+The instructors, Dr. Pavel Pevzner and Dr. Philip Campo, are esteemed experts in their fields. They invite students to join them on this adventure into the wild west of bioinformatics, where they will apply computational thinking to solve real-world biological problems. For a deeper understanding of their methods and philosophy, students can take this course or refer to the textbook authored by these very instructors, which focuses on bioinformatics algorithms and employs an active learning approach.
+

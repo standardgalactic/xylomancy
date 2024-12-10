@@ -1,0 +1,681 @@
+It's been a great week at Splash at the Plateau Workshop, at the Splash Education Workshop
+on Monday, and just at the main conference itself.
+I've really learned so many valuable, diverse perspectives on programming language research,
+and that's actually what I want to talk about today, is perspectives, and how these perspectives
+shape the research that we do.
+In particular, I want to talk about the perspectives on programming languages that we don't usually
+consider in computer science, and try to convince you that there are more perspectives
+we should consider than we actually do.
+I'm going to do this by starting on a somber note.
+We lost great researcher, a great scholar, a great man, Seymour Papert, three months
+ago.
+He did many incredible things for computing, including computers as thinking tools, on
+thinking about theories of learning like constructionism, the beginnings of neural networks with
+Marvin Minsky.
+It was really an instrumental part of the One Laptop for Child program, but it wasn't
+just these discoveries.
+He also had really big impacts on a generation of impactful researchers, Alan Kaye of Small
+Talk, the Dynabook object-oriented programming, and Gui's Terry Winograd, who helped found
+Google and the D-School at Stanford, and Mitch Resnick, who started Lego Mindstorms and Scratch.
+We have to step back and ask, where did all of this incredible impact come from?
+What were these ideas coming from?
+Papert actually wrote about these in the early 90s in his discussion of epistemological
+pluralism with Sherry Turkle.
+His claim was essentially as follows.
+It was, the formal mathematical view of computing is powerful, but it's really not sufficient.
+It's not sufficient in particular for this goal.
+Papert said, equal access to even the most basic elements of computation requires an
+epistemological pluralism, accepting the validity of multiple ways of knowing and thinking.
+So the bottom line here was that if we want to involve the world in computing, and really
+involve everybody in the world in computing, we have to accept the multiple ways of knowing
+and thinking about computing that people engage with beyond the perspectives that we use.
+So the question that I want to ask in this talk is, what are these other views?
+One view is that computing essentially is math.
+Another view is that computing is a thinking tool.
+This was Papert's view.
+Most of us in this room take this formal view of computing.
+Papert took this other view and found it highly productive.
+What are all of these other ways?
+I'm not going to take on all of computing in this talk.
+I'm going to just specifically focus on programming languages, like a slightly smaller focus.
+And I want to focus on a couple of claims.
+One, there are multiple ways to view programming languages beyond these two.
+And two, these views have a vast potential for discovery.
+This is something that we should discover.
+That's going to be my argument.
+And this is going to be my approach.
+I want to mine my own experiences for different views of programming languages over my lifetime.
+So it's actually going to be a fairly personal talk.
+And I want to explore these views as research agendas and try to understand what capacity
+they have for discovery that we might pursue as a community.
+So let me go ahead and jump right in.
+I'm going to start when I was at the age of about 10 in middle school.
+I want to talk about the first program I ever encountered.
+I encountered it in this building.
+This is Athe Creek Middle School.
+I was a seventh grade student.
+I was about 12 years old.
+I was in a pre-Algebra class.
+And at the time, I was really in love with games, particularly my Nintendo Game Boy.
+Now our teacher had required us to buy a Texas Instruments 82 graphing calculator, a TI-82.
+And he showed us a little bit about how to program it.
+He showed us how to enter trigonometric functions that we could copy from a piece of paper that
+he gave us, the shortcuts to computing various things about trigonometry that we were learning.
+That was, of course, not at all interesting to me or anybody else in the class.
+But I had a classmate with an older brother who knew all about how to program the thing.
+And he showed us this version of Tetris, TI Tetris it was called, and it rented it on
+the graph.
+Tetris was one of my favorite games of the time.
+And so I had to get this game.
+We didn't have the internet at the time.
+We couldn't transfer the program.
+So I cut out the card in the mail order part at the end of the instruction manual.
+So I could transfer the program to my vice.
+And a month later, I got the cable and the program.
+And this game, it was just this beautiful functional replica of the Game Boy version
+that I adored with one caveat.
+It was just unbearably slow.
+You could watch the pieces, erase, pixel by pixel.
+So I was so disappointed that I couldn't play the game in class.
+I realized that it was a program like the one my teacher had shown us.
+And so I pressed the F5 edit button and was suddenly faced with tens of thousands of lines
+of conditionals and go-tos and variables all written in this language of TI basic.
+This was the first computer program I'd ever seen.
+And rather than viewing it as sort of gibberish that I couldn't comprehend, in this particular
+context it was something very different.
+It was a form of power that if I acquired would allow me to bring my favorite game to
+school in disguise to play with my friends.
+So I sort of ventured on this journey.
+I got the instruction manual.
+I read it back to back.
+I learned the language of TI basic so I could understand how it expressed these rules in
+the game.
+And about a month later, I'd removed all the rules that slowly rendered on the plot and
+instead rendered vertically on the text console, which was much faster.
+So you could flip the calculator around and play it in that vertical column.
+And I had a playable version of Tetris on my calculator.
+I took that link cable.
+I shared it with everybody in my class.
+It got me fame and respect and glory and actually a little bit of detention because the teacher
+suddenly had his whole class playing Tetris instead of doing trigonometry.
+He actually had to outlaw the graphing calculators from our class for that reason.
+Now TI basic was not a programming language as we conceive of it.
+It was a way for me to exert control over the game to tell it to behave differently.
+But it was also a way for me to exert control over my classroom.
+I got to shift all of my peers' attention to this game that I loved instead of algebra.
+And so throughout middle school, programming languages for me was a form of power over
+my class, my peers, my teachers, my experiences at school.
+It's a really different conception of what a programming language is.
+And this has a lot of implications.
+One, if programming languages are power and with great power comes great responsibility,
+that responsibility does knowing a programming language entail.
+For example, why aren't software developers in the United States responsible for the failures
+that they cause?
+This is a powerful ability, what should we do with it?
+And if power corrupts, how does programming languages corrupt people?
+Take for example, Mark Zuckerberg, he amassed a great power by knowing and harnessing programming
+languages to express social experiences.
+But he actually took that same power that he had amassed through all of that money and
+tried to reform Newark, New Jersey public schools.
+And it was widely considered to have failed miserably because he believed, he understood
+sort of schools and education so well from this power he had derived from programming
+languages that people have received him as wasting hundreds of millions of dollars by
+really not listening to experts.
+So perhaps programming languages provides so much power and blinds people to thinking
+that they can solve big problems in other domains they don't have expertise in.
+And finally, if power is something that democracy distributes, right, it's something we try
+to transfer and balance and equalize, should democracies distribute programming languages?
+This is President Obama doing an hour of code in DC.
+He announced the CS for all initiative this year, which is attempting to bring computing
+education to every public school in the United States.
+Is this something that we should be doing is sort of the obligation of democracies
+to distribute this power?
+This is an important question that we have to grapple with.
+Now, I spent the rest of middle school playing with code.
+Just a fair warning.
+I mean, to give you sort of an unflattering picture of me, look at this terrible posture.
+This is me sitting in front of my computer at middle school, my brother looking over
+my shoulder to see what I'm doing.
+I spent middle school really using my coding skills to create.
+This was what my playground looked like.
+And I made things like this.
+I was interested in rendering 3D graphics and making text adventures and making games.
+I didn't make games to distribute them to the world.
+I just made games for myself and for other people like my friends to play.
+It was a very small world.
+And I used things like QuickBasic to do it.
+I also still used my calculator.
+The language in all of these cases, it was not the subject of interest for me.
+This was not why I was doing this.
+I was not intrinsically interested in anything about languages.
+For me, programming languages was media.
+It was a way for me to express myself, a way for me to show my ideas and share them with
+friends and sort of give a vision of the world that I had.
+It was a medium for expression.
+And this has a bunch of implications as well.
+If programming languages are media and Marshall McLuhan teaches us that the medium is the
+language, what messages does programming languages entail?
+How do programming languages shape and bias and warp the kinds of programs we create?
+How do we reason about some of these biases in the expression?
+There are other implications as well.
+Programming languages are media and media facilitates expression.
+How does PL facilitate expression?
+This is a photo of Mitch Resnick who I mentioned earlier.
+He created Scratch.
+Now N.K. also had similar perspectives here on his personal dynamic media back in 1976.
+Both of these men spent decades trying to understand how programming languages could
+foster creativity, but also how it limits it and how language design can actually shape
+and constrain what it is people can say, what it is people can and can't create.
+So I took that perspective of media into my high school.
+This is Westland High School in Oregon in the United States.
+PL was power and it was media for me.
+And in high school it transformed again into something else.
+Here's a photograph of my computer lab in high school.
+I signed up for this zero period computer science class.
+It started before the rest of school at 7 a.m.
+That's how passionate I was about computing at the time.
+There were eight of us in the class.
+About seven of them came just to play multi-user dungeons and not really do anything in the
+class.
+And the class was kind of taught by this interesting character.
+He was a student from the local community college and his teaching approach was to bring
+in his homework, challenge us to solve it, submit it in his class in the community college
+and find out what was right and then tell us who got the right answer in class.
+So I'm not quite sure what his incentive was.
+Maybe it was getting a good grade in his classes.
+But we were using Pascal in the class because that's what our PCs had installed.
+And at the time, my passion here, because of all of that media I'd been creating middle
+school, was this club that I'd created with my friends.
+We called it the Computer Art Club.
+My friends were artists and musicians and other weirdos who like to do strange things
+with computers.
+And at the time, because I was obsessed with 3D rendering and all of the geometry behind
+rendering, I'd read about this game that was trying to render scenes with ellipses instead
+of polygons to create more organic shapes.
+And I was curious if I could do the same.
+And so my teacher had asked what I was up to.
+He saw some things being rendered on the screen.
+And I explained about these ellipses.
+And they were just rendering too slowly on these old machines to do anything interactive.
+So he suggested that I profile it and taught me how to use profilers.
+And we found out that my algorithm was spending about 95% of its time on square roots in the
+standard Pascal square root library function.
+So he suggested that I talk to my math teacher to find out if she knew of any ways of computing
+square roots faster, that maybe I could use those instead of the built-in Pascal library.
+So that took me to my calculus teacher, Ms. Hudson.
+She was no regular teacher.
+She had a PhD in math from Texas.
+She didn't know any algorithms for doing this, but she did have a network.
+She connected me to her advisor who had this fascinating book on the history of Greek methods
+for computation published in the 1920s.
+And through interlibrary loan, the little book showed up.
+And she gave it to me, sort of bursting with excitement that she'd sort of gotten this
+connection for me.
+I dashed home to read this archaic sort of 70-year-old book.
+Here's the actual book and the text that was relevant to me inside of it.
+And on these pages was everything I needed to know.
+It was square roots, cube roots, and throats, all manual algorithms for computing roots or
+approximating roots.
+But the notation in this 1920s book was far from Pascal.
+It was even far from the math I'd been taught.
+It was his own notation for computation.
+It had a little bit of math symbols, a little bit of natural language, some other invented
+symbols.
+So my job here really was to translate from this book the core computational ideas into
+Pascal.
+And I eventually translated the algorithm and sort of greatly accelerated my ellipse rendering.
+But in doing all of this, I realized the programming languages were not just media, and they weren't
+just power.
+They were also notation, just like musical notation, for example.
+And they were notations in a way that notations express abstract ideas, like the concept of
+roots or the rules of tetris.
+And this became my view of programming languages for high school.
+Now this view of notation has many implications as well.
+This is model reality, which begs the question, what cannot PL model?
+What are situations that programming languages just can't describe?
+Do we need a different type of logic to model, for example, this trading room floor and all
+of the social and visual dynamics that happen on it?
+If PL is notation and notations help share information, right, it's what we use in order
+to convey ideas to other people, are there kinds of information that programming languages
+can't share?
+What does it mean for a programming language to be comprehensible to other people, since
+that's the point of sharing notations, is to help other people understand basic ideas?
+And if PL is notation and notations must be learned, what makes a programming language
+learnable?
+It's nothing about syntax and semantics that are natural.
+These are all things that are artificially created to share information.
+So what about language design choices affect the learnability of some of these notations?
+So I took that perspective on languages as notations off to college for five years of
+obsession with code and art.
+I found myself a computer science major, sort of inevitably, I was also a psychology major.
+Now PL was power, it was media, it was notation, I was eager to find out what else programming
+languages might be.
+And the person who taught me was my undergraduate mentor, Margaret Burnett.
+I met Margaret after seeing a flyer for an undergraduate research assistant position
+in the hallway.
+She was offering to pay me almost as much as the summer job that I was considering.
+She made a good pitch for being a professor and sort of how professor jobs are the best
+possible jobs you could ever have.
+I was completely sold.
+Not only did she end up teaching me a lot about research and writing and programming
+languages, but she also was the one who taught my programming languages course.
+And she framed it really as a programming language parade.
+It was a tour through a dozen languages.
+We dissected the tradeoffs of all of the different design choices that they make and the implications
+of those design choices.
+We wrote the same programs a dozen times over trying to understand the design space of programming
+language design.
+And she helped me see that actually programming languages come from people.
+They are design things.
+These six people, for example, all design programming languages, and every single one
+of them had to go through a process of understanding tradeoffs and flaws and principles and values
+and priorities, the kind of thing that all of us in this audience think about.
+So there's a whole process behind all of these and a whole set of people behind these decisions,
+which means they're really designs like anything else.
+Now designs have certain requirements.
+For example, if designs have tradeoffs, what are the tradeoffs that exist in programming
+language design?
+How do we model this tradeoff space?
+Which qualities trade off with one another when we're designing languages?
+Are there parts of this design space that we have not explored that evoke different
+tradeoffs than we've considered?
+If programming languages are designs and designs come from process, what is a good programming
+language design process?
+This is David Kelly teaching a class at the D school at Stanford.
+He teaches a process, a process he thinks is a good process.
+When we teach our graduate students to design programming languages, what processes do we
+teach them?
+What is a good design process for arriving at a good language?
+Another idea is that if programming languages are designs and designs require prototyping,
+how do we rapidly prototype programming languages?
+Is it enough to jot down a sketch of a program and its syntax or do we have to actually be
+able to execute these provisional sketches of PL ideas?
+If it were trivial to prototype a programming language, how would that transform our discoveries
+of new programming languages by being able to do it rapidly, much more so than we can
+now?
+Finally, if programming languages are designs and design exploits aesthetics for utility,
+what are PL aesthetics?
+What is beauty?
+What is parsimony?
+What is brevity?
+Are these ways of reasoning about programming languages aesthetics that go beyond soundness
+and correctness?
+Are there ways of reasoning about these formally, perhaps?
+My next stopping point was graduate school.
+My time at Oregon State with Margaret was a very deep introduction to both HCI and software
+engineering and programming languages, but my passions in design and human behavior were
+equally strong.
+The HCI Institute at Carnegie Mellon was the natural place for me to get a PhD and brought
+together my curiosity about design and expression and notation and power and helped me find
+more ways of seeing programming languages.
+I found them in many compelling ways from lots of people.
+I was advised by Brad Myers up here on the upper right.
+He'd been working on the foundations of user interface toolkits and how to use programming
+languages to construct user interfaces.
+I also spent time with the late Randy Pausch, who'd worked on Alice, and Randy's really
+incredibly fun courses called Building Virtual Worlds shown on the left here.
+Brad had encouraged me to study the programming that happened in this course just to find
+interesting problems to solve in research from an HCI perspective.
+So I did, and while I watched people construct programs with Alice in these virtual interactive
+worlds, I expected to see a lot of expression, like the kind of media perspectives I saw
+before.
+But what I saw instead really was just a big long series of usability breakdowns, just
+things that were not working about people's experience with this interface.
+Students would express what they wanted, they'd never get it quite right, and this would
+lead to hours and hours of unproductive tweaking and debugging.
+So from this HCI lens that I had, the students' lack of understanding of the semantics of
+the language and their inability to see those semantics actually execute to really understand
+the programming language semantics.
+These were fundamental user interface problems.
+So here is where I adopted this perspective of programming languages as interfaces to
+machines as user interfaces, sort of an inevitable view because I was at an institute concerned
+with interfaces, but it was also because computers and programming languages in particular really
+are and were the primary interface to computers, it's how we operated them originally.
+And this view has several implications that lots of people have explored.
+For example, if interfaces have to be usable, there's this natural question of how do we
+make programming languages usable.
+Andy Steffick at University of Nevada, Las Vegas has been doing some great work in this
+area.
+He's found, for example, that statically typed languages reduce debugging time, that
+transactional memory prevents synchronization bugs, a whole series of interesting studies
+that demonstrate that certain features of programming languages are more usable than
+others.
+I mean, he's embodied a lot of these discoveries into the design of a new programming language
+called quorum, he calls it the first evidence-based programming language.
+It's also a very accessible language, it's even usable by blind users because he's tried
+to make it usable in that way.
+Now if programming languages are interfaces and interfaces have to provide feedback to
+users so they understand the state of the machine, what feedback do programming languages
+have to provide?
+What makes a good error message?
+One of my PhD students did this great study a few years ago that found just by using personal
+pronouns like I and we in error messages, novices read error messages more closely, they end
+up understanding the semantics of a programming language better and therefore are more capable
+of actually comprehending the causes of some of these errors and repairing themselves independently.
+And finally, if PL are interfaces and interfaces convey what's possible through affordances,
+how can PL convey what's possible?
+Stack overflow is really the best illustration of all of the things you can do with a language
+or a bunch of examples that you put on a programming language website.
+Why can't we provide richer, more robust articulations of what's possible with a programming language
+but also what's not possible?
+So as I got to the end of my graduate studies, you might be wondering in this period of time,
+why haven't I talked about the formal, logical, mathematical view of PL that we all use in
+this room?
+That's because I actually didn't encounter it until I started coming to conferences
+like Splash, XE and FSC.
+This is me at my first XE, four years into my PhD, after several years of publishing
+exclusively at HCI conferences, and I must say the encounter of PL as math was a bit
+of a shock.
+I'd spent my whole life thinking of PL as interface, media, design, notation, power,
+and here was a community, this community, that actually viewed programming languages
+as fairly formally logical things, PL as math.
+Now I realize XE is not really the home of PL as math, that might be PLDI, POPL, a bit
+of UPSLA here, but back in 2006, a pretty large proportion of the work at XE was formal
+methods, really with only a tiny fraction of empirical work.
+And in most of these papers, programs weren't expressions, they were propositions.
+This was the computing culture that Pappert talked about.
+And what I learned was that PL as math had many implications that most of us already
+know in this room, math has correctness, and so we ask what does PL correctness mean?
+Math can be proven correct, and so we ask how do we prove programs correct?
+Math concerns identity, so we think a lot about equivalence in programming languages.
+This is the whole history of theory of computation, so this math one is very well explored in
+computer science.
+Now that takes me to my final stop, and this was where I went to join the faculty at the
+University of Washington Information School.
+All of these perspectives that I had come with were sort of a good preparation for the
+vast diversity of perspectives I would encounter starting as faculty at this highly interdisciplinary
+place.
+Programming in no place has really stretched my epistemological stance more than being
+amongst the faculty that come from just 20 different academic disciplines.
+Nothing made me question my values more, in fact, so I want to share with you just a brief
+list of some of the other perspectives I've encountered around programming languages amongst
+my colleagues.
+One is sort of obvious, which is programming languages are like natural languages, they're
+about exchange.
+This is why we use the word syntax and grammar and semantics.
+So we ask these questions about languages like ambiguity.
+Does programming languages have ambiguity?
+Do PLs shape how we think?
+This is the superior-warf hypothesis, right?
+Do they structure our thought?
+Do they shape our thought?
+We might think of programming languages as communication.
+We tell a computer what to do, that's a kind of communication.
+So what if PL is communication?
+Should PL model developer intent?
+Should it develop common ground?
+Should PL express its intent to developers in a dialogue?
+PL can also be thought of as glue.
+Four years ago, I co-founded a startup called AnswerDash and spent three years as its CTO
+and its lead engineer, and as a developer, it was really hard to think of PL as anything
+more than just an interface between APIs and frameworks and libraries and platforms.
+Languages and all of their features were just not that useful for routine web applications,
+for which there was so much we could already reuse.
+It was all function calls.
+Even conditionals and other loops were embodied in function calls in a very functional way.
+So perhaps programming languages are just glue.
+They're about connecting things together, and that forces us to ask what makes a programming
+language a good adhesive?
+What materials do PL adhere to?
+How far can you take that metaphor and really start looking at new perspectives on what
+PL should be?
+Here's another view that I got from some of my philosopher friends.
+What if programming languages are legalese?
+In software engineering, programs are often agreements between parties about what an application
+must do, should do, must not do.
+If programs are contracts, then programming languages are legalese.
+It's the formal and technical language of these legal documents that convey promises.
+If this is the case, who should legally interpret code?
+Are programmers lawyers because they're writing legalese?
+What is the equivalent of a judge in this metaphor?
+Take some of the implications of this, and we might start finding interesting ethical
+implications for programming language design.
+Here's another view.
+Programming languages is infrastructure.
+We can view programs as conduits for information in society, funneling and filtering and distributing
+all of the data that ultimately has meaning for people.
+If we build roads with concrete and nails, that's infrastructure, we build information
+systems with programming languages.
+If programs do this transmission, then programming languages really are the information infrastructure
+of society.
+That forces us to ask some important questions about PL as infrastructure.
+How do PLDK, who should maintain programming languages?
+Our programming languages is a public good.
+How many people are taking care of COBOL and Python for all of the programs that are written
+in those languages?
+If there's people who are able to disappear, what would happen to all of the programs and
+other infrastructure that it's built on top of?
+I'm going to end with one last perspective.
+I had a sabbatical this past year, and one of the things I thought it would be fun to
+do is teach a class to high school students.
+I taught a class of seven South Seattle high school students this past summer.
+Few of them had ever encountered code before, and virtually none of them had any interest
+in learning to code.
+They were in my web design class because many of them would rather take that than the ballroom
+dance class that was in their summer college prep curriculum.
+I had 11 largely disinterested students trying to get through a college prep program.
+I asked them early in the course, what is a programming language?
+What do they think it is?
+What are the stereotypes they have on their head?
+One of them said, and everybody else agreed, programming languages are a way out of poverty.
+These are kids that are not particularly wealthy, and it's clearly pretty far from the definitions
+that we've talked about so far.
+In one way, this is the most dominant view of programming languages in the world today.
+In her world, the student that responded, she's surrounded by Seattle software companies,
+by wealthy entrepreneurs, in the news, by a constant nonprofit advocacy of learning
+to code, they have teens that barely finished high school, they live in poverty themselves.
+This view of programming languages as a pathway from their circumstance is an entirely reasonable
+conception of what they are, and it has a lot of implications.
+Governments create paths out of poverty, that's something that democracies do.
+Should our governments create these paths?
+Should they subsidize the creation of ways out of poverty via computation and programming
+languages?
+The rise of MOOCs is not doing that, that's really only reaching the privileged, coding
+boot camps are the same.
+I mentioned the CS4ALL program before that the White House announced, Britain's also
+done a ton in K-12 CS education.
+What responsibility do we have as a community to create these paths out of poverty as part
+of this conception?
+If PL is a path out of poverty and paths have to be equitable in that everybody can access
+them, how do we make programming languages more equitable?
+Should government be funding projects that try to make programming languages more accessible,
+more usable so that everybody can learn them?
+Should they be funding things to create programming language learning opportunities for everybody?
+Finally, if programming languages are a path and paths can only fit so many people, who
+do we lead down this path?
+In today's world we don't really choose all that explicitly.
+We kind of let our culture determine who's interested, we let our culture determine who
+we exclude and who self-excludes themselves.
+How would we choose explicitly?
+Do we look at innate aptitude?
+Do we believe that everybody can learn a programming language?
+By what principles would we selectively encourage people to become interested in programming?
+Do we think everybody can be on this path because everybody's going to be doing some
+kind of programming in the future?
+After all, hundreds of millions of people write spreadsheet formulas, that's the kind
+of programming.
+When you step back and we look at all of these different conceptions of what programming
+languages are, these aren't even all of them.
+Across the past 17 years or so of research that I've done, it's really clear to me now
+that all of these views of programming language have research value, if not more value.
+They were productive in my personal life.
+They helped me move from one conception to the next, but they were also productive in
+my research.
+And yet the other thing that became clear about all of them is that they also are not
+only valuable, but they also have values themselves.
+Each one prioritizes really different human values.
+Math prioritizes certainty, interface prioritizes efficiency, design is about utility, notation
+is about sharing, media is about expression, power is about agency, having freedom and
+independence.
+Language is about exchange, communication, understanding, glue, connection, legalese
+is about promises, infrastructures about fellowship, and paths are about equity.
+So you have to ask with all of these values, from all of these different perspectives,
+what values are behind our research?
+So when I look at my impression of what we spend our time on, most of our discoveries
+are about certainty.
+That's the value that we really have in our communities, in computer science.
+To an extent, we care about the efficiency that people have with software that they're
+using.
+But there's a lot of values here that we actually don't explore all that deeply.
+So let's take a look at this space of values.
+We can see that some are really about computing.
+These are the ones on the left that we've really concentrated on.
+And some on the right are really about people.
+We've spent most of our time on the left side.
+So there's this really important question of how do we investigate all of these values
+on the right?
+I want to go ahead and give three examples from my own work to try to illustrate how
+to investigate these and what some of the benefits are of investigating them.
+I'm going to start with one of my earlier attempts from my dissertation work to look
+at communication, programming languages as something that you interact with and tell
+computers what to do with.
+And I started with the idea that programming languages are how we do that telling.
+But also, once we tell computers what to do with programming languages, they often don't
+do what we want.
+So we inquire why they did what they did.
+So that led to this research question.
+How do we interrogate program behavior?
+And that led to this first discovery of the Y line for Alice.
+The idea here was to allow people to ask Y questions about program output.
+So the program does something, give it some failure, you should be able to ask the program
+why it did that.
+Using the programming languages semantics give explanations in terms of the underlying causality
+of program execution.
+This led to a pretty dramatic acceleration and debugging times, making people about eight
+times as fast for the same bugs that they were trying to fix.
+That led to the Y line for Java several years later, which I used to show that we could
+scale this to large Java programs.
+This accelerated professional expert developers debugging.
+And several years later, I had a PhD student, Michael Bryan Berg, who just graduated.
+He looked at time travel debugging and reverse engineering in two systems called time lapse
+and scry.
+And these were explorations in trying to help somebody understand how a web interpreter
+was executing programs, very similar ideas to the Y line.
+Now Bryan recently joined Apple and has begun upstreaming a lot of this work to WebKit.
+And that brings us back to these values because what now we have in WebKit is really this
+embodied value of helping people understand machines and helping machines understand what
+people want from them.
+This is creating all kinds of opportunities to help build tools on top of WebKit that
+really exploit this value.
+Now the second example I want to look at is the perspective of programming languages as
+notation.
+I'm arguing here that notation is really about helping facilitate exchange because we write
+things down in order to share knowledge with each other.
+And so the question that I looked at here in my work is how do we make programs more
+readable?
+Readable and not only readable but comprehensible.
+So one of the first projects I did here was looking at how do we render code as rich text.
+This was about 10 years ago in a system called Barista.
+The idea here was to separate the idea of a program's text from the way that it's presented.
+You can present it in a variety of ways.
+So this was a structured editor that allowed you to create alternative views of any AST
+in a program rendering.
+Another related project around that time that I'd done with Michael Koblenz who was an undergraduate
+at the time, is now a PhD student at Carnegie Mellon.
+He looked at how to make cross cutting concerns across larger programs more readable and visible.
+By taking parts of programs and rendering all of them in one place.
+So again, this was about how to portray this and how to help create notations out of existing
+notations that were more comprehensible.
+And finally, zooming ahead all decade, I now have two PhD students, Greg Nelson and
+Ben D'Shea, who are looking at how to teach people to read programming language notations.
+The idea here is to really decompose the programming language into its operational semantics and
+try to train people to understand and predict the behavior of each of those execution rules.
+And we found in some of our preliminary work that we can teach a programming language
+in about three to five hours to a rank novice who's never seen a line of code before in
+their life.
+All three of these contributions are going back to this value of exchange.
+To the extent that people can understand how a program works and what it means, they can
+understand both how to manipulate it with the machine, but also how to explain it to
+other people.
+The final example that I want to give is programming languages as power.
+And this is really looking at this value of agency.
+Agency in the sense that people feel empowered to control what machines do, but also control
+the parts of the world that computing is interacting with.
+All of this work was led by my former PhD student Michael Lee, who's now faculty at
+the New Jersey Institute of Technology.
+And he asked this really interesting question.
+What effect does power, in particular the relationship around power between a novice
+and a compiler, have on learning?
+And his observation here was that things like compiler errors actually take a very authoritative
+framing of the relationship between a person and a computer.
+The compiler is the one in charge telling the learner what they've done wrong.
+And it creates this really frustrating and discouraging dynamic of constant failure.
+It's constantly invalid syntax, invalid statement.
+Everything you're doing is wrong.
+And so he wondered if we could reframe that relationship and try something that was more
+encouraging.
+This led to a game called Gidget back in 2012, which framed the compiler as a reliable but
+unintelligent collaborator, placing the learner in the role as the creative problem solver.
+This is actually a very authentic representation of what programmers do, right?
+You're using this tool that does what you say, but it doesn't know what it's trying to do
+or what you're trying to accomplish.
+You're the one with all the intelligence telling you what to do.
+And what we found is just through this reframing, just by trying to change the power relationship
+between a learner and a compiler, led to faster learning, but also more engagement.
+People would actually voluntarily learn in this game for longer periods of time because
+they trusted that they had a contribution to make to this collaboration.
+So this led to a series of studies that showed that very, very subtle design choices about
+error messages and data representation and how you assess knowledge in a learning game
+like this can have really powerful effects on learning engagement.
+Mike eventually deployed the game back in 2015.
+This year, it's already reached 10,000 learners, ages 8 to 80.
+And all of the design principles embedded in that were picked up by Code.org, which is
+a non-profit policy group that's trying to increase access to computing education.
+They've reached, through those principles, tens of millions of learners.
+And again, all of that ties back to this value of agency.
+Now these 10 million learners have a deeper kind of agency with computing and machines.
+So all of these kinds of contributions change this distribution of what we know, and they
+change the values that we're disseminating into the world through research.
+And these values, because they're different, are really engaging new people in computing,
+computer science, and computer science research.
+This is in turn sort of changing the values in our research community.
+But we should ask a couple of important questions about this distribution of values that we
+focus on.
+One is what should the distribution be?
+What's the right set of things that we want to focus on?
+Who should be doing the research?
+Is it all computer science research, or is it communication, psychology, sociology, other
+fields that should be looking at some of these values?
+And is any of this research going to happen if computer science doesn't explicitly embrace
+some of these values and encourage this work to happen?
+Maybe it's the case that these other disciplines don't know to ask these questions, because
+we haven't asked them.
+Here's a couple of things that I think are true.
+I think that as a discipline, computer science doesn't have to explore all of these views,
+but it does have to encourage the exploration of these views.
+It doesn't have to advocate for them to be explored.
+And maybe that's done in collaboration with other disciplines.
+And finally, to really equitably engage everybody in computer science, computer science does
+have to embrace all of these views, even if it's not going to explore them deeply.
+It has to show everybody that's learning computing that the values they bring to computer science
+are values that are embraced by the community.
+That CS is really more than just logic, because that's not a value that everybody's going
+to start with when they come to computing.
+So how do we do this?
+How do we accomplish some of these things?
+I've got a couple of concrete recommendations for what we can do.
+One, when you are choosing a new research question, consider a new view of programming
+languages.
+Start choosing research questions that look at new views.
+Maybe there are views that draw upon expertise and skills that you have that are close to
+PL as math, but maybe one step away from it.
+And when you're writing a paper, try to be explicit about your views of programming languages.
+What epistemology or what definition or what metaphor are you using?
+Perhaps you're using multiple distinct ideas of what programming languages are.
+And then close the loop on that.
+When you're reviewing somebody else's paper, try to evaluate it against the paper's view
+of programming languages and not yours.
+Don't judge something as not science, because it's not the epistemology that you use.
+Recognize that all of these demand different methods and different theories and different
+techniques.
+And then finally, when you're teaching programming languages, try to be pluralistic in your claims
+about what they are.
+Try to explain multiple views on programming languages.
+My colleague Shri Ram Krishnamurthy of Brown does a great job of this in his programming
+language classes, trying to encourage everybody to come up with some understanding that is
+pluralistic about what the nature of programming languages are.
+And I think that if we do these things, we'll not only approach this inclusive computing
+culture that Papert wrote about, but we'll also create a more inclusive world in general,
+in which everybody's perspectives, everybody's values in computation are reflected not only
+in our work, but also in our society.
+Thank you.

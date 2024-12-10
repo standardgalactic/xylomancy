@@ -1,0 +1,616 @@
+Hey everybody, Adam Savage in my cave with John from Luma Field
+and friend of tested and my friend,
+hardware software engineer, Zach Radding.
+And we have scans of Apple cables
+and their imitators using Luma Field's incredible equipment.
+And we're gonna get a lesson in the difference
+between why some cables cost over a hundred bucks
+and others cost five or six.
+Is that pretty accurate?
+I think so, yeah, let's do it.
+Dude, let's get into this, I'm so excited.
+You used to hear that if you paid a lot for a digital cable
+then you were wasting your money.
+Right, because it was just a single signal
+that went up for you.
+That's right, ones and zeros going through.
+So the question with this expensive Apple cable
+is, is it actually any different from the cheap ones?
+Does it have some magic in there?
+And to be clear, this is a two meter-
+Thunderbolt four cable.
+And it is $130.
+That's right.
+This is, I love this.
+We used to say, for years we've been saying
+that our phones have more computing power
+than the Apollo guidance computer.
+But I'm positive now that this cable
+has more computing power than the Apollo guidance computer.
+That's right.
+Can we take a, is this where we're starting?
+Yeah, let's take a look inside.
+Right, so this is a CT scan of the end
+of this Thunderbolt four cable
+and there's a lot going on in there.
+Definitely.
+There it is.
+Oh yeah.
+That is a really complex chip.
+So what's interesting with the CT scan
+is you see the densest parts
+in kind of different colors.
+So you're actually seeing the pads of the ICs.
+Like I believe this is an IC here,
+but what all you're seeing is the pads themselves.
+You've got-
+We can switch the visualization up here.
+So you've got two power supplies in here.
+And then this is a big processor.
+This is a BGA processor, BaldGatorade processor.
+But these are all the pads that actually attach it
+to its little circuit board.
+So this is like a real powerhouse processor in here
+doing a lot of processing to get these signals
+into the wire and then probably back on the other end.
+Now what does it need to do with the signal
+if it's a digital signal?
+So coming from the computer,
+you've got these data streams.
+And the cool thing about Thunderbolt
+is on the computing end,
+they actually have pipes directly
+to certain parts of the computer
+that are normally high speed
+and you have a direct pipe to it.
+Through the cable.
+Through the cable.
+So there's a bus inside your computer called a PCI bus
+and it handles all of the video
+and a lot of the processing high speed communications.
+And on Thunderbolt ports,
+they have a direct connection to that.
+So you have this pipe coming from the processor,
+coming from the graphics card
+that comes out onto those Thunderbolt pins.
+And then the hard part is,
+how do you get that over a long distance?
+And on a cable, especially long cables like this,
+they act as antennas.
+So-
+They take in a lot of RF interference.
+They take in everything, so magnetic RF,
+all kinds of stuff that will interfere
+with those really, really kind of fragile signals.
+And what these processors do is
+they do a number of things
+to kind of cram a bunch of data down the cable.
+One of the things they do is they break it up
+into differential signals.
+And instead of just having a single wire
+for each kind of communication path,
+they have two.
+And what they do is they twist them together,
+tightly, physically.
+There's actually, they're a twisted pair of wires.
+And then any kind of interference that goes on one wire
+gets also interference on the other wire.
+And what they do is they put the opposite data
+on both of the wires, kind of positive and negative.
+So if you have a one on one,
+you have a zero on the other and a zero on one-
+So it checks itself?
+It has a self-checking mechanism.
+That's why they call it differential.
+So it's like an XLR cable, but for digital data.
+Kind of, yeah, exactly.
+And then what they do also is they put multiple channels in.
+So they're taking, say, one stream of data
+and in order to get a huge amount of it across,
+instead of doing a single set of ones and zeros,
+they break it up into chunks
+and then they send it in parallel.
+So-
+I just want to bring this back to the lay person
+for a second.
+Totally.
+Because when we're talking about the fragility
+of these signals, I think when people are thinking,
+oh, if it's a zero or one, what's the big deal?
+But we're talking about gazillions of these, right?
+It is sending a tremendous amount of these
+through per second in order to process video
+and the extreme stuff-
+Exactly, tons and tons of these ones and zeros.
+That's what makes it fragile.
+Yeah, well, I mean, it's lots of them.
+It's also that the voltage that goes across this
+is actually very small swings in voltage.
+So it doesn't take much from the outside world,
+like you turn on your vacuum cleaner or a big light
+or your cell phone is right next to it.
+It doesn't take much to actually
+get some interference on those signals.
+So then all of that is helping to filter out
+that interference-
+Exactly, exactly.
+So we have this processor on here.
+So that processor is doing a bunch of navigating
+of all these different signals, chopping it up into bits,
+putting them down in parallel pipes,
+putting it back together on the other end.
+So it's multiplexing on one end,
+demultiplexing on the other.
+And then because it's doing it so fast, it needs power.
+So there's also power management in this cable as well.
+That's adding power to the signal.
+Well, it's powering the processor.
+This processor takes a bit of power.
+So you actually have two power supplies in here,
+probably for two different rails,
+two different voltage rails.
+There's all kinds of other things in here
+that you've got.
+So these are just capacitors.
+But you can even look here,
+the way that they put together,
+the cabling is just gorgeous.
+So if you zoom in and you kind of can see
+all these different wires going down,
+you can see the different-
+Oh, I see they're already twisted.
+They're already twisted.
+The management of how they put it together
+is just really, really well done.
+Here we can look at the bottom of this
+at the cross-section of the cable here.
+So this is slicing down.
+That's the face going down.
+That's a great view.
+That is really fun.
+Oh, and then you can see it's twisting together.
+And crimped, so this strain relief is really impressive.
+But here's the cross-section of the cable.
+So they usually have a ground in the center
+and that for power ground.
+And then they also have a shield
+that goes around the outside,
+which is grounded as well,
+but that keeps a lot of the other electromagnetic
+interference from getting in and getting out also.
+This is one of the other problems with these cables.
+Is they act as transmitters as well.
+So the FCC has to certify them as safe
+with all of this other kind of shielding.
+These two unsurrounded little dots.
+Or no, there's three of them.
+Are they significant?
+Dad, I don't know.
+I actually don't know what each individual line does.
+There's 13, wait a second.
+One, two, three, four, five, six, seven, eight, nine,
+10, 11, 12, 13.
+That's odd.
+13, five, and one.
+Interesting.
+Yeah.
+And 20 altogether, right?
+Including the ground in the center
+and the extra six.
+13, 18, plus that.
+That's 19.
+Fascinating.
+Oh, yeah.
+And then there's structural elements.
+Like they have, there's all the pieces that make it,
+just like a robust cable.
+Right.
+And then this also has to be somewhat like,
+this is actually a nice cable feel to it.
+It's not super like way better than this.
+Totally.
+And that's all been designed in at the same time
+as they're designing for filtering out all of that.
+Exactly.
+I'm alarmed.
+And then you can also see the twisting that's happening.
+So, getting that many cables,
+and are those actually, are those coax cables?
+Those might actually be coaxial.
+Yeah.
+So that each one is a shielded inner core?
+Here, let's try it.
+Maybe.
+It's a different way of visualizing it.
+I don't know if it has a metalized shield around it.
+It's hard to tell.
+There might be a, yeah, or a nylon fill of some sort.
+It's the same density roughly as the center, which is...
+Oh, the shield and the center are the same density.
+And then between them,
+there could be some sort of like plastic.
+An insulator?
+An insulator, yeah.
+We'd have to strip it apart.
+That would...
+Let me change the visualization here a little bit.
+This is fascinating.
+Here, so we'll restore all the...
+It's like creditor vision, just like that.
+Yeah, no, totally.
+It'll be able to do this with our AR goggles and everything.
+Yeah, so these are all metal.
+And that's basically what you can tell from this.
+So there's probably the same type of copper
+in both the center and the outside.
+Individual shielded cables, that's amazing.
+So they've put a lot of engineering
+just in the cable itself, not the ends.
+So you've got a bunch of smarts in the ends.
+You've got a bunch of power management
+and you've got this really impressive set of cabling
+and making those attachments between the board
+and this kind of complex cable.
+It's not easy, so.
+And this...
+There's gotta be some beautiful machines
+that manage this.
+Oh, look at that!
+This PCBA is really impressive too.
+I think we counted nine layers in the PCB
+with all these blind and hidden vias.
+And Zach, you were telling us something really interesting
+about some of the traces here.
+So we're scrubbing up and down here through these PCBA.
+And what's going on there?
+Right in there, yeah.
+There's a wiggle.
+One, two, up, yeah, yeah, yeah.
+Can we zoom in on that?
+Yeah, so you've got these high-speed signals
+that because you wanna make sure
+that they come to the processor at the exact same time
+because you're trying to measure
+really, really short signals, really fast signals,
+you actually have to make sure the traces
+are the exact same in length.
+So the outside of a trace is going to be longer by nature
+because it takes a longer path.
+So that squiggle is evening up the length?
+It's adding length to the inner trace
+to make up the difference.
+These are increments that are too small for me to parse
+with a fraction of a millimeter difference.
+At the speed of light, or close to it.
+We're talking nanoseconds, goodness.
+Yeah, and it just has to arrive at just the right time
+to get everything to line up.
+Incredible.
+So, yeah.
+That is so cool.
+I never thought a squiggle would be that interesting.
+Even the quality of the joints,
+if you look just the sort of uniformness
+of the solder joints going across,
+if you look at cheap cables,
+they're blobby and they're weird.
+And what that does is that changes the impedance.
+On each one.
+So on each one, and again, having a really nice cable,
+every single pin has the same impedance.
+I'm starting to understand why this costs a lot.
+Yeah.
+There's a lot of engine, not just engineering,
+but manufacturing prowess in such a thing.
+Absolutely.
+And getting all of that finesse into such a small
+and actually flexible package.
+And just the engineering effort over a long period
+to get all this dialed in,
+that they have to pay for that somehow.
+Right, right.
+So this is the official fast way to transfer.
+Can we look at some of the imitations?
+Yeah, so here we have an Amazon Basics USB-C cable.
+And this is well regarded.
+Yeah, that's right.
+Reviewers like it, it costs about 12 bucks.
+12 bucks, as opposed,
+that's literally in order of magnitude cheaper than this.
+That's right, exactly.
+Let's see why.
+Let's see what's going on in here.
+So here's a CT scan of this Amazon Basics cable.
+This is what I expected.
+This is what I imagined in all cables, actually,
+was traces going to wires that go...
+Yeah, that's right.
+And it's pretty straightforward.
+First thing you notice is it has fewer pins
+than the Thunderbolt.
+Yeah, they're not taking advantage
+of all the pins that they could.
+That's right.
+And something else that you notice here,
+if you kind of crop in,
+is that the pins aren't independent
+across the connector.
+The pins, some of the pins are connected,
+they're jumped directly from one side of the connector
+to the other.
+Well, this is how they make it interchangeable.
+So...
+Oh, so you can put it in either way.
+You can put it in the other way,
+and this cable doesn't care.
+It doesn't look like there's any post-processing
+of a signal in this.
+This looks like straight wire to wire
+to the other connector to wire.
+There are no other active components in this cable.
+It is just a PC board that makes the connection
+between the connector itself and the cable.
+So, if you're using this cable just for charging,
+this and this shouldn't show you much of a difference.
+Am I right?
+No.
+Oh, okay.
+Maybe the Thunderbolt's doing some...
+You think the Thunderbolt might be able to move
+a little more electricity, more efficient?
+Well, I mean, charging is just a physics problem.
+And you look at the thickness of the wire,
+you look at a bunch of these other things.
+The standards, if this meets the USB standard,
+then it should be able to supply the same,
+up to five amps at 20 volts,
+if it's a USB-C connector, or five volts at whatever it is.
+It should meet that.
+Having more physical copper is probably better,
+even if some of this is used for communication.
+Looking at the actual wire diameter,
+if we're looking at some of those center conductors,
+they're just bigger.
+So, you're gonna get less voltage drop
+between one end of the cable and the other,
+with a bigger cable.
+And you were saying that you see a lot of variances
+in solder blobs.
+I see huge differences in variances with these cables here.
+Well, these are the power.
+So, these are the power, these are gonna be the data lines.
+But, just looking at how they're soldered on,
+they're kind of blobby and just, they're not done
+in the same just beautiful fashion.
+And even the way they come twisted together,
+if you look at how they come off the board,
+it's kind of haphazard and crimped together,
+probably even by hand, who knows.
+Yeah, look, you can see voids in the solder here,
+where it didn't get all the way through the stranded wire.
+Oh, look at that, yeah.
+Yeah, there's pockets.
+Now, there's nothing to say that there's any aspect
+of this cable that would harm your machine.
+It just might not move data,
+it's definitely not gonna move data as fast,
+and might not move power as fast.
+Well, so the harm usually doesn't come
+until you've used the cable for a long time,
+and it's gotten bent, it's gotten twisted,
+and some of these little voids are manufacturing defects,
+and that's why a cable wears out,
+and then once you have something
+that has a flaky connection,
+then it can damage hardware,
+because when the cable breaks, it could short out,
+it could cause heat, it could do all these different things.
+So, the cable shorts out and could cause real problems,
+whereas, again, all of the engineering
+for the strain relief and shielding of this
+is gonna make that a much less likely occurrence.
+Exactly, and you can see just the way
+this thing is actually put together,
+it's just so much less uniform,
+and there's just less to it.
+That's an amazing, I mean, it looks incredible, right?
+Yeah, it looks great.
+It's something very, very small.
+Yeah, there's a lot of copper braided together here
+to form the jacket of the cable,
+and then there's a little void inside two of these wires.
+They may have like a nylon thread
+going through them or something.
+Yeah, this is actually, you can see,
+this is a twisted conductor.
+So, it may also just be a hollow spot,
+but it'd be fun to actually be able to zoom all the way down.
+You may, that may disappear.
+Yeah, so let's go ahead and scrub down the connector here.
+Will it go to the cable?
+Looking across sections, yeah, it should.
+Oh, there we go.
+Yeah, you see them start to assemble.
+Look at them twisting, amazing.
+Oh yeah, so that is, you're right,
+that is a void through the whole cable.
+Yeah, very impressive.
+All right, so we have a couple of
+extremely inexpensive connectors here as well.
+These are $3 connectors that you find on Amazon.
+They get poor reviews.
+They're cheaply made in different ways,
+which is an interesting thing to be able to look at.
+This one went off the market immediately
+after I ordered it, it's been discontinued, so who knows.
+So this one doesn't even have a circuit board.
+This one, they are literally soldering the wires
+directly to the connector itself.
+It was designed to go on to a circuit board,
+but they've done it differently.
+And they only use one side,
+so this is probably, it only works in,
+unless, let's see,
+are these pins connected together up here?
+They're not, they're not.
+They're totally in there.
+So it only works in one orientation.
+It only works in one orientation.
+Yeah, and the other pins are there,
+probably to give it some mechanical connection,
+but they're just floating.
+Wow.
+And the jacket of the connector is floating as well.
+In the other cables,
+it's connected to the power supply system,
+and in this one, it's not.
+So it's just completely isolated.
+It's floating in the plastic enclosure of the connector.
+Right, so they just over mold the plastic over everything
+to kind of hold it in place,
+but there's no other mechanical connection.
+So in the others, there was actually,
+if we jump back, you can see a crimp
+that goes around the cable itself.
+I did see that at the base.
+This is just all plastic.
+So instead of, so in this, there's a...
+There's the metal crimp,
+so the shield comes all the way through the case
+and crimps around it.
+And that's inside of here,
+and that holds these in orientation together,
+whereas this, they did all the soldering
+and then put this in a tool
+and shot the plastic around it.
+So it's just that,
+relatively soft plastic holding everything together.
+Which is, again, fine for the next five minutes,
+but over a lifespan, it's gonna wear,
+it's gonna keep and cool at different rates.
+We've all got those cables that have that frayed,
+you know, last inch.
+Or that you touch the cable on your phone,
+bing, bing, bing, bing.
+Yeah, oh yeah, this would be right.
+All right, now here's an interesting one.
+This is also a really cheap one,
+about $3, gets poor reviews,
+but it's cheap in a different way.
+Interesting.
+So this has all 24 pins,
+more pins than even the $12 Amazon Basics connector,
+but most of them aren't connected to anything.
+They're just sitting there.
+They're fastened to the PCB here.
+So this uses a PCB, like the more expensive cables,
+to connect the pins to the wires.
+But it just has four wires,
+just like the other really cheap one.
+And the other pins are simply not connected
+to any traces on the PCB.
+So this is really fascinating.
+So this might just be for power.
+It's possible that they're just using this
+to, there's no data transmission,
+it is just for charging.
+And there's some tricks that they use
+some of the other wires for to negotiate
+how much power this particular device has,
+so they had to connect some of them.
+But otherwise, it just doesn't do any data transmission.
+It's just for charging.
+I mean, I guess if you're charging $3 for it,
+you're pretty sure that whoever's buying it
+isn't using it for high quality data transfer.
+Clearly they're not.
+I mean, I would wager that if you interviewed
+a thousand people about USB-C cabling
+and said, what are you going to do with it?
+95% are going to be using it only for charging.
+Yeah, yeah.
+Like that is the most primary use case.
+So this use case works great.
+Right.
+You might never even discover
+that none of those pins are connected to anything.
+Yeah, and here again, the jacket of the connector is,
+is in fact fastened to the rest of the system,
+but only to the PCB, not to the,
+not to any kind of metal enclosure
+like you saw with the more expensive.
+So it's not shielding.
+So all of the high speed data
+that isn't going through this,
+there's no shielding involved.
+So, you know, because there's no data going through,
+it can pass FCC certification and emissions without shielding
+because there's just no data there to actually transmit.
+And FCC isn't concerned with whether
+it's actually able to transmit data.
+They're only interested in what's coming out of the cable.
+Yeah, spurious emissions, like that's their concern.
+That's hilarious.
+Wow.
+It had also crossed my mind that, you know,
+with all of these pins that aren't doing anything,
+I wonder if this is made in a factory
+that is also making thunderbolt cables
+or thunderbolt knockoffs.
+And this could be an instance of it just being cheaper
+to have a single design and a single process
+for fastening pins onto a PCB.
+And then you change the PCB layout itself,
+you substitute that in or out,
+but maybe that's cheaper than using fewer pins
+on connectors that don't need all the pins.
+Fascinating.
+I mean, again, all of this is, let's be clear,
+this isn't like people like twisting their mustaches
+to Robby, certainly there are those people.
+But the people doing all of this engineering
+are simply tasked with solving a problem
+that day in a factory, what's that?
+They're optimizing.
+Right, right.
+They're optimizing what their bosses are telling them
+to optimize.
+These are still using impressive machines
+to do incredible micro work,
+but this is allowing us to see the variances
+even in that tiny work.
+That's right.
+Even this cheap cable is incredibly intricate.
+And they've made smart trade-offs to make the cable
+do what it promises for $3 to an Amazon buyer.
+Can I just say what makes me sad about this
+is that when they came up with USB-C,
+we were already in modern times.
+We could have allocated a certain marking system
+so we knew what each one did and why
+and what was inside each one.
+Instead, they're just blank slates.
+Sorry, that was my USB-C ramp.
+Yeah, you were supposed to.
+I share your angst.
+I didn't expect that I was gonna come to what feels
+like a robust answer for the cost of an Apple cable,
+but this is an amazing vibe.
+And people can actually scroll through these scans themselves.
+Yeah, that's right, exactly.
+We'll include a link in the description.
+Yeah, perfect.
+Fabulous.
+John, Luma Fields, you're continually bringing us
+wonderful views and Zach,
+I appreciate you as the navigator
+through this strange landscape.
+This is amazing.
+I'm impressed.
+This is a great view,
+something I've never got to see, so thank you.
+That's always fascinating to go deep
+into these little things, everyday objects,
+and they turn out to be really, really complex.
+Really, really cool.
+Awesome.
